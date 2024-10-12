@@ -1,16 +1,16 @@
-﻿namespace Marcas
+﻿namespace Presentacion
 {
-    partial class LoginForm
+    partial class Form1
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Variable del diseñador necesaria.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Limpiar los recursos que se estén usando.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,180 +20,731 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Código generado por el Diseñador de Windows Forms
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-            TitleBar = new Panel();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            panel1 = new Panel();
-            label1 = new Label();
-            txtUserName = new TextBox();
-            txtPassword = new TextBox();
-            label2 = new Label();
-            button1 = new Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pictureBox1 = new PictureBox();
-            TitleBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panelChildForm = new Panel();
+            panel2 = new Panel();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
+            panelSubMenuPatentes = new Panel();
+            button32 = new Button();
+            button33 = new Button();
+            button34 = new Button();
+            button35 = new Button();
+            button36 = new Button();
+            iconButton13 = new FontAwesome.Sharp.IconButton();
+            panelSubMenuMarcasInter = new Panel();
+            button6 = new Button();
+            button5 = new Button();
+            button2 = new Button();
+            button1 = new Button();
+            button27 = new Button();
+            button28 = new Button();
+            button29 = new Button();
+            button30 = new Button();
+            iconButton12 = new FontAwesome.Sharp.IconButton();
+            panelSubMenuMarcasNacionales = new Panel();
+            button3 = new Button();
+            button22 = new Button();
+            button23 = new Button();
+            button24 = new Button();
+            button25 = new Button();
+            button26 = new Button();
+            iconButton10 = new FontAwesome.Sharp.IconButton();
+            iconButton9 = new FontAwesome.Sharp.IconButton();
+            iconButton8 = new FontAwesome.Sharp.IconButton();
+            iconButtonUsuarios = new FontAwesome.Sharp.IconButton();
+            panelLogo = new Panel();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelChildForm.SuspendLayout();
+            panel2.SuspendLayout();
+            panelSubMenuPatentes.SuspendLayout();
+            panelSubMenuMarcasInter.SuspendLayout();
+            panelSubMenuMarcasNacionales.SuspendLayout();
             SuspendLayout();
-            // 
-            // TitleBar
-            // 
-            TitleBar.BackColor = Color.FromArgb(30, 38, 70);
-            TitleBar.Controls.Add(iconPictureBox1);
-            TitleBar.Controls.Add(iconButton1);
-            TitleBar.Dock = DockStyle.Top;
-            TitleBar.Location = new Point(0, 0);
-            TitleBar.Name = "TitleBar";
-            TitleBar.Size = new Size(473, 50);
-            TitleBar.TabIndex = 0;
-            TitleBar.MouseMove += TitleBar_MouseMove;
-            // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.BackColor = Color.FromArgb(30, 38, 70);
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
-            iconPictureBox1.IconColor = Color.White;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 29;
-            iconPictureBox1.Location = new Point(377, 12);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(36, 29);
-            iconPictureBox1.TabIndex = 2;
-            iconPictureBox1.TabStop = false;
-            iconPictureBox1.Click += iconPictureBox1_Click_1;
-            // 
-            // iconButton1
-            // 
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.ForeColor = Color.FromArgb(30, 38, 70);
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Close;
-            iconButton1.IconColor = Color.White;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 40;
-            iconButton1.Location = new Point(419, 12);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(42, 29);
-            iconButton1.TabIndex = 0;
-            iconButton1.UseVisualStyleBackColor = true;
-            iconButton1.Click += iconButton1_Click;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(30, 38, 70);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 704);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(473, 15);
-            panel1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 12F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(63, 241);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 23);
-            label1.TabIndex = 2;
-            label1.Text = "Usuario";
-            // 
-            // txtUserName
-            // 
-            txtUserName.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUserName.Location = new Point(63, 285);
-            txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(350, 32);
-            txtUserName.TabIndex = 3;
-            // 
-            // txtPassword
-            // 
-            txtPassword.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(63, 407);
-            txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(350, 32);
-            txtPassword.TabIndex = 5;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 12F);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(63, 363);
-            label2.Name = "label2";
-            label2.Size = new Size(125, 23);
-            label2.TabIndex = 4;
-            label2.Text = "Contraseña";
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(9, 98, 246);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Century Gothic", 12F);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(63, 509);
-            button1.Name = "button1";
-            button1.Size = new Size(350, 49);
-            button1.TabIndex = 6;
-            button1.Text = "Iniciar sesión";
-            button1.UseVisualStyleBackColor = false;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(128, 78);
+            pictureBox1.Anchor = AnchorStyles.None;
+            pictureBox1.BackColor = Color.Gainsboro;
+            pictureBox1.Location = new Point(65, 67);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(213, 149);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 7;
+            pictureBox1.Size = new Size(663, 338);
+            pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // LoginForm
+            // panelChildForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelChildForm.Controls.Add(pictureBox1);
+            panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            panelChildForm.Location = new Point(281, 106);
+            panelChildForm.Name = "panelChildForm";
+            panelChildForm.Size = new Size(788, 494);
+            panelChildForm.TabIndex = 1;
+            panelChildForm.Paint += panelChildForm_Paint;
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.BackColor = Color.FromArgb(19, 12, 70);
+            panel2.Controls.Add(iconButton2);
+            panel2.Controls.Add(iconButton1);
+            panel2.Controls.Add(panelSubMenuPatentes);
+            panel2.Controls.Add(iconButton13);
+            panel2.Controls.Add(panelSubMenuMarcasInter);
+            panel2.Controls.Add(iconButton12);
+            panel2.Controls.Add(panelSubMenuMarcasNacionales);
+            panel2.Controls.Add(iconButton10);
+            panel2.Controls.Add(iconButton9);
+            panel2.Controls.Add(iconButton8);
+            panel2.Controls.Add(iconButtonUsuarios);
+            panel2.Controls.Add(panelLogo);
+            panel2.Dock = DockStyle.Left;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(300, 600);
+            panel2.TabIndex = 3;
+            panel2.Paint += panel2_Paint;
+            // 
+            // iconButton2
+            // 
+            iconButton2.AutoSize = true;
+            iconButton2.Dock = DockStyle.Bottom;
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton2.ForeColor = Color.Gainsboro;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
+            iconButton2.IconColor = Color.FromArgb(211, 47, 47);
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton2.Location = new Point(0, 1582);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Padding = new Padding(10, 0, 0, 0);
+            iconButton2.Size = new Size(279, 54);
+            iconButton2.TabIndex = 14;
+            iconButton2.Text = "Cerrar sesión";
+            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click;
+            // 
+            // iconButton1
+            // 
+            iconButton1.AutoSize = true;
+            iconButton1.Dock = DockStyle.Top;
+            iconButton1.FlatAppearance.BorderSize = 0;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton1.ForeColor = Color.Gainsboro;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
+            iconButton1.IconColor = Color.FromArgb(249, 124, 148);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(0, 1528);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Padding = new Padding(10, 0, 0, 0);
+            iconButton1.Size = new Size(279, 54);
+            iconButton1.TabIndex = 13;
+            iconButton1.Text = "Reportes";
+            iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton1.UseVisualStyleBackColor = true;
+            iconButton1.Click += iconButton1_Click;
+            // 
+            // panelSubMenuPatentes
+            // 
+            panelSubMenuPatentes.BackColor = Color.FromArgb(40, 24, 96);
+            panelSubMenuPatentes.Controls.Add(button32);
+            panelSubMenuPatentes.Controls.Add(button33);
+            panelSubMenuPatentes.Controls.Add(button34);
+            panelSubMenuPatentes.Controls.Add(button35);
+            panelSubMenuPatentes.Controls.Add(button36);
+            panelSubMenuPatentes.Dock = DockStyle.Top;
+            panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
+            panelSubMenuPatentes.Location = new Point(0, 1260);
+            panelSubMenuPatentes.Name = "panelSubMenuPatentes";
+            panelSubMenuPatentes.Size = new Size(279, 268);
+            panelSubMenuPatentes.TabIndex = 12;
+            panelSubMenuPatentes.Paint += panel5_Paint;
+            // 
+            // button32
+            // 
+            button32.AutoSize = true;
+            button32.Dock = DockStyle.Top;
+            button32.FlatAppearance.BorderSize = 0;
+            button32.FlatStyle = FlatStyle.Flat;
+            button32.ForeColor = Color.Gainsboro;
+            button32.Location = new Point(0, 188);
+            button32.Name = "button32";
+            button32.Padding = new Padding(65, 0, 0, 0);
+            button32.Size = new Size(279, 47);
+            button32.TabIndex = 6;
+            button32.Text = "Abandonadas";
+            button32.TextAlign = ContentAlignment.MiddleLeft;
+            button32.UseVisualStyleBackColor = true;
+            // 
+            // button33
+            // 
+            button33.AutoSize = true;
+            button33.Dock = DockStyle.Top;
+            button33.FlatAppearance.BorderSize = 0;
+            button33.FlatStyle = FlatStyle.Flat;
+            button33.ForeColor = Color.Gainsboro;
+            button33.Location = new Point(0, 141);
+            button33.Name = "button33";
+            button33.Padding = new Padding(65, 0, 0, 0);
+            button33.Size = new Size(279, 47);
+            button33.TabIndex = 5;
+            button33.Text = "Oposiciones";
+            button33.TextAlign = ContentAlignment.MiddleLeft;
+            button33.UseVisualStyleBackColor = true;
+            // 
+            // button34
+            // 
+            button34.AutoSize = true;
+            button34.Dock = DockStyle.Top;
+            button34.FlatAppearance.BorderSize = 0;
+            button34.FlatStyle = FlatStyle.Flat;
+            button34.ForeColor = Color.Gainsboro;
+            button34.Location = new Point(0, 94);
+            button34.Name = "button34";
+            button34.Padding = new Padding(65, 0, 0, 0);
+            button34.Size = new Size(279, 47);
+            button34.TabIndex = 4;
+            button34.Text = "Trámite de traspaso";
+            button34.TextAlign = ContentAlignment.MiddleLeft;
+            button34.UseVisualStyleBackColor = true;
+            button34.Click += button34_Click;
+            // 
+            // button35
+            // 
+            button35.AutoSize = true;
+            button35.Dock = DockStyle.Top;
+            button35.FlatAppearance.BorderSize = 0;
+            button35.FlatStyle = FlatStyle.Flat;
+            button35.ForeColor = Color.Gainsboro;
+            button35.Location = new Point(0, 47);
+            button35.Name = "button35";
+            button35.Padding = new Padding(65, 0, 0, 0);
+            button35.Size = new Size(279, 47);
+            button35.TabIndex = 3;
+            button35.Text = "Trámite de renovación";
+            button35.TextAlign = ContentAlignment.MiddleLeft;
+            button35.UseVisualStyleBackColor = true;
+            button35.Click += button35_Click;
+            // 
+            // button36
+            // 
+            button36.AutoSize = true;
+            button36.Dock = DockStyle.Top;
+            button36.FlatAppearance.BorderSize = 0;
+            button36.FlatStyle = FlatStyle.Flat;
+            button36.ForeColor = Color.Gainsboro;
+            button36.Location = new Point(0, 0);
+            button36.Name = "button36";
+            button36.Padding = new Padding(65, 0, 0, 0);
+            button36.Size = new Size(279, 47);
+            button36.TabIndex = 0;
+            button36.Text = "Trámite inicial";
+            button36.TextAlign = ContentAlignment.MiddleLeft;
+            button36.UseVisualStyleBackColor = true;
+            // 
+            // iconButton13
+            // 
+            iconButton13.AutoSize = true;
+            iconButton13.Dock = DockStyle.Top;
+            iconButton13.FlatAppearance.BorderSize = 0;
+            iconButton13.FlatStyle = FlatStyle.Flat;
+            iconButton13.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton13.ForeColor = Color.Gainsboro;
+            iconButton13.IconChar = FontAwesome.Sharp.IconChar.Certificate;
+            iconButton13.IconColor = Color.FromArgb(255, 190, 69);
+            iconButton13.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton13.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton13.Location = new Point(0, 1206);
+            iconButton13.Name = "iconButton13";
+            iconButton13.Padding = new Padding(10, 0, 0, 0);
+            iconButton13.Size = new Size(279, 54);
+            iconButton13.TabIndex = 11;
+            iconButton13.Text = "Patentes";
+            iconButton13.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton13.UseVisualStyleBackColor = true;
+            iconButton13.Click += iconButton13_Click;
+            // 
+            // panelSubMenuMarcasInter
+            // 
+            panelSubMenuMarcasInter.BackColor = Color.FromArgb(40, 24, 96);
+            panelSubMenuMarcasInter.Controls.Add(button6);
+            panelSubMenuMarcasInter.Controls.Add(button5);
+            panelSubMenuMarcasInter.Controls.Add(button2);
+            panelSubMenuMarcasInter.Controls.Add(button1);
+            panelSubMenuMarcasInter.Controls.Add(button27);
+            panelSubMenuMarcasInter.Controls.Add(button28);
+            panelSubMenuMarcasInter.Controls.Add(button29);
+            panelSubMenuMarcasInter.Controls.Add(button30);
+            panelSubMenuMarcasInter.Dock = DockStyle.Top;
+            panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
+            panelSubMenuMarcasInter.Location = new Point(0, 777);
+            panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
+            panelSubMenuMarcasInter.Size = new Size(279, 429);
+            panelSubMenuMarcasInter.TabIndex = 10;
+            // 
+            // button6
+            // 
+            button6.AutoSize = true;
+            button6.Dock = DockStyle.Top;
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.ForeColor = Color.Transparent;
+            button6.Location = new Point(0, 355);
+            button6.Name = "button6";
+            button6.Padding = new Padding(65, 0, 0, 0);
+            button6.Size = new Size(279, 47);
+            button6.TabIndex = 11;
+            button6.Text = "Registradas";
+            button6.TextAlign = ContentAlignment.MiddleLeft;
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            button5.AutoSize = true;
+            button5.Dock = DockStyle.Top;
+            button5.FlatAppearance.BorderSize = 0;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.ForeColor = Color.Transparent;
+            button5.Location = new Point(0, 308);
+            button5.Name = "button5";
+            button5.Padding = new Padding(65, 0, 0, 0);
+            button5.Size = new Size(279, 47);
+            button5.TabIndex = 10;
+            button5.Text = "Ingresadas";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.AutoSize = true;
+            button2.Dock = DockStyle.Top;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.ForeColor = Color.Transparent;
+            button2.Location = new Point(0, 261);
+            button2.Name = "button2";
+            button2.Padding = new Padding(65, 0, 0, 0);
+            button2.Size = new Size(279, 47);
+            button2.TabIndex = 9;
+            button2.Text = "Abandonadas";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.AutoSize = true;
+            button1.Dock = DockStyle.Top;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.Transparent;
+            button1.Location = new Point(0, 201);
+            button1.Name = "button1";
+            button1.Padding = new Padding(65, 0, 0, 0);
+            button1.Size = new Size(279, 60);
+            button1.TabIndex = 8;
+            button1.Text = "Oposiciones";
+            button1.TextAlign = ContentAlignment.MiddleLeft;
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button27
+            // 
+            button27.AutoSize = true;
+            button27.Dock = DockStyle.Top;
+            button27.FlatAppearance.BorderSize = 0;
+            button27.FlatStyle = FlatStyle.Flat;
+            button27.ForeColor = Color.Transparent;
+            button27.Location = new Point(0, 141);
+            button27.Name = "button27";
+            button27.Padding = new Padding(65, 0, 0, 0);
+            button27.Size = new Size(279, 60);
+            button27.TabIndex = 7;
+            button27.Text = "Trámite de traspaso";
+            button27.TextAlign = ContentAlignment.MiddleLeft;
+            button27.UseVisualStyleBackColor = true;
+            // 
+            // button28
+            // 
+            button28.AutoSize = true;
+            button28.Dock = DockStyle.Top;
+            button28.FlatAppearance.BorderSize = 0;
+            button28.FlatStyle = FlatStyle.Flat;
+            button28.ForeColor = Color.Transparent;
+            button28.Location = new Point(0, 94);
+            button28.Name = "button28";
+            button28.Padding = new Padding(65, 0, 0, 0);
+            button28.Size = new Size(279, 47);
+            button28.TabIndex = 5;
+            button28.Text = "Trámite de renovación";
+            button28.TextAlign = ContentAlignment.MiddleLeft;
+            button28.UseVisualStyleBackColor = true;
+            // 
+            // button29
+            // 
+            button29.AutoSize = true;
+            button29.Dock = DockStyle.Top;
+            button29.FlatAppearance.BorderSize = 0;
+            button29.FlatStyle = FlatStyle.Flat;
+            button29.ForeColor = Color.Transparent;
+            button29.Location = new Point(0, 47);
+            button29.Name = "button29";
+            button29.Padding = new Padding(65, 0, 0, 0);
+            button29.Size = new Size(279, 47);
+            button29.TabIndex = 4;
+            button29.Text = "Trámite inicial";
+            button29.TextAlign = ContentAlignment.MiddleLeft;
+            button29.UseVisualStyleBackColor = true;
+            button29.Click += button29_Click;
+            // 
+            // button30
+            // 
+            button30.AutoSize = true;
+            button30.Dock = DockStyle.Top;
+            button30.FlatAppearance.BorderSize = 0;
+            button30.FlatStyle = FlatStyle.Flat;
+            button30.ForeColor = Color.Transparent;
+            button30.Location = new Point(0, 0);
+            button30.Name = "button30";
+            button30.Padding = new Padding(65, 0, 0, 0);
+            button30.Size = new Size(279, 47);
+            button30.TabIndex = 3;
+            button30.Text = "Clientes";
+            button30.TextAlign = ContentAlignment.MiddleLeft;
+            button30.UseVisualStyleBackColor = true;
+            button30.Click += button30_Click;
+            // 
+            // iconButton12
+            // 
+            iconButton12.AutoSize = true;
+            iconButton12.Dock = DockStyle.Top;
+            iconButton12.FlatAppearance.BorderSize = 0;
+            iconButton12.FlatStyle = FlatStyle.Flat;
+            iconButton12.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton12.ForeColor = Color.Gainsboro;
+            iconButton12.IconChar = FontAwesome.Sharp.IconChar.Globe;
+            iconButton12.IconColor = Color.FromArgb(129, 136, 255);
+            iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton12.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton12.Location = new Point(0, 716);
+            iconButton12.Name = "iconButton12";
+            iconButton12.Padding = new Padding(10, 0, 0, 0);
+            iconButton12.Size = new Size(279, 61);
+            iconButton12.TabIndex = 9;
+            iconButton12.Text = "M. internacionales";
+            iconButton12.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton12.UseVisualStyleBackColor = true;
+            iconButton12.Click += iconButton12_Click;
+            // 
+            // panelSubMenuMarcasNacionales
+            // 
+            panelSubMenuMarcasNacionales.BackColor = Color.FromArgb(40, 24, 96);
+            panelSubMenuMarcasNacionales.Controls.Add(button3);
+            panelSubMenuMarcasNacionales.Controls.Add(button22);
+            panelSubMenuMarcasNacionales.Controls.Add(button23);
+            panelSubMenuMarcasNacionales.Controls.Add(button24);
+            panelSubMenuMarcasNacionales.Controls.Add(button25);
+            panelSubMenuMarcasNacionales.Controls.Add(button26);
+            panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
+            panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
+            panelSubMenuMarcasNacionales.Location = new Point(0, 409);
+            panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
+            panelSubMenuMarcasNacionales.Size = new Size(279, 307);
+            panelSubMenuMarcasNacionales.TabIndex = 8;
+            // 
+            // button3
+            // 
+            button3.AutoSize = true;
+            button3.Dock = DockStyle.Top;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.ForeColor = Color.Gainsboro;
+            button3.Location = new Point(0, 235);
+            button3.Margin = new Padding(0);
+            button3.Name = "button3";
+            button3.Padding = new Padding(65, 0, 0, 0);
+            button3.Size = new Size(279, 47);
+            button3.TabIndex = 5;
+            button3.Text = "Abandonadas";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button22
+            // 
+            button22.AutoSize = true;
+            button22.Dock = DockStyle.Top;
+            button22.FlatAppearance.BorderSize = 0;
+            button22.FlatStyle = FlatStyle.Flat;
+            button22.ForeColor = Color.Gainsboro;
+            button22.Location = new Point(0, 188);
+            button22.Name = "button22";
+            button22.Padding = new Padding(65, 0, 0, 0);
+            button22.Size = new Size(279, 47);
+            button22.TabIndex = 4;
+            button22.Text = "Trámite de traspaso";
+            button22.TextAlign = ContentAlignment.MiddleLeft;
+            button22.UseVisualStyleBackColor = true;
+            button22.Click += button22_Click;
+            // 
+            // button23
+            // 
+            button23.AutoSize = true;
+            button23.Dock = DockStyle.Top;
+            button23.FlatAppearance.BorderSize = 0;
+            button23.FlatStyle = FlatStyle.Flat;
+            button23.ForeColor = Color.Gainsboro;
+            button23.Location = new Point(0, 141);
+            button23.Margin = new Padding(0);
+            button23.Name = "button23";
+            button23.Padding = new Padding(65, 0, 0, 0);
+            button23.Size = new Size(279, 47);
+            button23.TabIndex = 3;
+            button23.Text = "Trámite de renovación";
+            button23.TextAlign = ContentAlignment.MiddleLeft;
+            button23.UseVisualStyleBackColor = true;
+            button23.Click += button23_Click;
+            // 
+            // button24
+            // 
+            button24.AutoSize = true;
+            button24.Dock = DockStyle.Top;
+            button24.FlatAppearance.BorderSize = 0;
+            button24.FlatStyle = FlatStyle.Flat;
+            button24.ForeColor = Color.Gainsboro;
+            button24.Location = new Point(0, 94);
+            button24.Name = "button24";
+            button24.Padding = new Padding(65, 0, 0, 0);
+            button24.Size = new Size(279, 47);
+            button24.TabIndex = 2;
+            button24.Text = "Registradas";
+            button24.TextAlign = ContentAlignment.MiddleLeft;
+            button24.UseVisualStyleBackColor = true;
+            // 
+            // button25
+            // 
+            button25.AutoSize = true;
+            button25.Dock = DockStyle.Top;
+            button25.FlatAppearance.BorderSize = 0;
+            button25.FlatStyle = FlatStyle.Flat;
+            button25.ForeColor = Color.Gainsboro;
+            button25.Location = new Point(0, 47);
+            button25.Margin = new Padding(0);
+            button25.Name = "button25";
+            button25.Padding = new Padding(65, 0, 0, 0);
+            button25.Size = new Size(279, 47);
+            button25.TabIndex = 1;
+            button25.Text = "Oposiciones";
+            button25.TextAlign = ContentAlignment.MiddleLeft;
+            button25.UseVisualStyleBackColor = true;
+            // 
+            // button26
+            // 
+            button26.AutoSize = true;
+            button26.BackColor = Color.FromArgb(40, 24, 96);
+            button26.Dock = DockStyle.Top;
+            button26.FlatAppearance.BorderSize = 0;
+            button26.FlatStyle = FlatStyle.Flat;
+            button26.ForeColor = Color.Gainsboro;
+            button26.Location = new Point(0, 0);
+            button26.Margin = new Padding(0);
+            button26.Name = "button26";
+            button26.Padding = new Padding(65, 0, 0, 0);
+            button26.Size = new Size(279, 47);
+            button26.TabIndex = 0;
+            button26.Text = "Trámite inicial";
+            button26.TextAlign = ContentAlignment.MiddleLeft;
+            button26.UseVisualStyleBackColor = false;
+            // 
+            // iconButton10
+            // 
+            iconButton10.AutoSize = true;
+            iconButton10.Dock = DockStyle.Top;
+            iconButton10.FlatAppearance.BorderSize = 0;
+            iconButton10.FlatStyle = FlatStyle.Flat;
+            iconButton10.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton10.ForeColor = Color.Gainsboro;
+            iconButton10.IconChar = FontAwesome.Sharp.IconChar.Flag;
+            iconButton10.IconColor = Color.FromArgb(255, 103, 159);
+            iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton10.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton10.Location = new Point(0, 355);
+            iconButton10.Name = "iconButton10";
+            iconButton10.Padding = new Padding(10, 0, 0, 0);
+            iconButton10.Size = new Size(279, 54);
+            iconButton10.TabIndex = 6;
+            iconButton10.Text = "Marcas nacionales";
+            iconButton10.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton10.UseVisualStyleBackColor = true;
+            iconButton10.Click += iconButton10_Click;
+            // 
+            // iconButton9
+            // 
+            iconButton9.AutoSize = true;
+            iconButton9.Dock = DockStyle.Top;
+            iconButton9.FlatAppearance.BorderSize = 0;
+            iconButton9.FlatStyle = FlatStyle.Flat;
+            iconButton9.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton9.ForeColor = Color.Gainsboro;
+            iconButton9.IconChar = FontAwesome.Sharp.IconChar.UserTag;
+            iconButton9.IconColor = Color.FromArgb(63, 205, 240);
+            iconButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton9.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton9.Location = new Point(0, 301);
+            iconButton9.Name = "iconButton9";
+            iconButton9.Padding = new Padding(10, 0, 0, 0);
+            iconButton9.Size = new Size(279, 54);
+            iconButton9.TabIndex = 4;
+            iconButton9.Text = "Titulares";
+            iconButton9.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton9.UseVisualStyleBackColor = true;
+            // 
+            // iconButton8
+            // 
+            iconButton8.AutoSize = true;
+            iconButton8.Dock = DockStyle.Top;
+            iconButton8.FlatAppearance.BorderSize = 0;
+            iconButton8.FlatStyle = FlatStyle.Flat;
+            iconButton8.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton8.ForeColor = Color.Gainsboro;
+            iconButton8.IconChar = FontAwesome.Sharp.IconChar.UserTie;
+            iconButton8.IconColor = Color.FromArgb(116, 89, 255);
+            iconButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton8.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton8.Location = new Point(0, 247);
+            iconButton8.Name = "iconButton8";
+            iconButton8.Padding = new Padding(10, 0, 0, 0);
+            iconButton8.Size = new Size(279, 54);
+            iconButton8.TabIndex = 3;
+            iconButton8.Text = "Agentes";
+            iconButton8.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton8.UseVisualStyleBackColor = true;
+            // 
+            // iconButtonUsuarios
+            // 
+            iconButtonUsuarios.AutoSize = true;
+            iconButtonUsuarios.Dock = DockStyle.Top;
+            iconButtonUsuarios.FlatAppearance.BorderSize = 0;
+            iconButtonUsuarios.FlatStyle = FlatStyle.Flat;
+            iconButtonUsuarios.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButtonUsuarios.ForeColor = Color.Gainsboro;
+            iconButtonUsuarios.IconChar = FontAwesome.Sharp.IconChar.Users;
+            iconButtonUsuarios.IconColor = Color.FromArgb(230, 148, 226);
+            iconButtonUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonUsuarios.Location = new Point(0, 193);
+            iconButtonUsuarios.Margin = new Padding(3, 5, 3, 3);
+            iconButtonUsuarios.Name = "iconButtonUsuarios";
+            iconButtonUsuarios.Padding = new Padding(10, 0, 0, 0);
+            iconButtonUsuarios.Size = new Size(279, 54);
+            iconButtonUsuarios.TabIndex = 2;
+            iconButtonUsuarios.Text = "Usuarios";
+            iconButtonUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonUsuarios.UseVisualStyleBackColor = true;
+            // 
+            // panelLogo
+            // 
+            panelLogo.BackColor = Color.FromArgb(19, 12, 70);
+            panelLogo.BackgroundImage = (Image)resources.GetObject("panelLogo.BackgroundImage");
+            panelLogo.BackgroundImageLayout = ImageLayout.Stretch;
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Margin = new Padding(0, 2, 0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(279, 193);
+            panelLogo.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(19, 12, 70);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(300, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(781, 100);
+            panel1.TabIndex = 4;
+            panel1.Paint += panel1_Paint;
+            // 
+            // Form1
+            // 
+            AllowDrop = true;
+            AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(49, 59, 104);
-            ClientSize = new Size(473, 719);
-            Controls.Add(pictureBox1);
-            Controls.Add(button1);
-            Controls.Add(txtPassword);
-            Controls.Add(label2);
-            Controls.Add(txtUserName);
-            Controls.Add(label1);
+            BackColor = Color.Gainsboro;
+            ClientSize = new Size(1081, 600);
+            ControlBox = false;
             Controls.Add(panel1);
-            Controls.Add(TitleBar);
+            Controls.Add(panel2);
+            Controls.Add(panelChildForm);
+            Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "LoginForm";
-            Text = "LOGIN";
-            Load += LoginForm_Load;
-            MouseMove += LoginForm_MouseMove;
-            TitleBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            Margin = new Padding(4);
+            MinimumSize = new Size(950, 600);
+            Name = "Form1";
+            Text = "PIMARK";
+            WindowState = FormWindowState.Maximized;
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelChildForm.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panelSubMenuPatentes.ResumeLayout(false);
+            panelSubMenuPatentes.PerformLayout();
+            panelSubMenuMarcasInter.ResumeLayout(false);
+            panelSubMenuMarcasInter.PerformLayout();
+            panelSubMenuMarcasNacionales.ResumeLayout(false);
+            panelSubMenuMarcasNacionales.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Panel TitleBar;
-        private Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panelChildForm;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelLogo;
+        private FontAwesome.Sharp.IconButton iconButton10;
+        private FontAwesome.Sharp.IconButton iconButton9;
+        private FontAwesome.Sharp.IconButton iconButton8;
+        private FontAwesome.Sharp.IconButton iconButtonUsuarios;
+        private System.Windows.Forms.Panel panelSubMenuMarcasNacionales;
+        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Panel panelSubMenuPatentes;
+        private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Button button36;
+        private FontAwesome.Sharp.IconButton iconButton13;
+        private System.Windows.Forms.Panel panelSubMenuMarcasInter;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button30;
+        private FontAwesome.Sharp.IconButton iconButton12;
+        private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Label label1;
-        private TextBox txtUserName;
-        private TextBox txtPassword;
-        private Label label2;
+        private FontAwesome.Sharp.IconButton iconButton2;
         private Button button1;
-        private PictureBox pictureBox1;
+        private Button button2;
+        private Button button3;
+        private Button button6;
+        private Button button5;
     }
 }
+
