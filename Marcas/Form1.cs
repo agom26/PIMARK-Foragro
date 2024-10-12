@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Comun;
+using Comun.Cache;
 
 namespace Presentacion
 {
@@ -17,7 +19,7 @@ namespace Presentacion
         public Form1(bool isAdmin)
         {
             InitializeComponent();
-            this.isAdmin=isAdmin;
+            this.isAdmin = isAdmin;
             CustomizeDesign();
 
             if (isAdmin)
@@ -218,19 +220,30 @@ namespace Presentacion
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
+            labelUsername.Text = UsuarioActivo.usuario+" - "+UsuarioActivo.correo;
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            this.Close();
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            
+            
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes){
+                Application.Exit();
+            }
         }
     }
 }

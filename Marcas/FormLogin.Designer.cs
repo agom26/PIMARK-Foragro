@@ -39,6 +39,7 @@
             label2 = new Label();
             btnLogin = new Button();
             pictureBox1 = new PictureBox();
+            checkBoxRememberme = new CheckBox();
             TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -141,7 +142,7 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Century Gothic", 12F);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(63, 509);
+            btnLogin.Location = new Point(63, 528);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(350, 49);
             btnLogin.TabIndex = 6;
@@ -159,12 +160,25 @@
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
             // 
+            // checkBoxRememberme
+            // 
+            checkBoxRememberme.AutoSize = true;
+            checkBoxRememberme.Font = new Font("Century Gothic", 12F);
+            checkBoxRememberme.ForeColor = Color.White;
+            checkBoxRememberme.Location = new Point(63, 454);
+            checkBoxRememberme.Name = "checkBoxRememberme";
+            checkBoxRememberme.Size = new Size(155, 27);
+            checkBoxRememberme.TabIndex = 8;
+            checkBoxRememberme.Text = "Recordarme";
+            checkBoxRememberme.UseVisualStyleBackColor = true;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 59, 104);
             ClientSize = new Size(473, 719);
+            Controls.Add(checkBoxRememberme);
             Controls.Add(pictureBox1);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
@@ -198,5 +212,6 @@
         private Label label2;
         private Button btnLogin;
         private PictureBox pictureBox1;
+        private CheckBox checkBoxRememberme;
     }
 }

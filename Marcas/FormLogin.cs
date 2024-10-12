@@ -4,6 +4,7 @@ using Dominio;
 using Presentacion;
 using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms.PropertyGridInternal;
 namespace Marcas
 {
     public partial class LoginForm : Form 
@@ -20,6 +21,28 @@ namespace Marcas
         {
             InitializeComponent();
             CustomComponents();
+        }
+
+        public void Logout(object sender, FormClosedEventArgs e)
+        {
+            if (Presentacion.Properties.Settings.Default.Recordar == true)
+            {
+                txtUserName.Text = Presentacion.Properties.Settings.Default.Usuario;
+                txtPassword.Text = Presentacion.Properties.Settings.Default.Contrasena;
+                checkBoxRememberme.Checked = Presentacion.Properties.Settings.Default.Recordar;
+                this.Show();
+                btnLogin.Focus();
+            }
+            else
+            {
+                txtUserName.Text = "";
+                txtPassword.Text = "";
+                checkBoxRememberme.Checked = false;
+                this.Show();
+                txtUserName.Focus();
+            }
+            
+            
         }
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
@@ -44,7 +67,19 @@ namespace Marcas
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
+            if (Presentacion.Properties.Settings.Default.Recordar==true)
+            {
+                txtUserName.Text=Presentacion.Properties.Settings.Default.Usuario;
+                txtPassword.Text=Presentacion.Properties.Settings.Default.Contrasena;
+                checkBoxRememberme.Checked = Presentacion.Properties.Settings.Default.Recordar;
+                btnLogin.Focus();
+            }
+            else
+            {
+                txtUserName.Text = "";
+                txtPassword.Text = "";
+                checkBoxRememberme.Checked = false;
+            }
         }
 
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
@@ -73,16 +108,28 @@ namespace Marcas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //recordar sesion
+            if (checkBoxRememberme.Checked)
+            {
+                Presentacion.Properties.Settings.Default.Usuario=txtUserName.Text;
+                Presentacion.Properties.Settings.Default.Contrasena = txtPassword.Text;
+                Presentacion.Properties.Settings.Default.Recordar = checkBoxRememberme.Checked;
+                Presentacion.Properties.Settings.Default.Save();
+                Presentacion.Properties.Settings.Default.Reload();
+            }
+            else
+            {
 
+            }
             
-                                               
+            //LOGIN                                
             UserModel userModel = new UserModel();
             (bool validLogin, bool isAdmin)=userModel.Login(txtUserName.Text,txtPassword.Text);
             if (validLogin==true)
             {
-                
                 Form1 dashboard = new Form1(isAdmin);
                 dashboard.Show();
+                dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
                 this.Hide();
             }
             else

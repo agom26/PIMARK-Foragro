@@ -32,7 +32,7 @@
             pictureBox1 = new PictureBox();
             panelChildForm = new Panel();
             panel2 = new Panel();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButtonLogout = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panelSubMenuPatentes = new Panel();
             button32 = new Button();
@@ -63,13 +63,21 @@
             iconButton8 = new FontAwesome.Sharp.IconButton();
             iconButtonUsuarios = new FontAwesome.Sharp.IconButton();
             panelLogo = new Panel();
+            panel3 = new Panel();
             panel1 = new Panel();
+            labelUsername = new Label();
+            labelName_LN = new Label();
+            iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelChildForm.SuspendLayout();
             panel2.SuspendLayout();
             panelSubMenuPatentes.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
             panelSubMenuMarcasNacionales.SuspendLayout();
+            panelLogo.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -97,7 +105,7 @@
             // 
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(19, 12, 70);
-            panel2.Controls.Add(iconButton2);
+            panel2.Controls.Add(iconButtonLogout);
             panel2.Controls.Add(iconButton1);
             panel2.Controls.Add(panelSubMenuPatentes);
             panel2.Controls.Add(iconButton13);
@@ -116,27 +124,27 @@
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
-            // iconButton2
+            // iconButtonLogout
             // 
-            iconButton2.AutoSize = true;
-            iconButton2.Dock = DockStyle.Bottom;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton2.ForeColor = Color.Gainsboro;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
-            iconButton2.IconColor = Color.FromArgb(211, 47, 47);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(0, 1582);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Padding = new Padding(10, 0, 0, 0);
-            iconButton2.Size = new Size(279, 54);
-            iconButton2.TabIndex = 14;
-            iconButton2.Text = "Cerrar sesión";
-            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton2.UseVisualStyleBackColor = true;
-            iconButton2.Click += iconButton2_Click;
+            iconButtonLogout.AutoSize = true;
+            iconButtonLogout.Dock = DockStyle.Bottom;
+            iconButtonLogout.FlatAppearance.BorderSize = 0;
+            iconButtonLogout.FlatStyle = FlatStyle.Flat;
+            iconButtonLogout.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButtonLogout.ForeColor = Color.Gainsboro;
+            iconButtonLogout.IconChar = FontAwesome.Sharp.IconChar.RightToBracket;
+            iconButtonLogout.IconColor = Color.FromArgb(211, 47, 47);
+            iconButtonLogout.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonLogout.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonLogout.Location = new Point(0, 1582);
+            iconButtonLogout.Name = "iconButtonLogout";
+            iconButtonLogout.Padding = new Padding(10, 0, 0, 0);
+            iconButtonLogout.Size = new Size(279, 54);
+            iconButtonLogout.TabIndex = 14;
+            iconButtonLogout.Text = "Cerrar sesión";
+            iconButtonLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonLogout.UseVisualStyleBackColor = true;
+            iconButtonLogout.Click += iconButton2_Click;
             // 
             // iconButton1
             // 
@@ -660,6 +668,7 @@
             panelLogo.BackColor = Color.FromArgb(19, 12, 70);
             panelLogo.BackgroundImage = (Image)resources.GetObject("panelLogo.BackgroundImage");
             panelLogo.BackgroundImageLayout = ImageLayout.Stretch;
+            panelLogo.Controls.Add(panel3);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Margin = new Padding(0, 2, 0, 0);
@@ -667,15 +676,82 @@
             panelLogo.Size = new Size(279, 193);
             panelLogo.TabIndex = 0;
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(19, 12, 70);
+            panel3.BackgroundImage = (Image)resources.GetObject("panel3.BackgroundImage");
+            panel3.BackgroundImageLayout = ImageLayout.Stretch;
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(0, 0);
+            panel3.Margin = new Padding(0, 2, 0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(279, 193);
+            panel3.TabIndex = 1;
+            // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(19, 12, 70);
+            panel1.Controls.Add(labelUsername);
+            panel1.Controls.Add(labelName_LN);
+            panel1.Controls.Add(iconPictureBoxUser);
+            panel1.Controls.Add(iconButton3);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(300, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(781, 100);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
+            // 
+            // labelUsername
+            // 
+            labelUsername.AutoSize = true;
+            labelUsername.Font = new Font("Century Gothic", 12F);
+            labelUsername.ForeColor = Color.White;
+            labelUsername.Location = new Point(111, 23);
+            labelUsername.Name = "labelUsername";
+            labelUsername.Size = new Size(72, 23);
+            labelUsername.TabIndex = 3;
+            labelUsername.Text = "label1";
+            // 
+            // labelName_LN
+            // 
+            labelName_LN.AutoSize = true;
+            labelName_LN.Font = new Font("Century Gothic", 12F);
+            labelName_LN.ForeColor = Color.White;
+            labelName_LN.Location = new Point(111, 59);
+            labelName_LN.Name = "labelName_LN";
+            labelName_LN.Size = new Size(72, 23);
+            labelName_LN.TabIndex = 2;
+            labelName_LN.Text = "label1";
+            // 
+            // iconPictureBoxUser
+            // 
+            iconPictureBoxUser.BackColor = Color.FromArgb(19, 12, 70);
+            iconPictureBoxUser.IconChar = FontAwesome.Sharp.IconChar.UserCircle;
+            iconPictureBoxUser.IconColor = Color.White;
+            iconPictureBoxUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBoxUser.IconSize = 70;
+            iconPictureBoxUser.Location = new Point(22, 12);
+            iconPictureBoxUser.Name = "iconPictureBoxUser";
+            iconPictureBoxUser.Size = new Size(83, 70);
+            iconPictureBoxUser.TabIndex = 1;
+            iconPictureBoxUser.TabStop = false;
+            // 
+            // iconButton3
+            // 
+            iconButton3.Dock = DockStyle.Right;
+            iconButton3.FlatAppearance.BorderSize = 0;
+            iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.X;
+            iconButton3.IconColor = Color.White;
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.IconSize = 40;
+            iconButton3.Location = new Point(720, 0);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(61, 100);
+            iconButton3.TabIndex = 0;
+            iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
             // 
             // Form1
             // 
@@ -706,6 +782,10 @@
             panelSubMenuMarcasInter.PerformLayout();
             panelSubMenuMarcasNacionales.ResumeLayout(false);
             panelSubMenuMarcasNacionales.PerformLayout();
+            panelLogo.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).EndInit();
             ResumeLayout(false);
         }
 
@@ -739,12 +819,17 @@
         private FontAwesome.Sharp.IconButton iconButton12;
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButtonLogout;
         private Button button1;
         private Button button2;
         private Button button3;
         private Button button6;
         private Button button5;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private Label labelUsername;
+        private Label labelName_LN;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
+        private Panel panel3;
     }
 }
 
