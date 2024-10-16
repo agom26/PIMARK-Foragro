@@ -118,6 +118,7 @@
             // iconButton4
             // 
             iconButton4.Anchor = AnchorStyles.Right;
+            iconButton4.AutoSize = true;
             iconButton4.BackColor = Color.FromArgb(244, 98, 96);
             iconButton4.FlatAppearance.BorderSize = 0;
             iconButton4.FlatStyle = FlatStyle.Flat;
@@ -138,6 +139,7 @@
             // iconButton3
             // 
             iconButton3.Anchor = AnchorStyles.Right;
+            iconButton3.AutoSize = true;
             iconButton3.BackColor = Color.FromArgb(96, 149, 241);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -158,6 +160,7 @@
             // iconButton2
             // 
             iconButton2.Anchor = AnchorStyles.Right;
+            iconButton2.AutoSize = true;
             iconButton2.BackColor = Color.FromArgb(50, 164, 115);
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
@@ -179,22 +182,23 @@
             // 
             dtgUsuarios.AllowUserToAddRows = false;
             dtgUsuarios.AllowUserToDeleteRows = false;
-            dtgUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dtgUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dtgUsuarios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgUsuarios.BackgroundColor = Color.White;
             dtgUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgUsuarios.Location = new Point(65, 118);
+            dtgUsuarios.Location = new Point(170, 118);
             dtgUsuarios.Name = "dtgUsuarios";
             dtgUsuarios.ReadOnly = true;
             dtgUsuarios.RowHeadersWidth = 51;
             dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgUsuarios.Size = new Size(895, 340);
+            dtgUsuarios.Size = new Size(778, 340);
             dtgUsuarios.TabIndex = 4;
             // 
             // ibtnBuscar
             // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
             ibtnBuscar.BackColor = Color.FromArgb(255, 164, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
@@ -213,16 +217,18 @@
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(65, 58);
+            txtSearch.Anchor = AnchorStyles.Top;
+            txtSearch.Location = new Point(170, 58);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(724, 32);
+            txtSearch.Size = new Size(619, 32);
             txtSearch.TabIndex = 2;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
-            label2.Location = new Point(65, 22);
+            label2.Location = new Point(170, 19);
             label2.Name = "label2";
             label2.Size = new Size(148, 23);
             label2.TabIndex = 1;

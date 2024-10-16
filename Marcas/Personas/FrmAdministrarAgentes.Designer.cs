@@ -173,6 +173,7 @@
             // 
             // ibtnBuscar
             // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
             ibtnBuscar.BackColor = Color.FromArgb(255, 164, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
@@ -192,7 +193,7 @@
             // 
             dtgAgentes.AllowUserToAddRows = false;
             dtgAgentes.AllowUserToDeleteRows = false;
-            dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dtgAgentes.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgAgentes.BackgroundColor = Color.White;
@@ -209,6 +210,7 @@
             // 
             // txtSearch
             // 
+            txtSearch.Anchor = AnchorStyles.Top;
             txtSearch.Location = new Point(48, 62);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(724, 32);
@@ -216,6 +218,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.Location = new Point(48, 26);
@@ -243,10 +246,10 @@
             tabPageAgenteDetail.Controls.Add(label4);
             tabPageAgenteDetail.Controls.Add(txtNombreAgente);
             tabPageAgenteDetail.Controls.Add(label3);
-            tabPageAgenteDetail.Location = new Point(4, 30);
+            tabPageAgenteDetail.Location = new Point(4, 32);
             tabPageAgenteDetail.Name = "tabPageAgenteDetail";
             tabPageAgenteDetail.Padding = new Padding(3);
-            tabPageAgenteDetail.Size = new Size(1161, 488);
+            tabPageAgenteDetail.Size = new Size(1161, 486);
             tabPageAgenteDetail.TabIndex = 1;
             tabPageAgenteDetail.Text = "Detalle de agente";
             tabPageAgenteDetail.UseVisualStyleBackColor = true;

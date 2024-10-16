@@ -79,7 +79,7 @@ namespace Presentacion.Personas
             EliminarTabPage(tabTitularDetail);
         }
 
-        private void btnGuardarTit_Click(object sender, EventArgs e)
+        private async void btnGuardarTit_Click(object sender, EventArgs e)
         {
             string nombre = txtNombreTitular.Text;
             string direccion = txtDireccionTitular.Text;
@@ -89,7 +89,6 @@ namespace Presentacion.Personas
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
             string tipo = "titular";
-
 
             // Verificar que el campo de nombre de usuario no esté vacío
             if (string.IsNullOrWhiteSpace(txtNombreTitular.Text) ||
@@ -106,44 +105,37 @@ namespace Presentacion.Personas
             {
                 try
                 {
+                    // Deshabilitar el botón para evitar múltiples clics
+                    btnGuardarTit.Enabled = false;
 
                     if (btnGuardarTit.Text == "Guardar")
                     {
-
-                        personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);
+                        // Ejecutar la operación de guardado de manera asíncrona
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Titular agregado exitosamente");
                     }
                     else if (btnGuardarTit.Text == "Actualizar")
                     {
-                        try
-                        {
-                            // Llamar al método para actualizar el titular
-                            bool update = personaModel.UpdatePersona(EditarPersona.idPersona,
-                                txtNombreTitular.Text,
-                                txtDireccionTitular.Text,
-                                txtNitTitular.Text,
-                                txtPais.Text,
-                                txtCorreoContacto.Text,
-                                txtTelefonoContacto.Text,
-                                txtNombreContacto.Text);
+                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                            txtNombreTitular.Text,
+                            txtDireccionTitular.Text,
+                            txtNitTitular.Text,
+                            txtPais.Text,
+                            txtCorreoContacto.Text,
+                            txtTelefonoContacto.Text,
+                            txtNombreContacto.Text));
 
-                            if (update)
-                            {
-                                MessageBox.Show("Titular actualizado exitosamente");
-                                MostrarTitulares(); // Refrescar la lista de titulares
-                                EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
-                            }
-                            else
-                            {
-                                MessageBox.Show("Error al actualizar el titular.");
-                            }
-                        }
-                        catch (Exception ex)
+                        if (update)
                         {
-                            MessageBox.Show("Ocurrió un error al actualizar el titular: " + ex.Message);
+                            MessageBox.Show("Titular actualizado exitosamente");
+                            MostrarTitulares(); // Refrescar la lista de titulares
+                            EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al actualizar el titular.");
                         }
                     }
-
 
                     // Redirigir a tabPage1
                     tabControl1.SelectedTab = tabListTitulares;
@@ -154,8 +146,14 @@ namespace Presentacion.Personas
                 {
                     MessageBox.Show("No se pudo ingresar el titular por :" + ex.Message);
                 }
+                finally
+                {
+                    // Volver a habilitar el botón
+                    btnGuardarTit.Enabled = true;
+                }
             }
         }
+
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {

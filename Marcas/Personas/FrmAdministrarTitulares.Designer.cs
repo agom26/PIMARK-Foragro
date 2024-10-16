@@ -173,6 +173,7 @@
             // 
             // ibtnBuscar
             // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
             ibtnBuscar.BackColor = Color.FromArgb(255, 164, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
@@ -192,33 +193,35 @@
             // 
             dtgTitulares.AllowUserToAddRows = false;
             dtgTitulares.AllowUserToDeleteRows = false;
-            dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dtgTitulares.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgTitulares.BackgroundColor = Color.White;
             dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgTitulares.Location = new Point(65, 118);
+            dtgTitulares.Location = new Point(39, 118);
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
             dtgTitulares.RowHeadersWidth = 51;
             dtgTitulares.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgTitulares.Size = new Size(895, 340);
+            dtgTitulares.Size = new Size(921, 340);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(65, 58);
+            txtSearch.Anchor = AnchorStyles.Top;
+            txtSearch.Location = new Point(39, 58);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(724, 32);
+            txtSearch.Size = new Size(750, 32);
             txtSearch.TabIndex = 6;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
-            label2.Location = new Point(65, 22);
+            label2.Location = new Point(39, 20);
             label2.Name = "label2";
             label2.RightToLeft = RightToLeft.No;
             label2.Size = new Size(134, 23);

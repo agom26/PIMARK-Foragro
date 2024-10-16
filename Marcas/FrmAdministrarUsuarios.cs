@@ -117,20 +117,14 @@ namespace Presentacion
 
         }
 
-        private void iconButton5_Click(object sender, EventArgs e)
+        private async void iconButton5_Click(object sender, EventArgs e)
         {
             string usuario = txtUsername.Text;
             string contrasena = "";
             string nombres = txtNombres.Text;
             string apellidos = txtApellidos.Text;
             string correo = txtCorreo.Text;
-            bool isAdmin = false;
-
-            // Verificar si el checkbox está marcado
-            if (chckbIsAdmin.Checked)
-            {
-                isAdmin = true;
-            }
+            bool isAdmin = chckbIsAdmin.Checked;
 
             // Verificar que el campo de nombre de usuario no esté vacío
             if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
@@ -150,18 +144,20 @@ namespace Presentacion
                     try
                     {
                         contrasena = txtConfirmarCont.Text;
+                        iconButton5.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+
                         if (iconButton5.Text == "Guardar")
                         {
-                            UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo);
+                            // Ejecutar la operación de adición de manera asíncrona
+                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
                             MessageBox.Show("Usuario agregado exitosamente");
                         }
                         else if (iconButton5.Text == "Actualizar")
                         {
-
-                            UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo);
+                            // Ejecutar la operación de actualización de manera asíncrona
+                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
                             MessageBox.Show("Usuario actualizado exitosamente");
                         }
-
 
                         // Redirigir a tabPage1
                         tabControl1.SelectedTab = tabPage1;
@@ -172,17 +168,18 @@ namespace Presentacion
                     {
                         MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
                     }
-
+                    finally
+                    {
+                        iconButton5.Enabled = true; // Volver a habilitar el botón
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Las contraseñas no coinciden.");
                 }
             }
-
-
-
         }
+
 
         private void iconButton6_Click(object sender, EventArgs e)
         {

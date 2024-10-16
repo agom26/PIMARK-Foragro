@@ -70,7 +70,7 @@ namespace Presentacion.Personas
             btnGuardarTit.Text = "Guardar";
         }
 
-        private void btnGuardarTit_Click(object sender, EventArgs e)
+        private async void btnGuardarTit_Click(object sender, EventArgs e)
         {
             string nombre = txtNombreAgente.Text;
             string direccion = txtDireccionAgente.Text;
@@ -80,7 +80,6 @@ namespace Presentacion.Personas
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
             string tipo = "agente";
-
 
             // Verificar que el campo de nombre de usuario no esté vacío
             if (string.IsNullOrWhiteSpace(txtNombreAgente.Text) ||
@@ -97,26 +96,27 @@ namespace Presentacion.Personas
             {
                 try
                 {
+                    btnGuardarTit.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
 
                     if (btnGuardarTit.Text == "Guardar")
                     {
-
-                        personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);
-                        MessageBox.Show("Titular agregado exitosamente");
+                        // Ejecutar la operación de adición de manera asíncrona
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        MessageBox.Show("Agente agregado exitosamente");
                     }
                     else if (btnGuardarTit.Text == "Actualizar")
                     {
                         try
                         {
-                            // Llamar al método para actualizar el titular
-                            bool update = personaModel.UpdatePersona(EditarPersona.idPersona,
+                            // Ejecutar la operación de actualización de manera asíncrona
+                            bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
                                 txtNombreAgente.Text,
                                 txtDireccionAgente.Text,
                                 txtNitAgente.Text,
                                 txtPais.Text,
                                 txtCorreoContacto.Text,
                                 txtTelefonoContacto.Text,
-                                txtNombreContacto.Text);
+                                txtNombreContacto.Text));
 
                             if (update)
                             {
@@ -135,18 +135,22 @@ namespace Presentacion.Personas
                         }
                     }
 
-
-                    // Redirigir a tabPage1
+                    // Redirigir a tabPageListado
                     tabControl1.SelectedTab = tabPageListado;
                     MostrarAgentes();
                     EliminarTabPage(tabPageAgenteDetail);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo ingresar el titular por :" + ex.Message);
+                    MessageBox.Show("No se pudo ingresar el agente por :" + ex.Message);
+                }
+                finally
+                {
+                    btnGuardarTit.Enabled = true; // Volver a habilitar el botón
                 }
             }
         }
+
 
         private void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
