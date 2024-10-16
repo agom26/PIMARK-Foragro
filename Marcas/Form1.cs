@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comun;
 using Comun.Cache;
+using Presentacion.Personas;
 
 namespace Presentacion
 {
@@ -250,6 +251,16 @@ namespace Presentacion
         private void iconButtonUsuarios_Click(object sender, EventArgs e)
         {
             openChildForm(new FrmAdministrarUsuarios());
+        }
+
+        private void iconButton8_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmAdministrarTitulares());
         }
     }
 }

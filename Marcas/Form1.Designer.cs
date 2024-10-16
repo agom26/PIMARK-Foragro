@@ -619,6 +619,7 @@
             iconButton9.Text = "Titulares";
             iconButton9.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton9.UseVisualStyleBackColor = true;
+            iconButton9.Click += iconButton9_Click;
             // 
             // iconButton8
             // 
@@ -640,6 +641,7 @@
             iconButton8.Text = "Agentes";
             iconButton8.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton8.UseVisualStyleBackColor = true;
+            iconButton8.Click += iconButton8_Click;
             // 
             // iconButtonUsuarios
             // 

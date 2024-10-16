@@ -113,6 +113,7 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Listado de usuarios";
             tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
             // 
             // iconButton4
             // 

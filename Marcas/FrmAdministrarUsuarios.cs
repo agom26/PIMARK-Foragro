@@ -181,8 +181,6 @@ namespace Presentacion
 
 
 
-
-
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
@@ -246,7 +244,7 @@ namespace Presentacion
                 var userDetails = UserModel.GetByValue(usuario);
 
                 // Preguntar si el usuario está seguro de eliminar ese Usuario
-                DialogResult result = MessageBox.Show(UsuarioActivo.usuario+$" ¿Está seguro de que desea eliminar al usuario '{usuario}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al usuario '{usuario}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -276,6 +274,11 @@ namespace Presentacion
             {
                 MessageBox.Show("Por favor, selecciona un usuario para eliminar.");
             }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
