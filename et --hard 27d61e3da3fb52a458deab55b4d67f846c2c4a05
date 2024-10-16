@@ -1,0 +1,23 @@
+[33mcommit 27d61e3da3fb52a458deab55b4d67f846c2c4a05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: agom26 <gaby26@umes.edu.gt>
+Date:   Sat Oct 12 00:21:31 2024 -0600
+
+    Recordar sesion en login
+
+[33mcommit f6a1a9b76f2526c27a43e7d1afa3f6bd40c782d1[m
+Author: agom26 <gaby26@umes.edu.gt>
+Date:   Fri Oct 11 22:34:37 2024 -0600
+
+    Login conectado a la base de datos en linea
+
+[33mcommit a117713fe62f89a2692a89ae9571327812b03709[m
+Author: agom26 <gaby26@umes.edu.gt>
+Date:   Mon Oct 7 21:45:33 2024 -0600
+
+    Agregar archivos de proyecto.
+
+[33mcommit 4c74cb6d5684ba82e9e3aad91efb777db31903be[m
+Author: agom26 <gaby26@umes.edu.gt>
+Date:   Mon Oct 7 21:45:30 2024 -0600
+
+    Agregar .gitattributes, .gitignore y README.md.

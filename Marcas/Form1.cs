@@ -221,7 +221,7 @@ namespace Presentacion
         private void Form1_Load(object sender, EventArgs e)
         {
             labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
-            labelUsername.Text = UsuarioActivo.usuario+" - "+UsuarioActivo.correo;
+            labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -230,8 +230,8 @@ namespace Presentacion
             {
                 this.Close();
             }
-            
-            
+
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -241,9 +241,15 @@ namespace Presentacion
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes){
+            if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
                 Application.Exit();
             }
+        }
+
+        private void iconButtonUsuarios_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmAdministrarUsuarios());
         }
     }
 }

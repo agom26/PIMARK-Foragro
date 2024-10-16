@@ -84,7 +84,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackColor = Color.Gainsboro;
-            pictureBox1.Location = new Point(65, 67);
+            pictureBox1.Location = new Point(255, 217);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(663, 338);
             pictureBox1.TabIndex = 0;
@@ -95,9 +95,9 @@
             panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelChildForm.Controls.Add(pictureBox1);
             panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panelChildForm.Location = new Point(281, 106);
+            panelChildForm.Location = new Point(300, 106);
             panelChildForm.Name = "panelChildForm";
-            panelChildForm.Size = new Size(788, 494);
+            panelChildForm.Size = new Size(1169, 794);
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
             // 
@@ -120,7 +120,7 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(300, 600);
+            panel2.Size = new Size(300, 900);
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
@@ -662,6 +662,7 @@
             iconButtonUsuarios.Text = "Usuarios";
             iconButtonUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButtonUsuarios.UseVisualStyleBackColor = true;
+            iconButtonUsuarios.Click += iconButtonUsuarios_Click;
             // 
             // panelLogo
             // 
@@ -698,7 +699,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(300, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(781, 100);
+            panel1.Size = new Size(1181, 100);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
@@ -746,7 +747,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 40;
-            iconButton3.Location = new Point(720, 0);
+            iconButton3.Location = new Point(1120, 0);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(61, 100);
             iconButton3.TabIndex = 0;
@@ -759,7 +760,7 @@
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(1081, 600);
+            ClientSize = new Size(1481, 900);
             ControlBox = false;
             Controls.Add(panel1);
             Controls.Add(panel2);
@@ -769,8 +770,8 @@
             Margin = new Padding(4);
             MinimumSize = new Size(950, 600);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PIMARK";
-            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelChildForm.ResumeLayout(false);

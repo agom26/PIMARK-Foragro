@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms.PropertyGridInternal;
 namespace Marcas
 {
-    public partial class LoginForm : Form 
+    public partial class LoginForm : Form
     {
         private void CustomComponents()
         {
@@ -41,8 +41,8 @@ namespace Marcas
                 this.Show();
                 txtUserName.Focus();
             }
-            
-            
+
+
         }
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
@@ -67,10 +67,10 @@ namespace Marcas
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            if (Presentacion.Properties.Settings.Default.Recordar==true)
+            if (Presentacion.Properties.Settings.Default.Recordar == true)
             {
-                txtUserName.Text=Presentacion.Properties.Settings.Default.Usuario;
-                txtPassword.Text=Presentacion.Properties.Settings.Default.Contrasena;
+                txtUserName.Text = Presentacion.Properties.Settings.Default.Usuario;
+                txtPassword.Text = Presentacion.Properties.Settings.Default.Contrasena;
                 checkBoxRememberme.Checked = Presentacion.Properties.Settings.Default.Recordar;
                 btnLogin.Focus();
             }
@@ -111,7 +111,7 @@ namespace Marcas
             //recordar sesion
             if (checkBoxRememberme.Checked)
             {
-                Presentacion.Properties.Settings.Default.Usuario=txtUserName.Text;
+                Presentacion.Properties.Settings.Default.Usuario = txtUserName.Text;
                 Presentacion.Properties.Settings.Default.Contrasena = txtPassword.Text;
                 Presentacion.Properties.Settings.Default.Recordar = checkBoxRememberme.Checked;
                 Presentacion.Properties.Settings.Default.Save();
@@ -121,11 +121,11 @@ namespace Marcas
             {
 
             }
-            
+
             //LOGIN                                
             UserModel userModel = new UserModel();
-            (bool validLogin, bool isAdmin)=userModel.Login(txtUserName.Text,txtPassword.Text);
-            if (validLogin==true)
+            (bool validLogin, bool isAdmin) = userModel.Login(txtUserName.Text, txtPassword.Text);
+            if (validLogin == true)
             {
                 Form1 dashboard = new Form1(isAdmin);
                 dashboard.Show();
@@ -136,8 +136,13 @@ namespace Marcas
             {
                 MessageBox.Show("Usuario o contraseña incorrecta");
             }
-            
-            
+
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
