@@ -127,7 +127,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public DataTable GetAllPersonas()
+        public DataTable GetAllTitulares()
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
@@ -146,7 +146,26 @@ namespace AccesoDatos.Entidades
 
         }
 
-        public bool RemovePersona(int personaId, string deletedUser, string deletedBy)
+        public DataTable GetAllAgentes()
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='agente'", conexion)) // Inicializa correctamente el comando
+                {
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
+
+
+        }
+
+        public bool RemoveTitular(int personaId, string deletedUser, string deletedBy)
         {
             using (var connection = GetConnection())
             {
@@ -157,6 +176,44 @@ namespace AccesoDatos.Entidades
                     {
                         // Inserta en la tabla de log antes de eliminar al usuario
                         using (var logCommand = new MySqlCommand("INSERT INTO PersonaDeletionLog (persona, tipo, deleted_by) VALUES (@persona, 'titular', @deletedBy)", connection, transaction))
+                        {
+                            logCommand.Parameters.AddWithValue("@persona", deletedUser);
+                            logCommand.Parameters.AddWithValue("@deletedBy", deletedBy);
+                            logCommand.ExecuteNonQuery();
+                        }
+
+                        // Elimina el usuario de la tabla USERS
+                        using (var deleteCommand = new MySqlCommand("DELETE FROM Personas WHERE id=@personaId", connection, transaction))
+                        {
+                            deleteCommand.Parameters.AddWithValue("@personaId", personaId);
+                            int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                            // Si se eliminó el usuario, confirma la transacción
+                            transaction.Commit();
+                            return rowsAffected > 0;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // En caso de error, revertir la transacción
+                        transaction.Rollback();
+                        throw new Exception("Error al eliminar el la persona: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        public bool RemoveAgente(int personaId, string deletedUser, string deletedBy)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Inserta en la tabla de log antes de eliminar al usuario
+                        using (var logCommand = new MySqlCommand("INSERT INTO PersonaDeletionLog (persona, tipo, deleted_by) VALUES (@persona, 'agente', @deletedBy)", connection, transaction))
                         {
                             logCommand.Parameters.AddWithValue("@persona", deletedUser);
                             logCommand.Parameters.AddWithValue("@deletedBy", deletedBy);

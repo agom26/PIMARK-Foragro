@@ -255,12 +255,37 @@ namespace Presentacion
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
-            
+            openChildForm(new FrmAdministrarAgentes());
         }
 
         private void iconButton9_Click(object sender, EventArgs e)
         {
             openChildForm(new FrmAdministrarTitulares());
+        }
+
+        private void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            // Verifica el estado de la ventana
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                // Restaura la ventana a su tamaño normal
+                this.WindowState = FormWindowState.Normal;
+                // Cambia el icono a maximizar
+                iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize; // Cambia a icono de maximizar
+            }
+            else
+            {
+                // Cambia el estado de la ventana a maximizado
+                this.WindowState = FormWindowState.Maximized;
+                // Cambia el icono a restaurar
+                iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowRestore; // Cambia a icono de restaurar
+            }
+
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            this.WindowState=FormWindowState.Minimized;
         }
     }
 }

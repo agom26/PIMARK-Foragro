@@ -24,7 +24,7 @@ namespace Presentacion
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
-            tabControl1.TabPages.Remove(tabPageUserDetail);
+            
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -89,6 +89,7 @@ namespace Presentacion
         private void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
         {
             MostrarUsuarios();
+            tabControl1.TabPages.Remove(tabPageUserDetail);
         }
 
         private void label1_Click(object sender, EventArgs e)

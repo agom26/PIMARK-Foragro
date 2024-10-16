@@ -1,25 +1,21 @@
 ﻿using Comun.Cache;
 using Dominio;
-using Dominio;
-using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace Presentacion.Personas
 {
-    public partial class FrmAdministrarTitulares : Form
+    public partial class FrmAdministrarAgentes : Form
     {
         PersonaModel personaModel = new PersonaModel();
-        public FrmAdministrarTitulares()
+        public FrmAdministrarAgentes()
         {
             InitializeComponent();
             
@@ -33,21 +29,21 @@ namespace Presentacion.Personas
         }
         public void LimpiarCampos()
         {
-            txtNombreTitular.Text = "";
-            txtDireccionTitular.Text = "";
-            txtNitTitular.Text = "";
+            txtNombreAgente.Text = "";
+            txtDireccionAgente.Text = "";
+            txtNitAgente.Text = "";
             txtPais.Text = "";
             txtCorreoContacto.Text = "";
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
         }
-        private void MostrarTitulares()
+        private void MostrarAgentes()
         {
-            dtgTitulares.DataSource = personaModel.GetAllTitulares();
+            dtgAgentes.DataSource = personaModel.GetAllAgentes();
             // Ocultar la columna 'id'
-            if (dtgTitulares.Columns["id"] != null)
+            if (dtgAgentes.Columns["id"] != null)
             {
-                dtgTitulares.Columns["id"].Visible = false;
+                dtgAgentes.Columns["id"].Visible = false;
             }
         }
         private void AnadirTabPage(TabPage nombre)
@@ -64,37 +60,32 @@ namespace Presentacion.Personas
         {
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
-            if (!tabControl1.TabPages.Contains(tabTitularDetail))
+            if (!tabControl1.TabPages.Contains(tabPageAgenteDetail))
             {
-                tabControl1.TabPages.Add(tabTitularDetail);
+                tabControl1.TabPages.Add(tabPageAgenteDetail);
             }
 
             // Muestra el TabPage especificado (lo selecciona)
-            tabControl1.SelectedTab = tabTitularDetail;
+            tabControl1.SelectedTab = tabPageAgenteDetail;
             btnGuardarTit.Text = "Guardar";
-        }
-
-        private void btnCancelarTit_Click(object sender, EventArgs e)
-        {
-            EliminarTabPage(tabTitularDetail);
         }
 
         private void btnGuardarTit_Click(object sender, EventArgs e)
         {
-            string nombre = txtNombreTitular.Text;
-            string direccion = txtDireccionTitular.Text;
-            string nit = txtNitTitular.Text;
+            string nombre = txtNombreAgente.Text;
+            string direccion = txtDireccionAgente.Text;
+            string nit = txtNitAgente.Text;
             string pais = txtPais.Text;
             string correo = txtCorreoContacto.Text;
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
-            string tipo = "titular";
+            string tipo = "agente";
 
 
             // Verificar que el campo de nombre de usuario no esté vacío
-            if (string.IsNullOrWhiteSpace(txtNombreTitular.Text) ||
-                string.IsNullOrWhiteSpace(txtDireccionTitular.Text) ||
-                string.IsNullOrWhiteSpace(txtNitTitular.Text) ||
+            if (string.IsNullOrWhiteSpace(txtNombreAgente.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccionAgente.Text) ||
+                string.IsNullOrWhiteSpace(txtNitAgente.Text) ||
                 string.IsNullOrWhiteSpace(txtPais.Text) ||
                 string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
@@ -119,9 +110,9 @@ namespace Presentacion.Personas
                         {
                             // Llamar al método para actualizar el titular
                             bool update = personaModel.UpdatePersona(EditarPersona.idPersona,
-                                txtNombreTitular.Text,
-                                txtDireccionTitular.Text,
-                                txtNitTitular.Text,
+                                txtNombreAgente.Text,
+                                txtDireccionAgente.Text,
+                                txtNitAgente.Text,
                                 txtPais.Text,
                                 txtCorreoContacto.Text,
                                 txtTelefonoContacto.Text,
@@ -129,26 +120,26 @@ namespace Presentacion.Personas
 
                             if (update)
                             {
-                                MessageBox.Show("Titular actualizado exitosamente");
-                                MostrarTitulares(); // Refrescar la lista de titulares
-                                EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
+                                MessageBox.Show("Agente actualizado exitosamente");
+                                MostrarAgentes(); // Refrescar la lista de agentes
+                                EliminarTabPage(tabPageAgenteDetail); // Cerrar el formulario de edición
                             }
                             else
                             {
-                                MessageBox.Show("Error al actualizar el titular.");
+                                MessageBox.Show("Error al actualizar el agente.");
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrió un error al actualizar el titular: " + ex.Message);
+                            MessageBox.Show("Ocurrió un error al actualizar el agente: " + ex.Message);
                         }
                     }
 
 
                     // Redirigir a tabPage1
-                    tabControl1.SelectedTab = tabListTitulares;
-                    MostrarTitulares();
-                    EliminarTabPage(tabTitularDetail);
+                    tabControl1.SelectedTab = tabPageListado;
+                    MostrarAgentes();
+                    EliminarTabPage(tabPageAgenteDetail);
                 }
                 catch (Exception ex)
                 {
@@ -157,9 +148,15 @@ namespace Presentacion.Personas
             }
         }
 
+        private void FrmAdministrarAgentes_Load(object sender, EventArgs e)
+        {
+            MostrarAgentes();
+            tabControl1.TabPages.Remove(tabPageAgenteDetail);
+        }
+
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
-            if (dtgTitulares.SelectedRows.Count > 0)
+            if (dtgAgentes.SelectedRows.Count > 0)
             {
                 // Obtener el valor del 'id' de la fila seleccionada
                 int idPersona = EditarPersona.idPersona;
@@ -179,10 +176,10 @@ namespace Presentacion.Personas
                     EditarPersona.telefono = titularDetails[0].telefono;
                     EditarPersona.contacto = titularDetails[0].contacto;
                     // Mostrar el formulario de edición con los valores del titular
-                    AnadirTabPage(tabTitularDetail);
-                    txtNombreTitular.Text = EditarPersona.nombre;
-                    txtDireccionTitular.Text = EditarPersona.direccion;
-                    txtNitTitular.Text = EditarPersona.nit;
+                    AnadirTabPage(tabPageAgenteDetail);
+                    txtNombreAgente.Text = EditarPersona.nombre;
+                    txtDireccionAgente.Text = EditarPersona.direccion;
+                    txtNitAgente.Text = EditarPersona.nit;
                     txtPais.Text = EditarPersona.pais;
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
@@ -191,82 +188,70 @@ namespace Presentacion.Personas
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró el usuario.");
+                    MessageBox.Show("No se encontró el agente.");
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un usuario.");
+                MessageBox.Show("Por favor, selecciona un agente.");
             }
         }
 
-        private void dtgTitulares_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
             {
                 // Obtener el valor del 'id' de la fila seleccionada
-                EditarPersona.idPersona = Convert.ToInt32(dtgTitulares.Rows[e.RowIndex].Cells["id"].Value);
+                EditarPersona.idPersona = Convert.ToInt32(dtgAgentes.Rows[e.RowIndex].Cells["id"].Value);
 
                 // Usar el valor del 'id' como desees
                 //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
             }
         }
 
-        private void FrmAdministrarTitulares_Load(object sender, EventArgs e)
-        {
-
-            dtgTitulares.DataSource = personaModel.GetAllTitulares();
-
-            // Ocultar la columna 'id'
-            if (dtgTitulares.Columns["id"] != null)
-            {
-                dtgTitulares.Columns["id"].Visible = false;
-            }
-
-            dtgTitulares.AutoGenerateColumns = true; // Asegurarte de que se generen las columnas automáticamente
-            tabControl1.TabPages.Remove(tabTitularDetail);
-        }
-
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
-            //Eliminar
-            
             // Verificar si hay un titular seleccionado
-            if (dtgTitulares.SelectedRows.Count > 0)
+            if (dtgAgentes.SelectedRows.Count > 0)
             {
                 var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
 
-                // Preguntar si el usuario está seguro de eliminar ese Usuario
-                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al titular '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Preguntar si el usuario está seguro de eliminar ese agente
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al agente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
                     try
                     {
                         // Eliminar el usuario y registrar en el log
-                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
-                        bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación
+                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
-                            MessageBox.Show("Titular eliminado correctamente.");
-                            MostrarTitulares(); // Actualizar la lista de titulares
+                            MessageBox.Show("Agente eliminado correctamente.");
+                            MostrarAgentes(); // Actualizar la lista de agentes
                         }
                         else
                         {
-                            MessageBox.Show("Error al eliminar el titular.");
+                            MessageBox.Show("Error al eliminar el agente.");
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error al intentar eliminar el titular: " + ex.Message);
+                        MessageBox.Show("Error al intentar eliminar el agente: " + ex.Message);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un titular para eliminar.");
+                MessageBox.Show("Por favor, selecciona un agente para eliminar.");
             }
+        }
+
+        private void btnCancelarTit_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageAgenteDetail);
         }
     }
 }

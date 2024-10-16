@@ -65,10 +65,12 @@
             panelLogo = new Panel();
             panel3 = new Panel();
             panel1 = new Panel();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             labelUsername = new Label();
             labelName_LN = new Label();
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelChildForm.SuspendLayout();
             panel2.SuspendLayout();
@@ -694,6 +696,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(19, 12, 70);
+            panel1.Controls.Add(iconButton4);
+            panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(labelUsername);
             panel1.Controls.Add(labelName_LN);
             panel1.Controls.Add(iconPictureBoxUser);
@@ -704,6 +708,22 @@
             panel1.Size = new Size(1181, 100);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Dock = DockStyle.Right;
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
+            iconButton2.IconColor = Color.White;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 40;
+            iconButton2.Location = new Point(1059, 0);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(61, 100);
+            iconButton2.TabIndex = 4;
+            iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click_1;
             // 
             // labelUsername
             // 
@@ -755,6 +775,22 @@
             iconButton3.TabIndex = 0;
             iconButton3.UseVisualStyleBackColor = true;
             iconButton3.Click += iconButton3_Click;
+            // 
+            // iconButton4
+            // 
+            iconButton4.Dock = DockStyle.Right;
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
+            iconButton4.IconColor = Color.White;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 40;
+            iconButton4.Location = new Point(998, 0);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(61, 100);
+            iconButton4.TabIndex = 5;
+            iconButton4.UseVisualStyleBackColor = true;
+            iconButton4.Click += iconButton4_Click_1;
             // 
             // Form1
             // 
@@ -833,6 +869,8 @@
         private Label labelName_LN;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private Panel panel3;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }
 

@@ -23,12 +23,17 @@ namespace Dominio
         }
 
 
-
+        public DataTable GetAllAgentes()
+        {
+            DataTable tabla = new DataTable();
+            tabla = personaDao.GetAllAgentes();
+            return tabla;
+        }
 
         public DataTable GetAllTitulares()
         {
             DataTable tabla = new DataTable();
-            tabla = personaDao.GetAllPersonas();
+            tabla = personaDao.GetAllTitulares();
             return tabla;
         }
 
@@ -42,10 +47,15 @@ namespace Dominio
             return personaDao.UpdatePersona(id, nombre, direccion, nit, pais, correo, telefono, contacto);
         }
 
-        public bool DeletePersona(int personaId, string deletedUser, string deletedBy)
+        public bool DeleteTitular(int personaId, string deletedUser, string deletedBy)
         {
-            return personaDao.RemovePersona(personaId, deletedUser, deletedBy); 
+            return personaDao.RemoveTitular(personaId, deletedUser, deletedBy); 
         }
-        
+
+        public bool DeleteAgente(int personaId, string deletedUser, string deletedBy)
+        {
+            return personaDao.RemoveAgente(personaId, deletedUser, deletedBy);
+        }
+
     }
 }

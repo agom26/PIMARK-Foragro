@@ -117,6 +117,7 @@
             // 
             // iconButton4
             // 
+            iconButton4.Anchor = AnchorStyles.Right;
             iconButton4.BackColor = Color.FromArgb(244, 98, 96);
             iconButton4.FlatAppearance.BorderSize = 0;
             iconButton4.FlatStyle = FlatStyle.Flat;
@@ -136,6 +137,7 @@
             // 
             // iconButton3
             // 
+            iconButton3.Anchor = AnchorStyles.Right;
             iconButton3.BackColor = Color.FromArgb(96, 149, 241);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -155,6 +157,7 @@
             // 
             // iconButton2
             // 
+            iconButton2.Anchor = AnchorStyles.Right;
             iconButton2.BackColor = Color.FromArgb(50, 164, 115);
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
@@ -176,6 +179,7 @@
             // 
             dtgUsuarios.AllowUserToAddRows = false;
             dtgUsuarios.AllowUserToDeleteRows = false;
+            dtgUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dtgUsuarios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgUsuarios.BackgroundColor = Color.White;
@@ -198,7 +202,7 @@
             ibtnBuscar.IconColor = Color.Black;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(985, 58);
+            ibtnBuscar.Location = new Point(816, 58);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 32);
             ibtnBuscar.TabIndex = 3;
@@ -211,7 +215,7 @@
             // 
             txtSearch.Location = new Point(65, 58);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(895, 32);
+            txtSearch.Size = new Size(724, 32);
             txtSearch.TabIndex = 2;
             // 
             // label2
