@@ -131,6 +131,7 @@
             iconButton4.Text = "Eliminar";
             iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click;
             // 
             // iconButton3
             // 

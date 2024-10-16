@@ -37,6 +37,11 @@ namespace Dominio
             userDao.UpdateUser(id, usuario, contrasena, nombres, apellidos, isAdmin, correo);
         }
 
+        public bool RemoveUser(int userId,string deletedUser, string deletedBy )
+        {
+            return userDao.RemoveUser(userId,deletedUser, deletedBy);
+        }
+
         public List<(int id,string usuario, string nombres, string apellidos, string correo, string contrasena, bool isAdmin)> GetByValue(string value)
         {
             return userDao.GetByValue(value);

@@ -156,11 +156,11 @@ namespace Presentacion
                         }
                         else if (iconButton5.Text == "Actualizar")
                         {
-                            
+
                             UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo);
                             MessageBox.Show("Usuario actualizado exitosamente");
                         }
-                        
+
 
                         // Redirigir a tabPage1
                         tabControl1.SelectedTab = tabPage1;
@@ -214,7 +214,7 @@ namespace Presentacion
                     // Por ejemplo, mostrar un formulario para editar el usuario
                     AnadirTabPage(tabPageUserDetail);
                     txtUsername.Text = EditarUsuario.usuario;
-                    txtNombres.Text=EditarUsuario.nombres;
+                    txtNombres.Text = EditarUsuario.nombres;
                     txtApellidos.Text = EditarUsuario.apellidos;
                     txtCorreo.Text = EditarUsuario.correo;
                     txtCont.Text = EditarUsuario.contrasena;
@@ -232,6 +232,50 @@ namespace Presentacion
                 MessageBox.Show("Por favor, selecciona un usuario.");
             }
 
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            //Eliminar
+            //Preguntar si el nombre de usuario esta seguro de eliminar ese Usuario
+            // Verificar si hay un usuario seleccionado
+            if (dtgUsuarios.SelectedRows.Count > 0)
+            {
+                // Obtener el valor de la celda "usuario" y "id" de la fila seleccionada
+                string usuario = dtgUsuarios.CurrentRow.Cells["usuario"].Value.ToString();
+                var userDetails = UserModel.GetByValue(usuario);
+
+                // Preguntar si el usuario está seguro de eliminar ese Usuario
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario+$" ¿Está seguro de que desea eliminar al usuario '{usuario}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Eliminar el usuario y registrar en el log
+                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
+                        bool isDeleted = UserModel.RemoveUser(userDetails[0].id, userDetails[0].usuario, currentUser);
+
+                        if (isDeleted)
+                        {
+                            MessageBox.Show("Usuario eliminado correctamente.");
+                            MostrarUsuarios(); // Actualizar la lista de usuarios
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al eliminar el usuario.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al intentar eliminar el usuario: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un usuario para eliminar.");
+            }
         }
     }
 }

@@ -110,6 +110,44 @@ namespace AccesoDatos.Usuarios
 
         }
 
+        public bool RemoveUser(int userId,string deletedUser, string deletedBy)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Inserta en la tabla de log antes de eliminar al usuario
+                        using (var logCommand = new MySqlCommand("INSERT INTO UserDeletionLog (user, deleted_by) VALUES (@user, @deletedBy)", connection, transaction))
+                        {
+                            logCommand.Parameters.AddWithValue("@user", deletedUser);
+                            logCommand.Parameters.AddWithValue("@deletedBy", deletedBy);
+                            logCommand.ExecuteNonQuery();
+                        }
+
+                        // Elimina el usuario de la tabla USERS
+                        using (var deleteCommand = new MySqlCommand("DELETE FROM USERS WHERE id=@userId", connection, transaction))
+                        {
+                            deleteCommand.Parameters.AddWithValue("@userId", userId);
+                            int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                            // Si se eliminó el usuario, confirma la transacción
+                            transaction.Commit();
+                            return rowsAffected > 0;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // En caso de error, revertir la transacción
+                        transaction.Rollback();
+                        throw new Exception("Error al eliminar el usuario: " + ex.Message);
+                    }
+                }
+            }
+        }
+
         public string solicitarContrasenaUsuario(string usuarioSolicitante)
         {
             using (var connection = GetConnection())
