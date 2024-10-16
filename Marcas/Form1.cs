@@ -95,8 +95,22 @@ namespace Presentacion
         }
 
         private Form activeForm = null;
-        private void openChildForm(Form childForm)
+        private async void openChildForm(Form childForm)
         {
+            // Muestra el formulario de carga
+            LoadingForm loadingForm = new LoadingForm();
+            loadingForm.Show();
+
+            // Ejecuta la tarea de abrir el formulario en un hilo separado
+            await Task.Run(() =>
+            {
+                // Simula una operación de carga (puedes realizar operaciones necesarias aquí)
+                System.Threading.Thread.Sleep(1000); // Simulando una espera de 1 segundo
+            });
+
+            // Cierra el formulario de carga
+            loadingForm.Close();
+
             if (activeForm != null)
                 activeForm.Close();
             activeForm = childForm;

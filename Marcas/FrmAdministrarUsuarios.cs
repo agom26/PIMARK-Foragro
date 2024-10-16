@@ -24,7 +24,8 @@ namespace Presentacion
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
-            
+            this.Load += FrmAdministrarUsuarios_Load; // Mueve la lógica de carga aquí
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -86,9 +87,38 @@ namespace Presentacion
             dtgUsuarios.DataSource = UserModel.GetAllUsers();
         }
 
-        private void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
+        private void LoadUsers()
         {
-            MostrarUsuarios();
+            // Obtiene los usuarios
+            var users = UserModel.GetAllUsers();
+
+            // Invoca el método para actualizar el DataGridView en el hilo principal
+            Invoke(new Action(() =>
+            {
+                dtgUsuarios.DataSource = users;
+
+                // Oculta la columna 'id'
+                if (dtgUsuarios.Columns["id"] != null)
+                {
+                    dtgUsuarios.Columns["id"].Visible = false;
+                }
+            }));
+        }
+
+        private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
+        {
+            // Muestra el formulario de carga
+            using (LoadingForm loadingForm = new LoadingForm())
+            {
+                loadingForm.Show(); // Muestra el loadingForm
+
+                // Cargar usuarios en segundo plano
+                await Task.Run(() => LoadUsers());
+
+                loadingForm.Close(); // Cierra el loadingForm
+            }
+
+            // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageUserDetail);
         }
 

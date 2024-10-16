@@ -22,7 +22,8 @@ namespace Presentacion.Personas
         public FrmAdministrarTitulares()
         {
             InitializeComponent();
-            
+            this.Load += FrmAdministrarTitulares_Load; // Mueve la lógica de carga aquí
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -58,6 +59,25 @@ namespace Presentacion.Personas
             }
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = nombre;
+        }
+
+        private void LoadTitulares()
+        {
+            // Obtiene los usuarios
+            var titulares = personaModel.GetAllTitulares();
+            // Invoca el método para actualizar el DataGridView en el hilo principal
+            Invoke(new Action(() =>
+            {
+                dtgTitulares.DataSource = titulares;
+
+                // Ocultar la columna 'id'
+                if (dtgTitulares.Columns["id"] != null)
+                {
+                    dtgTitulares.Columns["id"].Visible = false;
+                }
+
+                
+            }));
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
@@ -210,18 +230,21 @@ namespace Presentacion.Personas
             }
         }
 
-        private void FrmAdministrarTitulares_Load(object sender, EventArgs e)
+        private async void FrmAdministrarTitulares_Load(object sender, EventArgs e)
         {
 
-            dtgTitulares.DataSource = personaModel.GetAllTitulares();
-
-            // Ocultar la columna 'id'
-            if (dtgTitulares.Columns["id"] != null)
+            // Muestra el formulario de carga
+            using (LoadingForm loadingForm = new LoadingForm())
             {
-                dtgTitulares.Columns["id"].Visible = false;
+                loadingForm.Show(); // Muestra el loadingForm
+
+                // Cargar usuarios en segundo plano
+                await Task.Run(() => LoadTitulares());
+
+                loadingForm.Close(); // Cierra el loadingForm
             }
 
-            dtgTitulares.AutoGenerateColumns = true; // Asegurarte de que se generen las columnas automáticamente
+            // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabTitularDetail);
         }
 

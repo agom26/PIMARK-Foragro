@@ -18,7 +18,8 @@ namespace Presentacion.Personas
         public FrmAdministrarAgentes()
         {
             InitializeComponent();
-            
+            this.Load += FrmAdministrarAgentes_Load; // Mueve la lógica de carga aquí
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -45,6 +46,23 @@ namespace Presentacion.Personas
             {
                 dtgAgentes.Columns["id"].Visible = false;
             }
+        }
+        private void LoadAgentes()
+        {
+            // Obtiene los usuarios
+            var agentes = personaModel.GetAllAgentes();
+
+            // Invoca el método para actualizar el DataGridView en el hilo principal
+            Invoke(new Action(() =>
+            {
+                dtgAgentes.DataSource = agentes;
+
+                // Oculta la columna 'id'
+                if (dtgAgentes.Columns["id"] != null)
+                {
+                    dtgAgentes.Columns["id"].Visible = false;
+                }
+            }));
         }
         private void AnadirTabPage(TabPage nombre)
         {
@@ -152,10 +170,23 @@ namespace Presentacion.Personas
         }
 
 
-        private void FrmAdministrarAgentes_Load(object sender, EventArgs e)
+        private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
-            MostrarAgentes();
+            // Muestra el formulario de carga
+            using (LoadingForm loadingForm = new LoadingForm())
+            {
+                loadingForm.Show(); // Muestra el loadingForm
+
+                // Cargar usuarios en segundo plano
+                await Task.Run(() => LoadAgentes());
+
+                loadingForm.Close(); // Cierra el loadingForm
+            }
+
+            // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageAgenteDetail);
+
+            
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
