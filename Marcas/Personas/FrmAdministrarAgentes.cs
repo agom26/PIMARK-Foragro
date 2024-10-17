@@ -172,16 +172,13 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
-            // Muestra el formulario de carga
-            using (LoadingForm loadingForm = new LoadingForm())
-            {
-                loadingForm.Show(); // Muestra el loadingForm
+            
+            
 
-                // Cargar usuarios en segundo plano
-                await Task.Run(() => LoadAgentes());
+            // Cargar usuarios en segundo plano
+            await Task.Run(() => LoadAgentes());
 
-                loadingForm.Close(); // Cierra el loadingForm
-            }
+             
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageAgenteDetail);

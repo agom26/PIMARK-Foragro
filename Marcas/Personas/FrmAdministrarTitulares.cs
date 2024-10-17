@@ -233,16 +233,11 @@ namespace Presentacion.Personas
         private async void FrmAdministrarTitulares_Load(object sender, EventArgs e)
         {
 
-            // Muestra el formulario de carga
-            using (LoadingForm loadingForm = new LoadingForm())
-            {
-                loadingForm.Show(); // Muestra el loadingForm
+            
 
-                // Cargar usuarios en segundo plano
-                await Task.Run(() => LoadTitulares());
+            // Cargar usuarios en segundo plano
+            await Task.Run(() => LoadTitulares());
 
-                loadingForm.Close(); // Cierra el loadingForm
-            }
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabTitularDetail);

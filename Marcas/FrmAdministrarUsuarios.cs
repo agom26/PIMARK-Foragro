@@ -107,16 +107,12 @@ namespace Presentacion
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
         {
-            // Muestra el formulario de carga
-            using (LoadingForm loadingForm = new LoadingForm())
-            {
-                loadingForm.Show(); // Muestra el loadingForm
+            
+            
+            // Cargar usuarios en segundo plano
+            await Task.Run(() => LoadUsers());
 
-                // Cargar usuarios en segundo plano
-                await Task.Run(() => LoadUsers());
-
-                loadingForm.Close(); // Cierra el loadingForm
-            }
+                
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageUserDetail);
