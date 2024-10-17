@@ -94,10 +94,24 @@ namespace Presentacion
             ShowSubMenu(panelSubMenuPatentes);
         }
 
+        public void DisableButtons()
+        {
+            iconButtonUsuarios.Enabled = false;
+            iconButtonAgentes.Enabled = false;
+            iconButtonTitulares.Enabled = false;
+        }
+
+        public void EnableButtons()
+        {
+            iconButtonUsuarios.Enabled = true;
+            iconButtonAgentes.Enabled = true;
+            iconButtonTitulares.Enabled = true;
+        }
+
         private Form activeForm = null;
         private async void openChildForm(Form childForm)
         {
-           
+
             if (activeForm != null)
                 activeForm.Close();
             activeForm = childForm;
@@ -249,19 +263,38 @@ namespace Presentacion
             }
         }
 
-        private void iconButtonUsuarios_Click(object sender, EventArgs e)
+        private async void iconButtonUsuarios_Click(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmAdministrarUsuarios());
+            // Esperar un breve momento para permitir que se muestre el formulario
+            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+
+            // Habilitar los botones después de un breve retraso
+            EnableButtons();
         }
 
-        private void iconButton8_Click(object sender, EventArgs e)
+        private async void iconButton8_Click(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmAdministrarAgentes());
+            // Esperar un breve momento para permitir que se muestre el formulario
+            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+
+            // Habilitar los botones después de un breve retraso
+            EnableButtons();
+            
         }
 
-        private void iconButton9_Click(object sender, EventArgs e)
+        private async void iconButton9_Click(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmAdministrarTitulares());
+            // Esperar un breve momento para permitir que se muestre el formulario
+            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+
+            // Habilitar los botones después de un breve retraso
+            EnableButtons();
         }
 
         private void iconButton2_Click_1(object sender, EventArgs e)
@@ -286,7 +319,18 @@ namespace Presentacion
 
         private void iconButton4_Click_1(object sender, EventArgs e)
         {
-            this.WindowState=FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+                activeForm = null;
+            }
+
+            
         }
     }
 }

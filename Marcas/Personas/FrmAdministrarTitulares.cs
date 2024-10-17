@@ -18,6 +18,7 @@ namespace Presentacion.Personas
 {
     public partial class FrmAdministrarTitulares : Form
     {
+        public event Action OnLoadTitulares;
         PersonaModel personaModel = new PersonaModel();
         public FrmAdministrarTitulares()
         {
@@ -61,22 +62,24 @@ namespace Presentacion.Personas
             tabControl1.SelectedTab = nombre;
         }
 
+
         private void LoadTitulares()
         {
+            
+
             // Obtiene los usuarios
             var titulares = personaModel.GetAllTitulares();
-            // Invoca el método para actualizar el DataGridView en el hilo principal
+
             Invoke(new Action(() =>
             {
                 dtgTitulares.DataSource = titulares;
 
-                // Ocultar la columna 'id'
                 if (dtgTitulares.Columns["id"] != null)
                 {
                     dtgTitulares.Columns["id"].Visible = false;
                 }
 
-                
+               
             }));
         }
 
