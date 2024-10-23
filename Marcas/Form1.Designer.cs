@@ -30,10 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelChildForm = new Panel();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            iconButton7 = new FontAwesome.Sharp.IconButton();
-            iconButton11 = new FontAwesome.Sharp.IconButton();
-            iconButton14 = new FontAwesome.Sharp.IconButton();
             panel2 = new Panel();
             iconButtonLogout = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -74,8 +70,6 @@
             labelName_LN = new Label();
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            panelChildForm.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
             panel2.SuspendLayout();
             panelSubMenuPatentes.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
@@ -87,61 +81,15 @@
             // 
             // panelChildForm
             // 
-            panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             panelChildForm.AutoScroll = true;
-            panelChildForm.Controls.Add(flowLayoutPanel2);
+            panelChildForm.BackColor = Color.White;
             panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panelChildForm.Location = new Point(300, 106);
+            panelChildForm.Location = new Point(306, 106);
             panelChildForm.Name = "panelChildForm";
             panelChildForm.Size = new Size(1169, 794);
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.Controls.Add(iconButton7);
-            flowLayoutPanel2.Controls.Add(iconButton11);
-            flowLayoutPanel2.Controls.Add(iconButton14);
-            flowLayoutPanel2.Location = new Point(6, 610);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(1166, 172);
-            flowLayoutPanel2.TabIndex = 1;
-            // 
-            // iconButton7
-            // 
-            iconButton7.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton7.IconColor = Color.Black;
-            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton7.Location = new Point(3, 3);
-            iconButton7.Name = "iconButton7";
-            iconButton7.Size = new Size(395, 169);
-            iconButton7.TabIndex = 3;
-            iconButton7.Text = "Busqueda";
-            iconButton7.UseVisualStyleBackColor = true;
-            // 
-            // iconButton11
-            // 
-            iconButton11.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton11.IconColor = Color.Black;
-            iconButton11.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton11.Location = new Point(404, 3);
-            iconButton11.Name = "iconButton11";
-            iconButton11.Size = new Size(383, 169);
-            iconButton11.TabIndex = 4;
-            iconButton11.Text = "Reportes";
-            iconButton11.UseVisualStyleBackColor = true;
-            // 
-            // iconButton14
-            // 
-            iconButton14.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton14.IconColor = Color.Black;
-            iconButton14.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton14.Location = new Point(793, 3);
-            iconButton14.Name = "iconButton14";
-            iconButton14.Size = new Size(367, 169);
-            iconButton14.TabIndex = 5;
-            iconButton14.Text = "Busqueda 2";
-            iconButton14.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -839,7 +787,7 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gainsboro;
+            BackColor = Color.White;
             ClientSize = new Size(1481, 900);
             ControlBox = false;
             Controls.Add(panel1);
@@ -855,8 +803,6 @@
             Load += Form1_Load;
             ResizeEnd += Form1_ResizeEnd;
             Resize += Form1_Resize;
-            panelChildForm.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panelSubMenuPatentes.ResumeLayout(false);
@@ -914,10 +860,6 @@
         private Panel panel3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton4;
-        private FlowLayoutPanel flowLayoutPanel2;
-        private FontAwesome.Sharp.IconButton iconButton7;
-        private FontAwesome.Sharp.IconButton iconButton11;
-        private FontAwesome.Sharp.IconButton iconButton14;
     }
 }
 
