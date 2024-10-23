@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Comun;
 using Comun.Cache;
 using Presentacion.Personas;
+using Presentacion.Marcas_Nacionales;
 
 namespace Presentacion
 {
@@ -108,7 +109,17 @@ namespace Presentacion
             iconButtonTitulares.Enabled = true;
         }
 
+
+
         private Form activeForm = null;
+        private void FormResize()
+        {
+            if (activeForm != null)
+            {
+                activeForm.WindowState = FormWindowState.Normal;
+                activeForm.WindowState = FormWindowState.Maximized;
+            }
+        }
         private async void openChildForm(Form childForm)
         {
 
@@ -268,7 +279,7 @@ namespace Presentacion
             DisableButtons();
             openChildForm(new FrmAdministrarUsuarios());
             // Esperar un breve momento para permitir que se muestre el formulario
-            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+            await Task.Delay(1000);
 
             // Habilitar los botones después de un breve retraso
             EnableButtons();
@@ -279,11 +290,11 @@ namespace Presentacion
             DisableButtons();
             openChildForm(new FrmAdministrarAgentes());
             // Esperar un breve momento para permitir que se muestre el formulario
-            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+            await Task.Delay(1000);
 
             // Habilitar los botones después de un breve retraso
             EnableButtons();
-            
+
         }
 
         private async void iconButton9_Click(object sender, EventArgs e)
@@ -291,9 +302,9 @@ namespace Presentacion
             DisableButtons();
             openChildForm(new FrmAdministrarTitulares());
             // Esperar un breve momento para permitir que se muestre el formulario
-            await Task.Delay(1000); // Puedes ajustar este tiempo según lo necesites
+            await Task.Delay(1000);
 
-            // Habilitar los botones después de un breve retraso
+            // Habilitar los botones
             EnableButtons();
         }
 
@@ -314,6 +325,7 @@ namespace Presentacion
                 // Cambia el icono a restaurar
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowRestore; // Cambia a icono de restaurar
             }
+            //FormResize();
 
         }
 
@@ -330,7 +342,20 @@ namespace Presentacion
                 activeForm = null;
             }
 
-            
+
+        }
+
+        private async void button26_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmTramiteInicial());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            //FormResize();
         }
     }
 }

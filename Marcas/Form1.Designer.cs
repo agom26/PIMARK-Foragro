@@ -34,13 +34,6 @@
             iconButton7 = new FontAwesome.Sharp.IconButton();
             iconButton11 = new FontAwesome.Sharp.IconButton();
             iconButton14 = new FontAwesome.Sharp.IconButton();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            flowLayoutPanel3 = new FlowLayoutPanel();
-            dataGridView1 = new DataGridView();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
-            flowLayoutPanel4 = new FlowLayoutPanel();
-            dataGridView2 = new DataGridView();
-            iconButton6 = new FontAwesome.Sharp.IconButton();
             panel2 = new Panel();
             iconButtonLogout = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -83,11 +76,6 @@
             iconButton3 = new FontAwesome.Sharp.IconButton();
             panelChildForm.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            flowLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            flowLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             panel2.SuspendLayout();
             panelSubMenuPatentes.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
@@ -101,7 +89,6 @@
             // 
             panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelChildForm.Controls.Add(flowLayoutPanel2);
-            panelChildForm.Controls.Add(flowLayoutPanel1);
             panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panelChildForm.Location = new Point(300, 106);
             panelChildForm.Name = "panelChildForm";
@@ -154,77 +141,6 @@
             iconButton14.TabIndex = 5;
             iconButton14.Text = "Busqueda 2";
             iconButton14.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Controls.Add(flowLayoutPanel3);
-            flowLayoutPanel1.Controls.Add(flowLayoutPanel4);
-            flowLayoutPanel1.Location = new Point(3, 3);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1166, 601);
-            flowLayoutPanel1.TabIndex = 0;
-            // 
-            // flowLayoutPanel3
-            // 
-            flowLayoutPanel3.Controls.Add(dataGridView1);
-            flowLayoutPanel3.Controls.Add(iconButton5);
-            flowLayoutPanel3.Location = new Point(3, 3);
-            flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(1166, 360);
-            flowLayoutPanel3.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.BackgroundColor = Color.Gainsboro;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(3, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1160, 294);
-            dataGridView1.TabIndex = 0;
-            // 
-            // iconButton5
-            // 
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton5.IconColor = Color.Black;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.Location = new Point(3, 303);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(395, 51);
-            iconButton5.TabIndex = 1;
-            iconButton5.Text = "Ver vencimientos de marcas";
-            iconButton5.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel4
-            // 
-            flowLayoutPanel4.Controls.Add(dataGridView2);
-            flowLayoutPanel4.Controls.Add(iconButton6);
-            flowLayoutPanel4.Location = new Point(3, 369);
-            flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Size = new Size(1166, 232);
-            flowLayoutPanel4.TabIndex = 2;
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.BackgroundColor = Color.Gainsboro;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(3, 3);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(1160, 163);
-            dataGridView2.TabIndex = 1;
-            // 
-            // iconButton6
-            // 
-            iconButton6.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton6.IconColor = Color.Black;
-            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton6.Location = new Point(3, 172);
-            iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(395, 51);
-            iconButton6.TabIndex = 2;
-            iconButton6.Text = "Ver vencimientos de patentes";
-            iconButton6.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -701,6 +617,7 @@
             button26.Text = "Trámite inicial";
             button26.TextAlign = ContentAlignment.MiddleLeft;
             button26.UseVisualStyleBackColor = false;
+            button26.Click += button26_Click;
             // 
             // iconButton10
             // 
@@ -935,13 +852,9 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PIMARK";
             Load += Form1_Load;
+            ResizeEnd += Form1_ResizeEnd;
             panelChildForm.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            flowLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panelSubMenuPatentes.ResumeLayout(false);
@@ -1000,13 +913,6 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FlowLayoutPanel flowLayoutPanel2;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private FlowLayoutPanel flowLayoutPanel3;
-        private FlowLayoutPanel flowLayoutPanel4;
-        private DataGridView dataGridView1;
-        private FontAwesome.Sharp.IconButton iconButton5;
-        private DataGridView dataGridView2;
-        private FontAwesome.Sharp.IconButton iconButton6;
         private FontAwesome.Sharp.IconButton iconButton7;
         private FontAwesome.Sharp.IconButton iconButton11;
         private FontAwesome.Sharp.IconButton iconButton14;
