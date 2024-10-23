@@ -88,6 +88,7 @@
             // panelChildForm
             // 
             panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelChildForm.AutoScroll = true;
             panelChildForm.Controls.Add(flowLayoutPanel2);
             panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panelChildForm.Location = new Point(300, 106);
@@ -853,6 +854,7 @@
             Text = "PIMARK";
             Load += Form1_Load;
             ResizeEnd += Form1_ResizeEnd;
+            Resize += Form1_Resize;
             panelChildForm.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
             panel2.ResumeLayout(false);

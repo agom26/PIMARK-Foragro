@@ -32,6 +32,8 @@ namespace Presentacion
             {
                 iconButtonUsuarios.Visible = false; //No mostrarlo si no son admin
             }
+
+            
         }
 
         private void CustomizeDesign()
@@ -81,7 +83,7 @@ namespace Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
-            ;
+            
 
         }
 
@@ -112,14 +114,7 @@ namespace Presentacion
 
 
         private Form activeForm = null;
-        private void FormResize()
-        {
-            if (activeForm != null)
-            {
-                activeForm.WindowState = FormWindowState.Normal;
-                activeForm.WindowState = FormWindowState.Maximized;
-            }
-        }
+        
         private async void openChildForm(Form childForm)
         {
 
@@ -128,7 +123,7 @@ namespace Presentacion
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
+            //childForm.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
@@ -354,6 +349,11 @@ namespace Presentacion
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            //FormResize();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
         {
             //FormResize();
         }
