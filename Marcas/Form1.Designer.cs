@@ -83,6 +83,7 @@
             // 
             panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             panelChildForm.AutoScroll = true;
+            panelChildForm.AutoSize = true;
             panelChildForm.BackColor = Color.White;
             panelChildForm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panelChildForm.Location = new Point(306, 106);
@@ -787,6 +788,7 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.White;
             ClientSize = new Size(1481, 900);
             ControlBox = false;
@@ -816,6 +818,7 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -114,8 +114,16 @@ namespace Presentacion
 
 
         private Form activeForm = null;
-        
-        private async void openChildForm(Form childForm)
+
+        private void FormResize()
+        {
+            if (activeForm != null)
+            {
+                activeForm.WindowState = FormWindowState.Normal;
+                activeForm.WindowState = FormWindowState.Maximized;
+            }
+        }
+        private void openChildForm(Form childForm)
         {
 
             if (activeForm != null)
@@ -124,6 +132,7 @@ namespace Presentacion
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             //childForm.Dock = DockStyle.Fill;
+            panelChildForm.AutoScroll = true;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
@@ -320,7 +329,7 @@ namespace Presentacion
                 // Cambia el icono a restaurar
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowRestore; // Cambia a icono de restaurar
             }
-            //FormResize();
+            FormResize();
 
         }
 
@@ -343,19 +352,19 @@ namespace Presentacion
         private async void button26_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmTramiteInicial());
+            openChildForm(new FrmTramiteIn());
             await Task.Delay(1000);
             EnableButtons();
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            //FormResize();
+            FormResize();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            //FormResize();
+            FormResize();
         }
     }
 }
