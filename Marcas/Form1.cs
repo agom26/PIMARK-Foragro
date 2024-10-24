@@ -137,6 +137,7 @@ namespace Presentacion
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            FormResize();
         }
 
         private void buttonMarcas_Click(object sender, EventArgs e)

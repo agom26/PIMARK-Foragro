@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmTramiteInicial : Form
+    public partial class FrmMostrarTitulares : Form
     {
-        public FrmTramiteInicial()
+        public FrmMostrarTitulares()
         {
             InitializeComponent();
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
