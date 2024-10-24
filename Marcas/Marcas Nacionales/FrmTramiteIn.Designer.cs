@@ -110,7 +110,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(-18, 60);
+            panel1.Location = new Point(-38, 60);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1266);
             panel1.TabIndex = 0;
@@ -274,6 +274,7 @@
             roundedButton2.Text = "+ AGENTE";
             roundedButton2.TextColor = Color.Black;
             roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click;
             // 
             // textBox9
             // 
@@ -347,6 +348,7 @@
             roundedButton1.Text = "+ TITULAR";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
             // 
             // iconButton2
             // 

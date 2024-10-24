@@ -16,5 +16,18 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
         }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+        }
+
+        private void roundedButton2_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentes frmMostrarAgentes= new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
+
+        }
     }
 }
