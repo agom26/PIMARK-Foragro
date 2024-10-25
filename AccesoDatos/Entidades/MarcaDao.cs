@@ -8,22 +8,25 @@ using System.Threading.Tasks;
 namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
-    {/*
-        public bool AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, string imagen, string idPersonaTitular)
+    {
+        public bool AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado)
         {
             using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
             {
                 connection.Open();
-                using (var command = new MySqlCommand("INSERT INTO Personas (nombre, direccion, nit, pais, correo, telefono, nombre_contacto, tipo) VALUES (@nombre, @direccion, @nit, @pais, @correo, @telefono, @nombreContacto, @tipo)", connection))
+                using (var command = new MySqlCommand("INSERT INTO Marcas (expediente, nombre, signo_distintivo, clase, folio, libro, logo, idTitular, idAgente, fecha_solicitud, estado,tipo) VALUES (@expediente, @nombre, @signoDistintivo, @clase, @folio, @libro, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, @estado,'nacional')", connection))
                 {
+                    command.Parameters.AddWithValue("@expediente", expediente);
                     command.Parameters.AddWithValue("@nombre", nombre);
-                    command.Parameters.AddWithValue("@direccion", direccion);
-                    command.Parameters.AddWithValue("@nit", nit);
-                    command.Parameters.AddWithValue("@pais", pais);
-                    command.Parameters.AddWithValue("@correo", correo);
-                    command.Parameters.AddWithValue("@telefono", telefono);
-                    command.Parameters.AddWithValue("@nombreContacto", nombreContacto);
-                    command.Parameters.AddWithValue("@tipo", tipo);  // Debe ser 'titular' o 'agente'
+                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@clase", clase);
+                    command.Parameters.AddWithValue("@folio", folio);
+                    command.Parameters.AddWithValue("@libro", libro);
+                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("@estado", estado);
 
                     // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
@@ -32,6 +35,6 @@ namespace AccesoDatos.Entidades
                     return rowsAffected > 0;
                 }
             }
-        }*/
+        }
     }
 }

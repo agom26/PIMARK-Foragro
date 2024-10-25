@@ -34,11 +34,11 @@
             roundedButton3 = new Clases.RoundedButton();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
-            comboBox1 = new ComboBox();
+            cmbEstado = new ComboBox();
             label15 = new Label();
             textBox11 = new TextBox();
             label14 = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            datePickerFechaSolicitud = new DateTimePicker();
             label13 = new Label();
             txtNombreAgente = new TextBox();
             label12 = new Label();
@@ -54,17 +54,17 @@
             iconButton1 = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             label8 = new Label();
-            textBox5 = new TextBox();
+            txtLibro = new TextBox();
             label6 = new Label();
-            textBox6 = new TextBox();
+            txtFolio = new TextBox();
             label7 = new Label();
-            textBox4 = new TextBox();
+            txtSignoDistintivo = new TextBox();
             label5 = new Label();
-            textBox3 = new TextBox();
+            txtClase = new TextBox();
             label4 = new Label();
-            textBox2 = new TextBox();
+            txtNombre = new TextBox();
             label3 = new Label();
-            textBox1 = new TextBox();
+            txtExpediente = new TextBox();
             label2 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -78,11 +78,11 @@
             panel1.Controls.Add(roundedButton3);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(cmbEstado);
             panel1.Controls.Add(label15);
             panel1.Controls.Add(textBox11);
             panel1.Controls.Add(label14);
-            panel1.Controls.Add(dateTimePicker1);
+            panel1.Controls.Add(datePickerFechaSolicitud);
             panel1.Controls.Add(label13);
             panel1.Controls.Add(txtNombreAgente);
             panel1.Controls.Add(label12);
@@ -98,19 +98,19 @@
             panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(textBox5);
+            panel1.Controls.Add(txtLibro);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(textBox6);
+            panel1.Controls.Add(txtFolio);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(textBox4);
+            panel1.Controls.Add(txtSignoDistintivo);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(textBox3);
+            panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(txtNombre);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(19, 45);
+            panel1.Location = new Point(-1, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1266);
             panel1.TabIndex = 0;
@@ -143,6 +143,7 @@
             roundedButton4.Text = "Guardar";
             roundedButton4.TextColor = Color.Black;
             roundedButton4.UseVisualStyleBackColor = false;
+            roundedButton4.Click += roundedButton4_Click;
             // 
             // roundedButton3
             // 
@@ -181,15 +182,15 @@
             label16.TabIndex = 32;
             label16.Text = "Observaciones";
             // 
-            // comboBox1
+            // cmbEstado
             // 
-            comboBox1.Anchor = AnchorStyles.None;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
-            comboBox1.Location = new Point(384, 911);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(472, 31);
-            comboBox1.TabIndex = 31;
+            cmbEstado.Anchor = AnchorStyles.None;
+            cmbEstado.FormattingEnabled = true;
+            cmbEstado.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
+            cmbEstado.Location = new Point(384, 911);
+            cmbEstado.Name = "cmbEstado";
+            cmbEstado.Size = new Size(472, 31);
+            cmbEstado.TabIndex = 31;
             // 
             // label15
             // 
@@ -219,14 +220,14 @@
             label14.TabIndex = 28;
             label14.Text = "Etapa actual";
             // 
-            // dateTimePicker1
+            // datePickerFechaSolicitud
             // 
-            dateTimePicker1.Anchor = AnchorStyles.None;
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(65, 833);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 32);
-            dateTimePicker1.TabIndex = 27;
+            datePickerFechaSolicitud.Anchor = AnchorStyles.None;
+            datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
+            datePickerFechaSolicitud.Location = new Point(65, 833);
+            datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
+            datePickerFechaSolicitud.Size = new Size(250, 32);
+            datePickerFechaSolicitud.TabIndex = 27;
             // 
             // label13
             // 
@@ -405,13 +406,13 @@
             label8.TabIndex = 12;
             label8.Text = "Imagen";
             // 
-            // textBox5
+            // txtLibro
             // 
-            textBox5.Anchor = AnchorStyles.None;
-            textBox5.Location = new Point(411, 284);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(280, 32);
-            textBox5.TabIndex = 11;
+            txtLibro.Anchor = AnchorStyles.None;
+            txtLibro.Location = new Point(411, 284);
+            txtLibro.Name = "txtLibro";
+            txtLibro.Size = new Size(280, 32);
+            txtLibro.TabIndex = 11;
             // 
             // label6
             // 
@@ -423,13 +424,13 @@
             label6.TabIndex = 10;
             label6.Text = "Libro";
             // 
-            // textBox6
+            // txtFolio
             // 
-            textBox6.Anchor = AnchorStyles.None;
-            textBox6.Location = new Point(65, 284);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(280, 32);
-            textBox6.TabIndex = 9;
+            txtFolio.Anchor = AnchorStyles.None;
+            txtFolio.Location = new Point(65, 284);
+            txtFolio.Name = "txtFolio";
+            txtFolio.Size = new Size(280, 32);
+            txtFolio.TabIndex = 9;
             // 
             // label7
             // 
@@ -441,13 +442,13 @@
             label7.TabIndex = 8;
             label7.Text = "Folio";
             // 
-            // textBox4
+            // txtSignoDistintivo
             // 
-            textBox4.Anchor = AnchorStyles.None;
-            textBox4.Location = new Point(411, 205);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(280, 32);
-            textBox4.TabIndex = 7;
+            txtSignoDistintivo.Anchor = AnchorStyles.None;
+            txtSignoDistintivo.Location = new Point(411, 205);
+            txtSignoDistintivo.Name = "txtSignoDistintivo";
+            txtSignoDistintivo.Size = new Size(280, 32);
+            txtSignoDistintivo.TabIndex = 7;
             // 
             // label5
             // 
@@ -459,13 +460,13 @@
             label5.TabIndex = 6;
             label5.Text = "Signo distintivo";
             // 
-            // textBox3
+            // txtClase
             // 
-            textBox3.Anchor = AnchorStyles.None;
-            textBox3.Location = new Point(65, 205);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(280, 32);
-            textBox3.TabIndex = 5;
+            txtClase.Anchor = AnchorStyles.None;
+            txtClase.Location = new Point(65, 205);
+            txtClase.Name = "txtClase";
+            txtClase.Size = new Size(280, 32);
+            txtClase.TabIndex = 5;
             // 
             // label4
             // 
@@ -477,13 +478,13 @@
             label4.TabIndex = 4;
             label4.Text = "Clase";
             // 
-            // textBox2
+            // txtNombre
             // 
-            textBox2.Anchor = AnchorStyles.None;
-            textBox2.Location = new Point(65, 131);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(626, 32);
-            textBox2.TabIndex = 3;
+            txtNombre.Anchor = AnchorStyles.None;
+            txtNombre.Location = new Point(65, 131);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(626, 32);
+            txtNombre.TabIndex = 3;
             // 
             // label3
             // 
@@ -495,13 +496,13 @@
             label3.TabIndex = 2;
             label3.Text = "Nombre";
             // 
-            // textBox1
+            // txtExpediente
             // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(65, 55);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(280, 32);
-            textBox1.TabIndex = 1;
+            txtExpediente.Anchor = AnchorStyles.None;
+            txtExpediente.Location = new Point(65, 55);
+            txtExpediente.Name = "txtExpediente";
+            txtExpediente.Size = new Size(280, 32);
+            txtExpediente.TabIndex = 1;
             // 
             // label2
             // 
@@ -537,19 +538,19 @@
 
         private Panel panel1;
         private Label label1;
-        private TextBox textBox3;
+        private TextBox txtClase;
         private Label label4;
-        private TextBox textBox2;
+        private TextBox txtNombre;
         private Label label3;
-        private TextBox textBox1;
+        private TextBox txtExpediente;
         private Label label2;
-        private TextBox textBox4;
+        private TextBox txtSignoDistintivo;
         private Label label5;
         private PictureBox pictureBox1;
         private Label label8;
-        private TextBox textBox5;
+        private TextBox txtLibro;
         private Label label6;
-        private TextBox textBox6;
+        private TextBox txtFolio;
         private Label label7;
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
@@ -562,12 +563,12 @@
         private Label label9;
         private TextBox textBox11;
         private Label label14;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker datePickerFechaSolicitud;
         private Label label13;
         private TextBox txtNombreAgente;
         private Label label12;
         private Clases.RoundedButton roundedButton2;
-        private ComboBox comboBox1;
+        private ComboBox cmbEstado;
         private Label label15;
         private Clases.RoundedButton roundedButton4;
         private Clases.RoundedButton roundedButton3;

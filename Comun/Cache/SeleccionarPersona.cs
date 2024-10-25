@@ -8,7 +8,8 @@ namespace Comun.Cache
 {
     public static class SeleccionarPersona
     {
-        public static int idPersona;
+        public static int idPersonaT;
+        public static int idPersonaA;
         public static string nombre;
         public static string direccion;
         public static string nit;

@@ -23,7 +23,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersona = 0;
+            SeleccionarPersona.idPersonaT = 0;
             this.Close();
         }
 
@@ -66,7 +66,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersona = 0;
+            SeleccionarPersona.idPersonaT = 0;
             this.Close();
         }
 
@@ -112,7 +112,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarPersona.idPersona = id;
+                    SeleccionarPersona.idPersonaT = id;
 
                     var detallesTitular = personaModel.GetPersonaById(id);
 

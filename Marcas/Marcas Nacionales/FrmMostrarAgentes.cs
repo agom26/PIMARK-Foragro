@@ -64,13 +64,13 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersona = 0;
+            SeleccionarPersona.idPersonaA = 0;
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersona = 0;
+            SeleccionarPersona.idPersonaA = 0;
             this.Close();
         }
 
@@ -113,7 +113,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarPersona.idPersona = id;
+                    SeleccionarPersona.idPersonaA = id;
 
                     // Obtén los detalles de la persona utilizando el ID
                     var detallesAgente = personaModel.GetPersonaById(id);
@@ -128,7 +128,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarPersona.nit = detallesAgente[0].nit;
                         SeleccionarPersona.telefono = detallesAgente[0].telefono;
 
-                        MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
+                        //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
                     }
                     else
                     {

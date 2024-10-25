@@ -1,4 +1,6 @@
 ﻿using Comun.Cache;
+using Dominio;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +15,77 @@ namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmTramiteIn : Form
     {
+        MarcaModel marcaModel=new MarcaModel();
+        
         public FrmTramiteIn()
         {
             InitializeComponent();
         }
+
+        public void GuardarMarcaNacional()
+        {
+            string expediente=txtExpediente.Text;
+            string nombre=txtNombre.Text;
+            string clase=txtClase.Text;
+            string signoDistintivo=txtSignoDistintivo.Text;
+            string folio=txtFolio.Text;
+            string libro=txtLibro.Text;
+            byte[] logo = null;
+            int idTitular=SeleccionarPersona.idPersonaT;
+            int idAgente = SeleccionarPersona.idPersonaA;
+            DateTime solicitud=datePickerFechaSolicitud.Value;
+            string estado = cmbEstado.SelectedItem?.ToString(); // Mejor usar SelectedItem
+
+            if (estado == null)
+            {
+                // Manejar el caso en que no hay un estado seleccionado
+                MessageBox.Show("Por favor, selecciona un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (pictureBox1.Image != null) // Verificar que hay una imagen
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png); // Guarda la imagen en el MemoryStream
+                    logo = ms.ToArray(); // Convierte el MemoryStream a byte[]
+                }
+            }
+
+            bool resultado=marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, folio, libro,logo, idTitular, idAgente, solicitud, estado);
+            if (resultado)
+            {
+                MessageBox.Show("Marca nacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void LimpiarFormulario()
+        {
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            txtClase.Text = "";
+            txtSignoDistintivo.Text = "";
+            txtFolio.Text = "";
+            txtLibro.Text = "";
+            pictureBox1.Image = null;
+            txtNombreTitular.Text = "";
+            txtDireccionTitular.Text = "";
+            txtEntidadTitular.Text = "";
+            txtNombreAgente.Text = "";
+            datePickerFechaSolicitud.Value = DateTime.Now;
+            cmbEstado.SelectedIndex = 0;
+        }
+        
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
             FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
             frmMostrarTitulares.ShowDialog();
 
-            if (SeleccionarPersona.idPersona != 0)
+            if (SeleccionarPersona.idPersonaT != 0)
             {
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
                 txtDireccionTitular.Text = SeleccionarPersona.direccion;
@@ -36,10 +98,10 @@ namespace Presentacion.Marcas_Nacionales
             FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
             frmMostrarAgentes.ShowDialog();
 
-            if (SeleccionarPersona.idPersona != 0)
+            if (SeleccionarPersona.idPersonaA != 0)
             {
                 txtNombreAgente.Text = SeleccionarPersona.nombre;
-                
+
             }
 
         }
@@ -59,6 +121,12 @@ namespace Presentacion.Marcas_Nacionales
         {
             //Borrar foto del usuario
             pictureBox1.Image = null;
+        }
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+            GuardarMarcaNacional();
+            LimpiarFormulario();
         }
     }
 }
