@@ -188,13 +188,16 @@
             ibtnBuscar.Text = "Buscar";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnBuscar.UseVisualStyleBackColor = false;
+            ibtnBuscar.Click += ibtnBuscar_Click;
             // 
             // dtgAgentes
             // 
             dtgAgentes.AllowUserToAddRows = false;
             dtgAgentes.AllowUserToDeleteRows = false;
+            dtgAgentes.AllowUserToOrderColumns = true;
+            dtgAgentes.AllowUserToResizeRows = false;
             dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgAgentes.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgAgentes.BackgroundColor = Color.White;
             dtgAgentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;

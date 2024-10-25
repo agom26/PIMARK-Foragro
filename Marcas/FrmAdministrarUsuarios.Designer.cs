@@ -195,6 +195,7 @@
             dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgUsuarios.Size = new Size(778, 340);
             dtgUsuarios.TabIndex = 4;
+            dtgUsuarios.CellContentClick += dtgUsuarios_CellContentClick;
             // 
             // ibtnBuscar
             // 

@@ -36,7 +36,7 @@
             iconButton2 = new FontAwesome.Sharp.IconButton();
             dtgTitulares = new DataGridView();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            textBox1 = new TextBox();
+            txtBuscar = new TextBox();
             panel2 = new Panel();
             button1 = new Button();
             panel1.SuspendLayout();
@@ -57,7 +57,7 @@
             panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(dtgTitulares);
             panel1.Controls.Add(iconButton1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtBuscar);
             panel1.Location = new Point(12, 31);
             panel1.Name = "panel1";
             panel1.Size = new Size(1071, 500);
@@ -80,6 +80,7 @@
             iconButton3.Text = "Seleccionar";
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
+            iconButton3.Click += iconButton3_Click;
             // 
             // iconButton2
             // 
@@ -157,12 +158,12 @@
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
             // 
-            // textBox1
+            // txtBuscar
             // 
-            textBox1.Location = new Point(47, 44);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(823, 32);
-            textBox1.TabIndex = 0;
+            txtBuscar.Location = new Point(47, 44);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(823, 32);
+            txtBuscar.TabIndex = 0;
             // 
             // panel2
             // 
@@ -214,7 +215,7 @@
         private MySql.Data.MySqlClient.MySqlCommand mySqlCommand1;
         private Panel panel1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private TextBox textBox1;
+        private TextBox txtBuscar;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private DataGridView dtgTitulares;

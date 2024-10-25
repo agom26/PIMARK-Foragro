@@ -45,6 +45,9 @@ namespace Presentacion.Personas
             if (dtgAgentes.Columns["id"] != null)
             {
                 dtgAgentes.Columns["id"].Visible = false;
+
+                // Desactiva la selección automática de la primera fila
+                dtgAgentes.ClearSelection();
             }
         }
         private void LoadAgentes()
@@ -61,6 +64,8 @@ namespace Presentacion.Personas
                 if (dtgAgentes.Columns["id"] != null)
                 {
                     dtgAgentes.Columns["id"].Visible = false;
+                    // Desactiva la selección automática de la primera fila
+                    dtgAgentes.ClearSelection();
                 }
             }));
         }
@@ -287,6 +292,11 @@ namespace Presentacion.Personas
         }
 
         private void dtgAgentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
         {
 
         }

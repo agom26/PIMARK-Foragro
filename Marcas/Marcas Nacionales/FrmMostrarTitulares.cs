@@ -23,6 +23,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
+            SeleccionarPersona.idPersona = 0;
             this.Close();
         }
 
@@ -33,6 +34,8 @@ namespace Presentacion.Marcas_Nacionales
             if (dtgTitulares.Columns["id"] != null)
             {
                 dtgTitulares.Columns["id"].Visible = false;
+                // Desactiva la selección automática de la primera fila
+                dtgTitulares.ClearSelection();
             }
         }
 
@@ -63,24 +66,81 @@ namespace Presentacion.Marcas_Nacionales
 
         private void button1_Click(object sender, EventArgs e)
         {
+            SeleccionarPersona.idPersona = 0;
             this.Close();
         }
 
         private void dtgTitulares_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
-            {
-                // Obtener el valor del 'id' de la fila seleccionada
-                SeleccionarPersona.idPersona = Convert.ToInt32(dtgTitulares.Rows[e.RowIndex].Cells["id"].Value);
-
-                // Usar el valor del 'id' como desees
-                //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
-            }
+            
+            
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            
+            string valor = "%" + txtBuscar.Text + "%";
+            var titulares = personaModel.GetTitularByValue(valor);
+
+            if (titulares != null)
+            {
+                dtgTitulares.DataSource = titulares;
+                if (dtgTitulares.Columns["id"] != null)
+                {
+                    dtgTitulares.Columns["id"].Visible = false;
+                    dtgTitulares.Columns["tipo"].Visible = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron resultados para la búsqueda.");
+            }
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            if (dtgTitulares.RowCount <= 0)
+            {
+                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (dtgTitulares.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
+            {
+                // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
+                var filaSeleccionada = dtgTitulares.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarPersona.idPersona = id;
+
+                    var detallesTitular = personaModel.GetPersonaById(id);
+
+                    if (detallesTitular.Count > 0)
+                    {
+                        //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
+
+                        // Asignar los valores obtenidos a la clase SeleccionarPersona
+                        SeleccionarPersona.nombre = detallesTitular[0].nombre;
+                        SeleccionarPersona.direccion = detallesTitular[0].direccion;
+                        SeleccionarPersona.correo = detallesTitular[0].correo;
+                        SeleccionarPersona.contacto = detallesTitular[0].contacto;
+                        SeleccionarPersona.pais = detallesTitular[0].pais;
+                        SeleccionarPersona.nit = detallesTitular[0].nit;
+                        SeleccionarPersona.telefono = detallesTitular[0].telefono;
+
+                        this.Close(); // Cierra el formulario si todo fue correcto
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del titular", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

@@ -21,11 +21,15 @@ namespace Dominio
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
             return personaDao.GetById(id);
         }
-
-        public DataTable GetPersonaByValue(string value)
+        public DataTable GetTitularByValue(string value)
         {
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
-            return personaDao.GetPersonaByValue(value);
+            return personaDao.GetTitularByValue(value);
+        }
+        public DataTable GetAgenteByValue(string value)
+        {
+            // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
+            return personaDao.GetAgenteByValue(value);
         }
 
         public DataTable GetAllAgentes()

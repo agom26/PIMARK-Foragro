@@ -107,12 +107,12 @@ namespace Presentacion
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
         {
-            
-            
+
+
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadUsers());
 
-                
+
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageUserDetail);
@@ -301,6 +301,11 @@ namespace Presentacion
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtgUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -40,14 +40,14 @@
             label14 = new Label();
             dateTimePicker1 = new DateTimePicker();
             label13 = new Label();
-            textBox10 = new TextBox();
+            txtNombreAgente = new TextBox();
             label12 = new Label();
             roundedButton2 = new Clases.RoundedButton();
-            textBox9 = new TextBox();
+            txtEntidadTitular = new TextBox();
             label11 = new Label();
-            textBox8 = new TextBox();
+            txtDireccionTitular = new TextBox();
             label10 = new Label();
-            textBox7 = new TextBox();
+            txtNombreTitular = new TextBox();
             label9 = new Label();
             roundedButton1 = new Clases.RoundedButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
@@ -84,14 +84,14 @@
             panel1.Controls.Add(label14);
             panel1.Controls.Add(dateTimePicker1);
             panel1.Controls.Add(label13);
-            panel1.Controls.Add(textBox10);
+            panel1.Controls.Add(txtNombreAgente);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(roundedButton2);
-            panel1.Controls.Add(textBox9);
+            panel1.Controls.Add(txtEntidadTitular);
             panel1.Controls.Add(label11);
-            panel1.Controls.Add(textBox8);
+            panel1.Controls.Add(txtDireccionTitular);
             panel1.Controls.Add(label10);
-            panel1.Controls.Add(textBox7);
+            panel1.Controls.Add(txtNombreTitular);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(iconButton2);
@@ -110,7 +110,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(-38, 60);
+            panel1.Location = new Point(19, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1266);
             panel1.TabIndex = 0;
@@ -238,13 +238,13 @@
             label13.TabIndex = 26;
             label13.Text = "Solicitud";
             // 
-            // textBox10
+            // txtNombreAgente
             // 
-            textBox10.Anchor = AnchorStyles.None;
-            textBox10.Location = new Point(65, 761);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(791, 32);
-            textBox10.TabIndex = 25;
+            txtNombreAgente.Anchor = AnchorStyles.None;
+            txtNombreAgente.Location = new Point(65, 761);
+            txtNombreAgente.Name = "txtNombreAgente";
+            txtNombreAgente.Size = new Size(791, 32);
+            txtNombreAgente.TabIndex = 25;
             // 
             // label12
             // 
@@ -276,13 +276,13 @@
             roundedButton2.UseVisualStyleBackColor = false;
             roundedButton2.Click += roundedButton2_Click;
             // 
-            // textBox9
+            // txtEntidadTitular
             // 
-            textBox9.Anchor = AnchorStyles.None;
-            textBox9.Location = new Point(65, 597);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(280, 32);
-            textBox9.TabIndex = 22;
+            txtEntidadTitular.Anchor = AnchorStyles.None;
+            txtEntidadTitular.Location = new Point(65, 597);
+            txtEntidadTitular.Name = "txtEntidadTitular";
+            txtEntidadTitular.Size = new Size(280, 32);
+            txtEntidadTitular.TabIndex = 22;
             // 
             // label11
             // 
@@ -294,13 +294,13 @@
             label11.TabIndex = 21;
             label11.Text = "Entidad";
             // 
-            // textBox8
+            // txtDireccionTitular
             // 
-            textBox8.Anchor = AnchorStyles.None;
-            textBox8.Location = new Point(65, 526);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(791, 32);
-            textBox8.TabIndex = 20;
+            txtDireccionTitular.Anchor = AnchorStyles.None;
+            txtDireccionTitular.Location = new Point(65, 526);
+            txtDireccionTitular.Name = "txtDireccionTitular";
+            txtDireccionTitular.Size = new Size(791, 32);
+            txtDireccionTitular.TabIndex = 20;
             // 
             // label10
             // 
@@ -312,13 +312,13 @@
             label10.TabIndex = 19;
             label10.Text = "Dirección";
             // 
-            // textBox7
+            // txtNombreTitular
             // 
-            textBox7.Anchor = AnchorStyles.None;
-            textBox7.Location = new Point(65, 456);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(791, 32);
-            textBox7.TabIndex = 18;
+            txtNombreTitular.Anchor = AnchorStyles.None;
+            txtNombreTitular.Location = new Point(65, 456);
+            txtNombreTitular.Name = "txtNombreTitular";
+            txtNombreTitular.Size = new Size(791, 32);
+            txtNombreTitular.TabIndex = 18;
             // 
             // label9
             // 
@@ -365,6 +365,7 @@
             iconButton2.Size = new Size(74, 33);
             iconButton2.TabIndex = 15;
             iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click;
             // 
             // iconButton1
             // 
@@ -381,6 +382,7 @@
             iconButton1.Size = new Size(74, 33);
             iconButton1.TabIndex = 14;
             iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click;
             // 
             // pictureBox1
             // 
@@ -389,6 +391,7 @@
             pictureBox1.Location = new Point(775, 55);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(276, 240);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 13;
             pictureBox1.TabStop = false;
             // 
@@ -516,7 +519,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1107, 664);
+            ClientSize = new Size(1133, 664);
             ControlBox = false;
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
@@ -551,17 +554,17 @@
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Clases.RoundedButton roundedButton1;
-        private TextBox textBox9;
+        private TextBox txtEntidadTitular;
         private Label label11;
-        private TextBox textBox8;
+        private TextBox txtDireccionTitular;
         private Label label10;
-        private TextBox textBox7;
+        private TextBox txtNombreTitular;
         private Label label9;
         private TextBox textBox11;
         private Label label14;
         private DateTimePicker dateTimePicker1;
         private Label label13;
-        private TextBox textBox10;
+        private TextBox txtNombreAgente;
         private Label label12;
         private Clases.RoundedButton roundedButton2;
         private ComboBox comboBox1;

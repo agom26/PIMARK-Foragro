@@ -61,19 +61,39 @@ namespace AccesoDatos.Entidades
         }
 
         
-
-        public DataTable GetPersonaByValue(string value)
+        //titulares
+        public DataTable GetTitularByValue(string value)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value;", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE (nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value) AND tipo='titular';", conexion)) // Inicializa correctamente el comando
                 {
                     comando.Parameters.AddWithValue("@value", value);
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
                     {
                         
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
+        }
+
+        //agentes
+        public DataTable GetAgenteByValue(string value)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE (nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value) AND tipo='agente';", conexion)) // Inicializa correctamente el comando
+                {
+                    comando.Parameters.AddWithValue("@value", value);
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    {
+
                         tabla.Load(leer);
                     }
                 }
