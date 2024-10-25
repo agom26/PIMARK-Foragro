@@ -60,38 +60,27 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)> GetByValue(string value)
+        
+
+        public DataTable GetPersonaByValue(string value)
         {
-            var users = new List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)>();
-
-            using (var connection = GetConnection())
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
-                connection.Open();
-                using (var command = new MySqlCommand("SELECT * FROM Personas WHERE nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value", connection))
+                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value;", conexion)) // Inicializa correctamente el comando
                 {
-                    command.Parameters.AddWithValue("@value", "%" + value + "%");
-
-                    using (var reader = command.ExecuteReader())
+                    comando.Parameters.AddWithValue("@value", value);
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
                     {
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32("id");
-                            string nombre = reader.GetString("nombre");
-                            string direccion= reader.GetString("direccion");
-                            string nit = reader.GetString("nit");
-                            string pais= reader.GetString("pais");
-                            string correo = reader.GetString("correo");
-                            string telefono= reader.GetString("telefono");
-                            string contacto= reader.GetString("contacto");
-
-                            // Agrega la tupla a la lista
-                            users.Add((id, nombre, direccion, nit, pais, correo, telefono, contacto));
-                        }
+                        
+                        tabla.Load(leer);
                     }
                 }
             }
-            return users; // Retorna la lista de usuarios encontrados
+            return tabla;
         }
+
         public List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)> GetById(int id)
         {
             // Lista que contendrá los detalles de la persona

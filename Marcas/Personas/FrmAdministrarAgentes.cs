@@ -172,18 +172,18 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
-            
-            
+
+
 
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadAgentes());
 
-             
+
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageAgenteDetail);
 
-            
+
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -284,6 +284,11 @@ namespace Presentacion.Personas
         private void btnCancelarTit_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabPageAgenteDetail);
+        }
+
+        private void dtgAgentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

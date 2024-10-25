@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Comun.Cache;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +59,28 @@ namespace Presentacion.Marcas_Nacionales
         {
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dtgTitulares_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
+            {
+                // Obtener el valor del 'id' de la fila seleccionada
+                SeleccionarPersona.idPersona = Convert.ToInt32(dtgTitulares.Rows[e.RowIndex].Cells["id"].Value);
+
+                // Usar el valor del 'id' como desees
+                //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
+            }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

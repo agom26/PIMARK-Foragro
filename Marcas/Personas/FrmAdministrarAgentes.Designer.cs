@@ -207,6 +207,7 @@
             dtgAgentes.Size = new Size(895, 337);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
+            dtgAgentes.CellContentClick += dtgAgentes_CellContentClick;
             // 
             // txtSearch
             // 

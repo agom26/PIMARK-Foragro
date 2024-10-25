@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Comun.Cache;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,11 +23,11 @@ namespace Presentacion.Marcas_Nacionales
 
         private void MostrarTitulares()
         {
-            dataGridView1.DataSource = personaModel.GetAllAgentes();
+            dtgAgentes.DataSource = personaModel.GetAllAgentes();
             // Ocultar la columna 'id'
-            if (dataGridView1.Columns["id"] != null)
+            if (dtgAgentes.Columns["id"] != null)
             {
-                dataGridView1.Columns["id"].Visible = false;
+                dtgAgentes.Columns["id"].Visible = false;
             }
         }
 
@@ -39,16 +40,20 @@ namespace Presentacion.Marcas_Nacionales
 
             Invoke(new Action(() =>
             {
-                dataGridView1.DataSource = titulares;
+                dtgAgentes.DataSource = titulares;
 
-                if (dataGridView1.Columns["id"] != null)
+                if (dtgAgentes.Columns["id"] != null)
                 {
-                    dataGridView1.Columns["id"].Visible = false;
+                    dtgAgentes.Columns["id"].Visible = false;
                 }
 
 
             }));
         }
+
+        
+
+
         private async void FrmMostrarAgentes_Load(object sender, EventArgs e)
         {
             // Cargar usuarios en segundo plano
@@ -58,6 +63,43 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
+            {
+                // Obtener el valor del 'id' de la fila seleccionada
+                SeleccionarPersona.idPersona = Convert.ToInt32(dtgAgentes.Rows[e.RowIndex].Cells["id"].Value);
+
+                // Usar el valor del 'id' como desees
+                //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
+            }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            string valor="%"+txtBuscar.Text+"%";
+            var titulares = personaModel.GetPersonaByValue(valor);
+
+            if (titulares != null )
+            {
+                dtgAgentes.DataSource = titulares;
+                if (dtgAgentes.Columns["id"] != null)
+                {
+                    dtgAgentes.Columns["id"].Visible = false;
+                    dtgAgentes.Columns["tipo"].Visible = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron resultados para la búsqueda.");
+            }
         }
     }
 }
