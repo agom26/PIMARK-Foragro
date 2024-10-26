@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelChildForm = new Panel();
             panel2 = new Panel();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
             iconButtonLogout = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panelSubMenuPatentes = new Panel();
@@ -96,6 +97,7 @@
             // 
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(19, 12, 70);
+            panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(iconButtonLogout);
             panel2.Controls.Add(iconButton1);
             panel2.Controls.Add(panelSubMenuPatentes);
@@ -115,6 +117,28 @@
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
+            // iconButton5
+            // 
+            iconButton5.AutoSize = true;
+            iconButton5.Dock = DockStyle.Top;
+            iconButton5.FlatAppearance.BorderSize = 0;
+            iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton5.ForeColor = Color.Gainsboro;
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
+            iconButton5.IconColor = Color.Red;
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton5.Location = new Point(0, 1582);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Padding = new Padding(10, 0, 0, 0);
+            iconButton5.Size = new Size(279, 54);
+            iconButton5.TabIndex = 15;
+            iconButton5.Text = "Vencimientos";
+            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton5.UseVisualStyleBackColor = true;
+            iconButton5.Click += iconButton5_Click_1;
+            // 
             // iconButtonLogout
             // 
             iconButtonLogout.AutoSize = true;
@@ -127,7 +151,7 @@
             iconButtonLogout.IconColor = Color.FromArgb(211, 47, 47);
             iconButtonLogout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonLogout.Location = new Point(0, 1582);
+            iconButtonLogout.Location = new Point(0, 1636);
             iconButtonLogout.Name = "iconButtonLogout";
             iconButtonLogout.Padding = new Padding(10, 0, 0, 0);
             iconButtonLogout.Size = new Size(279, 54);
@@ -146,7 +170,7 @@
             iconButton1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             iconButton1.ForeColor = Color.Gainsboro;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
-            iconButton1.IconColor = Color.FromArgb(249, 124, 148);
+            iconButton1.IconColor = Color.FromArgb(38, 166, 154);
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton1.Location = new Point(0, 1528);
@@ -600,7 +624,7 @@
             iconButtonTitulares.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             iconButtonTitulares.ForeColor = Color.Gainsboro;
             iconButtonTitulares.IconChar = FontAwesome.Sharp.IconChar.UserTag;
-            iconButtonTitulares.IconColor = Color.FromArgb(63, 205, 240);
+            iconButtonTitulares.IconColor = Color.FromArgb(255, 145, 0);
             iconButtonTitulares.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonTitulares.ImageAlign = ContentAlignment.MiddleLeft;
             iconButtonTitulares.Location = new Point(0, 301);
@@ -863,6 +887,7 @@
         private Panel panel3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton4;
+        private FontAwesome.Sharp.IconButton iconButton5;
     }
 }
 

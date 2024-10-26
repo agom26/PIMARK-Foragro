@@ -188,6 +188,7 @@
             ibtnBuscar.Text = "Buscar";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnBuscar.UseVisualStyleBackColor = false;
+            ibtnBuscar.Click += ibtnBuscar_Click;
             // 
             // dtgTitulares
             // 

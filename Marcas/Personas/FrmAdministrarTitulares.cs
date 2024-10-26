@@ -288,5 +288,10 @@ namespace Presentacion.Personas
         {
 
         }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

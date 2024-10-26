@@ -13,11 +13,14 @@ using Comun.Cache;
 using Presentacion.Personas;
 using Presentacion.Marcas_Nacionales;
 using Presentacion.Marcas_Internacionales;
+using Presentacion.Vencimientos;
+using Dominio;
 
 namespace Presentacion
 {
     public partial class Form1 : Form
     {
+        VencimientoModel VencimientoModel = new VencimientoModel();
         private bool isAdmin;
         public Form1(bool isAdmin)
         {
@@ -33,8 +36,8 @@ namespace Presentacion
             {
                 iconButtonUsuarios.Visible = false; //No mostrarlo si no son admin
             }
+            VencimientoModel.EjecutarProcedimiento();
 
-            
         }
 
         private void CustomizeDesign()
@@ -84,7 +87,7 @@ namespace Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -367,6 +370,11 @@ namespace Presentacion
         private void Form1_Resize(object sender, EventArgs e)
         {
             FormResize();
+        }
+
+        private void iconButton5_Click_1(object sender, EventArgs e)
+        {
+            openChildForm(new FrmVencimientos());
         }
     }
 }
