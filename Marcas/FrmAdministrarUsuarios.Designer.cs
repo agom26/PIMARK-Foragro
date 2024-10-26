@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             tabControl1 = new TabControl();
@@ -77,6 +80,7 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.BackColor = Color.White;
             flowLayoutPanel1.Controls.Add(label1);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -182,17 +186,46 @@
             // 
             dtgUsuarios.AllowUserToAddRows = false;
             dtgUsuarios.AllowUserToDeleteRows = false;
+            dtgUsuarios.AllowUserToResizeRows = false;
             dtgUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            dtgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dtgUsuarios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dtgUsuarios.BackgroundColor = Color.White;
+            dtgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgUsuarios.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgUsuarios.BorderStyle = BorderStyle.None;
             dtgUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dtgUsuarios.ColumnHeadersHeight = 40;
+            dtgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgUsuarios.DefaultCellStyle = dataGridViewCellStyle2;
+            dtgUsuarios.EnableHeadersVisualStyles = false;
+            dtgUsuarios.GridColor = Color.LightGray;
             dtgUsuarios.Location = new Point(170, 118);
             dtgUsuarios.Name = "dtgUsuarios";
             dtgUsuarios.ReadOnly = true;
+            dtgUsuarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgUsuarios.RowHeadersWidth = 51;
-            dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgUsuarios.Size = new Size(778, 340);
             dtgUsuarios.TabIndex = 4;
             dtgUsuarios.CellContentClick += dtgUsuarios_CellContentClick;
@@ -436,6 +469,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1169, 573);
             ControlBox = false;
             Controls.Add(tabControl1);

@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label1 = new Label();
             tabControl1 = new TabControl();
@@ -65,6 +68,7 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.BackColor = Color.White;
             flowLayoutPanel1.Controls.Add(label1);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -194,19 +198,46 @@
             // 
             dtgAgentes.AllowUserToAddRows = false;
             dtgAgentes.AllowUserToDeleteRows = false;
-            dtgAgentes.AllowUserToOrderColumns = true;
             dtgAgentes.AllowUserToResizeRows = false;
             dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgAgentes.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dtgAgentes.BackgroundColor = Color.White;
+            dtgAgentes.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgAgentes.BorderStyle = BorderStyle.None;
             dtgAgentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgAgentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgAgentes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgAgentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dtgAgentes.ColumnHeadersHeight = 40;
+            dtgAgentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgAgentes.DefaultCellStyle = dataGridViewCellStyle2;
+            dtgAgentes.EnableHeadersVisualStyles = false;
+            dtgAgentes.GridColor = Color.LightGray;
             dtgAgentes.Location = new Point(48, 122);
             dtgAgentes.Name = "dtgAgentes";
             dtgAgentes.ReadOnly = true;
+            dtgAgentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgAgentes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgAgentes.RowHeadersWidth = 51;
-            dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgAgentes.Size = new Size(895, 337);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
@@ -426,6 +457,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1169, 573);
             Controls.Add(tabControl1);
             Controls.Add(flowLayoutPanel1);

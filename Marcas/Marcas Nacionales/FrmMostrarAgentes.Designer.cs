@@ -98,6 +98,7 @@
             // 
             // dtgAgentes
             // 
+            dtgAgentes.AllowUserToResizeRows = false;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgAgentes.BackgroundColor = Color.White;
             dtgAgentes.BorderStyle = BorderStyle.None;

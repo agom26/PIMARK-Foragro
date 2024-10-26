@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label1 = new Label();
             tabControl1 = new TabControl();
@@ -65,6 +68,7 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.BackColor = Color.White;
             flowLayoutPanel1.Controls.Add(label1);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -194,17 +198,46 @@
             // 
             dtgTitulares.AllowUserToAddRows = false;
             dtgTitulares.AllowUserToDeleteRows = false;
+            dtgTitulares.AllowUserToResizeRows = false;
             dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dtgTitulares.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dtgTitulares.BackgroundColor = Color.White;
+            dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgTitulares.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgTitulares.BorderStyle = BorderStyle.None;
             dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgTitulares.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dtgTitulares.ColumnHeadersHeight = 40;
+            dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle2;
+            dtgTitulares.EnableHeadersVisualStyles = false;
+            dtgTitulares.GridColor = Color.LightGray;
             dtgTitulares.Location = new Point(39, 118);
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
+            dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgTitulares.RowHeadersWidth = 51;
-            dtgTitulares.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgTitulares.Size = new Size(921, 340);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
@@ -424,6 +457,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1169, 573);
             Controls.Add(tabControl1);
             Controls.Add(flowLayoutPanel1);

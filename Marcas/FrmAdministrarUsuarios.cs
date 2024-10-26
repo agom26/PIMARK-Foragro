@@ -102,6 +102,7 @@ namespace Presentacion
                 {
                     dtgUsuarios.Columns["id"].Visible = false;
                 }
+                dtgUsuarios.ClearSelection();
             }));
         }
 

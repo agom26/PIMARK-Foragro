@@ -72,6 +72,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (dtgClientes.Columns["id"] != null)
                 {
                     dtgClientes.Columns["id"].Visible = false;
+                    dtgClientes.ClearSelection();
                 }
 
 

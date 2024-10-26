@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             label1 = new Label();
             tabControl1 = new TabControl();
@@ -64,6 +67,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.White;
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -73,6 +77,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.White;
             label1.Font = new Font("Century Gothic", 19F);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
@@ -93,6 +98,7 @@
             // 
             // tabClientesList
             // 
+            tabClientesList.BackColor = Color.White;
             tabClientesList.Controls.Add(ibtnEliminar);
             tabClientesList.Controls.Add(ibtnEditar);
             tabClientesList.Controls.Add(ibtnAgregar);
@@ -106,7 +112,6 @@
             tabClientesList.Size = new Size(1719, 518);
             tabClientesList.TabIndex = 0;
             tabClientesList.Text = "Listado";
-            tabClientesList.UseVisualStyleBackColor = true;
             // 
             // ibtnEliminar
             // 
@@ -190,17 +195,46 @@
             // 
             dtgClientes.AllowUserToAddRows = false;
             dtgClientes.AllowUserToDeleteRows = false;
+            dtgClientes.AllowUserToResizeRows = false;
             dtgClientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            dtgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dtgClientes.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dtgClientes.BackgroundColor = Color.White;
+            dtgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgClientes.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgClientes.BorderStyle = BorderStyle.None;
             dtgClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtgClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dtgClientes.ColumnHeadersHeight = 40;
+            dtgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgClientes.DefaultCellStyle = dataGridViewCellStyle2;
+            dtgClientes.EnableHeadersVisualStyles = false;
+            dtgClientes.GridColor = Color.LightGray;
             dtgClientes.Location = new Point(39, 122);
             dtgClientes.Name = "dtgClientes";
             dtgClientes.ReadOnly = true;
+            dtgClientes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgClientes.RowHeadersWidth = 51;
-            dtgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgClientes.Size = new Size(921, 340);
             dtgClientes.TabIndex = 13;
             dtgClientes.CellClick += dtgClientes_CellClick;
@@ -225,6 +259,7 @@
             // 
             // tabClienteDetail
             // 
+            tabClienteDetail.BackColor = Color.White;
             tabClienteDetail.Controls.Add(btnCancelar);
             tabClienteDetail.Controls.Add(btnGuardarCliente);
             tabClienteDetail.Controls.Add(txtNombreContacto);
@@ -241,13 +276,12 @@
             tabClienteDetail.Controls.Add(label4);
             tabClienteDetail.Controls.Add(txtNombreCliente);
             tabClienteDetail.Controls.Add(label3);
-            tabClienteDetail.Location = new Point(4, 32);
+            tabClienteDetail.Location = new Point(4, 29);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(1719, 518);
+            tabClienteDetail.Size = new Size(1719, 521);
             tabClienteDetail.TabIndex = 1;
             tabClienteDetail.Text = "Detalle de cliente";
-            tabClienteDetail.UseVisualStyleBackColor = true;
             // 
             // btnCancelar
             // 
@@ -417,6 +451,7 @@
             // 
             AutoScaleDimensions = new SizeF(12F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1727, 605);
             Controls.Add(tabControl1);
             Controls.Add(label1);

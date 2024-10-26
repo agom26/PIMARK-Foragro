@@ -76,6 +76,7 @@ namespace Presentacion.Personas
                 if (dtgTitulares.Columns["id"] != null)
                 {
                     dtgTitulares.Columns["id"].Visible = false;
+                    dtgTitulares.ClearSelection();
                 }
 
 
