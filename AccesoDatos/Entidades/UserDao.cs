@@ -94,21 +94,40 @@ namespace AccesoDatos.Usuarios
         public DataTable GetAllUsers()
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo FROM USERS", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo, isAdmin as Administrador FROM USERS", conexion))
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader())
                     {
+                        // Cargar los datos en la tabla
                         tabla.Load(leer);
+
+                        // Agregar una nueva columna para mostrar "sí" o "no"
+                        tabla.Columns.Add("Es Administrador", typeof(string));
+
+                        // Llenar la nueva columna según el valor de isAdmin
+                        foreach (DataRow row in tabla.Rows)
+                        {
+                            // Cambiar la forma de obtener el valor de isAdmin
+                            var isAdminValue = row["Administrador"];
+
+                            // Asumimos que el valor puede ser un UInt64
+                            bool isAdmin = Convert.ToUInt64(isAdminValue) == 1; // O 0 para false
+
+                            // Asignar "sí" o "no" a la nueva columna
+                            row["Es Administrador"] = isAdmin ? "sí" : "no";
+                        }
+
+                        // Opcional: eliminar la columna original de isAdmin si no la necesitas
+                        tabla.Columns.Remove("Administrador");
                     }
                 }
             }
             return tabla;
-
-
         }
+
 
         public bool RemoveUser(int userId,string deletedUser, string deletedBy)
         {
