@@ -21,8 +21,12 @@ namespace Dominio
         {
             return marcaDao.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado);
         }
+        public bool AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        {
+            return marcaDao.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado, registro, fechaRegistro, fechaVencimiento);
+        }
 
-
+        
 
     }
 }

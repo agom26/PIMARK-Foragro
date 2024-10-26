@@ -67,11 +67,11 @@
             txtExpediente = new TextBox();
             label2 = new Label();
             panel2 = new Panel();
-            dateTimePicker2 = new DateTimePicker();
+            dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            dateTimePFecha_Registro = new DateTimePicker();
             label18 = new Label();
-            textBox1 = new TextBox();
+            txtRegistro = new TextBox();
             label17 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -119,7 +119,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-20, 45);
+            panel1.Location = new Point(-60, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1406);
             panel1.TabIndex = 0;
@@ -246,9 +246,9 @@
             // txtNombreAgente
             // 
             txtNombreAgente.Anchor = AnchorStyles.None;
+            txtNombreAgente.Enabled = false;
             txtNombreAgente.Location = new Point(64, 765);
             txtNombreAgente.Name = "txtNombreAgente";
-            txtNombreAgente.ReadOnly = true;
             txtNombreAgente.Size = new Size(791, 32);
             txtNombreAgente.TabIndex = 25;
             // 
@@ -285,9 +285,9 @@
             // txtEntidadTitular
             // 
             txtEntidadTitular.Anchor = AnchorStyles.None;
+            txtEntidadTitular.Enabled = false;
             txtEntidadTitular.Location = new Point(64, 598);
             txtEntidadTitular.Name = "txtEntidadTitular";
-            txtEntidadTitular.ReadOnly = true;
             txtEntidadTitular.Size = new Size(280, 32);
             txtEntidadTitular.TabIndex = 22;
             // 
@@ -304,9 +304,9 @@
             // txtDireccionTitular
             // 
             txtDireccionTitular.Anchor = AnchorStyles.None;
+            txtDireccionTitular.Enabled = false;
             txtDireccionTitular.Location = new Point(64, 527);
             txtDireccionTitular.Name = "txtDireccionTitular";
-            txtDireccionTitular.ReadOnly = true;
             txtDireccionTitular.Size = new Size(791, 32);
             txtDireccionTitular.TabIndex = 20;
             // 
@@ -323,9 +323,9 @@
             // txtNombreTitular
             // 
             txtNombreTitular.Anchor = AnchorStyles.None;
+            txtNombreTitular.Enabled = false;
             txtNombreTitular.Location = new Point(64, 457);
             txtNombreTitular.Name = "txtNombreTitular";
-            txtNombreTitular.ReadOnly = true;
             txtNombreTitular.Size = new Size(791, 32);
             txtNombreTitular.TabIndex = 18;
             // 
@@ -525,25 +525,26 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.None;
-            panel2.Controls.Add(dateTimePicker2);
+            panel2.Controls.Add(dateTimePFecha_vencimiento);
             panel2.Controls.Add(label19);
-            panel2.Controls.Add(dateTimePicker1);
+            panel2.Controls.Add(dateTimePFecha_Registro);
             panel2.Controls.Add(label18);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(txtRegistro);
             panel2.Controls.Add(label17);
             panel2.Location = new Point(64, 1132);
             panel2.Name = "panel2";
             panel2.Size = new Size(791, 154);
             panel2.TabIndex = 37;
             // 
-            // dateTimePicker2
+            // dateTimePFecha_vencimiento
             // 
-            dateTimePicker2.Anchor = AnchorStyles.None;
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(317, 104);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(250, 32);
-            dateTimePicker2.TabIndex = 41;
+            dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
+            dateTimePFecha_vencimiento.Enabled = false;
+            dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
+            dateTimePFecha_vencimiento.Location = new Point(317, 104);
+            dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
+            dateTimePFecha_vencimiento.Size = new Size(250, 32);
+            dateTimePFecha_vencimiento.TabIndex = 41;
             // 
             // label19
             // 
@@ -555,14 +556,15 @@
             label19.TabIndex = 40;
             label19.Text = "Fecha de registro";
             // 
-            // dateTimePicker1
+            // dateTimePFecha_Registro
             // 
-            dateTimePicker1.Anchor = AnchorStyles.None;
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(0, 104);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(280, 32);
-            dateTimePicker1.TabIndex = 39;
+            dateTimePFecha_Registro.Anchor = AnchorStyles.None;
+            dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
+            dateTimePFecha_Registro.Location = new Point(0, 104);
+            dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
+            dateTimePFecha_Registro.Size = new Size(280, 32);
+            dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
             // label18
             // 
@@ -574,13 +576,13 @@
             label18.TabIndex = 38;
             label18.Text = "Fecha de registro";
             // 
-            // textBox1
+            // txtRegistro
             // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(2, 31);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(278, 32);
-            textBox1.TabIndex = 39;
+            txtRegistro.Anchor = AnchorStyles.None;
+            txtRegistro.Location = new Point(2, 31);
+            txtRegistro.Name = "txtRegistro";
+            txtRegistro.Size = new Size(278, 32);
+            txtRegistro.TabIndex = 39;
             // 
             // label17
             // 
@@ -654,11 +656,11 @@
         private RichTextBox richTextBox1;
         private Label label16;
         private Panel panel2;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dateTimePFecha_vencimiento;
         private Label label19;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePFecha_Registro;
         private Label label18;
-        private TextBox textBox1;
+        private TextBox txtRegistro;
         private Label label17;
         private CheckBox checkBox1;
     }
