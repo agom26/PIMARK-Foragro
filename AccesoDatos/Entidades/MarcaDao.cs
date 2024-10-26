@@ -49,7 +49,7 @@ namespace AccesoDatos.Entidades
 
                     if (count == 0)
                     {
-                        throw new Exception("El idCliente proporcionado no existe en la tabla Personas.");
+                        throw new Exception("El cliente proporcionado no existe en la base de datos.");
                     }
                 }
 
@@ -105,6 +105,41 @@ namespace AccesoDatos.Entidades
                     int rowsAffected = command.ExecuteNonQuery();
 
                     // Si se insertó al menos una fila, la operación fue exitosa
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        public bool AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string pais_de_registro, string tiene_poder, DateTime presentacion, DateTime ultimo_pago, DateTime vencimiento, int idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        {
+            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("INSERT INTO Marcas (expediente, nombre, signo_distintivo, clase, logo, idTitular, idAgente, fecha_solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, tipo, registro, folio, libro, fecha_registro, fecha_vencimiento) VALUES (@expediente, @nombre, @signoDistintivo, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, @estado, @pais_de_registro, @tiene_poder, @presentacion, @ultimo_pago, @vencimiento, @idCliente, 'internacional', @registro, @folio, @libro, @fecha_de_registro, @fecha_vencimiento)", connection))
+                {
+                    command.Parameters.AddWithValue("@expediente", expediente);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@clase", clase);
+                    command.Parameters.AddWithValue("@logo", logo);
+                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("@estado", estado);
+                    command.Parameters.AddWithValue("@pais_de_registro", pais_de_registro);
+                    command.Parameters.AddWithValue("@tiene_poder", tiene_poder);
+                    command.Parameters.AddWithValue("@presentacion", presentacion);
+                    command.Parameters.AddWithValue("@ultimo_pago", ultimo_pago);
+                    command.Parameters.AddWithValue("@vencimiento", vencimiento);
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
+                    command.Parameters.AddWithValue("@registro", registro);
+                    command.Parameters.AddWithValue("@folio", folio);
+                    command.Parameters.AddWithValue("@libro", libro);
+                    command.Parameters.AddWithValue("@fecha_de_registro", fechaRegistro);
+                    command.Parameters.AddWithValue("@fecha_vencimiento", fechaVencimiento);
+
+                    // Ejecuta el comando y devuelve el número de filas afectadas
+                    int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0;
                 }
             }

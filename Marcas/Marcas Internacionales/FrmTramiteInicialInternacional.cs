@@ -20,6 +20,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             InitializeComponent();
             panel2.Visible = false;
+            btnGuardar.Location = new Point(380, 1219);
         }
 
         private void ActualizarFechaVencimiento()
@@ -104,18 +105,17 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
                 // Intentar guardar la marca registrada
-                /*bool resultadoRegistrada = marcaModel.AddMarcaNacionalRegistrada(
-                    expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, registro, fecha_registro, fecha_vencimiento, idCliente);
+                bool resultadoRegistrada = marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
 
                 if (resultadoRegistrada)
                 {
-                    MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Marca internacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 else
                 {
-                    MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }*/
+                    MessageBox.Show("Error al registrar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -146,6 +146,7 @@ namespace Presentacion.Marcas_Internacionales
             pictureBox1.Image = null;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
+            txtNombreCliente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
             cmbEstado.SelectedIndex = -1;
@@ -210,6 +211,27 @@ namespace Presentacion.Marcas_Internacionales
         {
             //Borrar foto del usuario
             pictureBox1.Image = null;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                panel2.Visible = true;
+                btnGuardar.Location = new Point(380, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+
+            }
+            else
+            {
+                panel2.Visible = false;
+                btnGuardar.Location = new Point(380, 1219);
+
+            }
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }

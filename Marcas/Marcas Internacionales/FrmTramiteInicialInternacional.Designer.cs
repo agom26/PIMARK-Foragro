@@ -259,7 +259,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(364, 1413);
+            btnGuardar.Location = new Point(364, 1421);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 48;
@@ -282,7 +282,7 @@
             panel2.Controls.Add(label7);
             panel2.Controls.Add(txtLibro);
             panel2.Controls.Add(label10);
-            panel2.Location = new Point(19, 1218);
+            panel2.Location = new Point(20, 1229);
             panel2.Name = "panel2";
             panel2.Size = new Size(986, 185);
             panel2.TabIndex = 47;
@@ -325,6 +325,7 @@
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(280, 32);
             dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
             // label18
             // 
@@ -400,6 +401,7 @@
             checkBox1.TabIndex = 46;
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // richTextBox1
             // 

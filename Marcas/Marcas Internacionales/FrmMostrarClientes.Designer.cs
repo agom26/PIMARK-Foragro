@@ -175,6 +175,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 3, 4, 3);
             Name = "FrmMostrarClientes";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmMostrarClientes";
             Load += FrmMostrarClientes_Load;
             panel2.ResumeLayout(false);

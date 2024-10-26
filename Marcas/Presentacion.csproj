@@ -46,4 +46,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Patentes\" />
+  </ItemGroup>
+
 </Project>
