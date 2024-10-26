@@ -31,6 +31,11 @@ namespace Dominio
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
             return personaDao.GetAgenteByValue(value);
         }
+        public DataTable GetClienteByValue(string value)
+        {
+            // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
+            return personaDao.GetClienteByValue(value);
+        }
 
         public DataTable GetAllAgentes()
         {

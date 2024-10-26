@@ -233,7 +233,7 @@ namespace Presentacion
 
         private void button29_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Form7());
+            openChildForm(new FrmTramiteInicialInternacional());
         }
 
         private void button34_Click(object sender, EventArgs e)

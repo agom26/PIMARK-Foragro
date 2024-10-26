@@ -115,7 +115,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-10, 45);
+            panel1.Location = new Point(-20, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1448);
             panel1.TabIndex = 0;

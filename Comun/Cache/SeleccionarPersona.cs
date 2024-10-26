@@ -10,6 +10,7 @@ namespace Comun.Cache
     {
         public static int idPersonaT;
         public static int idPersonaA;
+        public static int idPersonaC;
         public static string nombre;
         public static string direccion;
         public static string nit;
