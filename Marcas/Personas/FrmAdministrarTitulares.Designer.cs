@@ -207,6 +207,7 @@
             dtgTitulares.Size = new Size(921, 340);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
+            dtgTitulares.CellContentClick += dtgTitulares_CellContentClick;
             // 
             // txtSearch
             // 

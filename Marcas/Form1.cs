@@ -12,6 +12,7 @@ using Comun;
 using Comun.Cache;
 using Presentacion.Personas;
 using Presentacion.Marcas_Nacionales;
+using Presentacion.Marcas_Internacionales;
 
 namespace Presentacion
 {
@@ -227,7 +228,7 @@ namespace Presentacion
 
         private void button30_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Form6());
+            openChildForm(new FrmAdministrarClientes());
         }
 
         private void button29_Click(object sender, EventArgs e)

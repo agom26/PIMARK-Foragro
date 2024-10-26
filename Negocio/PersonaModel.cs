@@ -46,6 +46,13 @@ namespace Dominio
             return tabla;
         }
 
+        public DataTable GetAllClientes()
+        {
+            DataTable tabla = new DataTable();
+            tabla = personaDao.GetAllClientes();
+            return tabla;
+        }
+
         public bool AddPersona(string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto, string tipo)
         {
             return personaDao.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);

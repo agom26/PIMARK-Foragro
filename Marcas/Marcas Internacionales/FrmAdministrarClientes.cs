@@ -1,0 +1,289 @@
+﻿using Comun.Cache;
+using Dominio;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Presentacion.Marcas_Internacionales
+{
+    public partial class FrmAdministrarClientes : Form
+    {
+        public event Action OnLoadClientes;
+        PersonaModel personaModel = new PersonaModel();
+        public FrmAdministrarClientes()
+        {
+            InitializeComponent();
+            this.Load += FrmAdministrarClientes_Load;
+        }
+        private void EliminarTabPage(TabPage nombre)
+        {
+            if (tabControl1.TabPages.Contains(nombre))
+            {
+                tabControl1.TabPages.Remove(nombre);
+            }
+        }
+        public void LimpiarCampos()
+        {
+            txtNombreCliente.Text = "";
+            txtDireccionCliente.Text = "";
+            txtNitCliente.Text = "";
+            txtPais.Text = "";
+            txtCorreoContacto.Text = "";
+            txtTelefonoContacto.Text = "";
+            txtNombreContacto.Text = "";
+        }
+        private void MostrarClientes()
+        {
+            dtgClientes.DataSource = personaModel.GetAllClientes();
+            // Ocultar la columna 'id'
+            if (dtgClientes.Columns["id"] != null)
+            {
+                dtgClientes.Columns["id"].Visible = false;
+            }
+        }
+        private void AnadirTabPage(TabPage nombre)
+        {
+            if (!tabControl1.TabPages.Contains(nombre))
+            {
+                tabControl1.TabPages.Add(nombre);
+            }
+            // Muestra el TabPage especificado (lo selecciona)
+            tabControl1.SelectedTab = nombre;
+        }
+
+
+        private void LoadTitulares()
+        {
+
+
+            // Obtiene los usuarios
+            var clientes = personaModel.GetAllClientes();
+
+            Invoke(new Action(() =>
+            {
+                dtgClientes.DataSource = clientes;
+
+                if (dtgClientes.Columns["id"] != null)
+                {
+                    dtgClientes.Columns["id"].Visible = false;
+                }
+
+
+            }));
+        }
+        private void btnGuardarTit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabClienteDetail);
+        }
+
+        private async void btnGuardarCliente_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNitCliente.Text;
+            string direccion = txtDireccionCliente.Text;
+            string nit = txtNitCliente.Text;
+            string pais = txtPais.Text;
+            string correo = txtCorreoContacto.Text;
+            string telefono = txtTelefonoContacto.Text;
+            string contacto = txtNombreContacto.Text;
+            string tipo = "cliente";
+
+            // Verificar que el campo de nombre de usuario no esté vacío
+            if (string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccionCliente.Text) ||
+                string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
+                string.IsNullOrWhiteSpace(txtPais.Text) ||
+                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+                try
+                {
+                    // Deshabilitar el botón para evitar múltiples clics
+                    btnGuardarCliente.Enabled = false;
+
+                    if (btnGuardarCliente.Text == "Guardar")
+                    {
+                        // Ejecutar la operación de guardado de manera asíncrona
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        MessageBox.Show("Cliente agregado exitosamente");
+                    }
+                    else if (btnGuardarCliente.Text == "Actualizar")
+                    {
+                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                            txtNombreCliente.Text,
+                            txtDireccionCliente.Text,
+                            txtNitCliente.Text,
+                            txtPais.Text,
+                            txtCorreoContacto.Text,
+                            txtTelefonoContacto.Text,
+                            txtNombreContacto.Text));
+
+                        if (update)
+                        {
+                            MessageBox.Show("Cliente actualizado exitosamente");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al actualizar el cliente.");
+                        }
+                    }
+
+                    // Redirigir a tabPage1
+                    tabControl1.SelectedTab = tabClientesList;
+                    MostrarClientes();
+                    EliminarTabPage(tabClienteDetail);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
+                }
+                finally
+                {
+                    // Volver a habilitar el botón
+                    btnGuardarCliente.Enabled = true;
+                }
+            }
+        }
+
+        private async void FrmAdministrarClientes_Load(object sender, EventArgs e)
+        {
+            // Cargar titulares en segundo plano
+            await Task.Run(() => LoadTitulares());
+
+
+            // Eliminar la tabPage de detalle
+            tabControl1.TabPages.Remove(tabClienteDetail);
+        }
+
+        private void ibtnAgregar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
+            if (!tabControl1.TabPages.Contains(tabClienteDetail))
+            {
+                tabControl1.TabPages.Add(tabClienteDetail);
+            }
+
+            // Muestra el TabPage especificado (lo selecciona)
+            tabControl1.SelectedTab = tabClienteDetail;
+            btnGuardarCliente.Text = "Guardar";
+        }
+
+        private void dtgClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dtgClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
+            {
+                // Obtener el valor del 'id' de la fila seleccionada
+                EditarPersona.idPersona = Convert.ToInt32(dtgClientes.Rows[e.RowIndex].Cells["id"].Value);
+
+                //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
+            }
+        }
+
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            if (dtgClientes.SelectedRows.Count > 0)
+            {
+                // Obtener el valor del 'id' de la fila seleccionada
+                int idPersona = EditarPersona.idPersona;
+
+                // Llamar al método que obtiene los datos del titular basándose en el campo 'idPersona'
+                var clienteDetails = personaModel.GetPersonaById(idPersona);
+
+                if (clienteDetails.Count > 0) // Asegurarse de que se haya encontrado el titular
+                {
+                    // Asignar los valores obtenidos a la clase estática EditarPersona
+                    EditarPersona.idPersona = clienteDetails[0].id;
+                    EditarPersona.nombre = clienteDetails[0].nombre;
+                    EditarPersona.direccion = clienteDetails[0].direccion;
+                    EditarPersona.nit = clienteDetails[0].nit;
+                    EditarPersona.pais = clienteDetails[0].pais;
+                    EditarPersona.correo = clienteDetails[0].correo;
+                    EditarPersona.telefono = clienteDetails[0].telefono;
+                    EditarPersona.contacto = clienteDetails[0].contacto;
+                    // Mostrar el formulario de edición con los valores del titular
+                    AnadirTabPage(tabClienteDetail);
+                    txtNombreCliente.Text = EditarPersona.nombre;
+                    txtDireccionCliente.Text = EditarPersona.direccion;
+                    txtNitCliente.Text = EditarPersona.nit;
+                    txtPais.Text = EditarPersona.pais;
+                    txtCorreoContacto.Text = EditarPersona.correo;
+                    txtTelefonoContacto.Text = EditarPersona.telefono;
+                    txtNombreContacto.Text = EditarPersona.contacto;
+                    btnGuardarCliente.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el cliente.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un cliente.");
+            }
+        }
+
+        private void ibtnEliminar_Click(object sender, EventArgs e)
+        {
+            //Eliminar
+
+            // Verificar si hay un titular seleccionado
+            if (dtgClientes.SelectedRows.Count > 0)
+            {
+                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+
+                // Preguntar si el usuario está seguro de eliminar ese Usuario
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al cliente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Eliminar el usuario y registrar en el log
+                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
+                        bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
+
+                        if (isDeleted)
+                        {
+                            MessageBox.Show("Cliente eliminado correctamente.");
+                            MostrarClientes(); // Actualizar la lista de titulares
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al eliminar el cliente.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al intentar eliminar el cliente: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
+            }
+        }
+    }
+}

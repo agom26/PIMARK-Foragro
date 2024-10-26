@@ -1,6 +1,5 @@
 ﻿using Comun.Cache;
 using Dominio;
-using Dominio;
 using FontAwesome.Sharp;
 using System;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ namespace Presentacion.Personas
 
         private void LoadTitulares()
         {
-            
+
 
             // Obtiene los usuarios
             var titulares = personaModel.GetAllTitulares();
@@ -79,7 +78,7 @@ namespace Presentacion.Personas
                     dtgTitulares.Columns["id"].Visible = false;
                 }
 
-               
+
             }));
         }
 
@@ -235,10 +234,7 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarTitulares_Load(object sender, EventArgs e)
         {
-
-            
-
-            // Cargar usuarios en segundo plano
+            // Cargar titulares en segundo plano
             await Task.Run(() => LoadTitulares());
 
 
@@ -249,7 +245,7 @@ namespace Presentacion.Personas
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
             //Eliminar
-            
+
             // Verificar si hay un titular seleccionado
             if (dtgTitulares.SelectedRows.Count > 0)
             {
@@ -286,6 +282,11 @@ namespace Presentacion.Personas
             {
                 MessageBox.Show("Por favor, selecciona un titular para eliminar.");
             }
+        }
+
+        private void dtgTitulares_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

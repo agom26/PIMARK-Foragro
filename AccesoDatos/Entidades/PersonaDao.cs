@@ -171,6 +171,23 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
 
+        }
+
+        public DataTable GetAllClientes()
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='cliente'", conexion)) // Inicializa correctamente el comando
+                {
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
 
         }
 
