@@ -106,10 +106,6 @@
             panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(txtLibro);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(txtFolio);
-            panel1.Controls.Add(label7);
             panel1.Controls.Add(txtSignoDistintivo);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(txtClase);
@@ -119,16 +115,16 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-60, 45);
+            panel1.Location = new Point(0, 45);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1081, 1406);
+            panel1.Size = new Size(1081, 1448);
             panel1.TabIndex = 0;
             // 
             // checkBox1
             // 
             checkBox1.Anchor = AnchorStyles.None;
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(64, 1097);
+            checkBox1.Location = new Point(64, 1118);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(114, 27);
             checkBox1.TabIndex = 38;
@@ -141,7 +137,7 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(436, 10);
+            label1.Location = new Point(436, 31);
             label1.Name = "label1";
             label1.Size = new Size(229, 39);
             label1.TabIndex = 0;
@@ -158,7 +154,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(272, 1308);
+            btnGuardar.Location = new Point(326, 1348);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 35;
@@ -170,7 +166,7 @@
             // richTextBox1
             // 
             richTextBox1.Anchor = AnchorStyles.None;
-            richTextBox1.Location = new Point(64, 967);
+            richTextBox1.Location = new Point(64, 988);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(791, 120);
             richTextBox1.TabIndex = 33;
@@ -180,7 +176,7 @@
             // 
             label16.Anchor = AnchorStyles.None;
             label16.AutoSize = true;
-            label16.Location = new Point(64, 941);
+            label16.Location = new Point(64, 962);
             label16.Name = "label16";
             label16.Size = new Size(157, 23);
             label16.TabIndex = 32;
@@ -191,7 +187,7 @@
             cmbEstado.Anchor = AnchorStyles.None;
             cmbEstado.FormattingEnabled = true;
             cmbEstado.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
-            cmbEstado.Location = new Point(376, 914);
+            cmbEstado.Location = new Point(376, 935);
             cmbEstado.Name = "cmbEstado";
             cmbEstado.Size = new Size(479, 31);
             cmbEstado.TabIndex = 31;
@@ -200,7 +196,7 @@
             // 
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
-            label15.Location = new Point(376, 889);
+            label15.Location = new Point(376, 910);
             label15.Name = "label15";
             label15.Size = new Size(77, 23);
             label15.TabIndex = 30;
@@ -209,7 +205,7 @@
             // textBox11
             // 
             textBox11.Anchor = AnchorStyles.None;
-            textBox11.Location = new Point(374, 839);
+            textBox11.Location = new Point(374, 860);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(481, 32);
             textBox11.TabIndex = 29;
@@ -218,7 +214,7 @@
             // 
             label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
-            label14.Location = new Point(372, 814);
+            label14.Location = new Point(372, 835);
             label14.Name = "label14";
             label14.Size = new Size(141, 23);
             label14.TabIndex = 28;
@@ -228,7 +224,7 @@
             // 
             datePickerFechaSolicitud.Anchor = AnchorStyles.None;
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitud.Location = new Point(64, 838);
+            datePickerFechaSolicitud.Location = new Point(64, 859);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(250, 32);
             datePickerFechaSolicitud.TabIndex = 27;
@@ -237,7 +233,7 @@
             // 
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
-            label13.Location = new Point(64, 813);
+            label13.Location = new Point(64, 834);
             label13.Name = "label13";
             label13.Size = new Size(90, 23);
             label13.TabIndex = 26;
@@ -247,7 +243,7 @@
             // 
             txtNombreAgente.Anchor = AnchorStyles.None;
             txtNombreAgente.Enabled = false;
-            txtNombreAgente.Location = new Point(64, 765);
+            txtNombreAgente.Location = new Point(64, 786);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.Size = new Size(791, 32);
             txtNombreAgente.TabIndex = 25;
@@ -256,7 +252,7 @@
             // 
             label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
-            label12.Location = new Point(64, 739);
+            label12.Location = new Point(64, 760);
             label12.Name = "label12";
             label12.Size = new Size(90, 23);
             label12.TabIndex = 24;
@@ -273,7 +269,7 @@
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(64, 652);
+            roundedButton2.Location = new Point(64, 673);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(791, 61);
             roundedButton2.TabIndex = 23;
@@ -286,7 +282,7 @@
             // 
             txtEntidadTitular.Anchor = AnchorStyles.None;
             txtEntidadTitular.Enabled = false;
-            txtEntidadTitular.Location = new Point(64, 598);
+            txtEntidadTitular.Location = new Point(64, 619);
             txtEntidadTitular.Name = "txtEntidadTitular";
             txtEntidadTitular.Size = new Size(280, 32);
             txtEntidadTitular.TabIndex = 22;
@@ -295,7 +291,7 @@
             // 
             label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
-            label11.Location = new Point(64, 572);
+            label11.Location = new Point(64, 593);
             label11.Name = "label11";
             label11.Size = new Size(85, 23);
             label11.TabIndex = 21;
@@ -305,7 +301,7 @@
             // 
             txtDireccionTitular.Anchor = AnchorStyles.None;
             txtDireccionTitular.Enabled = false;
-            txtDireccionTitular.Location = new Point(64, 527);
+            txtDireccionTitular.Location = new Point(64, 548);
             txtDireccionTitular.Name = "txtDireccionTitular";
             txtDireccionTitular.Size = new Size(791, 32);
             txtDireccionTitular.TabIndex = 20;
@@ -314,7 +310,7 @@
             // 
             label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
-            label10.Location = new Point(64, 501);
+            label10.Location = new Point(64, 522);
             label10.Name = "label10";
             label10.Size = new Size(101, 23);
             label10.TabIndex = 19;
@@ -324,7 +320,7 @@
             // 
             txtNombreTitular.Anchor = AnchorStyles.None;
             txtNombreTitular.Enabled = false;
-            txtNombreTitular.Location = new Point(64, 457);
+            txtNombreTitular.Location = new Point(64, 478);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.Size = new Size(791, 32);
             txtNombreTitular.TabIndex = 18;
@@ -333,7 +329,7 @@
             // 
             label9.Anchor = AnchorStyles.None;
             label9.AutoSize = true;
-            label9.Location = new Point(64, 431);
+            label9.Location = new Point(64, 452);
             label9.Name = "label9";
             label9.Size = new Size(90, 23);
             label9.TabIndex = 17;
@@ -350,7 +346,7 @@
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(64, 350);
+            roundedButton1.Location = new Point(64, 371);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(791, 61);
             roundedButton1.TabIndex = 16;
@@ -369,7 +365,7 @@
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(914, 311);
+            iconButton2.Location = new Point(914, 332);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(74, 33);
             iconButton2.TabIndex = 15;
@@ -386,7 +382,7 @@
             iconButton1.IconColor = Color.Black;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(834, 311);
+            iconButton1.Location = new Point(834, 332);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(74, 33);
             iconButton1.TabIndex = 14;
@@ -397,7 +393,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Location = new Point(774, 65);
+            pictureBox1.Location = new Point(774, 86);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(276, 240);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -408,7 +404,7 @@
             // 
             label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
-            label8.Location = new Point(866, 39);
+            label8.Location = new Point(866, 60);
             label8.Name = "label8";
             label8.Size = new Size(86, 23);
             label8.TabIndex = 12;
@@ -417,7 +413,7 @@
             // txtLibro
             // 
             txtLibro.Anchor = AnchorStyles.None;
-            txtLibro.Location = new Point(410, 294);
+            txtLibro.Location = new Point(677, 49);
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(280, 32);
             txtLibro.TabIndex = 11;
@@ -426,7 +422,7 @@
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(410, 268);
+            label6.Location = new Point(677, 23);
             label6.Name = "label6";
             label6.Size = new Size(55, 23);
             label6.TabIndex = 10;
@@ -435,7 +431,7 @@
             // txtFolio
             // 
             txtFolio.Anchor = AnchorStyles.None;
-            txtFolio.Location = new Point(64, 294);
+            txtFolio.Location = new Point(345, 49);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(280, 32);
             txtFolio.TabIndex = 9;
@@ -444,7 +440,7 @@
             // 
             label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
-            label7.Location = new Point(64, 268);
+            label7.Location = new Point(345, 23);
             label7.Name = "label7";
             label7.Size = new Size(54, 23);
             label7.TabIndex = 8;
@@ -453,7 +449,7 @@
             // txtSignoDistintivo
             // 
             txtSignoDistintivo.Anchor = AnchorStyles.None;
-            txtSignoDistintivo.Location = new Point(410, 215);
+            txtSignoDistintivo.Location = new Point(410, 236);
             txtSignoDistintivo.Name = "txtSignoDistintivo";
             txtSignoDistintivo.Size = new Size(280, 32);
             txtSignoDistintivo.TabIndex = 7;
@@ -462,7 +458,7 @@
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Location = new Point(410, 189);
+            label5.Location = new Point(410, 210);
             label5.Name = "label5";
             label5.Size = new Size(150, 23);
             label5.TabIndex = 6;
@@ -471,7 +467,7 @@
             // txtClase
             // 
             txtClase.Anchor = AnchorStyles.None;
-            txtClase.Location = new Point(64, 215);
+            txtClase.Location = new Point(64, 236);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(280, 32);
             txtClase.TabIndex = 5;
@@ -480,7 +476,7 @@
             // 
             label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
-            label4.Location = new Point(64, 189);
+            label4.Location = new Point(64, 210);
             label4.Name = "label4";
             label4.Size = new Size(66, 23);
             label4.TabIndex = 4;
@@ -489,7 +485,7 @@
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.None;
-            txtNombre.Location = new Point(64, 141);
+            txtNombre.Location = new Point(64, 162);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(626, 32);
             txtNombre.TabIndex = 3;
@@ -498,7 +494,7 @@
             // 
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
-            label3.Location = new Point(64, 115);
+            label3.Location = new Point(64, 136);
             label3.Name = "label3";
             label3.Size = new Size(90, 23);
             label3.TabIndex = 2;
@@ -507,7 +503,7 @@
             // txtExpediente
             // 
             txtExpediente.Anchor = AnchorStyles.None;
-            txtExpediente.Location = new Point(64, 65);
+            txtExpediente.Location = new Point(64, 86);
             txtExpediente.Name = "txtExpediente";
             txtExpediente.Size = new Size(280, 32);
             txtExpediente.TabIndex = 1;
@@ -516,7 +512,7 @@
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Location = new Point(64, 39);
+            label2.Location = new Point(64, 60);
             label2.Name = "label2";
             label2.Size = new Size(120, 23);
             label2.TabIndex = 0;
@@ -531,9 +527,13 @@
             panel2.Controls.Add(label18);
             panel2.Controls.Add(txtRegistro);
             panel2.Controls.Add(label17);
-            panel2.Location = new Point(64, 1132);
+            panel2.Controls.Add(txtFolio);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(txtLibro);
+            panel2.Controls.Add(label6);
+            panel2.Location = new Point(64, 1153);
             panel2.Name = "panel2";
-            panel2.Size = new Size(791, 154);
+            panel2.Size = new Size(986, 185);
             panel2.TabIndex = 37;
             // 
             // dateTimePFecha_vencimiento
@@ -541,26 +541,26 @@
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(317, 104);
+            dateTimePFecha_vencimiento.Location = new Point(346, 131);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(250, 32);
+            dateTimePFecha_vencimiento.Size = new Size(280, 32);
             dateTimePFecha_vencimiento.TabIndex = 41;
             // 
             // label19
             // 
             label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
-            label19.Location = new Point(316, 78);
+            label19.Location = new Point(345, 105);
             label19.Name = "label19";
-            label19.Size = new Size(180, 23);
+            label19.Size = new Size(232, 23);
             label19.TabIndex = 40;
-            label19.Text = "Fecha de registro";
+            label19.Text = "Fecha de vencimiento";
             // 
             // dateTimePFecha_Registro
             // 
             dateTimePFecha_Registro.Anchor = AnchorStyles.None;
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(0, 104);
+            dateTimePFecha_Registro.Location = new Point(0, 131);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(280, 32);
             dateTimePFecha_Registro.TabIndex = 39;
@@ -570,7 +570,7 @@
             // 
             label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
-            label18.Location = new Point(0, 79);
+            label18.Location = new Point(0, 106);
             label18.Name = "label18";
             label18.Size = new Size(180, 23);
             label18.TabIndex = 38;
@@ -579,7 +579,7 @@
             // txtRegistro
             // 
             txtRegistro.Anchor = AnchorStyles.None;
-            txtRegistro.Location = new Point(2, 31);
+            txtRegistro.Location = new Point(2, 49);
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(278, 32);
             txtRegistro.TabIndex = 39;
@@ -588,7 +588,7 @@
             // 
             label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
-            label17.Location = new Point(0, 6);
+            label17.Location = new Point(0, 24);
             label17.Name = "label17";
             label17.Size = new Size(85, 23);
             label17.TabIndex = 38;

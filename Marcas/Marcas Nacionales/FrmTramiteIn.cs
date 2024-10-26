@@ -93,6 +93,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (resultadoRegistrada)
                 {
                     MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarFormulario();
                 }
                 else
                 {
@@ -103,11 +104,12 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Intentar guardar la marca sin registro
                 bool resultado = marcaModel.AddMarcaNacional(
-                    expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado);
+                    expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado);
 
                 if (resultado)
                 {
                     MessageBox.Show("Marca nacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarFormulario();
                 }
                 else
                 {
@@ -131,9 +133,12 @@ namespace Presentacion.Marcas_Nacionales
             txtEntidadTitular.Text = "";
             txtNombreAgente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
+            dateTimePFecha_Registro.Value = DateTime.Now;
             cmbEstado.SelectedItem = 0;
             checkBox1.Checked = false;
             checkBox1_CheckedChanged(checkBox1, EventArgs.Empty);
+            ActualizarFechaVencimiento();
+            txtRegistro.Text = "";
         }
 
 
@@ -183,7 +188,7 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton4_Click(object sender, EventArgs e)
         {
             GuardarMarcaNacional();
-            LimpiarFormulario();
+            
         }
 
         private void roundedButton3_Click(object sender, EventArgs e)
