@@ -54,10 +54,6 @@
             iconButton1 = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             label8 = new Label();
-            txtLibro = new TextBox();
-            label6 = new Label();
-            txtFolio = new TextBox();
-            label7 = new Label();
             txtSignoDistintivo = new TextBox();
             label5 = new Label();
             txtClase = new TextBox();
@@ -73,6 +69,10 @@
             label18 = new Label();
             txtRegistro = new TextBox();
             label17 = new Label();
+            txtFolio = new TextBox();
+            label7 = new Label();
+            txtLibro = new TextBox();
+            label6 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -115,7 +115,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(0, 45);
+            panel1.Location = new Point(-10, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1448);
             panel1.TabIndex = 0;
@@ -410,42 +410,6 @@
             label8.TabIndex = 12;
             label8.Text = "Imagen";
             // 
-            // txtLibro
-            // 
-            txtLibro.Anchor = AnchorStyles.None;
-            txtLibro.Location = new Point(677, 49);
-            txtLibro.Name = "txtLibro";
-            txtLibro.Size = new Size(280, 32);
-            txtLibro.TabIndex = 11;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.None;
-            label6.AutoSize = true;
-            label6.Location = new Point(677, 23);
-            label6.Name = "label6";
-            label6.Size = new Size(55, 23);
-            label6.TabIndex = 10;
-            label6.Text = "Libro";
-            // 
-            // txtFolio
-            // 
-            txtFolio.Anchor = AnchorStyles.None;
-            txtFolio.Location = new Point(345, 49);
-            txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(280, 32);
-            txtFolio.TabIndex = 9;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.None;
-            label7.AutoSize = true;
-            label7.Location = new Point(345, 23);
-            label7.Name = "label7";
-            label7.Size = new Size(54, 23);
-            label7.TabIndex = 8;
-            label7.Text = "Folio";
-            // 
             // txtSignoDistintivo
             // 
             txtSignoDistintivo.Anchor = AnchorStyles.None;
@@ -593,6 +557,42 @@
             label17.Size = new Size(85, 23);
             label17.TabIndex = 38;
             label17.Text = "Registro";
+            // 
+            // txtFolio
+            // 
+            txtFolio.Anchor = AnchorStyles.None;
+            txtFolio.Location = new Point(345, 49);
+            txtFolio.Name = "txtFolio";
+            txtFolio.Size = new Size(280, 32);
+            txtFolio.TabIndex = 9;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.None;
+            label7.AutoSize = true;
+            label7.Location = new Point(345, 23);
+            label7.Name = "label7";
+            label7.Size = new Size(54, 23);
+            label7.TabIndex = 8;
+            label7.Text = "Folio";
+            // 
+            // txtLibro
+            // 
+            txtLibro.Anchor = AnchorStyles.None;
+            txtLibro.Location = new Point(677, 49);
+            txtLibro.Name = "txtLibro";
+            txtLibro.Size = new Size(280, 32);
+            txtLibro.TabIndex = 11;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.None;
+            label6.AutoSize = true;
+            label6.Location = new Point(677, 23);
+            label6.Name = "label6";
+            label6.Size = new Size(55, 23);
+            label6.TabIndex = 10;
+            label6.Text = "Libro";
             // 
             // FrmTramiteIn
             // 
