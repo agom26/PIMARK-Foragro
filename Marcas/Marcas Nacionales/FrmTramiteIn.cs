@@ -15,25 +15,28 @@ namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmTramiteIn : Form
     {
-        MarcaModel marcaModel=new MarcaModel();
-        
+        MarcaModel marcaModel = new MarcaModel();
+
         public FrmTramiteIn()
         {
             InitializeComponent();
+            panel2.Visible = false;
+            btnGuardar.Location = new Point(272, 1135);
+            //panel1.Size = new Size(1081, 1252);
         }
 
         public void GuardarMarcaNacional()
         {
-            string expediente=txtExpediente.Text;
-            string nombre=txtNombre.Text;
-            string clase=txtClase.Text;
-            string signoDistintivo=txtSignoDistintivo.Text;
-            string folio=txtFolio.Text;
-            string libro=txtLibro.Text;
+            string expediente = txtExpediente.Text;
+            string nombre = txtNombre.Text;
+            string clase = txtClase.Text;
+            string signoDistintivo = txtSignoDistintivo.Text;
+            string folio = txtFolio.Text;
+            string libro = txtLibro.Text;
             byte[] logo = null;
-            int idTitular=SeleccionarPersona.idPersonaT;
+            int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
-            DateTime solicitud=datePickerFechaSolicitud.Value;
+            DateTime solicitud = datePickerFechaSolicitud.Value;
             string estado = cmbEstado.SelectedItem?.ToString(); // Mejor usar SelectedItem
 
             if (estado == null)
@@ -51,7 +54,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-            bool resultado=marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, folio, libro,logo, idTitular, idAgente, solicitud, estado);
+            bool resultado = marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado);
             if (resultado)
             {
                 MessageBox.Show("Marca nacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -78,7 +81,7 @@ namespace Presentacion.Marcas_Nacionales
             datePickerFechaSolicitud.Value = DateTime.Now;
             cmbEstado.SelectedIndex = 0;
         }
-        
+
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
@@ -127,6 +130,33 @@ namespace Presentacion.Marcas_Nacionales
         {
             GuardarMarcaNacional();
             LimpiarFormulario();
+        }
+
+        private void roundedButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                panel2.Visible = true;
+                btnGuardar.Location = new Point(272, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+                
+                
+            }
+            else
+            {
+                panel2.Visible = false;
+                btnGuardar.Location = new Point(272, 1135);
+                
+            }
         }
     }
 }
