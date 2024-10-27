@@ -377,5 +377,10 @@ namespace Presentacion
         {
             openChildForm(new FrmVencimientos());
         }
+
+        private void labelName_LN_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

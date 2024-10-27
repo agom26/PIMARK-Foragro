@@ -202,41 +202,57 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
             if (dtgClientes.SelectedRows.Count > 0)
             {
-                // Obtener el valor del 'id' de la fila seleccionada
-                int idPersona = EditarPersona.idPersona;
+                // Deshabilitar temporalmente el botón para evitar múltiples clics
+                ibtnEditar.Enabled = false;
 
-                // Llamar al método que obtiene los datos del titular basándose en el campo 'idPersona'
-                var clienteDetails = personaModel.GetPersonaById(idPersona);
-
-                if (clienteDetails.Count > 0) // Asegurarse de que se haya encontrado el titular
+                try
                 {
-                    // Asignar los valores obtenidos a la clase estática EditarPersona
-                    EditarPersona.idPersona = clienteDetails[0].id;
-                    EditarPersona.nombre = clienteDetails[0].nombre;
-                    EditarPersona.direccion = clienteDetails[0].direccion;
-                    EditarPersona.nit = clienteDetails[0].nit;
-                    EditarPersona.pais = clienteDetails[0].pais;
-                    EditarPersona.correo = clienteDetails[0].correo;
-                    EditarPersona.telefono = clienteDetails[0].telefono;
-                    EditarPersona.contacto = clienteDetails[0].contacto;
-                    // Mostrar el formulario de edición con los valores del titular
-                    AnadirTabPage(tabClienteDetail);
-                    txtNombreCliente.Text = EditarPersona.nombre;
-                    txtDireccionCliente.Text = EditarPersona.direccion;
-                    txtNitCliente.Text = EditarPersona.nit;
-                    txtPais.Text = EditarPersona.pais;
-                    txtCorreoContacto.Text = EditarPersona.correo;
-                    txtTelefonoContacto.Text = EditarPersona.telefono;
-                    txtNombreContacto.Text = EditarPersona.contacto;
-                    btnGuardarCliente.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                    // Obtener el valor del 'id' de la fila seleccionada
+                    int idPersona = EditarPersona.idPersona;
+
+                    // Llamar al método que obtiene los datos del cliente de forma asíncrona
+                    var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
+
+                    if (clienteDetails.Count > 0) // Asegurarse de que se haya encontrado el cliente
+                    {
+                        // Asignar los valores obtenidos a la clase estática EditarPersona
+                        EditarPersona.idPersona = clienteDetails[0].id;
+                        EditarPersona.nombre = clienteDetails[0].nombre;
+                        EditarPersona.direccion = clienteDetails[0].direccion;
+                        EditarPersona.nit = clienteDetails[0].nit;
+                        EditarPersona.pais = clienteDetails[0].pais;
+                        EditarPersona.correo = clienteDetails[0].correo;
+                        EditarPersona.telefono = clienteDetails[0].telefono;
+                        EditarPersona.contacto = clienteDetails[0].contacto;
+
+                        // Mostrar el formulario de edición con los valores del cliente
+                        AnadirTabPage(tabClienteDetail);
+                        txtNombreCliente.Text = EditarPersona.nombre;
+                        txtDireccionCliente.Text = EditarPersona.direccion;
+                        txtNitCliente.Text = EditarPersona.nit;
+                        txtPais.Text = EditarPersona.pais;
+                        txtCorreoContacto.Text = EditarPersona.correo;
+                        txtTelefonoContacto.Text = EditarPersona.telefono;
+                        txtNombreContacto.Text = EditarPersona.contacto;
+                        btnGuardarCliente.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el cliente.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No se encontró el cliente.");
+                    MessageBox.Show("Error al cargar los datos del cliente: " + ex.Message);
+                }
+                finally
+                {
+                    // Volver a habilitar el botón después de cargar el formulario
+                    ibtnEditar.Enabled = true;
                 }
             }
             else

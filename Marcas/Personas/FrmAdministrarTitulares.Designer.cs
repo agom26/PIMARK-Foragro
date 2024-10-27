@@ -31,7 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             tabControl1 = new TabControl();
             tabListTitulares = new TabPage();
@@ -41,7 +41,6 @@
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
             dtgTitulares = new DataGridView();
             txtSearch = new TextBox();
-            label2 = new Label();
             tabTitularDetail = new TabPage();
             txtNombreContacto = new TextBox();
             label9 = new Label();
@@ -59,28 +58,18 @@
             label4 = new Label();
             txtNombreTitular = new TextBox();
             label3 = new Label();
-            flowLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabListTitulares.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTitulares).BeginInit();
             tabTitularDetail.SuspendLayout();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.BackColor = Color.White;
-            flowLayoutPanel1.Controls.Add(label1);
-            flowLayoutPanel1.Dock = DockStyle.Top;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1169, 51);
-            flowLayoutPanel1.TabIndex = 0;
-            // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(3, 0);
+            label1.Location = new Point(383, 14);
             label1.Name = "label1";
             label1.Size = new Size(162, 39);
             label1.TabIndex = 0;
@@ -92,27 +81,27 @@
             tabControl1.Controls.Add(tabTitularDetail);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Font = new Font("Century Gothic", 12F);
-            tabControl1.Location = new Point(0, 51);
+            tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1169, 522);
+            tabControl1.Size = new Size(1169, 573);
             tabControl1.TabIndex = 1;
             // 
             // tabListTitulares
             // 
+            tabListTitulares.Controls.Add(label1);
             tabListTitulares.Controls.Add(ibtnEliminar);
             tabListTitulares.Controls.Add(ibtnEditar);
             tabListTitulares.Controls.Add(ibtnAgregar);
             tabListTitulares.Controls.Add(ibtnBuscar);
             tabListTitulares.Controls.Add(dtgTitulares);
             tabListTitulares.Controls.Add(txtSearch);
-            tabListTitulares.Controls.Add(label2);
             tabListTitulares.Location = new Point(4, 32);
             tabListTitulares.Name = "tabListTitulares";
             tabListTitulares.Padding = new Padding(3);
-            tabListTitulares.Size = new Size(1161, 486);
+            tabListTitulares.Size = new Size(1161, 537);
             tabListTitulares.TabIndex = 0;
-            tabListTitulares.Text = "Listado";
+            tabListTitulares.Text = "Listado de titulares";
             tabListTitulares.UseVisualStyleBackColor = true;
             // 
             // ibtnEliminar
@@ -121,12 +110,13 @@
             ibtnEliminar.BackColor = Color.FromArgb(244, 98, 96);
             ibtnEliminar.FlatAppearance.BorderSize = 0;
             ibtnEliminar.FlatStyle = FlatStyle.Flat;
+            ibtnEliminar.Font = new Font("Century Gothic", 9F);
             ibtnEliminar.ForeColor = Color.White;
             ibtnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
             ibtnEliminar.IconColor = Color.White;
             ibtnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEliminar.IconSize = 30;
-            ibtnEliminar.Location = new Point(986, 306);
+            ibtnEliminar.IconSize = 25;
+            ibtnEliminar.Location = new Point(986, 331);
             ibtnEliminar.Name = "ibtnEliminar";
             ibtnEliminar.Size = new Size(144, 37);
             ibtnEliminar.TabIndex = 11;
@@ -141,12 +131,13 @@
             ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
             ibtnEditar.FlatAppearance.BorderSize = 0;
             ibtnEditar.FlatStyle = FlatStyle.Flat;
+            ibtnEditar.Font = new Font("Century Gothic", 9F);
             ibtnEditar.ForeColor = Color.White;
             ibtnEditar.IconChar = FontAwesome.Sharp.IconChar.Pen;
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(986, 251);
+            ibtnEditar.IconSize = 25;
+            ibtnEditar.Location = new Point(986, 276);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(144, 37);
             ibtnEditar.TabIndex = 10;
@@ -161,12 +152,13 @@
             ibtnAgregar.BackColor = Color.FromArgb(50, 164, 115);
             ibtnAgregar.FlatAppearance.BorderSize = 0;
             ibtnAgregar.FlatStyle = FlatStyle.Flat;
+            ibtnAgregar.Font = new Font("Century Gothic", 9F);
             ibtnAgregar.ForeColor = Color.White;
             ibtnAgregar.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             ibtnAgregar.IconColor = Color.White;
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnAgregar.IconSize = 30;
-            ibtnAgregar.Location = new Point(986, 193);
+            ibtnAgregar.IconSize = 25;
+            ibtnAgregar.Location = new Point(986, 218);
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(144, 37);
             ibtnAgregar.TabIndex = 9;
@@ -181,11 +173,12 @@
             ibtnBuscar.BackColor = Color.FromArgb(255, 164, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
+            ibtnBuscar.Font = new Font("Century Gothic", 9F);
             ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.Black;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(816, 58);
+            ibtnBuscar.IconSize = 25;
+            ibtnBuscar.Location = new Point(816, 67);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 32);
             ibtnBuscar.TabIndex = 8;
@@ -225,7 +218,7 @@
             dtgTitulares.DefaultCellStyle = dataGridViewCellStyle2;
             dtgTitulares.EnableHeadersVisualStyles = false;
             dtgTitulares.GridColor = Color.LightGray;
-            dtgTitulares.Location = new Point(39, 118);
+            dtgTitulares.Location = new Point(39, 138);
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
             dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -238,7 +231,9 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgTitulares.RowHeadersWidth = 51;
-            dtgTitulares.Size = new Size(921, 340);
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dtgTitulares.Size = new Size(921, 391);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
             dtgTitulares.CellContentClick += dtgTitulares_CellContentClick;
@@ -246,22 +241,10 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top;
-            txtSearch.Location = new Point(39, 58);
+            txtSearch.Location = new Point(39, 67);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(750, 32);
             txtSearch.TabIndex = 6;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 12F);
-            label2.Location = new Point(39, 20);
-            label2.Name = "label2";
-            label2.RightToLeft = RightToLeft.No;
-            label2.Size = new Size(134, 23);
-            label2.TabIndex = 5;
-            label2.Text = "Buscar titular";
             // 
             // tabTitularDetail
             // 
@@ -284,7 +267,7 @@
             tabTitularDetail.Location = new Point(4, 32);
             tabTitularDetail.Name = "tabTitularDetail";
             tabTitularDetail.Padding = new Padding(3);
-            tabTitularDetail.Size = new Size(1161, 486);
+            tabTitularDetail.Size = new Size(1161, 537);
             tabTitularDetail.TabIndex = 1;
             tabTitularDetail.Text = "Detalle de titular";
             tabTitularDetail.UseVisualStyleBackColor = true;
@@ -460,13 +443,10 @@
             BackColor = Color.White;
             ClientSize = new Size(1169, 573);
             Controls.Add(tabControl1);
-            Controls.Add(flowLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAdministrarTitulares";
             Text = "FrmAdministrarTitulares";
             Load += FrmAdministrarTitulares_Load;
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabListTitulares.ResumeLayout(false);
             tabListTitulares.PerformLayout();
@@ -477,14 +457,11 @@
         }
 
         #endregion
-
-        private FlowLayoutPanel flowLayoutPanel1;
         private Label label1;
         private TabControl tabControl1;
         private TabPage tabListTitulares;
         private DataGridView dtgTitulares;
         private TextBox txtSearch;
-        private Label label2;
         private TabPage tabTitularDetail;
         private FontAwesome.Sharp.IconButton ibtnEliminar;
         private FontAwesome.Sharp.IconButton ibtnEditar;

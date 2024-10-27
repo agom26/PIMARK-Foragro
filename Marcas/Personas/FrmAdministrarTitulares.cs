@@ -51,21 +51,19 @@ namespace Presentacion.Personas
                 dtgTitulares.Columns["id"].Visible = false;
             }
         }
-        private void AnadirTabPage(TabPage nombre)
+        private async void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
             {
                 tabControl1.TabPages.Add(nombre);
             }
             // Muestra el TabPage especificado (lo selecciona)
-            tabControl1.SelectedTab = nombre;
+            tabControl1.SelectedTab = nombre;  
         }
 
 
-        private void LoadTitulares()
+        private async void LoadTitulares()
         {
-
-
             // Obtiene los usuarios
             var titulares = personaModel.GetAllTitulares();
 
@@ -87,13 +85,8 @@ namespace Presentacion.Personas
         {
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
-            if (!tabControl1.TabPages.Contains(tabTitularDetail))
-            {
-                tabControl1.TabPages.Add(tabTitularDetail);
-            }
+            AnadirTabPage(tabTitularDetail);
 
-            // Muestra el TabPage especificado (lo selecciona)
-            tabControl1.SelectedTab = tabTitularDetail;
             btnGuardarTit.Text = "Guardar";
         }
 

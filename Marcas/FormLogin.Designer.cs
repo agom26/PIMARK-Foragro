@@ -40,6 +40,8 @@
             pictureBox1 = new PictureBox();
             checkBoxRememberme = new CheckBox();
             btnGuardar = new Presentacion.Clases.RoundedButton();
+            panel2 = new Panel();
+            panel3 = new Panel();
             TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -104,7 +106,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(63, 241);
+            label1.Location = new Point(63, 214);
             label1.Name = "label1";
             label1.Size = new Size(79, 23);
             label1.TabIndex = 2;
@@ -113,20 +115,20 @@
             // txtUserName
             // 
             txtUserName.Anchor = AnchorStyles.None;
-            txtUserName.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUserName.Location = new Point(63, 285);
+            txtUserName.Font = new Font("Century Gothic", 9F);
+            txtUserName.Location = new Point(63, 258);
             txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(350, 32);
+            txtUserName.Size = new Size(350, 26);
             txtUserName.TabIndex = 3;
             // 
             // txtPassword
             // 
             txtPassword.Anchor = AnchorStyles.None;
-            txtPassword.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(63, 407);
+            txtPassword.Font = new Font("Century Gothic", 9F);
+            txtPassword.Location = new Point(60, 376);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(350, 32);
+            txtPassword.Size = new Size(353, 26);
             txtPassword.TabIndex = 5;
             // 
             // label2
@@ -135,7 +137,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(63, 363);
+            label2.Location = new Point(60, 335);
             label2.Name = "label2";
             label2.Size = new Size(125, 23);
             label2.TabIndex = 4;
@@ -145,7 +147,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(128, 78);
+            pictureBox1.Location = new Point(126, 56);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(213, 149);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -159,7 +161,7 @@
             checkBoxRememberme.AutoSize = true;
             checkBoxRememberme.Font = new Font("Century Gothic", 12F);
             checkBoxRememberme.ForeColor = Color.White;
-            checkBoxRememberme.Location = new Point(63, 454);
+            checkBoxRememberme.Location = new Point(63, 458);
             checkBoxRememberme.Name = "checkBoxRememberme";
             checkBoxRememberme.Size = new Size(155, 27);
             checkBoxRememberme.TabIndex = 8;
@@ -178,7 +180,7 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Century Gothic", 12F);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(63, 526);
+            btnGuardar.Location = new Point(63, 524);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(350, 62);
             btnGuardar.TabIndex = 48;
@@ -187,12 +189,30 @@
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
+            // panel2
+            // 
+            panel2.Dock = DockStyle.Left;
+            panel2.Location = new Point(0, 50);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(57, 654);
+            panel2.TabIndex = 49;
+            // 
+            // panel3
+            // 
+            panel3.Dock = DockStyle.Right;
+            panel3.Location = new Point(416, 50);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(57, 654);
+            panel3.TabIndex = 50;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 59, 104);
             ClientSize = new Size(473, 719);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
             Controls.Add(btnGuardar);
             Controls.Add(checkBoxRememberme);
             Controls.Add(pictureBox1);
@@ -228,5 +248,7 @@
         private PictureBox pictureBox1;
         private CheckBox checkBoxRememberme;
         private Presentacion.Clases.RoundedButton btnGuardar;
+        private Panel panel2;
+        private Panel panel3;
     }
 }

@@ -89,7 +89,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void Editar()
+        private async void EditarAsync()
         {
             if (dtgMarcasN.RowCount <= 0)
             {
@@ -97,68 +97,82 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-            if (dtgMarcasN.SelectedCells.Count > 1)
+            if (dtgMarcasN.SelectedCells.Count >= 1)
             {
-                // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
                 var filaSeleccionada = dtgMarcasN.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarMarca.idN = id; ;
+                    SeleccionarMarca.idN = id;
 
-                    var detallesMarcaN = marcaModel.GetMarcaNacionalById(id);
+                    // Obtén los detalles de la marca en segundo plano
+                    var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(id));
 
                     if (detallesMarcaN.Count > 0)
                     {
-                        //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
-
-                        // Asignar los valores obtenidos a la clase SeleccionarPersona
-                        SeleccionarMarca.expediente = detallesMarcaN[0].expediente;
-                        SeleccionarMarca.nombre = detallesMarcaN[0].nombre;
-                        SeleccionarMarca.clase = detallesMarcaN[0].clase;
-                        SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
-                        SeleccionarMarca.logo = detallesMarcaN[0].logo;
-                        SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
-                        SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
-                        SeleccionarMarca.fecha_solicitud = (DateTime)detallesMarcaN[0].fechaSolicitud;
-                        SeleccionarMarca.estado = detallesMarcaN[0].estado;
+                        // Verifica que el primer elemento de detallesMarcaN no sea nulo
                         if (detallesMarcaN[0].registro != null)
                         {
-                            SeleccionarMarca.registro = detallesMarcaN[0].registro;
-                            SeleccionarMarca.folio = detallesMarcaN[0].folio;
-                            SeleccionarMarca.libro = detallesMarcaN[0].libro;
-                            SeleccionarMarca.fechaRegistro = (DateTime)detallesMarcaN[0].fechaRegistro;
-                            SeleccionarMarca.fechaVencimiento = (DateTime)detallesMarcaN[0].fechaVencimiento;
+                            SeleccionarMarca.expediente = detallesMarcaN[0].expediente;
+                            SeleccionarMarca.nombre = detallesMarcaN[0].nombre;
+                            SeleccionarMarca.clase = detallesMarcaN[0].clase;
+                            SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
+                            SeleccionarMarca.logo = detallesMarcaN[0].logo;
+                            SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
+                            SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
+                            SeleccionarMarca.fecha_solicitud = (DateTime)detallesMarcaN[0].fechaSolicitud;
+                            SeleccionarMarca.estado = detallesMarcaN[0].estado;
 
-                            txtRegistro.Text = SeleccionarMarca.registro;
-                            txtFolio.Text=SeleccionarMarca.folio;
-                            txtLibro.Text = SeleccionarMarca.libro;
-                            dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro;
-                            dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento;
+                            // Verifica si `registro` es distinto de `null`
+                            if (detallesMarcaN[0].registro == null)
+                            {
+                                SeleccionarMarca.registro = detallesMarcaN[0].registro;
+                                SeleccionarMarca.folio = detallesMarcaN[0].folio;
+                                SeleccionarMarca.libro = detallesMarcaN[0].libro;
+                                SeleccionarMarca.fechaRegistro = (DateTime)detallesMarcaN[0].fechaRegistro;
+                                SeleccionarMarca.fechaVencimiento = (DateTime)detallesMarcaN[0].fechaVencimiento;
+
+                                txtRegistro.Text = SeleccionarMarca.registro;
+                                txtFolio.Text = SeleccionarMarca.folio;
+                                txtLibro.Text = SeleccionarMarca.libro;
+                                dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro;
+                                dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento;
+                            }
+                            else
+                            {
+                                MessageBox.Show("El campo 'registro' es nulo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            // Cargar los detalles de titular y agente en segundo plano
+                            var titular = await Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
+                            var agente = await Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
+
+                            if (titular.Count > 0)
+                            {
+                                txtNombreTitular.Text = titular[0].nombre;
+                                txtDireccionTitular.Text = titular[0].direccion;
+                                txtEntidadTitular.Text = titular[0].pais;
+                            }
+
+                            if (agente.Count > 0)
+                            {
+                                txtNombreAgente.Text = agente[0].nombre;
+                            }
+
+                            // Actualizar los controles de la interfaz con los datos obtenidos
+                            AnadirTabPage(tabPageMarcaDetail);
+                            txtExpediente.Text = SeleccionarMarca.expediente;
+                            txtNombre.Text = SeleccionarMarca.nombre;
+                            txtClase.Text = SeleccionarMarca.clase;
+                            txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
+                            MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                            datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
+                            cmbEstado.SelectedText = SeleccionarMarca.estado;
                         }
-
-                        // Mostrar el formulario de edición con los valores del titular
-                        AnadirTabPage(tabPageMarcaDetail);
-                        txtExpediente.Text = SeleccionarMarca.expediente;
-                        txtNombre.Text = SeleccionarMarca.nombre;
-                        txtClase.Text = SeleccionarMarca.clase;
-                        txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
-                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
-                        //titular
-                        var titular = personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular);
-                        txtNombreTitular.Text = titular[0].nombre;
-                        txtDireccionTitular.Text = titular[0].direccion;
-                        txtEntidadTitular.Text = titular[0].pais;
-                        //agente
-                        var agente = personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente);
-                        txtNombreAgente.Text = agente[0].nombre;
-
-
-                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
-                        cmbEstado.SelectedText = SeleccionarMarca.estado;
-
-
+                        else
+                        {
+                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                     else
                     {
@@ -167,6 +181,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
         }
+
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
@@ -184,7 +199,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+           EditarAsync();
         }
     }
 }

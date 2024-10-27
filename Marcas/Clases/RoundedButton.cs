@@ -15,7 +15,7 @@ namespace Presentacion.Clases
         //campos
         private int borderSize = 0;
         private int borderRadius = 40;
-        private Color borderColor=Color.PaleVioletRed;
+        private Color borderColor;
 
        
         public int BorderSize { get => borderSize; set { borderSize = value; this.Invalidate(); } }
