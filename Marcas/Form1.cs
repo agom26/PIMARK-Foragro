@@ -186,6 +186,7 @@ namespace Presentacion
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
+            openChildForm(new FrmMostrarTodas());
             ShowSubMenu(panelSubMenuMarcasNacionales);
         }
 

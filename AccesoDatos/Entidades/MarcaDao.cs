@@ -4,11 +4,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        public DataTable GetAllMarcasNacionales()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                {
+                    using (MySqlCommand comando = new MySqlCommand(@"
+                SELECT  
+                    M.id,
+                    M.nombre AS Nombre, 
+                    M.clase AS Clase, 
+                    M.registro AS Registro, 
+                    M.folio AS Folio, 
+                    M.libro AS Libro, 
+                    P1.nombre AS Titular, 
+                    P2.nombre AS Agente,
+                    M.estado AS Estado
+                FROM 
+                    `Marcas` M
+                JOIN 
+                    Personas AS P1 ON M.IdTitular = P1.id 
+                JOIN 
+                    Personas AS P2 ON M.IdAgente = P2.id 
+                WHERE 
+                    M.tipo = 'nacional';", conexion))
+                    {
+                        conexion.Open(); // Abre la conexión a la base de datos
+                        using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                        {
+                            tabla.Load(leer); // Carga los datos en el DataTable
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
+                // Maneja la excepción según sea necesario
+            }
+            return tabla; // Devuelve el DataTable con los resultados
+        }
+
         public bool AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado)
         {
             using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
@@ -144,6 +188,68 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+
+        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)> GetMarcaNacionalById(int id)
+        {
+            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)>();
+
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand(@"SELECT 
+                M.id, 
+                M.expediente, 
+                M.nombre, 
+                M.signo_distintivo AS signoDistintivo, 
+                M.clase, 
+                M.folio, 
+                M.libro, 
+                M.logo, 
+                M.estado, 
+                M.registro, 
+                M.fecha_solicitud AS fechaSolicitud, 
+                M.fecha_registro AS fechaRegistro, 
+                M.fecha_vencimiento AS fechaVencimiento,
+                M.idTitular,  
+                M.idAgente
+            FROM 
+                Marcas M
+            WHERE 
+                M.tipo = 'nacional' 
+                AND M.id = @id;", conexion))
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+                    conexion.Open();
+
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            marca.Add((
+                                reader.GetInt32("id"),
+                                reader.IsDBNull(reader.GetOrdinal("expediente")) ? "" : reader.GetString("expediente"),
+                                reader.IsDBNull(reader.GetOrdinal("nombre")) ? "" : reader.GetString("nombre"),
+                                reader.IsDBNull(reader.GetOrdinal("signoDistintivo")) ? "" : reader.GetString("signoDistintivo"),
+                                reader.IsDBNull(reader.GetOrdinal("clase")) ? "" : reader.GetString("clase"),
+                                reader.IsDBNull(reader.GetOrdinal("folio")) ? "" : reader.GetString("folio"),
+                                reader.IsDBNull(reader.GetOrdinal("libro")) ? "" : reader.GetString("libro"),
+                                reader.IsDBNull(reader.GetOrdinal("logo")) ? null : (byte[])reader["logo"],
+                                reader.IsDBNull(reader.GetOrdinal("estado")) ? "" : reader.GetString("estado"),
+                                reader.IsDBNull(reader.GetOrdinal("registro")) ? "" : reader.GetString("registro"),
+                                reader.IsDBNull(reader.GetOrdinal("fechaSolicitud")) ? (DateTime?)null : reader.GetDateTime("fechaSolicitud"),
+                                reader.IsDBNull(reader.GetOrdinal("fechaRegistro")) ? (DateTime?)null : reader.GetDateTime("fechaRegistro"),
+                                reader.IsDBNull(reader.GetOrdinal("fechaVencimiento")) ? (DateTime?)null : reader.GetDateTime("fechaVencimiento"),
+                                reader.IsDBNull(reader.GetOrdinal("idTitular")) ? 0 : reader.GetInt32("idTitular"),
+                                reader.IsDBNull(reader.GetOrdinal("idAgente")) ? 0 : reader.GetInt32("idAgente")
+                            ));
+                        }
+                    }
+                }
+            }
+            return marca; // Devuelve la lista con los detalles de la marca (contiene solo un elemento)
+        }
+
+
+
 
 
     }

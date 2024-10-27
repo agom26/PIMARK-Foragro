@@ -31,7 +31,7 @@ namespace Marcas
                 txtPassword.Text = Presentacion.Properties.Settings.Default.Contrasena;
                 checkBoxRememberme.Checked = Presentacion.Properties.Settings.Default.Recordar;
                 this.Show();
-                btnLogin.Focus();
+                //btnLogin.Focus();
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Marcas
                 txtUserName.Text = Presentacion.Properties.Settings.Default.Usuario;
                 txtPassword.Text = Presentacion.Properties.Settings.Default.Contrasena;
                 checkBoxRememberme.Checked = Presentacion.Properties.Settings.Default.Recordar;
-                btnLogin.Focus();
+                btnGuardar.Focus();
             }
             else
             {
@@ -108,6 +108,18 @@ namespace Marcas
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
             //recordar sesion
             if (checkBoxRememberme.Checked)
             {
@@ -136,13 +148,6 @@ namespace Marcas
             {
                 MessageBox.Show("Usuario o contraseña incorrecta");
             }
-
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

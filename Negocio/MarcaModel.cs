@@ -17,6 +17,20 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
+        public DataTable GetAllMarcasNacionales()
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.GetAllMarcasNacionales();
+            return tabla;
+        }
+
+
+        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)> GetMarcaNacionalById(int id)
+        {
+            return marcaDao.GetMarcaNacionalById(id);
+        }
+
+
         public bool AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado)
         {
             return marcaDao.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado);

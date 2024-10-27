@@ -37,9 +37,9 @@
             txtUserName = new TextBox();
             txtPassword = new TextBox();
             label2 = new Label();
-            btnLogin = new Button();
             pictureBox1 = new PictureBox();
             checkBoxRememberme = new CheckBox();
+            btnGuardar = new Presentacion.Clases.RoundedButton();
             TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -61,28 +61,30 @@
             // iconPictureBox1
             // 
             iconPictureBox1.BackColor = Color.FromArgb(30, 38, 70);
+            iconPictureBox1.Dock = DockStyle.Right;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
             iconPictureBox1.IconColor = Color.White;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 29;
-            iconPictureBox1.Location = new Point(377, 12);
+            iconPictureBox1.IconSize = 48;
+            iconPictureBox1.Location = new Point(375, 0);
             iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(36, 29);
+            iconPictureBox1.Size = new Size(48, 50);
             iconPictureBox1.TabIndex = 2;
             iconPictureBox1.TabStop = false;
             iconPictureBox1.Click += iconPictureBox1_Click_1;
             // 
             // iconButton1
             // 
+            iconButton1.Dock = DockStyle.Right;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.ForeColor = Color.FromArgb(30, 38, 70);
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Close;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 40;
-            iconButton1.Location = new Point(419, 12);
+            iconButton1.Location = new Point(423, 0);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(42, 29);
+            iconButton1.Size = new Size(50, 50);
             iconButton1.TabIndex = 0;
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
@@ -98,6 +100,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = Color.White;
@@ -109,6 +112,7 @@
             // 
             // txtUserName
             // 
+            txtUserName.Anchor = AnchorStyles.None;
             txtUserName.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUserName.Location = new Point(63, 285);
             txtUserName.Name = "txtUserName";
@@ -117,6 +121,7 @@
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.None;
             txtPassword.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(63, 407);
             txtPassword.Name = "txtPassword";
@@ -126,6 +131,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.ForeColor = Color.White;
@@ -135,23 +141,9 @@
             label2.TabIndex = 4;
             label2.Text = "Contraseña";
             // 
-            // btnLogin
-            // 
-            btnLogin.BackColor = Color.FromArgb(9, 98, 246);
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.Font = new Font("Century Gothic", 12F);
-            btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(63, 528);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(350, 49);
-            btnLogin.TabIndex = 6;
-            btnLogin.Text = "Iniciar sesión";
-            btnLogin.UseVisualStyleBackColor = false;
-            btnLogin.Click += button1_Click;
-            // 
             // pictureBox1
             // 
+            pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(128, 78);
             pictureBox1.Name = "pictureBox1";
@@ -163,6 +155,7 @@
             // 
             // checkBoxRememberme
             // 
+            checkBoxRememberme.Anchor = AnchorStyles.None;
             checkBoxRememberme.AutoSize = true;
             checkBoxRememberme.Font = new Font("Century Gothic", 12F);
             checkBoxRememberme.ForeColor = Color.White;
@@ -173,15 +166,36 @@
             checkBoxRememberme.Text = "Recordarme";
             checkBoxRememberme.UseVisualStyleBackColor = true;
             // 
+            // btnGuardar
+            // 
+            btnGuardar.Anchor = AnchorStyles.None;
+            btnGuardar.BackColor = Color.FromArgb(9, 98, 246);
+            btnGuardar.BackgroundColor = Color.FromArgb(9, 98, 246);
+            btnGuardar.BorderColor = Color.FromArgb(9, 98, 246);
+            btnGuardar.BorderRadius = 60;
+            btnGuardar.BorderSize = 0;
+            btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatStyle = FlatStyle.Flat;
+            btnGuardar.Font = new Font("Century Gothic", 12F);
+            btnGuardar.ForeColor = Color.White;
+            btnGuardar.Location = new Point(63, 526);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(350, 62);
+            btnGuardar.TabIndex = 48;
+            btnGuardar.Text = "Iniciar sesión";
+            btnGuardar.TextColor = Color.White;
+            btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 59, 104);
             ClientSize = new Size(473, 719);
+            Controls.Add(btnGuardar);
             Controls.Add(checkBoxRememberme);
             Controls.Add(pictureBox1);
-            Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(label2);
             Controls.Add(txtUserName);
@@ -211,8 +225,8 @@
         private TextBox txtUserName;
         private TextBox txtPassword;
         private Label label2;
-        private Button btnLogin;
         private PictureBox pictureBox1;
         private CheckBox checkBoxRememberme;
+        private Presentacion.Clases.RoundedButton btnGuardar;
     }
 }

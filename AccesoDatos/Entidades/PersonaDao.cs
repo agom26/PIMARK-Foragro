@@ -170,8 +170,6 @@ namespace AccesoDatos.Entidades
                 }
             }
             return tabla;
-
-
         }
 
         public DataTable GetAllAgentes()
