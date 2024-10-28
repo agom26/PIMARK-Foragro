@@ -42,9 +42,11 @@
             btnGuardar = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             panel3 = new Panel();
+            panel4 = new Panel();
             TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // TitleBar
@@ -106,7 +108,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(63, 214);
+            label1.Location = new Point(63, 223);
             label1.Name = "label1";
             label1.Size = new Size(79, 23);
             label1.TabIndex = 2;
@@ -116,7 +118,7 @@
             // 
             txtUserName.Anchor = AnchorStyles.None;
             txtUserName.Font = new Font("Century Gothic", 9F);
-            txtUserName.Location = new Point(63, 258);
+            txtUserName.Location = new Point(63, 267);
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(350, 26);
             txtUserName.TabIndex = 3;
@@ -125,7 +127,7 @@
             // 
             txtPassword.Anchor = AnchorStyles.None;
             txtPassword.Font = new Font("Century Gothic", 9F);
-            txtPassword.Location = new Point(60, 376);
+            txtPassword.Location = new Point(60, 385);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(353, 26);
@@ -137,7 +139,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(60, 335);
+            label2.Location = new Point(60, 344);
             label2.Name = "label2";
             label2.Size = new Size(125, 23);
             label2.TabIndex = 4;
@@ -161,7 +163,7 @@
             checkBoxRememberme.AutoSize = true;
             checkBoxRememberme.Font = new Font("Century Gothic", 12F);
             checkBoxRememberme.ForeColor = Color.White;
-            checkBoxRememberme.Location = new Point(63, 458);
+            checkBoxRememberme.Location = new Point(63, 467);
             checkBoxRememberme.Name = "checkBoxRememberme";
             checkBoxRememberme.Size = new Size(155, 27);
             checkBoxRememberme.TabIndex = 8;
@@ -180,7 +182,7 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Century Gothic", 12F);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(63, 524);
+            btnGuardar.Location = new Point(63, 533);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(350, 62);
             btnGuardar.TabIndex = 48;
@@ -205,6 +207,21 @@
             panel3.Size = new Size(57, 654);
             panel3.TabIndex = 50;
             // 
+            // panel4
+            // 
+            panel4.Controls.Add(pictureBox1);
+            panel4.Controls.Add(label1);
+            panel4.Controls.Add(btnGuardar);
+            panel4.Controls.Add(txtUserName);
+            panel4.Controls.Add(checkBoxRememberme);
+            panel4.Controls.Add(label2);
+            panel4.Controls.Add(txtPassword);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(473, 719);
+            panel4.TabIndex = 51;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -213,15 +230,9 @@
             ClientSize = new Size(473, 719);
             Controls.Add(panel3);
             Controls.Add(panel2);
-            Controls.Add(btnGuardar);
-            Controls.Add(checkBoxRememberme);
-            Controls.Add(pictureBox1);
-            Controls.Add(txtPassword);
-            Controls.Add(label2);
-            Controls.Add(txtUserName);
-            Controls.Add(label1);
             Controls.Add(panel1);
             Controls.Add(TitleBar);
+            Controls.Add(panel4);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -231,8 +242,9 @@
             TitleBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -250,5 +262,6 @@
         private Presentacion.Clases.RoundedButton btnGuardar;
         private Panel panel2;
         private Panel panel3;
+        private Panel panel4;
     }
 }

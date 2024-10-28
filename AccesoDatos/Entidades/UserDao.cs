@@ -166,7 +166,7 @@ namespace AccesoDatos.Usuarios
                 }
             }
         }
-
+        /*
         public string solicitarContrasenaUsuario(string usuarioSolicitante)
         {
             using (var connection = GetConnection())
@@ -201,7 +201,7 @@ namespace AccesoDatos.Usuarios
                     }
                 }
             }
-        }
+        }*/
 
         public (bool, bool) Login(string user, string pass)
         {

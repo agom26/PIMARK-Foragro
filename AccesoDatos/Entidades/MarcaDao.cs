@@ -10,6 +10,9 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        
+
+
         public DataTable GetAllMarcasNacionales()
         {
             DataTable tabla = new DataTable();
