@@ -115,18 +115,19 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-30, 45);
+            panel1.Location = new Point(-10, 45);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1081, 1448);
+            panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
             // 
             // checkBox1
             // 
             checkBox1.Anchor = AnchorStyles.None;
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(64, 1118);
+            checkBox1.Font = new Font("Century Gothic", 10F);
+            checkBox1.Location = new Point(66, 910);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(114, 27);
+            checkBox1.Size = new Size(103, 25);
             checkBox1.TabIndex = 38;
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
@@ -134,10 +135,9 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(436, 31);
+            label1.Location = new Point(443, 0);
             label1.Name = "label1";
             label1.Size = new Size(229, 39);
             label1.TabIndex = 0;
@@ -154,7 +154,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(326, 1348);
+            btnGuardar.Location = new Point(326, 1150);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 35;
@@ -166,101 +166,110 @@
             // richTextBox1
             // 
             richTextBox1.Anchor = AnchorStyles.None;
-            richTextBox1.Location = new Point(64, 988);
+            richTextBox1.Font = new Font("Century Gothic", 10F);
+            richTextBox1.Location = new Point(64, 777);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(791, 120);
             richTextBox1.TabIndex = 33;
             richTextBox1.Text = "";
+            richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // label16
             // 
             label16.Anchor = AnchorStyles.None;
             label16.AutoSize = true;
-            label16.Location = new Point(64, 962);
+            label16.Font = new Font("Century Gothic", 10F);
+            label16.Location = new Point(64, 751);
             label16.Name = "label16";
-            label16.Size = new Size(157, 23);
+            label16.Size = new Size(136, 21);
             label16.TabIndex = 32;
             label16.Text = "Observaciones";
             // 
             // cmbEstado
             // 
             cmbEstado.Anchor = AnchorStyles.None;
+            cmbEstado.Font = new Font("Century Gothic", 10F);
             cmbEstado.FormattingEnabled = true;
             cmbEstado.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
-            cmbEstado.Location = new Point(376, 935);
+            cmbEstado.Location = new Point(66, 236);
             cmbEstado.Name = "cmbEstado";
-            cmbEstado.Size = new Size(479, 31);
+            cmbEstado.Size = new Size(278, 29);
             cmbEstado.TabIndex = 31;
             // 
             // label15
             // 
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
-            label15.Location = new Point(376, 910);
+            label15.Font = new Font("Century Gothic", 10F);
+            label15.Location = new Point(66, 211);
             label15.Name = "label15";
-            label15.Size = new Size(77, 23);
+            label15.Size = new Size(68, 21);
             label15.TabIndex = 30;
             label15.Text = "Estado";
             // 
             // textBox11
             // 
             textBox11.Anchor = AnchorStyles.None;
-            textBox11.Location = new Point(374, 860);
+            textBox11.Font = new Font("Century Gothic", 10F);
+            textBox11.Location = new Point(412, 236);
             textBox11.Name = "textBox11";
-            textBox11.Size = new Size(481, 32);
+            textBox11.ReadOnly = true;
+            textBox11.Size = new Size(290, 28);
             textBox11.TabIndex = 29;
             // 
             // label14
             // 
             label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
-            label14.Location = new Point(372, 835);
+            label14.Font = new Font("Century Gothic", 10F);
+            label14.Location = new Point(412, 211);
             label14.Name = "label14";
-            label14.Size = new Size(141, 23);
+            label14.Size = new Size(122, 21);
             label14.TabIndex = 28;
             label14.Text = "Etapa actual";
             // 
             // datePickerFechaSolicitud
             // 
             datePickerFechaSolicitud.Anchor = AnchorStyles.None;
+            datePickerFechaSolicitud.Font = new Font("Century Gothic", 10F);
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitud.Location = new Point(64, 859);
+            datePickerFechaSolicitud.Location = new Point(66, 704);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
-            datePickerFechaSolicitud.Size = new Size(250, 32);
+            datePickerFechaSolicitud.Size = new Size(341, 28);
             datePickerFechaSolicitud.TabIndex = 27;
             // 
             // label13
             // 
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
-            label13.Location = new Point(64, 834);
+            label13.Font = new Font("Century Gothic", 10F);
+            label13.Location = new Point(66, 679);
             label13.Name = "label13";
-            label13.Size = new Size(90, 23);
+            label13.Size = new Size(78, 21);
             label13.TabIndex = 26;
             label13.Text = "Solicitud";
             // 
             // txtNombreAgente
             // 
-            txtNombreAgente.Anchor = AnchorStyles.None;
             txtNombreAgente.Enabled = false;
-            txtNombreAgente.Location = new Point(64, 786);
+            txtNombreAgente.Font = new Font("Century Gothic", 10F);
+            txtNombreAgente.Location = new Point(64, 628);
             txtNombreAgente.Name = "txtNombreAgente";
-            txtNombreAgente.Size = new Size(791, 32);
+            txtNombreAgente.Size = new Size(280, 28);
             txtNombreAgente.TabIndex = 25;
             // 
             // label12
             // 
-            label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
-            label12.Location = new Point(64, 760);
+            label12.Font = new Font("Century Gothic", 10F);
+            label12.Location = new Point(64, 602);
             label12.Name = "label12";
-            label12.Size = new Size(90, 23);
+            label12.Size = new Size(77, 21);
             label12.TabIndex = 24;
             label12.Text = "Nombre";
             // 
             // roundedButton2
             // 
-            roundedButton2.Anchor = AnchorStyles.None;
             roundedButton2.BackColor = Color.LightSteelBlue;
             roundedButton2.BackgroundColor = Color.LightSteelBlue;
             roundedButton2.BorderColor = Color.LightSteelBlue;
@@ -268,10 +277,11 @@
             roundedButton2.BorderSize = 0;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Century Gothic", 10F);
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(64, 673);
+            roundedButton2.Location = new Point(64, 523);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(791, 61);
+            roundedButton2.Size = new Size(638, 56);
             roundedButton2.TabIndex = 23;
             roundedButton2.Text = "+ AGENTE";
             roundedButton2.TextColor = Color.Black;
@@ -280,64 +290,65 @@
             // 
             // txtEntidadTitular
             // 
-            txtEntidadTitular.Anchor = AnchorStyles.None;
             txtEntidadTitular.Enabled = false;
-            txtEntidadTitular.Location = new Point(64, 619);
+            txtEntidadTitular.Font = new Font("Century Gothic", 10F);
+            txtEntidadTitular.Location = new Point(64, 477);
             txtEntidadTitular.Name = "txtEntidadTitular";
-            txtEntidadTitular.Size = new Size(280, 32);
+            txtEntidadTitular.Size = new Size(280, 28);
             txtEntidadTitular.TabIndex = 22;
             // 
             // label11
             // 
-            label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
-            label11.Location = new Point(64, 593);
+            label11.Font = new Font("Century Gothic", 10F);
+            label11.Location = new Point(64, 451);
             label11.Name = "label11";
-            label11.Size = new Size(85, 23);
+            label11.Size = new Size(75, 21);
             label11.TabIndex = 21;
             label11.Text = "Entidad";
             // 
             // txtDireccionTitular
             // 
-            txtDireccionTitular.Anchor = AnchorStyles.None;
             txtDireccionTitular.Enabled = false;
-            txtDireccionTitular.Location = new Point(64, 548);
+            txtDireccionTitular.Font = new Font("Century Gothic", 10F);
+            txtDireccionTitular.Location = new Point(416, 410);
             txtDireccionTitular.Name = "txtDireccionTitular";
-            txtDireccionTitular.Size = new Size(791, 32);
+            txtDireccionTitular.Size = new Size(286, 28);
             txtDireccionTitular.TabIndex = 20;
+            txtDireccionTitular.TextChanged += txtDireccionTitular_TextChanged;
             // 
             // label10
             // 
-            label10.Anchor = AnchorStyles.None;
             label10.AutoSize = true;
-            label10.Location = new Point(64, 522);
+            label10.Font = new Font("Century Gothic", 10F);
+            label10.Location = new Point(416, 386);
             label10.Name = "label10";
-            label10.Size = new Size(101, 23);
+            label10.Size = new Size(88, 21);
             label10.TabIndex = 19;
             label10.Text = "Dirección";
+            label10.Click += label10_Click;
             // 
             // txtNombreTitular
             // 
-            txtNombreTitular.Anchor = AnchorStyles.None;
             txtNombreTitular.Enabled = false;
-            txtNombreTitular.Location = new Point(64, 478);
+            txtNombreTitular.Font = new Font("Century Gothic", 10F);
+            txtNombreTitular.Location = new Point(64, 410);
             txtNombreTitular.Name = "txtNombreTitular";
-            txtNombreTitular.Size = new Size(791, 32);
+            txtNombreTitular.Size = new Size(280, 28);
             txtNombreTitular.TabIndex = 18;
             // 
             // label9
             // 
-            label9.Anchor = AnchorStyles.None;
             label9.AutoSize = true;
-            label9.Location = new Point(64, 452);
+            label9.Font = new Font("Century Gothic", 10F);
+            label9.Location = new Point(64, 384);
             label9.Name = "label9";
-            label9.Size = new Size(90, 23);
+            label9.Size = new Size(77, 21);
             label9.TabIndex = 17;
             label9.Text = "Nombre";
             // 
             // roundedButton1
             // 
-            roundedButton1.Anchor = AnchorStyles.None;
             roundedButton1.BackColor = Color.LightSteelBlue;
             roundedButton1.BackgroundColor = Color.LightSteelBlue;
             roundedButton1.BorderColor = Color.LightSteelBlue;
@@ -345,10 +356,11 @@
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Century Gothic", 10F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(64, 371);
+            roundedButton1.Location = new Point(64, 309);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(791, 61);
+            roundedButton1.Size = new Size(638, 56);
             roundedButton1.TabIndex = 16;
             roundedButton1.Text = "+ TITULAR";
             roundedButton1.TextColor = Color.Black;
@@ -404,83 +416,93 @@
             // 
             label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
+            label8.Font = new Font("Century Gothic", 10F);
             label8.Location = new Point(866, 60);
             label8.Name = "label8";
-            label8.Size = new Size(86, 23);
+            label8.Size = new Size(74, 21);
             label8.TabIndex = 12;
             label8.Text = "Imagen";
             // 
             // txtSignoDistintivo
             // 
             txtSignoDistintivo.Anchor = AnchorStyles.None;
-            txtSignoDistintivo.Location = new Point(410, 236);
+            txtSignoDistintivo.Font = new Font("Century Gothic", 10F);
+            txtSignoDistintivo.Location = new Point(410, 159);
             txtSignoDistintivo.Name = "txtSignoDistintivo";
-            txtSignoDistintivo.Size = new Size(280, 32);
+            txtSignoDistintivo.Size = new Size(292, 28);
             txtSignoDistintivo.TabIndex = 7;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Location = new Point(410, 210);
+            label5.Font = new Font("Century Gothic", 10F);
+            label5.Location = new Point(409, 135);
             label5.Name = "label5";
-            label5.Size = new Size(150, 23);
+            label5.Size = new Size(132, 21);
             label5.TabIndex = 6;
             label5.Text = "Signo distintivo";
             // 
             // txtClase
             // 
             txtClase.Anchor = AnchorStyles.None;
-            txtClase.Location = new Point(64, 236);
+            txtClase.Font = new Font("Century Gothic", 10F);
+            txtClase.Location = new Point(64, 159);
             txtClase.Name = "txtClase";
-            txtClase.Size = new Size(280, 32);
+            txtClase.Size = new Size(280, 28);
             txtClase.TabIndex = 5;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
-            label4.Location = new Point(64, 210);
+            label4.Font = new Font("Century Gothic", 10F);
+            label4.Location = new Point(64, 135);
             label4.Name = "label4";
-            label4.Size = new Size(66, 23);
+            label4.Size = new Size(57, 21);
             label4.TabIndex = 4;
             label4.Text = "Clase";
             // 
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.None;
-            txtNombre.Location = new Point(64, 162);
+            txtNombre.Font = new Font("Century Gothic", 10F);
+            txtNombre.Location = new Point(410, 86);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(626, 32);
+            txtNombre.Size = new Size(292, 28);
             txtNombre.TabIndex = 3;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
-            label3.Location = new Point(64, 136);
+            label3.Font = new Font("Century Gothic", 10F);
+            label3.Location = new Point(410, 62);
             label3.Name = "label3";
-            label3.Size = new Size(90, 23);
+            label3.Size = new Size(77, 21);
             label3.TabIndex = 2;
             label3.Text = "Nombre";
             // 
             // txtExpediente
             // 
             txtExpediente.Anchor = AnchorStyles.None;
+            txtExpediente.Font = new Font("Century Gothic", 10F);
             txtExpediente.Location = new Point(64, 86);
             txtExpediente.Name = "txtExpediente";
-            txtExpediente.Size = new Size(280, 32);
+            txtExpediente.Size = new Size(280, 28);
             txtExpediente.TabIndex = 1;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 10F);
             label2.Location = new Point(64, 60);
             label2.Name = "label2";
-            label2.Size = new Size(120, 23);
+            label2.Size = new Size(104, 21);
             label2.TabIndex = 0;
             label2.Text = "Expediente";
+            label2.Click += label2_Click;
             // 
             // panel2
             // 
@@ -495,9 +517,10 @@
             panel2.Controls.Add(label7);
             panel2.Controls.Add(txtLibro);
             panel2.Controls.Add(label6);
-            panel2.Location = new Point(64, 1153);
+            panel2.Font = new Font("Century Gothic", 10F);
+            panel2.Location = new Point(66, 945);
             panel2.Name = "panel2";
-            panel2.Size = new Size(986, 185);
+            panel2.Size = new Size(791, 185);
             panel2.TabIndex = 37;
             // 
             // dateTimePFecha_vencimiento
@@ -505,18 +528,19 @@
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(346, 131);
+            dateTimePFecha_vencimiento.Location = new Point(280, 133);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(280, 32);
+            dateTimePFecha_vencimiento.Size = new Size(222, 28);
             dateTimePFecha_vencimiento.TabIndex = 41;
+            dateTimePFecha_vencimiento.ValueChanged += dateTimePFecha_vencimiento_ValueChanged;
             // 
             // label19
             // 
             label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
-            label19.Location = new Point(345, 105);
+            label19.Location = new Point(279, 107);
             label19.Name = "label19";
-            label19.Size = new Size(232, 23);
+            label19.Size = new Size(198, 21);
             label19.TabIndex = 40;
             label19.Text = "Fecha de vencimiento";
             // 
@@ -524,9 +548,9 @@
             // 
             dateTimePFecha_Registro.Anchor = AnchorStyles.None;
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(0, 131);
+            dateTimePFecha_Registro.Location = new Point(0, 133);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(280, 32);
+            dateTimePFecha_Registro.Size = new Size(224, 28);
             dateTimePFecha_Registro.TabIndex = 39;
             dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
@@ -534,63 +558,63 @@
             // 
             label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
-            label18.Location = new Point(0, 106);
+            label18.Location = new Point(0, 108);
             label18.Name = "label18";
-            label18.Size = new Size(180, 23);
+            label18.Size = new Size(155, 21);
             label18.TabIndex = 38;
             label18.Text = "Fecha de registro";
             // 
             // txtRegistro
             // 
             txtRegistro.Anchor = AnchorStyles.None;
-            txtRegistro.Location = new Point(2, 49);
+            txtRegistro.Location = new Point(2, 51);
             txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(278, 32);
+            txtRegistro.Size = new Size(222, 28);
             txtRegistro.TabIndex = 39;
             // 
             // label17
             // 
             label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
-            label17.Location = new Point(0, 24);
+            label17.Location = new Point(0, 26);
             label17.Name = "label17";
-            label17.Size = new Size(85, 23);
+            label17.Size = new Size(75, 21);
             label17.TabIndex = 38;
             label17.Text = "Registro";
             // 
             // txtFolio
             // 
             txtFolio.Anchor = AnchorStyles.None;
-            txtFolio.Location = new Point(345, 49);
+            txtFolio.Location = new Point(280, 51);
             txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(280, 32);
+            txtFolio.Size = new Size(222, 28);
             txtFolio.TabIndex = 9;
             // 
             // label7
             // 
             label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
-            label7.Location = new Point(345, 23);
+            label7.Location = new Point(280, 25);
             label7.Name = "label7";
-            label7.Size = new Size(54, 23);
+            label7.Size = new Size(46, 21);
             label7.TabIndex = 8;
             label7.Text = "Folio";
             // 
             // txtLibro
             // 
             txtLibro.Anchor = AnchorStyles.None;
-            txtLibro.Location = new Point(677, 49);
+            txtLibro.Location = new Point(557, 51);
             txtLibro.Name = "txtLibro";
-            txtLibro.Size = new Size(280, 32);
+            txtLibro.Size = new Size(222, 28);
             txtLibro.TabIndex = 11;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(677, 23);
+            label6.Location = new Point(557, 25);
             label6.Name = "label6";
-            label6.Size = new Size(55, 23);
+            label6.Size = new Size(49, 21);
             label6.TabIndex = 10;
             label6.Text = "Libro";
             // 

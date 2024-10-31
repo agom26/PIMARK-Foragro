@@ -21,7 +21,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2.Visible = false;
-            btnGuardar.Location = new Point(272, 1135);
+            btnGuardar.Location = new Point(272, 950);
             ActualizarFechaVencimiento();
         }
         private void ActualizarFechaVencimiento()
@@ -188,7 +188,7 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton4_Click(object sender, EventArgs e)
         {
             GuardarMarcaNacional();
-            
+
         }
 
         private void roundedButton3_Click(object sender, EventArgs e)
@@ -205,14 +205,22 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (checkBox1.Checked)
             {
-                panel2.Visible = true;
-                btnGuardar.Location = new Point(272, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+                if (cmbEstado.SelectedItem == "Registrada")
+                {
+                    panel2.Visible = true;
+                    btnGuardar.Location = new Point(272, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+                }
+                else
+                {
+                    MessageBox.Show("Debe colocar el estado en registrada para poder ingresar datos de registro");
+                    checkBox1.Checked = false;
+                }
 
             }
             else
             {
                 panel2.Visible = false;
-                btnGuardar.Location = new Point(272, 1135);
+                btnGuardar.Location = new Point(272, 950);
 
             }
         }
@@ -220,6 +228,31 @@ namespace Presentacion.Marcas_Nacionales
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDireccionTitular_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePFecha_vencimiento_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
