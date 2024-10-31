@@ -51,7 +51,7 @@
             // 
             // TitleBar
             // 
-            TitleBar.BackColor = Color.FromArgb(30, 38, 70);
+            TitleBar.BackColor = Color.FromArgb(51, 109, 156);
             TitleBar.Controls.Add(iconPictureBox1);
             TitleBar.Controls.Add(iconButton1);
             TitleBar.Dock = DockStyle.Top;
@@ -64,7 +64,7 @@
             // 
             // iconPictureBox1
             // 
-            iconPictureBox1.BackColor = Color.FromArgb(30, 38, 70);
+            iconPictureBox1.BackColor = Color.FromArgb(51, 109, 156);
             iconPictureBox1.Dock = DockStyle.Right;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
             iconPictureBox1.IconColor = Color.White;
@@ -81,7 +81,7 @@
             // 
             iconButton1.Dock = DockStyle.Right;
             iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.ForeColor = Color.FromArgb(30, 38, 70);
+            iconButton1.ForeColor = Color.FromArgb(133, 182, 222);
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Close;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -95,7 +95,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(30, 38, 70);
+            panel1.BackColor = Color.FromArgb(51, 109, 156);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 704);
             panel1.Name = "panel1";
@@ -149,9 +149,9 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(126, 56);
+            pictureBox1.Location = new Point(125, 94);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(213, 149);
+            pictureBox1.Size = new Size(213, 92);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
@@ -173,26 +173,27 @@
             // btnGuardar
             // 
             btnGuardar.Anchor = AnchorStyles.None;
-            btnGuardar.BackColor = Color.FromArgb(9, 98, 246);
-            btnGuardar.BackgroundColor = Color.FromArgb(9, 98, 246);
-            btnGuardar.BorderColor = Color.FromArgb(9, 98, 246);
+            btnGuardar.BackColor = Color.FromArgb(133, 182, 222);
+            btnGuardar.BackgroundColor = Color.FromArgb(133, 182, 222);
+            btnGuardar.BorderColor = Color.FromArgb(133, 182, 222);
             btnGuardar.BorderRadius = 60;
             btnGuardar.BorderSize = 0;
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Century Gothic", 12F);
-            btnGuardar.ForeColor = Color.White;
+            btnGuardar.ForeColor = Color.Black;
             btnGuardar.Location = new Point(63, 533);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(350, 62);
             btnGuardar.TabIndex = 48;
             btnGuardar.Text = "Iniciar sesión";
-            btnGuardar.TextColor = Color.White;
+            btnGuardar.TextColor = Color.Black;
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
             // panel2
             // 
+            panel2.BackColor = Color.FromArgb(34, 77, 112);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 50);
             panel2.Name = "panel2";
@@ -201,6 +202,7 @@
             // 
             // panel3
             // 
+            panel3.BackColor = Color.FromArgb(34, 77, 112);
             panel3.Dock = DockStyle.Right;
             panel3.Location = new Point(416, 50);
             panel3.Name = "panel3";
@@ -209,6 +211,7 @@
             // 
             // panel4
             // 
+            panel4.BackColor = Color.FromArgb(34, 77, 112);
             panel4.Controls.Add(pictureBox1);
             panel4.Controls.Add(label1);
             panel4.Controls.Add(btnGuardar);
