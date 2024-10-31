@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Negocio\Dominio.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccesoDatos", "AccesoDatos\AccesoDatos.csproj", "{0B54A955-191E-4CB9-8EB6-F4ADBD9CA8B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comun", "Comun\Comun.csproj", "{10E68083-95D0-47AD-9F86-4115C420B8F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comun", "Comun\Comun.csproj", "{10E68083-95D0-47AD-9F86-4115C420B8F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

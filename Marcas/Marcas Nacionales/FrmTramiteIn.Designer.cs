@@ -73,6 +73,7 @@
             label7 = new Label();
             txtLibro = new TextBox();
             label6 = new Label();
+            roundedButton3 = new Clases.RoundedButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -81,6 +82,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
+            panel1.Controls.Add(roundedButton3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnGuardar);
@@ -191,7 +193,7 @@
             cmbEstado.Font = new Font("Century Gothic", 10F);
             cmbEstado.FormattingEnabled = true;
             cmbEstado.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
-            cmbEstado.Location = new Point(66, 236);
+            cmbEstado.Location = new Point(66, 249);
             cmbEstado.Name = "cmbEstado";
             cmbEstado.Size = new Size(278, 29);
             cmbEstado.TabIndex = 31;
@@ -201,7 +203,7 @@
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
             label15.Font = new Font("Century Gothic", 10F);
-            label15.Location = new Point(66, 211);
+            label15.Location = new Point(66, 224);
             label15.Name = "label15";
             label15.Size = new Size(68, 21);
             label15.TabIndex = 30;
@@ -211,7 +213,7 @@
             // 
             textBox11.Anchor = AnchorStyles.None;
             textBox11.Font = new Font("Century Gothic", 10F);
-            textBox11.Location = new Point(412, 236);
+            textBox11.Location = new Point(412, 249);
             textBox11.Name = "textBox11";
             textBox11.ReadOnly = true;
             textBox11.Size = new Size(290, 28);
@@ -618,6 +620,25 @@
             label6.TabIndex = 10;
             label6.Text = "Libro";
             // 
+            // roundedButton3
+            // 
+            roundedButton3.BackColor = Color.LightSteelBlue;
+            roundedButton3.BackgroundColor = Color.LightSteelBlue;
+            roundedButton3.BorderColor = Color.LightSteelBlue;
+            roundedButton3.BorderRadius = 35;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.Font = new Font("Century Gothic", 9F);
+            roundedButton3.ForeColor = Color.Black;
+            roundedButton3.Location = new Point(412, 204);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(234, 35);
+            roundedButton3.TabIndex = 39;
+            roundedButton3.Text = "+ ETAPA ACTUAL";
+            roundedButton3.TextColor = Color.Black;
+            roundedButton3.UseVisualStyleBackColor = false;
+            // 
             // FrmTramiteIn
             // 
             AutoScaleDimensions = new SizeF(12F, 23F);
@@ -687,5 +708,6 @@
         private TextBox txtRegistro;
         private Label label17;
         private CheckBox checkBox1;
+        private Clases.RoundedButton roundedButton3;
     }
 }

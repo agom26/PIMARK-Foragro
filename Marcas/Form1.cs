@@ -156,7 +156,7 @@ namespace Presentacion
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            ShowSubMenu(panelLogo);
+            
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
@@ -379,6 +379,11 @@ namespace Presentacion
         }
 
         private void labelName_LN_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelUsername_Click(object sender, EventArgs e)
         {
 
         }
