@@ -37,18 +37,33 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedIndex != -1)
+            string anotaciones = richTextBox1.Text;
+            if (comboBox1.SelectedIndex != -1)
             {
-                AgregarEtapa.etapa=comboBox1.SelectedItem.ToString();
-                AgregarEtapa.fecha=dateTimePicker1.Value;
-                AgregarEtapa.anotaciones = richTextBox1.Text;
+                if (anotaciones != "")
+                {
+                    AgregarEtapa.anotaciones = richTextBox1.Text;
+                }
+                else
+                {
+                    anotaciones = dateTimePicker1.Value.ToString() + " " + comboBox1.SelectedItem.ToString();
+                    AgregarEtapa.anotaciones = anotaciones;
+                }
+                AgregarEtapa.etapa = comboBox1.SelectedItem.ToString();
+                AgregarEtapa.fecha = dateTimePicker1.Value;
                 AgregarEtapa.usuario = UsuarioActivo.usuario;
+
                 this.Close();
             }
             else
             {
                 MessageBox.Show("No ha seleccionado ningun estatus");
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBox1.Text=dateTimePicker1.Value.ToString()+" "+comboBox1.SelectedItem;
         }
     }
 }

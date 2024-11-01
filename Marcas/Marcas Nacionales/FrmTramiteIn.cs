@@ -48,6 +48,16 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
+            string observaciones = null;
+            if (AgregarEtapa.anotaciones != "")
+            {
+                observaciones = AgregarEtapa.anotaciones;
+            }
+            else
+            {
+                observaciones = null;
+            }
+            
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
@@ -94,7 +104,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Guardar la marca y obtener su ID
                     int idMarca = marcaModel.AddMarcaNacionalRegistrada(
-                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, registro, fecha_registro, fecha_vencimiento);
+                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado,observaciones, registro, fecha_registro, fecha_vencimiento);
 
                     // Verifica si se ha guardado correctamente
                     if (idMarca > 0)
@@ -127,7 +137,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Guardar la marca nacional y obtener su ID
                     int idMarca = marcaModel.AddMarcaNacional(
-                        expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado);
+                        expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, observaciones);
 
                     // Verifica si se ha guardado correctamente
                     if (idMarca > 0)
@@ -176,6 +186,7 @@ namespace Presentacion.Marcas_Nacionales
             checkBox1_CheckedChanged(checkBox1, EventArgs.Empty);
             ActualizarFechaVencimiento();
             txtRegistro.Text = "";
+            richTextBox1.Text = "";
         }
 
         public void mostrarPanelRegistro()
@@ -258,16 +269,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-
-
-            }
-            else
-            {
-
-
-            }
+           
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -309,6 +311,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
+                richTextBox1.Text+= AgregarEtapa.anotaciones;
             }
         }
 
