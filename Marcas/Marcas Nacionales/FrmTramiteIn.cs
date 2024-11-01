@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Presentacion.Marcas_Nacionales
     public partial class FrmTramiteIn : Form
     {
         MarcaModel marcaModel = new MarcaModel();
+        HistorialModel historialModel=new HistorialModel();
 
         public FrmTramiteIn()
         {
@@ -23,6 +25,8 @@ namespace Presentacion.Marcas_Nacionales
             panel2.Visible = false;
             btnGuardar.Location = new Point(200, 950);
             ActualizarFechaVencimiento();
+            checkBox1.Checked = false;
+            checkBox1.Enabled = false;
         }
         private void ActualizarFechaVencimiento()
         {
@@ -86,34 +90,67 @@ namespace Presentacion.Marcas_Nacionales
                     return;
                 }
 
-                // Intentar guardar la marca registrada
-                bool resultadoRegistrada = marcaModel.AddMarcaNacionalRegistrada(
-                    expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, registro, fecha_registro, fecha_vencimiento);
-
-                if (resultadoRegistrada)
+                try
                 {
+                    // Guardar la marca y obtener su ID
+                    int idMarca = marcaModel.AddMarcaNacionalRegistrada(
+                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, registro, fecha_registro, fecha_vencimiento);
+
+                    // Verifica si se ha guardado correctamente
+                    if (idMarca > 0)
+                    {
+                        string etapa = textBoxEstatus.Text;
+                        
+                        // Solo guardamos la etapa si la etapa no está vacía
+                        if (!string.IsNullOrEmpty(etapa))
+                        {
+                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
-                else
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al registrar la marca nacional."+ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+               
             }
             else
             {
-                // Intentar guardar la marca sin registro
-                bool resultado = marcaModel.AddMarcaNacional(
-                    expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado);
-
-                if (resultado)
+                try
                 {
+                    // Guardar la marca nacional y obtener su ID
+                    int idMarca = marcaModel.AddMarcaNacional(
+                        expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado);
+
+                    // Verifica si se ha guardado correctamente
+                    if (idMarca > 0)
+                    {
+                        string etapa = textBoxEstatus.Text;
+
+                        // Solo guardamos la etapa si la etapa no está vacía
+                        if (!string.IsNullOrEmpty(etapa))
+                        {
+                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     MessageBox.Show("Marca nacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al guardar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

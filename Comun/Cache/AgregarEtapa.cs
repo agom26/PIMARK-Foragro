@@ -8,9 +8,9 @@ namespace Comun.Cache
 {
     public static class AgregarEtapa
     {
-        public static int isMarca;
+        public static int idMarca;
         public static string etapa;
-        public static string fecha;
+        public static DateTime fecha;
         public static string usuario;
         public static string anotaciones;
     }

@@ -29,25 +29,22 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public bool AddEstatusHistorial(DateTime fecha, string etapa, string anotaciones, string usuario, int idMarca)
+        public void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario)
         {
-            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            using (MySqlConnection conn = GetConnection())
             {
-                connection.Open();
-                using (var command = new MySqlCommand("INSERT INTO Historial (fecha, etapa, anotaciones, usuario, IdMarca) VALUES (@fecha, @etapa, @anotaciones, @usuario, @IdMarca)", connection))
-                {
-                    command.Parameters.AddWithValue("@fecha", fecha);
-                    command.Parameters.AddWithValue("@etapa", etapa);
-                    command.Parameters.AddWithValue("@anotaciones", anotaciones);
-                    command.Parameters.AddWithValue("@usuario", usuario);
-                    command.Parameters.AddWithValue("@IdMarca", idMarca);
+                conn.Open();
+                string query = @"INSERT INTO Historial (fecha, etapa, anotaciones, usuario, IdMarca) 
+                         VALUES (@fecha, @etapa, @anotaciones, @usuario, @IdMarca)";
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
-                    int rowsAffected = command.ExecuteNonQuery();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                cmd.Parameters.AddWithValue("@etapa", etapa);
+                cmd.Parameters.AddWithValue("@anotaciones", anotaciones);
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                cmd.Parameters.AddWithValue("@IdMarca", idMarca);
 
-                    // Si se insertó al menos una fila, la operación fue exitosa
-                    return rowsAffected > 0;
-                }
+                cmd.ExecuteNonQuery();
             }
         }
     }

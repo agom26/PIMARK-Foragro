@@ -40,8 +40,9 @@ namespace Presentacion.Marcas_Nacionales
             if(comboBox1.SelectedIndex != -1)
             {
                 AgregarEtapa.etapa=comboBox1.SelectedItem.ToString();
-                AgregarEtapa.fecha=dateTimePicker1.ToString();
+                AgregarEtapa.fecha=dateTimePicker1.Value;
                 AgregarEtapa.anotaciones = richTextBox1.Text;
+                AgregarEtapa.usuario = UsuarioActivo.usuario;
                 this.Close();
             }
             else

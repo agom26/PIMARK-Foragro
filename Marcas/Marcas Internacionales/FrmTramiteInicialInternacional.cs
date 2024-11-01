@@ -120,10 +120,10 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 // Intentar guardar la marca sin registro
-                bool resultado = marcaModel.AddMarcaInternacional(
+                int resultado = marcaModel.AddMarcaInternacional(
                     expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente);
 
-                if (resultado)
+                if (resultado>0)
                 {
                     MessageBox.Show("Marca internacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
