@@ -38,7 +38,7 @@
             button35 = new Button();
             button36 = new Button();
             panel2 = new Panel();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
+            iconButtonVencimientos = new FontAwesome.Sharp.IconButton();
             btnReportes = new FontAwesome.Sharp.IconButton();
             btnPatentes = new FontAwesome.Sharp.IconButton();
             panelSubMenuMarcasInter = new Panel();
@@ -52,12 +52,13 @@
             button30 = new Button();
             iconButton12 = new FontAwesome.Sharp.IconButton();
             panelSubMenuMarcasNacionales = new Panel();
-            button3 = new Button();
-            button22 = new Button();
-            button23 = new Button();
-            button24 = new Button();
-            button25 = new Button();
-            button26 = new Button();
+            btnAbandonadas = new Button();
+            btnTramiteRenov = new Button();
+            btnTramiteRenovacion = new Button();
+            btnRegistradas = new Button();
+            btnOposiciones = new Button();
+            btnEnTramite = new Button();
+            btnTramiteInicial = new Button();
             iconButton10 = new FontAwesome.Sharp.IconButton();
             iconButtonTitulares = new FontAwesome.Sharp.IconButton();
             iconButtonAgentes = new FontAwesome.Sharp.IconButton();
@@ -106,7 +107,7 @@
             iconButtonLogout.IconColor = Color.FromArgb(211, 47, 47);
             iconButtonLogout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonLogout.Location = new Point(0, 1597);
+            iconButtonLogout.Location = new Point(0, 1636);
             iconButtonLogout.Name = "iconButtonLogout";
             iconButtonLogout.Padding = new Padding(9, 0, 0, 0);
             iconButtonLogout.Size = new Size(259, 54);
@@ -126,7 +127,7 @@
             panelSubMenuPatentes.Controls.Add(button36);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuPatentes.Location = new Point(0, 1221);
+            panelSubMenuPatentes.Location = new Point(0, 1260);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
             panelSubMenuPatentes.Size = new Size(259, 268);
             panelSubMenuPatentes.TabIndex = 12;
@@ -224,7 +225,7 @@
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(34, 77, 112);
             panel2.Controls.Add(iconButtonLogout);
-            panel2.Controls.Add(iconButton5);
+            panel2.Controls.Add(iconButtonVencimientos);
             panel2.Controls.Add(btnReportes);
             panel2.Controls.Add(panelSubMenuPatentes);
             panel2.Controls.Add(btnPatentes);
@@ -244,28 +245,28 @@
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
-            // iconButton5
+            // iconButtonVencimientos
             // 
-            iconButton5.AutoSize = true;
-            iconButton5.BackColor = Color.FromArgb(34, 77, 112);
-            iconButton5.Dock = DockStyle.Top;
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.FlatStyle = FlatStyle.Flat;
-            iconButton5.Font = new Font("Century Gothic", 9F);
-            iconButton5.ForeColor = Color.Gainsboro;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconButton5.IconColor = Color.Red;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton5.Location = new Point(0, 1543);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Padding = new Padding(9, 0, 0, 0);
-            iconButton5.Size = new Size(259, 54);
-            iconButton5.TabIndex = 15;
-            iconButton5.Text = "Vencimientos";
-            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton5.UseVisualStyleBackColor = false;
-            iconButton5.Click += iconButton5_Click_1;
+            iconButtonVencimientos.AutoSize = true;
+            iconButtonVencimientos.BackColor = Color.FromArgb(34, 77, 112);
+            iconButtonVencimientos.Dock = DockStyle.Top;
+            iconButtonVencimientos.FlatAppearance.BorderSize = 0;
+            iconButtonVencimientos.FlatStyle = FlatStyle.Flat;
+            iconButtonVencimientos.Font = new Font("Century Gothic", 9F);
+            iconButtonVencimientos.ForeColor = Color.Gainsboro;
+            iconButtonVencimientos.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
+            iconButtonVencimientos.IconColor = Color.Red;
+            iconButtonVencimientos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonVencimientos.Location = new Point(0, 1582);
+            iconButtonVencimientos.Name = "iconButtonVencimientos";
+            iconButtonVencimientos.Padding = new Padding(9, 0, 0, 0);
+            iconButtonVencimientos.Size = new Size(259, 54);
+            iconButtonVencimientos.TabIndex = 15;
+            iconButtonVencimientos.Text = "Vencimientos";
+            iconButtonVencimientos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonVencimientos.UseVisualStyleBackColor = false;
+            iconButtonVencimientos.Click += iconButton5_Click_1;
             // 
             // btnReportes
             // 
@@ -280,7 +281,7 @@
             btnReportes.IconColor = Color.FromArgb(38, 166, 154);
             btnReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(0, 1489);
+            btnReportes.Location = new Point(0, 1528);
             btnReportes.Name = "btnReportes";
             btnReportes.Padding = new Padding(9, 0, 0, 0);
             btnReportes.Size = new Size(259, 54);
@@ -303,7 +304,7 @@
             btnPatentes.IconColor = Color.FromArgb(255, 190, 69);
             btnPatentes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatentes.Location = new Point(0, 1167);
+            btnPatentes.Location = new Point(0, 1206);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Padding = new Padding(9, 0, 0, 0);
             btnPatentes.Size = new Size(259, 54);
@@ -326,7 +327,7 @@
             panelSubMenuMarcasInter.Controls.Add(button30);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasInter.Location = new Point(0, 738);
+            panelSubMenuMarcasInter.Location = new Point(0, 777);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
             panelSubMenuMarcasInter.Size = new Size(259, 429);
             panelSubMenuMarcasInter.TabIndex = 10;
@@ -482,7 +483,7 @@
             iconButton12.IconColor = Color.FromArgb(129, 136, 255);
             iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton12.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton12.Location = new Point(0, 677);
+            iconButton12.Location = new Point(0, 716);
             iconButton12.Name = "iconButton12";
             iconButton12.Padding = new Padding(9, 0, 0, 0);
             iconButton12.Size = new Size(259, 61);
@@ -495,133 +496,154 @@
             // panelSubMenuMarcasNacionales
             // 
             panelSubMenuMarcasNacionales.BackColor = Color.FromArgb(196, 196, 208);
-            panelSubMenuMarcasNacionales.Controls.Add(button3);
-            panelSubMenuMarcasNacionales.Controls.Add(button22);
-            panelSubMenuMarcasNacionales.Controls.Add(button23);
-            panelSubMenuMarcasNacionales.Controls.Add(button24);
-            panelSubMenuMarcasNacionales.Controls.Add(button25);
-            panelSubMenuMarcasNacionales.Controls.Add(button26);
+            panelSubMenuMarcasNacionales.Controls.Add(btnAbandonadas);
+            panelSubMenuMarcasNacionales.Controls.Add(btnTramiteRenov);
+            panelSubMenuMarcasNacionales.Controls.Add(btnTramiteRenovacion);
+            panelSubMenuMarcasNacionales.Controls.Add(btnRegistradas);
+            panelSubMenuMarcasNacionales.Controls.Add(btnOposiciones);
+            panelSubMenuMarcasNacionales.Controls.Add(btnEnTramite);
+            panelSubMenuMarcasNacionales.Controls.Add(btnTramiteInicial);
             panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasNacionales.Location = new Point(0, 370);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
-            panelSubMenuMarcasNacionales.Size = new Size(259, 307);
+            panelSubMenuMarcasNacionales.Size = new Size(259, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
             // 
-            // button3
+            // btnAbandonadas
             // 
-            button3.AutoSize = true;
-            button3.BackColor = Color.FromArgb(196, 196, 208);
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 9F);
-            button3.ForeColor = Color.Black;
-            button3.Location = new Point(0, 235);
-            button3.Margin = new Padding(0);
-            button3.Name = "button3";
-            button3.Padding = new Padding(58, 0, 0, 0);
-            button3.Size = new Size(259, 47);
-            button3.TabIndex = 5;
-            button3.Text = "Abandonadas";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = false;
+            btnAbandonadas.AutoSize = true;
+            btnAbandonadas.BackColor = Color.FromArgb(196, 196, 208);
+            btnAbandonadas.Dock = DockStyle.Top;
+            btnAbandonadas.FlatAppearance.BorderSize = 0;
+            btnAbandonadas.FlatStyle = FlatStyle.Flat;
+            btnAbandonadas.Font = new Font("Century Gothic", 9F);
+            btnAbandonadas.ForeColor = Color.Black;
+            btnAbandonadas.Location = new Point(0, 282);
+            btnAbandonadas.Margin = new Padding(0);
+            btnAbandonadas.Name = "btnAbandonadas";
+            btnAbandonadas.Padding = new Padding(58, 0, 0, 0);
+            btnAbandonadas.Size = new Size(259, 47);
+            btnAbandonadas.TabIndex = 5;
+            btnAbandonadas.Text = "Abandonadas";
+            btnAbandonadas.TextAlign = ContentAlignment.MiddleLeft;
+            btnAbandonadas.UseVisualStyleBackColor = false;
             // 
-            // button22
+            // btnTramiteRenov
             // 
-            button22.AutoSize = true;
-            button22.BackColor = Color.FromArgb(196, 196, 208);
-            button22.Dock = DockStyle.Top;
-            button22.FlatAppearance.BorderSize = 0;
-            button22.FlatStyle = FlatStyle.Flat;
-            button22.Font = new Font("Century Gothic", 9F);
-            button22.ForeColor = Color.Black;
-            button22.Location = new Point(0, 188);
-            button22.Name = "button22";
-            button22.Padding = new Padding(58, 0, 0, 0);
-            button22.Size = new Size(259, 47);
-            button22.TabIndex = 4;
-            button22.Text = "Trámite de traspaso";
-            button22.TextAlign = ContentAlignment.MiddleLeft;
-            button22.UseVisualStyleBackColor = false;
-            button22.Click += button22_Click;
+            btnTramiteRenov.AutoSize = true;
+            btnTramiteRenov.BackColor = Color.FromArgb(196, 196, 208);
+            btnTramiteRenov.Dock = DockStyle.Top;
+            btnTramiteRenov.FlatAppearance.BorderSize = 0;
+            btnTramiteRenov.FlatStyle = FlatStyle.Flat;
+            btnTramiteRenov.Font = new Font("Century Gothic", 9F);
+            btnTramiteRenov.ForeColor = Color.Black;
+            btnTramiteRenov.Location = new Point(0, 235);
+            btnTramiteRenov.Name = "btnTramiteRenov";
+            btnTramiteRenov.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteRenov.Size = new Size(259, 47);
+            btnTramiteRenov.TabIndex = 4;
+            btnTramiteRenov.Text = "Trámite de traspaso";
+            btnTramiteRenov.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteRenov.UseVisualStyleBackColor = false;
+            btnTramiteRenov.Click += button22_Click;
             // 
-            // button23
+            // btnTramiteRenovacion
             // 
-            button23.AutoSize = true;
-            button23.BackColor = Color.FromArgb(196, 196, 208);
-            button23.Dock = DockStyle.Top;
-            button23.FlatAppearance.BorderSize = 0;
-            button23.FlatStyle = FlatStyle.Flat;
-            button23.Font = new Font("Century Gothic", 9F);
-            button23.ForeColor = Color.Black;
-            button23.Location = new Point(0, 141);
-            button23.Margin = new Padding(0);
-            button23.Name = "button23";
-            button23.Padding = new Padding(58, 0, 0, 0);
-            button23.Size = new Size(259, 47);
-            button23.TabIndex = 3;
-            button23.Text = "Trámite de renovación";
-            button23.TextAlign = ContentAlignment.MiddleLeft;
-            button23.UseVisualStyleBackColor = false;
-            button23.Click += button23_Click;
+            btnTramiteRenovacion.AutoSize = true;
+            btnTramiteRenovacion.BackColor = Color.FromArgb(196, 196, 208);
+            btnTramiteRenovacion.Dock = DockStyle.Top;
+            btnTramiteRenovacion.FlatAppearance.BorderSize = 0;
+            btnTramiteRenovacion.FlatStyle = FlatStyle.Flat;
+            btnTramiteRenovacion.Font = new Font("Century Gothic", 9F);
+            btnTramiteRenovacion.ForeColor = Color.Black;
+            btnTramiteRenovacion.Location = new Point(0, 188);
+            btnTramiteRenovacion.Margin = new Padding(0);
+            btnTramiteRenovacion.Name = "btnTramiteRenovacion";
+            btnTramiteRenovacion.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteRenovacion.Size = new Size(259, 47);
+            btnTramiteRenovacion.TabIndex = 3;
+            btnTramiteRenovacion.Text = "Trámite de renovación";
+            btnTramiteRenovacion.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteRenovacion.UseVisualStyleBackColor = false;
+            btnTramiteRenovacion.Click += button23_Click;
             // 
-            // button24
+            // btnRegistradas
             // 
-            button24.AutoSize = true;
-            button24.BackColor = Color.FromArgb(196, 196, 208);
-            button24.Dock = DockStyle.Top;
-            button24.FlatAppearance.BorderSize = 0;
-            button24.FlatStyle = FlatStyle.Flat;
-            button24.Font = new Font("Century Gothic", 9F);
-            button24.ForeColor = Color.Black;
-            button24.Location = new Point(0, 94);
-            button24.Name = "button24";
-            button24.Padding = new Padding(58, 0, 0, 0);
-            button24.Size = new Size(259, 47);
-            button24.TabIndex = 2;
-            button24.Text = "Registradas";
-            button24.TextAlign = ContentAlignment.MiddleLeft;
-            button24.UseVisualStyleBackColor = false;
+            btnRegistradas.AutoSize = true;
+            btnRegistradas.BackColor = Color.FromArgb(196, 196, 208);
+            btnRegistradas.Dock = DockStyle.Top;
+            btnRegistradas.FlatAppearance.BorderSize = 0;
+            btnRegistradas.FlatStyle = FlatStyle.Flat;
+            btnRegistradas.Font = new Font("Century Gothic", 9F);
+            btnRegistradas.ForeColor = Color.Black;
+            btnRegistradas.Location = new Point(0, 141);
+            btnRegistradas.Name = "btnRegistradas";
+            btnRegistradas.Padding = new Padding(58, 0, 0, 0);
+            btnRegistradas.Size = new Size(259, 47);
+            btnRegistradas.TabIndex = 2;
+            btnRegistradas.Text = "Registradas";
+            btnRegistradas.TextAlign = ContentAlignment.MiddleLeft;
+            btnRegistradas.UseVisualStyleBackColor = false;
             // 
-            // button25
+            // btnOposiciones
             // 
-            button25.AutoSize = true;
-            button25.BackColor = Color.FromArgb(196, 196, 208);
-            button25.Dock = DockStyle.Top;
-            button25.FlatAppearance.BorderSize = 0;
-            button25.FlatStyle = FlatStyle.Flat;
-            button25.Font = new Font("Century Gothic", 9F);
-            button25.ForeColor = Color.Black;
-            button25.Location = new Point(0, 47);
-            button25.Margin = new Padding(0);
-            button25.Name = "button25";
-            button25.Padding = new Padding(58, 0, 0, 0);
-            button25.Size = new Size(259, 47);
-            button25.TabIndex = 1;
-            button25.Text = "Oposiciones";
-            button25.TextAlign = ContentAlignment.MiddleLeft;
-            button25.UseVisualStyleBackColor = false;
+            btnOposiciones.AutoSize = true;
+            btnOposiciones.BackColor = Color.FromArgb(196, 196, 208);
+            btnOposiciones.Dock = DockStyle.Top;
+            btnOposiciones.FlatAppearance.BorderSize = 0;
+            btnOposiciones.FlatStyle = FlatStyle.Flat;
+            btnOposiciones.Font = new Font("Century Gothic", 9F);
+            btnOposiciones.ForeColor = Color.Black;
+            btnOposiciones.Location = new Point(0, 94);
+            btnOposiciones.Margin = new Padding(0);
+            btnOposiciones.Name = "btnOposiciones";
+            btnOposiciones.Padding = new Padding(58, 0, 0, 0);
+            btnOposiciones.Size = new Size(259, 47);
+            btnOposiciones.TabIndex = 1;
+            btnOposiciones.Text = "Oposiciones";
+            btnOposiciones.TextAlign = ContentAlignment.MiddleLeft;
+            btnOposiciones.UseVisualStyleBackColor = false;
             // 
-            // button26
+            // btnEnTramite
             // 
-            button26.AutoSize = true;
-            button26.BackColor = Color.FromArgb(196, 196, 208);
-            button26.Dock = DockStyle.Top;
-            button26.FlatAppearance.BorderSize = 0;
-            button26.FlatStyle = FlatStyle.Flat;
-            button26.Font = new Font("Century Gothic", 9F);
-            button26.ForeColor = Color.Black;
-            button26.Location = new Point(0, 0);
-            button26.Margin = new Padding(0);
-            button26.Name = "button26";
-            button26.Padding = new Padding(58, 0, 0, 0);
-            button26.Size = new Size(259, 47);
-            button26.TabIndex = 0;
-            button26.Text = "Trámite inicial";
-            button26.TextAlign = ContentAlignment.MiddleLeft;
-            button26.UseVisualStyleBackColor = false;
-            button26.Click += button26_Click;
+            btnEnTramite.AutoSize = true;
+            btnEnTramite.BackColor = Color.FromArgb(196, 196, 208);
+            btnEnTramite.Dock = DockStyle.Top;
+            btnEnTramite.FlatAppearance.BorderSize = 0;
+            btnEnTramite.FlatStyle = FlatStyle.Flat;
+            btnEnTramite.Font = new Font("Century Gothic", 9F);
+            btnEnTramite.ForeColor = Color.Black;
+            btnEnTramite.Location = new Point(0, 47);
+            btnEnTramite.Margin = new Padding(0);
+            btnEnTramite.Name = "btnEnTramite";
+            btnEnTramite.Padding = new Padding(58, 0, 0, 0);
+            btnEnTramite.Size = new Size(259, 47);
+            btnEnTramite.TabIndex = 6;
+            btnEnTramite.Text = "En trámite";
+            btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
+            btnEnTramite.UseVisualStyleBackColor = false;
+            btnEnTramite.Click += button4_Click;
+            // 
+            // btnTramiteInicial
+            // 
+            btnTramiteInicial.AutoSize = true;
+            btnTramiteInicial.BackColor = Color.FromArgb(196, 196, 208);
+            btnTramiteInicial.Dock = DockStyle.Top;
+            btnTramiteInicial.FlatAppearance.BorderSize = 0;
+            btnTramiteInicial.FlatStyle = FlatStyle.Flat;
+            btnTramiteInicial.Font = new Font("Century Gothic", 9F);
+            btnTramiteInicial.ForeColor = Color.Black;
+            btnTramiteInicial.Location = new Point(0, 0);
+            btnTramiteInicial.Margin = new Padding(0);
+            btnTramiteInicial.Name = "btnTramiteInicial";
+            btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteInicial.Size = new Size(259, 47);
+            btnTramiteInicial.TabIndex = 0;
+            btnTramiteInicial.Text = "Trámite inicial";
+            btnTramiteInicial.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteInicial.UseVisualStyleBackColor = false;
+            btnTramiteInicial.Click += button26_Click;
             // 
             // iconButton10
             // 
@@ -911,11 +933,11 @@
         private FontAwesome.Sharp.IconButton iconButtonAgentes;
         private FontAwesome.Sharp.IconButton iconButtonUsuarios;
         private System.Windows.Forms.Panel panelSubMenuMarcasNacionales;
-        private System.Windows.Forms.Button button22;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button24;
-        private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button btnTramiteRenov;
+        private System.Windows.Forms.Button btnTramiteRenovacion;
+        private System.Windows.Forms.Button btnRegistradas;
+        private System.Windows.Forms.Button btnOposiciones;
+        private System.Windows.Forms.Button btnTramiteInicial;
         private System.Windows.Forms.Panel panelSubMenuPatentes;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.Button button33;
@@ -934,7 +956,7 @@
         private FontAwesome.Sharp.IconButton iconButtonLogout;
         private Button button1;
         private Button button2;
-        private Button button3;
+        private Button btnAbandonadas;
         private Button button6;
         private Button button5;
         private FontAwesome.Sharp.IconButton iconButton3;
@@ -942,11 +964,12 @@
         private Label labelName_LN;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private FontAwesome.Sharp.IconButton iconButton4;
-        private FontAwesome.Sharp.IconButton iconButton5;
+        private FontAwesome.Sharp.IconButton iconButtonVencimientos;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Panel panel3;
         private Label label1;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private Button btnEnTramite;
     }
 }
 

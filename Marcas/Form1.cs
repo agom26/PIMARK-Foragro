@@ -106,6 +106,9 @@ namespace Presentacion
             iconButtonUsuarios.Enabled = false;
             iconButtonAgentes.Enabled = false;
             iconButtonTitulares.Enabled = false;
+            btnTramiteInicial.Enabled = false;
+            btnEnTramite.Enabled = false;
+            iconButtonVencimientos.Enabled = false;
         }
 
         public void EnableButtons()
@@ -113,6 +116,9 @@ namespace Presentacion
             iconButtonUsuarios.Enabled = true;
             iconButtonAgentes.Enabled = true;
             iconButtonTitulares.Enabled = true;
+            btnTramiteInicial.Enabled = true;
+            btnEnTramite.Enabled = true;
+            iconButtonVencimientos.Enabled = true;
         }
 
 
@@ -156,7 +162,7 @@ namespace Presentacion
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
@@ -186,7 +192,7 @@ namespace Presentacion
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            openChildForm(new FrmMostrarTodas());
+
             ShowSubMenu(panelSubMenuMarcasNacionales);
         }
 
@@ -386,6 +392,13 @@ namespace Presentacion
         private void labelUsername_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarTodas());
+            EnableButtons();
         }
     }
 }
