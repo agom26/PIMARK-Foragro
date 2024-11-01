@@ -21,7 +21,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2.Visible = false;
-            btnGuardar.Location = new Point(272, 950);
+            btnGuardar.Location = new Point(200, 950);
             ActualizarFechaVencimiento();
         }
         private void ActualizarFechaVencimiento()
@@ -148,14 +148,14 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2.Visible = true;
-                btnGuardar.Location = new Point(272, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnGuardar.Location = new Point(200, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2.Visible = false;
-                btnGuardar.Location = new Point(272, 950);
+                btnGuardar.Location = new Point(200, 950);
             }
         }
 
@@ -223,12 +223,12 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (checkBox1.Checked)
             {
-               
+
 
             }
             else
             {
-                
+
 
             }
         }
@@ -265,14 +265,24 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton3_Click_1(object sender, EventArgs e)
         {
-            FrmAgregarEtapa frmAgregarEtapa=new FrmAgregarEtapa();
+            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
             {
-                textBoxEstatus.Text=AgregarEtapa.etapa;
+                textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
             }
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmTramiteIn_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

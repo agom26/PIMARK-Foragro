@@ -113,7 +113,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(0, 45);
+            panel1.Location = new Point(10, 46);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
@@ -172,7 +172,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(326, 1150);
+            btnGuardar.Location = new Point(200, 1150);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 35;
@@ -187,7 +187,7 @@
             richTextBox1.Font = new Font("Century Gothic", 10F);
             richTextBox1.Location = new Point(64, 777);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(791, 120);
+            richTextBox1.Size = new Size(638, 120);
             richTextBox1.TabIndex = 33;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -517,16 +517,15 @@
             panel2.Font = new Font("Century Gothic", 10F);
             panel2.Location = new Point(66, 945);
             panel2.Name = "panel2";
-            panel2.Size = new Size(791, 185);
+            panel2.Size = new Size(636, 185);
             panel2.TabIndex = 37;
             // 
             // dateTimePFecha_vencimiento
             // 
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
-            dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(280, 133);
+            dateTimePFecha_vencimiento.Location = new Point(384, 135);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
             dateTimePFecha_vencimiento.Size = new Size(222, 28);
             dateTimePFecha_vencimiento.TabIndex = 41;
@@ -536,17 +535,18 @@
             // 
             label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
-            label19.Location = new Point(279, 107);
+            label19.Location = new Point(384, 109);
             label19.Name = "label19";
             label19.Size = new Size(198, 21);
             label19.TabIndex = 40;
             label19.Text = "Fecha de vencimiento";
+            label19.Click += label19_Click;
             // 
             // dateTimePFecha_Registro
             // 
             dateTimePFecha_Registro.Anchor = AnchorStyles.None;
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(0, 133);
+            dateTimePFecha_Registro.Location = new Point(22, 135);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(224, 28);
             dateTimePFecha_Registro.TabIndex = 39;
@@ -556,7 +556,7 @@
             // 
             label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
-            label18.Location = new Point(0, 108);
+            label18.Location = new Point(22, 110);
             label18.Name = "label18";
             label18.Size = new Size(155, 21);
             label18.TabIndex = 38;
@@ -565,16 +565,16 @@
             // txtRegistro
             // 
             txtRegistro.Anchor = AnchorStyles.None;
-            txtRegistro.Location = new Point(2, 51);
+            txtRegistro.Location = new Point(22, 53);
             txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(222, 28);
+            txtRegistro.Size = new Size(172, 28);
             txtRegistro.TabIndex = 39;
             // 
             // label17
             // 
             label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
-            label17.Location = new Point(0, 26);
+            label17.Location = new Point(20, 28);
             label17.Name = "label17";
             label17.Size = new Size(75, 21);
             label17.TabIndex = 38;
@@ -583,16 +583,16 @@
             // txtFolio
             // 
             txtFolio.Anchor = AnchorStyles.None;
-            txtFolio.Location = new Point(280, 51);
+            txtFolio.Location = new Point(228, 53);
             txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(222, 28);
+            txtFolio.Size = new Size(172, 28);
             txtFolio.TabIndex = 9;
             // 
             // label7
             // 
             label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
-            label7.Location = new Point(280, 25);
+            label7.Location = new Point(228, 27);
             label7.Name = "label7";
             label7.Size = new Size(46, 21);
             label7.TabIndex = 8;
@@ -601,16 +601,16 @@
             // txtLibro
             // 
             txtLibro.Anchor = AnchorStyles.None;
-            txtLibro.Location = new Point(557, 51);
+            txtLibro.Location = new Point(434, 53);
             txtLibro.Name = "txtLibro";
-            txtLibro.Size = new Size(222, 28);
+            txtLibro.Size = new Size(172, 28);
             txtLibro.TabIndex = 11;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(557, 25);
+            label6.Location = new Point(434, 27);
             label6.Name = "label6";
             label6.Size = new Size(49, 21);
             label6.TabIndex = 10;
@@ -630,6 +630,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "FrmTramiteIn";
             Text = "FrmTramiteIn";
+            Load += FrmTramiteIn_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
