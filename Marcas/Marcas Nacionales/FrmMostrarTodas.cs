@@ -47,7 +47,7 @@ namespace Presentacion.Marcas_Nacionales
         private void LoadMarcas()
         {
             // Obtiene los usuarios
-            var marcasN = marcaModel.GetAllMarcasNacionales();
+            var marcasN = marcaModel.GetAllMarcasNacionalesEnTramite();
 
             // Invoca el método para actualizar el DataGridView en el hilo principal
             Invoke(new Action(() =>
@@ -140,7 +140,7 @@ namespace Presentacion.Marcas_Nacionales
                             }
                             else
                             {
-                                MessageBox.Show("El campo 'registro' es nulo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show("El campo 'registro' es nulo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
 
                             // Cargar los detalles de titular y agente en segundo plano
@@ -167,7 +167,7 @@ namespace Presentacion.Marcas_Nacionales
                             txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
                             MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                             datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
-                            cmbEstado.SelectedText = SeleccionarMarca.estado;
+                            //cmbEstado.SelectedText = SeleccionarMarca.estado;
                         }
                         else
                         {
@@ -185,7 +185,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private async void FrmMostrarTodas_Load(object sender, EventArgs e)
@@ -199,7 +199,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
-           EditarAsync();
+            EditarAsync();
+        }
+
+        private void ibtnEliminar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -23,6 +23,12 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasNacionales();
             return tabla;
         }
+        public DataTable GetAllMarcasNacionalesEnTramite()
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.GetAllMarcasNacionalesEnTramite();
+            return tabla;
+        }
 
 
         public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)> GetMarcaNacionalById(int id)
