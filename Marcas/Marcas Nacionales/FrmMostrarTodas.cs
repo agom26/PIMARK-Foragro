@@ -33,9 +33,9 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
-        private void MostrarAgentes()
+        private void MostrarMarcasTramite()
         {
-            dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionales();
+            dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionalesEnTramite();
             // Ocultar la columna 'id'
             if (dtgMarcasN.Columns["id"] != null)
             {
@@ -382,6 +382,8 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+       
+
 
 
 
@@ -482,7 +484,47 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton6_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabPageMarcaDetail);
-            tabControl1.SelectedTab=tabPageListaMarcas;
+            tabControl1.SelectedTab = tabPageListaMarcas;
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacion justificacionForm = new FrmJustificacion())
+            {
+                // Mostrar el popup
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+
+                    // Cambiar el estado a "Abandonada" y guardar la justificación
+                    try
+                    {
+                        // Obtener el ID de la marca seleccionada
+                        if (dtgMarcasN.SelectedCells.Count >= 1)
+                        {
+                            var filaSeleccionada = dtgMarcasN.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+
+                                // Actualizar el estado y la justificación en la base de datos
+                                marcaModel.AbandonarMarca(idMarca, "Abandonada", justificacion);
+
+                                MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MostrarMarcasTramite();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

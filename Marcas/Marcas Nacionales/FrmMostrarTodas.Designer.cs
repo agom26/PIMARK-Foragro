@@ -31,6 +31,7 @@
             label1 = new Label();
             tabControl1 = new TabControl();
             tabPageListaMarcas = new TabPage();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
             ibtnEliminar = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             dtgMarcasN = new DataGridView();
@@ -120,6 +121,7 @@
             // 
             // tabPageListaMarcas
             // 
+            tabPageListaMarcas.Controls.Add(iconButton3);
             tabPageListaMarcas.Controls.Add(label1);
             tabPageListaMarcas.Controls.Add(ibtnEliminar);
             tabPageListaMarcas.Controls.Add(ibtnEditar);
@@ -138,10 +140,30 @@
             tabPageListaMarcas.Text = "Lista de marcas";
             tabPageListaMarcas.UseVisualStyleBackColor = true;
             // 
+            // iconButton3
+            // 
+            iconButton3.Anchor = AnchorStyles.Top;
+            iconButton3.BackColor = Color.FromArgb(255, 167, 38);
+            iconButton3.FlatAppearance.BorderSize = 0;
+            iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.ForeColor = Color.White;
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
+            iconButton3.IconColor = Color.White;
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.IconSize = 30;
+            iconButton3.Location = new Point(1011, 337);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(144, 37);
+            iconButton3.TabIndex = 25;
+            iconButton3.Text = "Abandonar";
+            iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton3.UseVisualStyleBackColor = false;
+            iconButton3.Click += iconButton3_Click;
+            // 
             // ibtnEliminar
             // 
             ibtnEliminar.Anchor = AnchorStyles.Top;
-            ibtnEliminar.BackColor = Color.FromArgb(244, 98, 96);
+            ibtnEliminar.BackColor = Color.FromArgb(183, 28, 28);
             ibtnEliminar.FlatAppearance.BorderSize = 0;
             ibtnEliminar.FlatStyle = FlatStyle.Flat;
             ibtnEliminar.ForeColor = Color.White;
@@ -204,12 +226,13 @@
             // ibtnBuscar
             // 
             ibtnBuscar.Anchor = AnchorStyles.Top;
-            ibtnBuscar.BackColor = Color.FromArgb(255, 164, 0);
+            ibtnBuscar.BackColor = Color.Black;
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
             ibtnBuscar.Font = new Font("Century Gothic", 10F);
+            ibtnBuscar.ForeColor = Color.White;
             ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
-            ibtnBuscar.IconColor = Color.Black;
+            ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
             ibtnBuscar.Location = new Point(681, 136);
@@ -942,5 +965,6 @@
         private Label label20;
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton btnCancelar;
+        private FontAwesome.Sharp.IconButton iconButton3;
     }
 }

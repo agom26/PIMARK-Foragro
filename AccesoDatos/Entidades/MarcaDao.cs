@@ -395,6 +395,22 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public void UpdateMarcaEstadoYJustificacion(int idMarca, string estado, string justificacion)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                string query = "UPDATE Marcas SET estado = @estado, justificacion_abandono = @justificacion WHERE Id = @idMarca";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@estado", estado);
+                    command.Parameters.AddWithValue("@justificacion", justificacion);
+                    command.Parameters.AddWithValue("@idMarca", idMarca);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
 
 

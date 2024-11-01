@@ -64,6 +64,12 @@ namespace Dominio
             return marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado, observaciones, registro, fechaRegistro, fechaVencimiento);
         }
 
+        public void AbandonarMarca(int idMarca, string estado, string justificacion)
+        {
+            marcaDao.UpdateMarcaEstadoYJustificacion(idMarca, estado, justificacion);
+        }
+
+
 
     }
 }
