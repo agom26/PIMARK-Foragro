@@ -16,6 +16,7 @@ namespace Presentacion.Marcas_Nacionales
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
+        HistorialModel historialModel = new HistorialModel();
         public FrmMostrarTodas()
         {
             InitializeComponent();
@@ -96,15 +97,177 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnGuardar.Location = new Point(200, panel3.Location.Y + panel3.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnCancelar.Location = new Point(370, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnGuardar.Location = new Point(200, 950);
+                btnActualizar.Location = new Point(47, 960);
+                btnCancelar.Location = new Point(370, 960);
             }
+        }
+        private void ActualizarFechaVencimiento()
+        {
+            DateTime fecha_registro = dateTimePFecha_Registro.Value;
+            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
+            dateTimePFecha_vencimiento.Value = fecha_vencimiento; // Asigna la fecha de vencimiento al DateTimePicker correspondiente
+        }
+
+        public void ActualizarMarcaNacional()
+        {
+            // Recolectar valores de los controles
+            string expediente = txtExpediente.Text;
+            string nombre = txtNombre.Text;
+            string clase = txtClase.Text;
+            string signoDistintivo = txtSignoDistintivo.Text;
+            string folio = txtFolio.Text;
+            string libro = txtLibro.Text;
+            byte[] logo = null;
+            int idTitular = SeleccionarPersona.idPersonaT;
+            int idAgente = SeleccionarPersona.idPersonaA;
+            DateTime solicitud = datePickerFechaSolicitud.Value;
+            string observaciones = null;
+            if (AgregarEtapa.anotaciones != "")
+            {
+                observaciones = AgregarEtapa.anotaciones;
+            }
+            else
+            {
+                observaciones = null;
+            }
+
+            string estado = textBoxEstatus.Text;
+            bool registroChek = checkBox1.Checked;
+            string registro = txtRegistro.Text;
+            DateTime fecha_registro = dateTimePFecha_Registro.Value;
+            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+
+            // Validaciones
+            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            {
+                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (estado == null)
+            {
+                MessageBox.Show("Por favor, selecciona un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (pictureBox1.Image != null) // Verificar que hay una imagen
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Si está registrada, se verifica la información del registro
+            if (registroChek)
+            {
+                if (string.IsNullOrEmpty(registro))
+                {
+                    MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                try
+                {
+                    // Guardar la marca y obtener su ID
+                    bool esActualizado = marcaModel.EditMarcaNacionalRegistrada(
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, observaciones, registro, fecha_registro, fecha_vencimiento);
+
+
+                    if (esActualizado)
+                    {
+                        string etapa = textBoxEstatus.Text;
+
+
+                        if (!string.IsNullOrEmpty(etapa))
+                        {
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarFormulario();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al registrar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    // Guardar la marca nacional y obtener su ID
+                    bool esactualizada = marcaModel.EditMarcaNacional(SeleccionarMarca.idN,
+                        expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, observaciones);
+
+                    // Verifica si se ha guardado correctamente
+                    if (esactualizada)
+                    {
+                        string etapa = textBoxEstatus.Text;
+
+                        // Solo guardamos la etapa si la etapa no está vacía
+                        if (!string.IsNullOrEmpty(etapa))
+                        {
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarFormulario();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        public void LimpiarFormulario()
+        {
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            txtClase.Text = "";
+            txtSignoDistintivo.Text = "";
+            txtFolio.Text = "";
+            txtLibro.Text = "";
+            pictureBox1.Image = null;
+            txtNombreTitular.Text = "";
+            txtDireccionTitular.Text = "";
+            txtEntidadTitular.Text = "";
+            txtNombreAgente.Text = "";
+            datePickerFechaSolicitud.Value = DateTime.Now;
+            dateTimePFecha_Registro.Value = DateTime.Now;
+            textBoxEstatus.Text = "";
+            checkBox1.Checked = false;
+            ActualizarFechaVencimiento();
+            txtRegistro.Text = "";
+            richTextBox1.Text = "";
+            AgregarEtapa.LimpiarEtapa();
         }
 
         private async void EditarAsync()
@@ -158,7 +321,7 @@ namespace Presentacion.Marcas_Nacionales
                             }
                             else
                             {
-                                
+
                                 //MessageBox.Show("El campo 'registro' es nulo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
 
@@ -220,6 +383,8 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
+
+
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
 
@@ -247,6 +412,77 @@ namespace Presentacion.Marcas_Nacionales
         private void tabPageMarcaDetail_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapa.etapa != "")
+            {
+                textBoxEstatus.Text = AgregarEtapa.etapa;
+                mostrarPanelRegistro();
+                richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+            }
+        }
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersona.nombre;
+                txtDireccionTitular.Text = SeleccionarPersona.direccion;
+                txtEntidadTitular.Text = SeleccionarPersona.pais;
+            }
+        }
+
+        private void roundedButton2_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            ActualizarMarcaNacional();
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            //Agregar una imagen al cuadro de imagen para la foto del usuario.
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = new Bitmap(openFile.FileName);
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            //Borrar foto del usuario
+            pictureBox1.Image = null;
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
+        }
+
+        private void roundedButton6_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageMarcaDetail);
+            tabControl1.SelectedTab=tabPageListaMarcas;
         }
     }
 }

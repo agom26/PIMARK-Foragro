@@ -42,10 +42,11 @@
             roundedButton5 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel2 = new Panel();
+            btnCancelar = new Clases.RoundedButton();
             roundedButton1 = new Clases.RoundedButton();
             checkBox1 = new CheckBox();
             label3 = new Label();
-            btnGuardar = new Clases.RoundedButton();
+            btnActualizar = new Clases.RoundedButton();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
             textBoxEstatus = new TextBox();
@@ -303,10 +304,11 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnCancelar);
             panel2.Controls.Add(roundedButton1);
             panel2.Controls.Add(checkBox1);
             panel2.Controls.Add(label3);
-            panel2.Controls.Add(btnGuardar);
+            panel2.Controls.Add(btnActualizar);
             panel2.Controls.Add(richTextBox1);
             panel2.Controls.Add(label16);
             panel2.Controls.Add(textBoxEstatus);
@@ -341,6 +343,26 @@
             panel2.Size = new Size(1081, 1241);
             panel2.TabIndex = 0;
             // 
+            // btnCancelar
+            // 
+            btnCancelar.Anchor = AnchorStyles.None;
+            btnCancelar.BackColor = Color.Gainsboro;
+            btnCancelar.BackgroundColor = Color.Gainsboro;
+            btnCancelar.BorderColor = Color.Empty;
+            btnCancelar.BorderRadius = 60;
+            btnCancelar.BorderSize = 0;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = Color.Black;
+            btnCancelar.Location = new Point(370, 1161);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(315, 62);
+            btnCancelar.TabIndex = 73;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.TextColor = Color.Black;
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += roundedButton6_Click;
+            // 
             // roundedButton1
             // 
             roundedButton1.BackColor = Color.LightSteelBlue;
@@ -359,6 +381,7 @@
             roundedButton1.Text = "+ ETAPA ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
             // 
             // checkBox1
             // 
@@ -382,24 +405,25 @@
             label3.TabIndex = 40;
             label3.Text = "Edición";
             // 
-            // btnGuardar
+            // btnActualizar
             // 
-            btnGuardar.Anchor = AnchorStyles.None;
-            btnGuardar.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderRadius = 60;
-            btnGuardar.BorderSize = 0;
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(183, 1164);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(315, 62);
-            btnGuardar.TabIndex = 69;
-            btnGuardar.Text = "Guardar";
-            btnGuardar.TextColor = Color.White;
-            btnGuardar.UseVisualStyleBackColor = false;
+            btnActualizar.Anchor = AnchorStyles.None;
+            btnActualizar.BackColor = Color.FromArgb(1, 87, 155);
+            btnActualizar.BackgroundColor = Color.FromArgb(1, 87, 155);
+            btnActualizar.BorderColor = Color.FromArgb(1, 87, 155);
+            btnActualizar.BorderRadius = 60;
+            btnActualizar.BorderSize = 0;
+            btnActualizar.FlatAppearance.BorderSize = 0;
+            btnActualizar.FlatStyle = FlatStyle.Flat;
+            btnActualizar.ForeColor = Color.White;
+            btnActualizar.Location = new Point(47, 1160);
+            btnActualizar.Name = "btnActualizar";
+            btnActualizar.Size = new Size(315, 62);
+            btnActualizar.TabIndex = 69;
+            btnActualizar.Text = "Actualizar";
+            btnActualizar.TextColor = Color.White;
+            btnActualizar.UseVisualStyleBackColor = false;
+            btnActualizar.Click += btnGuardar_Click;
             // 
             // richTextBox1
             // 
@@ -504,6 +528,7 @@
             roundedButton2.Text = "+ AGENTE";
             roundedButton2.TextColor = Color.Black;
             roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click;
             // 
             // txtEntidadTitular
             // 
@@ -580,6 +605,7 @@
             roundedButton4.Text = "+ TITULAR";
             roundedButton4.TextColor = Color.Black;
             roundedButton4.UseVisualStyleBackColor = false;
+            roundedButton4.Click += roundedButton4_Click;
             // 
             // iconButton2
             // 
@@ -596,6 +622,7 @@
             iconButton2.Size = new Size(74, 33);
             iconButton2.TabIndex = 52;
             iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click;
             // 
             // iconButton1
             // 
@@ -612,6 +639,7 @@
             iconButton1.Size = new Size(74, 33);
             iconButton1.TabIndex = 51;
             iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click;
             // 
             // pictureBox1
             // 
@@ -738,6 +766,7 @@
             // 
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
+            dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(396, 139);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
@@ -762,6 +791,7 @@
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(224, 28);
             dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
             // label18
             // 
@@ -870,7 +900,7 @@
         private Clases.RoundedButton roundedButton1;
         private CheckBox checkBox1;
         private Label label3;
-        private Clases.RoundedButton btnGuardar;
+        private Clases.RoundedButton btnActualizar;
         private RichTextBox richTextBox1;
         private Label label16;
         private TextBox textBoxEstatus;
@@ -911,5 +941,6 @@
         private TextBox txtLibro;
         private Label label20;
         private Clases.RoundedButton roundedButton5;
+        private Clases.RoundedButton btnCancelar;
     }
 }

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
@@ -17,7 +18,7 @@ namespace Presentacion.Marcas_Nacionales
     public partial class FrmTramiteIn : Form
     {
         MarcaModel marcaModel = new MarcaModel();
-        HistorialModel historialModel=new HistorialModel();
+        HistorialModel historialModel = new HistorialModel();
 
         public FrmTramiteIn()
         {
@@ -57,7 +58,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 observaciones = null;
             }
-            
+
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
@@ -104,13 +105,13 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Guardar la marca y obtener su ID
                     int idMarca = marcaModel.AddMarcaNacionalRegistrada(
-                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado,observaciones, registro, fecha_registro, fecha_vencimiento);
+                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, observaciones, registro, fecha_registro, fecha_vencimiento);
 
                     // Verifica si se ha guardado correctamente
                     if (idMarca > 0)
                     {
                         string etapa = textBoxEstatus.Text;
-                        
+
                         // Solo guardamos la etapa si la etapa no está vacía
                         if (!string.IsNullOrEmpty(etapa))
                         {
@@ -125,11 +126,11 @@ namespace Presentacion.Marcas_Nacionales
                     MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Error al registrar la marca nacional."+ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al registrar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-               
+
             }
             else
             {
@@ -208,6 +209,8 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        
+
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
@@ -270,7 +273,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -312,7 +315,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
-                richTextBox1.Text+= AgregarEtapa.anotaciones;
+                richTextBox1.Text += AgregarEtapa.anotaciones;
             }
         }
 
@@ -324,6 +327,11 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmTramiteIn_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundedButton4_Click_1(object sender, EventArgs e)
+        {
+            
         }
     }
 }

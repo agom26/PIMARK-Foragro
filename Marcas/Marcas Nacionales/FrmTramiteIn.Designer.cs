@@ -113,7 +113,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(10, 46);
+            panel1.Location = new Point(-10, 46);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
@@ -172,7 +172,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(200, 1150);
+            btnGuardar.Location = new Point(226, 1147);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 35;
@@ -524,6 +524,7 @@
             // 
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
+            dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(384, 135);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";

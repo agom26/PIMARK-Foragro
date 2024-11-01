@@ -54,6 +54,15 @@ namespace Dominio
             return marcaDao.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, registro, folio, libro, fecha_de_registro, fecha_vencimiento);
         }
 
+        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string observaciones)
+        {
+            return marcaDao.EditMarcaNacional(id, expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado, observaciones);
+        }
+
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string observaciones, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        {
+            return marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, estado, observaciones, registro, fechaRegistro, fechaVencimiento);
+        }
 
 
     }

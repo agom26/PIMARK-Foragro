@@ -309,6 +309,92 @@ namespace AccesoDatos.Entidades
         }
 
 
+        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string observaciones)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand(@"
+            UPDATE Marcas 
+            SET expediente = @expediente, 
+                nombre = @nombre, 
+                signo_distintivo = @signoDistintivo, 
+                clase = @clase, 
+                logo = @logo, 
+                idTitular = @idPersonaTitular, 
+                idAgente = @idPersonaAgente, 
+                fecha_solicitud = @fecha_solicitud, 
+                estado = @estado, 
+                observaciones = @observaciones 
+            WHERE id = @id AND tipo = 'nacional';", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@expediente", expediente);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@clase", clase);
+                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("@estado", estado);
+                    command.Parameters.AddWithValue("@observaciones", observaciones);
+
+                    // Ejecuta el comando y devuelve el número de filas afectadas
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                }
+            }
+        }
+
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string estado, string observaciones, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand(@"
+            UPDATE Marcas 
+            SET expediente = @expediente, 
+                nombre = @nombre, 
+                signo_distintivo = @signoDistintivo, 
+                clase = @clase, 
+                folio = @folio, 
+                libro = @libro, 
+                logo = @logo, 
+                idTitular = @idPersonaTitular, 
+                idAgente = @idPersonaAgente, 
+                fecha_solicitud = @fecha_solicitud, 
+                estado = @estado, 
+                observaciones = @observaciones, 
+                registro = @registro, 
+                fecha_registro = @fechaRegistro, 
+                fecha_vencimiento = @fechaVencimiento 
+            WHERE id = @id AND tipo = 'nacional';", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@expediente", expediente);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@clase", clase);
+                    command.Parameters.AddWithValue("@folio", folio);
+                    command.Parameters.AddWithValue("@libro", libro);
+                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("@estado", estado);
+                    command.Parameters.AddWithValue("@observaciones", observaciones);
+                    command.Parameters.AddWithValue("@registro", registro);
+                    command.Parameters.AddWithValue("@fechaRegistro", fechaRegistro);
+                    command.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
+
+                    // Ejecuta el comando y devuelve el número de filas afectadas
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                }
+            }
+        }
+
 
 
 
