@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            roundedButton3 = new Clases.RoundedButton();
             checkBox1 = new CheckBox();
             label1 = new Label();
             btnGuardar = new Clases.RoundedButton();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
-            cmbEstado = new ComboBox();
-            label15 = new Label();
-            textBox11 = new TextBox();
+            textBoxEstatus = new TextBox();
             label14 = new Label();
             datePickerFechaSolicitud = new DateTimePicker();
             label13 = new Label();
@@ -73,7 +72,6 @@
             label7 = new Label();
             txtLibro = new TextBox();
             label6 = new Label();
-            roundedButton3 = new Clases.RoundedButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -88,9 +86,7 @@
             panel1.Controls.Add(btnGuardar);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
-            panel1.Controls.Add(cmbEstado);
-            panel1.Controls.Add(label15);
-            panel1.Controls.Add(textBox11);
+            panel1.Controls.Add(textBoxEstatus);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(datePickerFechaSolicitud);
             panel1.Controls.Add(label13);
@@ -117,10 +113,30 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-10, 45);
+            panel1.Location = new Point(-30, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.BackColor = Color.LightSteelBlue;
+            roundedButton3.BackgroundColor = Color.LightSteelBlue;
+            roundedButton3.BorderColor = Color.LightSteelBlue;
+            roundedButton3.BorderRadius = 10;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.Font = new Font("Century Gothic", 9F);
+            roundedButton3.ForeColor = Color.Black;
+            roundedButton3.Location = new Point(64, 242);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(280, 35);
+            roundedButton3.TabIndex = 39;
+            roundedButton3.Text = "+ ETAPA ACTUAL";
+            roundedButton3.TextColor = Color.Black;
+            roundedButton3.UseVisualStyleBackColor = false;
+            roundedButton3.Click += roundedButton3_Click_1;
             // 
             // checkBox1
             // 
@@ -187,37 +203,15 @@
             label16.TabIndex = 32;
             label16.Text = "Observaciones";
             // 
-            // cmbEstado
+            // textBoxEstatus
             // 
-            cmbEstado.Anchor = AnchorStyles.None;
-            cmbEstado.Font = new Font("Century Gothic", 10F);
-            cmbEstado.FormattingEnabled = true;
-            cmbEstado.Items.AddRange(new object[] { "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
-            cmbEstado.Location = new Point(66, 249);
-            cmbEstado.Name = "cmbEstado";
-            cmbEstado.Size = new Size(278, 29);
-            cmbEstado.TabIndex = 31;
-            // 
-            // label15
-            // 
-            label15.Anchor = AnchorStyles.None;
-            label15.AutoSize = true;
-            label15.Font = new Font("Century Gothic", 10F);
-            label15.Location = new Point(66, 224);
-            label15.Name = "label15";
-            label15.Size = new Size(68, 21);
-            label15.TabIndex = 30;
-            label15.Text = "Estado";
-            // 
-            // textBox11
-            // 
-            textBox11.Anchor = AnchorStyles.None;
-            textBox11.Font = new Font("Century Gothic", 10F);
-            textBox11.Location = new Point(412, 249);
-            textBox11.Name = "textBox11";
-            textBox11.ReadOnly = true;
-            textBox11.Size = new Size(290, 28);
-            textBox11.TabIndex = 29;
+            textBoxEstatus.Anchor = AnchorStyles.None;
+            textBoxEstatus.Font = new Font("Century Gothic", 10F);
+            textBoxEstatus.Location = new Point(412, 249);
+            textBoxEstatus.Name = "textBoxEstatus";
+            textBoxEstatus.ReadOnly = true;
+            textBoxEstatus.Size = new Size(290, 28);
+            textBoxEstatus.TabIndex = 29;
             // 
             // label14
             // 
@@ -620,25 +614,6 @@
             label6.TabIndex = 10;
             label6.Text = "Libro";
             // 
-            // roundedButton3
-            // 
-            roundedButton3.BackColor = Color.LightSteelBlue;
-            roundedButton3.BackgroundColor = Color.LightSteelBlue;
-            roundedButton3.BorderColor = Color.LightSteelBlue;
-            roundedButton3.BorderRadius = 35;
-            roundedButton3.BorderSize = 0;
-            roundedButton3.FlatAppearance.BorderSize = 0;
-            roundedButton3.FlatStyle = FlatStyle.Flat;
-            roundedButton3.Font = new Font("Century Gothic", 9F);
-            roundedButton3.ForeColor = Color.Black;
-            roundedButton3.Location = new Point(412, 204);
-            roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(234, 35);
-            roundedButton3.TabIndex = 39;
-            roundedButton3.Text = "+ ETAPA ACTUAL";
-            roundedButton3.TextColor = Color.Black;
-            roundedButton3.UseVisualStyleBackColor = false;
-            // 
             // FrmTramiteIn
             // 
             AutoScaleDimensions = new SizeF(12F, 23F);
@@ -688,15 +663,13 @@
         private Label label10;
         private TextBox txtNombreTitular;
         private Label label9;
-        private TextBox textBox11;
+        private TextBox textBoxEstatus;
         private Label label14;
         private DateTimePicker datePickerFechaSolicitud;
         private Label label13;
         private TextBox txtNombreAgente;
         private Label label12;
         private Clases.RoundedButton roundedButton2;
-        private ComboBox cmbEstado;
-        private Label label15;
         private Clases.RoundedButton btnGuardar;
         private RichTextBox richTextBox1;
         private Label label16;

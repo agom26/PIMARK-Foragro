@@ -44,7 +44,7 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-            string estado = cmbEstado.SelectedItem?.ToString();
+            string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
@@ -134,7 +134,7 @@ namespace Presentacion.Marcas_Nacionales
             txtNombreAgente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
-            cmbEstado.SelectedItem = 0;
+            textBoxEstatus.Text = "";
             checkBox1.Checked = false;
             checkBox1_CheckedChanged(checkBox1, EventArgs.Empty);
             ActualizarFechaVencimiento();
@@ -205,7 +205,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (checkBox1.Checked)
             {
-                if (cmbEstado.SelectedItem == "Registrada")
+                if (textBoxEstatus.Text == "Registrada")
                 {
                     panel2.Visible = true;
                     btnGuardar.Location = new Point(272, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
@@ -253,6 +253,17 @@ namespace Presentacion.Marcas_Nacionales
         private void label10_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundedButton3_Click_1(object sender, EventArgs e)
+        {
+            FrmAgregarEtapa frmAgregarEtapa=new FrmAgregarEtapa();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapa.etapa != "")
+            {
+                textBoxEstatus.Text=AgregarEtapa.etapa;
+            }
         }
     }
 }
