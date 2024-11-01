@@ -89,6 +89,24 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        public void mostrarPanelRegistro()
+        {
+            if (textBoxEstatus.Text == "Registrada")
+            {
+                checkBox1.Checked = true;
+                checkBox1.Enabled = false;
+                panel3.Visible = true;
+                btnGuardar.Location = new Point(200, panel3.Location.Y + panel3.Height + 10); // Mueve btnGuardar debajo de panel2
+            }
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+                panel3.Visible = false;
+                btnGuardar.Location = new Point(200, 950);
+            }
+        }
+
         private async void EditarAsync()
         {
             if (dtgMarcasN.RowCount <= 0)
@@ -116,14 +134,14 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarMarca.expediente = detallesMarcaN[0].expediente;
                             SeleccionarMarca.nombre = detallesMarcaN[0].nombre;
                             SeleccionarMarca.clase = detallesMarcaN[0].clase;
+                            SeleccionarMarca.estado = detallesMarcaN[0].estado;
                             SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
                             SeleccionarMarca.logo = detallesMarcaN[0].logo;
                             SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
                             SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
                             SeleccionarMarca.fecha_solicitud = (DateTime)detallesMarcaN[0].fechaSolicitud;
-                            SeleccionarMarca.estado = detallesMarcaN[0].estado;
+                            SeleccionarMarca.observaciones = detallesMarcaN[0].observaciones;
 
-                            // Verifica si `registro` es distinto de `null`
                             if (detallesMarcaN[0].registro == null)
                             {
                                 SeleccionarMarca.registro = detallesMarcaN[0].registro;
@@ -140,6 +158,7 @@ namespace Presentacion.Marcas_Nacionales
                             }
                             else
                             {
+                                
                                 //MessageBox.Show("El campo 'registro' es nulo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
 
@@ -164,10 +183,28 @@ namespace Presentacion.Marcas_Nacionales
                             txtExpediente.Text = SeleccionarMarca.expediente;
                             txtNombre.Text = SeleccionarMarca.nombre;
                             txtClase.Text = SeleccionarMarca.clase;
+                            textBoxEstatus.Text = SeleccionarMarca.estado;
                             txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
                             MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                             datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
+                            richTextBox1.Text = SeleccionarMarca.observaciones;
                             //cmbEstado.SelectedText = SeleccionarMarca.estado;
+                            // Verificar si "observaciones" contiene la palabra "registrada"
+                            bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+
+                            if (contieneRegistrada)
+                            {
+                                // La palabra "registrada" está presente en las observaciones
+                                mostrarPanelRegistro();
+                                //MessageBox.Show("La observación contiene la palabra 'registrada'.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+
+                                // La palabra "registrada" no está presente
+                                mostrarPanelRegistro();
+                                //MessageBox.Show("La observación NO contiene la palabra 'registrada'.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                         else
                         {
@@ -203,6 +240,11 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPageMarcaDetail_Click(object sender, EventArgs e)
         {
 
         }

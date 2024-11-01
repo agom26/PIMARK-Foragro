@@ -299,6 +299,7 @@
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.Text = "Detalle de marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
+            tabPageMarcaDetail.Click += tabPageMarcaDetail_Click;
             // 
             // panel2
             // 
@@ -403,6 +404,8 @@
             // richTextBox1
             // 
             richTextBox1.Anchor = AnchorStyles.None;
+            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            richTextBox1.Enabled = false;
             richTextBox1.Font = new Font("Century Gothic", 10F);
             richTextBox1.Location = new Point(47, 791);
             richTextBox1.Name = "richTextBox1";

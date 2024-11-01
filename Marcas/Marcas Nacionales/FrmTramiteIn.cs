@@ -114,7 +114,7 @@ namespace Presentacion.Marcas_Nacionales
                         // Solo guardamos la etapa si la etapa no está vacía
                         if (!string.IsNullOrEmpty(etapa))
                         {
-                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         }
                     }
                     else
@@ -147,7 +147,7 @@ namespace Presentacion.Marcas_Nacionales
                         // Solo guardamos la etapa si la etapa no está vacía
                         if (!string.IsNullOrEmpty(etapa))
                         {
-                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         }
                     }
                     else
@@ -187,6 +187,7 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
             txtRegistro.Text = "";
             richTextBox1.Text = "";
+            AgregarEtapa.LimpiarEtapa();
         }
 
         public void mostrarPanelRegistro()

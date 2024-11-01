@@ -14,6 +14,7 @@ namespace Comun.Cache
         public static string nombre;
         public static string signoDistintivo;
         public static string clase;
+        public static string observaciones;
         public static byte[] logo;
         public static int idPersonaTitular;
         public static int idPersonaAgente;

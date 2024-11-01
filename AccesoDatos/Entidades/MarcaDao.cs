@@ -247,33 +247,34 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)> GetMarcaNacionalById(int id)
+        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
         {
-            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente)>();
+            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)>();
 
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
                 using (MySqlCommand comando = new MySqlCommand(@"SELECT 
-                M.id, 
-                M.expediente, 
-                M.nombre, 
-                M.signo_distintivo AS signoDistintivo, 
-                M.clase, 
-                M.folio, 
-                M.libro, 
-                M.logo, 
-                M.estado, 
-                M.registro, 
-                M.fecha_solicitud AS fechaSolicitud, 
-                M.fecha_registro AS fechaRegistro, 
-                M.fecha_vencimiento AS fechaVencimiento,
-                M.idTitular,  
-                M.idAgente
-            FROM 
-                Marcas M
-            WHERE 
-                M.tipo = 'nacional' 
-                AND M.id = @id;", conexion))
+            M.id, 
+            M.expediente, 
+            M.nombre, 
+            M.signo_distintivo AS signoDistintivo, 
+            M.clase, 
+            M.folio, 
+            M.libro, 
+            M.logo, 
+            M.estado, 
+            M.registro, 
+            M.fecha_solicitud AS fechaSolicitud, 
+            M.fecha_registro AS fechaRegistro, 
+            M.fecha_vencimiento AS fechaVencimiento,
+            M.idTitular,  
+            M.idAgente,
+            M.observaciones
+        FROM 
+            Marcas M
+        WHERE 
+            M.tipo = 'nacional' 
+            AND M.id = @id;", conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
                     conexion.Open();
@@ -297,7 +298,8 @@ namespace AccesoDatos.Entidades
                                 reader.IsDBNull(reader.GetOrdinal("fechaRegistro")) ? (DateTime?)null : reader.GetDateTime("fechaRegistro"),
                                 reader.IsDBNull(reader.GetOrdinal("fechaVencimiento")) ? (DateTime?)null : reader.GetDateTime("fechaVencimiento"),
                                 reader.IsDBNull(reader.GetOrdinal("idTitular")) ? 0 : reader.GetInt32("idTitular"),
-                                reader.IsDBNull(reader.GetOrdinal("idAgente")) ? 0 : reader.GetInt32("idAgente")
+                                reader.IsDBNull(reader.GetOrdinal("idAgente")) ? 0 : reader.GetInt32("idAgente"),
+                                reader.IsDBNull(reader.GetOrdinal("observaciones")) ? "" : reader.GetString("observaciones") // Incluye observaciones
                             ));
                         }
                     }
@@ -305,6 +307,7 @@ namespace AccesoDatos.Entidades
             }
             return marca; // Devuelve la lista con los detalles de la marca (contiene solo un elemento)
         }
+
 
 
 

@@ -25,14 +25,15 @@ namespace Presentacion.Marcas_Nacionales
 
         private void button2_Click(object sender, EventArgs e)
         {
-            AgregarEtapa.etapa = "";
+            AgregarEtapa.LimpiarEtapa();
             this.Close();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            AgregarEtapa.etapa = "";
+            
             this.Close();
+            AgregarEtapa.LimpiarEtapa();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
