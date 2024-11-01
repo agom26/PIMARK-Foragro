@@ -113,7 +113,7 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-30, 45);
+            panel1.Location = new Point(0, 45);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
@@ -206,6 +206,7 @@
             // textBoxEstatus
             // 
             textBoxEstatus.Anchor = AnchorStyles.None;
+            textBoxEstatus.Enabled = false;
             textBoxEstatus.Font = new Font("Century Gothic", 10F);
             textBoxEstatus.Location = new Point(412, 249);
             textBoxEstatus.Name = "textBoxEstatus";
@@ -522,6 +523,7 @@
             // dateTimePFecha_vencimiento
             // 
             dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
+            dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(280, 133);

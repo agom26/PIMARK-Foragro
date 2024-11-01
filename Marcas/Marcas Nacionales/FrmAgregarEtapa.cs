@@ -37,7 +37,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            if(comboBox1.SelectionStart.ToString() != "")
+            if(comboBox1.SelectedIndex != -1)
             {
                 AgregarEtapa.etapa=comboBox1.SelectedItem.ToString();
                 AgregarEtapa.fecha=dateTimePicker1.ToString();
