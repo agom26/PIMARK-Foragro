@@ -400,5 +400,12 @@ namespace Presentacion
             openChildForm(new FrmMostrarTodas());
             EnableButtons();
         }
+
+        private void btnOposiciones_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarOposiciones());
+            EnableButtons();
+        }
     }
 }

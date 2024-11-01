@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
@@ -20,6 +21,8 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarTodas()
         {
             InitializeComponent();
+            this.Load += FrmMostrarTodas_Load;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -29,10 +32,7 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.TabPages.Remove(nombre);
             }
         }
-        public void LimpiarCampos()
-        {
 
-        }
         private void MostrarMarcasTramite()
         {
             dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionalesEnTramite();
@@ -54,7 +54,7 @@ namespace Presentacion.Marcas_Nacionales
             Invoke(new Action(() =>
             {
                 dtgMarcasN.DataSource = marcasN;
-
+                dtgMarcasN.Refresh();
                 // Oculta la columna 'id'
                 if (dtgMarcasN.Columns["id"] != null)
                 {
@@ -129,15 +129,8 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-            string observaciones = null;
-            if (AgregarEtapa.anotaciones != "")
-            {
-                observaciones = AgregarEtapa.anotaciones;
-            }
-            else
-            {
-                observaciones = null;
-            }
+            string observaciones = richTextBox1.Text;
+
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
@@ -154,7 +147,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (estado == null)
             {
-                MessageBox.Show("Por favor, selecciona un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -278,7 +271,7 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-            if (dtgMarcasN.SelectedCells.Count >= 1)
+            if (dtgMarcasN.SelectedRows.Count > 0)
             {
                 var filaSeleccionada = dtgMarcasN.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -286,7 +279,7 @@ namespace Presentacion.Marcas_Nacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarMarca.idN = id;
 
-                    // Obtén los detalles de la marca en segundo plano
+
                     var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(id));
 
                     if (detallesMarcaN.Count > 0)
@@ -328,7 +321,8 @@ namespace Presentacion.Marcas_Nacionales
                             // Cargar los detalles de titular y agente en segundo plano
                             var titular = await Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                             var agente = await Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-
+                            SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
+                            SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
                             if (titular.Count > 0)
                             {
                                 txtNombreTitular.Text = titular[0].nombre;
@@ -380,9 +374,39 @@ namespace Presentacion.Marcas_Nacionales
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-       
+        //Mostrar Historial
+        private void loadHistorialById()
+        {
+            // Obtiene los usuarios
+            var historial = historialModel.GetHistorialMarcaById(SeleccionarMarca.idN);
+
+            // Invoca el método para actualizar el DataGridView en el hilo principal
+            Invoke(new Action(() =>
+            {
+                // Activa la generación automática de columnas
+                dtgHistorial.AutoGenerateColumns = true;
+                dtgHistorial.DataSource = historial;
+
+                // Refresca el DataGridView para asegurar la visualización correcta
+                dtgHistorial.Refresh();
+
+                // Verifica y oculta la columna 'id' si existe
+                if (dtgHistorial.Columns["id"] != null)
+                {
+                    dtgHistorial.Columns["id"].Visible = false;
+                }
+
+                // Desactiva la selección automática de la primera fila
+                dtgHistorial.ClearSelection();
+            }));
+        }
+
 
 
 
@@ -399,6 +423,7 @@ namespace Presentacion.Marcas_Nacionales
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageMarcaDetail);
+            tabControl1.TabPages.Remove(tabPageHistorialMarca);
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -425,7 +450,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
-                richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+                richTextBox1.Text = SeleccionarMarca.observaciones + "\n" + AgregarEtapa.anotaciones;
             }
         }
 
@@ -481,8 +506,9 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
         }
 
-        private void roundedButton6_Click(object sender, EventArgs e)
+        private async void roundedButton6_Click(object sender, EventArgs e)
         {
+            await Task.Run(() => LoadMarcas());
             EliminarTabPage(tabPageMarcaDetail);
             tabControl1.SelectedTab = tabPageListaMarcas;
         }
@@ -524,6 +550,23 @@ namespace Presentacion.Marcas_Nacionales
                         MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        private void roundedButton6_Click_1(object sender, EventArgs e)
+        {
+           
+            AnadirTabPage(tabPageHistorialMarca);
+
+        }
+
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verifica si la pestaña activa es tabPage1
+            if (tabControl1.SelectedTab == tabPageHistorialMarca)
+            {
+                // Cargar usuarios en segundo plano
+                await Task.Run(() => loadHistorialById());
             }
         }
     }

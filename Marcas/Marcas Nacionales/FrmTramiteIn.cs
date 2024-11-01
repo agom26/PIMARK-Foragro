@@ -49,15 +49,7 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-            string observaciones = null;
-            if (AgregarEtapa.anotaciones != "")
-            {
-                observaciones = AgregarEtapa.anotaciones;
-            }
-            else
-            {
-                observaciones = null;
-            }
+            string observaciones = richTextBox1.Text;
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;

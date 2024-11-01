@@ -604,6 +604,7 @@
             btnOposiciones.Text = "Oposiciones";
             btnOposiciones.TextAlign = ContentAlignment.MiddleLeft;
             btnOposiciones.UseVisualStyleBackColor = false;
+            btnOposiciones.Click += btnOposiciones_Click;
             // 
             // btnEnTramite
             // 

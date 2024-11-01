@@ -77,7 +77,7 @@ namespace AccesoDatos.Entidades
                 Personas AS P2 ON M.IdAgente = P2.id 
             WHERE 
                 M.tipo = 'nacional' AND 
-                (estado IN ('Ingresada', 'Examen de forma', 'Examen de fondo', 'Requerimiento', 'Objeción', 'Edicto', 'Publicación', 'Orden de pago', 'Licencia de uso'));", conexion))
+                (estado IN ('Ingresada', 'Examen de forma', 'Examen de fondo', 'Requerimiento', 'Objeción', 'Edicto', 'Publicación', 'Orden de pago', 'Licencia de uso',''));", conexion))
                     {
                         conexion.Open(); // Abre la conexión a la base de datos
                         using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre

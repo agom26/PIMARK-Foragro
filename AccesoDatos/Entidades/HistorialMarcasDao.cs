@@ -16,7 +16,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT fecha, etapa, anotaciones,usuario FROM Historial WHERE  IdMarca=@idMarca;", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, etapa as Etapa, fecha as Fecha, anotaciones as Anotaciones, usuario as Usuario FROM Historial WHERE  IdMarca=@idMarca;", conexion)) // Inicializa correctamente el comando
                 {
                     comando.Parameters.AddWithValue("@idMarca", idMarca);
                     conexion.Open();

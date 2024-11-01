@@ -39,21 +39,15 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton3_Click(object sender, EventArgs e)
         {
             string anotaciones = richTextBox1.Text;
+            AgregarEtapa.etapa = comboBox1.SelectedItem.ToString();
+            AgregarEtapa.fecha = dateTimePicker1.Value;
+            AgregarEtapa.usuario = UsuarioActivo.usuario;
+
             if (comboBox1.SelectedIndex != -1)
             {
-                if (anotaciones != "")
-                {
-                    AgregarEtapa.anotaciones = richTextBox1.Text;
-                }
-                else
-                {
-                    anotaciones = dateTimePicker1.Value.ToString() + " " + comboBox1.SelectedItem.ToString();
-                    AgregarEtapa.anotaciones = anotaciones;
-                }
-                AgregarEtapa.etapa = comboBox1.SelectedItem.ToString();
-                AgregarEtapa.fecha = dateTimePicker1.Value;
-                AgregarEtapa.usuario = UsuarioActivo.usuario;
-
+                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                anotaciones = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
+                AgregarEtapa.anotaciones = anotaciones;
                 this.Close();
             }
             else
@@ -64,7 +58,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text=dateTimePicker1.Value.ToString()+" "+comboBox1.SelectedItem;
+            richTextBox1.Text=dateTimePicker1.Value.ToShortDateString()+" "+comboBox1.SelectedItem;
         }
     }
 }

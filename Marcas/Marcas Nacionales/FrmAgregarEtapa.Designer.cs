@@ -225,6 +225,7 @@
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarEtapa";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapa";
             Load += FrmAgregarEtapa_Load;
             panel2.ResumeLayout(false);
