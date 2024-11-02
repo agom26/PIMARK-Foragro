@@ -105,7 +105,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
                 // Intentar guardar la marca registrada
-                bool resultadoRegistrada = marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
+                bool resultadoRegistrada = marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
 
                 if (resultadoRegistrada)
                 {
@@ -121,7 +121,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 // Intentar guardar la marca sin registro
                 int resultado = marcaModel.AddMarcaInternacional(
-                    expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente);
+                    expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente);
 
                 if (resultado>0)
                 {

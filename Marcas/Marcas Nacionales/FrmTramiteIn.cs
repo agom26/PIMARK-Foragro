@@ -20,6 +20,9 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         HistorialModel historialModel = new HistorialModel();
 
+        //valores
+
+
         public FrmTramiteIn()
         {
             InitializeComponent();
@@ -35,7 +38,45 @@ namespace Presentacion.Marcas_Nacionales
             DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
             dateTimePFecha_vencimiento.Value = fecha_vencimiento; // Asigna la fecha de vencimiento al DateTimePicker correspondiente
         }
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro)
+        {
+            // Verificar campos obligatorios
+            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            {
+                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
 
+            if (string.IsNullOrEmpty(estado))
+            {
+                MessageBox.Show("Por favor, seleccione un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Verificar que hay una imagen
+            if (pictureBox1.Image != null)
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Si está registrada, se verifica la información del registro
+            if (registroChek && string.IsNullOrEmpty(registro))
+            {
+                MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true; // Todas las validaciones pasaron
+        }
         public void GuardarMarcaNacional()
         {
             // Recolectar valores de los controles
@@ -58,103 +99,37 @@ namespace Presentacion.Marcas_Nacionales
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
 
             // Validaciones
-            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro))
             {
-                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return; 
             }
 
-            if (estado == null)
+            // Guardar la marca
+            try
             {
-                MessageBox.Show("Por favor, selecciona un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                int idMarca = registroChek ?
+                    marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud);
 
-            if (pictureBox1.Image != null) // Verificar que hay una imagen
-            {
-                using (var ms = new System.IO.MemoryStream())
+                // Verifica si se ha guardado correctamente
+                if (idMarca > 0)
                 {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Si está registrada, se verifica la información del registro
-            if (registroChek)
-            {
-                if (string.IsNullOrEmpty(registro))
-                {
-                    MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                try
-                {
-                    // Guardar la marca y obtener su ID
-                    int idMarca = marcaModel.AddMarcaNacionalRegistrada(
-                        expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, estado, observaciones, registro, fecha_registro, fecha_vencimiento);
-
-                    // Verifica si se ha guardado correctamente
-                    if (idMarca > 0)
+                    string etapa = textBoxEstatus.Text;
+                    if (!string.IsNullOrEmpty(etapa))
                     {
-                        string etapa = textBoxEstatus.Text;
-
-                        // Solo guardamos la etapa si la etapa no está vacía
-                        if (!string.IsNullOrEmpty(etapa))
-                        {
-                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                        }
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                     }
-                    else
-                    {
-                        MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Error al registrar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    // Guardar la marca nacional y obtener su ID
-                    int idMarca = marcaModel.AddMarcaNacional(
-                        expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, estado, observaciones);
-
-                    // Verifica si se ha guardado correctamente
-                    if (idMarca > 0)
-                    {
-                        string etapa = textBoxEstatus.Text;
-
-                        // Solo guardamos la etapa si la etapa no está vacía
-                        if (!string.IsNullOrEmpty(etapa))
-                        {
-                            historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    MessageBox.Show("Marca nacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarFormulario();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al guardar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

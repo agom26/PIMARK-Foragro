@@ -28,5 +28,17 @@ namespace Dominio
             tabla = historialMarcasDao.GetAllEtapasByIdMarca(id);
             return tabla;
         }
+
+        public DataTable GetHistorialById(int id)
+        {
+            DataTable tabla = new DataTable();
+            tabla = historialMarcasDao.GetHistorialById(id);
+            return tabla;
+        }
+
+        public bool EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
+        {
+            return historialMarcasDao.EditHistorialById(id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+        }
     }
 }

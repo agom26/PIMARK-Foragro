@@ -11,12 +11,56 @@ namespace AccesoDatos.Entidades
     public class HistorialMarcasDao:ConnectionSQL
     {
 
+        public bool EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand(@"
+                    UPDATE Historial 
+                    SET etapa = @etapa, 
+                        fecha = @fecha, 
+                        anotaciones = @anotaciones, 
+                        usuario = @usuario, 
+                        usuarioEdicion = @usuarioEdicion
+                    WHERE id = @id;", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@etapa", etapa);
+                    command.Parameters.AddWithValue("@fecha", fecha);
+                    command.Parameters.AddWithValue("@anotaciones", anotaciones);
+                    command.Parameters.AddWithValue("@usuario", usuario);
+                    command.Parameters.AddWithValue("@usuarioEdicion", usuarioEditor);
+
+                    // Ejecuta el comando y devuelve el número de filas afectadas
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                }
+            }
+        }
+        public DataTable GetHistorialById(int id)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Historial WHERE id=@id;", conexion)) // Inicializa correctamente el comando
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
+        }
         public DataTable GetAllEtapasByIdMarca(int idMarca)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, etapa as Etapa, fecha as Fecha, anotaciones as Anotaciones, usuario as Usuario FROM Historial WHERE  IdMarca=@idMarca;", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, etapa as Etapa, fecha as Fecha, anotaciones as Anotaciones, usuario as Usuario_creador, usuarioEdicion As Usuario_editor FROM Historial WHERE  IdMarca=@idMarca;", conexion)) // Inicializa correctamente el comando
                 {
                     comando.Parameters.AddWithValue("@idMarca", idMarca);
                     conexion.Open();
