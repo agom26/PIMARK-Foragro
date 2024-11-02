@@ -51,7 +51,7 @@ namespace Presentacion.Personas
                 dtgTitulares.Columns["id"].Visible = false;
             }
         }
-        private async void AnadirTabPage(TabPage nombre)
+        private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
             {
@@ -65,7 +65,7 @@ namespace Presentacion.Personas
         private async void LoadTitulares()
         {
             // Obtiene los usuarios
-            var titulares = personaModel.GetAllTitulares();
+            var titulares = await Task.Run(() => personaModel.GetAllTitulares());
 
             Invoke(new Action(() =>
             {

@@ -18,7 +18,6 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
-        private bool puedeRegresar = false;
         public FrmMostrarTodas()
         {
             InitializeComponent();
@@ -444,10 +443,6 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-
-
-
-
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
 
@@ -552,7 +547,6 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            puedeRegresar = true;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageListaMarcas;
@@ -601,7 +595,6 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click_1(object sender, EventArgs e)
         {
-            puedeRegresar = true;
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
             SeleccionarMarca.idN = 0;
