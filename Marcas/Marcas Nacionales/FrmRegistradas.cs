@@ -686,5 +686,48 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void btnEditarH_Click(object sender, EventArgs e)
+        {
+            //Editar historial por id
+            string etapa = comboBoxEstatusH.SelectedItem.ToString();
+            DateTime fecha = dateTimePickerFechaH.Value;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorial.anotaciones = anotaciones;
+            string usuario = lblUser.Text;
+            string usuarioEditor = labelUserEditor.Text;
+            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+
+            if (actualizar == true)
+            {
+                MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tabControl1.SelectedTab = tabPageHistorialMarca;
+                refrescarMarca();
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelarH_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageHistorialMarca;
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
+        }
     }
 }

@@ -109,6 +109,7 @@ namespace Presentacion
             btnTramiteInicial.Enabled = false;
             btnEnTramite.Enabled = false;
             btnOposiciones.Enabled = false;
+            btnRegistradas.Enabled = false;
             btnAbandonadas.Enabled = false;
             iconButtonVencimientos.Enabled = false;
         }
@@ -121,6 +122,7 @@ namespace Presentacion
             btnTramiteInicial.Enabled = true;
             btnEnTramite.Enabled = true;
             btnOposiciones.Enabled = true;
+            btnRegistradas.Enabled = true;
             btnAbandonadas.Enabled = true;
             iconButtonVencimientos.Enabled = true;
         }

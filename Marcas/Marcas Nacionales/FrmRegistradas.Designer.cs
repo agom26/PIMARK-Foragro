@@ -498,6 +498,7 @@
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(172, 28);
             dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
             // label18
             // 
@@ -1118,6 +1119,7 @@
             btnEditarH.Text = "Actualizar";
             btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnEditarH.UseVisualStyleBackColor = false;
+            btnEditarH.Click += btnEditarH_Click;
             // 
             // labelUserEditor
             // 
@@ -1146,6 +1148,7 @@
             btnCancelarH.Text = "Cancelar";
             btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarH.UseVisualStyleBackColor = false;
+            btnCancelarH.Click += btnCancelarH_Click;
             // 
             // lblUser
             // 
@@ -1177,6 +1180,7 @@
             comboBoxEstatusH.Name = "comboBoxEstatusH";
             comboBoxEstatusH.Size = new Size(250, 28);
             comboBoxEstatusH.TabIndex = 15;
+            comboBoxEstatusH.SelectedIndexChanged += comboBoxEstatusH_SelectedIndexChanged;
             // 
             // label24
             // 
@@ -1195,6 +1199,7 @@
             dateTimePickerFechaH.Name = "dateTimePickerFechaH";
             dateTimePickerFechaH.Size = new Size(154, 26);
             dateTimePickerFechaH.TabIndex = 14;
+            dateTimePickerFechaH.ValueChanged += dateTimePickerFechaH_ValueChanged;
             // 
             // label23
             // 
