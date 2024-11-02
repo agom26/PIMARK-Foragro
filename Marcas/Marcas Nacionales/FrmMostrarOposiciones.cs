@@ -180,25 +180,29 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (esActualizado)
                     {
-                        string etapa = textBoxEstatus.Text;
 
-
-                        if (!string.IsNullOrEmpty(etapa))
+                        if (observaciones.Contains(estado))
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("No se guardará una nueva etapa, pero si se actualizara el contenido de la marca", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            // Guardar la nueva etapa
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Error al registrar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al registrar la marca nacional 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Marca nacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al registrar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al registrar la marca nacional 2" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -210,15 +214,30 @@ namespace Presentacion.Marcas_Nacionales
                     bool esactualizada = marcaModel.EditMarcaNacional(SeleccionarMarca.idN,
                         expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud);
 
-
                     if (esactualizada)
                     {
                         string etapa = textBoxEstatus.Text;
 
-                        if (!string.IsNullOrEmpty(etapa))
+                        if (string.IsNullOrEmpty(etapa))
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                            MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("No se ingresó una etapa. Se guardarán otros cambios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            // Obtener el texto del RichTextBox
+                            string richTextContent = richTextBox1.Text;
+
+                            // Comparar si la etapa ya está incluida en el RichTextBox
+                            if (richTextContent.Contains(etapa))
+                            {
+                                MessageBox.Show("La etapa ya está incluida en las anotaciones. Marca actualizada", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                // Guardar la nueva etapa
+                                historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                                MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                     else
@@ -231,6 +250,7 @@ namespace Presentacion.Marcas_Nacionales
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error al guardar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LimpiarFormulario();
                 }
             }
         }
@@ -538,7 +558,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             ActualizarMarcaNacional();
             EliminarTabPage(tabPageHistorialMarca);
-            SeleccionarMarca.idN = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -610,6 +629,75 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void btnEditarH_Click(object sender, EventArgs e)
+        {
+            //Editar historial por id
+            string etapa = comboBoxEstatusH.SelectedItem.ToString();
+            DateTime fecha = dateTimePickerFechaH.Value;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorial.anotaciones = anotaciones;
+            string usuario = lblUser.Text;
+            string usuarioEditor = labelUserEditor.Text;
+            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+
+            if (actualizar == true)
+            {
+                MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tabControl1.SelectedTab = tabPageHistorialMarca;
+                refrescarMarca();
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelarH_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageHistorialMarca;
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            if (dtgHistorialOp.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+
+                    if (eliminarhistorial == true)
+                    {
+                        MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        loadHistorialById();
+                        refrescarMarca();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del estado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListaMarcas = new TabPage();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
@@ -100,8 +100,6 @@
             panel5 = new Panel();
             label22 = new Label();
             tabPageHistorialDetalle = new TabPage();
-            label21 = new Label();
-            dtgHistorialO = new DataGridView();
             panel6 = new Panel();
             roundedButton7 = new Clases.RoundedButton();
             panel7 = new Panel();
@@ -116,6 +114,8 @@
             label23 = new Label();
             label25 = new Label();
             panel8 = new Panel();
+            label21 = new Label();
+            dtgHistorialO = new DataGridView();
             tabControl1.SuspendLayout();
             tabPageListaMarcas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -129,9 +129,9 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialOp).BeginInit();
             tabPageHistorialDetalle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).BeginInit();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -984,6 +984,7 @@
             iconButton4.Text = "Eliminar";
             iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click;
             // 
             // iconButton5
             // 
@@ -1058,62 +1059,6 @@
             tabPageHistorialDetalle.Text = "Editar historial";
             tabPageHistorialDetalle.UseVisualStyleBackColor = true;
             // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Century Gothic", 19F);
-            label21.Location = new Point(495, 9);
-            label21.Name = "label21";
-            label21.Size = new Size(134, 39);
-            label21.TabIndex = 0;
-            // 
-            // dtgHistorialO
-            // 
-            dtgHistorialO.AllowUserToAddRows = false;
-            dtgHistorialO.AllowUserToDeleteRows = false;
-            dtgHistorialO.AllowUserToResizeRows = false;
-            dtgHistorialO.Anchor = AnchorStyles.Top;
-            dtgHistorialO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgHistorialO.BackgroundColor = Color.FromArgb(251, 251, 251);
-            dtgHistorialO.BorderStyle = BorderStyle.None;
-            dtgHistorialO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgHistorialO.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dtgHistorialO.ColumnHeadersHeight = 40;
-            dtgHistorialO.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle5;
-            dtgHistorialO.EnableHeadersVisualStyles = false;
-            dtgHistorialO.GridColor = Color.LightGray;
-            dtgHistorialO.Location = new Point(94, 68);
-            dtgHistorialO.Name = "dtgHistorialO";
-            dtgHistorialO.ReadOnly = true;
-            dtgHistorialO.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            dtgHistorialO.RowHeadersWidth = 51;
-            dtgHistorialO.Size = new Size(934, 492);
-            dtgHistorialO.TabIndex = 43;
-            // 
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Top;
@@ -1181,6 +1126,7 @@
             btnEditarH.Text = "Actualizar";
             btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnEditarH.UseVisualStyleBackColor = false;
+            btnEditarH.Click += btnEditarH_Click;
             // 
             // labelUserEditor
             // 
@@ -1209,6 +1155,7 @@
             btnCancelarH.Text = "Cancelar";
             btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarH.UseVisualStyleBackColor = false;
+            btnCancelarH.Click += btnCancelarH_Click;
             // 
             // lblUser
             // 
@@ -1240,6 +1187,7 @@
             comboBoxEstatusH.Name = "comboBoxEstatusH";
             comboBoxEstatusH.Size = new Size(250, 28);
             comboBoxEstatusH.TabIndex = 15;
+            comboBoxEstatusH.SelectedIndexChanged += comboBoxEstatusH_SelectedIndexChanged;
             // 
             // label24
             // 
@@ -1258,6 +1206,7 @@
             dateTimePickerFechaH.Name = "dateTimePickerFechaH";
             dateTimePickerFechaH.Size = new Size(154, 26);
             dateTimePickerFechaH.TabIndex = 14;
+            dateTimePickerFechaH.ValueChanged += dateTimePickerFechaH_ValueChanged;
             // 
             // label23
             // 
@@ -1286,6 +1235,62 @@
             panel8.Name = "panel8";
             panel8.Size = new Size(946, 369);
             panel8.TabIndex = 21;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Century Gothic", 19F);
+            label21.Location = new Point(495, 9);
+            label21.Name = "label21";
+            label21.Size = new Size(134, 39);
+            label21.TabIndex = 0;
+            // 
+            // dtgHistorialO
+            // 
+            dtgHistorialO.AllowUserToAddRows = false;
+            dtgHistorialO.AllowUserToDeleteRows = false;
+            dtgHistorialO.AllowUserToResizeRows = false;
+            dtgHistorialO.Anchor = AnchorStyles.Top;
+            dtgHistorialO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgHistorialO.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgHistorialO.BorderStyle = BorderStyle.None;
+            dtgHistorialO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgHistorialO.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dtgHistorialO.ColumnHeadersHeight = 40;
+            dtgHistorialO.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle2;
+            dtgHistorialO.EnableHeadersVisualStyles = false;
+            dtgHistorialO.GridColor = Color.LightGray;
+            dtgHistorialO.Location = new Point(94, 68);
+            dtgHistorialO.Name = "dtgHistorialO";
+            dtgHistorialO.ReadOnly = true;
+            dtgHistorialO.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dtgHistorialO.RowHeadersWidth = 51;
+            dtgHistorialO.Size = new Size(934, 492);
+            dtgHistorialO.TabIndex = 43;
             // 
             // FrmMostrarOposiciones
             // 
@@ -1316,10 +1321,10 @@
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialOp).EndInit();
             tabPageHistorialDetalle.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).EndInit();
             panel6.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).EndInit();
             ResumeLayout(false);
         }
 

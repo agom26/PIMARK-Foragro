@@ -185,12 +185,15 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (esActualizado)
                     {
-                        string etapa = textBoxEstatus.Text;
-
-
-                        if (!string.IsNullOrEmpty(etapa))
+                        if (observaciones.Contains(estado))
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("No se guardará una nueva etapa, pero si se actualizara el contenido de la marca", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            // Guardar la nueva etapa
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
@@ -220,9 +223,26 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         string etapa = textBoxEstatus.Text;
 
-                        if (!string.IsNullOrEmpty(etapa))
+                        if (string.IsNullOrEmpty(etapa))
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("No se ingresó una etapa. Se guardarán otros cambios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            // Obtener el texto del RichTextBox
+                            string richTextContent = richTextBox1.Text;
+
+                            // Comparar si la etapa ya está incluida en el RichTextBox
+                            if (richTextContent.Contains(etapa))
+                            {
+                                MessageBox.Show("La etapa ya está incluida en las anotaciones. Marca actualizada", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                // Guardar la nueva etapa
+                                historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                                MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                     else
@@ -693,7 +713,6 @@ namespace Presentacion.Marcas_Nacionales
             {
                 MessageBox.Show("Error al actualizar el estatus", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            SeleccionarMarca.idN = 0;
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
