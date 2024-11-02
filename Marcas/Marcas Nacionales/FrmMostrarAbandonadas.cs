@@ -427,16 +427,16 @@ namespace Presentacion.Marcas_Nacionales
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
-                    dtgMarcasAban.AutoGenerateColumns = true;
-                    dtgMarcasAban.DataSource = historial;
-                    dtgMarcasAban.Refresh();
+                    dtgHistorialAban.AutoGenerateColumns = true;
+                    dtgHistorialAban.DataSource = historial;
+                    dtgHistorialAban.Refresh();
 
-                    if (dtgMarcasAban.Columns["id"] != null)
+                    if (dtgHistorialAban.Columns["id"] != null)
                     {
-                        dtgMarcasAban.Columns["id"].Visible = false;
+                        dtgHistorialAban.Columns["id"].Visible = false;
                     }
 
-                    dtgMarcasAban.ClearSelection();
+                    dtgHistorialAban.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -456,7 +456,25 @@ namespace Presentacion.Marcas_Nacionales
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (tabControl1.SelectedTab == tabPageHistorialMarca)
+            {
+                loadHistorialById();
+                //EliminarTabPage(tabPageHistorialDetalle);
+            }
+            else if (tabControl1.SelectedTab == tabPageAbandonadasList)
+            {
+                LoadMarcas();
+                SeleccionarMarca.idN = 0;
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                //EliminarTabPage(tabPageHistorialDetalle);
+            }
+            else if (tabControl1.SelectedTab == tabPageMarcaDetail)
+            {
+                CargarDatosMarca();
+                //EliminarTabPage(tabPageHistorialDetalle);
+                EliminarTabPage(tabPageHistorialMarca);
+            }
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)

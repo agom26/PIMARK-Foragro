@@ -88,6 +88,12 @@
             txtExpediente = new TextBox();
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
+            panel2 = new Panel();
+            dtgHistorialAban = new DataGridView();
+            panel5 = new Panel();
+            label22 = new Label();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageAbandonadasList.SuspendLayout();
             panel4.SuspendLayout();
@@ -97,6 +103,9 @@
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            tabPageHistorialMarca.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -876,12 +885,108 @@
             // 
             // tabPageHistorialMarca
             // 
+            tabPageHistorialMarca.Controls.Add(panel2);
             tabPageHistorialMarca.Location = new Point(4, 29);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(iconButton4);
+            panel2.Controls.Add(iconButton5);
+            panel2.Controls.Add(dtgHistorialAban);
+            panel2.Controls.Add(panel5);
+            panel2.Controls.Add(label22);
+            panel2.Location = new Point(8, 14);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1145, 772);
+            panel2.TabIndex = 0;
+            // 
+            // dtgHistorialAban
+            // 
+            dtgHistorialAban.AllowUserToAddRows = false;
+            dtgHistorialAban.AllowUserToDeleteRows = false;
+            dtgHistorialAban.AllowUserToResizeRows = false;
+            dtgHistorialAban.Anchor = AnchorStyles.Top;
+            dtgHistorialAban.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgHistorialAban.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgHistorialAban.BorderStyle = BorderStyle.None;
+            dtgHistorialAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgHistorialAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dtgHistorialAban.ColumnHeadersHeight = 40;
+            dtgHistorialAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dtgHistorialAban.EnableHeadersVisualStyles = false;
+            dtgHistorialAban.GridColor = Color.LightGray;
+            dtgHistorialAban.Location = new Point(23, 96);
+            dtgHistorialAban.Name = "dtgHistorialAban";
+            dtgHistorialAban.ReadOnly = true;
+            dtgHistorialAban.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dtgHistorialAban.RowHeadersWidth = 51;
+            dtgHistorialAban.Size = new Size(934, 492);
+            dtgHistorialAban.TabIndex = 48;
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Top;
+            panel5.BackColor = Color.FromArgb(192, 202, 212);
+            panel5.Location = new Point(9, 75);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(972, 542);
+            panel5.TabIndex = 49;
+            // 
+            // label22
+            // 
+            label22.Anchor = AnchorStyles.None;
+            label22.AutoSize = true;
+            label22.Font = new Font("Century Gothic", 19F);
+            label22.Location = new Point(490, 2);
+            label22.Name = "label22";
+            label22.Size = new Size(134, 39);
+            label22.TabIndex = 47;
+            label22.Text = "Historial";
+            // 
+            // iconButton4
+            // 
+            iconButton4.Anchor = AnchorStyles.Top;
+            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
+            iconButton4.Enabled = false;
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.ForeColor = Color.White;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            iconButton4.IconColor = Color.White;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 30;
+            iconButton4.Location = new Point(998, 137);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(144, 37);
+            iconButton4.TabIndex = 51;
+            iconButton4.Text = "Eliminar";
+            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton4.UseVisualStyleBackColor = false;
+            // 
+            // iconButton5
+            // 
+            iconButton5.Anchor = AnchorStyles.Top;
+            iconButton5.BackColor = Color.FromArgb(96, 149, 241);
+            iconButton5.Enabled = false;
+            iconButton5.FlatAppearance.BorderSize = 0;
+            iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.ForeColor = Color.White;
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            iconButton5.IconColor = Color.White;
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.IconSize = 30;
+            iconButton5.Location = new Point(998, 75);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Size = new Size(144, 37);
+            iconButton5.TabIndex = 50;
+            iconButton5.Text = "Editar";
+            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton5.UseVisualStyleBackColor = false;
             // 
             // FrmMostrarAbandonadas
             // 
@@ -907,6 +1012,10 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            tabPageHistorialMarca.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).EndInit();
             ResumeLayout(false);
         }
 
@@ -972,5 +1081,11 @@
         private Label label20;
         private Clases.RoundedButton btnCancelar;
         private Clases.RoundedButton btnActualizar;
+        private Panel panel2;
+        private DataGridView dtgHistorialAban;
+        private Panel panel5;
+        private Label label22;
+        private FontAwesome.Sharp.IconButton iconButton4;
+        private FontAwesome.Sharp.IconButton iconButton5;
     }
 }
