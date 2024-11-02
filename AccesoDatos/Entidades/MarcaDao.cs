@@ -138,33 +138,19 @@ namespace AccesoDatos.Entidades
         }
         public DataTable GetAllMarcasNacionalesRegistradas()
         {
+            string estadoFiltro = "Registrada";
             DataTable tabla = new DataTable();
             try
             {
                 using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
                 {
-                    using (MySqlCommand comando = new MySqlCommand(@"
-                    SELECT  
-                        M.id,
-                        M.nombre AS Nombre, 
-                        M.clase AS Clase, 
-                        M.registro as Registro,
-                        M.folio as Folio,
-                        M.libro as Tomo,
-                        M.estado AS Estado,
-                        M.expediente As Expediente,
-                        P1.nombre AS Titular, 
-                        P2.nombre AS Agente
-                    FROM 
-                        `Marcas` M
-                    JOIN 
-                        Personas AS P1 ON M.IdTitular = P1.id 
-                    JOIN 
-                        Personas AS P2 ON M.IdAgente = P2.id 
-                    WHERE 
-                        M.tipo = 'nacional' AND 
-                        (estado='Registrada');", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasRegistradas", conexion))
                     {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        // Agrega el parámetro `estadoFiltro` y pásale el valor correspondiente
+                        comando.Parameters.AddWithValue("@estadoFiltro", estadoFiltro);
+
                         conexion.Open(); // Abre la conexión a la base de datos
                         using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
                         {
@@ -180,6 +166,7 @@ namespace AccesoDatos.Entidades
             }
             return tabla; // Devuelve el DataTable con los resultados
         }
+
         public DataTable GetAllMarcasNacionalesEnAbandono()
         {
             DataTable tabla = new DataTable();

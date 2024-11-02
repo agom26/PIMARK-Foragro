@@ -247,12 +247,12 @@
             dtgMarcasR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasR.EnableHeadersVisualStyles = false;
             dtgMarcasR.GridColor = Color.LightGray;
-            dtgMarcasR.Location = new Point(18, 8);
+            dtgMarcasR.Location = new Point(10, 10);
             dtgMarcasR.Name = "dtgMarcasR";
             dtgMarcasR.ReadOnly = true;
             dtgMarcasR.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgMarcasR.RowHeadersWidth = 51;
-            dtgMarcasR.Size = new Size(934, 492);
+            dtgMarcasR.Size = new Size(951, 492);
             dtgMarcasR.TabIndex = 29;
             // 
             // iconPictureBox1
