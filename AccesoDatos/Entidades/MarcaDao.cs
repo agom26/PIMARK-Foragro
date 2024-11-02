@@ -136,6 +136,48 @@ namespace AccesoDatos.Entidades
             }
             return tabla; // Devuelve el DataTable con los resultados
         }
+        public DataTable GetAllMarcasNacionalesEnAbandono()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                {
+                    using (MySqlCommand comando = new MySqlCommand(@"
+                    SELECT  
+                        M.id,
+                        M.nombre AS Nombre, 
+                        M.estado AS Estado,
+                        M.observaciones as Observaciones,
+                        M.expediente As Expediente,
+                        M.clase AS Clase,  
+                        P1.nombre AS Titular, 
+                        P2.nombre AS Agente
+                    FROM 
+                        `Marcas` M
+                    JOIN 
+                        Personas AS P1 ON M.IdTitular = P1.id 
+                    JOIN 
+                        Personas AS P2 ON M.IdAgente = P2.id 
+                    WHERE 
+                        M.tipo = 'nacional' AND 
+                        (estado='Abandono');", conexion))
+                    {
+                        conexion.Open(); // Abre la conexión a la base de datos
+                        using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                        {
+                            tabla.Load(leer); // Carga los datos en el DataTable
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
+                // Maneja la excepción según sea necesario
+            }
+            return tabla; // Devuelve el DataTable con los resultados
+        }
 
 
         public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)

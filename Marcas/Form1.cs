@@ -108,6 +108,8 @@ namespace Presentacion
             iconButtonTitulares.Enabled = false;
             btnTramiteInicial.Enabled = false;
             btnEnTramite.Enabled = false;
+            btnOposiciones.Enabled = false;
+            btnAbandonadas.Enabled = false;
             iconButtonVencimientos.Enabled = false;
         }
 
@@ -118,6 +120,8 @@ namespace Presentacion
             iconButtonTitulares.Enabled = true;
             btnTramiteInicial.Enabled = true;
             btnEnTramite.Enabled = true;
+            btnOposiciones.Enabled = true;
+            btnAbandonadas .Enabled = true;
             iconButtonVencimientos.Enabled = true;
         }
 
@@ -405,6 +409,13 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmMostrarOposiciones());
+            EnableButtons();
+        }
+
+        private void btnAbandonadas_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarAbandonadas());
             EnableButtons();
         }
     }

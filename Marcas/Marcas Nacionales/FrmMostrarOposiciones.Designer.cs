@@ -589,7 +589,7 @@
             checkBox1.Anchor = AnchorStyles.None;
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Century Gothic", 10F);
-            checkBox1.Location = new Point(49, 924);
+            checkBox1.Location = new Point(57, 917);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(103, 25);
             checkBox1.TabIndex = 103;

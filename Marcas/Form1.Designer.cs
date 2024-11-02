@@ -528,6 +528,7 @@
             btnAbandonadas.Text = "Abandonadas";
             btnAbandonadas.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadas.UseVisualStyleBackColor = false;
+            btnAbandonadas.Click += btnAbandonadas_Click;
             // 
             // btnTramiteRenov
             // 
@@ -621,7 +622,7 @@
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
             btnEnTramite.Size = new Size(259, 47);
             btnEnTramite.TabIndex = 6;
-            btnEnTramite.Text = "En trámite";
+            btnEnTramite.Text = "Ingresadas";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
             btnEnTramite.UseVisualStyleBackColor = false;
             btnEnTramite.Click += button4_Click;
