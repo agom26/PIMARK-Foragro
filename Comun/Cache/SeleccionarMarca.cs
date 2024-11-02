@@ -32,8 +32,8 @@ namespace Comun.Cache
         public static string registro;
         public static string folio;
         public static string libro;
-        public static DateTime fechaRegistro;
-        public static DateTime fechaVencimiento;
+        public static DateTime? fechaRegistro;
+        public static DateTime? fechaVencimiento;
         //
         public static string tipo;
 

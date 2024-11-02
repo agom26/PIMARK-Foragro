@@ -121,7 +121,7 @@ namespace Presentacion
             btnTramiteInicial.Enabled = true;
             btnEnTramite.Enabled = true;
             btnOposiciones.Enabled = true;
-            btnAbandonadas .Enabled = true;
+            btnAbandonadas.Enabled = true;
             iconButtonVencimientos.Enabled = true;
         }
 
@@ -416,6 +416,13 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmMostrarAbandonadas());
+            EnableButtons();
+        }
+
+        private void btnRegistradas_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmRegistradas());
             EnableButtons();
         }
     }

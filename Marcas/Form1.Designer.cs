@@ -586,6 +586,7 @@
             btnRegistradas.Text = "Registradas";
             btnRegistradas.TextAlign = ContentAlignment.MiddleLeft;
             btnRegistradas.UseVisualStyleBackColor = false;
+            btnRegistradas.Click += btnRegistradas_Click;
             // 
             // btnOposiciones
             // 
