@@ -60,25 +60,10 @@ namespace AccesoDatos.Entidades
             {
                 using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
                 {
-                    using (MySqlCommand comando = new MySqlCommand(@"
-            SELECT  
-                M.id,
-                M.nombre AS Nombre, 
-                M.estado AS Estado,
-                M.expediente As Expediente,
-                M.clase AS Clase,  
-                P1.nombre AS Titular, 
-                P2.nombre AS Agente
-            FROM 
-                `Marcas` M
-            JOIN 
-                Personas AS P1 ON M.IdTitular = P1.id 
-            JOIN 
-                Personas AS P2 ON M.IdAgente = P2.id 
-            WHERE 
-                M.tipo = 'nacional' AND 
-                (estado IN ('Ingresada', 'Examen de forma', 'Examen de fondo', 'Requerimiento', 'Objeción', 'Edicto', 'Publicación', 'Orden de pago', 'Licencia de uso',''));", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasSinRegistro", conexion))
                     {
+                        comando.CommandType = CommandType.StoredProcedure;
+
                         conexion.Open(); // Abre la conexión a la base de datos
                         using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
                         {
@@ -89,7 +74,7 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
                 // Maneja la excepción según sea necesario
             }
             return tabla; // Devuelve el DataTable con los resultados
