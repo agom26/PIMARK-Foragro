@@ -61,7 +61,7 @@
             label3 = new Label();
             txtExpediente = new TextBox();
             label2 = new Label();
-            panel2 = new Panel();
+            panel2I = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
             dateTimePFecha_Registro = new DateTimePicker();
@@ -74,12 +74,11 @@
             label6 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel2.SuspendLayout();
+            panel2I.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top;
             panel1.Controls.Add(roundedButton3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(label1);
@@ -112,8 +111,8 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-10, 46);
+            panel1.Controls.Add(panel2I);
+            panel1.Location = new Point(10, 46);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
@@ -501,24 +500,24 @@
             label2.Text = "Expediente";
             label2.Click += label2_Click;
             // 
-            // panel2
+            // panel2I
             // 
-            panel2.Anchor = AnchorStyles.None;
-            panel2.Controls.Add(dateTimePFecha_vencimiento);
-            panel2.Controls.Add(label19);
-            panel2.Controls.Add(dateTimePFecha_Registro);
-            panel2.Controls.Add(label18);
-            panel2.Controls.Add(txtRegistro);
-            panel2.Controls.Add(label17);
-            panel2.Controls.Add(txtFolio);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(txtLibro);
-            panel2.Controls.Add(label6);
-            panel2.Font = new Font("Century Gothic", 10F);
-            panel2.Location = new Point(66, 945);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(636, 185);
-            panel2.TabIndex = 37;
+            panel2I.Anchor = AnchorStyles.None;
+            panel2I.Controls.Add(dateTimePFecha_vencimiento);
+            panel2I.Controls.Add(label19);
+            panel2I.Controls.Add(dateTimePFecha_Registro);
+            panel2I.Controls.Add(label18);
+            panel2I.Controls.Add(txtRegistro);
+            panel2I.Controls.Add(label17);
+            panel2I.Controls.Add(txtFolio);
+            panel2I.Controls.Add(label7);
+            panel2I.Controls.Add(txtLibro);
+            panel2I.Controls.Add(label6);
+            panel2I.Font = new Font("Century Gothic", 10F);
+            panel2I.Location = new Point(66, 945);
+            panel2I.Name = "panel2I";
+            panel2I.Size = new Size(636, 185);
+            panel2I.TabIndex = 37;
             // 
             // dateTimePFecha_vencimiento
             // 
@@ -635,8 +634,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            panel2I.ResumeLayout(false);
+            panel2I.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -677,7 +676,7 @@
         private Clases.RoundedButton btnGuardar;
         private RichTextBox richTextBox1;
         private Label label16;
-        private Panel panel2;
+        private Panel panel2I;
         private DateTimePicker dateTimePFecha_vencimiento;
         private Label label19;
         private DateTimePicker dateTimePFecha_Registro;

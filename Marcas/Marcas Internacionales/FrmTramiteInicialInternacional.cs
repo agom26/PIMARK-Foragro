@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Internacionales
@@ -16,11 +17,19 @@ namespace Presentacion.Marcas_Internacionales
     public partial class FrmTramiteInicialInternacional : Form
     {
         MarcaModel marcaModel = new MarcaModel();
+        PersonaModel personaModel = new PersonaModel();
+        HistorialModel historialModel = new HistorialModel();
+
         public FrmTramiteInicialInternacional()
         {
             InitializeComponent();
-            panel2.Visible = false;
-            btnGuardar.Location = new Point(380, 1219);
+            SeleccionarMarca.idN = 0;
+            panelRegistroI.Visible = false;
+            btnGuardar.Location = new Point(24, 1050);
+            btnCancelar.Location = new Point(343, 1050);
+            ActualizarFechaVencimiento();
+            checkBox1.Checked = false;
+            checkBox1.Enabled = false;
         }
 
         private void ActualizarFechaVencimiento()
@@ -30,7 +39,55 @@ namespace Presentacion.Marcas_Internacionales
             dateTimePFecha_vencimiento.Value = fecha_vencimiento; // Asigna la fecha de vencimiento al DateTimePicker correspondiente
         }
 
-        public void GuardarMarcaInternacional()
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro)
+        {
+            // Verificar campos obligatorios
+            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            {
+                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Validar el estado
+            if (string.IsNullOrEmpty(estado))
+            {
+                MessageBox.Show("Por favor, seleccione un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Validar el ComboBox para el país de registro
+            if (comboBoxPaisRegistro.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor, seleccione un país de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Verificar que hay una imagen
+            if (pictureBox1.Image != null)
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Si está registrada, se verifica la información del registro
+            if (registroChek && string.IsNullOrEmpty(registro))
+            {
+                MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true; // Todas las validaciones pasaron
+        }
+
+        public void GuardarMarcaInter()
         {
             // Recolectar valores de los controles
             string expediente = txtExpediente.Text;
@@ -44,46 +101,15 @@ namespace Presentacion.Marcas_Internacionales
             int idAgente = SeleccionarPersona.idPersonaA;
             int idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-            string estado = cmbEstado.SelectedItem?.ToString();
-            string pais_de_registro = comboBox1.Text;
+            string paisRegistro = "";
+            string observaciones = richTextBox1.Text;
             string tiene_poder = "no";
-            DateTime presentacion = dateTimePresentacion.Value;
-            DateTime ultimo_pago = dateTimeUltimoPago.Value;
-            DateTime vencimiento = dateTimeVencimiento.Value;
 
-            //registro
+            string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-
-            // Validaciones
-            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
-            {
-                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (estado == null)
-            {
-                MessageBox.Show("Por favor, selecciona un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (pictureBox1.Image != null) // Verificar que hay una imagen
-            {
-                using (var ms = new System.IO.MemoryStream())
-                {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
 
             if (checkBoxTienePoder.Checked)
             {
@@ -95,45 +121,41 @@ namespace Presentacion.Marcas_Internacionales
             }
 
 
-            // Si está registrada, se verifica la información del registro
-            if (registroChek)
+            // Validaciones
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1))
             {
-                if (string.IsNullOrEmpty(registro))
-                {
-                    MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                return;
+            }
 
-                // Intentar guardar la marca registrada
-                bool resultadoRegistrada = marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
+            // Guardar la marca
+            try
+            {
+                int idMarca = registroChek ?
+                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
 
-                if (resultadoRegistrada)
+                // Verifica si se ha guardado correctamente
+                if (idMarca > 0)
                 {
-                    MessageBox.Show("Marca internacional registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string etapa = textBoxEstatus.Text;
+                    if (!string.IsNullOrEmpty(etapa))
+                    {
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                    }
+                    MessageBox.Show("Marca internacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 else
                 {
-                    MessageBox.Show("Error al registrar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // Intentar guardar la marca sin registro
-                int resultado = marcaModel.AddMarcaInternacional(
-                    expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, pais_de_registro, tiene_poder, presentacion, ultimo_pago, vencimiento, idCliente);
-
-                if (resultado>0)
-                {
-                    MessageBox.Show("Marca internacional guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarFormulario();
-                }
-                else
-                {
-                    MessageBox.Show("Error al guardar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         public void LimpiarFormulario()
         {
@@ -149,16 +171,49 @@ namespace Presentacion.Marcas_Internacionales
             txtNombreCliente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
-            cmbEstado.SelectedIndex = -1;
             comboBox1.SelectedIndex = -1;
             checkBox1.Checked = false;
             ActualizarFechaVencimiento();
             txtRegistro.Text = "";
+            richTextBox1.Text = "";
+            textBoxEstatus.Text = "";
         }
+
+
+
+        public void mostrarPanelRegistro()
+        {
+
+            if (textBoxEstatus.Text == "Registrada")
+            {
+                checkBox1.Checked = true;
+                checkBox1.Enabled = false;
+                panelRegistroI.Visible = true;
+                btnGuardar.Location = new Point(24, panelRegistroI.Location.Y + panelRegistroI.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnCancelar.Location = new Point(343, panelRegistroI.Location.Y + panelRegistroI.Height + 10);
+            }
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+                panelRegistroI.Visible = false;
+                btnGuardar.Location = new Point(24, 1050);
+                btnCancelar.Location = new Point(343, 1050);
+            }
+        }
+
+        public void LimpiarEtapaNueva()
+        {
+            AgregarEtapa.etapa = "";
+            AgregarEtapa.fecha = null;
+            AgregarEtapa.anotaciones = "";
+            richTextBox1.Text = "";
+        }
+
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            GuardarMarcaInternacional();
+            GuardarMarcaInter();
         }
 
         private void btnAgregarTitular_Click(object sender, EventArgs e)
@@ -198,7 +253,6 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            //Agregar una imagen al cuadro de imagen para la foto del usuario.
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
             if (openFile.ShowDialog() == DialogResult.OK)
@@ -209,29 +263,51 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            //Borrar foto del usuario
             pictureBox1.Image = null;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                panel2.Visible = true;
-                btnGuardar.Location = new Point(380, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
-
-            }
-            else
-            {
-                panel2.Visible = false;
-                btnGuardar.Location = new Point(380, 1219);
-
-            }
+            mostrarPanelRegistro();
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombreAgente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            LimpiarEtapaNueva();
+            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapa.etapa != "")
+            {
+                textBoxEstatus.Text = AgregarEtapa.etapa;
+                mostrarPanelRegistro();
+                richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSignoDistintivo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

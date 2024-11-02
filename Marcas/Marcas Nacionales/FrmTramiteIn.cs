@@ -26,7 +26,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmTramiteIn()
         {
             InitializeComponent();
-            panel2.Visible = false;
+            panel2I.Visible = false;
             btnGuardar.Location = new Point(200, 950);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
@@ -164,14 +164,14 @@ namespace Presentacion.Marcas_Nacionales
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
-                panel2.Visible = true;
-                btnGuardar.Location = new Point(200, panel2.Location.Y + panel2.Height + 10); // Mueve btnGuardar debajo de panel2
+                panel2I.Visible = true;
+                btnGuardar.Location = new Point(200, panel2I.Location.Y + panel2I.Height + 10); // Mueve btnGuardar debajo de panel2
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
-                panel2.Visible = false;
+                panel2I.Visible = false;
                 btnGuardar.Location = new Point(200, 950);
             }
         }
