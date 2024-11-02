@@ -33,6 +33,9 @@
             label1 = new Label();
             roundedButton1 = new Clases.RoundedButton();
             roundedButton2 = new Clases.RoundedButton();
+            dateTimePicker1 = new DateTimePicker();
+            label2 = new Label();
+            labelUsuarioAbandono = new Label();
             SuspendLayout();
             // 
             // iconButton1
@@ -41,7 +44,7 @@
             iconButton1.IconColor = Color.Red;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 120;
-            iconButton1.Location = new Point(300, 32);
+            iconButton1.Location = new Point(299, 12);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(103, 108);
             iconButton1.TabIndex = 0;
@@ -50,9 +53,9 @@
             // richTextBoxJustificacion
             // 
             richTextBoxJustificacion.BorderStyle = BorderStyle.None;
-            richTextBoxJustificacion.Location = new Point(175, 179);
+            richTextBoxJustificacion.Location = new Point(175, 237);
             richTextBoxJustificacion.Name = "richTextBoxJustificacion";
-            richTextBoxJustificacion.Size = new Size(374, 211);
+            richTextBoxJustificacion.Size = new Size(374, 153);
             richTextBoxJustificacion.TabIndex = 1;
             richTextBoxJustificacion.Text = "";
             richTextBoxJustificacion.TextChanged += richTextBox1_TextChanged;
@@ -61,7 +64,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10F);
-            label1.Location = new Point(245, 155);
+            label1.Location = new Point(175, 213);
             label1.Name = "label1";
             label1.Size = new Size(234, 21);
             label1.TabIndex = 2;
@@ -105,12 +108,43 @@
             roundedButton2.UseVisualStyleBackColor = false;
             roundedButton2.Click += roundedButton2_Click;
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.Location = new Point(175, 172);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(164, 26);
+            dateTimePicker1.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 10F);
+            label2.Location = new Point(175, 148);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 21);
+            label2.TabIndex = 6;
+            label2.Text = "Fecha";
+            // 
+            // labelUsuarioAbandono
+            // 
+            labelUsuarioAbandono.AutoSize = true;
+            labelUsuarioAbandono.Font = new Font("Century Gothic", 10F);
+            labelUsuarioAbandono.Location = new Point(385, 177);
+            labelUsuarioAbandono.Name = "labelUsuarioAbandono";
+            labelUsuarioAbandono.Size = new Size(62, 21);
+            labelUsuarioAbandono.TabIndex = 7;
+            labelUsuarioAbandono.Text = "Fecha";
+            // 
             // FrmJustificacion
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(725, 491);
+            Controls.Add(labelUsuarioAbandono);
+            Controls.Add(label2);
+            Controls.Add(dateTimePicker1);
             Controls.Add(roundedButton2);
             Controls.Add(roundedButton1);
             Controls.Add(label1);
@@ -121,6 +155,7 @@
             Name = "FrmJustificacion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmJustificacion";
+            Load += FrmJustificacion_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -132,5 +167,8 @@
         private Label label1;
         private Clases.RoundedButton roundedButton1;
         private Clases.RoundedButton roundedButton2;
+        private DateTimePicker dateTimePicker1;
+        private Label label2;
+        private Label labelUsuarioAbandono;
     }
 }

@@ -566,12 +566,13 @@ namespace Presentacion.Marcas_Nacionales
                 if (justificacionForm.ShowDialog() == DialogResult.OK)
                 {
                     string justificacion = justificacionForm.Justificacion;
-
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
                     // Cambiar el estado a "Abandonada" y guardar la justificación
                     try
                     {
                         // Obtener el ID de la marca seleccionada
-                        if (dtgMarcasN.SelectedCells.Count >= 1)
+                        if (dtgMarcasN.SelectedRows.Count > 0)
                         {
                             var filaSeleccionada = dtgMarcasN.SelectedRows[0];
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -579,7 +580,7 @@ namespace Presentacion.Marcas_Nacionales
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
                                 // Actualizar el estado y la justificación en la base de datos
-
+                                historialModel.GuardarEtapa(idMarca,fechaAbandono, "Abandono", justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasTramite();

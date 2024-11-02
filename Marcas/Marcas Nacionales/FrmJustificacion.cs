@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Comun.Cache;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,9 @@ namespace Presentacion.Marcas_Nacionales
     public partial class FrmJustificacion : Form
     {
         public string Justificacion { get; private set; }
+        public DateTime fecha { get; private set; }
+        public string usuarioAbandono { get; private set; }
+
         public FrmJustificacion()
         {
             InitializeComponent();
@@ -40,6 +44,12 @@ namespace Presentacion.Marcas_Nacionales
 
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void FrmJustificacion_Load(object sender, EventArgs e)
+        {
+            labelUsuarioAbandono.Text=UsuarioActivo.usuario;
+            usuarioAbandono = UsuarioActivo.usuario;
         }
     }
 }
