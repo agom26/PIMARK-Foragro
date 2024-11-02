@@ -214,6 +214,7 @@
             iconButton3.Text = "Abandonar";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
+            iconButton3.Click += iconButton3_Click;
             // 
             // ibtnEliminar
             // 

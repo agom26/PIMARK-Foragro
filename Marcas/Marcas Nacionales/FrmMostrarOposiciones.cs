@@ -176,14 +176,14 @@ namespace Presentacion.Marcas_Nacionales
                     // Guardar la marca 
                     bool esActualizado = marcaModel.EditMarcaNacionalRegistrada(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento);
-
+                    var marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                     if (esActualizado)
                     {
 
-                        if (observaciones.Contains(estado))
+                        if (marcaActualizada[0].observaciones.Contains(estado))
                         {
-                            MessageBox.Show("No se guardará una nueva etapa, pero si se actualizara el contenido de la marca", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -213,36 +213,25 @@ namespace Presentacion.Marcas_Nacionales
                     // Guardar la marca nacional 
                     bool esactualizada = marcaModel.EditMarcaNacional(SeleccionarMarca.idN,
                         expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud);
+                    var marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                     if (esactualizada)
                     {
-                        string etapa = textBoxEstatus.Text;
 
-                        if (string.IsNullOrEmpty(etapa))
+                        if (marcaActualizada[0].observaciones.Contains(estado))
                         {
-                            MessageBox.Show("No se ingresó una etapa. Se guardarán otros cambios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            // Obtener el texto del RichTextBox
-                            string richTextContent = richTextBox1.Text;
-
-                            // Comparar si la etapa ya está incluida en el RichTextBox
-                            if (richTextContent.Contains(etapa))
-                            {
-                                MessageBox.Show("La etapa ya está incluida en las anotaciones. Marca actualizada", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                // Guardar la nueva etapa
-                                historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                                MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                            // Guardar la nueva etapa
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Error al guardar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al registrar la marca nacional 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     LimpiarFormulario();
@@ -698,6 +687,47 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacion justificacionForm = new FrmJustificacion())
+            {
+
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+                    // Cambiar el estado a "Abandonada" y guardar la justificación
+                    try
+                    {
+                        // Obtener el ID de la marca seleccionada
+                        if (dtgMarcasO.SelectedRows.Count > 0)
+                        {
+                            var filaSeleccionada = dtgMarcasO.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+
+                                // Actualizar el estado y la justificación en la base de datos
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono);
+
+                                MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MostrarMarcasOposicion();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }
