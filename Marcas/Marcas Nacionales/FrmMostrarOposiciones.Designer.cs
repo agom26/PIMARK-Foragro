@@ -94,14 +94,28 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            tabPageHistorialDetalle = new TabPage();
-            label21 = new Label();
-            dtgHistorialO = new DataGridView();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorialOp = new DataGridView();
             panel5 = new Panel();
             label22 = new Label();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
+            tabPageHistorialDetalle = new TabPage();
+            label21 = new Label();
+            dtgHistorialO = new DataGridView();
+            panel6 = new Panel();
+            roundedButton7 = new Clases.RoundedButton();
+            panel7 = new Panel();
+            btnEditarH = new FontAwesome.Sharp.IconButton();
+            labelUserEditor = new Label();
+            btnCancelarH = new FontAwesome.Sharp.IconButton();
+            lblUser = new Label();
+            richTextBoxAnotacionesH = new RichTextBox();
+            comboBoxEstatusH = new ComboBox();
+            label24 = new Label();
+            dateTimePickerFechaH = new DateTimePicker();
+            label23 = new Label();
+            label25 = new Label();
+            panel8 = new Panel();
             tabControl1.SuspendLayout();
             tabPageListaMarcas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -113,8 +127,11 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tabPageHistorialMarca.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialOp).BeginInit();
+            tabPageHistorialDetalle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).BeginInit();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -949,8 +966,91 @@
             panel2.Size = new Size(1145, 772);
             panel2.TabIndex = 0;
             // 
+            // iconButton4
+            // 
+            iconButton4.Anchor = AnchorStyles.Top;
+            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.ForeColor = Color.White;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            iconButton4.IconColor = Color.White;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 30;
+            iconButton4.Location = new Point(998, 135);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(144, 37);
+            iconButton4.TabIndex = 48;
+            iconButton4.Text = "Eliminar";
+            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton4.UseVisualStyleBackColor = false;
+            // 
+            // iconButton5
+            // 
+            iconButton5.Anchor = AnchorStyles.Top;
+            iconButton5.BackColor = Color.FromArgb(96, 149, 241);
+            iconButton5.FlatAppearance.BorderSize = 0;
+            iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.ForeColor = Color.White;
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            iconButton5.IconColor = Color.White;
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.IconSize = 30;
+            iconButton5.Location = new Point(998, 73);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Size = new Size(144, 37);
+            iconButton5.TabIndex = 47;
+            iconButton5.Text = "Editar";
+            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton5.UseVisualStyleBackColor = false;
+            iconButton5.Click += iconButton5_Click_1;
+            // 
+            // dtgHistorialOp
+            // 
+            dtgHistorialOp.AllowUserToAddRows = false;
+            dtgHistorialOp.AllowUserToDeleteRows = false;
+            dtgHistorialOp.AllowUserToResizeRows = false;
+            dtgHistorialOp.Anchor = AnchorStyles.Top;
+            dtgHistorialOp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgHistorialOp.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgHistorialOp.BorderStyle = BorderStyle.None;
+            dtgHistorialOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgHistorialOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dtgHistorialOp.ColumnHeadersHeight = 40;
+            dtgHistorialOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dtgHistorialOp.EnableHeadersVisualStyles = false;
+            dtgHistorialOp.GridColor = Color.LightGray;
+            dtgHistorialOp.Location = new Point(25, 94);
+            dtgHistorialOp.Name = "dtgHistorialOp";
+            dtgHistorialOp.ReadOnly = true;
+            dtgHistorialOp.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dtgHistorialOp.RowHeadersWidth = 51;
+            dtgHistorialOp.Size = new Size(934, 492);
+            dtgHistorialOp.TabIndex = 45;
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Top;
+            panel5.BackColor = Color.FromArgb(192, 202, 212);
+            panel5.Location = new Point(11, 73);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(972, 542);
+            panel5.TabIndex = 46;
+            // 
+            // label22
+            // 
+            label22.Anchor = AnchorStyles.None;
+            label22.AutoSize = true;
+            label22.Font = new Font("Century Gothic", 19F);
+            label22.Location = new Point(492, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(134, 39);
+            label22.TabIndex = 44;
+            label22.Text = "Historial";
+            // 
             // tabPageHistorialDetalle
             // 
+            tabPageHistorialDetalle.Controls.Add(panel6);
             tabPageHistorialDetalle.Location = new Point(4, 29);
             tabPageHistorialDetalle.Name = "tabPageHistorialDetalle";
             tabPageHistorialDetalle.Size = new Size(1161, 794);
@@ -1014,86 +1114,178 @@
             dtgHistorialO.Size = new Size(934, 492);
             dtgHistorialO.TabIndex = 43;
             // 
-            // dtgHistorialOp
+            // panel6
             // 
-            dtgHistorialOp.AllowUserToAddRows = false;
-            dtgHistorialOp.AllowUserToDeleteRows = false;
-            dtgHistorialOp.AllowUserToResizeRows = false;
-            dtgHistorialOp.Anchor = AnchorStyles.Top;
-            dtgHistorialOp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgHistorialOp.BackgroundColor = Color.FromArgb(251, 251, 251);
-            dtgHistorialOp.BorderStyle = BorderStyle.None;
-            dtgHistorialOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgHistorialOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dtgHistorialOp.ColumnHeadersHeight = 40;
-            dtgHistorialOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dtgHistorialOp.EnableHeadersVisualStyles = false;
-            dtgHistorialOp.GridColor = Color.LightGray;
-            dtgHistorialOp.Location = new Point(25, 94);
-            dtgHistorialOp.Name = "dtgHistorialOp";
-            dtgHistorialOp.ReadOnly = true;
-            dtgHistorialOp.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dtgHistorialOp.RowHeadersWidth = 51;
-            dtgHistorialOp.Size = new Size(934, 492);
-            dtgHistorialOp.TabIndex = 45;
+            panel6.Anchor = AnchorStyles.Top;
+            panel6.Controls.Add(roundedButton7);
+            panel6.Controls.Add(panel7);
+            panel6.Location = new Point(31, 52);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1112, 555);
+            panel6.TabIndex = 1;
             // 
-            // panel5
+            // roundedButton7
             // 
-            panel5.Anchor = AnchorStyles.Top;
-            panel5.BackColor = Color.FromArgb(192, 202, 212);
-            panel5.Location = new Point(11, 73);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(972, 542);
-            panel5.TabIndex = 46;
+            roundedButton7.BackColor = Color.FromArgb(196, 195, 209);
+            roundedButton7.BackgroundColor = Color.FromArgb(196, 195, 209);
+            roundedButton7.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderSize = 0;
+            roundedButton7.Enabled = false;
+            roundedButton7.FlatAppearance.BorderSize = 0;
+            roundedButton7.FlatStyle = FlatStyle.Flat;
+            roundedButton7.Font = new Font("Century Gothic", 13F);
+            roundedButton7.ForeColor = Color.Black;
+            roundedButton7.Location = new Point(414, 43);
+            roundedButton7.Name = "roundedButton7";
+            roundedButton7.Size = new Size(270, 50);
+            roundedButton7.TabIndex = 18;
+            roundedButton7.Text = "Editar estatus";
+            roundedButton7.TextColor = Color.Black;
+            roundedButton7.UseVisualStyleBackColor = false;
             // 
-            // label22
+            // panel7
             // 
-            label22.Anchor = AnchorStyles.None;
-            label22.AutoSize = true;
-            label22.Font = new Font("Century Gothic", 19F);
-            label22.Location = new Point(492, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(134, 39);
-            label22.TabIndex = 44;
-            label22.Text = "Historial";
+            panel7.BackColor = Color.FromArgb(192, 202, 212);
+            panel7.Controls.Add(btnEditarH);
+            panel7.Controls.Add(labelUserEditor);
+            panel7.Controls.Add(btnCancelarH);
+            panel7.Controls.Add(lblUser);
+            panel7.Controls.Add(richTextBoxAnotacionesH);
+            panel7.Controls.Add(comboBoxEstatusH);
+            panel7.Controls.Add(label24);
+            panel7.Controls.Add(dateTimePickerFechaH);
+            panel7.Controls.Add(label23);
+            panel7.Controls.Add(label25);
+            panel7.Controls.Add(panel8);
+            panel7.Location = new Point(46, 110);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(1012, 406);
+            panel7.TabIndex = 21;
             // 
-            // iconButton4
+            // btnEditarH
             // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(998, 135);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 48;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
+            btnEditarH.BackColor = Color.FromArgb(1, 87, 155);
+            btnEditarH.FlatAppearance.BorderSize = 0;
+            btnEditarH.FlatStyle = FlatStyle.Flat;
+            btnEditarH.Font = new Font("Century Gothic", 10F);
+            btnEditarH.ForeColor = Color.White;
+            btnEditarH.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnEditarH.IconColor = Color.White;
+            btnEditarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditarH.IconSize = 30;
+            btnEditarH.Location = new Point(315, 321);
+            btnEditarH.Name = "btnEditarH";
+            btnEditarH.Size = new Size(179, 34);
+            btnEditarH.TabIndex = 20;
+            btnEditarH.Text = "Actualizar";
+            btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnEditarH.UseVisualStyleBackColor = false;
             // 
-            // iconButton5
+            // labelUserEditor
             // 
-            iconButton5.Anchor = AnchorStyles.Top;
-            iconButton5.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.FlatStyle = FlatStyle.Flat;
-            iconButton5.ForeColor = Color.White;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton5.IconColor = Color.White;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.IconSize = 30;
-            iconButton5.Location = new Point(998, 73);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(144, 37);
-            iconButton5.TabIndex = 47;
-            iconButton5.Text = "Editar";
-            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton5.UseVisualStyleBackColor = false;
+            labelUserEditor.AutoSize = true;
+            labelUserEditor.BackColor = Color.White;
+            labelUserEditor.Location = new Point(476, 51);
+            labelUserEditor.Name = "labelUserEditor";
+            labelUserEditor.Size = new Size(55, 20);
+            labelUserEditor.TabIndex = 18;
+            labelUserEditor.Text = "Fecha";
+            // 
+            // btnCancelarH
+            // 
+            btnCancelarH.BackColor = Color.White;
+            btnCancelarH.FlatAppearance.BorderSize = 0;
+            btnCancelarH.FlatStyle = FlatStyle.Flat;
+            btnCancelarH.Font = new Font("Century Gothic", 10F);
+            btnCancelarH.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarH.IconColor = Color.Black;
+            btnCancelarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarH.IconSize = 30;
+            btnCancelarH.Location = new Point(520, 321);
+            btnCancelarH.Name = "btnCancelarH";
+            btnCancelarH.Size = new Size(179, 34);
+            btnCancelarH.TabIndex = 19;
+            btnCancelarH.Text = "Cancelar";
+            btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarH.UseVisualStyleBackColor = false;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.BackColor = Color.White;
+            lblUser.Location = new Point(295, 51);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(55, 20);
+            lblUser.TabIndex = 17;
+            lblUser.Text = "Fecha";
+            // 
+            // richTextBoxAnotacionesH
+            // 
+            richTextBoxAnotacionesH.BackColor = Color.White;
+            richTextBoxAnotacionesH.BorderStyle = BorderStyle.FixedSingle;
+            richTextBoxAnotacionesH.Location = new Point(295, 193);
+            richTextBoxAnotacionesH.Name = "richTextBoxAnotacionesH";
+            richTextBoxAnotacionesH.Size = new Size(431, 102);
+            richTextBoxAnotacionesH.TabIndex = 16;
+            richTextBoxAnotacionesH.Text = "";
+            // 
+            // comboBoxEstatusH
+            // 
+            comboBoxEstatusH.BackColor = Color.White;
+            comboBoxEstatusH.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstatusH.FormattingEnabled = true;
+            comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
+            comboBoxEstatusH.Location = new Point(476, 116);
+            comboBoxEstatusH.Name = "comboBoxEstatusH";
+            comboBoxEstatusH.Size = new Size(250, 28);
+            comboBoxEstatusH.TabIndex = 15;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.BackColor = Color.White;
+            label24.Location = new Point(295, 91);
+            label24.Name = "label24";
+            label24.Size = new Size(55, 20);
+            label24.TabIndex = 11;
+            label24.Text = "Fecha";
+            // 
+            // dateTimePickerFechaH
+            // 
+            dateTimePickerFechaH.Format = DateTimePickerFormat.Short;
+            dateTimePickerFechaH.Location = new Point(295, 114);
+            dateTimePickerFechaH.Name = "dateTimePickerFechaH";
+            dateTimePickerFechaH.Size = new Size(154, 26);
+            dateTimePickerFechaH.TabIndex = 14;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.BackColor = Color.White;
+            label23.Location = new Point(476, 93);
+            label23.Name = "label23";
+            label23.Size = new Size(58, 20);
+            label23.TabIndex = 12;
+            label23.Text = "Estatus";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.BackColor = Color.White;
+            label25.Location = new Point(295, 170);
+            label25.Name = "label25";
+            label25.Size = new Size(102, 20);
+            label25.TabIndex = 13;
+            label25.Text = "Anotaciones";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.White;
+            panel8.Location = new Point(42, 21);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(946, 369);
+            panel8.TabIndex = 21;
             // 
             // FrmMostrarOposiciones
             // 
@@ -1122,8 +1314,12 @@
             tabPageHistorialMarca.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialOp).EndInit();
+            tabPageHistorialDetalle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dtgHistorialO).EndInit();
+            panel6.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1201,5 +1397,19 @@
         private Label label22;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
+        private Panel panel6;
+        private Clases.RoundedButton roundedButton7;
+        private Panel panel7;
+        private FontAwesome.Sharp.IconButton btnEditarH;
+        private Label labelUserEditor;
+        private FontAwesome.Sharp.IconButton btnCancelarH;
+        private Label lblUser;
+        private RichTextBox richTextBoxAnotacionesH;
+        private ComboBox comboBoxEstatusH;
+        private Label label24;
+        private DateTimePicker dateTimePickerFechaH;
+        private Label label23;
+        private Label label25;
+        private Panel panel8;
     }
 }

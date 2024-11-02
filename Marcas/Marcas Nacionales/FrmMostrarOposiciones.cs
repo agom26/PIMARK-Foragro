@@ -568,5 +568,49 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
+
+        private void iconButton5_Click_1(object sender, EventArgs e)
+        {
+            if (dtgHistorialOp.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    DataTable historial = historialModel.GetHistorialById(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+                        // Asignar los valores obtenidos a la clase SeleccionarPersona
+                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorial.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetalle);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
