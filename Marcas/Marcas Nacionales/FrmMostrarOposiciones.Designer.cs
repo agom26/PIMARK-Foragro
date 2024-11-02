@@ -87,6 +87,7 @@
             label6 = new Label();
             txtExpediente = new TextBox();
             label7 = new Label();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgMarcasN).BeginInit();
@@ -94,6 +95,7 @@
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -109,6 +111,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(iconPictureBox1);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(iconButton3);
             tabPage1.Controls.Add(ibtnEliminar);
@@ -133,10 +136,10 @@
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(196, 195, 209);
-            label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(240, 36);
+            label1.Font = new Font("Century Gothic", 15F);
+            label1.Location = new Point(340, 33);
             label1.Name = "label1";
-            label1.Size = new Size(525, 39);
+            label1.Size = new Size(411, 31);
             label1.TabIndex = 36;
             label1.Text = "Marcas nacionales en oposición";
             // 
@@ -306,7 +309,6 @@
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(683, 61);
             roundedButton5.TabIndex = 34;
-            roundedButton5.Text = "roundedButton5";
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
             // 
@@ -864,6 +866,20 @@
             label7.TabIndex = 74;
             label7.Text = "Expediente";
             // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Flag;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 40;
+            iconPictureBox1.Location = new Point(294, 33);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 40);
+            iconPictureBox1.TabIndex = 37;
+            iconPictureBox1.TabStop = false;
+            // 
             // FrmMostrarOposiciones
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -884,6 +900,7 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -948,5 +965,6 @@
         private Label label20;
         private Clases.RoundedButton btnCancelar;
         private Clases.RoundedButton btnActualizar;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
     }
 }

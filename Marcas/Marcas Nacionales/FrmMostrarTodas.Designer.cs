@@ -132,10 +132,10 @@
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(196, 195, 209);
-            label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(305, 18);
+            label1.Font = new Font("Century Gothic", 15F);
+            label1.Location = new Point(369, 18);
             label1.Name = "label1";
-            label1.Size = new Size(493, 39);
+            label1.Size = new Size(388, 31);
             label1.TabIndex = 0;
             label1.Text = "Marcas nacionales ingresadas";
             // 
@@ -183,7 +183,7 @@
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(243, 18);
+            iconPictureBox1.Location = new Point(314, 18);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 40);
             iconPictureBox1.TabIndex = 26;

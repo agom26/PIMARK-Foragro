@@ -221,7 +221,6 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         string etapa = textBoxEstatus.Text;
 
-
                         if (!string.IsNullOrEmpty(etapa))
                         {
                             historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
@@ -527,6 +526,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             ActualizarMarcaNacional();
             EliminarTabPage(tabPageHistorialMarca);
+            SeleccionarMarca.idN = 0;
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -604,7 +604,7 @@ namespace Presentacion.Marcas_Nacionales
             puedeRegresar = true;
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
-
+            SeleccionarMarca.idN = 0;
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -701,6 +701,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 MessageBox.Show("Error al actualizar el estatus", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            SeleccionarMarca.idN = 0;
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
