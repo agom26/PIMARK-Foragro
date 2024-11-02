@@ -91,5 +91,23 @@ namespace AccesoDatos.Entidades
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public bool EliminarRegistroHistorial(int idHistorial)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("EliminarRegistroHistorial", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure; // Especifica que es un procedimiento almacenado
+                    command.Parameters.AddWithValue("historialId", idHistorial); // Nombre del parámetro según el procedimiento almacenado
+
+                    // Ejecuta el comando y devuelve true si se eliminó al menos un registro
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
     }
 }

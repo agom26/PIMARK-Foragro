@@ -23,6 +23,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             this.Load += FrmMostrarTodas_Load;
+            SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
 
@@ -265,7 +266,94 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.LimpiarEtapa();
         }
 
-        private async void EditarAsync()
+        private async void CargarDatosMarca()
+        {
+            try
+            {
+                // Obtiene los detalles de la marca en segundo plano
+                var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+
+                if (detallesMarcaN.Count > 0)
+                {
+                    if (detallesMarcaN[0].registro != null)
+                    {
+                        // Carga los datos de la marca
+                        SeleccionarMarca.expediente = detallesMarcaN[0].expediente;
+                        SeleccionarMarca.nombre = detallesMarcaN[0].nombre;
+                        SeleccionarMarca.clase = detallesMarcaN[0].clase;
+                        SeleccionarMarca.estado = detallesMarcaN[0].estado;
+                        SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
+                        SeleccionarMarca.logo = detallesMarcaN[0].logo;
+                        SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
+                        SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
+                        SeleccionarMarca.fecha_solicitud = (DateTime)detallesMarcaN[0].fechaSolicitud;
+                        SeleccionarMarca.observaciones = detallesMarcaN[0].observaciones;
+
+                        // Cargar los detalles de titular y agente en segundo plano
+                        var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
+                        var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
+
+                        // Esperar ambas tareas
+                        await Task.WhenAll(titularTask, agenteTask);
+
+                        var titular = titularTask.Result;
+                        var agente = agenteTask.Result;
+
+                        SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
+                        SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
+
+                        if (titular.Count > 0)
+                        {
+                            txtNombreTitular.Text = titular[0].nombre;
+                            txtDireccionTitular.Text = titular[0].direccion;
+                            txtEntidadTitular.Text = titular[0].pais;
+                        }
+
+                        if (agente.Count > 0)
+                        {
+                            txtNombreAgente.Text = agente[0].nombre;
+                        }
+
+                        // Actualizar los controles de la interfaz con los datos obtenidos
+                        txtExpediente.Text = SeleccionarMarca.expediente;
+                        txtNombre.Text = SeleccionarMarca.nombre;
+                        txtClase.Text = SeleccionarMarca.clase;
+                        textBoxEstatus.Text = SeleccionarMarca.estado;
+                        txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
+                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
+                        richTextBox1.Text = SeleccionarMarca.observaciones;
+
+                        // Verificar si "observaciones" contiene la palabra "registrada"
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+                            mostrarPanelRegistro();
+                        }
+                        else
+                        {
+                            mostrarPanelRegistro();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron detalles de la marca", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los detalles de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void VerificarSeleccionIdMarcaEdicion()
         {
             if (dtgMarcasN.RowCount <= 0)
             {
@@ -280,90 +368,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarMarca.idN = id;
-
-                    try
-                    {
-                        // Obtiene los detalles de la marca en segundo plano
-                        var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(id));
-
-                        if (detallesMarcaN.Count > 0)
-                        {
-                            // Verifica que el primer elemento de detallesMarcaN no sea nulo
-                            if (detallesMarcaN[0].registro != null)
-                            {
-                                SeleccionarMarca.expediente = detallesMarcaN[0].expediente;
-                                SeleccionarMarca.nombre = detallesMarcaN[0].nombre;
-                                SeleccionarMarca.clase = detallesMarcaN[0].clase;
-                                SeleccionarMarca.estado = detallesMarcaN[0].estado;
-                                SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
-                                SeleccionarMarca.logo = detallesMarcaN[0].logo;
-                                SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
-                                SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
-                                SeleccionarMarca.fecha_solicitud = (DateTime)detallesMarcaN[0].fechaSolicitud;
-                                SeleccionarMarca.observaciones = detallesMarcaN[0].observaciones;
-
-                                // Cargar los detalles de titular y agente en segundo plano
-                                var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
-                                var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-
-                                // Esperar ambas tareas
-                                await Task.WhenAll(titularTask, agenteTask);
-
-                                var titular = titularTask.Result;
-                                var agente = agenteTask.Result;
-
-                                SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
-                                SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
-
-                                if (titular.Count > 0)
-                                {
-                                    txtNombreTitular.Text = titular[0].nombre;
-                                    txtDireccionTitular.Text = titular[0].direccion;
-                                    txtEntidadTitular.Text = titular[0].pais;
-                                }
-
-                                if (agente.Count > 0)
-                                {
-                                    txtNombreAgente.Text = agente[0].nombre;
-                                }
-
-                                // Actualizar los controles de la interfaz con los datos obtenidos
-                                AnadirTabPage(tabPageMarcaDetail);
-                                txtExpediente.Text = SeleccionarMarca.expediente;
-                                txtNombre.Text = SeleccionarMarca.nombre;
-                                txtClase.Text = SeleccionarMarca.clase;
-                                textBoxEstatus.Text = SeleccionarMarca.estado;
-                                txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
-                                MostrarLogoEnPictureBox(SeleccionarMarca.logo);
-                                datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
-                                richTextBox1.Text = SeleccionarMarca.observaciones;
-
-                                // Verificar si "observaciones" contiene la palabra "registrada"
-                                bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
-
-                                if (contieneRegistrada)
-                                {
-                                    mostrarPanelRegistro();
-                                }
-                                else
-                                {
-                                    mostrarPanelRegistro();
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontraron detalles de la marca", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al cargar los detalles de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    tabControl1.SelectedTab = tabPageMarcaDetail;
                 }
             }
             else
@@ -451,14 +456,23 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void FrmMostrarTodas_Load(object sender, EventArgs e)
         {
+            await Task.Run(() => LoadMarcas());
             tabControl1.SelectedTab = tabPageListaMarcas;
-            await Task.Run(()=> LoadMarcas()) ;
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialDetail);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
-            EditarAsync(); // No es necesario usar Task.Run
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            VerificarSeleccionIdMarcaEdicion();
+            if (SeleccionarMarca.idN > 0)
+            {
+                CargarDatosMarca();
+                AnadirTabPage(tabPageMarcaDetail);
+                tabControl1.SelectedTab = tabPageMarcaDetail;
+            }
+            
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
@@ -565,7 +579,7 @@ namespace Presentacion.Marcas_Nacionales
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
                                 // Actualizar el estado y la justificación en la base de datos
-                               
+
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasTramite();
@@ -602,12 +616,14 @@ namespace Presentacion.Marcas_Nacionales
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
                 LoadMarcas(); // No es necesario usar Task.Run
+                SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
+                CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
             }
@@ -668,10 +684,11 @@ namespace Presentacion.Marcas_Nacionales
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem.ToString();
             DateTime fecha = dateTimePickerFechaH.Value;
-            string anotaciones = richTextBox1.Text;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorial.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
-            bool actualizar=historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
 
             if (actualizar == true)
             {
@@ -694,6 +711,37 @@ namespace Presentacion.Marcas_Nacionales
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
             richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            if (dtgHistorial.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorial.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+
+                    if (eliminarhistorial==true)
+                    {
+                        MessageBox.Show("Estatus eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        loadHistorialById();
+                        refrescarMarca();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del estatus", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
