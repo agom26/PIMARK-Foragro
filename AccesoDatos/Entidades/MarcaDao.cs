@@ -147,9 +147,12 @@ namespace AccesoDatos.Entidades
                     SELECT  
                         M.id,
                         M.nombre AS Nombre, 
+                        M.clase AS Clase, 
+                        M.registro as Registro,
+                        M.folio as Folio,
+                        M.libro as Tomo,
                         M.estado AS Estado,
                         M.expediente As Expediente,
-                        M.clase AS Clase,  
                         P1.nombre AS Titular, 
                         P2.nombre AS Agente
                     FROM 
