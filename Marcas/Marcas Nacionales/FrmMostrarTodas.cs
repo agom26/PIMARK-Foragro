@@ -597,7 +597,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
-            SeleccionarMarca.idN = 0;
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

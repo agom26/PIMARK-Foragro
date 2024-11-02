@@ -420,16 +420,16 @@ namespace Presentacion.Marcas_Nacionales
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
-                    dtgHistorialO.AutoGenerateColumns = true;
-                    dtgHistorialO.DataSource = historial;
-                    dtgHistorialO.Refresh();
+                    dtgHistorialOp.AutoGenerateColumns = true;
+                    dtgHistorialOp.DataSource = historial;
+                    dtgHistorialOp.Refresh();
 
-                    if (dtgHistorialO.Columns["id"] != null)
+                    if (dtgHistorialOp.Columns["id"] != null)
                     {
-                        dtgHistorialO.Columns["id"].Visible = false;
+                        dtgHistorialOp.Columns["id"].Visible = false;
                     }
 
-                    dtgHistorialO.ClearSelection();
+                    dtgHistorialOp.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -557,7 +557,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
-
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
