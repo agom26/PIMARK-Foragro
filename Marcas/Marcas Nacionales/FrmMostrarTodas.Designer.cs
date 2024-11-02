@@ -177,6 +177,7 @@
             // 
             // iconPictureBox1
             // 
+            iconPictureBox1.Anchor = AnchorStyles.Top;
             iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
             iconPictureBox1.ForeColor = SystemColors.ControlText;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Flag;
@@ -858,7 +859,6 @@
             // 
             // dateTimePFecha_vencimiento
             // 
-            dateTimePFecha_vencimiento.Anchor = AnchorStyles.None;
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
@@ -869,7 +869,6 @@
             // 
             // label19
             // 
-            label19.Anchor = AnchorStyles.None;
             label19.AutoSize = true;
             label19.Location = new Point(396, 113);
             label19.Name = "label19";
@@ -879,7 +878,6 @@
             // 
             // dateTimePFecha_Registro
             // 
-            dateTimePFecha_Registro.Anchor = AnchorStyles.None;
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
             dateTimePFecha_Registro.Location = new Point(34, 139);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
@@ -889,7 +887,6 @@
             // 
             // label18
             // 
-            label18.Anchor = AnchorStyles.None;
             label18.AutoSize = true;
             label18.Location = new Point(34, 114);
             label18.Name = "label18";
@@ -899,7 +896,6 @@
             // 
             // txtRegistro
             // 
-            txtRegistro.Anchor = AnchorStyles.None;
             txtRegistro.Location = new Point(34, 55);
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(172, 28);
@@ -907,7 +903,6 @@
             // 
             // label17
             // 
-            label17.Anchor = AnchorStyles.None;
             label17.AutoSize = true;
             label17.Location = new Point(32, 30);
             label17.Name = "label17";
@@ -917,7 +912,6 @@
             // 
             // txtFolio
             // 
-            txtFolio.Anchor = AnchorStyles.None;
             txtFolio.Location = new Point(240, 55);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(172, 28);
@@ -925,7 +919,6 @@
             // 
             // label15
             // 
-            label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
             label15.Location = new Point(240, 29);
             label15.Name = "label15";
@@ -935,7 +928,6 @@
             // 
             // txtLibro
             // 
-            txtLibro.Anchor = AnchorStyles.None;
             txtLibro.Location = new Point(446, 55);
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(172, 28);
@@ -943,7 +935,6 @@
             // 
             // label20
             // 
-            label20.Anchor = AnchorStyles.None;
             label20.AutoSize = true;
             label20.Location = new Point(446, 29);
             label20.Name = "label20";
