@@ -130,7 +130,7 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro)
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, llene todos los campos obligatorios.") ||
@@ -159,13 +159,19 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Si está registrada, se verifica la información del registro
-            if (registroChek && !ValidarCampo(registro, "Por favor, ingrese el número de registro."))
+            if (registroChek)
             {
-                return false;
+                if (!ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
+                    !ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo."))
+                {
+                    return false;
+                }
             }
 
             return true; // Todas las validaciones pasaron
         }
+
 
         public void ActualizarMarcaInternacional()
         {
@@ -189,7 +195,7 @@ namespace Presentacion.Marcas_Internacionales
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
 
             // Validaciones
-            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1))
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1, folio, libro))
             {
                 return;
             }

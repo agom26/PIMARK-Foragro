@@ -39,26 +39,36 @@ namespace Presentacion.Marcas_Internacionales
             dateTimePFecha_vencimiento.Value = fecha_vencimiento; // Asigna la fecha de vencimiento al DateTimePicker correspondiente
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro)
+        private bool ValidarCampo(string campo, string mensaje)
+        {
+            if (string.IsNullOrEmpty(campo))
+            {
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarComboBox(System.Windows.Forms.ComboBox comboBox, string mensaje)
+        {
+            if (comboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro, string folio, string libro)
         {
             // Verificar campos obligatorios
-            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            if (!ValidarCampo(expediente, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(nombre, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(clase, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(signoDistintivo, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(estado, "Por favor, seleccione un estado.") ||
+                !ValidarComboBox(comboBoxPaisRegistro, "Por favor, seleccione un país de registro."))
             {
-                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // Validar el estado
-            if (string.IsNullOrEmpty(estado))
-            {
-                MessageBox.Show("Por favor, seleccione un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // Validar el ComboBox para el país de registro
-            if (comboBoxPaisRegistro.SelectedIndex == -1)
-            {
-                MessageBox.Show("Por favor, seleccione un país de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -78,10 +88,14 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Si está registrada, se verifica la información del registro
-            if (registroChek && string.IsNullOrEmpty(registro))
+            if (registroChek)
             {
-                MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                if (!ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
+                    !ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo."))
+                {
+                    return false;
+                }
             }
 
             return true; // Todas las validaciones pasaron
@@ -122,7 +136,7 @@ namespace Presentacion.Marcas_Internacionales
 
 
             // Validaciones
-            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1))
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1, folio, libro))
             {
                 return;
             }
