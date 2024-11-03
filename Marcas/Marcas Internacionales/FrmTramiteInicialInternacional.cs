@@ -49,26 +49,29 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private bool ValidarComboBox(System.Windows.Forms.ComboBox comboBox, string mensaje)
-        {
-            if (comboBox.SelectedIndex == -1)
-            {
-                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            return true;
-        }
-
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro, string folio, string libro)
+        private bool ValidarCampos(string expediente, string nombre,string paisRegistro, string clase, string signoDistintivo, string tipo, string estado,
+   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
-            if (!ValidarCampo(expediente, "Por favor, llene todos los campos obligatorios.") ||
-                !ValidarCampo(nombre, "Por favor, llene todos los campos obligatorios.") ||
-                !ValidarCampo(clase, "Por favor, llene todos los campos obligatorios.") ||
-                !ValidarCampo(signoDistintivo, "Por favor, llene todos los campos obligatorios.") ||
-                !ValidarCampo(estado, "Por favor, seleccione un estado.") ||
-                !ValidarComboBox(comboBoxPaisRegistro, "Por favor, seleccione un país de registro."))
+            if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
+                !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
+                !ValidarCampo(paisRegistro, "Por favor, ingrese un pais.") ||
+                !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
+                !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
+                !ValidarCampo(estado, "Por favor, seleccione un estado."))
             {
+                return false;
+            }
+
+            // Validar que el expediente, clase, folio, registro y libro sean enteros
+            if (!int.TryParse(expediente, out _) ||
+                !int.TryParse(clase, out _) ||
+                (registroChek && !int.TryParse(registro, out _)) ||
+                (registroChek && !int.TryParse(folio, out _)) ||
+                (registroChek && !int.TryParse(libro, out _)))
+            {
+                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -90,9 +93,11 @@ namespace Presentacion.Marcas_Internacionales
             // Si está registrada, se verifica la información del registro
             if (registroChek)
             {
-                if (!ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo."))
+                // Validar campos adicionales para marcas registradas
+                if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
+                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
+                    !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
+                    )
                 {
                     return false;
                 }
@@ -107,7 +112,9 @@ namespace Presentacion.Marcas_Internacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string signoDistintivo = txtSignoDistintivo.Text;
+            string paisRegistro = comboBox1.SelectedItem?.ToString();
+            string signoDistintivo =comboBoxSignoDistintivo.SelectedItem?.ToString();
+            string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -115,7 +122,6 @@ namespace Presentacion.Marcas_Internacionales
             int idAgente = SeleccionarPersona.idPersonaA;
             int idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-            string paisRegistro = "";
             string observaciones = richTextBox1.Text;
             string tiene_poder = "no";
 
@@ -136,7 +142,25 @@ namespace Presentacion.Marcas_Internacionales
 
 
             // Validaciones
-            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, estado, ref logo, registroChek, registro, comboBox1, folio, libro))
+            if (idTitular <= 0)
+            {
+                MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (idAgente <= 0)
+            {
+                MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (idCliente <= 0)
+            {
+                MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar campos 
+            if (!ValidarCampos(expediente,nombre, paisRegistro, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -144,10 +168,9 @@ namespace Presentacion.Marcas_Internacionales
             // Guardar la marca
             try
             {
-                paisRegistro = comboBox1.SelectedItem.ToString();
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -177,7 +200,6 @@ namespace Presentacion.Marcas_Internacionales
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
-            txtSignoDistintivo.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
             pictureBox1.Image = null;
@@ -187,6 +209,8 @@ namespace Presentacion.Marcas_Internacionales
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
             comboBox1.SelectedIndex = -1;
+            comboBoxTipoSigno.SelectedIndex = -1;
+            comboBoxSignoDistintivo.SelectedIndex = -1;
             checkBox1.Checked = false;
             ActualizarFechaVencimiento();
             txtRegistro.Text = "";
