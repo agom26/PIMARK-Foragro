@@ -92,22 +92,63 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public bool EliminarRegistroHistorial(int idHistorial)
+        public bool EliminarRegistroHistorialYLog(int idHistorial, string deletedBy)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand("EliminarRegistroHistorial", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure; // Especifica que es un procedimiento almacenado
-                    command.Parameters.AddWithValue("historialId", idHistorial); // Nombre del parámetro según el procedimiento almacenado
 
-                    // Ejecuta el comando y devuelve true si se eliminó al menos un registro
-                    int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0;
+                // Begin a transaction to ensure both actions succeed or fail together
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+
+                        // Log the deletion
+                        using (var command = new MySqlCommand("LogHistorialDeletion", connection, transaction))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.AddWithValue("p_idHistorial", idHistorial);
+                            command.Parameters.AddWithValue("p_usuario", deletedBy);
+
+                            command.ExecuteNonQuery(); // Execute the logging
+                            
+                        }
+
+
+                        // Delete the history record
+                        using (var command = new MySqlCommand("EliminarRegistroHistorial", connection, transaction))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("historialId", idHistorial);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            // If no rows were affected, the deletion did not happen
+                            if (rowsAffected == 0)
+                            {
+                                transaction.Rollback(); // Rollback if deletion failed
+                                return false;
+                            }
+                        }
+
+                       
+                        // Commit the transaction if both actions succeeded
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch
+                    {
+                        // Rollback the transaction in case of an error
+                        transaction.Rollback();
+                        throw; // Optionally rethrow the exception for further handling
+                    }
                 }
             }
         }
+
+
 
     }
 }

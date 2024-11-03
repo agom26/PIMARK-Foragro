@@ -781,21 +781,56 @@ namespace Presentacion.Marcas_Nacionales
                 var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
+                    string etapa = dataRowView["etapa"].ToString();
+                    string anotaciones = dataRowView["anotaciones"].ToString();
+                    string usuario = UsuarioActivo.usuario;
                     SeleccionarHistorial.id = id;
+                    SeleccionarHistorial.etapa = etapa;
+                    SeleccionarHistorial.anotaciones = anotaciones;
 
-                    bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
 
-                    if (eliminarhistorial == true)
+                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (confirmacionInicial == DialogResult.Yes)
                     {
-                        MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
+                        {
+
+                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                            if (confirmacionRegistro == DialogResult.Yes)
+                            {
+                                bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
+
+                                if (eliminarhistorial)
+                                {
+
+                                    MessageBox.Show("Estado eliminado y datos de registro borrados.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
+
+                            if (eliminarhistorial)
+                            {
+                                MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+
                         loadHistorialById();
                         refrescarMarca();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron detalles del estado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }

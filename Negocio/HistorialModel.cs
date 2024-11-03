@@ -41,9 +41,9 @@ namespace Dominio
             return historialMarcasDao.EditHistorialById(id, etapa, fecha, anotaciones, usuario, usuarioEditor);
         }
 
-        public bool EliminarRegistroHistorial(int id)
+        public bool EliminarRegistroHistorial(int id, string deletedBy)
         {
-            return historialMarcasDao.EliminarRegistroHistorial(id);
+            return historialMarcasDao.EliminarRegistroHistorialYLog(id, deletedBy);
         }
     }
 }

@@ -773,26 +773,28 @@ namespace Presentacion.Marcas_Internacionales
                 var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID y la etapa de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
                     string etapa = dataRowView["etapa"].ToString();
+                    string anotaciones = dataRowView["anotaciones"].ToString();
+                    string usuario = UsuarioActivo.usuario;
                     SeleccionarHistorial.id = id;
+                    SeleccionarHistorial.etapa = etapa;
+                    SeleccionarHistorial.anotaciones = anotaciones;
 
-                    // Confirmación inicial para eliminar
-                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
+                    DialogResult confirmacionInicial = MessageBox.Show(" ¿Está seguro que desea eliminar esta etapa? "+usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmacionInicial == DialogResult.Yes)
                     {
-                        // Verifica si la etapa es "Registrada"
+                        
                         if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
                         {
-                            // Confirmación adicional si la etapa es "Registrada"
+                            
                             DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                             if (confirmacionRegistro == DialogResult.Yes)
                             {
-                                // Elimina el registro y limpia los datos de registro en la tabla Marcas
-                                bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+                                bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
 
                                 if (eliminarhistorial)
                                 {
@@ -807,8 +809,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            // Elimina la etapa sin eliminar los datos de registro
-                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id,usuario );
 
                             if (eliminarhistorial)
                             {
@@ -820,7 +821,6 @@ namespace Presentacion.Marcas_Internacionales
                             }
                         }
 
-                        // Refrescar el historial y marca
                         loadHistorialById();
                         refrescarMarca();
                     }
