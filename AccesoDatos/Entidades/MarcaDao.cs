@@ -106,6 +106,32 @@ namespace AccesoDatos.Entidades
             }
             return tabla; // Devuelve el DataTable con los resultados
         }
+        public DataTable GetAllMarcasInternacionalesEnOposicion()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasEnOposicion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
         public DataTable GetAllMarcasNacionalesRegistradas()
         {
             string estadoFiltro = "Registrada";

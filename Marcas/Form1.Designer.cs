@@ -317,12 +317,12 @@
             // panelSubMenuMarcasInter
             // 
             panelSubMenuMarcasInter.BackColor = Color.FromArgb(196, 196, 208);
-            panelSubMenuMarcasInter.Controls.Add(button6);
-            panelSubMenuMarcasInter.Controls.Add(button5);
             panelSubMenuMarcasInter.Controls.Add(button2);
-            panelSubMenuMarcasInter.Controls.Add(button1);
-            panelSubMenuMarcasInter.Controls.Add(button27);
             panelSubMenuMarcasInter.Controls.Add(button28);
+            panelSubMenuMarcasInter.Controls.Add(button27);
+            panelSubMenuMarcasInter.Controls.Add(button6);
+            panelSubMenuMarcasInter.Controls.Add(button1);
+            panelSubMenuMarcasInter.Controls.Add(button5);
             panelSubMenuMarcasInter.Controls.Add(button29);
             panelSubMenuMarcasInter.Controls.Add(button30);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
@@ -340,7 +340,7 @@
             button6.FlatStyle = FlatStyle.Flat;
             button6.Font = new Font("Century Gothic", 9F);
             button6.ForeColor = Color.Black;
-            button6.Location = new Point(0, 355);
+            button6.Location = new Point(0, 201);
             button6.Name = "button6";
             button6.Padding = new Padding(58, 0, 0, 0);
             button6.Size = new Size(259, 47);
@@ -348,6 +348,7 @@
             button6.Text = "Registradas";
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click_1;
             // 
             // button5
             // 
@@ -357,7 +358,7 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Century Gothic", 9F);
             button5.ForeColor = Color.Black;
-            button5.Location = new Point(0, 308);
+            button5.Location = new Point(0, 94);
             button5.Name = "button5";
             button5.Padding = new Padding(58, 0, 0, 0);
             button5.Size = new Size(259, 47);
@@ -375,7 +376,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 9F);
             button2.ForeColor = Color.Black;
-            button2.Location = new Point(0, 261);
+            button2.Location = new Point(0, 355);
             button2.Name = "button2";
             button2.Padding = new Padding(58, 0, 0, 0);
             button2.Size = new Size(259, 47);
@@ -392,7 +393,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Century Gothic", 9F);
             button1.ForeColor = Color.Black;
-            button1.Location = new Point(0, 201);
+            button1.Location = new Point(0, 141);
             button1.Name = "button1";
             button1.Padding = new Padding(58, 0, 0, 0);
             button1.Size = new Size(259, 60);
@@ -400,6 +401,7 @@
             button1.Text = "Oposiciones";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // button27
             // 
@@ -409,7 +411,7 @@
             button27.FlatStyle = FlatStyle.Flat;
             button27.Font = new Font("Century Gothic", 9F);
             button27.ForeColor = Color.Black;
-            button27.Location = new Point(0, 141);
+            button27.Location = new Point(0, 248);
             button27.Name = "button27";
             button27.Padding = new Padding(58, 0, 0, 0);
             button27.Size = new Size(259, 60);
@@ -426,7 +428,7 @@
             button28.FlatStyle = FlatStyle.Flat;
             button28.Font = new Font("Century Gothic", 9F);
             button28.ForeColor = Color.Black;
-            button28.Location = new Point(0, 94);
+            button28.Location = new Point(0, 308);
             button28.Name = "button28";
             button28.Padding = new Padding(58, 0, 0, 0);
             button28.Size = new Size(259, 47);
