@@ -181,19 +181,20 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
+        public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
         {
             using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
             {
                 connection.Open();
 
-                using (var command = new MySqlCommand(@"INSERT INTO Marcas (expediente, nombre, signo_distintivo, clase, logo, idTitular, idAgente, fecha_solicitud, tipo) 
-                                                  VALUES (@expediente, @nombre, @signoDistintivo, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, 'nacional'); 
+                using (var command = new MySqlCommand(@"INSERT INTO Marcas (expediente, nombre, signo_distintivo,tipoSigno, clase, logo, idTitular, idAgente, fecha_solicitud, tipo) 
+                                                  VALUES (@expediente, @nombre, @signoDistintivo,@tipoSigno, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, 'nacional'); 
                                                   SELECT LAST_INSERT_ID();", connection))
                 {
                     command.Parameters.AddWithValue("@expediente", expediente);
                     command.Parameters.AddWithValue("@nombre", nombre);
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
@@ -250,7 +251,7 @@ namespace AccesoDatos.Entidades
 
 
 
-        public int AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string clase, string folio,
+        public int AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio,
                                       string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente,
                                       DateTime fecha_solicitud, string registro,
                                       DateTime fechaRegistro, DateTime fechaVencimiento)
@@ -260,15 +261,16 @@ namespace AccesoDatos.Entidades
             {
                 connection.Open();
                 using (var command = new MySqlCommand(@"
-                    INSERT INTO Marcas (expediente, nombre, signo_distintivo, clase, folio, libro, logo, idTitular, idAgente, 
+                    INSERT INTO Marcas (expediente, nombre, signo_distintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, 
                                         fecha_solicitud, tipo, registro, fecha_registro, fecha_vencimiento) 
-                    VALUES (@expediente, @nombre, @signoDistintivo, @clase, @folio, @libro, @logo, @idPersonaTitular, 
+                    VALUES (@expediente, @nombre, @signoDistintivo, @tipoSigno, @clase, @folio, @libro, @logo, @idPersonaTitular, 
                             @idPersonaAgente, @fecha_solicitud, 'nacional', @registro, @fecha_registro, @fecha_vencimiento);
                     SELECT LAST_INSERT_ID();", connection))
                 {
                     command.Parameters.AddWithValue("@expediente", expediente);
                     command.Parameters.AddWithValue("@nombre", nombre);
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@folio", folio);
                     command.Parameters.AddWithValue("@libro", libro);
