@@ -38,6 +38,33 @@ namespace AccesoDatos.Entidades
             return tabla; 
         }
 
+        public DataTable GetAllMarcasInternacionalesIngresadas()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesSinRegistro", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
         public DataTable GetAllMarcasNacionalesEnOposicion()
         {
             DataTable tabla = new DataTable();
@@ -308,27 +335,27 @@ namespace AccesoDatos.Entidades
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
                 using (MySqlCommand comando = new MySqlCommand(@"SELECT 
-            M.id, 
-            M.expediente, 
-            M.nombre, 
-            M.signo_distintivo AS signoDistintivo, 
-            M.clase, 
-            M.folio, 
-            M.libro, 
-            M.logo, 
-            M.estado, 
-            M.registro, 
-            M.fecha_solicitud AS fechaSolicitud, 
-            M.fecha_registro AS fechaRegistro, 
-            M.fecha_vencimiento AS fechaVencimiento,
-            M.idTitular,  
-            M.idAgente,
-            M.observaciones
-        FROM 
-            Marcas M
-        WHERE 
-            M.tipo = 'nacional' 
-            AND M.id = @id;", conexion))
+                    M.id, 
+                    M.expediente, 
+                    M.nombre, 
+                    M.signo_distintivo AS signoDistintivo, 
+                    M.clase, 
+                    M.folio, 
+                    M.libro, 
+                    M.logo, 
+                    M.estado, 
+                    M.registro, 
+                    M.fecha_solicitud AS fechaSolicitud, 
+                    M.fecha_registro AS fechaRegistro, 
+                    M.fecha_vencimiento AS fechaVencimiento,
+                    M.idTitular,  
+                    M.idAgente,
+                    M.observaciones
+                FROM 
+                    Marcas M
+                WHERE 
+                    M.tipo = 'nacional' 
+                    AND M.id = @id;", conexion))
                 {
                     comando.Parameters.AddWithValue("@id", id);
                     conexion.Open();
@@ -442,7 +469,106 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        
+        public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int idCliente)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("EditarMarcaInternacional", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("p_id", id);
+                    command.Parameters.AddWithValue("p_expediente", expediente);
+                    command.Parameters.AddWithValue("p_nombre", nombre);
+                    command.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("p_clase", clase);
+                    command.Parameters.AddWithValue("p_logo", logo);
+                    command.Parameters.AddWithValue("p_idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("p_idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("p_fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("p_pais_de_registro", paisRegistro);
+                    command.Parameters.AddWithValue("p_tiene_poder", tiene_poder);
+                    command.Parameters.AddWithValue("p_idCliente", idCliente);
+
+                    // Ejecuta el comando
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                }
+            }
+        }
+
+        public bool EditarMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,
+        string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fechaSolicitud,
+        string paisRegistro, string tienePoder, int idCliente, string registro, string folio,
+        string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        {
+            int resultado;
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                using (var command = new MySqlCommand("EditarMarcaInternacionalRegistrada", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("p_id", id);
+                    command.Parameters.AddWithValue("p_expediente", expediente);
+                    command.Parameters.AddWithValue("p_nombre", nombre);
+                    command.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("p_clase", clase);
+                    command.Parameters.AddWithValue("p_logo", logo);
+                    command.Parameters.AddWithValue("p_idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("p_idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("p_fecha_solicitud", fechaSolicitud);
+                    command.Parameters.AddWithValue("p_pais_de_registro", paisRegistro);
+                    command.Parameters.AddWithValue("p_tiene_poder", tienePoder);
+                    command.Parameters.AddWithValue("p_idCliente", idCliente);
+                    command.Parameters.AddWithValue("p_registro", registro);
+                    command.Parameters.AddWithValue("p_folio", folio);
+                    command.Parameters.AddWithValue("p_libro", libro);
+                    command.Parameters.AddWithValue("p_fecha_registro", fechaRegistro);
+                    command.Parameters.AddWithValue("p_fecha_vencimiento", fechaVencimiento);
+
+                    MySqlParameter resultadoParam = new MySqlParameter("p_resultado", MySqlDbType.Int32)
+                    {
+                        Direction = System.Data.ParameterDirection.Output
+                    };
+                    command.Parameters.Add(resultadoParam);
+
+                    command.ExecuteNonQuery();
+
+                    resultado = Convert.ToInt32(resultadoParam.Value);
+                }
+            }
+
+            return resultado == 0;
+        }
+
+        public DataTable GetMarcaInternacionalById(int id)
+        {
+            var dataTable = new DataTable();
+
+            using (var conexion = GetConnection())
+            {
+                using (var comando = new MySqlCommand("GetMarcaInternacionalById", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("p_id", id);
+
+                    conexion.Open();
+
+                    using (var adapter = new MySqlDataAdapter(comando))
+                    {
+                        // Llena el DataTable con los resultados del procedimiento almacenado
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
 
 
 

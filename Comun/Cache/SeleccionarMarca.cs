@@ -18,6 +18,7 @@ namespace Comun.Cache
         public static byte[] logo;
         public static int idPersonaTitular;
         public static int idPersonaAgente;
+        public static int idPersonaCliente;
         public static DateTime fecha_solicitud;
         public static string estado;
         public static string pais_de_registro;

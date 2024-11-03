@@ -365,6 +365,7 @@
             button5.Text = "Ingresadas";
             button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click_1;
             // 
             // button2
             // 

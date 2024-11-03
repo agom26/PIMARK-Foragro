@@ -293,6 +293,7 @@
             label6.Size = new Size(68, 20);
             label6.TabIndex = 36;
             label6.Text = "Nombre";
+            //label6.Click += this.label6_Click;
             // 
             // txtNombreCliente
             // 
@@ -303,6 +304,7 @@
             txtNombreCliente.ReadOnly = true;
             txtNombreCliente.Size = new Size(369, 26);
             txtNombreCliente.TabIndex = 37;
+            txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
             // 
             // label13
             // 

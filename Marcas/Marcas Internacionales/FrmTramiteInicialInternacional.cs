@@ -130,6 +130,7 @@ namespace Presentacion.Marcas_Internacionales
             // Guardar la marca
             try
             {
+                paisRegistro = comboBox1.SelectedItem.ToString();
                 int idMarca = registroChek ?
                     marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
                     marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
@@ -306,6 +307,11 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private void txtSignoDistintivo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombreCliente_TextChanged(object sender, EventArgs e)
         {
 
         }

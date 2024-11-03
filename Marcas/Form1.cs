@@ -427,5 +427,12 @@ namespace Presentacion
             openChildForm(new FrmRegistradas());
             EnableButtons();
         }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMarcasIntIngresadas());
+            EnableButtons();
+        }
     }
 }
