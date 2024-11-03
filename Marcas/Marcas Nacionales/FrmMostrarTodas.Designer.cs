@@ -44,6 +44,9 @@
             roundedButton5 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel2 = new Panel();
+            comboBoxTipoSigno = new ComboBox();
+            comboBoxSignoDistintivo = new ComboBox();
+            label25 = new Label();
             roundedButton6 = new Clases.RoundedButton();
             btnCancelar = new Clases.RoundedButton();
             roundedButton1 = new Clases.RoundedButton();
@@ -110,9 +113,6 @@
             label23 = new Label();
             label22 = new Label();
             panel8 = new Panel();
-            label25 = new Label();
-            comboBoxSignoDistintivo = new ComboBox();
-            comboBoxTipoSigno = new ComboBox();
             tabControl1.SuspendLayout();
             tabPageListaMarcas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -420,6 +420,41 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1081, 1241);
             panel2.TabIndex = 0;
+            // 
+            // comboBoxTipoSigno
+            // 
+            comboBoxTipoSigno.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxTipoSigno.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTipoSigno.FlatStyle = FlatStyle.Flat;
+            comboBoxTipoSigno.FormattingEnabled = true;
+            comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
+            comboBoxTipoSigno.Location = new Point(393, 265);
+            comboBoxTipoSigno.Name = "comboBoxTipoSigno";
+            comboBoxTipoSigno.Size = new Size(292, 28);
+            comboBoxTipoSigno.TabIndex = 77;
+            // 
+            // comboBoxSignoDistintivo
+            // 
+            comboBoxSignoDistintivo.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxSignoDistintivo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSignoDistintivo.FlatStyle = FlatStyle.Flat;
+            comboBoxSignoDistintivo.FormattingEnabled = true;
+            comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
+            comboBoxSignoDistintivo.Location = new Point(47, 265);
+            comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
+            comboBoxSignoDistintivo.Size = new Size(280, 28);
+            comboBoxSignoDistintivo.TabIndex = 76;
+            // 
+            // label25
+            // 
+            label25.Anchor = AnchorStyles.None;
+            label25.AutoSize = true;
+            label25.Font = new Font("Century Gothic", 10F);
+            label25.Location = new Point(393, 241);
+            label25.Name = "label25";
+            label25.Size = new Size(44, 21);
+            label25.TabIndex = 75;
+            label25.Text = "Tipo";
             // 
             // roundedButton6
             // 
@@ -1230,35 +1265,6 @@
             panel8.Name = "panel8";
             panel8.Size = new Size(946, 369);
             panel8.TabIndex = 21;
-            // 
-            // label25
-            // 
-            label25.Anchor = AnchorStyles.None;
-            label25.AutoSize = true;
-            label25.Font = new Font("Century Gothic", 10F);
-            label25.Location = new Point(393, 241);
-            label25.Name = "label25";
-            label25.Size = new Size(44, 21);
-            label25.TabIndex = 75;
-            label25.Text = "Tipo";
-            // 
-            // comboBoxSignoDistintivo
-            // 
-            comboBoxSignoDistintivo.FormattingEnabled = true;
-            comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            comboBoxSignoDistintivo.Location = new Point(47, 265);
-            comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
-            comboBoxSignoDistintivo.Size = new Size(280, 28);
-            comboBoxSignoDistintivo.TabIndex = 76;
-            // 
-            // comboBoxTipoSigno
-            // 
-            comboBoxTipoSigno.FormattingEnabled = true;
-            comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
-            comboBoxTipoSigno.Location = new Point(393, 265);
-            comboBoxTipoSigno.Name = "comboBoxTipoSigno";
-            comboBoxTipoSigno.Size = new Size(292, 28);
-            comboBoxTipoSigno.TabIndex = 77;
             // 
             // FrmMostrarTodas
             // 

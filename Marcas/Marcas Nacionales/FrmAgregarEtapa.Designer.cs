@@ -81,10 +81,11 @@
             // 
             // comboBox1
             // 
+            comboBox1.BackColor = Color.White;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
+            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso" });
             comboBox1.Location = new Point(349, 220);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(250, 28);
