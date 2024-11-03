@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Microsoft.Win32;
 using Presentacion.Marcas_Nacionales;
 using System;
 using System.Collections.Generic;
@@ -597,7 +598,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
+            System.Windows.Forms.OpenFileDialog openFile = new System.Windows.Forms.OpenFileDialog();
             openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
@@ -677,9 +678,43 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageIngresadasList;
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+            }
+            else
+            {
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro , a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                    )
+                {
+                    // Validar que el expediente, clase, folio, registro y libro sean enteros
+                    
+                    //MessageBox.Show("No es posible salir sin ingresar datos de registro");
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        ActualizarMarcaInternacional();
+                        EliminarTabPage(tabPageHistorialMarca);
+                    }
+                    
+                }
+                
+            }
+            
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -738,21 +773,56 @@ namespace Presentacion.Marcas_Internacionales
                 var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID de la fila seleccionada
+                    // Obtén el ID y la etapa de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
+                    string etapa = dataRowView["etapa"].ToString();
                     SeleccionarHistorial.id = id;
 
-                    bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+                    // Confirmación inicial para eliminar
+                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    if (eliminarhistorial == true)
+                    if (confirmacionInicial == DialogResult.Yes)
                     {
-                        MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Verifica si la etapa es "Registrada"
+                        if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Confirmación adicional si la etapa es "Registrada"
+                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                            if (confirmacionRegistro == DialogResult.Yes)
+                            {
+                                // Elimina el registro y limpia los datos de registro en la tabla Marcas
+                                bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+
+                                if (eliminarhistorial)
+                                {
+                                    
+                                    MessageBox.Show("Estado eliminado y datos de registro borrados.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Elimina la etapa sin eliminar los datos de registro
+                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+
+                            if (eliminarhistorial)
+                            {
+                                MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+
+                        // Refrescar el historial y marca
                         loadHistorialById();
                         refrescarMarca();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron detalles del estado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -760,6 +830,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
