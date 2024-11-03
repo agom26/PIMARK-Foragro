@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListaMarcas = new TabPage();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
@@ -84,7 +84,6 @@
             iconButton1 = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             label8 = new Label();
-            txtSignoDistintivo = new TextBox();
             label5 = new Label();
             txtClase = new TextBox();
             label4 = new Label();
@@ -116,6 +115,9 @@
             panel8 = new Panel();
             label21 = new Label();
             dtgHistorialO = new DataGridView();
+            comboBoxTipoSigno = new ComboBox();
+            comboBoxSignoDistintivo = new ComboBox();
+            label26 = new Label();
             tabControl1.SuspendLayout();
             tabPageListaMarcas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -381,6 +383,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(comboBoxTipoSigno);
+            panel1.Controls.Add(comboBoxSignoDistintivo);
+            panel1.Controls.Add(label26);
             panel1.Controls.Add(roundedButton6);
             panel1.Controls.Add(btnCancelar);
             panel1.Controls.Add(btnActualizar);
@@ -408,7 +413,6 @@
             panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(txtSignoDistintivo);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
@@ -432,7 +436,7 @@
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.Font = new Font("Century Gothic", 9F);
             roundedButton6.ForeColor = Color.Black;
-            roundedButton6.Location = new Point(767, 537);
+            roundedButton6.Location = new Point(767, 629);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(276, 56);
             roundedButton6.TabIndex = 107;
@@ -608,7 +612,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 9F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(57, 256);
+            roundedButton1.Location = new Point(57, 348);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 102;
@@ -655,7 +659,7 @@
             textBoxEstatus.Anchor = AnchorStyles.None;
             textBoxEstatus.Enabled = false;
             textBoxEstatus.Font = new Font("Century Gothic", 10F);
-            textBoxEstatus.Location = new Point(405, 263);
+            textBoxEstatus.Location = new Point(405, 355);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
             textBoxEstatus.Size = new Size(290, 28);
@@ -666,7 +670,7 @@
             label14.Anchor = AnchorStyles.None;
             label14.AutoSize = true;
             label14.Font = new Font("Century Gothic", 10F);
-            label14.Location = new Point(405, 225);
+            label14.Location = new Point(405, 317);
             label14.Name = "label14";
             label14.Size = new Size(122, 21);
             label14.TabIndex = 98;
@@ -677,9 +681,9 @@
             datePickerFechaSolicitud.Anchor = AnchorStyles.None;
             datePickerFechaSolicitud.Font = new Font("Century Gothic", 10F);
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitud.Location = new Point(59, 718);
+            datePickerFechaSolicitud.Location = new Point(400, 173);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
-            datePickerFechaSolicitud.Size = new Size(341, 28);
+            datePickerFechaSolicitud.Size = new Size(280, 28);
             datePickerFechaSolicitud.TabIndex = 97;
             // 
             // label13
@@ -687,7 +691,7 @@
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Century Gothic", 10F);
-            label13.Location = new Point(59, 693);
+            label13.Location = new Point(400, 148);
             label13.Name = "label13";
             label13.Size = new Size(78, 21);
             label13.TabIndex = 96;
@@ -697,7 +701,7 @@
             // 
             txtNombreAgente.Enabled = false;
             txtNombreAgente.Font = new Font("Century Gothic", 10F);
-            txtNombreAgente.Location = new Point(57, 642);
+            txtNombreAgente.Location = new Point(57, 734);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.Size = new Size(280, 28);
             txtNombreAgente.TabIndex = 95;
@@ -706,7 +710,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Century Gothic", 10F);
-            label12.Location = new Point(57, 616);
+            label12.Location = new Point(57, 708);
             label12.Name = "label12";
             label12.Size = new Size(77, 21);
             label12.TabIndex = 94;
@@ -723,7 +727,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Century Gothic", 10F);
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(57, 537);
+            roundedButton2.Location = new Point(57, 629);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(638, 56);
             roundedButton2.TabIndex = 93;
@@ -736,7 +740,7 @@
             // 
             txtEntidadTitular.Enabled = false;
             txtEntidadTitular.Font = new Font("Century Gothic", 10F);
-            txtEntidadTitular.Location = new Point(57, 491);
+            txtEntidadTitular.Location = new Point(57, 583);
             txtEntidadTitular.Name = "txtEntidadTitular";
             txtEntidadTitular.Size = new Size(280, 28);
             txtEntidadTitular.TabIndex = 92;
@@ -745,7 +749,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 10F);
-            label11.Location = new Point(57, 465);
+            label11.Location = new Point(57, 557);
             label11.Name = "label11";
             label11.Size = new Size(75, 21);
             label11.TabIndex = 91;
@@ -755,7 +759,7 @@
             // 
             txtDireccionTitular.Enabled = false;
             txtDireccionTitular.Font = new Font("Century Gothic", 10F);
-            txtDireccionTitular.Location = new Point(409, 424);
+            txtDireccionTitular.Location = new Point(409, 516);
             txtDireccionTitular.Name = "txtDireccionTitular";
             txtDireccionTitular.Size = new Size(286, 28);
             txtDireccionTitular.TabIndex = 90;
@@ -764,7 +768,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 10F);
-            label10.Location = new Point(409, 400);
+            label10.Location = new Point(409, 492);
             label10.Name = "label10";
             label10.Size = new Size(88, 21);
             label10.TabIndex = 89;
@@ -774,7 +778,7 @@
             // 
             txtNombreTitular.Enabled = false;
             txtNombreTitular.Font = new Font("Century Gothic", 10F);
-            txtNombreTitular.Location = new Point(57, 424);
+            txtNombreTitular.Location = new Point(57, 516);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.Size = new Size(280, 28);
             txtNombreTitular.TabIndex = 88;
@@ -783,7 +787,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Century Gothic", 10F);
-            label9.Location = new Point(57, 398);
+            label9.Location = new Point(57, 490);
             label9.Name = "label9";
             label9.Size = new Size(77, 21);
             label9.TabIndex = 87;
@@ -800,7 +804,7 @@
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.Font = new Font("Century Gothic", 10F);
             roundedButton4.ForeColor = Color.Black;
-            roundedButton4.Location = new Point(57, 323);
+            roundedButton4.Location = new Point(57, 415);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(638, 56);
             roundedButton4.TabIndex = 86;
@@ -865,21 +869,12 @@
             label8.TabIndex = 82;
             label8.Text = "Imagen";
             // 
-            // txtSignoDistintivo
-            // 
-            txtSignoDistintivo.Anchor = AnchorStyles.None;
-            txtSignoDistintivo.Font = new Font("Century Gothic", 10F);
-            txtSignoDistintivo.Location = new Point(403, 173);
-            txtSignoDistintivo.Name = "txtSignoDistintivo";
-            txtSignoDistintivo.Size = new Size(292, 28);
-            txtSignoDistintivo.TabIndex = 81;
-            // 
             // label5
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(402, 149);
+            label5.Location = new Point(56, 235);
             label5.Name = "label5";
             label5.Size = new Size(132, 21);
             label5.TabIndex = 80;
@@ -1258,41 +1253,76 @@
             dtgHistorialO.BorderStyle = BorderStyle.None;
             dtgHistorialO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialO.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgHistorialO.ColumnHeadersHeight = 40;
             dtgHistorialO.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle5;
             dtgHistorialO.EnableHeadersVisualStyles = false;
             dtgHistorialO.GridColor = Color.LightGray;
             dtgHistorialO.Location = new Point(94, 68);
             dtgHistorialO.Name = "dtgHistorialO";
             dtgHistorialO.ReadOnly = true;
             dtgHistorialO.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dtgHistorialO.RowHeadersWidth = 51;
             dtgHistorialO.Size = new Size(934, 492);
             dtgHistorialO.TabIndex = 43;
+            // 
+            // comboBoxTipoSigno
+            // 
+            comboBoxTipoSigno.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxTipoSigno.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTipoSigno.FlatStyle = FlatStyle.Flat;
+            comboBoxTipoSigno.FormattingEnabled = true;
+            comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
+            comboBoxTipoSigno.Location = new Point(401, 259);
+            comboBoxTipoSigno.Name = "comboBoxTipoSigno";
+            comboBoxTipoSigno.Size = new Size(292, 28);
+            comboBoxTipoSigno.TabIndex = 148;
+            // 
+            // comboBoxSignoDistintivo
+            // 
+            comboBoxSignoDistintivo.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxSignoDistintivo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSignoDistintivo.FlatStyle = FlatStyle.Flat;
+            comboBoxSignoDistintivo.FormattingEnabled = true;
+            comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
+            comboBoxSignoDistintivo.Location = new Point(57, 259);
+            comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
+            comboBoxSignoDistintivo.Size = new Size(280, 28);
+            comboBoxSignoDistintivo.TabIndex = 147;
+            // 
+            // label26
+            // 
+            label26.Anchor = AnchorStyles.None;
+            label26.AutoSize = true;
+            label26.Font = new Font("Century Gothic", 10F);
+            label26.Location = new Point(401, 235);
+            label26.Name = "label26";
+            label26.Size = new Size(44, 21);
+            label26.TabIndex = 146;
+            label26.Text = "Tipo";
             // 
             // FrmMostrarOposiciones
             // 
@@ -1369,7 +1399,6 @@
         private FontAwesome.Sharp.IconButton iconButton1;
         private PictureBox pictureBox1;
         private Label label8;
-        private TextBox txtSignoDistintivo;
         private Label label5;
         private TextBox txtClase;
         private Label label4;
@@ -1418,5 +1447,8 @@
         private Label label23;
         private Label label25;
         private Panel panel8;
+        private ComboBox comboBoxTipoSigno;
+        private ComboBox comboBoxSignoDistintivo;
+        private Label label26;
     }
 }

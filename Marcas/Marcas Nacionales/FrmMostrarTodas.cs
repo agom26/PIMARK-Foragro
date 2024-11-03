@@ -240,12 +240,16 @@ namespace Presentacion.Marcas_Nacionales
                     if (MarcaActualizada[0].observaciones.Contains(estado))
                     {
                         MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        tabControl1.SelectedTab = tabPageListaMarcas;
                     }
                     else
                     {
                         // Guardar la nueva etapa
                         historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        tabControl1.SelectedTab = tabPageListaMarcas;
                     }
                 }
                 else
@@ -260,8 +264,6 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al registrar la marca nacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
 
         public void LimpiarFormulario()
@@ -547,7 +549,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             ActualizarMarcaNacional();
             EliminarTabPage(tabPageHistorialMarca);
-            SeleccionarMarca.idN = 0;
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
