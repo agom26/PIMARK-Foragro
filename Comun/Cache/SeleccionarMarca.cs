@@ -13,6 +13,7 @@ namespace Comun.Cache
         public static string expediente;
         public static string nombre;
         public static string signoDistintivo;
+        public static string tipoSigno;
         public static string clase;
         public static string observaciones;
         public static byte[] logo;

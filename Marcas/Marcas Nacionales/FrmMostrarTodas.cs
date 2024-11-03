@@ -128,20 +128,21 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado,
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
     ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
-            
+            // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
+                !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
                 !ValidarCampo(estado, "Por favor, seleccione un estado."))
             {
                 return false;
             }
 
-            
+            // Validar que el expediente, clase, folio, registro y libro sean enteros
             if (!int.TryParse(expediente, out _) ||
                 !int.TryParse(clase, out _) ||
                 (registroChek && !int.TryParse(registro, out _)) ||
@@ -152,7 +153,7 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
 
-            
+            // Verificar que hay una imagen
             if (pictureBox1.Image != null)
             {
                 using (var ms = new System.IO.MemoryStream())
@@ -170,7 +171,7 @@ namespace Presentacion.Marcas_Nacionales
             // Si está registrada, se verifica la información del registro
             if (registroChek)
             {
-                
+                // Validar campos adicionales para marcas registradas
                 if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
                     !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
                     !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
@@ -180,7 +181,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-            return true; 
+            return true; // Todas las validaciones pasaron
         }
 
         public void ActualizarMarcaNacional()
@@ -218,61 +219,19 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-            if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
-                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
-                !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
-                !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
-                !ValidarCampo(tipoSigno, "Por favor, seleccione un tipo.") ||
-                !ValidarCampo(estado, "Por favor, seleccione un estado."))
+            // Validar campos 
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
-            }
-
-            // Validar que el expediente, clase, folio, registro y libro sean enteros
-            if (!int.TryParse(expediente, out _) ||
-                !int.TryParse(clase, out _) ||
-                (registroChek && !int.TryParse(registro, out _)) ||
-                (registroChek && !int.TryParse(folio, out _)) ||
-                (registroChek && !int.TryParse(libro, out _)))
-            {
-                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
-            {
-                using (var ms = new System.IO.MemoryStream())
-                {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Si está registrada, se verifica la información del registro
-            if (registroChek)
-            {
-                // Validar campos adicionales para marcas registradas
-                if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
-                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de libro."))
-                {
-                    return;
-                }
             }
 
             try
             {
-                // Guardar la marca 
+                // Actualizar la marca con tipo
                 bool esActualizado = registroChek ?
                     marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo,tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud);
 
                 var MarcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
@@ -325,6 +284,8 @@ namespace Presentacion.Marcas_Nacionales
             txtRegistro.Text = "";
             richTextBox1.Text = "";
             AgregarEtapa.LimpiarEtapa();
+            comboBoxTipoSigno.SelectedIndex = -1;
+            comboBoxSignoDistintivo.SelectedIndex = -1;
         }
 
         private async void CargarDatosMarca()
@@ -344,6 +305,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.clase = detallesMarcaN[0].clase;
                         SeleccionarMarca.estado = detallesMarcaN[0].estado;
                         SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
+                        SeleccionarMarca.tipoSigno = detallesMarcaN[0].tipoSigno;
                         SeleccionarMarca.logo = detallesMarcaN[0].logo;
                         SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
                         SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
@@ -381,6 +343,7 @@ namespace Presentacion.Marcas_Nacionales
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
+                        comboBoxTipoSigno.SelectedItem = SeleccionarMarca.tipoSigno;
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;

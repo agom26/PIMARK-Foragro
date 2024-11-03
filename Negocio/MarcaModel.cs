@@ -50,7 +50,7 @@ namespace Dominio
         }
 
 
-        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
+        public List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
         {
             return marcaDao.GetMarcaNacionalById(id);
         }
@@ -80,18 +80,18 @@ namespace Dominio
             return marcaDao.AddMarcaInternacionalRegistrada(expediente,nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, pais_de_registro, tiene_poder, idCliente, registro, folio, libro, fecha_de_registro, fecha_vencimiento);
         }
 
-        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
+        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
         {
-            return marcaDao.EditMarcaNacional(id, expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud);
+            return marcaDao.EditMarcaNacional(id, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud);
         }
         public bool EditMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int idCliente)
         {
             return marcaDao.EditarMarcaInternacional(id, expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente);
         }
 
-        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
         {
-            return marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento);
+            return marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento);
         }
 
         public bool EditMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento)

@@ -330,9 +330,9 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
+        public List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
         {
-            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)>();
+            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)>();
 
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
@@ -341,6 +341,7 @@ namespace AccesoDatos.Entidades
                     M.expediente, 
                     M.nombre, 
                     M.signo_distintivo AS signoDistintivo, 
+                    M.tipoSigno AS Tipo,
                     M.clase, 
                     M.folio, 
                     M.libro, 
@@ -371,6 +372,7 @@ namespace AccesoDatos.Entidades
                                 reader.IsDBNull(reader.GetOrdinal("expediente")) ? "" : reader.GetString("expediente"),
                                 reader.IsDBNull(reader.GetOrdinal("nombre")) ? "" : reader.GetString("nombre"),
                                 reader.IsDBNull(reader.GetOrdinal("signoDistintivo")) ? "" : reader.GetString("signoDistintivo"),
+                                reader.IsDBNull(reader.GetOrdinal("Tipo")) ? "" : reader.GetString("Tipo"),
                                 reader.IsDBNull(reader.GetOrdinal("clase")) ? "" : reader.GetString("clase"),
                                 reader.IsDBNull(reader.GetOrdinal("folio")) ? "" : reader.GetString("folio"),
                                 reader.IsDBNull(reader.GetOrdinal("libro")) ? "" : reader.GetString("libro"),
@@ -392,7 +394,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
+        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
         {
             using (var connection = GetConnection())
             {
@@ -402,6 +404,7 @@ namespace AccesoDatos.Entidades
             SET expediente = @expediente, 
                 nombre = @nombre, 
                 signo_distintivo = @signoDistintivo, 
+                tipoSigno=@tipoSigno,
                 clase = @clase, 
                 logo = @logo, 
                 idTitular = @idPersonaTitular, 
@@ -413,6 +416,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@expediente", expediente);
                     command.Parameters.AddWithValue("@nombre", nombre);
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
@@ -427,7 +431,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
         {
             using (var connection = GetConnection())
             {
@@ -437,6 +441,7 @@ namespace AccesoDatos.Entidades
             SET expediente = @expediente, 
                 nombre = @nombre, 
                 signo_distintivo = @signoDistintivo, 
+                tipoSigno=@tipoSigno,
                 clase = @clase, 
                 folio = @folio, 
                 libro = @libro, 
@@ -453,6 +458,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@expediente", expediente);
                     command.Parameters.AddWithValue("@nombre", nombre);
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@folio", folio);
                     command.Parameters.AddWithValue("@libro", libro);

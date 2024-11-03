@@ -138,7 +138,7 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-            // Validar campos (incluyendo los nuevos campos)
+            // Validar campos 
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
