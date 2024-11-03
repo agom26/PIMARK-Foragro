@@ -234,12 +234,16 @@ namespace Presentacion.Marcas_Nacionales
                     if (MarcaActualizada[0].observaciones.Contains(estado))
                     {
                         MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        tabControl1.SelectedTab = tabPageRegistradasList;
                     }
                     else
                     {
                         // Guardar la nueva etapa
                         historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        tabControl1.SelectedTab = tabPageRegistradasList;
                     }
                 }
                 else

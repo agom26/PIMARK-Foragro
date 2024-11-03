@@ -212,9 +212,12 @@ namespace Presentacion
             ShowSubMenu(panelSubMenuPatentes);
         }
 
-        private void button23_Click(object sender, EventArgs e)
+        private async void button23_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Form3());
+            DisableButtons();
+            openChildForm(new FrmRenovacion());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -300,10 +303,7 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmAdministrarUsuarios());
-            // Esperar un breve momento para permitir que se muestre el formulario
             await Task.Delay(1000);
-
-            // Habilitar los botones después de un breve retraso
             EnableButtons();
         }
 
@@ -311,10 +311,7 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmAdministrarAgentes());
-            // Esperar un breve momento para permitir que se muestre el formulario
             await Task.Delay(1000);
-
-            // Habilitar los botones después de un breve retraso
             EnableButtons();
 
         }
@@ -323,10 +320,7 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmAdministrarTitulares());
-            // Esperar un breve momento para permitir que se muestre el formulario
             await Task.Delay(1000);
-
-            // Habilitar los botones
             EnableButtons();
         }
 
