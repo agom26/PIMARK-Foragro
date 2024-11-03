@@ -110,26 +110,36 @@ namespace Presentacion.Marcas_Internacionales
             DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
             dateTimePFecha_vencimiento.Value = fecha_vencimiento;
         }
+        private bool ValidarCampo(string campo, string mensaje)
+        {
+            if (string.IsNullOrEmpty(campo))
+            {
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarComboBox(System.Windows.Forms.ComboBox comboBox, string mensaje)
+        {
+            if (comboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
         private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string estado, ref byte[] logo, bool registroChek, string registro, System.Windows.Forms.ComboBox comboBoxPaisRegistro)
         {
             // Verificar campos obligatorios
-            if (string.IsNullOrEmpty(expediente) || string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(clase) || string.IsNullOrEmpty(signoDistintivo))
+            if (!ValidarCampo(expediente, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(nombre, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(clase, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(signoDistintivo, "Por favor, llene todos los campos obligatorios.") ||
+                !ValidarCampo(estado, "Por favor, seleccione un estado.") ||
+                !ValidarComboBox(comboBoxPaisRegistro, "Por favor, seleccione un país de registro."))
             {
-                MessageBox.Show("Por favor, llene todos los campos obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // Validar el estado
-            if (string.IsNullOrEmpty(estado))
-            {
-                MessageBox.Show("Por favor, seleccione un estado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // Validar el ComboBox para el país de registro
-            if (comboBoxPaisRegistro.SelectedIndex == -1)
-            {
-                MessageBox.Show("Por favor, seleccione un país de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -149,9 +159,8 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Si está registrada, se verifica la información del registro
-            if (registroChek && string.IsNullOrEmpty(registro))
+            if (registroChek && !ValidarCampo(registro, "Por favor, ingrese el número de registro."))
             {
-                MessageBox.Show("Por favor, ingrese el número de registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -173,7 +182,6 @@ namespace Presentacion.Marcas_Internacionales
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
-
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
@@ -190,41 +198,59 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 string paisRegistro = comboBox1.SelectedItem.ToString();
-                string tiene_poder = "no";
+                string tienePoder = checkBoxTienePoder.Checked ? "si" : "no";
 
-                if (checkBox1.Checked)
+                bool esActualizado;
+
+                // Verificar si la marca está registrada
+                if (registroChek)
                 {
-                    tiene_poder = "si";
+                    esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
                 }
                 else
                 {
-                    tiene_poder = "no";
+                    esActualizado = marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente);
                 }
 
-                bool actualizada = registroChek ?
-                    marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente) :
-                    marcaModel.EditMarcaInternacionalRegistrada(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
+                DataTable marcaActualizada = marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt);
 
-                if (actualizada == true)
+                if (esActualizado)
                 {
-                    string etapa = textBoxEstatus.Text;
-                    if (!string.IsNullOrEmpty(etapa))
+                    // Verificar si la actualización fue exitosa
+                    if (esActualizado)
                     {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        // Verificar si las observaciones ya contienen el estado actual
+                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                        {
+                            MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            // Guardar la nueva etapa en el historial
+                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                    MessageBox.Show("Marca internacional " + (registroChek ? "registrada" : "actualizada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarFormulario();
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                LimpiarFormulario();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LimpiarFormulario();
             }
         }
+
 
 
         public void LimpiarFormulario()
@@ -244,6 +270,7 @@ namespace Presentacion.Marcas_Internacionales
             dateTimePFecha_Registro.Value = DateTime.Now;
             textBoxEstatus.Text = "";
             checkBox1.Checked = false;
+            comboBox1.SelectedIndex = -1;
             ActualizarFechaVencimiento();
             txtRegistro.Text = "";
             richTextBox1.Text = "";
@@ -484,7 +511,43 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
+            using (FrmJustificacion justificacionForm = new FrmJustificacion())
+            {
 
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+                    // Cambiar el estado a "Abandonada" y guardar la justificación
+                    try
+                    {
+                        // Obtener el ID de la marca seleccionada
+                        if (dtgMarcasIn.SelectedRows.Count > 0)
+                        {
+                            var filaSeleccionada = dtgMarcasIn.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+
+                                // Actualizar el estado y la justificación en la base de datos
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono);
+
+                                MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MostrarMarcasIngresadas();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -559,37 +622,120 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
-
+            ActualizarFechaVencimiento();
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
+            if (dtgHistorialIn.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
 
+                    DataTable historial = historialModel.GetHistorialById(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+                        // Asignar los valores obtenidos a la clase SeleccionarPersona
+                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorial.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
+            if (dtgHistorialIn.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
 
+                    bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id);
+
+                    if (eliminarhistorial == true)
+                    {
+                        MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        loadHistorialById();
+                        refrescarMarca();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del estado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void btnEditarH_Click(object sender, EventArgs e)
         {
+            //Editar historial por id
+            string etapa = comboBoxEstatusH.SelectedItem.ToString();
+            DateTime fecha = dateTimePickerFechaH.Value;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorial.anotaciones = anotaciones;
+            string usuario = lblUser.Text;
+            string usuarioEditor = labelUserEditor.Text;
+            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
 
+            if (actualizar == true)
+            {
+                MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tabControl1.SelectedTab = tabPageHistorialMarca;
+                refrescarMarca();
+            }
+            else
+            {
+                MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectedTab = tabPageHistorialMarca;
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
