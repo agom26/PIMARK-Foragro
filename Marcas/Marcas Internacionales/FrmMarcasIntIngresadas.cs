@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Marcas_Nacionales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -300,17 +301,17 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (cliente.Count > 0)
                         {
-                            txtNombreCliente.Text = cliente[0].nombre; // Asegúrate de que este es el control correcto
+                            txtNombreCliente.Text = cliente[0].nombre; 
                         }
 
-                        // Actualizar los controles de la interfaz con los datos obtenidos
+                        // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         txtSignoDistintivo.Text = SeleccionarMarca.signoDistintivo;
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
-                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud; // Manejar fecha nula
+                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud; 
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
                         comboBox1.SelectedIndex = index;
@@ -377,7 +378,6 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    // Obtén los detalles de la marca de manera asíncrona
                     var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                     if (detallesMarcaN.Count > 0)
@@ -416,7 +416,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -450,7 +450,25 @@ namespace Presentacion.Marcas_Internacionales
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (tabControl1.SelectedTab == tabPageHistorialMarca)
+            {
+                loadHistorialById();
+                EliminarTabPage(tabPageHistorialDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageIngresadasList)
+            {
+                LoadMarcas();
+                SeleccionarMarca.idN = 0;
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageHistorialDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageMarcaDetail)
+            {
+                CargarDatosMarca();
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+            }
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -471,42 +489,72 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = new Bitmap(openFile.FileName);
+            }
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-
+            pictureBox1.Image = null;
         }
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
+            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+            frmAgregarEtapa.ShowDialog();
 
+            if (AgregarEtapa.etapa != "")
+            {
+                textBoxEstatus.Text = AgregarEtapa.etapa;
+                mostrarPanelRegistro();
+                richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+            }
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
         {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
 
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersona.nombre;
+            }
         }
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
+            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
 
+            if (SeleccionarPersona.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersona.nombre;
+
+            }
         }
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-
+            loadHistorialById();
+            AnadirTabPage(tabPageHistorialMarca);
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-
+            ActualizarMarcaInternacional();
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageIngresadasList;
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)

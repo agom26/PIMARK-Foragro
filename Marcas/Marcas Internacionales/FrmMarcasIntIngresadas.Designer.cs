@@ -1318,6 +1318,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1169, 827);
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F);
