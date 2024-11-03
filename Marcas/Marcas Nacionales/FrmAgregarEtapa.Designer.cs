@@ -78,6 +78,7 @@
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 26);
             dateTimePicker1.TabIndex = 3;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // comboBox1
             // 

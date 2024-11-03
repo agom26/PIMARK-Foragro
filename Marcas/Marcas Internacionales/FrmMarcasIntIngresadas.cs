@@ -437,19 +437,26 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void refrescarMarca()
         {
-            if (SeleccionarMarca.idN > 0)
+            if (SeleccionarMarca.idInt > 0)
             {
                 try
                 {
-                    var detallesMarcaN = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
-                    if (detallesMarcaN.Count > 0)
+                    if (detallesMarcaInt.Rows.Count > 0)
                     {
-                        // Actualiza los detalles de la marca en los controles de la interfaz
-                        var detalle = detallesMarcaN[0]; // Supongamos que solo necesitas el primer resultado
+                        DataRow row = detallesMarcaInt.Rows[0];
 
-                        textBoxEstatus.Text = detalle.estado;
-                        richTextBox1.Text = detalle.observaciones;
+                        if (row["etapa"] != DBNull.Value && row["Observaciones"] != DBNull.Value) 
+                        {
+                            // Actualizar los controles 
+                            textBoxEstatus.Text = row["etapa"].ToString();
+                            richTextBox1.Text = row["Observaciones"].ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
 
                         // Verificar si "observaciones" contiene la palabra "registrada"
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
@@ -609,9 +616,18 @@ namespace Presentacion.Marcas_Internacionales
 
             if (AgregarEtapa.etapa != "")
             {
-                textBoxEstatus.Text = AgregarEtapa.etapa;
-                mostrarPanelRegistro();
-                richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+                try
+                {
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
+                    MessageBox.Show("Etapa agregada con éxito");
+                    mostrarPanelRegistro();
+                    refrescarMarca();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
 
