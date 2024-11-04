@@ -483,6 +483,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            ActualizarFechaVencimiento();
         }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
