@@ -141,7 +141,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idN));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0) 
                 {
@@ -160,8 +160,6 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -189,6 +187,7 @@ namespace Presentacion.Marcas_Nacionales
                         // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
+                        txtClase.Text = SeleccionarMarca.clase;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
