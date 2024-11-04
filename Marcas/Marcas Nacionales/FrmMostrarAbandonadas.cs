@@ -118,7 +118,7 @@ namespace Presentacion.Marcas_Nacionales
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
             string signoDistintivo = txtSignoDistintivo.Text;
-            string tipo="";
+            string tipo = "";
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -174,7 +174,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     // Guardar la marca 
                     bool esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo,tipo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento);
                     var marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                     if (esActualizado)
@@ -505,6 +505,11 @@ namespace Presentacion.Marcas_Nacionales
         {
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

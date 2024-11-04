@@ -442,5 +442,12 @@ namespace Presentacion
             openChildForm(new FrmMarcasIntOposiciones());
             EnableButtons();
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMarcasIntAbandonadas());
+            EnableButtons();
+        }
     }
 }

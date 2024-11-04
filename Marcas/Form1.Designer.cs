@@ -42,12 +42,12 @@
             btnReportes = new FontAwesome.Sharp.IconButton();
             btnPatentes = new FontAwesome.Sharp.IconButton();
             panelSubMenuMarcasInter = new Panel();
-            button6 = new Button();
-            button5 = new Button();
             button2 = new Button();
-            button1 = new Button();
-            button27 = new Button();
             button28 = new Button();
+            button27 = new Button();
+            button6 = new Button();
+            button1 = new Button();
+            button5 = new Button();
             button29 = new Button();
             button30 = new Button();
             iconButton12 = new FontAwesome.Sharp.IconButton();
@@ -332,6 +332,58 @@
             panelSubMenuMarcasInter.Size = new Size(259, 429);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
+            // button2
+            // 
+            button2.AutoSize = true;
+            button2.Dock = DockStyle.Top;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Century Gothic", 9F);
+            button2.ForeColor = Color.Black;
+            button2.Location = new Point(0, 355);
+            button2.Name = "button2";
+            button2.Padding = new Padding(58, 0, 0, 0);
+            button2.Size = new Size(259, 47);
+            button2.TabIndex = 9;
+            button2.Text = "Abandonadas";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
+            // 
+            // button28
+            // 
+            button28.AutoSize = true;
+            button28.Dock = DockStyle.Top;
+            button28.FlatAppearance.BorderSize = 0;
+            button28.FlatStyle = FlatStyle.Flat;
+            button28.Font = new Font("Century Gothic", 9F);
+            button28.ForeColor = Color.Black;
+            button28.Location = new Point(0, 308);
+            button28.Name = "button28";
+            button28.Padding = new Padding(58, 0, 0, 0);
+            button28.Size = new Size(259, 47);
+            button28.TabIndex = 5;
+            button28.Text = "Trámite de renovación";
+            button28.TextAlign = ContentAlignment.MiddleLeft;
+            button28.UseVisualStyleBackColor = true;
+            // 
+            // button27
+            // 
+            button27.AutoSize = true;
+            button27.Dock = DockStyle.Top;
+            button27.FlatAppearance.BorderSize = 0;
+            button27.FlatStyle = FlatStyle.Flat;
+            button27.Font = new Font("Century Gothic", 9F);
+            button27.ForeColor = Color.Black;
+            button27.Location = new Point(0, 248);
+            button27.Name = "button27";
+            button27.Padding = new Padding(58, 0, 0, 0);
+            button27.Size = new Size(259, 60);
+            button27.TabIndex = 7;
+            button27.Text = "Trámite de traspaso";
+            button27.TextAlign = ContentAlignment.MiddleLeft;
+            button27.UseVisualStyleBackColor = true;
+            // 
             // button6
             // 
             button6.AutoSize = true;
@@ -349,41 +401,6 @@
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click_1;
-            // 
-            // button5
-            // 
-            button5.AutoSize = true;
-            button5.Dock = DockStyle.Top;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Century Gothic", 9F);
-            button5.ForeColor = Color.Black;
-            button5.Location = new Point(0, 94);
-            button5.Name = "button5";
-            button5.Padding = new Padding(58, 0, 0, 0);
-            button5.Size = new Size(259, 47);
-            button5.TabIndex = 10;
-            button5.Text = "Ingresadas";
-            button5.TextAlign = ContentAlignment.MiddleLeft;
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click_1;
-            // 
-            // button2
-            // 
-            button2.AutoSize = true;
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Century Gothic", 9F);
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(0, 355);
-            button2.Name = "button2";
-            button2.Padding = new Padding(58, 0, 0, 0);
-            button2.Size = new Size(259, 47);
-            button2.TabIndex = 9;
-            button2.Text = "Abandonadas";
-            button2.TextAlign = ContentAlignment.MiddleLeft;
-            button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -403,39 +420,23 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
-            // button27
+            // button5
             // 
-            button27.AutoSize = true;
-            button27.Dock = DockStyle.Top;
-            button27.FlatAppearance.BorderSize = 0;
-            button27.FlatStyle = FlatStyle.Flat;
-            button27.Font = new Font("Century Gothic", 9F);
-            button27.ForeColor = Color.Black;
-            button27.Location = new Point(0, 248);
-            button27.Name = "button27";
-            button27.Padding = new Padding(58, 0, 0, 0);
-            button27.Size = new Size(259, 60);
-            button27.TabIndex = 7;
-            button27.Text = "Trámite de traspaso";
-            button27.TextAlign = ContentAlignment.MiddleLeft;
-            button27.UseVisualStyleBackColor = true;
-            // 
-            // button28
-            // 
-            button28.AutoSize = true;
-            button28.Dock = DockStyle.Top;
-            button28.FlatAppearance.BorderSize = 0;
-            button28.FlatStyle = FlatStyle.Flat;
-            button28.Font = new Font("Century Gothic", 9F);
-            button28.ForeColor = Color.Black;
-            button28.Location = new Point(0, 308);
-            button28.Name = "button28";
-            button28.Padding = new Padding(58, 0, 0, 0);
-            button28.Size = new Size(259, 47);
-            button28.TabIndex = 5;
-            button28.Text = "Trámite de renovación";
-            button28.TextAlign = ContentAlignment.MiddleLeft;
-            button28.UseVisualStyleBackColor = true;
+            button5.AutoSize = true;
+            button5.Dock = DockStyle.Top;
+            button5.FlatAppearance.BorderSize = 0;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.Font = new Font("Century Gothic", 9F);
+            button5.ForeColor = Color.Black;
+            button5.Location = new Point(0, 94);
+            button5.Name = "button5";
+            button5.Padding = new Padding(58, 0, 0, 0);
+            button5.Size = new Size(259, 47);
+            button5.TabIndex = 10;
+            button5.Text = "Ingresadas";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click_1;
             // 
             // button29
             // 
