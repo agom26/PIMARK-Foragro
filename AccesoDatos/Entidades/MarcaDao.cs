@@ -162,6 +162,33 @@ namespace AccesoDatos.Entidades
             return tabla; 
         }
 
+        public DataTable GetAllMarcasInternacionalesRegistradas()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesRegistradas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas internacionales: {ex.Message}");
+            }
+            return tabla;
+        }
+
+
         public DataTable GetAllMarcasNacionalesEnAbandono()
         {
             DataTable tabla = new DataTable();

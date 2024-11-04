@@ -48,6 +48,12 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasNacionalesRegistradas();
             return tabla;
         }
+        public DataTable GetAllMarcasInternacionalesRegistradas()
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.GetAllMarcasInternacionalesRegistradas();
+            return tabla;
+        }
         public DataTable GetAllMarcasNacionalesEnAbandono()
         {
             DataTable tabla = new DataTable();

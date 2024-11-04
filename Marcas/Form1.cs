@@ -431,7 +431,9 @@ namespace Presentacion
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-
+            DisableButtons();
+            openChildForm(new FrmMarcasIntRegistradas());
+            EnableButtons();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
