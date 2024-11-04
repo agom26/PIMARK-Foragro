@@ -68,7 +68,7 @@ namespace Dominio
         }
 
 
-        public List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
+        public DataTable GetMarcaNacionalById(int id)
         {
             return marcaDao.GetMarcaNacionalById(id);
         }

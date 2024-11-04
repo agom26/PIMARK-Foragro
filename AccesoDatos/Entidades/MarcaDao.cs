@@ -407,68 +407,29 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)> GetMarcaNacionalById(int id)
+        public DataTable GetMarcaNacionalById(int id)
         {
-            var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)>();
+            DataTable marcaTable = new DataTable();
 
-            using (MySqlConnection conexion = GetConnection()) 
+            using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand(@"SELECT 
-                    M.id, 
-                    M.expediente, 
-                    M.nombre, 
-                    M.signo_distintivo AS signoDistintivo, 
-                    M.tipoSigno AS Tipo,
-                    M.clase, 
-                    M.folio, 
-                    M.libro, 
-                    M.logo, 
-                    M.estado, 
-                    M.registro, 
-                    M.fecha_solicitud AS fechaSolicitud, 
-                    M.fecha_registro AS fechaRegistro, 
-                    M.fecha_vencimiento AS fechaVencimiento,
-                    M.idTitular,  
-                    M.idAgente,
-                    M.observaciones
-                FROM 
-                    Marcas M
-                WHERE 
-                    M.tipo = 'nacional' 
-                    AND M.id = @id;", conexion))
+                using (MySqlCommand comando = new MySqlCommand("ObtenerMarcaNacionalPorId", conexion))
                 {
-                    comando.Parameters.AddWithValue("@id", id);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@p_id", id);
+
                     conexion.Open();
 
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
-                        if (reader.Read())
-                        {
-                            marca.Add((
-                                reader.GetInt32("id"),
-                                reader.IsDBNull(reader.GetOrdinal("expediente")) ? "" : reader.GetString("expediente"),
-                                reader.IsDBNull(reader.GetOrdinal("nombre")) ? "" : reader.GetString("nombre"),
-                                reader.IsDBNull(reader.GetOrdinal("signoDistintivo")) ? "" : reader.GetString("signoDistintivo"),
-                                reader.IsDBNull(reader.GetOrdinal("Tipo")) ? "" : reader.GetString("Tipo"),
-                                reader.IsDBNull(reader.GetOrdinal("clase")) ? "" : reader.GetString("clase"),
-                                reader.IsDBNull(reader.GetOrdinal("folio")) ? "" : reader.GetString("folio"),
-                                reader.IsDBNull(reader.GetOrdinal("libro")) ? "" : reader.GetString("libro"),
-                                reader.IsDBNull(reader.GetOrdinal("logo")) ? null : (byte[])reader["logo"],
-                                reader.IsDBNull(reader.GetOrdinal("estado")) ? "" : reader.GetString("estado"),
-                                reader.IsDBNull(reader.GetOrdinal("registro")) ? "" : reader.GetString("registro"),
-                                reader.IsDBNull(reader.GetOrdinal("fechaSolicitud")) ? (DateTime?)null : reader.GetDateTime("fechaSolicitud"),
-                                reader.IsDBNull(reader.GetOrdinal("fechaRegistro")) ? (DateTime?)null : reader.GetDateTime("fechaRegistro"),
-                                reader.IsDBNull(reader.GetOrdinal("fechaVencimiento")) ? (DateTime?)null : reader.GetDateTime("fechaVencimiento"),
-                                reader.IsDBNull(reader.GetOrdinal("idTitular")) ? 0 : reader.GetInt32("idTitular"),
-                                reader.IsDBNull(reader.GetOrdinal("idAgente")) ? 0 : reader.GetInt32("idAgente"),
-                                reader.IsDBNull(reader.GetOrdinal("observaciones")) ? "" : reader.GetString("observaciones") // Incluye observaciones
-                            ));
-                        }
+                        marcaTable.Load(reader);
                     }
                 }
             }
-            return marca; 
+
+            return marcaTable;
         }
+
 
 
         public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
