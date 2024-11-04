@@ -28,42 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            txtBuscar = new TextBox();
             dtgVencimientos = new DataGridView();
-            label1 = new Label();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            panel1 = new Panel();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            label2 = new Label();
+            ibtnBuscar = new FontAwesome.Sharp.IconButton();
+            textBox1 = new TextBox();
+            label3 = new Label();
+            roundedButton3 = new Clases.RoundedButton();
+            roundedButton5 = new Clases.RoundedButton();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // iconButton1
-            // 
-            iconButton1.Anchor = AnchorStyles.None;
-            iconButton1.BackColor = Color.FromArgb(255, 164, 0);
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
-            iconButton1.IconColor = Color.Black;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(861, 104);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(148, 34);
-            iconButton1.TabIndex = 3;
-            iconButton1.Text = "Buscar";
-            iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton1.UseVisualStyleBackColor = false;
-            iconButton1.Click += iconButton1_Click;
-            // 
-            // txtBuscar
-            // 
-            txtBuscar.Anchor = AnchorStyles.None;
-            txtBuscar.Location = new Point(32, 106);
-            txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(823, 26);
-            txtBuscar.TabIndex = 2;
             // 
             // dtgVencimientos
             // 
@@ -79,90 +56,167 @@
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dtgVencimientos.DefaultCellStyle = dataGridViewCellStyle1;
             dtgVencimientos.EnableHeadersVisualStyles = false;
             dtgVencimientos.GridColor = Color.LightGray;
-            dtgVencimientos.Location = new Point(32, 198);
+            dtgVencimientos.Location = new Point(27, 14);
             dtgVencimientos.Name = "dtgVencimientos";
             dtgVencimientos.ReadOnly = true;
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.Size = new Size(895, 504);
             dtgVencimientos.TabIndex = 4;
             // 
-            // label1
+            // panel1
             // 
-            label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(322, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(370, 39);
-            label1.TabIndex = 5;
-            label1.Text = "Próximos vencimientos";
+            panel1.Anchor = AnchorStyles.None;
+            panel1.BackColor = Color.FromArgb(192, 202, 212);
+            panel1.Controls.Add(dtgVencimientos);
+            panel1.Location = new Point(40, 233);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(952, 539);
+            panel1.TabIndex = 6;
             // 
-            // iconButton2
+            // iconPictureBox1
             // 
-            iconButton2.Anchor = AnchorStyles.None;
-            iconButton2.BackColor = Color.FromArgb(0, 150, 136);
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Envelope;
-            iconButton2.IconColor = Color.White;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(947, 241);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(103, 77);
-            iconButton2.TabIndex = 6;
-            iconButton2.Text = "Enviar correo";
-            iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
+            iconPictureBox1.Anchor = AnchorStyles.Top;
+            iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 40;
+            iconPictureBox1.Location = new Point(348, 24);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 40);
+            iconPictureBox1.TabIndex = 40;
+            iconPictureBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.BackColor = Color.FromArgb(196, 195, 209);
+            label2.Font = new Font("Century Gothic", 15F);
+            label2.Location = new Point(399, 24);
+            label2.Name = "label2";
+            label2.Size = new Size(291, 31);
+            label2.TabIndex = 34;
+            label2.Text = "Próximos vencimientos";
+            // 
+            // ibtnBuscar
+            // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
+            ibtnBuscar.BackColor = Color.Black;
+            ibtnBuscar.FlatAppearance.BorderSize = 0;
+            ibtnBuscar.FlatStyle = FlatStyle.Flat;
+            ibtnBuscar.Font = new Font("Century Gothic", 10F);
+            ibtnBuscar.ForeColor = Color.White;
+            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
+            ibtnBuscar.IconColor = Color.White;
+            ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtnBuscar.IconSize = 30;
+            ibtnBuscar.Location = new Point(678, 142);
+            ibtnBuscar.Name = "ibtnBuscar";
+            ibtnBuscar.Size = new Size(144, 32);
+            ibtnBuscar.TabIndex = 37;
+            ibtnBuscar.Text = "Buscar";
+            ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtnBuscar.UseVisualStyleBackColor = false;
+            // 
+            // textBox1
+            // 
+            textBox1.Anchor = AnchorStyles.Top;
+            textBox1.Location = new Point(348, 146);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(301, 26);
+            textBox1.TabIndex = 36;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top;
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(236, 236, 238);
+            label3.Font = new Font("Century Gothic", 9F);
+            label3.Location = new Point(183, 146);
+            label3.Name = "label3";
+            label3.Size = new Size(148, 20);
+            label3.TabIndex = 35;
+            label3.Text = "Buscar por nombre";
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.Anchor = AnchorStyles.Top;
+            roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BorderRadius = 20;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.Enabled = false;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.ForeColor = Color.White;
+            roundedButton3.Location = new Point(171, 126);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(683, 61);
+            roundedButton3.TabIndex = 38;
+            roundedButton3.Text = "roundedButton3";
+            roundedButton3.TextColor = Color.White;
+            roundedButton3.UseVisualStyleBackColor = false;
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.Anchor = AnchorStyles.Top;
+            roundedButton5.BackColor = Color.FromArgb(196, 195, 209);
+            roundedButton5.BackgroundColor = Color.FromArgb(196, 195, 209);
+            roundedButton5.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton5.BorderRadius = 60;
+            roundedButton5.BorderSize = 0;
+            roundedButton5.Enabled = false;
+            roundedButton5.FlatAppearance.BorderSize = 0;
+            roundedButton5.FlatStyle = FlatStyle.Flat;
+            roundedButton5.ForeColor = Color.White;
+            roundedButton5.Location = new Point(170, 12);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.Size = new Size(683, 61);
+            roundedButton5.TabIndex = 39;
+            roundedButton5.TextColor = Color.White;
+            roundedButton5.UseVisualStyleBackColor = false;
             // 
             // FrmVencimientos
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1071, 729);
-            Controls.Add(iconButton2);
-            Controls.Add(label1);
-            Controls.Add(dtgVencimientos);
-            Controls.Add(iconButton1);
-            Controls.Add(txtBuscar);
+            ClientSize = new Size(1071, 796);
+            Controls.Add(iconPictureBox1);
+            Controls.Add(label2);
+            Controls.Add(ibtnBuscar);
+            Controls.Add(textBox1);
+            Controls.Add(label3);
+            Controls.Add(roundedButton3);
+            Controls.Add(panel1);
+            Controls.Add(roundedButton5);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmVencimientos";
             Text = "FrmVencimientos";
             Load += FrmVencimientos_Load;
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).EndInit();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private TextBox txtBuscar;
         private DataGridView dtgVencimientos;
-        private Label label1;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private Panel panel1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Label label2;
+        private FontAwesome.Sharp.IconButton ibtnBuscar;
+        private TextBox textBox1;
+        private Label label3;
+        private Clases.RoundedButton roundedButton3;
+        private Clases.RoundedButton roundedButton5;
     }
 }

@@ -16,7 +16,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                using (MySqlConnection conexion = GetConnection()) 
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasSinRegistro", conexion))
                     {
@@ -43,7 +43,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                using (MySqlConnection conexion = GetConnection()) 
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesSinRegistro", conexion))
                     {
@@ -70,7 +70,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                using (MySqlConnection conexion = GetConnection()) 
                 {
                     using (MySqlCommand comando = new MySqlCommand(@"
                     SELECT  
@@ -91,10 +91,10 @@ namespace AccesoDatos.Entidades
                         M.tipo = 'nacional' AND 
                         (estado='Oposición');", conexion))
                     {
-                        conexion.Open(); // Abre la conexión a la base de datos
-                        using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                        conexion.Open(); 
+                        using (MySqlDataReader leer = comando.ExecuteReader()) 
                         {
-                            tabla.Load(leer); // Carga los datos en el DataTable
+                            tabla.Load(leer); 
                         }
                     }
                 }
@@ -102,16 +102,16 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
-                // Maneja la excepción según sea necesario
+                
             }
-            return tabla; // Devuelve el DataTable con los resultados
+            return tabla;
         }
         public DataTable GetAllMarcasInternacionalesEnOposicion()
         {
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                using (MySqlConnection conexion = GetConnection()) 
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasEnOposicion", conexion))
                     {
@@ -138,19 +138,18 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+                using (MySqlConnection conexion = GetConnection()) 
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasRegistradas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
-                        // Agrega el parámetro `estadoFiltro` y pásale el valor correspondiente
                         comando.Parameters.AddWithValue("@estadoFiltro", estadoFiltro);
 
-                        conexion.Open(); // Abre la conexión a la base de datos
-                        using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                        conexion.Open(); 
+                        using (MySqlDataReader leer = comando.ExecuteReader()) 
                         {
-                            tabla.Load(leer); // Carga los datos en el DataTable
+                            tabla.Load(leer); 
                         }
                     }
                 }
@@ -190,10 +189,10 @@ namespace AccesoDatos.Entidades
                         M.tipo = 'nacional' AND 
                         (estado='Abandono');", conexion))
                     {
-                        conexion.Open(); // Abre la conexión a la base de datos
-                        using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                        conexion.Open(); 
+                        using (MySqlDataReader leer = comando.ExecuteReader())
                         {
-                            tabla.Load(leer); // Carga los datos en el DataTable
+                            tabla.Load(leer); 
                         }
                     }
                 }
@@ -201,15 +200,15 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
-                // Maneja la excepción según sea necesario
+                
             }
-            return tabla; // Devuelve el DataTable con los resultados
+            return tabla; 
         }
 
 
         public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
         {
-            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            using (var connection = GetConnection()) 
             {
                 connection.Open();
 
@@ -222,7 +221,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
                     command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
-                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@logo", logo); 
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
@@ -240,7 +239,6 @@ namespace AccesoDatos.Entidades
             {
                 connection.Open();
 
-                // Verificar si idCliente existe en la tabla Personas
                 using (var checkCommand = new MySqlCommand("SELECT COUNT(*) FROM Personas WHERE id = @idCliente", connection))
                 {
                     checkCommand.Parameters.AddWithValue("@idCliente", idCliente);
@@ -269,9 +267,8 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@tiene_poder", tiene_poder);
                     command.Parameters.AddWithValue("@idCliente", idCliente);
 
-                    // Ejecuta el comando y obtiene el último ID insertado
                     int idMarca = Convert.ToInt32(command.ExecuteScalar());
-                    return idMarca; // Devuelve el ID de la marca recién insertada
+                    return idMarca;
                 }
             }
         }
@@ -283,8 +280,8 @@ namespace AccesoDatos.Entidades
                                       DateTime fecha_solicitud, string registro,
                                       DateTime fechaRegistro, DateTime fechaVencimiento)
         {
-            int idMarca = 0; // Variable para almacenar el ID de la nueva marca
-            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            int idMarca = 0;
+            using (var connection = GetConnection()) 
             {
                 connection.Open();
                 using (var command = new MySqlCommand(@"
@@ -301,7 +298,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@folio", folio);
                     command.Parameters.AddWithValue("@libro", libro);
-                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@logo", logo); 
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
@@ -309,18 +306,17 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@fecha_registro", fechaRegistro);
                     command.Parameters.AddWithValue("@fecha_vencimiento", fechaVencimiento);
 
-                    // Ejecuta el comando y obtiene el ID de la última fila insertada
                     idMarca = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
-            return idMarca; // Retorna el ID de la nueva marca
+            return idMarca; 
         }
 
 
         public int AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
         {
-            int idMarca = 0; // Variable para almacenar el ID de la nueva marca
-            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            int idMarca = 0;
+            using (var connection = GetConnection())
             {
                 connection.Open();
                 using (var command = new MySqlCommand(@"
@@ -350,11 +346,10 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@fecha_registro", fechaRegistro);
                     command.Parameters.AddWithValue("@fecha_vencimiento", fechaVencimiento);
 
-                    // Ejecuta el comando y obtiene el ID de la última fila insertada
                     idMarca = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
-            return idMarca; // Retorna el ID de la nueva marca
+            return idMarca; 
         }
 
 
@@ -362,7 +357,7 @@ namespace AccesoDatos.Entidades
         {
             var marca = new List<(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, string estado, string registro, DateTime? fechaSolicitud, DateTime? fechaRegistro, DateTime? fechaVencimiento, int idTitular, int idAgente, string observaciones)>();
 
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand(@"SELECT 
                     M.id, 
@@ -418,7 +413,7 @@ namespace AccesoDatos.Entidades
                     }
                 }
             }
-            return marca; // Devuelve la lista con los detalles de la marca (contiene solo un elemento)
+            return marca; 
         }
 
 
@@ -446,14 +441,13 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
                     command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("@clase", clase);
-                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@logo", logo); 
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                    return rowsAffected > 0; 
                 }
             }
         }
@@ -490,7 +484,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@clase", clase);
                     command.Parameters.AddWithValue("@folio", folio);
                     command.Parameters.AddWithValue("@libro", libro);
-                    command.Parameters.AddWithValue("@logo", logo); // Asignar el logo
+                    command.Parameters.AddWithValue("@logo", logo); 
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
@@ -498,9 +492,9 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@fechaRegistro", fechaRegistro);
                     command.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
+                    
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                    return rowsAffected > 0; 
                 }
             }
         }
@@ -527,9 +521,9 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("p_tiene_poder", tiene_poder);
                     command.Parameters.AddWithValue("p_idCliente", idCliente);
 
-                    // Ejecuta el comando
+                   
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; // Retorna true si se actualizó al menos una fila
+                    return rowsAffected > 0;
                 }
             }
         }
@@ -597,7 +591,7 @@ namespace AccesoDatos.Entidades
 
                     using (var adapter = new MySqlDataAdapter(comando))
                     {
-                        // Llena el DataTable con los resultados del procedimiento almacenado
+                       
                         adapter.Fill(dataTable);
                     }
                 }

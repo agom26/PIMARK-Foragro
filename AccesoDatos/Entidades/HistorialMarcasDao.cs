@@ -98,13 +98,10 @@ namespace AccesoDatos.Entidades
             {
                 connection.Open();
 
-                // Begin a transaction to ensure both actions succeed or fail together
                 using (var transaction = connection.BeginTransaction())
                 {
                     try
                     {
-
-                        // Log the deletion
                         using (var command = new MySqlCommand("LogHistorialDeletion", connection, transaction))
                         {
                             command.CommandType = CommandType.StoredProcedure;
@@ -112,12 +109,12 @@ namespace AccesoDatos.Entidades
                             command.Parameters.AddWithValue("p_idHistorial", idHistorial);
                             command.Parameters.AddWithValue("p_usuario", deletedBy);
 
-                            command.ExecuteNonQuery(); // Execute the logging
+                            command.ExecuteNonQuery(); 
                             
                         }
 
 
-                        // Delete the history record
+                        
                         using (var command = new MySqlCommand("EliminarRegistroHistorial", connection, transaction))
                         {
                             command.CommandType = CommandType.StoredProcedure;
@@ -125,24 +122,20 @@ namespace AccesoDatos.Entidades
 
                             int rowsAffected = command.ExecuteNonQuery();
 
-                            // If no rows were affected, the deletion did not happen
                             if (rowsAffected == 0)
                             {
-                                transaction.Rollback(); // Rollback if deletion failed
+                                transaction.Rollback(); 
                                 return false;
                             }
                         }
 
-                       
-                        // Commit the transaction if both actions succeeded
                         transaction.Commit();
                         return true;
                     }
                     catch
                     {
-                        // Rollback the transaction in case of an error
                         transaction.Rollback();
-                        throw; // Optionally rethrow the exception for further handling
+                        throw; 
                     }
                 }
             }

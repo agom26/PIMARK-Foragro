@@ -68,7 +68,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, fecha_vencimiento as Vencimiento, clase as Clase, registro as Registro, folio as Folio, libro as Libro, titular as Titular, agente as Agente, marcaID FROM Vencimientos;", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, fecha_vencimiento as Vencimiento, tipo as Tipo, registro as Registro, folio as Folio, libro as Libro, titular as Titular, agente as Agente, marcaID FROM Vencimientos;", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre

@@ -1,86 +1,34 @@
 ﻿using AccesoDatos.ServiciosEmail;
 using Dominio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
-
+using System;
+using System.Data;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Presentacion.Vencimientos
 {
     public partial class FrmVencimientos : Form
     {
-
-
         VencimientoModel vencimientoModel = new VencimientoModel();
+        private bool isSendingEmail = false;
         public FrmVencimientos()
         {
             InitializeComponent();
-            this.Load += FrmVencimientos_Load; // Mueve la lógica de carga aquí
-        }
-        public void EnviarCorreo( string receptor)
-        {
-            try
-            {
-                // Configuración del mensaje
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Berger Pemueller", "avisos@bpa.com.es"));
-                message.To.Add(new MailboxAddress("Destinatario", receptor));
-                message.Subject = "Avisos de vencimiento de Berger Pemueller";
-
-                // Cuerpo del mensaje
-                message.Body = new TextPart("plain")
-                {
-                    Text = "Su marca o patente ya va a vencer."
-                };
-
-                // Configuración del cliente SMTP
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("mail.bpa.com.es", 465, true); // Usa SSL (puerto 465)
-
-                    // Autenticación
-                    client.Authenticate("avisos@bpa.com.es", "Berger*Pemueller*2024");
-
-                    // Enviar el mensaje
-                    client.Send(message);
-                    MessageBox.Show("Correo enviado con éxito.");
-                    client.Disconnect(true);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al enviar el correo: {ex.Message}");
-            }
+            this.Load += FrmVencimientos_Load;
         }
 
-
-        private void MostrarTitulares()
+        private async void FrmVencimientos_Load(object sender, EventArgs e)
         {
-            dtgVencimientos.DataSource = vencimientoModel.GetAllVencimientos();
-            // Ocultar la columna 'id'
-            if (dtgVencimientos.Columns["id"] != null)
-            {
-                dtgVencimientos.Columns["id"].Visible = false;
-                dtgVencimientos.Columns["marcaID"].Visible = false;
-                // Desactiva la selección automática de la primera fila
-                dtgVencimientos.ClearSelection();
-            }
+            await Task.Run(() => LoadVencimientos());
+            AgregarBotonEnviarCorreo(); // Agregar el botón después de cargar los datos
         }
 
         private void LoadVencimientos()
         {
-            // Obtiene los usuarios
             var titulares = vencimientoModel.GetAllVencimientos();
-
             Invoke(new Action(() =>
             {
                 dtgVencimientos.DataSource = titulares;
@@ -90,79 +38,117 @@ namespace Presentacion.Vencimientos
                     dtgVencimientos.Columns["id"].Visible = false;
                     dtgVencimientos.Columns["marcaID"].Visible = false;
                 }
-
-
             }));
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void AgregarBotonEnviarCorreo()
         {
-
-            string valor = "%" + txtBuscar.Text + "%";
-            var vencimientos = vencimientoModel.GetVencimientoByValue(valor);
-
-            if (vencimientos != null)
+            if (!dtgVencimientos.Columns.Contains("EnviarCorreo"))
             {
-                dtgVencimientos.DataSource = vencimientos;
-                if (dtgVencimientos.Columns["id"] != null)
+                var botonColumna = new DataGridViewButtonColumn
                 {
-                    dtgVencimientos.Columns["id"].Visible = false;
-                    dtgVencimientos.Columns["marcaID"].Visible = false;
+                    Name = "EnviarCorreo",
+                    HeaderText = "Acciones",
+                    Text = "Notificar",
+                    UseColumnTextForButtonValue = true
+                };
+
+                dtgVencimientos.Columns.Add(botonColumna);
+            }
+
+           
+            dtgVencimientos.CellClick += DtgVencimientos_CellClick;
+
+           
+            dtgVencimientos.CellPainting += DtgVencimientos_CellPainting;
+        }
+
+
+        private void DtgVencimientos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == dtgVencimientos.Columns["EnviarCorreo"].Index && e.RowIndex >= 0)
+            {
+                e.Handled = true;
+
+                // Pinta el fondo del botón
+                using (Brush brush = new SolidBrush(ColorTranslator.FromHtml("#34918a")))
+                {
+                    e.Graphics.FillRectangle(brush, e.CellBounds);
                 }
 
-            }
-            else
-            {
-                MessageBox.Show("No se encontraron resultados para la búsqueda.");
+                // Dibuja el texto en blanco
+                TextRenderer.DrawText(e.Graphics, e.Value?.ToString(), e.CellStyle.Font, e.CellBounds, Color.White, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+
+                // Dibuja el borde del botón
+                e.Graphics.DrawRectangle(Pens.Black, e.CellBounds);
             }
         }
 
-        private async void FrmVencimientos_Load(object sender, EventArgs e)
-        {
-            // Cargar usuarios en segundo plano
-            await Task.Run(() => LoadVencimientos());
-        }
 
-        private async void iconButton2_Click(object sender, EventArgs e)
+
+
+        private async void DtgVencimientos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dtgVencimientos.RowCount <= 0)
+            if (e.ColumnIndex == dtgVencimientos.Columns["EnviarCorreo"].Index && e.RowIndex >= 0)
             {
-                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (dtgVencimientos.SelectedRows.Count >= 1)
-            {
-                var filaSeleccionada = dtgVencimientos.SelectedRows[0];
+                if (isSendingEmail) return; 
+
+                isSendingEmail = true; 
+                var filaSeleccionada = dtgVencimientos.Rows[e.RowIndex];
+
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    int marcaid = Convert.ToInt32(dataRowView["marcaID"]);
-                    var user = vencimientoModel.GetCorreosPorMarcaId(marcaid);
-                    if (user.CorreoAgente == null) return;
+                    int marcaId = Convert.ToInt32(dataRowView["marcaID"]);
+                    var user = vencimientoModel.GetCorreosPorMarcaId(marcaId);
 
-                    // Deshabilitar el botón antes de enviar el correo
-                    iconButton2.Enabled = false;
-
-                    try
+                    if (!string.IsNullOrEmpty(user.CorreoAgente))
                     {
-                        // Enviar el correo de manera asíncrona
-                        await Task.Run(() => EnviarCorreo(user.CorreoAgente));
+                        try
+                        {
+                            dtgVencimientos.Enabled = false;
+                            await Task.Run(() => EnviarCorreo(user.CorreoAgente));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al enviar el correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            dtgVencimientos.Enabled = true;
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Error al enviar el correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        // Rehabilitar el botón después de enviar el correo
-                        iconButton2.Enabled = true;
+                        MessageBox.Show("No hay un correo registrado para este agente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                isSendingEmail = false; // Marcar como finalizado
             }
         }
 
+        public void EnviarCorreo(string receptor)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Berger Pemueller", "avisos@bpa.com.es"));
+                message.To.Add(new MailboxAddress("Destinatario", receptor));
+                message.Subject = "Avisos de vencimiento de Berger Pemueller";
+                message.Body = new TextPart("plain") { Text = "Su marca o patente ya va a vencer." };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("mail.bpa.com.es", 465, true);
+                    client.Authenticate("avisos@bpa.com.es", "Berger*Pemueller*2024");
+                    client.Send(message);
+                    client.Disconnect(true);
+                    MessageBox.Show("Correo enviado con éxito.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar el correo: {ex.Message}");
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Data.SqlClient;
-using System.Security.Cryptography;
+using System.Configuration;
 
 namespace AccesoDatos
 {
@@ -11,15 +10,12 @@ namespace AccesoDatos
 
         public ConnectionSQL()
         {
-            // Cadena de conexión para SQL Server
-            connectionString = "server=bpa.com.es;port=3306;uid=bpaes_registrador;pwd=X*r@$Vh6VF@_;database=bpaes_marcas;";
+            connectionString = ConfigurationManager.ConnectionStrings["BPA"].ConnectionString;
         }
 
         protected MySqlConnection GetConnection()
         {
-            
             return new MySqlConnection(connectionString);
-            
         }
 
         public void TestConnection()
@@ -29,7 +25,7 @@ namespace AccesoDatos
                 using (MySqlConnection connection = GetConnection())
                 {
                     connection.Open();
-                    Console.WriteLine("Conexión exitosa a la base de datos SQL Server.");
+                    Console.WriteLine("Conexión exitosa a la base de datos MySQL.");
                 }
             }
             catch (Exception ex)
@@ -39,3 +35,4 @@ namespace AccesoDatos
         }
     }
 }
+

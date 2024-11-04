@@ -574,9 +574,40 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageListaMarcas;
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageListaMarcas;
+            }
+            else
+            {
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro , a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                    )
+                {
+                    
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageHistorialMarca);
+                    }
+
+                }
+
+            }
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
