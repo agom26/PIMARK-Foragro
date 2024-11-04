@@ -39,7 +39,7 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton3_Click(object sender, EventArgs e)
         {
             string anotaciones = richTextBox1.Text;
-            AgregarEtapa.etapa = comboBox1.SelectedItem.ToString();
+            AgregarEtapa.etapa = comboBox1.SelectedItem?.ToString();
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 

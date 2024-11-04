@@ -36,7 +36,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateTimePFecha_vencimiento.Value = fecha_vencimiento; // Asigna la fecha de vencimiento al DateTimePicker correspondiente
+            dateTimePFecha_vencimiento.Value = fecha_vencimiento;
         }
         private bool ValidarCampo(string campo, string mensaje)
         {
@@ -333,7 +333,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void FrmTramiteIn_Load(object sender, EventArgs e)
         {
-
+            ActualizarFechaVencimiento();
         }
 
         private void roundedButton4_Click_1(object sender, EventArgs e)

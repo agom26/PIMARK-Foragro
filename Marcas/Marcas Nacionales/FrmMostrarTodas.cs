@@ -514,9 +514,26 @@ namespace Presentacion.Marcas_Nacionales
 
             if (AgregarEtapa.etapa != "")
             {
-                textBoxEstatus.Text = AgregarEtapa.etapa;
-                mostrarPanelRegistro();
-                richTextBox1.Text = SeleccionarMarca.observaciones + "\n" + AgregarEtapa.anotaciones;
+                try
+                {
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
+                    MessageBox.Show("Etapa agregada con éxito");
+                    if (AgregarEtapa.etapa == "Registrada")
+                    {
+                        checkBox1.Checked = true;
+                    }
+                    else
+                    {
+                        checkBox1.Checked = false;
+                    }
+                    mostrarPanelRegistro();
+                    refrescarMarca();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
             }
         }
 
