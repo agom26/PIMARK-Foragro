@@ -48,7 +48,7 @@
             dtgVencimientos.AllowUserToDeleteRows = false;
             dtgVencimientos.AllowUserToOrderColumns = true;
             dtgVencimientos.AllowUserToResizeRows = false;
-            dtgVencimientos.Anchor = AnchorStyles.None;
+            dtgVencimientos.Anchor = AnchorStyles.Top;
             dtgVencimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgVencimientos.BackgroundColor = Color.White;
             dtgVencimientos.BorderStyle = BorderStyle.None;
@@ -68,7 +68,7 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.None;
+            panel1.Anchor = AnchorStyles.Top;
             panel1.BackColor = Color.FromArgb(192, 202, 212);
             panel1.Controls.Add(dtgVencimientos);
             panel1.Location = new Point(40, 233);

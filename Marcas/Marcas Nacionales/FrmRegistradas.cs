@@ -535,7 +535,6 @@ namespace Presentacion.Marcas_Nacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                
                                 historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString()+" Abandono "+justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
