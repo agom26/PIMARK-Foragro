@@ -35,7 +35,7 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton1_Click(object sender, EventArgs e)
         {
             Justificacion = richTextBoxJustificacion.Text.Trim();
-
+            fecha=dateTimePicker1.Value;
             if (string.IsNullOrEmpty(Justificacion))
             {
                 MessageBox.Show("Por favor ingrese una justificación.", "Justificación requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -34,7 +34,6 @@ namespace Presentacion.Marcas_Nacionales
 
         private void MostrarMarcasRegistradas()
         {
-            //Mostrar marcas registradas
             dtgMarcasR.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
             // Ocultar la columna 'id'
             if (dtgMarcasR.Columns["id"] != null)
@@ -72,7 +71,6 @@ namespace Presentacion.Marcas_Nacionales
 
             tabControl1.SelectedTab = nombre;
         }
-        // Método para mostrar el logo en un PictureBox
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
             if (logo != null && logo.Length > 0) // Verificar que el logo no esté vacío
@@ -297,6 +295,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.clase = detallesMarcaN[0].clase;
                         SeleccionarMarca.estado = detallesMarcaN[0].estado;
                         SeleccionarMarca.signoDistintivo = detallesMarcaN[0].signoDistintivo;
+                        SeleccionarMarca.tipoSigno = detallesMarcaN[0].tipoSigno;
                         SeleccionarMarca.logo = detallesMarcaN[0].logo;
                         SeleccionarMarca.idPersonaTitular = detallesMarcaN[0].idTitular;
                         SeleccionarMarca.idPersonaAgente = detallesMarcaN[0].idAgente;
@@ -525,10 +524,10 @@ namespace Presentacion.Marcas_Nacionales
                     string justificacion = justificacionForm.Justificacion;
                     DateTime fechaAbandono = justificacionForm.fecha;
                     string usuarioAbandono = justificacionForm.usuarioAbandono;
-                    // Cambiar el estado a "Abandonada" y guardar la justificación
+                    
                     try
                     {
-                        // Obtener el ID de la marca seleccionada
+                        
                         if (dtgMarcasR.SelectedRows.Count > 0)
                         {
                             var filaSeleccionada = dtgMarcasR.SelectedRows[0];
@@ -536,8 +535,8 @@ namespace Presentacion.Marcas_Nacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                // Actualizar el estado y la justificación en la base de datos
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono);
+                                
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString()+" Abandono "+justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasRegistradas();
@@ -667,8 +666,10 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        ActualizarMarcaNacional();
+                        //ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageRegistradasList;
                     }
 
                 }

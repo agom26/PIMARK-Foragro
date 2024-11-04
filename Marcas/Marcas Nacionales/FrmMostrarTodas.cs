@@ -620,7 +620,9 @@ namespace Presentacion.Marcas_Nacionales
                     else
                     {
                         ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageListaMarcas;
                     }
 
                 }
@@ -650,7 +652,7 @@ namespace Presentacion.Marcas_Nacionales
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
                                 // Actualizar el estado y la justificación en la base de datos
-                                historialModel.GuardarEtapa(idMarca,fechaAbandono, "Abandono", justificacion, usuarioAbandono);
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasTramite();
