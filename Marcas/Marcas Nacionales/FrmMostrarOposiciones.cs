@@ -361,7 +361,7 @@ namespace Presentacion.Marcas_Nacionales
                         richTextBox1.Text = SeleccionarMarca.observaciones;
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {

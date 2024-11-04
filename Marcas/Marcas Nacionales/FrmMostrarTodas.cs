@@ -243,7 +243,7 @@ namespace Presentacion.Marcas_Nacionales
                             // Guardar la nueva etapa en el historial
                             historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                             MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
+                            
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                     }
@@ -417,19 +417,19 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         DataRow row = detallesMarcaInt.Rows[0];
 
-                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
+                        if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
                             textBoxEstatus.Text = row["estado"].ToString();
-                            richTextBox1.Text = row["Observaciones"].ToString();
+                            richTextBox1.Text = row["observaciones"].ToString();
                         }
                         else
                         {
-                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
                         // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {

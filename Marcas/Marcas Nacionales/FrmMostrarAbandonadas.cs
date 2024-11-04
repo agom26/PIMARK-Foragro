@@ -141,14 +141,13 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                SeleccionarMarca.idInt = SeleccionarMarca.idInt;
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idN));
 
-                if (detallesMarcaInter.Rows.Count > 0) // Usa Rows.Count en lugar de Count
+                if (detallesMarcaInter.Rows.Count > 0) 
                 {
-                    DataRow row = detallesMarcaInter.Rows[0]; // Accede a la primera fila del DataTable
+                    DataRow row = detallesMarcaInter.Rows[0]; 
 
-                    if (row["expediente"] != DBNull.Value) // Comprueba si "registro" no es DBNull
+                    if (row["expediente"] != DBNull.Value) 
                     {
                         SeleccionarMarca.expediente = row["expediente"].ToString();
                         SeleccionarMarca.nombre = row["nombre"].ToString();
@@ -166,16 +165,14 @@ namespace Presentacion.Marcas_Nacionales
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-                        var clienteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente));
-                        await Task.WhenAll(titularTask, agenteTask, clienteTask);
+                        
+                        await Task.WhenAll(titularTask, agenteTask);
 
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
-                        var cliente = clienteTask.Result;
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
-                        SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;
 
                         if (titular.Count > 0)
                         {
@@ -203,7 +200,7 @@ namespace Presentacion.Marcas_Nacionales
 
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
