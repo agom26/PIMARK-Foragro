@@ -37,31 +37,26 @@ namespace Presentacion.Marcas_Nacionales
         private void MostrarMarcasTramite()
         {
             dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionalesEnTramite();
-            // Ocultar la columna 'id'
+            
             if (dtgMarcasN.Columns["id"] != null)
             {
                 dtgMarcasN.Columns["id"].Visible = false;
 
-                // Desactiva la selección automática de la primera fila
                 dtgMarcasN.ClearSelection();
             }
         }
         private async void LoadMarcas()
         {
-            // Obtiene los usuarios
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramite());
 
 
-            // Invoca el método para actualizar el DataGridView en el hilo principal
             Invoke(new Action(() =>
             {
                 dtgMarcasN.DataSource = marcasN;
                 dtgMarcasN.Refresh();
-                // Oculta la columna 'id'
                 if (dtgMarcasN.Columns["id"] != null)
                 {
                     dtgMarcasN.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
                     dtgMarcasN.ClearSelection();
                 }
             }));
@@ -76,10 +71,9 @@ namespace Presentacion.Marcas_Nacionales
             tabControl1.SelectedTab = nombre;
         }
 
-        // Método para mostrar el logo en un PictureBox
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
-            if (logo != null && logo.Length > 0) // Verificar que el logo no esté vacío
+            if (logo != null && logo.Length > 0) 
             {
                 using (var ms = new MemoryStream(logo))
                 {

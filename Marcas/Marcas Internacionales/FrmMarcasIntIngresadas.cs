@@ -709,6 +709,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         ActualizarMarcaInternacional();
                         EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     
                 }

@@ -113,7 +113,7 @@ namespace AccesoDatos.Entidades
             {
                 using (MySqlConnection conexion = GetConnection()) 
                 {
-                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasEnOposicion", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesEnOposicion", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

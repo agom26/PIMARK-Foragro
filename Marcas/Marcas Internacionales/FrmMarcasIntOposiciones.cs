@@ -337,7 +337,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_origen"].ToString();
+                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -709,6 +709,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         ActualizarMarcaInternacional();
                         EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
 
                 }
@@ -818,7 +819,6 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            // Elimina la etapa sin eliminar los datos de registro
                             bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
 
                             if (eliminarhistorial)
@@ -831,7 +831,6 @@ namespace Presentacion.Marcas_Internacionales
                             }
                         }
 
-                        // Refrescar el historial y marca
                         loadHistorialById();
                         refrescarMarca();
                     }
@@ -879,7 +878,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
