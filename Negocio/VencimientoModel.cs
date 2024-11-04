@@ -54,5 +54,11 @@ namespace Dominio
                 );
 
         }
+
+        public void ActualizarNotificado(int marcaId)
+        {
+            vencimientoDao.ActualizarNotificado(marcaId);
+
+        }
     }
 }

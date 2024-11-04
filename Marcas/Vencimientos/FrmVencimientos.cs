@@ -22,13 +22,14 @@ namespace Presentacion.Vencimientos
 
         private async void FrmVencimientos_Load(object sender, EventArgs e)
         {
+            await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
             await Task.Run(() => LoadVencimientos());
             AgregarBotonEnviarCorreo(); 
         }
 
-        private void LoadVencimientos()
+        private async void LoadVencimientos()
         {
-            var titulares = vencimientoModel.GetAllVencimientos();
+            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
             Invoke(new Action(() =>
             {
                 dtgVencimientos.DataSource = titulares;
@@ -37,7 +38,9 @@ namespace Presentacion.Vencimientos
                 {
                     dtgVencimientos.Columns["id"].Visible = false;
                     dtgVencimientos.Columns["marcaID"].Visible = false;
+                    
                 }
+                dtgVencimientos.Refresh();
             }));
         }
 
@@ -56,7 +59,6 @@ namespace Presentacion.Vencimientos
                 dtgVencimientos.Columns.Add(botonColumna);
             }
 
-           
             dtgVencimientos.CellClick += DtgVencimientos_CellClick;
 
            
@@ -99,14 +101,14 @@ namespace Presentacion.Vencimientos
                     var user = vencimientoModel.GetCorreosPorMarcaId(marcaId);
                     string tipo = dataRowView["tipo"].ToString();  // Obtener el tipo
                     DateTime fechaVencimiento = Convert.ToDateTime(dataRowView["Vencimiento"]);
-                    string nombre= dataRowView["Nombre"].ToString();
+                    string nombre = dataRowView["Nombre"].ToString();
 
                     if (!string.IsNullOrEmpty(user.CorreoAgente))
                     {
                         try
                         {
                             dtgVencimientos.Enabled = false;
-                            await Task.Run(() => EnviarCorreo(user.CorreoAgente,nombre, tipo, fechaVencimiento));
+                            await Task.Run(() => EnviarCorreo(user.CorreoAgente, marcaId, nombre, tipo, fechaVencimiento));
                         }
                         catch (Exception ex)
                         {
@@ -115,6 +117,7 @@ namespace Presentacion.Vencimientos
                         finally
                         {
                             dtgVencimientos.Enabled = true;
+                            LoadVencimientos();
                         }
                     }
                     else
@@ -127,7 +130,8 @@ namespace Presentacion.Vencimientos
         }
 
 
-        public async void EnviarCorreo(string receptor,string nombre, string tipo, DateTime fechaVencimiento)
+
+        public async void EnviarCorreo(string receptor, int marcaId, string nombre, string tipo, DateTime fechaVencimiento)
         {
             try
             {
@@ -136,22 +140,27 @@ namespace Presentacion.Vencimientos
                 message.To.Add(new MailboxAddress("Destinatario", receptor));
                 message.Subject = "Avisos de vencimiento de Berger Pemueller";
 
-                
                 string mensajeCuerpo;
+                string logoUrl = "https://www.blita.com/hubfs/uXsa_Xqw-1.jpeg";
+                string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' width='400' height='200' />";
+
                 if (tipo.Equals("patente", StringComparison.OrdinalIgnoreCase))
                 {
-                    mensajeCuerpo = $"La patente {nombre} está próxima a vencer, la fecha de vencimiento es: {fechaVencimiento.ToShortDateString()}.";
+                    mensajeCuerpo = $"<p>La patente <strong>{nombre}</strong> está próxima a vencer, la fecha de vencimiento es: <strong>{fechaVencimiento.ToShortDateString()}</strong>.</p>" +
+                                    $"<p>{logoHtml}</p>";
                 }
                 else if (tipo.Equals("marca", StringComparison.OrdinalIgnoreCase))
                 {
-                    mensajeCuerpo = $"La marca {nombre} está próxima a vencer, la fecha de vencimiento es: {fechaVencimiento.ToShortDateString()}.";
+                    mensajeCuerpo = $"<p>La marca <strong>{nombre}</strong> está próxima a vencer, la fecha de vencimiento es: <strong>{fechaVencimiento.ToShortDateString()}</strong>.</p>" +
+                        $"<p>{logoHtml}</p>";
                 }
                 else
                 {
-                    mensajeCuerpo = "Su marca o patente está próxima a vencer.";
+                    mensajeCuerpo = "<p>Su marca o patente está próxima a vencer.</p>" +
+                        $"<p>{logoHtml}</p>";
                 }
 
-                message.Body = new TextPart("plain") { Text = mensajeCuerpo };
+                message.Body = new TextPart("html") { Text = mensajeCuerpo };
 
                 using (var client = new SmtpClient())
                 {
@@ -160,6 +169,17 @@ namespace Presentacion.Vencimientos
                     await client.SendAsync(message);
                     client.Disconnect(true);
                     MessageBox.Show("Correo enviado con éxito.");
+
+                    
+                    try
+                    {
+                        vencimientoModel.ActualizarNotificado(marcaId);
+                        LoadVencimientos();
+                    }
+                    catch (Exception updateEx)
+                    {
+                        MessageBox.Show($"Error al actualizar el estado de notificado: {updateEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch (Exception ex)
@@ -167,6 +187,9 @@ namespace Presentacion.Vencimientos
                 Console.WriteLine($"Error al enviar el correo: {ex.Message}");
             }
         }
+
+
+
 
     }
 }

@@ -66,12 +66,12 @@ namespace AccesoDatos.Entidades
         public DataTable GetAllVencimientos()
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, fecha_vencimiento as Vencimiento, tipo as Tipo, registro as Registro, folio as Folio, libro as Libro, titular as Titular, agente as Agente, marcaID FROM Vencimientos;", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, fecha_vencimiento as Vencimiento,notificado as Notificado, tipo as Tipo, registro as Registro, folio as Folio, libro as Libro, titular as Titular, agente as Agente, marcaID FROM Vencimientos;", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
                         tabla.Load(leer);
                     }
@@ -111,7 +111,7 @@ namespace AccesoDatos.Entidades
 
                     try
                     {
-                        command.ExecuteNonQuery(); // Ejecuta el procedimiento
+                        command.ExecuteNonQuery(); 
                     }
                     catch (Exception ex)
                     {
@@ -121,5 +121,28 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        public void ActualizarNotificado(int marcaId)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (var command = new MySqlCommand("ActualizarNotificado", conexion))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_marcaID", marcaId);
+
+                    try
+                    {
+                        conexion.Open();
+                        command.ExecuteNonQuery(); 
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error al actualizar el estado de notificado: {ex.Message}");
+                        
+                    }
+                }
+            }
+        }
+
     }
 }
