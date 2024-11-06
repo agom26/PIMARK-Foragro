@@ -32,6 +32,7 @@ namespace Presentacion
             if (tabControl1.TabPages.Contains(nombre))
             {
                 tabControl1.TabPages.Remove(nombre);
+                dtgUsuarios.ClearSelection();
             }
         }
         private void AnadirTabPage(TabPage nombre)
@@ -46,14 +47,7 @@ namespace Presentacion
 
         private void AssociateAndRaiseViewEvents()
         {
-            ibtnBuscar.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-            txtSearch.KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    SearchEvent?.Invoke(this, EventArgs.Empty);
-                }
-            };
+
         }
 
 
@@ -105,6 +99,8 @@ namespace Presentacion
                 dtgUsuarios.ClearSelection();
             }));
         }
+
+        
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
         {
@@ -217,88 +213,64 @@ namespace Presentacion
         {
             if (dtgUsuarios.SelectedRows.Count > 0)
             {
-                // Obtener el valor de la celda "usuario" de la fila seleccionada
-                string usuario = dtgUsuarios.CurrentRow.Cells["usuario"].Value.ToString();
-
-                // Llamar al método que obtiene los datos del usuario basándose en el campo 'usuario'
-                var userDetails = UserModel.GetByValue(usuario);
-
-                if (userDetails.Count > 0) // Asegurarse de que se haya encontrado el usuario
+                // Ensure the selected row is valid and the "usuario" column exists
+                if (dtgUsuarios.CurrentRow != null && dtgUsuarios.CurrentRow.Cells["usuario"].Value != DBNull.Value)
                 {
-                    // Asignar los valores obtenidos a la clase estática EditarUsuario
-                    EditarUsuario.idUser = userDetails[0].id;
-                    EditarUsuario.usuario = userDetails[0].usuario;
-                    EditarUsuario.nombres = userDetails[0].nombres;
-                    EditarUsuario.apellidos = userDetails[0].apellidos;
-                    EditarUsuario.correo = userDetails[0].correo;
-                    EditarUsuario.contrasena = userDetails[0].contrasena;
-                    EditarUsuario.isAdmin = userDetails[0].isAdmin;
-                    // Aquí puedes proceder con la lógica adicional que desees
-                    // Por ejemplo, mostrar un formulario para editar el usuario
-                    AnadirTabPage(tabPageUserDetail);
-                    txtUsername.Text = EditarUsuario.usuario;
-                    txtNombres.Text = EditarUsuario.nombres;
-                    txtApellidos.Text = EditarUsuario.apellidos;
-                    txtCorreo.Text = EditarUsuario.correo;
-                    txtCont.Text = EditarUsuario.contrasena;
-                    txtConfirmarCont.Text = EditarUsuario.contrasena;
-                    chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-                    iconButton5.Text = "Actualizar";
+                    // Get the value of the "usuario" column from the selected row
+                    string usuario = dtgUsuarios.CurrentRow.Cells["usuario"].Value.ToString();
+
+                    // Call the method to get user details based on the 'usuario'
+                    DataTable userDetails = UserModel.GetByValue(usuario);
+
+                    if (userDetails.Rows.Count > 0) // Ensure that user details were found
+                    {
+                        // Assign the obtained values to the static class EditarUsuario from the first row of the DataTable
+                        EditarUsuario.idUser = Convert.ToInt32(userDetails.Rows[0]["id"]);
+                        EditarUsuario.usuario = userDetails.Rows[0]["usuario"].ToString();
+                        EditarUsuario.nombres = userDetails.Rows[0]["nombres"].ToString();
+                        EditarUsuario.apellidos = userDetails.Rows[0]["apellidos"].ToString();
+                        EditarUsuario.correo = userDetails.Rows[0]["correo"].ToString();
+                        EditarUsuario.contrasena = userDetails.Rows[0]["contrasena"].ToString();
+                        EditarUsuario.isAdmin = Convert.ToBoolean(userDetails.Rows[0]["isAdmin"]);
+
+                        // Optionally show a form to edit the user
+                        AnadirTabPage(tabPageUserDetail);
+
+                        // Fill the form fields with the user data
+                        txtUsername.Text = EditarUsuario.usuario;
+                        txtNombres.Text = EditarUsuario.nombres;
+                        txtApellidos.Text = EditarUsuario.apellidos;
+                        txtCorreo.Text = EditarUsuario.correo;
+                        txtCont.Text = EditarUsuario.contrasena;
+                        txtConfirmarCont.Text = EditarUsuario.contrasena;
+                        chckbIsAdmin.Checked = EditarUsuario.isAdmin;
+
+                        iconButton5.Text = "Actualizar"; // Change the button text for updating
+                    }
+                    else
+                    {
+                        // If no user details are found
+                        MessageBox.Show("No se encontró el usuario.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró el usuario.");
+                    // If the "usuario" column value is DBNull or invalid
+                    MessageBox.Show("El usuario seleccionado no tiene un valor válido.");
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un usuario.");
+                // If no row is selected
+                MessageBox.Show("Por favor, seleccione una fila.");
             }
+
 
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            //Eliminar
-            //Preguntar si el nombre de usuario esta seguro de eliminar ese Usuario
-            // Verificar si hay un usuario seleccionado
-            if (dtgUsuarios.SelectedRows.Count > 0)
-            {
-                // Obtener el valor de la celda "usuario" y "id" de la fila seleccionada
-                string usuario = dtgUsuarios.CurrentRow.Cells["usuario"].Value.ToString();
-                var userDetails = UserModel.GetByValue(usuario);
-
-                // Preguntar si el usuario está seguro de eliminar ese Usuario
-                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al usuario '{usuario}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    try
-                    {
-                        // Eliminar el usuario y registrar en el log
-                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
-                        bool isDeleted = UserModel.RemoveUser(userDetails[0].id, userDetails[0].usuario, currentUser);
-
-                        if (isDeleted)
-                        {
-                            MessageBox.Show("Usuario eliminado correctamente.");
-                            MostrarUsuarios(); // Actualizar la lista de usuarios
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error al eliminar el usuario.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al intentar eliminar el usuario: " + ex.Message);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, selecciona un usuario para eliminar.");
-            }
+            
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -309,6 +281,32 @@ namespace Presentacion
         private void dtgUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "")
+            {
+                DataTable usuarios=UserModel.GetByValue(textBox1.Text);
+
+                dtgUsuarios.DataSource= usuarios;
+                // Oculta la columna 'id'
+                if (dtgUsuarios.Columns["id"] != null)
+                {
+                    dtgUsuarios.Columns["id"].Visible = false;
+                }
+                dtgUsuarios.ClearSelection();
+
+            }
+            else
+            {
+                LoadUsers();
+            }
         }
     }
 }

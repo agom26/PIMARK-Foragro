@@ -26,6 +26,12 @@ namespace Dominio
             tabla=userDao.GetAllUsers();
             return tabla;
         }
+        public DataTable GetByValue(string value)
+        {
+            DataTable tabla = new DataTable();
+            tabla = userDao.GetUserByValue(value);
+            return tabla;
+        }
 
         public void AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
         {
@@ -42,9 +48,6 @@ namespace Dominio
             return userDao.RemoveUser(userId,deletedUser, deletedBy);
         }
 
-        public List<(int id,string usuario, string nombres, string apellidos, string correo, string contrasena, bool isAdmin)> GetByValue(string value)
-        {
-            return userDao.GetByValue(value);
-        }
+       
     }
 }

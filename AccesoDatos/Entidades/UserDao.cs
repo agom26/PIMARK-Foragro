@@ -59,37 +59,7 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-        public List<(int id,string usuario, string nombres, string apellidos, string correo, string contrasena, bool isAdmin)> GetByValue(string value)
-        {
-            var users = new List<(int id,string usuario, string nombres, string apellidos, string correo, string contrasena, bool isAdmin)>();
-
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-                using (var command = new MySqlCommand("SELECT * FROM USERS WHERE usuario LIKE @value OR nombres LIKE @value OR apellidos LIKE @value OR correo LIKE @value", connection))
-                {
-                    command.Parameters.AddWithValue("@value", "%" + value + "%");
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32("id");
-                            string usuario = reader.GetString("usuario");
-                            string contrasena = reader.GetString("contrasena");
-                            string nombres = reader.GetString("nombres");
-                            string apellidos = reader.GetString("apellidos");
-                            string correo = reader.GetString("correo");
-                            bool isAdmin = reader.GetBoolean("isAdmin");
-
-                            // Agrega la tupla a la lista
-                            users.Add((id,usuario, nombres, apellidos, correo, contrasena, isAdmin));
-                        }
-                    }
-                }
-            }
-            return users; // Retorna la lista de usuarios encontrados
-        }
+        
 
         public DataTable GetAllUsers()
         {
@@ -202,6 +172,49 @@ namespace AccesoDatos.Usuarios
                 }
             }
         }*/
+
+        //titulares
+        public DataTable GetUserByValue(string value)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetUserByValue", conexion)) // Llamar al procedimiento almacenado
+                {
+                    comando.CommandType = CommandType.StoredProcedure; // Especificamos que es un procedimiento almacenado
+                    comando.Parameters.AddWithValue("@value", value); // Agregar el parámetro 'value' al procedimiento
+
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader()) // Ejecutar el procedimiento y leer los resultados
+                    {
+                        tabla.Load(leer); // Cargar los resultados en el DataTable
+                    }
+                }
+            }
+
+            // Agregar la columna "Es Administrador" para mostrar "sí" o "no"
+            tabla.Columns.Add("Es Administrador", typeof(string));
+
+            // Llenar la nueva columna según el valor de isAdmin
+            foreach (DataRow row in tabla.Rows)
+            {
+                // Obtener el valor de la columna "EsAdministrador" (isAdmin)
+                var isAdminValue = row["EsAdministrador"];
+
+                // Asumimos que el valor es un entero (1 para "sí", 0 para "no")
+                bool isAdmin = Convert.ToBoolean(isAdminValue); // Convertir el valor a booleano
+
+                // Asignar "sí" o "no" a la nueva columna
+                row["Es Administrador"] = isAdmin ? "sí" : "no";
+            }
+
+            // Opcional: eliminar la columna original de isAdmin si no la necesitas
+            tabla.Columns.Remove("EsAdministrador");
+
+            return tabla;
+        }
+
+
 
         public (bool, bool) Login(string user, string pass)
         {
