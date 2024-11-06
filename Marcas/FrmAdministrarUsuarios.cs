@@ -295,13 +295,12 @@ namespace Presentacion
                 DataTable usuarios=UserModel.GetByValue(textBox1.Text);
 
                 dtgUsuarios.DataSource= usuarios;
-                // Oculta la columna 'id'
+                
                 if (dtgUsuarios.Columns["id"] != null)
                 {
                     dtgUsuarios.Columns["id"].Visible = false;
                 }
                 dtgUsuarios.ClearSelection();
-
             }
             else
             {
