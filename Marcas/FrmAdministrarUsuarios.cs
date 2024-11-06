@@ -293,14 +293,22 @@ namespace Presentacion
             if (textBox1.Text != "")
             {
                 DataTable usuarios=UserModel.GetByValue(textBox1.Text);
-
-                dtgUsuarios.DataSource= usuarios;
-                
-                if (dtgUsuarios.Columns["id"] != null)
+                if(usuarios.Rows.Count > 0)
                 {
-                    dtgUsuarios.Columns["id"].Visible = false;
+                    dtgUsuarios.DataSource = usuarios;
+
+                    if (dtgUsuarios.Columns["id"] != null)
+                    {
+                        dtgUsuarios.Columns["id"].Visible = false;
+                    }
+                    dtgUsuarios.ClearSelection();
                 }
-                dtgUsuarios.ClearSelection();
+                else
+                {
+                    MessageBox.Show("No existen usuarios con esos datos");
+                    LoadUsers();
+                }
+                
             }
             else
             {

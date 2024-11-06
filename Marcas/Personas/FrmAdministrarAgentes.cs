@@ -305,5 +305,32 @@ namespace Presentacion.Personas
         {
 
         }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            string buscar = textBox1.Text;
+            if (buscar != "")
+            {
+                DataTable agentes = personaModel.GetAgenteByValue(buscar);
+                if(agentes.Rows.Count > 0)
+                {
+                    dtgAgentes.DataSource = agentes;
+                    if (dtgAgentes.Columns["id"] != null)
+                    {
+                        dtgAgentes.Columns["id"].Visible = false;
+                    }
+                    dtgAgentes.ClearSelection();
+                }
+                else
+                {
+                    MessageBox.Show("No existen agentes con esos datos");
+                    LoadAgentes();
+                }
+            }
+            else
+            {
+                LoadAgentes();
+            }
+        }
     }
 }

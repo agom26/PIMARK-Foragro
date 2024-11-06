@@ -277,14 +277,14 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     try
                     {
-                        // Eliminar el usuario y registrar en el log
-                        string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
+                        
+                        string currentUser = UsuarioActivo.usuario;
                         bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
                             MessageBox.Show("Cliente eliminado correctamente.");
-                            MostrarClientes(); // Actualizar la lista de titulares
+                            MostrarClientes(); 
                         }
                         else
                         {
@@ -301,6 +301,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
             }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
