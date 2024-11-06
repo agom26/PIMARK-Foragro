@@ -300,5 +300,10 @@ namespace Presentacion.Personas
         {
 
         }
+
+        private void tabPageListado_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
