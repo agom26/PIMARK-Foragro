@@ -43,10 +43,14 @@
             panel2 = new Panel();
             panel3 = new Panel();
             panel4 = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
             TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // TitleBar
@@ -104,11 +108,11 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.None;
+            label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(63, 223);
+            label1.Location = new Point(132, 6);
             label1.Name = "label1";
             label1.Size = new Size(79, 23);
             label1.TabIndex = 2;
@@ -139,7 +143,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(60, 344);
+            label2.Location = new Point(107, 10);
             label2.Name = "label2";
             label2.Size = new Size(125, 23);
             label2.TabIndex = 4;
@@ -149,9 +153,9 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(125, 94);
+            pictureBox1.Location = new Point(150, 71);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(213, 92);
+            pictureBox1.Size = new Size(165, 144);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
@@ -212,18 +216,36 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(34, 77, 112);
+            panel4.Controls.Add(panel5);
             panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(label1);
             panel4.Controls.Add(btnGuardar);
             panel4.Controls.Add(txtUserName);
             panel4.Controls.Add(checkBoxRememberme);
-            panel4.Controls.Add(label2);
             panel4.Controls.Add(txtPassword);
+            panel4.Controls.Add(panel6);
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(473, 719);
             panel4.TabIndex = 51;
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(label1);
+            panel5.Location = new Point(60, 232);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(353, 29);
+            panel5.TabIndex = 49;
+            // 
+            // panel6
+            // 
+            panel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel6.Controls.Add(label2);
+            panel6.Location = new Point(60, 345);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(353, 34);
+            panel6.TabIndex = 50;
             // 
             // LoginForm
             // 
@@ -247,6 +269,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -266,5 +292,7 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
+        private Panel panel5;
+        private Panel panel6;
     }
 }
