@@ -37,7 +37,7 @@ namespace Presentacion.Personas
             txtNombreTitular.Text = "";
             txtDireccionTitular.Text = "";
             txtNitTitular.Text = "";
-            txtPais.Text = "";
+            comboBox1.SelectedItem = -1;
             txtCorreoContacto.Text = "";
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
@@ -100,7 +100,7 @@ namespace Presentacion.Personas
             string nombre = txtNombreTitular.Text;
             string direccion = txtDireccionTitular.Text;
             string nit = txtNitTitular.Text;
-            string pais = txtPais.Text;
+            string pais = comboBox1.SelectedItem.ToString();
             string correo = txtCorreoContacto.Text;
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
@@ -110,7 +110,7 @@ namespace Presentacion.Personas
             if (string.IsNullOrWhiteSpace(txtNombreTitular.Text) ||
                 string.IsNullOrWhiteSpace(txtDireccionTitular.Text) ||
                 string.IsNullOrWhiteSpace(txtNitTitular.Text) ||
-                string.IsNullOrWhiteSpace(txtPais.Text) ||
+                string.IsNullOrWhiteSpace(pais) ||
                 string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
@@ -136,7 +136,7 @@ namespace Presentacion.Personas
                             txtNombreTitular.Text,
                             txtDireccionTitular.Text,
                             txtNitTitular.Text,
-                            txtPais.Text,
+                            pais,
                             txtCorreoContacto.Text,
                             txtTelefonoContacto.Text,
                             txtNombreContacto.Text));
@@ -197,7 +197,7 @@ namespace Presentacion.Personas
                     txtNombreTitular.Text = EditarPersona.nombre;
                     txtDireccionTitular.Text = EditarPersona.direccion;
                     txtNitTitular.Text = EditarPersona.nit;
-                    txtPais.Text = EditarPersona.pais;
+                    comboBox1.SelectedItem = EditarPersona.pais;
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
