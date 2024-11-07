@@ -41,6 +41,7 @@ namespace Presentacion.Personas
             txtCorreoContacto.Text = "";
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
+            comboBox1.SelectedIndex = -1;
         }
         private void MostrarTitulares()
         {
