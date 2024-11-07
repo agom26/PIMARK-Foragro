@@ -91,7 +91,6 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorialAban = new DataGridView();
             panel5 = new Panel();
@@ -598,7 +597,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 137;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
+            roundedButton1.Text = "+ ESTADO ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
@@ -654,9 +653,9 @@
             label14.Font = new Font("Century Gothic", 10F);
             label14.Location = new Point(414, 298);
             label14.Name = "label14";
-            label14.Size = new Size(122, 21);
+            label14.Size = new Size(128, 21);
             label14.TabIndex = 133;
-            label14.Text = "Etapa actual";
+            label14.Text = "Estado actual";
             // 
             // datePickerFechaSolicitud
             // 
@@ -927,7 +926,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(iconButton4);
             panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(dtgHistorialAban);
             panel2.Controls.Add(panel5);
@@ -936,26 +934,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1145, 772);
             panel2.TabIndex = 0;
-            // 
-            // iconButton4
-            // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.Enabled = false;
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(998, 137);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 51;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
             // 
             // iconButton5
             // 
@@ -1115,7 +1093,6 @@
         private DataGridView dtgHistorialAban;
         private Panel panel5;
         private Label label22;
-        private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private Label label21;
         private ComboBox comboBoxTipoSigno;

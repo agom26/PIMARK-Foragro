@@ -52,7 +52,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                MessageBox.Show("No ha seleccionado ningun estatus");
+                MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
 

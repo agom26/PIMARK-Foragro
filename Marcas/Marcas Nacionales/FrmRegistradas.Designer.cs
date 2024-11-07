@@ -31,7 +31,6 @@
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            ibtnEliminar = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
             dtgMarcasR = new DataGridView();
@@ -93,7 +92,6 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorialR = new DataGridView();
             panel5 = new Panel();
@@ -147,7 +145,6 @@
             // tabPageRegistradasList
             // 
             tabPageRegistradasList.Controls.Add(iconButton3);
-            tabPageRegistradasList.Controls.Add(ibtnEliminar);
             tabPageRegistradasList.Controls.Add(ibtnEditar);
             tabPageRegistradasList.Controls.Add(panel4);
             tabPageRegistradasList.Controls.Add(iconPictureBox1);
@@ -176,7 +173,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(1009, 331);
+            iconButton3.Location = new Point(1009, 262);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(144, 37);
             iconButton3.TabIndex = 48;
@@ -184,25 +181,6 @@
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
-            // 
-            // ibtnEliminar
-            // 
-            ibtnEliminar.Anchor = AnchorStyles.Top;
-            ibtnEliminar.BackColor = Color.FromArgb(183, 28, 28);
-            ibtnEliminar.FlatAppearance.BorderSize = 0;
-            ibtnEliminar.FlatStyle = FlatStyle.Flat;
-            ibtnEliminar.ForeColor = Color.White;
-            ibtnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            ibtnEliminar.IconColor = Color.White;
-            ibtnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEliminar.IconSize = 30;
-            ibtnEliminar.Location = new Point(1009, 269);
-            ibtnEliminar.Name = "ibtnEliminar";
-            ibtnEliminar.Size = new Size(144, 37);
-            ibtnEliminar.TabIndex = 47;
-            ibtnEliminar.Text = "Eliminar";
-            ibtnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtnEliminar.UseVisualStyleBackColor = false;
             // 
             // ibtnEditar
             // 
@@ -666,7 +644,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 135;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
+            roundedButton1.Text = "+ ESTADO ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
@@ -699,9 +677,9 @@
             label14.Font = new Font("Century Gothic", 10F);
             label14.Location = new Point(399, 316);
             label14.Name = "label14";
-            label14.Size = new Size(122, 21);
+            label14.Size = new Size(128, 21);
             label14.TabIndex = 133;
-            label14.Text = "Etapa actual";
+            label14.Text = "Estado actual";
             // 
             // datePickerFechaSolicitud
             // 
@@ -979,7 +957,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(iconButton4);
             panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(dtgHistorialR);
             panel2.Controls.Add(panel5);
@@ -988,26 +965,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1145, 772);
             panel2.TabIndex = 0;
-            // 
-            // iconButton4
-            // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(990, 138);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 53;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
-            iconButton4.Click += iconButton4_Click;
             // 
             // iconButton5
             // 
@@ -1108,7 +1065,7 @@
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(270, 50);
             roundedButton7.TabIndex = 18;
-            roundedButton7.Text = "Editar estatus";
+            roundedButton7.Text = "Editar estado";
             roundedButton7.TextColor = Color.Black;
             roundedButton7.UseVisualStyleBackColor = false;
             // 
@@ -1239,7 +1196,7 @@
             label23.Name = "label23";
             label23.Size = new Size(58, 20);
             label23.TabIndex = 12;
-            label23.Text = "Estatus";
+            label23.Text = "Estado";
             // 
             // label25
             // 
@@ -1311,7 +1268,6 @@
         private Panel panel4;
         private DataGridView dtgMarcasR;
         private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton ibtnEliminar;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private Panel panel1;
         private Clases.RoundedButton roundedButton6;
@@ -1359,7 +1315,6 @@
         private RichTextBox richTextBox1;
         private Label label16;
         private Panel panel2;
-        private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private DataGridView dtgHistorialR;
         private Panel panel5;

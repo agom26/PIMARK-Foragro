@@ -33,7 +33,6 @@
             tabPageListaMarcas = new TabPage();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            ibtnEliminar = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             dtgMarcasN = new DataGridView();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -93,7 +92,6 @@
             label20 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel1 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorial = new DataGridView();
             panel5 = new Panel();
@@ -160,7 +158,6 @@
             tabPageListaMarcas.Controls.Add(iconPictureBox1);
             tabPageListaMarcas.Controls.Add(iconButton3);
             tabPageListaMarcas.Controls.Add(label1);
-            tabPageListaMarcas.Controls.Add(ibtnEliminar);
             tabPageListaMarcas.Controls.Add(ibtnEditar);
             tabPageListaMarcas.Controls.Add(dtgMarcasN);
             tabPageListaMarcas.Controls.Add(ibtnBuscar);
@@ -203,7 +200,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(1011, 337);
+            iconButton3.Location = new Point(1011, 267);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(144, 37);
             iconButton3.TabIndex = 25;
@@ -211,26 +208,6 @@
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
-            // 
-            // ibtnEliminar
-            // 
-            ibtnEliminar.Anchor = AnchorStyles.Top;
-            ibtnEliminar.BackColor = Color.FromArgb(183, 28, 28);
-            ibtnEliminar.FlatAppearance.BorderSize = 0;
-            ibtnEliminar.FlatStyle = FlatStyle.Flat;
-            ibtnEliminar.ForeColor = Color.White;
-            ibtnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            ibtnEliminar.IconColor = Color.White;
-            ibtnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEliminar.IconSize = 30;
-            ibtnEliminar.Location = new Point(1011, 275);
-            ibtnEliminar.Name = "ibtnEliminar";
-            ibtnEliminar.Size = new Size(144, 37);
-            ibtnEliminar.TabIndex = 21;
-            ibtnEliminar.Text = "Eliminar";
-            ibtnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtnEliminar.UseVisualStyleBackColor = false;
-            ibtnEliminar.Click += ibtnEliminar_Click;
             // 
             // ibtnEditar
             // 
@@ -511,7 +488,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 72;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
+            roundedButton1.Text = "+ ESTADO ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
@@ -600,9 +577,9 @@
             label14.Font = new Font("Century Gothic", 10F);
             label14.Location = new Point(395, 327);
             label14.Name = "label14";
-            label14.Size = new Size(122, 21);
+            label14.Size = new Size(128, 21);
             label14.TabIndex = 65;
-            label14.Text = "Etapa actual";
+            label14.Text = "Estado actual";
             // 
             // datePickerFechaSolicitud
             // 
@@ -985,7 +962,6 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
-            panel1.Controls.Add(iconButton4);
             panel1.Controls.Add(iconButton5);
             panel1.Controls.Add(dtgHistorial);
             panel1.Controls.Add(panel5);
@@ -994,26 +970,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1150, 783);
             panel1.TabIndex = 0;
-            // 
-            // iconButton4
-            // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(1001, 144);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 45;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
-            iconButton4.Click += iconButton4_Click;
             // 
             // iconButton5
             // 
@@ -1115,7 +1071,7 @@
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(270, 50);
             roundedButton7.TabIndex = 18;
-            roundedButton7.Text = "Editar estatus";
+            roundedButton7.Text = "Editar estado";
             roundedButton7.TextColor = Color.Black;
             roundedButton7.UseVisualStyleBackColor = false;
             // 
@@ -1246,7 +1202,7 @@
             label23.Name = "label23";
             label23.Size = new Size(58, 20);
             label23.TabIndex = 12;
-            label23.Text = "Estatus";
+            label23.Text = "Estado";
             // 
             // label22
             // 
@@ -1310,7 +1266,6 @@
         private TextBox textBox1;
         private FontAwesome.Sharp.IconButton ibtnBuscar;
         private DataGridView dtgMarcasN;
-        private FontAwesome.Sharp.IconButton ibtnEliminar;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private Clases.RoundedButton roundedButton3;
         private Panel panel4;
@@ -1365,7 +1320,6 @@
         private TabPage tabPageHistorialMarca;
         private Panel panel1;
         private Label label21;
-        private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private DataGridView dtgHistorial;
         private Panel panel5;

@@ -197,7 +197,7 @@
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(280, 35);
             roundedButton3.TabIndex = 39;
-            roundedButton3.Text = "+ ETAPA ACTUAL";
+            roundedButton3.Text = "+ ESTADO ACTUAL";
             roundedButton3.TextColor = Color.Black;
             roundedButton3.UseVisualStyleBackColor = false;
             roundedButton3.Click += roundedButton3_Click_1;
@@ -286,9 +286,9 @@
             label14.Font = new Font("Century Gothic", 10F);
             label14.Location = new Point(412, 305);
             label14.Name = "label14";
-            label14.Size = new Size(122, 21);
+            label14.Size = new Size(128, 21);
             label14.TabIndex = 28;
-            label14.Text = "Etapa actual";
+            label14.Text = "Estado actual";
             // 
             // datePickerFechaSolicitud
             // 

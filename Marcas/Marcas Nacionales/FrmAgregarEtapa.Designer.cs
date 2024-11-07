@@ -60,7 +60,7 @@
             label2.Name = "label2";
             label2.Size = new Size(58, 20);
             label2.TabIndex = 1;
-            label2.Text = "Estatus";
+            label2.Text = "Estado";
             // 
             // label3
             // 
@@ -126,7 +126,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
-            roundedButton1.Text = "Agregar estatus";
+            roundedButton1.Text = "Agregar estado";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
