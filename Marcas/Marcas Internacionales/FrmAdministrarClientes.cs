@@ -33,7 +33,7 @@ namespace Presentacion.Marcas_Internacionales
             txtNombreCliente.Text = "";
             txtDireccionCliente.Text = "";
             txtNitCliente.Text = "";
-            txtPais.Text = "";
+            comboBox1.SelectedIndex = -1;
             txtCorreoContacto.Text = "";
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
@@ -86,6 +86,7 @@ namespace Presentacion.Marcas_Internacionales
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabClienteDetail);
+            dtgClientes.ClearSelection();
         }
 
         private async void btnGuardarCliente_Click(object sender, EventArgs e)
@@ -93,7 +94,7 @@ namespace Presentacion.Marcas_Internacionales
             string nombre = txtNitCliente.Text;
             string direccion = txtDireccionCliente.Text;
             string nit = txtNitCliente.Text;
-            string pais = txtPais.Text;
+            string pais = comboBox1.SelectedItem?.ToString();
             string correo = txtCorreoContacto.Text;
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
@@ -103,7 +104,7 @@ namespace Presentacion.Marcas_Internacionales
             if (string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
                 string.IsNullOrWhiteSpace(txtDireccionCliente.Text) ||
                 string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
-                string.IsNullOrWhiteSpace(txtPais.Text) ||
+                string.IsNullOrWhiteSpace(pais) ||
                 string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
@@ -122,6 +123,7 @@ namespace Presentacion.Marcas_Internacionales
                         // Ejecutar la operación de guardado de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Cliente agregado exitosamente");
+                        dtgClientes.ClearSelection();
                     }
                     else if (btnGuardarCliente.Text == "Actualizar")
                     {
@@ -129,7 +131,7 @@ namespace Presentacion.Marcas_Internacionales
                             txtNombreCliente.Text,
                             txtDireccionCliente.Text,
                             txtNitCliente.Text,
-                            txtPais.Text,
+                            pais,
                             txtCorreoContacto.Text,
                             txtTelefonoContacto.Text,
                             txtNombreContacto.Text));
@@ -137,6 +139,7 @@ namespace Presentacion.Marcas_Internacionales
                         if (update)
                         {
                             MessageBox.Show("Cliente actualizado exitosamente");
+                            dtgClientes.ClearSelection();
 
                         }
                         else
@@ -211,13 +214,11 @@ namespace Presentacion.Marcas_Internacionales
 
                 try
                 {
-                    // Obtener el valor del 'id' de la fila seleccionada
                     int idPersona = EditarPersona.idPersona;
 
-                    // Llamar al método que obtiene los datos del cliente de forma asíncrona
                     var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
 
-                    if (clienteDetails.Count > 0) // Asegurarse de que se haya encontrado el cliente
+                    if (clienteDetails.Count > 0) 
                     {
                         // Asignar los valores obtenidos a la clase estática EditarPersona
                         EditarPersona.idPersona = clienteDetails[0].id;
@@ -230,15 +231,16 @@ namespace Presentacion.Marcas_Internacionales
                         EditarPersona.contacto = clienteDetails[0].contacto;
 
                         // Mostrar el formulario de edición con los valores del cliente
-                        AnadirTabPage(tabClienteDetail);
+                        
                         txtNombreCliente.Text = EditarPersona.nombre;
                         txtDireccionCliente.Text = EditarPersona.direccion;
                         txtNitCliente.Text = EditarPersona.nit;
-                        txtPais.Text = EditarPersona.pais;
+                        comboBox1.SelectedItem = EditarPersona.pais;
                         txtCorreoContacto.Text = EditarPersona.correo;
                         txtTelefonoContacto.Text = EditarPersona.telefono;
                         txtNombreContacto.Text = EditarPersona.contacto;
-                        btnGuardarCliente.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                        btnGuardarCliente.Text = "Actualizar";
+                        AnadirTabPage(tabClienteDetail);
                     }
                     else
                     {
@@ -302,7 +304,30 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-
+            string buscar = textBox1.Text;
+            if (buscar != "")
+            {
+                DataTable clientes = personaModel.GetClienteByValue(buscar);
+                if (clientes.Rows.Count > 0)
+                {
+                    dtgClientes.DataSource = clientes;
+                    if (dtgClientes.Columns["id"] != null)
+                    {
+                        dtgClientes.Columns["id"].Visible = false;
+                        dtgClientes.Columns["tipo"].Visible = false;
+                    }
+                    dtgClientes.ClearSelection();
+                }
+                else
+                {
+                    MessageBox.Show("No existen clientes con esos datos");
+                    MostrarClientes();
+                }
+            }
+            else
+            {
+                MostrarClientes();
+            }
         }
     }
 }
