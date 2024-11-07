@@ -58,7 +58,7 @@ namespace Presentacion.Personas
                 tabControl1.TabPages.Add(nombre);
             }
             // Muestra el TabPage especificado (lo selecciona)
-            tabControl1.SelectedTab = nombre;  
+            tabControl1.SelectedTab = nombre;
         }
 
 
@@ -286,6 +286,34 @@ namespace Presentacion.Personas
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            string buscar = textBox1.Text;
+            if (buscar != "")
+            {
+                DataTable titulares = personaModel.GetTitularByValue(buscar);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgTitulares.DataSource = titulares;
+                    if (dtgTitulares.Columns["id"] != null)
+                    {
+                        dtgTitulares.Columns["id"].Visible = false;
+                        dtgTitulares.Columns["tipo"].Visible = false;
+                    }
+                    dtgTitulares.ClearSelection();
+                }
+                else
+                {
+                    MessageBox.Show("No existen titulares con esos datos");
+                    LoadTitulares();
+                }
+            }
+            else
+            {
+                LoadTitulares();
+            }
         }
     }
 }

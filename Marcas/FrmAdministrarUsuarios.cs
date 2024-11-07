@@ -100,7 +100,7 @@ namespace Presentacion
             }));
         }
 
-        
+
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
         {
@@ -136,7 +136,7 @@ namespace Presentacion
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
-            iconButton5.Text = "Guardar";
+            btnGuardar.Text = "Guardar";
 
         }
 
@@ -167,15 +167,15 @@ namespace Presentacion
                     try
                     {
                         contrasena = txtConfirmarCont.Text;
-                        iconButton5.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+                        btnGuardar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
 
-                        if (iconButton5.Text == "Guardar")
+                        if (btnGuardar.Text == "Guardar")
                         {
                             // Ejecutar la operación de adición de manera asíncrona
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
                             MessageBox.Show("Usuario agregado exitosamente");
                         }
-                        else if (iconButton5.Text == "Actualizar")
+                        else if (btnGuardar.Text == "Actualizar")
                         {
                             // Ejecutar la operación de actualización de manera asíncrona
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
@@ -193,7 +193,7 @@ namespace Presentacion
                     }
                     finally
                     {
-                        iconButton5.Enabled = true; // Volver a habilitar el botón
+                        btnGuardar.Enabled = true; // Volver a habilitar el botón
                     }
                 }
                 else
@@ -211,57 +211,47 @@ namespace Presentacion
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            if (dtgUsuarios.SelectedRows.Count > 0)
+            VerificarSeleccionIdUser();
+            if (EditarUsuario.idUser > 0)
             {
-                // Ensure the selected row is valid and the "usuario" column exists
-                if (dtgUsuarios.CurrentRow != null && dtgUsuarios.CurrentRow.Cells["usuario"].Value != DBNull.Value)
+                // Obtener el valor del 'id' de la fila seleccionada
+                int idUser = EditarUsuario.idUser;
+
+                // Llamar al método que obtiene los datos del usuario basándose en el campo 'idUser'
+                DataTable userDetails = UserModel.GetById(idUser);
+
+                if (userDetails.Rows.Count > 0) // Asegurarse de que se haya encontrado el usuario
                 {
-                    // Get the value of the "usuario" column from the selected row
-                    string usuario = dtgUsuarios.CurrentRow.Cells["usuario"].Value.ToString();
+                    // Acceder a la primera fila del DataTable
+                    DataRow row = userDetails.Rows[0];
 
-                    // Call the method to get user details based on the 'usuario'
-                    DataTable userDetails = UserModel.GetByValue(usuario);
+                    // Asignar los valores obtenidos a la clase estática EditarUsuario
+                   
+                    EditarUsuario.nombres = row["nombres"].ToString();
+                    EditarUsuario.apellidos = row["apellidos"].ToString();
+                    EditarUsuario.usuario = row["usuario"].ToString();
+                    EditarUsuario.contrasena = row["contrasena"].ToString();
+                    EditarUsuario.correo = row["correo"].ToString();
+                    EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
 
-                    if (userDetails.Rows.Count > 0) // Ensure that user details were found
-                    {
-                        // Assign the obtained values to the static class EditarUsuario from the first row of the DataTable
-                        EditarUsuario.idUser = Convert.ToInt32(userDetails.Rows[0]["id"]);
-                        EditarUsuario.usuario = userDetails.Rows[0]["usuario"].ToString();
-                        EditarUsuario.nombres = userDetails.Rows[0]["nombres"].ToString();
-                        EditarUsuario.apellidos = userDetails.Rows[0]["apellidos"].ToString();
-                        EditarUsuario.correo = userDetails.Rows[0]["correo"].ToString();
-                        EditarUsuario.contrasena = userDetails.Rows[0]["contrasena"].ToString();
-                        EditarUsuario.isAdmin = Convert.ToBoolean(userDetails.Rows[0]["isAdmin"]);
-
-                        // Optionally show a form to edit the user
-                        AnadirTabPage(tabPageUserDetail);
-
-                        // Fill the form fields with the user data
-                        txtUsername.Text = EditarUsuario.usuario;
-                        txtNombres.Text = EditarUsuario.nombres;
-                        txtApellidos.Text = EditarUsuario.apellidos;
-                        txtCorreo.Text = EditarUsuario.correo;
-                        txtCont.Text = EditarUsuario.contrasena;
-                        txtConfirmarCont.Text = EditarUsuario.contrasena;
-                        chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-
-                        iconButton5.Text = "Actualizar"; // Change the button text for updating
-                    }
-                    else
-                    {
-                        // If no user details are found
-                        MessageBox.Show("No se encontró el usuario.");
-                    }
+                    // Mostrar el formulario de edición con los valores del usuario
+                    AnadirTabPage(tabPageUserDetail);
+                    txtNombres.Text = EditarUsuario.nombres;
+                    txtUsername.Text = EditarUsuario.usuario;
+                    txtApellidos.Text = EditarUsuario.apellidos;
+                    txtCorreo.Text = EditarUsuario.correo;
+                    txtCont.Text = EditarUsuario.contrasena;
+                    txtConfirmarCont.Text = EditarUsuario.contrasena;
+                    chckbIsAdmin.Checked = EditarUsuario.isAdmin;
+                    btnGuardar.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
                 }
                 else
                 {
-                    // If the "usuario" column value is DBNull or invalid
-                    MessageBox.Show("El usuario seleccionado no tiene un valor válido.");
+                    MessageBox.Show("No se encontró el usuario.");
                 }
             }
             else
             {
-                // If no row is selected
                 MessageBox.Show("Por favor, seleccione una fila.");
             }
 
@@ -270,7 +260,7 @@ namespace Presentacion
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -287,13 +277,36 @@ namespace Presentacion
         {
 
         }
+        private void VerificarSeleccionIdUser()
+        {
+            if (dtgUsuarios.RowCount <= 0)
+            {
+                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (dtgUsuarios.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgUsuarios.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    EditarUsuario.idUser = id;
+                    tabControl1.SelectedTab = tabPageUserDetail;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text != "")
             {
-                DataTable usuarios=UserModel.GetByValue(textBox1.Text);
-                if(usuarios.Rows.Count > 0)
+                DataTable usuarios = UserModel.GetByValue(textBox1.Text);
+                if (usuarios.Rows.Count > 0)
                 {
                     dtgUsuarios.DataSource = usuarios;
 
@@ -308,12 +321,26 @@ namespace Presentacion
                     MessageBox.Show("No existen usuarios con esos datos");
                     LoadUsers();
                 }
-                
+
             }
             else
             {
                 LoadUsers();
             }
+        }
+
+        private void dtgUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Asegúrate de que el índice de la fila es válido (no en el encabezado)
+            if (e.RowIndex >= 0)
+            {
+               
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona una fila válida.");
+            }
+
         }
     }
 }

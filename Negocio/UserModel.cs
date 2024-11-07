@@ -32,6 +32,12 @@ namespace Dominio
             tabla = userDao.GetUserByValue(value);
             return tabla;
         }
+        public DataTable GetById(int id)
+        {
+            DataTable tabla = new DataTable();
+            tabla = userDao.GetUserById(id);
+            return tabla;
+        }
 
         public void AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
         {

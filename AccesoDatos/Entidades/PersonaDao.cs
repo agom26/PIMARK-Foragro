@@ -12,7 +12,7 @@ namespace AccesoDatos.Entidades
     {
         public bool AddPersona(string nombre, string direccion, string nit, string pais, string correo, string telefono, string nombreContacto, string tipo)
         {
-            using (var connection = GetConnection()) // Asegúrate de que GetConnection esté implementado
+            using (var connection = GetConnection()) 
             {
                 connection.Open();
                 using (var command = new MySqlCommand("INSERT INTO Personas (nombre, direccion, nit, pais, correo, telefono, nombre_contacto, tipo) VALUES (@nombre, @direccion, @nit, @pais, @correo, @telefono, @nombreContacto, @tipo)", connection))
@@ -24,12 +24,10 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@correo", correo);
                     command.Parameters.AddWithValue("@telefono", telefono);
                     command.Parameters.AddWithValue("@nombreContacto", nombreContacto);
-                    command.Parameters.AddWithValue("@tipo", tipo);  // Debe ser 'titular' o 'agente'
+                    command.Parameters.AddWithValue("@tipo", tipo);  
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    // Si se insertó al menos una fila, la operación fue exitosa
                     return rowsAffected > 0;
                 }
             }
@@ -51,29 +49,28 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@telefono", telefono);
                     command.Parameters.AddWithValue("@nombreContacto", nombreContacto);
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    // Si se actualizó al menos una fila, la operación fue exitosa
                     return rowsAffected > 0;
                 }
             }
         }
 
-        
-        //titulares
+
+
         public DataTable GetTitularByValue(string value)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE (nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value) AND tipo='titular';", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("GetTitularByValue", conexion))
                 {
-                    comando.Parameters.AddWithValue("@value", value);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@searchValue", value);
+
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader())
                     {
-                        
                         tabla.Load(leer);
                     }
                 }
@@ -85,15 +82,16 @@ namespace AccesoDatos.Entidades
         public DataTable GetAgenteByValue(string value)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Personas WHERE (nombre LIKE @value OR direccion LIKE @value OR nit LIKE @value OR pais LIKE @value OR correo LIKE @value OR telefono LIKE @value OR telefono LIKE @value OR nombre_contacto LIKE @value) AND tipo='agente';", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("GetAgenteByValue", conexion))
                 {
+                    comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.AddWithValue("@value", value);
-                    conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
-                    {
 
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader())
+                    {
                         tabla.Load(leer);
                     }
                 }
@@ -122,7 +120,6 @@ namespace AccesoDatos.Entidades
 
         public List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)> GetById(int id)
         {
-            // Lista que contendrá los detalles de la persona
             var persona = new List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)>();
 
             using (var connection = GetConnection())
@@ -134,9 +131,8 @@ namespace AccesoDatos.Entidades
 
                     using (var reader = command.ExecuteReader())
                     {
-                        if (reader.Read()) // Si encuentra una fila
+                        if (reader.Read()) 
                         {
-                            // Agregar la persona a la lista
                             persona.Add((
                                 reader.GetInt32("id"),
                                 reader.GetString("nombre"),
@@ -151,19 +147,19 @@ namespace AccesoDatos.Entidades
                     }
                 }
             }
-            return persona; // Retorna la lista con los detalles de la persona (aunque solo contiene una)
+            return persona; 
         }
 
 
         public DataTable GetAllTitulares()
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='titular'", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader())
                     {
                         tabla.Load(leer);
                     }
@@ -175,12 +171,12 @@ namespace AccesoDatos.Entidades
         public DataTable GetAllAgentes()
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='agente'", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
                         tabla.Load(leer);
                     }
@@ -193,12 +189,12 @@ namespace AccesoDatos.Entidades
         public DataTable GetAllClientes()
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='cliente'", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
                         tabla.Load(leer);
                     }
@@ -217,7 +213,6 @@ namespace AccesoDatos.Entidades
                 {
                     try
                     {
-                        // Inserta en la tabla de log antes de eliminar al usuario
                         using (var logCommand = new MySqlCommand("INSERT INTO PersonaDeletionLog (persona, tipo, deleted_by) VALUES (@persona, 'titular', @deletedBy)", connection, transaction))
                         {
                             logCommand.Parameters.AddWithValue("@persona", deletedUser);
@@ -225,20 +220,16 @@ namespace AccesoDatos.Entidades
                             logCommand.ExecuteNonQuery();
                         }
 
-                        // Elimina el usuario de la tabla USERS
                         using (var deleteCommand = new MySqlCommand("DELETE FROM Personas WHERE id=@personaId", connection, transaction))
                         {
                             deleteCommand.Parameters.AddWithValue("@personaId", personaId);
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                            // Si se eliminó el usuario, confirma la transacción
                             transaction.Commit();
                             return rowsAffected > 0;
                         }
                     }
                     catch (Exception ex)
                     {
-                        // En caso de error, revertir la transacción
                         transaction.Rollback();
                         throw new Exception("Error al eliminar el la persona: " + ex.Message);
                     }
@@ -255,7 +246,6 @@ namespace AccesoDatos.Entidades
                 {
                     try
                     {
-                        // Inserta en la tabla de log antes de eliminar al usuario
                         using (var logCommand = new MySqlCommand("INSERT INTO PersonaDeletionLog (persona, tipo, deleted_by) VALUES (@persona, 'agente', @deletedBy)", connection, transaction))
                         {
                             logCommand.Parameters.AddWithValue("@persona", deletedUser);
@@ -263,20 +253,16 @@ namespace AccesoDatos.Entidades
                             logCommand.ExecuteNonQuery();
                         }
 
-                        // Elimina el usuario de la tabla USERS
                         using (var deleteCommand = new MySqlCommand("DELETE FROM Personas WHERE id=@personaId", connection, transaction))
                         {
                             deleteCommand.Parameters.AddWithValue("@personaId", personaId);
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                            // Si se eliminó el usuario, confirma la transacción
                             transaction.Commit();
                             return rowsAffected > 0;
                         }
                     }
                     catch (Exception ex)
                     {
-                        // En caso de error, revertir la transacción
                         transaction.Rollback();
                         throw new Exception("Error al eliminar el la persona: " + ex.Message);
                     }

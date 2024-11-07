@@ -230,19 +230,18 @@ namespace Presentacion.Personas
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un agente.");
+                MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Verificar que una fila válida esté seleccionada
+            if (e.RowIndex >= 0) 
             {
                 // Obtener el valor del 'id' de la fila seleccionada
                 EditarPersona.idPersona = Convert.ToInt32(dtgAgentes.Rows[e.RowIndex].Cells["id"].Value);
 
-                // Usar el valor del 'id' como desees
-                //MessageBox.Show("ID del usuario seleccionado: " + EditarPersona.idPersona);
+               
             }
         }
 
@@ -318,6 +317,7 @@ namespace Presentacion.Personas
                     if (dtgAgentes.Columns["id"] != null)
                     {
                         dtgAgentes.Columns["id"].Visible = false;
+                        dtgAgentes.Columns["tipo"].Visible = false;
                     }
                     dtgAgentes.ClearSelection();
                 }

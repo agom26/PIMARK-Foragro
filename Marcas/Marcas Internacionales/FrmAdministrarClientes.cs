@@ -264,13 +264,10 @@ namespace Presentacion.Marcas_Internacionales
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
             //Eliminar
-
-            // Verificar si hay un titular seleccionado
             if (dtgClientes.SelectedRows.Count > 0)
             {
                 var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
 
-                // Preguntar si el usuario está seguro de eliminar ese Usuario
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al cliente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)

@@ -26,10 +26,8 @@ namespace AccesoDatos.Usuarios
                     command.Parameters.AddWithValue("@isAdmin", isAdmin);
                     command.Parameters.AddWithValue("@correo", correo);
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    // Si se insertó al menos una fila, la operación fue exitosa
                     return rowsAffected > 0;
                 }
             }
@@ -50,10 +48,8 @@ namespace AccesoDatos.Usuarios
                     command.Parameters.AddWithValue("@isAdmin", isAdmin);
                     command.Parameters.AddWithValue("@correo", correo);
 
-                    // Ejecuta el comando y devuelve el número de filas afectadas
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    // Si se actualizó al menos una fila, la operación fue exitosa
                     return rowsAffected > 0;
                 }
             }
@@ -66,31 +62,22 @@ namespace AccesoDatos.Usuarios
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo, isAdmin as Administrador FROM USERS", conexion))
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo, isAdmin as Administrador FROM USERS", conexion))
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())
                     {
-                        // Cargar los datos en la tabla
+                       
                         tabla.Load(leer);
-
-                        // Agregar una nueva columna para mostrar "sí" o "no"
                         tabla.Columns.Add("Es Administrador", typeof(string));
 
-                        // Llenar la nueva columna según el valor de isAdmin
                         foreach (DataRow row in tabla.Rows)
                         {
-                            // Cambiar la forma de obtener el valor de isAdmin
                             var isAdminValue = row["Administrador"];
-
-                            // Asumimos que el valor puede ser un UInt64
-                            bool isAdmin = Convert.ToUInt64(isAdminValue) == 1; // O 0 para false
-
-                            // Asignar "sí" o "no" a la nueva columna
+                            bool isAdmin = Convert.ToUInt64(isAdminValue) == 1; 
                             row["Es Administrador"] = isAdmin ? "sí" : "no";
                         }
 
-                        // Opcional: eliminar la columna original de isAdmin si no la necesitas
                         tabla.Columns.Remove("Administrador");
                     }
                 }
@@ -108,7 +95,7 @@ namespace AccesoDatos.Usuarios
                 {
                     try
                     {
-                        // Inserta en la tabla de log antes de eliminar al usuario
+                       
                         using (var logCommand = new MySqlCommand("INSERT INTO UserDeletionLog (user, deleted_by) VALUES (@user, @deletedBy)", connection, transaction))
                         {
                             logCommand.Parameters.AddWithValue("@user", deletedUser);
@@ -116,103 +103,80 @@ namespace AccesoDatos.Usuarios
                             logCommand.ExecuteNonQuery();
                         }
 
-                        // Elimina el usuario de la tabla USERS
                         using (var deleteCommand = new MySqlCommand("DELETE FROM USERS WHERE id=@userId", connection, transaction))
                         {
                             deleteCommand.Parameters.AddWithValue("@userId", userId);
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
 
-                            // Si se eliminó el usuario, confirma la transacción
                             transaction.Commit();
                             return rowsAffected > 0;
                         }
                     }
                     catch (Exception ex)
                     {
-                        // En caso de error, revertir la transacción
                         transaction.Rollback();
                         throw new Exception("Error al eliminar el usuario: " + ex.Message);
                     }
                 }
             }
         }
-        /*
-        public string solicitarContrasenaUsuario(string usuarioSolicitante)
-        {
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-                using (var command = new MySqlCommand("SELECT * FROM USERS WHERE usuario=@user OR correo=@email", connection))
-                {
-                    command.Parameters.AddWithValue("@user", usuarioSolicitante);
-                    command.Parameters.AddWithValue("@email", usuarioSolicitante);
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        { // Si el usuario existe
-                            string nombreUsuario = reader.GetString(3) + " " + reader.GetString(4);
-                            string correo = reader.GetString(6);
-                            string cont = reader.GetString(2);
-
-                            CorreoSoporteSistema correoSoporte = new CorreoSoporteSistema();
-                            correoSoporte.enviarCorreo(
-                                asunto: "SISTEMA: Solicitud de recuperación de contraseña",
-                                cuerpo: $"Hola {nombreUsuario}{Environment.NewLine}Has solicitado la recuperación de tu contraseña.{Environment.NewLine}" +
-                                      $"Tu contraseña actual es: {cont}{Environment.NewLine}",
-                                correoReceptor: new List<string> { nombreUsuario }
-                            );
-                            return "Hola " + nombreUsuario + "\nHas solicitado la recuperación de tu contraseña.\nPor favor revisa tu correo: " + correo;
-                        }
-                        else
-                        {
-                            return "Lo sentimos, no tiene una cuenta con este usuario o correo electrónico";
-                        }
-                    }
-                }
-            }
-        }*/
-
-        //titulares
+       
+        
         public DataTable GetUserByValue(string value)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("GetUserByValue", conexion)) // Llamar al procedimiento almacenado
+                using (MySqlCommand comando = new MySqlCommand("GetUserByValue", conexion)) 
                 {
-                    comando.CommandType = CommandType.StoredProcedure; // Especificamos que es un procedimiento almacenado
-                    comando.Parameters.AddWithValue("@value", value); // Agregar el parámetro 'value' al procedimiento
+                    comando.CommandType = CommandType.StoredProcedure; 
+                    comando.Parameters.AddWithValue("@value", value); 
 
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Ejecutar el procedimiento y leer los resultados
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
-                        tabla.Load(leer); // Cargar los resultados en el DataTable
+                        tabla.Load(leer); 
                     }
                 }
             }
 
-            // Agregar la columna "Es Administrador" para mostrar "sí" o "no"
+           
             tabla.Columns.Add("Es Administrador", typeof(string));
 
-            // Llenar la nueva columna según el valor de isAdmin
+           
             foreach (DataRow row in tabla.Rows)
             {
-                // Obtener el valor de la columna "EsAdministrador" (isAdmin)
                 var isAdminValue = row["EsAdministrador"];
-
-                // Asumimos que el valor es un entero (1 para "sí", 0 para "no")
-                bool isAdmin = Convert.ToBoolean(isAdminValue); // Convertir el valor a booleano
-
-                // Asignar "sí" o "no" a la nueva columna
+                bool isAdmin = Convert.ToBoolean(isAdminValue); 
                 row["Es Administrador"] = isAdmin ? "sí" : "no";
             }
 
-            // Opcional: eliminar la columna original de isAdmin si no la necesitas
             tabla.Columns.Remove("EsAdministrador");
 
             return tabla;
         }
+
+        public DataTable GetUserById(int id)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetUserById", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@userId", id);
+
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader())
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+
+            return tabla;
+        }
+
 
 
 
