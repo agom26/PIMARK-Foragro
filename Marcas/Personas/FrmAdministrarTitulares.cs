@@ -94,6 +94,7 @@ namespace Presentacion.Personas
         private void btnCancelarTit_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabTitularDetail);
+            dtgTitulares.ClearSelection();
         }
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
@@ -130,6 +131,7 @@ namespace Presentacion.Personas
                         // Ejecutar la operación de guardado de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Titular agregado exitosamente");
+                        dtgTitulares.ClearSelection();
                     }
                     else if (btnGuardarTit.Text == "Actualizar")
                     {
@@ -147,6 +149,7 @@ namespace Presentacion.Personas
                             MessageBox.Show("Titular actualizado exitosamente");
                             MostrarTitulares(); // Refrescar la lista de titulares
                             EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
+                            dtgTitulares.ClearSelection();
                         }
                         else
                         {
@@ -194,7 +197,7 @@ namespace Presentacion.Personas
                     EditarPersona.telefono = titularDetails[0].telefono;
                     EditarPersona.contacto = titularDetails[0].contacto;
                     // Mostrar el formulario de edición con los valores del titular
-                    AnadirTabPage(tabTitularDetail);
+                    
                     txtNombreTitular.Text = EditarPersona.nombre;
                     txtDireccionTitular.Text = EditarPersona.direccion;
                     txtNitTitular.Text = EditarPersona.nit;
@@ -202,6 +205,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
+                    AnadirTabPage(tabTitularDetail);
                     btnGuardarTit.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
                 }
                 else

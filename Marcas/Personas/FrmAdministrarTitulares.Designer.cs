@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabListTitulares = new TabPage();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
@@ -44,6 +44,7 @@
             roundedButton3 = new Clases.RoundedButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             ibtnAgregar = new FontAwesome.Sharp.IconButton();
+            panel1 = new Panel();
             dtgTitulares = new DataGridView();
             tabTitularDetail = new TabPage();
             comboBox1 = new ComboBox();
@@ -65,14 +66,13 @@
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             label10 = new Label();
             roundedButton1 = new Clases.RoundedButton();
-            panel1 = new Panel();
             tabControl1.SuspendLayout();
             tabListTitulares.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTitulares).BeginInit();
             tabTitularDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -116,7 +116,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(428, 18);
+            iconPictureBox2.Location = new Point(418, 18);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 40);
             iconPictureBox2.TabIndex = 61;
@@ -128,7 +128,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(196, 195, 209);
             label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(474, 18);
+            label2.Location = new Point(464, 18);
             label2.Name = "label2";
             label2.Size = new Size(111, 31);
             label2.TabIndex = 55;
@@ -187,7 +187,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(170, 6);
+            roundedButton5.Location = new Point(160, 6);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(683, 61);
             roundedButton5.TabIndex = 60;
@@ -255,54 +255,64 @@
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnAgregar_Click;
             // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top;
+            panel1.BackColor = Color.FromArgb(192, 202, 212);
+            panel1.Controls.Add(dtgTitulares);
+            panel1.Location = new Point(28, 203);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(952, 539);
+            panel1.TabIndex = 62;
+            // 
             // dtgTitulares
             // 
             dtgTitulares.AllowUserToAddRows = false;
             dtgTitulares.AllowUserToDeleteRows = false;
             dtgTitulares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgTitulares.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgTitulares.BorderStyle = BorderStyle.None;
             dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTitulares.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgTitulares.ColumnHeadersHeight = 40;
             dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle3;
             dtgTitulares.EnableHeadersVisualStyles = false;
             dtgTitulares.GridColor = Color.LightGray;
             dtgTitulares.Location = new Point(15, 14);
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
             dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgTitulares.RowHeadersWidth = 51;
-            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
-            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
+            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgTitulares.Size = new Size(921, 500);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
@@ -568,16 +578,6 @@
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top;
-            panel1.BackColor = Color.FromArgb(192, 202, 212);
-            panel1.Controls.Add(dtgTitulares);
-            panel1.Location = new Point(28, 203);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(952, 539);
-            panel1.TabIndex = 62;
-            // 
             // FrmAdministrarTitulares
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -593,11 +593,11 @@
             tabListTitulares.ResumeLayout(false);
             tabListTitulares.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
+            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgTitulares).EndInit();
             tabTitularDetail.ResumeLayout(false);
             tabTitularDetail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
