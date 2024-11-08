@@ -43,7 +43,7 @@
             roundedButton5 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
-            roundedButton8 = new Clases.RoundedButton();
+            btnTraspaso = new Clases.RoundedButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label26 = new Label();
@@ -359,7 +359,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(roundedButton8);
+            panel1.Controls.Add(btnTraspaso);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
@@ -402,25 +402,25 @@
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
             // 
-            // roundedButton8
+            // btnTraspaso
             // 
-            roundedButton8.Anchor = AnchorStyles.None;
-            roundedButton8.BackColor = Color.FromArgb(0, 137, 123);
-            roundedButton8.BackgroundColor = Color.FromArgb(0, 137, 123);
-            roundedButton8.BorderColor = Color.FromArgb(0, 137, 123);
-            roundedButton8.BorderRadius = 60;
-            roundedButton8.BorderSize = 0;
-            roundedButton8.FlatAppearance.BorderSize = 0;
-            roundedButton8.FlatStyle = FlatStyle.Flat;
-            roundedButton8.ForeColor = Color.White;
-            roundedButton8.Location = new Point(300, 1153);
-            roundedButton8.Name = "roundedButton8";
-            roundedButton8.Size = new Size(160, 62);
-            roundedButton8.TabIndex = 147;
-            roundedButton8.Text = "Renovación concedida";
-            roundedButton8.TextColor = Color.White;
-            roundedButton8.UseVisualStyleBackColor = false;
-            roundedButton8.Click += roundedButton8_Click;
+            btnTraspaso.Anchor = AnchorStyles.None;
+            btnTraspaso.BackColor = Color.FromArgb(0, 137, 123);
+            btnTraspaso.BackgroundColor = Color.FromArgb(0, 137, 123);
+            btnTraspaso.BorderColor = Color.FromArgb(0, 137, 123);
+            btnTraspaso.BorderRadius = 60;
+            btnTraspaso.BorderSize = 0;
+            btnTraspaso.FlatAppearance.BorderSize = 0;
+            btnTraspaso.FlatStyle = FlatStyle.Flat;
+            btnTraspaso.ForeColor = Color.White;
+            btnTraspaso.Location = new Point(300, 1153);
+            btnTraspaso.Name = "btnTraspaso";
+            btnTraspaso.Size = new Size(160, 62);
+            btnTraspaso.TabIndex = 147;
+            btnTraspaso.Text = "Renovación concedida";
+            btnTraspaso.TextColor = Color.White;
+            btnTraspaso.UseVisualStyleBackColor = false;
+            btnTraspaso.Click += roundedButton8_Click;
             // 
             // Renovacion
             // 
@@ -1400,6 +1400,6 @@
         private Label label26;
         private TextBox txtERenovacion;
         private Label label27;
-        private Clases.RoundedButton roundedButton8;
+        private Clases.RoundedButton btnTraspaso;
     }
 }
