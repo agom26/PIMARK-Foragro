@@ -119,6 +119,7 @@ namespace Presentacion.Marcas_Nacionales
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
+            
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
@@ -144,12 +145,14 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
+           
+
             // Guardar la marca
             try
             {
                 int idMarca = registroChek ?
                     marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo,tipo, clase, logo, idTitular, idAgente, solicitud);
+                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -216,7 +219,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        
+
 
 
         private void roundedButton1_Click(object sender, EventArgs e)
@@ -338,7 +341,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton4_Click_1(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

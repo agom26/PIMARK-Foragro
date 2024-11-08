@@ -416,7 +416,7 @@ namespace AccesoDatos.Entidades
                 using (MySqlCommand comando = new MySqlCommand("ObtenerMarcaNacionalPorId", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@p_id", id);
+                    comando.Parameters.AddWithValue("@marcaId", id);
 
                     conexion.Open();
 
@@ -468,51 +468,40 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand(@"
-            UPDATE Marcas 
-            SET expediente = @expediente, 
-                nombre = @nombre, 
-                signo_distintivo = @signoDistintivo, 
-                tipoSigno=@tipoSigno,
-                clase = @clase, 
-                folio = @folio, 
-                libro = @libro, 
-                logo = @logo, 
-                idTitular = @idPersonaTitular, 
-                idAgente = @idPersonaAgente, 
-                fecha_solicitud = @fecha_solicitud, 
-                registro = @registro, 
-                fecha_registro = @fechaRegistro, 
-                fecha_vencimiento = @fechaVencimiento 
-            WHERE id = @id AND tipo = 'nacional';", connection))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@expediente", expediente);
-                    command.Parameters.AddWithValue("@nombre", nombre);
-                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
-                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
-                    command.Parameters.AddWithValue("@clase", clase);
-                    command.Parameters.AddWithValue("@folio", folio);
-                    command.Parameters.AddWithValue("@libro", libro);
-                    command.Parameters.AddWithValue("@logo", logo); 
-                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
-                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
-                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
-                    command.Parameters.AddWithValue("@registro", registro);
-                    command.Parameters.AddWithValue("@fechaRegistro", fechaRegistro);
-                    command.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento);
 
-                    
+                
+                using (var command = new MySqlCommand("EditMarcaNacionalRegistrada", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_id", id);
+                    command.Parameters.AddWithValue("@p_expediente", expediente);
+                    command.Parameters.AddWithValue("@p_nombre", nombre);
+                    command.Parameters.AddWithValue("@p_signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("@p_tipoSigno", tipoSigno);
+                    command.Parameters.AddWithValue("@p_clase", clase);
+                    command.Parameters.AddWithValue("@p_folio", folio);
+                    command.Parameters.AddWithValue("@p_libro", libro);
+                    command.Parameters.AddWithValue("@p_logo", logo);
+                    command.Parameters.AddWithValue("@p_idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("@p_idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("@p_fechaSolicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("@p_registro", registro);
+                    command.Parameters.AddWithValue("@p_fechaRegistro", fechaRegistro);
+                    command.Parameters.AddWithValue("@p_fechaVencimiento", fechaVencimiento);
+                    command.Parameters.AddWithValue("@p_erenov", erenov);
+                    command.Parameters.AddWithValue("@p_etrasp", etrasp);
+
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; 
+                    return rowsAffected > 0;  
                 }
             }
         }
+
 
         public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int idCliente)
         {
@@ -614,6 +603,26 @@ namespace AccesoDatos.Entidades
 
             return dataTable;
         }
+
+        public DataTable ObtenerMarcasRegistradasEnTramiteDeRenovacion()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("ObtenerMarcasRegistradasRenovaciones", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable resultado = new DataTable();
+                        adapter.Fill(resultado);
+                        return resultado;
+                    }
+                }
+            }
+        }
+
 
 
 

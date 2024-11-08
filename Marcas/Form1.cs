@@ -215,7 +215,7 @@ namespace Presentacion
         private async void button23_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmRenovacion());
+            openChildForm(new FrmRenovaciones());
             await Task.Delay(1000);
             EnableButtons();
         }

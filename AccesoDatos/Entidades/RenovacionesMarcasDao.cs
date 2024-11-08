@@ -1,0 +1,41 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class RenovacionesMarcasDao:ConnectionSQL
+    {
+        public void InsertRenovacionMarca(
+            string numExpediente,
+            int idMarca,
+            DateTime fechaRegistroAntigua,
+            DateTime fechaVencimientoAntigua,
+            DateTime fechaRegistroNueva,
+            DateTime fechaVencimientoNueva)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("InsertarRenovacionMarca", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
+                    comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
+                    comando.Parameters.AddWithValue("@p_FechaRegistroAntigua", fechaRegistroAntigua);
+                    comando.Parameters.AddWithValue("@p_FechaVencimientoAntigua", fechaVencimientoAntigua);
+                    comando.Parameters.AddWithValue("@p_FechaRegistroNueva", fechaRegistroNueva);
+                    comando.Parameters.AddWithValue("@p_FechaVencimientoNueva", fechaVencimientoNueva);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
+
+    }
+}

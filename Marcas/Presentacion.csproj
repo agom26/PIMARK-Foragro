@@ -41,6 +41,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Marcas Nacionales\FrmAgregarEtapasRegistradas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Marcas Nacionales\FrmRenovaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Personas\DataSet1.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

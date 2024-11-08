@@ -24,6 +24,8 @@ namespace Comun.Cache
         public static string estado;
         public static string pais_de_registro;
         public static string tiene_poder;
+        public static string erenov;
+        public static string etraspaso;
         //internacional
         public static DateTime presentacion;
         public static DateTime ultimo_pago;

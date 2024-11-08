@@ -1,6 +1,6 @@
 ﻿namespace Presentacion.Marcas_Nacionales
 {
-    partial class FrmRegistradas
+    partial class FrmRenovaciones
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             iconButton3 = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
-            dtgMarcasR = new DataGridView();
+            dtgMarcasRenov = new DataGridView();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             label1 = new Label();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -68,7 +68,6 @@
             richTextBox1 = new RichTextBox();
             label16 = new Label();
             roundedButton6 = new Clases.RoundedButton();
-            roundedButton1 = new Clases.RoundedButton();
             label3 = new Label();
             textBoxEstatus = new TextBox();
             label14 = new Label();
@@ -116,10 +115,11 @@
             label23 = new Label();
             label25 = new Label();
             panel8 = new Panel();
+            roundedButton8 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dtgMarcasR).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dtgMarcasRenov).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
             panel1.SuspendLayout();
@@ -212,34 +212,34 @@
             // 
             panel4.Anchor = AnchorStyles.Top;
             panel4.BackColor = Color.FromArgb(192, 202, 212);
-            panel4.Controls.Add(dtgMarcasR);
+            panel4.Controls.Add(dtgMarcasRenov);
             panel4.Location = new Point(26, 207);
             panel4.Name = "panel4";
             panel4.Size = new Size(972, 542);
             panel4.TabIndex = 45;
             // 
-            // dtgMarcasR
+            // dtgMarcasRenov
             // 
-            dtgMarcasR.AllowUserToAddRows = false;
-            dtgMarcasR.AllowUserToDeleteRows = false;
-            dtgMarcasR.AllowUserToResizeRows = false;
-            dtgMarcasR.Anchor = AnchorStyles.Top;
-            dtgMarcasR.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgMarcasR.BackgroundColor = Color.FromArgb(251, 251, 251);
-            dtgMarcasR.BorderStyle = BorderStyle.None;
-            dtgMarcasR.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgMarcasR.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dtgMarcasR.ColumnHeadersHeight = 40;
-            dtgMarcasR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dtgMarcasR.EnableHeadersVisualStyles = false;
-            dtgMarcasR.GridColor = Color.LightGray;
-            dtgMarcasR.Location = new Point(10, 10);
-            dtgMarcasR.Name = "dtgMarcasR";
-            dtgMarcasR.ReadOnly = true;
-            dtgMarcasR.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dtgMarcasR.RowHeadersWidth = 51;
-            dtgMarcasR.Size = new Size(951, 492);
-            dtgMarcasR.TabIndex = 29;
+            dtgMarcasRenov.AllowUserToAddRows = false;
+            dtgMarcasRenov.AllowUserToDeleteRows = false;
+            dtgMarcasRenov.AllowUserToResizeRows = false;
+            dtgMarcasRenov.Anchor = AnchorStyles.Top;
+            dtgMarcasRenov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgMarcasRenov.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgMarcasRenov.BorderStyle = BorderStyle.None;
+            dtgMarcasRenov.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgMarcasRenov.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dtgMarcasRenov.ColumnHeadersHeight = 40;
+            dtgMarcasRenov.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dtgMarcasRenov.EnableHeadersVisualStyles = false;
+            dtgMarcasRenov.GridColor = Color.LightGray;
+            dtgMarcasRenov.Location = new Point(10, 10);
+            dtgMarcasRenov.Name = "dtgMarcasRenov";
+            dtgMarcasRenov.ReadOnly = true;
+            dtgMarcasRenov.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dtgMarcasRenov.RowHeadersWidth = 51;
+            dtgMarcasRenov.Size = new Size(951, 492);
+            dtgMarcasRenov.TabIndex = 29;
             // 
             // iconPictureBox1
             // 
@@ -249,7 +249,7 @@
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(320, 13);
+            iconPictureBox1.Location = new Point(292, 13);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 40);
             iconPictureBox1.TabIndex = 44;
@@ -261,11 +261,11 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(196, 195, 209);
             label1.Font = new Font("Century Gothic", 15F);
-            label1.Location = new Point(366, 13);
+            label1.Location = new Point(338, 13);
             label1.Name = "label1";
-            label1.Size = new Size(389, 31);
+            label1.Size = new Size(433, 31);
             label1.TabIndex = 43;
-            label1.Text = "Marcas nacionales registradas\r\n";
+            label1.Text = "Marcas nacionales en renovación";
             // 
             // ibtnBuscar
             // 
@@ -359,6 +359,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(roundedButton8);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
@@ -370,7 +371,6 @@
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
             panel1.Controls.Add(roundedButton6);
-            panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(textBoxEstatus);
             panel1.Controls.Add(label14);
@@ -498,9 +498,9 @@
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(378, 1153);
+            btnCancelar.Location = new Point(531, 1148);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(315, 62);
+            btnCancelar.Size = new Size(160, 62);
             btnCancelar.TabIndex = 142;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextColor = Color.Black;
@@ -518,9 +518,9 @@
             btnActualizar.FlatAppearance.BorderSize = 0;
             btnActualizar.FlatStyle = FlatStyle.Flat;
             btnActualizar.ForeColor = Color.White;
-            btnActualizar.Location = new Point(55, 1152);
+            btnActualizar.Location = new Point(55, 1155);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(315, 62);
+            btnActualizar.Size = new Size(160, 62);
             btnActualizar.TabIndex = 141;
             btnActualizar.Text = "Actualizar";
             btnActualizar.TextColor = Color.White;
@@ -685,26 +685,6 @@
             roundedButton6.TextColor = Color.Black;
             roundedButton6.UseVisualStyleBackColor = false;
             roundedButton6.Click += roundedButton6_Click;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.LightSteelBlue;
-            roundedButton1.BackgroundColor = Color.LightSteelBlue;
-            roundedButton1.BorderColor = Color.LightSteelBlue;
-            roundedButton1.BorderRadius = 10;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 9F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(55, 336);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(280, 35);
-            roundedButton1.TabIndex = 135;
-            roundedButton1.Text = "+ ESTADO ACTUAL";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click;
             // 
             // label3
             // 
@@ -1216,10 +1196,11 @@
             // 
             // comboBoxEstatusH
             // 
-            comboBoxEstatusH.BackColor = Color.White;
+            comboBoxEstatusH.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxEstatusH.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstatusH.FlatStyle = FlatStyle.Flat;
             comboBoxEstatusH.FormattingEnabled = true;
-            comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
+            comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Licencia de uso", "Trámite de renovación", "Registrada" });
             comboBoxEstatusH.Location = new Point(476, 116);
             comboBoxEstatusH.Name = "comboBoxEstatusH";
             comboBoxEstatusH.Size = new Size(250, 28);
@@ -1273,7 +1254,27 @@
             panel8.Size = new Size(946, 369);
             panel8.TabIndex = 21;
             // 
-            // FrmRegistradas
+            // roundedButton8
+            // 
+            roundedButton8.Anchor = AnchorStyles.None;
+            roundedButton8.BackColor = Color.FromArgb(0, 137, 123);
+            roundedButton8.BackgroundColor = Color.FromArgb(0, 137, 123);
+            roundedButton8.BorderColor = Color.FromArgb(0, 137, 123);
+            roundedButton8.BorderRadius = 60;
+            roundedButton8.BorderSize = 0;
+            roundedButton8.FlatAppearance.BorderSize = 0;
+            roundedButton8.FlatStyle = FlatStyle.Flat;
+            roundedButton8.ForeColor = Color.White;
+            roundedButton8.Location = new Point(300, 1153);
+            roundedButton8.Name = "roundedButton8";
+            roundedButton8.Size = new Size(160, 62);
+            roundedButton8.TabIndex = 147;
+            roundedButton8.Text = "Renovación concedida";
+            roundedButton8.TextColor = Color.White;
+            roundedButton8.UseVisualStyleBackColor = false;
+            roundedButton8.Click += roundedButton8_Click;
+            // 
+            // FrmRenovaciones
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -1282,14 +1283,14 @@
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmRegistradas";
+            Name = "FrmRenovaciones";
             Text = "FrmRegistradas";
-            Load += FrmRegistradas_Load;
+            Load += FrmRenovaciones_Load;
             tabControl1.ResumeLayout(false);
             tabPageRegistradasList.ResumeLayout(false);
             tabPageRegistradasList.PerformLayout();
             panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dtgMarcasR).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dtgMarcasRenov).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             tabPageMarcaDetail.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -1325,12 +1326,11 @@
         private Clases.RoundedButton roundedButton3;
         private Clases.RoundedButton roundedButton5;
         private Panel panel4;
-        private DataGridView dtgMarcasR;
+        private DataGridView dtgMarcasRenov;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private Panel panel1;
         private Clases.RoundedButton roundedButton6;
-        private Clases.RoundedButton roundedButton1;
         private Label label3;
         private TextBox textBoxEstatus;
         private Label label14;
@@ -1400,5 +1400,6 @@
         private Label label26;
         private TextBox txtERenovacion;
         private Label label27;
+        private Clases.RoundedButton roundedButton8;
     }
 }
