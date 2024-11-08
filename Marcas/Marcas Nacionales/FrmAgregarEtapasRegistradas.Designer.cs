@@ -311,11 +311,13 @@
             // 
             // txtNoExpediente
             // 
+            txtNoExpediente.BorderStyle = BorderStyle.None;
             txtNoExpediente.Location = new Point(176, 64);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.ReadOnly = true;
-            txtNoExpediente.Size = new Size(120, 26);
+            txtNoExpediente.Size = new Size(120, 19);
             txtNoExpediente.TabIndex = 12;
+            txtNoExpediente.TextAlign = HorizontalAlignment.Center;
             txtNoExpediente.TextChanged += textBox2_TextChanged;
             // 
             // label8
