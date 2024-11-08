@@ -220,6 +220,7 @@
             // 
             // dateFechRegAntigua
             // 
+            dateFechRegAntigua.Enabled = false;
             dateFechRegAntigua.Format = DateTimePickerFormat.Short;
             dateFechRegAntigua.Location = new Point(15, 133);
             dateFechRegAntigua.Name = "dateFechRegAntigua";
