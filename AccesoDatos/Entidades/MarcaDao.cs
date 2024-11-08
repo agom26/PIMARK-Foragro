@@ -623,6 +623,24 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public DataTable ObtenerMarcasRegistradasEnTramiteDeTraspaso()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("ObtenerMarcasRegistradasEnTramiteDeTraspaso", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable resultado = new DataTable();
+                        adapter.Fill(resultado);
+                        return resultado;
+                    }
+                }
+            }
+        }
 
 
 

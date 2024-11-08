@@ -12,15 +12,15 @@ using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmRegistradas : Form
+    public partial class FrmTraspasos : Form
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
-        public FrmRegistradas()
+        public FrmTraspasos()
         {
             InitializeComponent();
-            this.Load += FrmRegistradas_Load;
+            this.Load += FrmTraspasos_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
@@ -34,31 +34,27 @@ namespace Presentacion.Marcas_Nacionales
 
         private void MostrarMarcasRegistradas()
         {
-            dtgMarcasR.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
-            // Ocultar la columna 'id'
-            if (dtgMarcasR.Columns["id"] != null)
-            {
-                dtgMarcasR.Columns["id"].Visible = false;
+            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasNacionalesEnTramiteDeTraspaso();
 
-                // Desactiva la selección automática de la primera fila
-                dtgMarcasR.ClearSelection();
+            if (dtgMarcasRenov.Columns["id"] != null)
+            {
+                dtgMarcasRenov.Columns["id"].Visible = false;
+                dtgMarcasRenov.ClearSelection();
             }
         }
         private async void LoadMarcas()
         {
-            // Obtiene las marcas en oposicion
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesRegistradas());
+            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramiteDeTraspaso());
 
             Invoke(new Action(() =>
             {
-                dtgMarcasR.DataSource = marcasN;
-                dtgMarcasR.Refresh();
-                // Oculta la columna 'id'
-                if (dtgMarcasR.Columns["id"] != null)
+                dtgMarcasRenov.DataSource = marcasR;
+                dtgMarcasRenov.Refresh();
+
+                if (dtgMarcasRenov.Columns["id"] != null)
                 {
-                    dtgMarcasR.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
-                    dtgMarcasR.ClearSelection();
+                    dtgMarcasRenov.Columns["id"].Visible = false;
+                    dtgMarcasRenov.ClearSelection();
                 }
             }));
         }
@@ -191,9 +187,9 @@ namespace Presentacion.Marcas_Nacionales
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
-            string etrasp = txtETraspaso.Text;
+            //Tramites de renovacion y traspaso
             string erenov = txtERenovacion.Text;
-
+            string etrasp = txtETraspaso.Text;
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
@@ -213,7 +209,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
 
             // Validar campos 
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
@@ -223,12 +219,11 @@ namespace Presentacion.Marcas_Nacionales
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
-                
                 MessageBox.Show("Por favor, ingrese el número de trámite de renovación", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (estado == "Trámite de traspaso" && string.IsNullOrEmpty(etrasp))
+            if (estado == "Tramite de traspaso" && string.IsNullOrEmpty(etrasp))
             {
                 MessageBox.Show("Por favor, ingrese el número de trámite de traspaso.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -322,9 +317,9 @@ namespace Presentacion.Marcas_Nacionales
             {
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
-                if (detallesMarcaInter.Rows.Count > 0) 
+                if (detallesMarcaInter.Rows.Count > 0)
                 {
-                    DataRow row = detallesMarcaInter.Rows[0]; 
+                    DataRow row = detallesMarcaInter.Rows[0];
 
                     if (row["expediente"] != DBNull.Value)
                     {
@@ -339,8 +334,9 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
+                        
 
-                        if (row["Erenov"]!=DBNull.Value)
+                        if (row["Erenov"] != DBNull.Value)
                         {
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
                             txtERenovacion.Text = SeleccionarMarca.erenov;
@@ -354,7 +350,7 @@ namespace Presentacion.Marcas_Nacionales
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-                        
+
                         await Task.WhenAll(titularTask, agenteTask);
 
                         var titular = titularTask.Result;
@@ -386,13 +382,12 @@ namespace Presentacion.Marcas_Nacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                        
+
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
-                            
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
                             SeleccionarMarca.registro = row["registro"].ToString();
@@ -400,12 +395,14 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
                             SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+                            SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
                             txtFolio.Text = SeleccionarMarca.folio;
                             txtLibro.Text = SeleccionarMarca.libro;
                             dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro.Value;
                             dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento.Value;
+                            txtERenovacion.Text = SeleccionarMarca.erenov;
                         }
                         else
                         {
@@ -432,15 +429,15 @@ namespace Presentacion.Marcas_Nacionales
 
         private void VerificarSeleccionIdMarcaEdicion()
         {
-            if (dtgMarcasR.RowCount <= 0)
+            if (dtgMarcasRenov.RowCount <= 0)
             {
                 MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (dtgMarcasR.SelectedRows.Count > 0)
+            if (dtgMarcasRenov.SelectedRows.Count > 0)
             {
-                var filaSeleccionada = dtgMarcasR.SelectedRows[0];
+                var filaSeleccionada = dtgMarcasRenov.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
@@ -454,7 +451,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        
+
         private async void loadHistorialById()
         {
             try
@@ -481,55 +478,8 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void refrescarMarca()
-        {
-            if (SeleccionarMarca.idInt > 0)
-            {
-                try
-                {
-                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
-                    if (detallesMarcaInt.Rows.Count > 0)
-                    {
-                        DataRow row = detallesMarcaInt.Rows[0];
-
-                        if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
-                        {
-                            // Actualizar los controles 
-                            textBoxEstatus.Text = row["estado"].ToString();
-                            richTextBox1.Text = row["observaciones"].ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-
-                        // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
-
-                        if (contieneRegistrada)
-                        {
-                            mostrarPanelRegistro("si");
-                        }
-                        else
-                        {
-                            mostrarPanelRegistro("no");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron detalles de la marca.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al refrescar los datos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-
-        private async void FrmRegistradas_Load(object sender, EventArgs e)
+        private async void FrmTraspasos_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadMarcas());
             tabControl1.SelectedTab = tabPageRegistradasList;
@@ -583,18 +533,18 @@ namespace Presentacion.Marcas_Nacionales
                     string justificacion = justificacionForm.Justificacion;
                     DateTime fechaAbandono = justificacionForm.fecha;
                     string usuarioAbandono = justificacionForm.usuarioAbandono;
-                    
+
                     try
                     {
-                        
-                        if (dtgMarcasR.SelectedRows.Count > 0)
+
+                        if (dtgMarcasRenov.SelectedRows.Count > 0)
                         {
-                            var filaSeleccionada = dtgMarcasR.SelectedRows[0];
+                            var filaSeleccionada = dtgMarcasRenov.SelectedRows[0];
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString()+" Abandono "+justificacion, usuarioAbandono);
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasRegistradas();
@@ -615,7 +565,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+            FrmAgregarEtapasRegistradas frmAgregarEtapa = new FrmAgregarEtapasRegistradas();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
@@ -634,9 +584,7 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    refrescarMarca();
-                    CargarDatosMarca();
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -889,6 +837,14 @@ namespace Presentacion.Marcas_Nacionales
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+        }
+
+        private void roundedButton8_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapasRegistradas frmAgregarConcesion=new FrmAgregarEtapasRegistradas();
+            frmAgregarConcesion.ShowDialog();
+            
+
         }
     }
 }

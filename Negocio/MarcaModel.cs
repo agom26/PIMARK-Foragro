@@ -72,6 +72,12 @@ namespace Dominio
             tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeRenovacion();
             return tabla;
         }
+        public DataTable GetAllMarcasNacionalesEnTramiteDeTraspaso()
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeTraspaso();
+            return tabla;
+        }
 
 
         public DataTable GetMarcaNacionalById(int id)

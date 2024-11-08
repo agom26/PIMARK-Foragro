@@ -220,9 +220,12 @@ namespace Presentacion
             EnableButtons();
         }
 
-        private void button22_Click(object sender, EventArgs e)
+        private async void button22_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Form2());
+            DisableButtons();
+            openChildForm(new FrmTraspasos());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void panelChildForm_Paint(object sender, PaintEventArgs e)
