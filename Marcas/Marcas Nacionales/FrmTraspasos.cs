@@ -567,7 +567,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapasRegistradas frmAgregarEtapa = new FrmAgregarEtapasRegistradas();
+            FrmAgregarRenovacionConcedida frmAgregarEtapa = new FrmAgregarRenovacionConcedida();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
@@ -843,7 +843,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton8_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapasRegistradas frmAgregarConcesion=new FrmAgregarEtapasRegistradas();
+            FrmAgregarRenovacionConcedida frmAgregarConcesion=new FrmAgregarRenovacionConcedida();
             frmAgregarConcesion.ShowDialog();
             
 

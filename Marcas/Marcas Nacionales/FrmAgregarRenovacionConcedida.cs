@@ -3,9 +3,9 @@ using Dominio;
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmAgregarEtapasRegistradas : Form
+    public partial class FrmAgregarRenovacionConcedida : Form
     {
-        public FrmAgregarEtapasRegistradas()
+        public FrmAgregarRenovacionConcedida()
         {
             InitializeComponent();
         }

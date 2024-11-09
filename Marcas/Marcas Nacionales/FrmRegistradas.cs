@@ -615,7 +615,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+            FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
