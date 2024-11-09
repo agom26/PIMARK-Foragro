@@ -417,7 +417,7 @@
             btnTraspaso.Name = "btnTraspaso";
             btnTraspaso.Size = new Size(160, 62);
             btnTraspaso.TabIndex = 147;
-            btnTraspaso.Text = "Renovación concedida";
+            btnTraspaso.Text = "Traspaso concedido";
             btnTraspaso.TextColor = Color.White;
             btnTraspaso.UseVisualStyleBackColor = false;
             btnTraspaso.Click += roundedButton8_Click;

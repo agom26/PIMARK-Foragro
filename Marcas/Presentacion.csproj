@@ -50,6 +50,9 @@
     <Compile Update="Marcas Nacionales\FrmAgregarRenovacionConcedida.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Marcas Nacionales\FrmMostrarTitularesTraspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Nacionales\FrmTraspasos.cs">
       <SubType>Form</SubType>
     </Compile>

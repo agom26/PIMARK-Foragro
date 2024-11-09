@@ -9,7 +9,9 @@ namespace Comun.Cache
     public class AgregarTraspaso
     {
         public static int idTitularAnterior;
+        public static string nombreTitulara;
         public static int idNuevoTitular;
+        public static string nombreTitularN;
         public static string nuevoNombre;
         public static string antiguoNombre;
         public static DateTime fechaCreacion;

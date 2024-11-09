@@ -327,6 +327,7 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         SeleccionarMarca.expediente = row["expediente"].ToString();
                         SeleccionarMarca.nombre = row["nombre"].ToString();
+                        AgregarTraspaso.antiguoNombre = row["nombre"].ToString();
                         SeleccionarMarca.clase = row["clase"].ToString();
                         SeleccionarMarca.estado = row["estado"].ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
@@ -360,10 +361,11 @@ namespace Presentacion.Marcas_Nacionales
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
-
+                        AgregarTraspaso.idTitularAnterior = SeleccionarMarca.idPersonaTitular;
                         if (titular.Count > 0)
                         {
                             txtNombreTitular.Text = titular[0].nombre;
+                            AgregarTraspaso.nombreTitulara = titular[0].nombre;
                             txtDireccionTitular.Text = titular[0].direccion;
                             txtEntidadTitular.Text = titular[0].pais;
                         }
@@ -377,6 +379,7 @@ namespace Presentacion.Marcas_Nacionales
                         // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
+                        AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
@@ -603,7 +606,9 @@ namespace Presentacion.Marcas_Nacionales
 
             if (SeleccionarPersona.idPersonaT != 0)
             {
+                AgregarTraspaso.idTitularAnterior = SeleccionarPersona.idPersonaT;
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
+                AgregarTraspaso.nombreTitulara = SeleccionarPersona.nombre;
                 txtDireccionTitular.Text = SeleccionarPersona.direccion;
                 txtEntidadTitular.Text = SeleccionarPersona.pais;
             }
@@ -843,8 +848,9 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton8_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionConcedida frmAgregarConcesion=new FrmAgregarRenovacionConcedida();
-            frmAgregarConcesion.ShowDialog();
+            AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
+            FrmCrearTraspaso frmCrearTraspaso = new FrmCrearTraspaso();
+            frmCrearTraspaso.ShowDialog();
             
 
         }

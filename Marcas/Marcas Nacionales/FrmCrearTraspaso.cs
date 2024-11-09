@@ -24,10 +24,9 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmCrearTraspaso_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
-            txtNoExpediente.Text = SeleccionarMarca.erenov;
-           
-            ActualizarFechaVencimiento();
-
+            txtNoExpediente.Text = SeleccionarMarca.etraspaso;
+           txtNombreTitularA.Text=AgregarTraspaso.nombreTitulara;
+            txtNombreMarcaA.Text = AgregarTraspaso.antiguoNombre;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -41,50 +40,60 @@ namespace Presentacion.Marcas_Nacionales
 
             this.Close();
             AgregarEtapa.LimpiarEtapa();
+            AgregarTraspaso.LimpiarTraspaso();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
             HistorialModel historialModel = new HistorialModel();
-            RenovacionesMarcaModel renovacionModel = new RenovacionesMarcaModel();
+            TraspasosMarcaModel traspasosMarcaModel = new TraspasosMarcaModel();
             string anotaciones = richTextBox1.Text;
             AgregarEtapa.etapa = txtEstado.Text;
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 
-            //renovacion
+            //traspaso
             string noExpediente = txtNoExpediente.Text;
             int idMarca = SeleccionarMarca.idN;
-
+            string nombreNuevoMarca = txtNombreMarcaN.Text;
+            string nuevoTitular = txtNombreTitularN.Text;
 
             if (txtEstado.Text != "")
             {
-                //Historial
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + txtEstado.Text;
-                if (anotaciones.Contains(formato))
+                if (nombreNuevoMarca != "" || nuevoTitular !="")
                 {
-                    AgregarEtapa.anotaciones = anotaciones;
+                    //Historial
+                    string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                    string formato = fechaSinHora + " " + txtEstado.Text;
+                    if (anotaciones.Contains(formato))
+                    {
+                        AgregarEtapa.anotaciones = anotaciones;
+                    }
+                    else
+                    {
+                        AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                    }
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+
+                    try
+                    {
+                        int idTitularNuevo = AgregarTraspaso.idNuevoTitular;
+                        int idTitularviejo = AgregarTraspaso.idTitularAnterior;
+                        string nombreViejo = txtNombreMarcaA.Text;
+                        //Agregar a traspasos
+                        traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo, nombreViejo, nombreNuevoMarca);
+                        MessageBox.Show("Traspaso guardado correctamente");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        this.Close();
+                    }
                 }
                 else
                 {
-                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                    MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-
-                try
-                {
-                    //Agregar a renovaciones
-                    //renovacionModel.AddRenovacion(noExpediente, idMarca, fechaRegistrA, fechaVenA, fechaRegistroN, fechaVenN);
-                    MessageBox.Show("Traspaso guardado");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-
-                this.Close();
             }
             else
             {
@@ -119,8 +128,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
-            FrmMostrarTitulares frmMostrarTitulares=new FrmMostrarTitulares();
-            frmMostrarTitulares.ShowDialog();
+            FrmMostrarTitularesTraspaso frmCrearTraspaso = new FrmMostrarTitularesTraspaso();
+            frmCrearTraspaso.ShowDialog();
+
+            if (AgregarTraspaso.idNuevoTitular != 0)
+            {
+                txtNombreTitularN.Text = AgregarTraspaso.nombreTitularN;
+
+            }
+            else
+            {
+                MessageBox.Show("No selecciono un nuevo titular");
+            }
 
         }
     }
