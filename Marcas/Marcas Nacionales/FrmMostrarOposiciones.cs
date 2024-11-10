@@ -752,6 +752,22 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        public void Habilitar()
+        {
+            dateTimePickerFechaH.Enabled = true;
+            comboBoxEstatusH.Enabled = true;
+            richTextBoxAnotacionesH.Enabled = true;
+            btnEditarH.Enabled = true;
+        }
+        public void Deshabilitar()
+        {
+            dateTimePickerFechaH.Enabled = false;
+            comboBoxEstatusH.Enabled = false;
+            richTextBoxAnotacionesH.Enabled = true;
+            richTextBoxAnotacionesH.ReadOnly = true;
+            btnEditarH.Enabled = false;
+        }
+
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             ActualizarMarcaNacional();
@@ -823,6 +839,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
+                Habilitar();
                 var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
@@ -1017,6 +1034,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
+                Deshabilitar();
                 var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {

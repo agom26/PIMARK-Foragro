@@ -756,7 +756,8 @@ namespace Presentacion.Marcas_Nacionales
         {
             dateTimePickerFechaH.Enabled = false;
             comboBoxEstatusH.Enabled = false;
-            richTextBoxAnotacionesH.Enabled = false;
+            richTextBoxAnotacionesH.Enabled = true;
+            richTextBoxAnotacionesH.ReadOnly = true;
             btnEditarH.Enabled = false;
         }
 
