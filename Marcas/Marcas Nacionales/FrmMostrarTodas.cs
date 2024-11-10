@@ -745,6 +745,20 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialDetail);
             }
         }
+        public void Habilitar()
+        {
+            dateTimePickerFechaH.Enabled = true;
+            comboBoxEstatusH.Enabled = true;
+            richTextBoxAnotacionesH.Enabled = true;
+            btnEditarH.Enabled = true;
+        }
+        public void Deshabilitar()
+        {
+            dateTimePickerFechaH.Enabled = false;
+            comboBoxEstatusH.Enabled = false;
+            richTextBoxAnotacionesH.Enabled = false;
+            btnEditarH.Enabled = false;
+        }
 
 
 
@@ -752,7 +766,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
-
+                Habilitar();
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
@@ -903,6 +917,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
+                Deshabilitar();
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {

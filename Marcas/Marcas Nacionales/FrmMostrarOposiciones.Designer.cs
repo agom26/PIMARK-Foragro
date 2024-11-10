@@ -1190,8 +1190,9 @@
             // 
             // comboBoxEstatusH
             // 
-            comboBoxEstatusH.BackColor = Color.White;
+            comboBoxEstatusH.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxEstatusH.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstatusH.FlatStyle = FlatStyle.Flat;
             comboBoxEstatusH.FormattingEnabled = true;
             comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
             comboBoxEstatusH.Location = new Point(476, 116);
