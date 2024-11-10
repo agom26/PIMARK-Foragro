@@ -82,8 +82,8 @@ namespace Presentacion.Marcas_Nacionales
                         string nombreViejo = txtNombreMarcaA.Text;
                         //Agregar a traspasos
                         traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo, nombreViejo, nombreNuevoMarca);
-                        MessageBox.Show("Traspaso guardado correctamente");
                         AgregarTraspaso.traspasoFinalizado = true;
+                        this.Close();
                     }
                     catch (Exception ex)
                     {

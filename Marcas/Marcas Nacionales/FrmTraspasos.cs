@@ -858,6 +858,8 @@ namespace Presentacion.Marcas_Nacionales
                 LimpiarFormulario();
                 //Volver a poner traspasos = false
                 AgregarTraspaso.traspasoFinalizado = false;
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                MessageBox.Show("Traspaso guardado correctamente");
             }
 
         }
