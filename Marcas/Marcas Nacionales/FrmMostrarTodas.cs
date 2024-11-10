@@ -18,7 +18,7 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
-        
+
         public FrmMostrarTodas()
         {
             InitializeComponent();
@@ -746,13 +746,13 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        
+
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
-               
+
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
@@ -928,7 +928,7 @@ namespace Presentacion.Marcas_Nacionales
                         richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
                         labelUserEditor.Text = UsuarioActivo.usuario;
                         lblUser.Text = SeleccionarHistorial.usuario;
-                       
+
                         AnadirTabPage(tabPageHistorialDetail);
                     }
                     else
@@ -941,6 +941,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 MessageBox.Show("Por favor, seleccione una fila del historial.");
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

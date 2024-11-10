@@ -25,6 +25,42 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            if (UsuarioActivo.isAdmin == false)
+            {
+                btnAgregarTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                btnEditarEstadoHistorial.Visible = false;
+                txtExpediente.Enabled = false;
+                txtClase.Enabled = false;
+                txtNombre.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+                dateTimePickerFechaH.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                btnEditarH.Visible = false;
+            }
+            else if (UsuarioActivo.isAdmin == true)
+            {
+                btnAgregarTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                btnEditarEstadoHistorial.Visible = true;
+                txtExpediente.Enabled = true;
+                txtClase.Enabled = true;
+                txtNombre.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+                dateTimePickerFechaH.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Visible = true;
+            }
         }
         public void ExportarPDF(DataGridView dataGridView)
         {
@@ -275,7 +311,7 @@ namespace Presentacion.Marcas_Nacionales
 
             return true; // Todas las validaciones pasaron
         }
-        
+
 
         public void LimpiarFormulario()
         {
@@ -537,7 +573,7 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    
+
                     refrescarMarca();
                 }
                 catch (Exception ex)
@@ -649,7 +685,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-           
+
 
             // Validar campos 
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
@@ -667,7 +703,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,null, null);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, null, null);
                 }
                 else
                 {
@@ -975,6 +1011,50 @@ namespace Presentacion.Marcas_Nacionales
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
             ExportarPDF(dtgMarcasO);
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            if (dtgHistorialOp.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    DataTable historial = historialModel.GetHistorialById(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+
+                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorial.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetalle);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila del historial.");
+            }
         }
     }
 }
