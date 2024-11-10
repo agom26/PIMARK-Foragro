@@ -15,6 +15,7 @@ namespace Comun.Cache
         public static string nuevoNombre;
         public static string antiguoNombre;
         public static DateTime fechaCreacion;
+        public static bool traspasoFinalizado;
 
         public static void LimpiarTraspaso()
         {

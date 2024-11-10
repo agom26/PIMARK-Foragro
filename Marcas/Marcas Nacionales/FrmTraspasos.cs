@@ -851,7 +851,14 @@ namespace Presentacion.Marcas_Nacionales
             AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
             FrmCrearTraspaso frmCrearTraspaso = new FrmCrearTraspaso();
             frmCrearTraspaso.ShowDialog();
-            
+
+            if (AgregarTraspaso.traspasoFinalizado == true)
+            {
+                //Limpiar campos
+                LimpiarFormulario();
+                //Volver a poner traspasos = false
+                AgregarTraspaso.traspasoFinalizado = false;
+            }
 
         }
     }

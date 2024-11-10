@@ -56,11 +56,11 @@ namespace Presentacion.Marcas_Nacionales
 
             //renovacion
             string noExpediente = txtNoExpediente.Text;
-            int idMarca = SeleccionarMarca.idN;
-            DateTime fechaRegistrA = dateFechRegAntigua.Value;
-            DateTime fechaRegistroN=dateFechRegNueva.Value;
-            DateTime fechaVenA=dateFechVencAnt.Value;
-            DateTime fechaVenN = dateFechVencNueva.Value;
+            AgregarRenovacion.idMarca= SeleccionarMarca.idN;
+            AgregarRenovacion.fechaRegistroAntigua = dateFechRegAntigua.Value;
+            AgregarRenovacion.fechaRegistroNueva=dateFechRegNueva.Value;
+            AgregarRenovacion.fechaVencimientoAntigua=dateFechVencAnt.Value;
+            AgregarRenovacion.fechaVencimientoNueva= dateFechVencNueva.Value;
 
             if (txtEstado.Text != "")
             {
@@ -80,8 +80,10 @@ namespace Presentacion.Marcas_Nacionales
                 try
                 {
                     //Agregar a renovaciones
-                    renovacionModel.AddRenovacion(noExpediente, idMarca, fechaRegistrA, fechaVenA, fechaRegistroN, fechaVenN);
-                    MessageBox.Show("Renovacion actualizada");
+                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacion.idMarca, AgregarRenovacion.fechaRegistroAntigua, AgregarRenovacion.fechaVencimientoAntigua, AgregarRenovacion.fechaRegistroNueva, AgregarRenovacion.fechaVencimientoNueva);
+                    
+                    AgregarRenovacion.renovacionTerminada = true;
+
                 }
                 catch (Exception ex)
                 {

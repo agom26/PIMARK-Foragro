@@ -647,10 +647,10 @@
             // 
             richTextBox1.Anchor = AnchorStyles.None;
             richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Enabled = false;
             richTextBox1.Font = new Font("Century Gothic", 10F);
             richTextBox1.Location = new Point(55, 786);
             richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(638, 120);
             richTextBox1.TabIndex = 138;
             richTextBox1.Text = "";

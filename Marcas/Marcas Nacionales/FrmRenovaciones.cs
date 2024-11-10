@@ -89,7 +89,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
                 btnActualizar.Location = new Point(55, panel3.Location.Y + panel3.Height + 10);
-                btnRenovacion.Location = new Point(300, panel3.Location.X + panel3.Width + 10);
+                btnRenovacion.Location = new Point(300, panel3.Location.Y + panel3.Height + 10);
                 btnCancelar.Location = new Point(531, panel3.Location.Y + panel3.Height + 10);
             }
             else
@@ -830,7 +830,15 @@ namespace Presentacion.Marcas_Nacionales
         {
             FrmAgregarRenovacionConcedida frmAgregarConcesion=new FrmAgregarRenovacionConcedida();
             frmAgregarConcesion.ShowDialog();
-            
+
+            if (AgregarRenovacion.renovacionTerminada == true)
+            {
+                LimpiarFormulario();
+                AgregarRenovacion.renovacionTerminada = false;
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                MessageBox.Show("Renovacion guardada correctamente");
+
+            }
 
         }
     }
