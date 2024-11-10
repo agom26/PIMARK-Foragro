@@ -23,7 +23,11 @@ namespace Presentacion.Personas
         {
             InitializeComponent();
             this.Load += FrmAdministrarTitulares_Load; // Mueve la lógica de carga aquí
+            if (UsuarioActivo.isAdmin == false)
+            {
+                ibtnEditar.Visible = false;
 
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -82,8 +86,34 @@ namespace Presentacion.Personas
             }));
         }
 
+        public void Habilitar()
+        {
+            txtNombreTitular.Enabled = true;
+            txtDireccionTitular.Enabled = true;
+            txtNitTitular.Enabled = true;
+            comboBox1.Enabled = true;
+            txtCorreoContacto.Enabled = true;
+            txtTelefonoContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            btnGuardarTit.Visible = true;
+        }
+        public void Deshabilitar()
+        {
+            txtNombreTitular.Enabled = false;
+            txtDireccionTitular.Enabled = false;
+            txtNitTitular.Enabled = false;
+            comboBox1.Enabled = false;
+            txtCorreoContacto.Enabled = false;
+            txtTelefonoContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            btnGuardarTit.Visible = false;
+        }
+
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
@@ -177,6 +207,7 @@ namespace Presentacion.Personas
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             if (dtgTitulares.SelectedRows.Count > 0)
             {
                 // Obtener el valor del 'id' de la fila seleccionada
@@ -197,7 +228,7 @@ namespace Presentacion.Personas
                     EditarPersona.telefono = titularDetails[0].telefono;
                     EditarPersona.contacto = titularDetails[0].contacto;
                     // Mostrar el formulario de edición con los valores del titular
-                    
+
                     txtNombreTitular.Text = EditarPersona.nombre;
                     txtDireccionTitular.Text = EditarPersona.direccion;
                     txtNitTitular.Text = EditarPersona.nit;
@@ -210,12 +241,12 @@ namespace Presentacion.Personas
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró el usuario.");
+                    MessageBox.Show("No se encontró el titular.");
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un usuario.");
+                MessageBox.Show("Por favor, seleccione una fila de titular.");
             }
         }
 
@@ -318,6 +349,49 @@ namespace Presentacion.Personas
             else
             {
                 LoadTitulares();
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (dtgTitulares.SelectedRows.Count > 0)
+            {
+                int idPersona = EditarPersona.idPersona;
+
+                var titularDetails = personaModel.GetPersonaById(idPersona);
+
+                if (titularDetails.Count > 0)
+                {
+
+                    EditarPersona.idPersona = titularDetails[0].id;
+                    EditarPersona.nombre = titularDetails[0].nombre;
+                    EditarPersona.direccion = titularDetails[0].direccion;
+                    EditarPersona.nit = titularDetails[0].nit;
+                    EditarPersona.pais = titularDetails[0].pais;
+                    EditarPersona.correo = titularDetails[0].correo;
+                    EditarPersona.telefono = titularDetails[0].telefono;
+                    EditarPersona.contacto = titularDetails[0].contacto;
+
+                    // Mostrar el formulario de edición con los valores del titular
+
+                    txtNombreTitular.Text = EditarPersona.nombre;
+                    txtDireccionTitular.Text = EditarPersona.direccion;
+                    txtNitTitular.Text = EditarPersona.nit;
+                    comboBox1.SelectedItem = EditarPersona.pais;
+                    txtCorreoContacto.Text = EditarPersona.correo;
+                    txtTelefonoContacto.Text = EditarPersona.telefono;
+                    txtNombreContacto.Text = EditarPersona.contacto;
+                    Deshabilitar();
+                    AnadirTabPage(tabTitularDetail);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el titular.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila de titular.");
             }
         }
     }
