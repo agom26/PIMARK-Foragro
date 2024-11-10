@@ -19,7 +19,11 @@ namespace Presentacion.Personas
         {
             InitializeComponent();
             this.Load += FrmAdministrarAgentes_Load; // Mueve la lógica de carga aquí
-            
+            if (UsuarioActivo.isAdmin == false)
+            {
+                ibtnEditar.Visible = false;
+                
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -79,9 +83,36 @@ namespace Presentacion.Personas
             tabControl1.SelectedTab = nombre;
         }
 
+        public void Habilitar()
+        {
+            txtNombreAgente.Enabled = true;
+            txtDireccionAgente.Enabled = true;
+            txtNitAgente.Enabled = true;
+            comboBox1.Enabled = true;
+            txtCorreoContacto.Enabled = true;
+            txtTelefonoContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            btnGuardarTit.Visible = true;
+        }
+        public void Deshabilitar()
+        {
+            txtNombreAgente.Enabled = false;
+            txtDireccionAgente.Enabled = false;
+            txtNitAgente.Enabled = false;
+            comboBox1.Enabled = false;
+            txtCorreoContacto.Enabled = false;
+            txtTelefonoContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            btnGuardarTit.Visible = false;
+        }
+
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             LimpiarCampos();
+            
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             if (!tabControl1.TabPages.Contains(tabPageAgenteDetail))
             {
@@ -144,7 +175,7 @@ namespace Presentacion.Personas
                             if (update)
                             {
                                 MessageBox.Show("Agente actualizado exitosamente");
-                                MostrarAgentes(); 
+                                MostrarAgentes();
                                 EliminarTabPage(tabPageAgenteDetail);
                                 dtgAgentes.ClearSelection();
                             }
@@ -184,15 +215,16 @@ namespace Presentacion.Personas
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 int idPersona = EditarPersona.idPersona;
 
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
-                if (titularDetails.Count > 0) 
+                if (titularDetails.Count > 0)
                 {
-                   
+
                     EditarPersona.idPersona = titularDetails[0].id;
                     EditarPersona.nombre = titularDetails[0].nombre;
                     EditarPersona.direccion = titularDetails[0].direccion;
@@ -203,7 +235,7 @@ namespace Presentacion.Personas
                     EditarPersona.contacto = titularDetails[0].contacto;
 
                     // Mostrar el formulario de edición con los valores del titular
-                    AnadirTabPage(tabPageAgenteDetail);
+                   
                     txtNombreAgente.Text = EditarPersona.nombre;
                     txtDireccionAgente.Text = EditarPersona.direccion;
                     txtNitAgente.Text = EditarPersona.nit;
@@ -211,7 +243,8 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    btnGuardarTit.Text = "Actualizar"; 
+                    btnGuardarTit.Text = "Actualizar";
+                    AnadirTabPage(tabPageAgenteDetail);
                 }
                 else
                 {
@@ -226,7 +259,7 @@ namespace Presentacion.Personas
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) 
+            if (e.RowIndex >= 0)
             {
                 EditarPersona.idPersona = Convert.ToInt32(dtgAgentes.Rows[e.RowIndex].Cells["id"].Value);
             }
@@ -239,21 +272,21 @@ namespace Presentacion.Personas
             {
                 var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
 
-               
+
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al agente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
                     try
                     {
-                        
-                        string currentUser = UsuarioActivo.usuario; 
+
+                        string currentUser = UsuarioActivo.usuario;
                         bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
                             MessageBox.Show("Agente eliminado correctamente.");
-                            MostrarAgentes(); 
+                            MostrarAgentes();
                         }
                         else
                         {
@@ -299,7 +332,7 @@ namespace Presentacion.Personas
             if (buscar != "")
             {
                 DataTable agentes = personaModel.GetAgenteByValue(buscar);
-                if(agentes.Rows.Count > 0)
+                if (agentes.Rows.Count > 0)
                 {
                     dtgAgentes.DataSource = agentes;
                     if (dtgAgentes.Columns["id"] != null)
@@ -318,6 +351,49 @@ namespace Presentacion.Personas
             else
             {
                 LoadAgentes();
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (dtgAgentes.SelectedRows.Count > 0)
+            {
+                int idPersona = EditarPersona.idPersona;
+
+                var titularDetails = personaModel.GetPersonaById(idPersona);
+
+                if (titularDetails.Count > 0)
+                {
+
+                    EditarPersona.idPersona = titularDetails[0].id;
+                    EditarPersona.nombre = titularDetails[0].nombre;
+                    EditarPersona.direccion = titularDetails[0].direccion;
+                    EditarPersona.nit = titularDetails[0].nit;
+                    EditarPersona.pais = titularDetails[0].pais;
+                    EditarPersona.correo = titularDetails[0].correo;
+                    EditarPersona.telefono = titularDetails[0].telefono;
+                    EditarPersona.contacto = titularDetails[0].contacto;
+
+                    // Mostrar el formulario de edición con los valores del titular
+                   
+                    txtNombreAgente.Text = EditarPersona.nombre;
+                    txtDireccionAgente.Text = EditarPersona.direccion;
+                    txtNitAgente.Text = EditarPersona.nit;
+                    comboBox1.SelectedItem = EditarPersona.pais;
+                    txtCorreoContacto.Text = EditarPersona.correo;
+                    txtTelefonoContacto.Text = EditarPersona.telefono;
+                    txtNombreContacto.Text = EditarPersona.contacto;
+                    Deshabilitar();
+                    AnadirTabPage(tabPageAgenteDetail);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el agente.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
         }
     }

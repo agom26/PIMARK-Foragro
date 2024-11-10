@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListado = new TabPage();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
@@ -66,6 +66,7 @@
             txtNombreAgente = new TextBox();
             label3 = new Label();
             roundedButton1 = new Clases.RoundedButton();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageListado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -89,6 +90,7 @@
             // 
             // tabPageListado
             // 
+            tabPageListado.Controls.Add(iconButton2);
             tabPageListado.Controls.Add(iconPictureBox2);
             tabPageListado.Controls.Add(label2);
             tabPageListado.Controls.Add(iconButton1);
@@ -226,7 +228,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
-            ibtnEditar.Location = new Point(1011, 263);
+            ibtnEditar.Location = new Point(1011, 319);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(144, 37);
             ibtnEditar.TabIndex = 17;
@@ -247,7 +249,7 @@
             ibtnAgregar.IconColor = Color.White;
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnAgregar.IconSize = 25;
-            ibtnAgregar.Location = new Point(1011, 205);
+            ibtnAgregar.Location = new Point(1011, 261);
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(144, 37);
             ibtnAgregar.TabIndex = 16;
@@ -271,49 +273,49 @@
             dtgAgentes.AllowUserToAddRows = false;
             dtgAgentes.AllowUserToDeleteRows = false;
             dtgAgentes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgAgentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgAgentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgAgentes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgAgentes.BorderStyle = BorderStyle.None;
             dtgAgentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgAgentes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgAgentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dtgAgentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dtgAgentes.ColumnHeadersHeight = 40;
             dtgAgentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dtgAgentes.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dtgAgentes.DefaultCellStyle = dataGridViewCellStyle8;
             dtgAgentes.EnableHeadersVisualStyles = false;
             dtgAgentes.GridColor = Color.LightGray;
             dtgAgentes.Location = new Point(20, 21);
             dtgAgentes.Name = "dtgAgentes";
             dtgAgentes.ReadOnly = true;
             dtgAgentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgAgentes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dtgAgentes.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dtgAgentes.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dtgAgentes.Size = new Size(904, 495);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
@@ -579,6 +581,27 @@
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
+            // iconButton2
+            // 
+            iconButton2.Anchor = AnchorStyles.Top;
+            iconButton2.BackColor = Color.FromArgb(0, 137, 123);
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.ForeColor = Color.White;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            iconButton2.IconColor = Color.White;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 30;
+            iconButton2.Location = new Point(1011, 205);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(144, 37);
+            iconButton2.TabIndex = 56;
+            iconButton2.Text = "Ver";
+            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click;
+            // 
             // FrmAdministrarAgentes
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -637,5 +660,6 @@
         private Label label10;
         private Clases.RoundedButton roundedButton1;
         private ComboBox comboBox1;
+        private FontAwesome.Sharp.IconButton iconButton2;
     }
 }

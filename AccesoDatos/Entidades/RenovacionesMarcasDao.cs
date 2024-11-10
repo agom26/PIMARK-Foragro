@@ -37,5 +37,27 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public DataTable ObtenerRenovacionesDeMarcaPorId(int idMarca)
+        {
+            DataTable resultados = new DataTable();
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("ObtenerRenovacionesMarcaPorMarca", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
+
+                    conexion.Open();
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(resultados);
+                    }
+                }
+            }
+
+            return resultados;
+        }
+
     }
 }

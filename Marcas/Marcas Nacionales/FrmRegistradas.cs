@@ -17,6 +17,7 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         public FrmRegistradas()
         {
             InitializeComponent();
@@ -481,6 +482,33 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private async void loadRenovacionesById()
+        {
+            try
+            {
+                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
+
+                // Invoca el método para actualizar el DataGridView en el hilo principal
+                Invoke(new Action(() =>
+                {
+                    dtgRenovaciones.AutoGenerateColumns = true;
+                    dtgRenovaciones.DataSource = renovaciones;
+                    dtgRenovaciones.Refresh();
+
+                    if (dtgRenovaciones.Columns["id"] != null)
+                    {
+                        dtgRenovaciones.Columns["id"].Visible = false;
+                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
+                    }
+
+                    dtgRenovaciones.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las renovaciones de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private async void refrescarMarca()
         {
             if (SeleccionarMarca.idInt > 0)
@@ -673,8 +701,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadHistorialById();
-            AnadirTabPage(tabPageHistorialMarca);
+            loadRenovacionesById();
+            AnadirTabPage(tabPageRenovacionesList);
         }
 
         private void iconButton1_Click(object sender, EventArgs e)

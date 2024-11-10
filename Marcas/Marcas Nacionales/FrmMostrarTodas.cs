@@ -24,6 +24,21 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmMostrarTodas_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+
+            if (UsuarioActivo.isAdmin == false)
+            {
+                btnAgregarTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                btnEditarEstadoHistorial.Visible = false;
+                txtExpediente.Enabled = false;
+                txtClase.Enabled = false;
+                txtNombre.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+            }
         }
 
         private void EliminarTabPage(TabPage nombre)

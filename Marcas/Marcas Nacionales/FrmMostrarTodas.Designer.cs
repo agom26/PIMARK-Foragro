@@ -60,16 +60,16 @@
             label13 = new Label();
             txtNombreAgente = new TextBox();
             label12 = new Label();
-            roundedButton2 = new Clases.RoundedButton();
+            btnAgregarAgente = new Clases.RoundedButton();
             txtEntidadTitular = new TextBox();
             label11 = new Label();
             txtDireccionTitular = new TextBox();
             label10 = new Label();
             txtNombreTitular = new TextBox();
             label9 = new Label();
-            roundedButton4 = new Clases.RoundedButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
+            btnAgregarTitular = new Clases.RoundedButton();
+            btnQuitarImagen = new FontAwesome.Sharp.IconButton();
+            btnSubirImagen = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             label8 = new Label();
             label5 = new Label();
@@ -92,7 +92,7 @@
             label20 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel1 = new Panel();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
+            btnEditarEstadoHistorial = new FontAwesome.Sharp.IconButton();
             dtgHistorial = new DataGridView();
             panel5 = new Panel();
             label21 = new Label();
@@ -373,16 +373,16 @@
             panel2.Controls.Add(label13);
             panel2.Controls.Add(txtNombreAgente);
             panel2.Controls.Add(label12);
-            panel2.Controls.Add(roundedButton2);
+            panel2.Controls.Add(btnAgregarAgente);
             panel2.Controls.Add(txtEntidadTitular);
             panel2.Controls.Add(label11);
             panel2.Controls.Add(txtDireccionTitular);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(txtNombreTitular);
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(roundedButton4);
-            panel2.Controls.Add(iconButton2);
-            panel2.Controls.Add(iconButton1);
+            panel2.Controls.Add(btnAgregarTitular);
+            panel2.Controls.Add(btnQuitarImagen);
+            panel2.Controls.Add(btnSubirImagen);
             panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label5);
@@ -621,25 +621,25 @@
             label12.TabIndex = 61;
             label12.Text = "Nombre";
             // 
-            // roundedButton2
+            // btnAgregarAgente
             // 
-            roundedButton2.BackColor = Color.LightSteelBlue;
-            roundedButton2.BackgroundColor = Color.LightSteelBlue;
-            roundedButton2.BorderColor = Color.LightSteelBlue;
-            roundedButton2.BorderRadius = 40;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Century Gothic", 10F);
-            roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(47, 625);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(638, 56);
-            roundedButton2.TabIndex = 60;
-            roundedButton2.Text = "+ AGENTE";
-            roundedButton2.TextColor = Color.Black;
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
+            btnAgregarAgente.BackColor = Color.LightSteelBlue;
+            btnAgregarAgente.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarAgente.BorderColor = Color.LightSteelBlue;
+            btnAgregarAgente.BorderRadius = 40;
+            btnAgregarAgente.BorderSize = 0;
+            btnAgregarAgente.FlatAppearance.BorderSize = 0;
+            btnAgregarAgente.FlatStyle = FlatStyle.Flat;
+            btnAgregarAgente.Font = new Font("Century Gothic", 10F);
+            btnAgregarAgente.ForeColor = Color.Black;
+            btnAgregarAgente.Location = new Point(47, 625);
+            btnAgregarAgente.Name = "btnAgregarAgente";
+            btnAgregarAgente.Size = new Size(638, 56);
+            btnAgregarAgente.TabIndex = 60;
+            btnAgregarAgente.Text = "+ AGENTE";
+            btnAgregarAgente.TextColor = Color.Black;
+            btnAgregarAgente.UseVisualStyleBackColor = false;
+            btnAgregarAgente.Click += roundedButton2_Click;
             // 
             // txtEntidadTitular
             // 
@@ -698,59 +698,59 @@
             label9.TabIndex = 54;
             label9.Text = "Nombre";
             // 
-            // roundedButton4
+            // btnAgregarTitular
             // 
-            roundedButton4.BackColor = Color.LightSteelBlue;
-            roundedButton4.BackgroundColor = Color.LightSteelBlue;
-            roundedButton4.BorderColor = Color.LightSteelBlue;
-            roundedButton4.BorderRadius = 40;
-            roundedButton4.BorderSize = 0;
-            roundedButton4.FlatAppearance.BorderSize = 0;
-            roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.Font = new Font("Century Gothic", 10F);
-            roundedButton4.ForeColor = Color.Black;
-            roundedButton4.Location = new Point(47, 411);
-            roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(638, 56);
-            roundedButton4.TabIndex = 53;
-            roundedButton4.Text = "+ TITULAR";
-            roundedButton4.TextColor = Color.Black;
-            roundedButton4.UseVisualStyleBackColor = false;
-            roundedButton4.Click += roundedButton4_Click;
+            btnAgregarTitular.BackColor = Color.LightSteelBlue;
+            btnAgregarTitular.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarTitular.BorderColor = Color.LightSteelBlue;
+            btnAgregarTitular.BorderRadius = 40;
+            btnAgregarTitular.BorderSize = 0;
+            btnAgregarTitular.FlatAppearance.BorderSize = 0;
+            btnAgregarTitular.FlatStyle = FlatStyle.Flat;
+            btnAgregarTitular.Font = new Font("Century Gothic", 10F);
+            btnAgregarTitular.ForeColor = Color.Black;
+            btnAgregarTitular.Location = new Point(47, 411);
+            btnAgregarTitular.Name = "btnAgregarTitular";
+            btnAgregarTitular.Size = new Size(638, 56);
+            btnAgregarTitular.TabIndex = 53;
+            btnAgregarTitular.Text = "+ TITULAR";
+            btnAgregarTitular.TextColor = Color.Black;
+            btnAgregarTitular.UseVisualStyleBackColor = false;
+            btnAgregarTitular.Click += roundedButton4_Click;
             // 
-            // iconButton2
+            // btnQuitarImagen
             // 
-            iconButton2.Anchor = AnchorStyles.None;
-            iconButton2.BackColor = Color.MistyRose;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(897, 346);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(74, 33);
-            iconButton2.TabIndex = 52;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
+            btnQuitarImagen.Anchor = AnchorStyles.None;
+            btnQuitarImagen.BackColor = Color.MistyRose;
+            btnQuitarImagen.FlatAppearance.BorderSize = 0;
+            btnQuitarImagen.FlatStyle = FlatStyle.Flat;
+            btnQuitarImagen.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
+            btnQuitarImagen.IconColor = Color.Black;
+            btnQuitarImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnQuitarImagen.IconSize = 30;
+            btnQuitarImagen.Location = new Point(897, 346);
+            btnQuitarImagen.Name = "btnQuitarImagen";
+            btnQuitarImagen.Size = new Size(74, 33);
+            btnQuitarImagen.TabIndex = 52;
+            btnQuitarImagen.UseVisualStyleBackColor = false;
+            btnQuitarImagen.Click += iconButton2_Click;
             // 
-            // iconButton1
+            // btnSubirImagen
             // 
-            iconButton1.Anchor = AnchorStyles.None;
-            iconButton1.BackColor = Color.PowderBlue;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Upload;
-            iconButton1.IconColor = Color.Black;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(817, 346);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(74, 33);
-            iconButton1.TabIndex = 51;
-            iconButton1.UseVisualStyleBackColor = false;
-            iconButton1.Click += iconButton1_Click;
+            btnSubirImagen.Anchor = AnchorStyles.None;
+            btnSubirImagen.BackColor = Color.PowderBlue;
+            btnSubirImagen.FlatAppearance.BorderSize = 0;
+            btnSubirImagen.FlatStyle = FlatStyle.Flat;
+            btnSubirImagen.IconChar = FontAwesome.Sharp.IconChar.Upload;
+            btnSubirImagen.IconColor = Color.Black;
+            btnSubirImagen.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSubirImagen.IconSize = 30;
+            btnSubirImagen.Location = new Point(817, 346);
+            btnSubirImagen.Name = "btnSubirImagen";
+            btnSubirImagen.Size = new Size(74, 33);
+            btnSubirImagen.TabIndex = 51;
+            btnSubirImagen.UseVisualStyleBackColor = false;
+            btnSubirImagen.Click += iconButton1_Click;
             // 
             // pictureBox1
             // 
@@ -962,7 +962,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
-            panel1.Controls.Add(iconButton5);
+            panel1.Controls.Add(btnEditarEstadoHistorial);
             panel1.Controls.Add(dtgHistorial);
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(label21);
@@ -971,25 +971,25 @@
             panel1.Size = new Size(1150, 783);
             panel1.TabIndex = 0;
             // 
-            // iconButton5
+            // btnEditarEstadoHistorial
             // 
-            iconButton5.Anchor = AnchorStyles.Top;
-            iconButton5.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.FlatStyle = FlatStyle.Flat;
-            iconButton5.ForeColor = Color.White;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton5.IconColor = Color.White;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.IconSize = 30;
-            iconButton5.Location = new Point(1001, 82);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(144, 37);
-            iconButton5.TabIndex = 44;
-            iconButton5.Text = "Editar";
-            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton5.UseVisualStyleBackColor = false;
-            iconButton5.Click += iconButton5_Click;
+            btnEditarEstadoHistorial.Anchor = AnchorStyles.Top;
+            btnEditarEstadoHistorial.BackColor = Color.FromArgb(96, 149, 241);
+            btnEditarEstadoHistorial.FlatAppearance.BorderSize = 0;
+            btnEditarEstadoHistorial.FlatStyle = FlatStyle.Flat;
+            btnEditarEstadoHistorial.ForeColor = Color.White;
+            btnEditarEstadoHistorial.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            btnEditarEstadoHistorial.IconColor = Color.White;
+            btnEditarEstadoHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditarEstadoHistorial.IconSize = 30;
+            btnEditarEstadoHistorial.Location = new Point(1001, 82);
+            btnEditarEstadoHistorial.Name = "btnEditarEstadoHistorial";
+            btnEditarEstadoHistorial.Size = new Size(144, 37);
+            btnEditarEstadoHistorial.TabIndex = 44;
+            btnEditarEstadoHistorial.Text = "Editar";
+            btnEditarEstadoHistorial.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEditarEstadoHistorial.UseVisualStyleBackColor = false;
+            btnEditarEstadoHistorial.Click += iconButton5_Click;
             // 
             // dtgHistorial
             // 
@@ -1282,16 +1282,16 @@
         private Label label13;
         private TextBox txtNombreAgente;
         private Label label12;
-        private Clases.RoundedButton roundedButton2;
+        private Clases.RoundedButton btnAgregarAgente;
         private TextBox txtEntidadTitular;
         private Label label11;
         private TextBox txtDireccionTitular;
         private Label label10;
         private TextBox txtNombreTitular;
         private Label label9;
-        private Clases.RoundedButton roundedButton4;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private Clases.RoundedButton btnAgregarTitular;
+        private FontAwesome.Sharp.IconButton btnQuitarImagen;
+        private FontAwesome.Sharp.IconButton btnSubirImagen;
         private PictureBox pictureBox1;
         private Label label8;
         private Label label5;
@@ -1320,7 +1320,7 @@
         private TabPage tabPageHistorialMarca;
         private Panel panel1;
         private Label label21;
-        private FontAwesome.Sharp.IconButton iconButton5;
+        private FontAwesome.Sharp.IconButton btnEditarEstadoHistorial;
         private DataGridView dtgHistorial;
         private Panel panel5;
         private TabPage tabPageHistorialDetail;

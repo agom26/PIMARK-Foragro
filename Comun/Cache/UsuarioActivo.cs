@@ -7,5 +7,6 @@
         public static string apellidos;
         public static string usuario;
         public static string correo;
+        public static bool isAdmin;
     }
 }

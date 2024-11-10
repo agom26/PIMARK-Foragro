@@ -199,14 +199,14 @@ namespace AccesoDatos.Usuarios
                             if (reader.Read()) // Si el usuario existe
                             {
                                 Console.WriteLine("Si hay usuario");
-                                bool isAdmin = reader.GetBoolean(0); // Obtener el valor de isAdmin
+                                UsuarioActivo.isAdmin = reader.GetBoolean(0); // Obtener el valor de isAdmin
                                 UsuarioActivo.idUser = reader.GetInt32(1);
                                 UsuarioActivo.usuario = reader.GetString(2);
                                 UsuarioActivo.nombres = reader.GetString(3);
                                 UsuarioActivo.apellidos = reader.GetString(4);
                                 UsuarioActivo.correo = reader.GetString(5);
-
-                                return (true, isAdmin); // Retornar si el login es válido y si es admin
+                                
+                                return (true, UsuarioActivo.isAdmin); // Retornar si el login es válido y si es admin
                             }
                             else
                             {
