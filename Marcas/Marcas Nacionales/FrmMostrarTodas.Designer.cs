@@ -92,6 +92,7 @@
             label20 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel1 = new Panel();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             btnEditarEstadoHistorial = new FontAwesome.Sharp.IconButton();
             dtgHistorial = new DataGridView();
             panel5 = new Panel();
@@ -539,7 +540,6 @@
             // 
             richTextBox1.Anchor = AnchorStyles.None;
             richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Enabled = false;
             richTextBox1.Font = new Font("Century Gothic", 10F);
             richTextBox1.Location = new Point(47, 791);
             richTextBox1.Name = "richTextBox1";
@@ -962,6 +962,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
+            panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(btnEditarEstadoHistorial);
             panel1.Controls.Add(dtgHistorial);
             panel1.Controls.Add(panel5);
@@ -970,6 +971,27 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1150, 783);
             panel1.TabIndex = 0;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Anchor = AnchorStyles.Top;
+            iconButton2.BackColor = Color.FromArgb(0, 137, 123);
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.ForeColor = Color.White;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            iconButton2.IconColor = Color.White;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 30;
+            iconButton2.Location = new Point(1001, 82);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(144, 37);
+            iconButton2.TabIndex = 58;
+            iconButton2.Text = "Ver";
+            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click_1;
             // 
             // btnEditarEstadoHistorial
             // 
@@ -982,7 +1004,7 @@
             btnEditarEstadoHistorial.IconColor = Color.White;
             btnEditarEstadoHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarEstadoHistorial.IconSize = 30;
-            btnEditarEstadoHistorial.Location = new Point(1001, 82);
+            btnEditarEstadoHistorial.Location = new Point(1001, 134);
             btnEditarEstadoHistorial.Name = "btnEditarEstadoHistorial";
             btnEditarEstadoHistorial.Size = new Size(144, 37);
             btnEditarEstadoHistorial.TabIndex = 44;
@@ -1165,8 +1187,9 @@
             // 
             // comboBoxEstatusH
             // 
-            comboBoxEstatusH.BackColor = Color.White;
+            comboBoxEstatusH.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxEstatusH.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstatusH.FlatStyle = FlatStyle.Flat;
             comboBoxEstatusH.FormattingEnabled = true;
             comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso" });
             comboBoxEstatusH.Location = new Point(476, 116);
@@ -1341,5 +1364,6 @@
         private ComboBox comboBoxTipoSigno;
         private ComboBox comboBoxSignoDistintivo;
         private Label label25;
+        private FontAwesome.Sharp.IconButton iconButton2;
     }
 }

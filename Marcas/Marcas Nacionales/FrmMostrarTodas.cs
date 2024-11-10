@@ -18,6 +18,7 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        
         public FrmMostrarTodas()
         {
             InitializeComponent();
@@ -38,6 +39,28 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxSignoDistintivo.Enabled = false;
                 btnSubirImagen.Enabled = false;
                 btnQuitarImagen.Enabled = false;
+                dateTimePickerFechaH.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                btnEditarH.Visible = false;
+            }
+            else if (UsuarioActivo.isAdmin == true)
+            {
+                btnAgregarTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                btnEditarEstadoHistorial.Visible = true;
+                txtExpediente.Enabled = true;
+                txtClase.Enabled = true;
+                txtNombre.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+                dateTimePickerFechaH.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Visible = true;
             }
         }
 
@@ -52,7 +75,7 @@ namespace Presentacion.Marcas_Nacionales
         private void MostrarMarcasTramite()
         {
             dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionalesEnTramite();
-            
+
             if (dtgMarcasN.Columns["id"] != null)
             {
                 dtgMarcasN.Columns["id"].Visible = false;
@@ -88,7 +111,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
-            if (logo != null && logo.Length > 0) 
+            if (logo != null && logo.Length > 0)
             {
                 using (var ms = new MemoryStream(logo))
                 {
@@ -188,7 +211,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-            return true; 
+            return true;
         }
 
         public void ActualizarMarcaNacional()
@@ -196,7 +219,7 @@ namespace Presentacion.Marcas_Nacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString(); 
+            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
             string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
@@ -236,8 +259,8 @@ namespace Presentacion.Marcas_Nacionales
                 // Actualizar la marca con tipo
                 bool esActualizado = registroChek ?
                     marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo,tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,null, null) :
-                    marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, null, null) :
+                    marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud);
 
                 DataTable MarcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
@@ -258,7 +281,7 @@ namespace Presentacion.Marcas_Nacionales
                             // Guardar la nueva etapa en el historial
                             historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                             MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            
+
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                     }
@@ -311,11 +334,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
-                if (detallesMarcaInter.Rows.Count > 0) 
+                if (detallesMarcaInter.Rows.Count > 0)
                 {
                     DataRow row = detallesMarcaInter.Rows[0];
 
-                    if (row["expediente"] != DBNull.Value) 
+                    if (row["expediente"] != DBNull.Value)
                     {
                         SeleccionarMarca.expediente = row["expediente"].ToString();
                         SeleccionarMarca.nombre = row["nombre"].ToString();
@@ -328,7 +351,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        
+
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -352,7 +375,7 @@ namespace Presentacion.Marcas_Nacionales
                             txtNombreAgente.Text = agente[0].nombre;
                         }
 
-                       
+
 
                         // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
@@ -364,7 +387,7 @@ namespace Presentacion.Marcas_Nacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                        
+
 
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
@@ -473,7 +496,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
 
-                
+
                 Invoke(new Action(() =>
                 {
                     dtgHistorial.AutoGenerateColumns = true;
@@ -518,7 +541,7 @@ namespace Presentacion.Marcas_Nacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
-            
+
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
@@ -628,7 +651,7 @@ namespace Presentacion.Marcas_Nacionales
                     !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
                     )
                 {
-                    
+
                 }
                 else
                 {
@@ -663,10 +686,10 @@ namespace Presentacion.Marcas_Nacionales
                     string justificacion = justificacionForm.Justificacion;
                     DateTime fechaAbandono = justificacionForm.fecha;
                     string usuarioAbandono = justificacionForm.usuarioAbandono;
-                    
+
                     try
                     {
-                        
+
                         if (dtgMarcasN.SelectedRows.Count > 0)
                         {
                             var filaSeleccionada = dtgMarcasN.SelectedRows[0];
@@ -674,7 +697,7 @@ namespace Presentacion.Marcas_Nacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                
+
                                 historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono);
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -704,12 +727,12 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
-                loadHistorialById(); 
+                loadHistorialById();
                 EliminarTabPage(tabPageHistorialDetail);
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
-                LoadMarcas(); 
+                LoadMarcas();
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -723,14 +746,17 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        
+
         private void iconButton5_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
+               
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    
+
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorial.id = id;
 
@@ -739,7 +765,7 @@ namespace Presentacion.Marcas_Nacionales
                     if (historial.Rows.Count > 0)
                     {
                         DataRow fila = historial.Rows[0];
-                        
+
                         SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorial.etapa = fila["etapa"].ToString();
                         SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
@@ -870,6 +896,50 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            if (dtgHistorial.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorial.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    DataTable historial = historialModel.GetHistorialById(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+
+                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorial.usuario;
+                       
+                        AnadirTabPage(tabPageHistorialDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila del historial.");
             }
         }
     }

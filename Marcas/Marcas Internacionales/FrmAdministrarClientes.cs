@@ -20,6 +20,11 @@ namespace Presentacion.Marcas_Internacionales
         {
             InitializeComponent();
             this.Load += FrmAdministrarClientes_Load;
+            if (UsuarioActivo.isAdmin == false)
+            {
+                ibtnEditar.Visible = false;
+
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -175,8 +180,34 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.TabPages.Remove(tabClienteDetail);
         }
 
+        public void Habilitar()
+        {
+            txtNombreCliente.Enabled = true;
+            txtDireccionCliente.Enabled = true;
+            txtNitCliente.Enabled = true;
+            comboBox1.Enabled = true;
+            txtCorreoContacto.Enabled = true;
+            txtTelefonoContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            txtNombreContacto.Enabled = true;
+            btnGuardarCliente.Visible = true;
+        }
+        public void Deshabilitar()
+        {
+            txtNombreCliente.Enabled = false;
+            txtDireccionCliente.Enabled = false;
+            txtNitCliente.Enabled = false;
+            comboBox1.Enabled = false;
+            txtCorreoContacto.Enabled = false;
+            txtTelefonoContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            txtNombreContacto.Enabled = false;
+            btnGuardarCliente.Visible = false;
+        }
+
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             if (!tabControl1.TabPages.Contains(tabClienteDetail))
@@ -207,6 +238,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
+            Habilitar();
             if (dtgClientes.SelectedRows.Count > 0)
             {
                 // Deshabilitar temporalmente el botón para evitar múltiples clics
@@ -218,7 +250,7 @@ namespace Presentacion.Marcas_Internacionales
 
                     var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
 
-                    if (clienteDetails.Count > 0) 
+                    if (clienteDetails.Count > 0)
                     {
                         // Asignar los valores obtenidos a la clase estática EditarPersona
                         EditarPersona.idPersona = clienteDetails[0].id;
@@ -231,7 +263,7 @@ namespace Presentacion.Marcas_Internacionales
                         EditarPersona.contacto = clienteDetails[0].contacto;
 
                         // Mostrar el formulario de edición con los valores del cliente
-                        
+
                         txtNombreCliente.Text = EditarPersona.nombre;
                         txtDireccionCliente.Text = EditarPersona.direccion;
                         txtNitCliente.Text = EditarPersona.nit;
@@ -276,14 +308,14 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     try
                     {
-                        
+
                         string currentUser = UsuarioActivo.usuario;
                         bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
                             MessageBox.Show("Cliente eliminado correctamente.");
-                            MostrarClientes(); 
+                            MostrarClientes();
                         }
                         else
                         {
@@ -327,6 +359,49 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 MostrarClientes();
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (dtgClientes.SelectedRows.Count > 0)
+            {
+                int idPersona = EditarPersona.idPersona;
+
+                var clienteDetails = personaModel.GetPersonaById(idPersona);
+
+                if (clienteDetails.Count > 0)
+                {
+
+                    EditarPersona.idPersona = clienteDetails[0].id;
+                    EditarPersona.nombre = clienteDetails[0].nombre;
+                    EditarPersona.direccion = clienteDetails[0].direccion;
+                    EditarPersona.nit = clienteDetails[0].nit;
+                    EditarPersona.pais = clienteDetails[0].pais;
+                    EditarPersona.correo = clienteDetails[0].correo;
+                    EditarPersona.telefono = clienteDetails[0].telefono;
+                    EditarPersona.contacto = clienteDetails[0].contacto;
+
+                    // Mostrar el formulario de edición con los valores del titular
+
+                    txtNombreCliente.Text = EditarPersona.nombre;
+                    txtDireccionCliente.Text = EditarPersona.direccion;
+                    txtNitCliente.Text = EditarPersona.nit;
+                    comboBox1.SelectedItem = EditarPersona.pais;
+                    txtCorreoContacto.Text = EditarPersona.correo;
+                    txtTelefonoContacto.Text = EditarPersona.telefono;
+                    txtNombreContacto.Text = EditarPersona.contacto;
+                    Deshabilitar();
+                    AnadirTabPage(tabClienteDetail);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el cliente.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila de cliente.");
             }
         }
     }
