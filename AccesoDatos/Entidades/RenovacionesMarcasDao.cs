@@ -80,6 +80,39 @@ namespace AccesoDatos.Entidades
 
             return resultado;
         }
+        public bool ActualizarRenovacionMarca(int id, string numExpediente, int idMarca, DateTime fechaRegistroAntigua, DateTime fechaVencimientoAntigua, DateTime fechaRegistroNueva, DateTime fechaVencimientoNueva)
+        {
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ActualizarRenovacionMarca", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("p_Id", id);
+                        comando.Parameters.AddWithValue("p_NumExpediente", numExpediente);
+                        comando.Parameters.AddWithValue("p_IdMarca", idMarca);
+                        comando.Parameters.AddWithValue("p_FechaRegistroAntigua", fechaRegistroAntigua);
+                        comando.Parameters.AddWithValue("p_FechaVencimientoAntigua", fechaVencimientoAntigua);
+                        comando.Parameters.AddWithValue("p_FechaRegistroNueva", fechaRegistroNueva);
+                        comando.Parameters.AddWithValue("p_FechaVencimientoNueva", fechaVencimientoNueva);
+
+                        conexion.Open();
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        return filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine("Error al actualizar la renovación: " + ex.Message);
+                return false;
+            }
+        }
+
+
+
 
 
     }

@@ -1549,6 +1549,7 @@
             iconButton1.Text = "Actualizar";
             iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click_1;
             // 
             // Fechas
             // 
@@ -1631,6 +1632,7 @@
             dateFechRegAntigua.Name = "dateFechRegAntigua";
             dateFechRegAntigua.Size = new Size(185, 26);
             dateFechRegAntigua.TabIndex = 13;
+            dateFechRegAntigua.ValueChanged += dateFechRegAntigua_ValueChanged;
             // 
             // label33
             // 
@@ -1657,6 +1659,7 @@
             dateFechRegNueva.Name = "dateFechRegNueva";
             dateFechRegNueva.Size = new Size(178, 26);
             dateFechRegNueva.TabIndex = 15;
+            dateFechRegNueva.ValueChanged += dateFechRegNueva_ValueChanged;
             // 
             // iconButton2
             // 
