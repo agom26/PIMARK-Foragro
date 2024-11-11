@@ -59,5 +59,28 @@ namespace AccesoDatos.Entidades
             return resultados;
         }
 
+        public DataTable ObtenerRenovacionPorId(int id)
+        {
+            DataTable resultado = new DataTable();
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("ObtenerRenovacionPorId", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@p_Id", id);
+
+                    conexion.Open();
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(resultado);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+
     }
 }

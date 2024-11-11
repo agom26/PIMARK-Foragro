@@ -28,5 +28,11 @@ namespace Dominio
             return renovacionesDao.ObtenerRenovacionesDeMarcaPorId(idMarca);
         }
 
+        public DataTable GetRenovacionById(int id)
+        {
+            return renovacionesDao.ObtenerRenovacionPorId(id);
+        }
+
+
     }
 }

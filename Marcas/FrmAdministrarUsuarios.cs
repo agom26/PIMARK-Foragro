@@ -16,9 +16,7 @@ namespace Presentacion
     public partial class FrmAdministrarUsuarios : Form
     {
         UserModel UserModel = new UserModel();
-        private string message;
-        private bool isSuccessful;
-        private bool isEdit;
+        
 
         public FrmAdministrarUsuarios()
         {
@@ -51,14 +49,6 @@ namespace Presentacion
         }
 
 
-
-        //eventos
-        public event EventHandler SearchEvent;
-        public event EventHandler AddNewEvent;
-        public event EventHandler EditEvent;
-        public event EventHandler DeleteEvent;
-        public event EventHandler SaveEvent;
-        public event EventHandler CancelEvent;
 
         //metodos
         public void SetUserListBindingSource(BindingSource userList)

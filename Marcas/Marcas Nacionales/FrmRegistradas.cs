@@ -555,6 +555,33 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar las renovaciones de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private async void loadTraspasosById()
+        {
+            try
+            {
+                DataTable traspasos = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
+
+                // Invoca el método para actualizar el DataGridView en el hilo principal
+                Invoke(new Action(() =>
+                {
+                    dtgRenovaciones.AutoGenerateColumns = true;
+                    dtgRenovaciones.DataSource = traspasos;
+                    dtgRenovaciones.Refresh();
+
+                    if (dtgRenovaciones.Columns["id"] != null)
+                    {
+                        dtgRenovaciones.Columns["id"].Visible = false;
+                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
+                    }
+
+                    dtgRenovaciones.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private async void refrescarMarca()
         {
             if (SeleccionarMarca.idInt > 0)
@@ -626,6 +653,10 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
+            EliminarTabPage(tabPageRenovacionesList);
+            EliminarTabPage(tabPageRenovacionDetail);
+            EliminarTabPage(tabPageRenovacionDetail);
+            EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
         }
 
@@ -649,6 +680,23 @@ namespace Presentacion.Marcas_Nacionales
                 CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+            }
+            else if (tabControl1.SelectedTab == tabPageRenovacionesList)
+            {
+                loadRenovacionesById();
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasoDetail);
+                EliminarTabPage(tabPageTraspasosList);
+
+            }
+            else if (tabControl1.SelectedTab == tabPageTraspasosList)
+            {
+                loadTraspasosById();
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasoDetail);
             }
         }
 
@@ -1029,8 +1077,99 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void roundedButton8_Click(object sender, EventArgs e)
         {
-            await Task.Run(()=> loadHistorialById());
+            await Task.Run(() => loadHistorialById());
             AnadirTabPage(tabPageHistorialMarca);
+        }
+
+        private void iconButton5_Click_1(object sender, EventArgs e)
+        {
+            if (dtgRenovaciones.SelectedRows.Count > 0)
+            {
+                //DeshabilitarRenovacion();
+                var filaSeleccionada = dtgRenovaciones.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorial.id = id;
+
+                    DataTable renovacion = historialModel.GetHistorialById(id);
+
+                    if (renovacion.Rows.Count > 0)
+                    {
+                        DataRow fila = renovacion.Rows[0];
+
+                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorial.usuario;
+
+                        AnadirTabPage(tabPageRenovacionDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la renovación", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila de renovación.");
+            }
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            if (dtgRenovaciones.SelectedRows.Count > 0)
+            {
+                //Habilitar();
+                var filaSeleccionada = dtgRenovaciones.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarRenovacion.idRenovacion = id;
+
+                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+
+                    if (renovacion.Rows.Count > 0)
+                    {
+                        DataRow fila = renovacion.Rows[0];
+
+                        SeleccionarRenovacion.idRenovacion = Convert.ToInt32(fila["Id"]);
+                        SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
+                        SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
+                        SeleccionarRenovacion.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
+                        SeleccionarRenovacion.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacion.NumExpediente = fila["NumExpediente"].ToString();
+                        SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
+                        //Asignar valores a controles
+                        txtNoExpediente.Text = SeleccionarRenovacion.NumExpediente;
+                        dateFechRegAntigua.Value = SeleccionarRenovacion.Reg_Antiguo;
+                        dateFechRegNueva.Value = SeleccionarRenovacion.Reg_nuevo;
+                        dateFechVencAnt.Value = SeleccionarRenovacion.Venc_antiguo;
+                        dateFechVencNueva.Value = SeleccionarRenovacion.Venc_nuevo;
+
+                        AnadirTabPage(tabPageRenovacionDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

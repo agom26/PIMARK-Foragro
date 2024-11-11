@@ -14,7 +14,7 @@ namespace Presentacion.Marcas_Internacionales
 {
     public partial class FrmAdministrarClientes : Form
     {
-        public event Action OnLoadClientes;
+       
         PersonaModel personaModel = new PersonaModel();
         public FrmAdministrarClientes()
         {

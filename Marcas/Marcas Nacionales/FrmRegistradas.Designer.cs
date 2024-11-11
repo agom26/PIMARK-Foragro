@@ -121,16 +121,35 @@
             panel8 = new Panel();
             tabPageRenovacionesList = new TabPage();
             panel9 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
+            btnEditarRenovacion = new FontAwesome.Sharp.IconButton();
             dtgRenovaciones = new DataGridView();
             panel10 = new Panel();
             label28 = new Label();
+            tabPageRenovacionDetail = new TabPage();
+            panel15 = new Panel();
+            roundedButton2 = new Clases.RoundedButton();
+            panel13 = new Panel();
+            panel14 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
+            Fechas = new GroupBox();
+            txtNoExpediente = new TextBox();
+            label30 = new Label();
+            dateFechVencAnt = new DateTimePicker();
+            dateFechVencNueva = new DateTimePicker();
+            label31 = new Label();
+            label32 = new Label();
+            dateFechRegAntigua = new DateTimePicker();
+            label33 = new Label();
+            label34 = new Label();
+            dateFechRegNueva = new DateTimePicker();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             tabPageTraspasosList = new TabPage();
             panel11 = new Panel();
             iconButton6 = new FontAwesome.Sharp.IconButton();
             dtgTraspasos = new DataGridView();
             panel12 = new Panel();
             label29 = new Label();
+            tabPageTraspasoDetail = new TabPage();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             panel4.SuspendLayout();
@@ -150,6 +169,11 @@
             tabPageRenovacionesList.SuspendLayout();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgRenovaciones).BeginInit();
+            tabPageRenovacionDetail.SuspendLayout();
+            panel15.SuspendLayout();
+            panel13.SuspendLayout();
+            panel14.SuspendLayout();
+            Fechas.SuspendLayout();
             tabPageTraspasosList.SuspendLayout();
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTraspasos).BeginInit();
@@ -162,7 +186,9 @@
             tabControl1.Controls.Add(tabPageHistorialMarca);
             tabControl1.Controls.Add(tabPageHistorialDetail);
             tabControl1.Controls.Add(tabPageRenovacionesList);
+            tabControl1.Controls.Add(tabPageRenovacionDetail);
             tabControl1.Controls.Add(tabPageTraspasosList);
+            tabControl1.Controls.Add(tabPageTraspasoDetail);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -1373,7 +1399,7 @@
             // 
             // panel9
             // 
-            panel9.Controls.Add(iconButton4);
+            panel9.Controls.Add(btnEditarRenovacion);
             panel9.Controls.Add(dtgRenovaciones);
             panel9.Controls.Add(panel10);
             panel9.Controls.Add(label28);
@@ -1382,24 +1408,25 @@
             panel9.Size = new Size(1145, 772);
             panel9.TabIndex = 0;
             // 
-            // iconButton4
+            // btnEditarRenovacion
             // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(989, 73);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 56;
-            iconButton4.Text = "Editar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
+            btnEditarRenovacion.Anchor = AnchorStyles.Top;
+            btnEditarRenovacion.BackColor = Color.FromArgb(96, 149, 241);
+            btnEditarRenovacion.FlatAppearance.BorderSize = 0;
+            btnEditarRenovacion.FlatStyle = FlatStyle.Flat;
+            btnEditarRenovacion.ForeColor = Color.White;
+            btnEditarRenovacion.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            btnEditarRenovacion.IconColor = Color.White;
+            btnEditarRenovacion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditarRenovacion.IconSize = 30;
+            btnEditarRenovacion.Location = new Point(998, 73);
+            btnEditarRenovacion.Name = "btnEditarRenovacion";
+            btnEditarRenovacion.Size = new Size(144, 37);
+            btnEditarRenovacion.TabIndex = 56;
+            btnEditarRenovacion.Text = "Editar";
+            btnEditarRenovacion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEditarRenovacion.UseVisualStyleBackColor = false;
+            btnEditarRenovacion.Click += iconButton4_Click_1;
             // 
             // dtgRenovaciones
             // 
@@ -1443,6 +1470,211 @@
             label28.Size = new Size(241, 39);
             label28.TabIndex = 53;
             label28.Text = "Renovaciones";
+            // 
+            // tabPageRenovacionDetail
+            // 
+            tabPageRenovacionDetail.Controls.Add(panel15);
+            tabPageRenovacionDetail.Location = new Point(4, 29);
+            tabPageRenovacionDetail.Name = "tabPageRenovacionDetail";
+            tabPageRenovacionDetail.Size = new Size(1161, 794);
+            tabPageRenovacionDetail.TabIndex = 6;
+            tabPageRenovacionDetail.Text = "Detalle renovacion";
+            tabPageRenovacionDetail.UseVisualStyleBackColor = true;
+            // 
+            // panel15
+            // 
+            panel15.Anchor = AnchorStyles.Top;
+            panel15.Controls.Add(roundedButton2);
+            panel15.Controls.Add(panel13);
+            panel15.Location = new Point(20, 34);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(1112, 600);
+            panel15.TabIndex = 3;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.FromArgb(196, 195, 209);
+            roundedButton2.BackgroundColor = Color.FromArgb(196, 195, 209);
+            roundedButton2.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Century Gothic", 13F);
+            roundedButton2.ForeColor = Color.Black;
+            roundedButton2.Location = new Point(414, 43);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(270, 50);
+            roundedButton2.TabIndex = 18;
+            roundedButton2.Text = "Editar renovación";
+            roundedButton2.TextColor = Color.Black;
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.FromArgb(192, 202, 212);
+            panel13.Controls.Add(panel14);
+            panel13.Location = new Point(46, 110);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(1012, 406);
+            panel13.TabIndex = 21;
+            // 
+            // panel14
+            // 
+            panel14.BackColor = Color.White;
+            panel14.Controls.Add(iconButton1);
+            panel14.Controls.Add(Fechas);
+            panel14.Controls.Add(iconButton2);
+            panel14.Location = new Point(42, 21);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(946, 369);
+            panel14.TabIndex = 21;
+            // 
+            // iconButton1
+            // 
+            iconButton1.BackColor = Color.FromArgb(1, 87, 155);
+            iconButton1.FlatAppearance.BorderSize = 0;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.Font = new Font("Century Gothic", 10F);
+            iconButton1.ForeColor = Color.White;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Check;
+            iconButton1.IconColor = Color.White;
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 30;
+            iconButton1.Location = new Point(271, 313);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(179, 34);
+            iconButton1.TabIndex = 20;
+            iconButton1.Text = "Actualizar";
+            iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton1.UseVisualStyleBackColor = false;
+            // 
+            // Fechas
+            // 
+            Fechas.Controls.Add(txtNoExpediente);
+            Fechas.Controls.Add(label30);
+            Fechas.Controls.Add(dateFechVencAnt);
+            Fechas.Controls.Add(dateFechVencNueva);
+            Fechas.Controls.Add(label31);
+            Fechas.Controls.Add(label32);
+            Fechas.Controls.Add(dateFechRegAntigua);
+            Fechas.Controls.Add(label33);
+            Fechas.Controls.Add(label34);
+            Fechas.Controls.Add(dateFechRegNueva);
+            Fechas.FlatStyle = FlatStyle.Flat;
+            Fechas.Location = new Point(154, 22);
+            Fechas.Name = "Fechas";
+            Fechas.Size = new Size(622, 272);
+            Fechas.TabIndex = 21;
+            Fechas.TabStop = false;
+            Fechas.Text = "Renovacion";
+            // 
+            // txtNoExpediente
+            // 
+            txtNoExpediente.BorderStyle = BorderStyle.FixedSingle;
+            txtNoExpediente.Location = new Point(242, 47);
+            txtNoExpediente.Name = "txtNoExpediente";
+            txtNoExpediente.Size = new Size(120, 26);
+            txtNoExpediente.TabIndex = 12;
+            txtNoExpediente.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(242, 24);
+            label30.Name = "label30";
+            label30.Size = new Size(120, 20);
+            label30.TabIndex = 12;
+            label30.Text = "No. Expediente";
+            // 
+            // dateFechVencAnt
+            // 
+            dateFechVencAnt.Enabled = false;
+            dateFechVencAnt.Format = DateTimePickerFormat.Short;
+            dateFechVencAnt.Location = new Point(81, 215);
+            dateFechVencAnt.Name = "dateFechVencAnt";
+            dateFechVencAnt.Size = new Size(185, 26);
+            dateFechVencAnt.TabIndex = 17;
+            // 
+            // dateFechVencNueva
+            // 
+            dateFechVencNueva.Enabled = false;
+            dateFechVencNueva.Format = DateTimePickerFormat.Short;
+            dateFechVencNueva.Location = new Point(353, 215);
+            dateFechVencNueva.Name = "dateFechVencNueva";
+            dateFechVencNueva.Size = new Size(178, 26);
+            dateFechVencNueva.TabIndex = 19;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(81, 102);
+            label31.Name = "label31";
+            label31.Size = new Size(171, 20);
+            label31.TabIndex = 12;
+            label31.Text = "Antigua fecha de reg.";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(353, 192);
+            label32.Name = "label32";
+            label32.Size = new Size(178, 20);
+            label32.TabIndex = 18;
+            label32.Text = "Nueva fecha de venc.";
+            // 
+            // dateFechRegAntigua
+            // 
+            dateFechRegAntigua.Format = DateTimePickerFormat.Short;
+            dateFechRegAntigua.Location = new Point(81, 125);
+            dateFechRegAntigua.Name = "dateFechRegAntigua";
+            dateFechRegAntigua.Size = new Size(185, 26);
+            dateFechRegAntigua.TabIndex = 13;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(353, 102);
+            label33.Name = "label33";
+            label33.Size = new Size(164, 20);
+            label33.TabIndex = 14;
+            label33.Text = "Nueva fecha de reg.";
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(81, 192);
+            label34.Name = "label34";
+            label34.Size = new Size(185, 20);
+            label34.TabIndex = 16;
+            label34.Text = "Antigua fecha de venc.";
+            // 
+            // dateFechRegNueva
+            // 
+            dateFechRegNueva.Format = DateTimePickerFormat.Short;
+            dateFechRegNueva.Location = new Point(353, 125);
+            dateFechRegNueva.Name = "dateFechRegNueva";
+            dateFechRegNueva.Size = new Size(178, 26);
+            dateFechRegNueva.TabIndex = 15;
+            // 
+            // iconButton2
+            // 
+            iconButton2.BackColor = Color.White;
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            iconButton2.IconColor = Color.Black;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 30;
+            iconButton2.Location = new Point(476, 313);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(179, 34);
+            iconButton2.TabIndex = 19;
+            iconButton2.Text = "Cancelar";
+            iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton2.UseVisualStyleBackColor = false;
             // 
             // tabPageTraspasosList
             // 
@@ -1528,6 +1760,15 @@
             label29.TabIndex = 57;
             label29.Text = "Traspasos";
             // 
+            // tabPageTraspasoDetail
+            // 
+            tabPageTraspasoDetail.Location = new Point(4, 29);
+            tabPageTraspasoDetail.Name = "tabPageTraspasoDetail";
+            tabPageTraspasoDetail.Size = new Size(1161, 794);
+            tabPageTraspasoDetail.TabIndex = 7;
+            tabPageTraspasoDetail.Text = "Detalle traspaso";
+            tabPageTraspasoDetail.UseVisualStyleBackColor = true;
+            // 
             // FrmRegistradas
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -1566,6 +1807,12 @@
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgRenovaciones).EndInit();
+            tabPageRenovacionDetail.ResumeLayout(false);
+            panel15.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel14.ResumeLayout(false);
+            Fechas.ResumeLayout(false);
+            Fechas.PerformLayout();
             tabPageTraspasosList.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
@@ -1668,7 +1915,7 @@
         private TabPage tabPageRenovacionesList;
         private TabPage tabPageTraspasosList;
         private Panel panel9;
-        private FontAwesome.Sharp.IconButton iconButton4;
+        private FontAwesome.Sharp.IconButton btnEditarRenovacion;
         private DataGridView dtgRenovaciones;
         private Panel panel10;
         private Label label28;
@@ -1678,5 +1925,24 @@
         private Panel panel12;
         private Label label29;
         private FontAwesome.Sharp.IconButton iconButton7;
+        private TabPage tabPageRenovacionDetail;
+        private TabPage tabPageTraspasoDetail;
+        private Panel panel15;
+        private Clases.RoundedButton roundedButton2;
+        private Panel panel13;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private Panel panel14;
+        private GroupBox Fechas;
+        private TextBox txtNoExpediente;
+        private Label label30;
+        private DateTimePicker dateFechVencAnt;
+        private DateTimePicker dateFechVencNueva;
+        private Label label31;
+        private Label label32;
+        private DateTimePicker dateFechRegAntigua;
+        private Label label33;
+        private Label label34;
+        private DateTimePicker dateFechRegNueva;
     }
 }

@@ -17,7 +17,6 @@ namespace Presentacion.Personas
 {
     public partial class FrmAdministrarTitulares : Form
     {
-        public event Action OnLoadTitulares;
         PersonaModel personaModel = new PersonaModel();
         public FrmAdministrarTitulares()
         {
