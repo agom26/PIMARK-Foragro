@@ -18,6 +18,7 @@ namespace Presentacion.Marcas_Nacionales
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
+        TraspasosMarcaModel traspasosModel=new TraspasosMarcaModel();
         public FrmRegistradas()
         {
             InitializeComponent();
@@ -46,9 +47,10 @@ namespace Presentacion.Marcas_Nacionales
                 txtFolio.Enabled = false;
                 txtLibro.Enabled = false;
                 dateTimePFecha_Registro.Enabled = false;
-
                 //Datos de renovacion
                 btnEditarRenovacion.Visible = false;
+                //Datos de traspaso
+                btnEditarTraspaso.Visible = false;
             }
             else if (UsuarioActivo.isAdmin == true)
             {
@@ -74,6 +76,8 @@ namespace Presentacion.Marcas_Nacionales
                 btnEditarH.Visible = true;
                 //Datos de renovacion
                 btnEditarRenovacion.Visible = true;
+                //Datos de traspaso
+                btnEditarTraspaso.Visible = true;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -576,22 +580,24 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                DataTable traspasos = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
-                    dtgRenovaciones.AutoGenerateColumns = true;
-                    dtgRenovaciones.DataSource = traspasos;
-                    dtgRenovaciones.Refresh();
+                    dtgTraspasos.AutoGenerateColumns = true;
+                    dtgTraspasos.DataSource = traspasos;
+                    dtgTraspasos.Refresh();
 
-                    if (dtgRenovaciones.Columns["id"] != null)
+                    if (dtgTraspasos.Columns["id"] != null)
                     {
-                        dtgRenovaciones.Columns["id"].Visible = false;
-                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
+                        dtgTraspasos.Columns["id"].Visible = false;
+                        dtgTraspasos.Columns["IdMarca"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
                     }
 
-                    dtgRenovaciones.ClearSelection();
+                    dtgTraspasos.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -698,6 +704,7 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
             }
             else if (tabControl1.SelectedTab == tabPageRenovacionesList)
             {
@@ -1232,6 +1239,12 @@ namespace Presentacion.Marcas_Nacionales
         private void dateFechRegNueva_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaRegistroNuevoRenovacion();
+        }
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            loadTraspasosById();
+            AnadirTabPage(tabPageTraspasosList);
         }
     }
 }

@@ -145,7 +145,7 @@
             iconButton2 = new FontAwesome.Sharp.IconButton();
             tabPageTraspasosList = new TabPage();
             panel11 = new Panel();
-            iconButton6 = new FontAwesome.Sharp.IconButton();
+            btnEditarTraspaso = new FontAwesome.Sharp.IconButton();
             dtgTraspasos = new DataGridView();
             panel12 = new Panel();
             label29 = new Label();
@@ -471,6 +471,7 @@
             roundedButton9.Text = "VER TRASPASOS";
             roundedButton9.TextColor = Color.Black;
             roundedButton9.UseVisualStyleBackColor = false;
+            roundedButton9.Click += roundedButton9_Click;
             // 
             // roundedButton8
             // 
@@ -1692,7 +1693,7 @@
             // 
             // panel11
             // 
-            panel11.Controls.Add(iconButton6);
+            panel11.Controls.Add(btnEditarTraspaso);
             panel11.Controls.Add(dtgTraspasos);
             panel11.Controls.Add(panel12);
             panel11.Controls.Add(label29);
@@ -1701,24 +1702,24 @@
             panel11.Size = new Size(1145, 772);
             panel11.TabIndex = 0;
             // 
-            // iconButton6
+            // btnEditarTraspaso
             // 
-            iconButton6.Anchor = AnchorStyles.Top;
-            iconButton6.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton6.FlatAppearance.BorderSize = 0;
-            iconButton6.FlatStyle = FlatStyle.Flat;
-            iconButton6.ForeColor = Color.White;
-            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton6.IconColor = Color.White;
-            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton6.IconSize = 30;
-            iconButton6.Location = new Point(997, 73);
-            iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(144, 37);
-            iconButton6.TabIndex = 60;
-            iconButton6.Text = "Editar";
-            iconButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton6.UseVisualStyleBackColor = false;
+            btnEditarTraspaso.Anchor = AnchorStyles.Top;
+            btnEditarTraspaso.BackColor = Color.FromArgb(96, 149, 241);
+            btnEditarTraspaso.FlatAppearance.BorderSize = 0;
+            btnEditarTraspaso.FlatStyle = FlatStyle.Flat;
+            btnEditarTraspaso.ForeColor = Color.White;
+            btnEditarTraspaso.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            btnEditarTraspaso.IconColor = Color.White;
+            btnEditarTraspaso.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditarTraspaso.IconSize = 30;
+            btnEditarTraspaso.Location = new Point(997, 73);
+            btnEditarTraspaso.Name = "btnEditarTraspaso";
+            btnEditarTraspaso.Size = new Size(144, 37);
+            btnEditarTraspaso.TabIndex = 60;
+            btnEditarTraspaso.Text = "Editar";
+            btnEditarTraspaso.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEditarTraspaso.UseVisualStyleBackColor = false;
             // 
             // dtgTraspasos
             // 
@@ -1923,7 +1924,7 @@
         private Panel panel10;
         private Label label28;
         private Panel panel11;
-        private FontAwesome.Sharp.IconButton iconButton6;
+        private FontAwesome.Sharp.IconButton btnEditarTraspaso;
         private DataGridView dtgTraspasos;
         private Panel panel12;
         private Label label29;
