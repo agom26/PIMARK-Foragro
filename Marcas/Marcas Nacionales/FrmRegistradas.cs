@@ -812,6 +812,20 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
+
+                    if(AgregarEtapa.etapa=="Trámite de renovación" && string.IsNullOrEmpty(SeleccionarMarca.erenov))
+                    {
+                        txtERenovacion.Enabled = true;
+                    }
+                    else if( AgregarEtapa.etapa=="Trámite de traspaso" && string.IsNullOrEmpty(SeleccionarMarca.etraspaso))
+                    {
+                        txtETraspaso.Enabled = true;
+                    }
+                    else
+                    {
+                        txtERenovacion.Enabled = false;
+                        txtETraspaso.Enabled = false;
+                    }
                     refrescarMarca();
                     CargarDatosMarca();
 
