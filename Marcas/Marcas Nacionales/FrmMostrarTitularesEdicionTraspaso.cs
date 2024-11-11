@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmMostrarTitularesTraspaso : Form
+    public partial class FrmMostrarTitularesEdicionTraspaso : Form
     {
         PersonaModel personaModel = new PersonaModel();
-        public FrmMostrarTitularesTraspaso()
+        public FrmMostrarTitularesEdicionTraspaso()
         {
             InitializeComponent();
-            this.Load += FrmMostrarTitularesTraspaso_Load; // Mueve la lógica de carga aquí
+            this.Load += FrmMostrarTitularesEdicionTraspaso_Load; // Mueve la lógica de carga aquí
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace Presentacion.Marcas_Nacionales
 
             }));
         }
-        private async void FrmMostrarTitularesTraspaso_Load(object sender, EventArgs e)
+        private async void FrmMostrarTitularesEdicionTraspaso_Load(object sender, EventArgs e)
         {
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
@@ -112,17 +112,20 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    AgregarTraspaso.idNuevoTitular=id;
+                    
 
                     var detallesTitular = personaModel.GetPersonaById(id);
 
                     if (detallesTitular.Count > 0)
                     {
-                        AgregarTraspaso.nombreTitularN = detallesTitular[0].nombre;
+                        SeleccionarTraspaso.idComodin = id;
+                        SeleccionarTraspaso.nombreComodin = detallesTitular[0].nombre;
+
                         this.Close(); 
                     }
                     else
                     {
+                        SeleccionarTraspaso.idComodin = 0;
                         MessageBox.Show("No se encontraron detalles del titular", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         this.Close();
                     }

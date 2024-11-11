@@ -26,5 +26,13 @@ namespace Dominio
         {
             return traspasoMarcasDao.ObtenerTraspasosDeMarcaPorId(idMarca);
         }
+        public DataTable ObtenerTraspasoPorId(int id)
+        {
+            return traspasoMarcasDao.ObtenerTraspasoPorId(id);
+        }
+        public bool ActualizarTraspaso(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        {
+            return traspasoMarcasDao.ActualizarTraspasoMarca(id, numExpediente, idMarca, idTitularAnterior, idTitularNuevo, antiguoNombre, nuevoNombre);
+        }
     }
 }

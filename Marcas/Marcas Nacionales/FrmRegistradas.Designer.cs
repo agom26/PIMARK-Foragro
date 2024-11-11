@@ -150,6 +150,23 @@
             panel12 = new Panel();
             label29 = new Label();
             tabPageTraspasoDetail = new TabPage();
+            panel16 = new Panel();
+            roundedButton4 = new Clases.RoundedButton();
+            panel17 = new Panel();
+            panel18 = new Panel();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
+            groupBox1 = new GroupBox();
+            btnAgregarTitularA = new Clases.RoundedButton();
+            txtNombreMarcaN = new TextBox();
+            txtNombreMarcaA = new TextBox();
+            txtNombreTitularN = new TextBox();
+            btnAgregarTitularN = new Clases.RoundedButton();
+            txtNombreTitularA = new TextBox();
+            txtNumExpedienteTraspaso = new TextBox();
+            label35 = new Label();
+            label37 = new Label();
+            label38 = new Label();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             panel4.SuspendLayout();
@@ -177,6 +194,11 @@
             tabPageTraspasosList.SuspendLayout();
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTraspasos).BeginInit();
+            tabPageTraspasoDetail.SuspendLayout();
+            panel16.SuspendLayout();
+            panel17.SuspendLayout();
+            panel18.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -1679,6 +1701,7 @@
             iconButton2.Text = "Cancelar";
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click_1;
             // 
             // tabPageTraspasosList
             // 
@@ -1720,6 +1743,7 @@
             btnEditarTraspaso.Text = "Editar";
             btnEditarTraspaso.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarTraspaso.UseVisualStyleBackColor = false;
+            btnEditarTraspaso.Click += btnEditarTraspaso_Click;
             // 
             // dtgTraspasos
             // 
@@ -1766,12 +1790,226 @@
             // 
             // tabPageTraspasoDetail
             // 
+            tabPageTraspasoDetail.Controls.Add(panel16);
             tabPageTraspasoDetail.Location = new Point(4, 29);
             tabPageTraspasoDetail.Name = "tabPageTraspasoDetail";
             tabPageTraspasoDetail.Size = new Size(1161, 794);
             tabPageTraspasoDetail.TabIndex = 7;
             tabPageTraspasoDetail.Text = "Detalle traspaso";
             tabPageTraspasoDetail.UseVisualStyleBackColor = true;
+            // 
+            // panel16
+            // 
+            panel16.Anchor = AnchorStyles.Top;
+            panel16.Controls.Add(roundedButton4);
+            panel16.Controls.Add(panel17);
+            panel16.Location = new Point(23, 29);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(1112, 716);
+            panel16.TabIndex = 4;
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.BackColor = Color.FromArgb(196, 195, 209);
+            roundedButton4.BackgroundColor = Color.FromArgb(196, 195, 209);
+            roundedButton4.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton4.BorderRadius = 50;
+            roundedButton4.BorderSize = 0;
+            roundedButton4.Enabled = false;
+            roundedButton4.FlatAppearance.BorderSize = 0;
+            roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.Font = new Font("Century Gothic", 13F);
+            roundedButton4.ForeColor = Color.Black;
+            roundedButton4.Location = new Point(414, 43);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.Size = new Size(270, 50);
+            roundedButton4.TabIndex = 18;
+            roundedButton4.Text = "Editar traspaso";
+            roundedButton4.TextColor = Color.Black;
+            roundedButton4.UseVisualStyleBackColor = false;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.FromArgb(192, 202, 212);
+            panel17.Controls.Add(panel18);
+            panel17.Location = new Point(46, 110);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(1012, 588);
+            panel17.TabIndex = 21;
+            // 
+            // panel18
+            // 
+            panel18.BackColor = Color.White;
+            panel18.Controls.Add(iconButton4);
+            panel18.Controls.Add(iconButton5);
+            panel18.Controls.Add(groupBox1);
+            panel18.Location = new Point(42, 21);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(946, 541);
+            panel18.TabIndex = 21;
+            // 
+            // iconButton4
+            // 
+            iconButton4.BackColor = Color.FromArgb(1, 87, 155);
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.Font = new Font("Century Gothic", 10F);
+            iconButton4.ForeColor = Color.White;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Check;
+            iconButton4.IconColor = Color.White;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 30;
+            iconButton4.Location = new Point(286, 487);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(179, 34);
+            iconButton4.TabIndex = 20;
+            iconButton4.Text = "Actualizar";
+            iconButton4.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click_2;
+            // 
+            // iconButton5
+            // 
+            iconButton5.BackColor = Color.White;
+            iconButton5.FlatAppearance.BorderSize = 0;
+            iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.Font = new Font("Century Gothic", 10F);
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            iconButton5.IconColor = Color.Black;
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.IconSize = 30;
+            iconButton5.Location = new Point(491, 487);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Size = new Size(179, 34);
+            iconButton5.TabIndex = 19;
+            iconButton5.Text = "Cancelar";
+            iconButton5.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton5.UseVisualStyleBackColor = false;
+            iconButton5.Click += iconButton5_Click_2;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(btnAgregarTitularA);
+            groupBox1.Controls.Add(txtNombreMarcaN);
+            groupBox1.Controls.Add(txtNombreMarcaA);
+            groupBox1.Controls.Add(txtNombreTitularN);
+            groupBox1.Controls.Add(btnAgregarTitularN);
+            groupBox1.Controls.Add(txtNombreTitularA);
+            groupBox1.Controls.Add(txtNumExpedienteTraspaso);
+            groupBox1.Controls.Add(label35);
+            groupBox1.Controls.Add(label37);
+            groupBox1.Controls.Add(label38);
+            groupBox1.Location = new Point(223, 34);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(503, 432);
+            groupBox1.TabIndex = 21;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Traspaso";
+            // 
+            // btnAgregarTitularA
+            // 
+            btnAgregarTitularA.BackColor = Color.LightSteelBlue;
+            btnAgregarTitularA.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarTitularA.BorderColor = Color.Empty;
+            btnAgregarTitularA.BorderRadius = 30;
+            btnAgregarTitularA.BorderSize = 0;
+            btnAgregarTitularA.FlatAppearance.BorderSize = 0;
+            btnAgregarTitularA.FlatStyle = FlatStyle.Flat;
+            btnAgregarTitularA.ForeColor = Color.Black;
+            btnAgregarTitularA.Location = new Point(86, 90);
+            btnAgregarTitularA.Name = "btnAgregarTitularA";
+            btnAgregarTitularA.Size = new Size(156, 30);
+            btnAgregarTitularA.TabIndex = 24;
+            btnAgregarTitularA.Text = "Antiguo titular";
+            btnAgregarTitularA.TextColor = Color.Black;
+            btnAgregarTitularA.UseVisualStyleBackColor = false;
+            btnAgregarTitularA.Click += btnAgregarTitularA_Click;
+            // 
+            // txtNombreMarcaN
+            // 
+            txtNombreMarcaN.Location = new Point(86, 366);
+            txtNombreMarcaN.Name = "txtNombreMarcaN";
+            txtNombreMarcaN.Size = new Size(323, 26);
+            txtNombreMarcaN.TabIndex = 23;
+            // 
+            // txtNombreMarcaA
+            // 
+            txtNombreMarcaA.Location = new Point(86, 289);
+            txtNombreMarcaA.Name = "txtNombreMarcaA";
+            txtNombreMarcaA.Size = new Size(323, 26);
+            txtNombreMarcaA.TabIndex = 22;
+            // 
+            // txtNombreTitularN
+            // 
+            txtNombreTitularN.Location = new Point(86, 212);
+            txtNombreTitularN.Name = "txtNombreTitularN";
+            txtNombreTitularN.ReadOnly = true;
+            txtNombreTitularN.Size = new Size(323, 26);
+            txtNombreTitularN.TabIndex = 21;
+            // 
+            // btnAgregarTitularN
+            // 
+            btnAgregarTitularN.BackColor = Color.LightSteelBlue;
+            btnAgregarTitularN.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarTitularN.BorderColor = Color.Empty;
+            btnAgregarTitularN.BorderRadius = 30;
+            btnAgregarTitularN.BorderSize = 0;
+            btnAgregarTitularN.FlatAppearance.BorderSize = 0;
+            btnAgregarTitularN.FlatStyle = FlatStyle.Flat;
+            btnAgregarTitularN.ForeColor = Color.Black;
+            btnAgregarTitularN.Location = new Point(86, 176);
+            btnAgregarTitularN.Name = "btnAgregarTitularN";
+            btnAgregarTitularN.Size = new Size(156, 30);
+            btnAgregarTitularN.TabIndex = 20;
+            btnAgregarTitularN.Text = "Nuevo titular";
+            btnAgregarTitularN.TextColor = Color.Black;
+            btnAgregarTitularN.UseVisualStyleBackColor = false;
+            btnAgregarTitularN.Click += btnAgregarTitularN_Click;
+            // 
+            // txtNombreTitularA
+            // 
+            txtNombreTitularA.Location = new Point(86, 126);
+            txtNombreTitularA.Name = "txtNombreTitularA";
+            txtNombreTitularA.ReadOnly = true;
+            txtNombreTitularA.Size = new Size(323, 26);
+            txtNombreTitularA.TabIndex = 19;
+            // 
+            // txtNumExpedienteTraspaso
+            // 
+            txtNumExpedienteTraspaso.BackColor = Color.White;
+            txtNumExpedienteTraspaso.BorderStyle = BorderStyle.FixedSingle;
+            txtNumExpedienteTraspaso.Location = new Point(173, 46);
+            txtNumExpedienteTraspaso.Name = "txtNumExpedienteTraspaso";
+            txtNumExpedienteTraspaso.Size = new Size(120, 26);
+            txtNumExpedienteTraspaso.TabIndex = 12;
+            txtNumExpedienteTraspaso.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Location = new Point(173, 23);
+            label35.Name = "label35";
+            label35.Size = new Size(120, 20);
+            label35.TabIndex = 12;
+            label35.Text = "No. Expediente";
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(86, 343);
+            label37.Name = "label37";
+            label37.Size = new Size(120, 20);
+            label37.TabIndex = 18;
+            label37.Text = "Nuevo nombre";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(86, 266);
+            label38.Name = "label38";
+            label38.Size = new Size(128, 20);
+            label38.TabIndex = 16;
+            label38.Text = "Nombre antiguo";
             // 
             // FrmRegistradas
             // 
@@ -1821,6 +2059,12 @@
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTraspasos).EndInit();
+            tabPageTraspasoDetail.ResumeLayout(false);
+            panel16.ResumeLayout(false);
+            panel17.ResumeLayout(false);
+            panel18.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1948,5 +2192,22 @@
         private Label label33;
         private Label label34;
         private DateTimePicker dateFechRegNueva;
+        private Panel panel16;
+        private Clases.RoundedButton roundedButton4;
+        private Panel panel17;
+        private Panel panel18;
+        private FontAwesome.Sharp.IconButton iconButton4;
+        private FontAwesome.Sharp.IconButton iconButton5;
+        private GroupBox groupBox1;
+        private TextBox txtNombreMarcaN;
+        private TextBox txtNombreMarcaA;
+        private TextBox txtNombreTitularN;
+        private Clases.RoundedButton btnAgregarTitularN;
+        private TextBox txtNombreTitularA;
+        private TextBox txtNumExpedienteTraspaso;
+        private Label label35;
+        private Label label37;
+        private Label label38;
+        private Clases.RoundedButton btnAgregarTitularA;
     }
 }
