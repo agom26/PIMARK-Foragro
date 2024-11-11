@@ -23,6 +23,64 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmRenovaciones_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            if (UsuarioActivo.isAdmin == false)
+            {
+                btnAgregarTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                btnEditarEstadoHistorial.Visible = false;
+                txtExpediente.Enabled = false;
+                txtClase.Enabled = false;
+                txtNombre.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+                dateTimePickerFechaH.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                btnEditarH.Visible = false;
+                //datos registro
+                txtRegistro.Enabled = false;
+                txtFolio.Enabled = false;
+                txtLibro.Enabled = false;
+                dateTimePFecha_Registro.Enabled = false;
+
+                //datos renovacion
+                txtERenovacion.Enabled = false;
+
+                //datos traspaso
+                txtETraspaso.Enabled = false;
+            }
+            else if (UsuarioActivo.isAdmin == true)
+            {
+                btnAgregarTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                btnEditarEstadoHistorial.Visible = true;
+                txtExpediente.Enabled = true;
+                txtClase.Enabled = true;
+                txtNombre.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+                dateTimePickerFechaH.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Visible = true;
+                //datos registro
+                txtRegistro.Enabled = true;
+                txtFolio.Enabled = true;
+                txtLibro.Enabled = true;
+                dateTimePFecha_Registro.Enabled = true;
+
+                //datos renovacion
+                txtERenovacion.Enabled = true;
+
+                //datos traspaso
+                txtETraspaso.Enabled = true;
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
