@@ -120,7 +120,8 @@ namespace Presentacion.Marcas_Internacionales
             byte[] logo = null;
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
-            int idCliente = SeleccionarPersona.idPersonaC;
+            int? idCliente = SeleccionarPersona.idPersonaC;
+            bool tieneCliente = false;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
             string tiene_poder = "no";
@@ -153,10 +154,17 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
             if (idCliente <= 0)
             {
-                MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                //no colocarle cliente
+                SeleccionarMarca.idCliente = null;
+                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //return;
+            }
+            else
+            {
+                tieneCliente = true;
             }
 
             // Validar campos 
@@ -286,7 +294,11 @@ namespace Presentacion.Marcas_Internacionales
             if (SeleccionarPersona.idPersonaC != 0)
             {
                 txtNombreCliente.Text = SeleccionarPersona.nombre;
-
+            }
+            else
+            {
+                SeleccionarPersona.idPersonaC = null;
+                
             }
         }
 

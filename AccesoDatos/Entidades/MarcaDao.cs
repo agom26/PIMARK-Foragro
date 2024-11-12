@@ -289,7 +289,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public int AddMarcaInternacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int idCliente)
+        public int AddMarcaInternacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int? idCliente)
         {
             using (var connection = GetConnection())
             {
@@ -369,7 +369,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public int AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        public int AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
         {
             int idMarca = 0;
             using (var connection = GetConnection())
@@ -505,7 +505,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int idCliente)
+        public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)
         {
             using (var connection = GetConnection())
             {
@@ -536,7 +536,7 @@ namespace AccesoDatos.Entidades
 
         public bool EditarMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,
         string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fechaSolicitud,
-        string paisRegistro, string tienePoder, int idCliente, string registro, string folio,
+        string paisRegistro, string tienePoder, int? idCliente, string registro, string folio,
         string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
         {
             int resultado;

@@ -192,7 +192,7 @@ namespace Presentacion.Marcas_Internacionales
             byte[] logo = null;
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
-            int idCliente = SeleccionarPersona.idPersonaC;
+            int? idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 

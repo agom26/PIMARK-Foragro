@@ -465,21 +465,23 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void refrescarMarca()
         {
-            if (SeleccionarMarca.idInt > 0)
+            if (SeleccionarMarca.idN > 0)
             {
                 try
                 {
-                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt));
+                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                     if (detallesMarcaInt.Rows.Count > 0)
                     {
                         DataRow row = detallesMarcaInt.Rows[0];
 
-                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
+                        if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
+                            SeleccionarMarca.estado= row["estado"].ToString();
+                            SeleccionarMarca.observaciones= row["observaciones"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
-                            richTextBox1.Text = row["Observaciones"].ToString();
+                            richTextBox1.Text = row["observaciones"].ToString();
                         }
                         else
                         {
@@ -487,7 +489,7 @@ namespace Presentacion.Marcas_Nacionales
                         }
 
                         // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
@@ -563,6 +565,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
                     MessageBox.Show("Etapa agregada con éxito");
+                    
                     if (AgregarEtapa.etapa == "Registrada")
                     {
                         checkBox1.Checked = true;
@@ -573,8 +576,8 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-
                     refrescarMarca();
+
                 }
                 catch (Exception ex)
                 {

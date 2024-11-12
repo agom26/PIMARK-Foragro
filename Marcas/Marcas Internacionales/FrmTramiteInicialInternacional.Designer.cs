@@ -54,8 +54,6 @@
             checkBox1 = new CheckBox();
             btnGuardar = new Clases.RoundedButton();
             groupBox1 = new GroupBox();
-            dateTimeUltimoPago = new DateTimePicker();
-            label22 = new Label();
             checkBoxTienePoder = new CheckBox();
             label20 = new Label();
             label24 = new Label();
@@ -91,7 +89,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 9F);
-            label4.Location = new Point(24, 215);
+            label4.Location = new Point(24, 192);
             label4.Name = "label4";
             label4.Size = new Size(50, 20);
             label4.TabIndex = 21;
@@ -100,7 +98,7 @@
             // txtClase
             // 
             txtClase.Font = new Font("Century Gothic", 9F);
-            txtClase.Location = new Point(24, 238);
+            txtClase.Location = new Point(24, 215);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(278, 26);
             txtClase.TabIndex = 87;
@@ -109,7 +107,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 9F);
-            label5.Location = new Point(24, 279);
+            label5.Location = new Point(24, 256);
             label5.Name = "label5";
             label5.Size = new Size(116, 20);
             label5.TabIndex = 23;
@@ -119,7 +117,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 9F);
-            label8.Location = new Point(855, 103);
+            label8.Location = new Point(855, 80);
             label8.Name = "label8";
             label8.Size = new Size(66, 20);
             label8.TabIndex = 25;
@@ -128,7 +126,7 @@
             // pictureBox1
             // 
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Location = new Point(763, 129);
+            pictureBox1.Location = new Point(763, 106);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(276, 240);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -144,7 +142,7 @@
             iconButton1.IconColor = Color.Black;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(823, 375);
+            iconButton1.Location = new Point(823, 352);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(74, 33);
             iconButton1.TabIndex = 91;
@@ -160,7 +158,7 @@
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(903, 375);
+            iconButton2.Location = new Point(903, 352);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(74, 33);
             iconButton2.TabIndex = 92;
@@ -171,7 +169,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(368, 0);
+            label1.Location = new Point(394, 9);
             label1.Name = "label1";
             label1.Size = new Size(229, 39);
             label1.TabIndex = 16;
@@ -188,7 +186,7 @@
             btnAgregarTitular.FlatStyle = FlatStyle.Flat;
             btnAgregarTitular.Font = new Font("Century Gothic", 10F);
             btnAgregarTitular.ForeColor = Color.Black;
-            btnAgregarTitular.Location = new Point(20, 415);
+            btnAgregarTitular.Location = new Point(20, 400);
             btnAgregarTitular.Name = "btnAgregarTitular";
             btnAgregarTitular.Size = new Size(638, 56);
             btnAgregarTitular.TabIndex = 93;
@@ -201,7 +199,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Century Gothic", 9F);
-            label9.Location = new Point(22, 479);
+            label9.Location = new Point(22, 464);
             label9.Name = "label9";
             label9.Size = new Size(68, 20);
             label9.TabIndex = 30;
@@ -211,7 +209,7 @@
             // 
             txtNombreTitular.Enabled = false;
             txtNombreTitular.Font = new Font("Century Gothic", 9F);
-            txtNombreTitular.Location = new Point(22, 502);
+            txtNombreTitular.Location = new Point(22, 487);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.ReadOnly = true;
             txtNombreTitular.Size = new Size(367, 26);
@@ -228,7 +226,7 @@
             btnAgregarAgente.FlatStyle = FlatStyle.Flat;
             btnAgregarAgente.Font = new Font("Century Gothic", 10F);
             btnAgregarAgente.ForeColor = Color.Black;
-            btnAgregarAgente.Location = new Point(20, 552);
+            btnAgregarAgente.Location = new Point(20, 529);
             btnAgregarAgente.Name = "btnAgregarAgente";
             btnAgregarAgente.Size = new Size(638, 56);
             btnAgregarAgente.TabIndex = 94;
@@ -241,7 +239,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Century Gothic", 9F);
-            label12.Location = new Point(22, 628);
+            label12.Location = new Point(22, 605);
             label12.Name = "label12";
             label12.Size = new Size(68, 20);
             label12.TabIndex = 33;
@@ -251,7 +249,7 @@
             // 
             txtNombreAgente.Enabled = false;
             txtNombreAgente.Font = new Font("Century Gothic", 9F);
-            txtNombreAgente.Location = new Point(22, 654);
+            txtNombreAgente.Location = new Point(22, 631);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.ReadOnly = true;
             txtNombreAgente.Size = new Size(369, 26);
@@ -268,7 +266,7 @@
             btnAgregarCliente.FlatAppearance.BorderSize = 0;
             btnAgregarCliente.FlatStyle = FlatStyle.Flat;
             btnAgregarCliente.ForeColor = Color.Black;
-            btnAgregarCliente.Location = new Point(22, 704);
+            btnAgregarCliente.Location = new Point(20, 676);
             btnAgregarCliente.Name = "btnAgregarCliente";
             btnAgregarCliente.Size = new Size(638, 56);
             btnAgregarCliente.TabIndex = 95;
@@ -281,7 +279,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Century Gothic", 9F);
-            label6.Location = new Point(22, 775);
+            label6.Location = new Point(18, 752);
             label6.Name = "label6";
             label6.Size = new Size(68, 20);
             label6.TabIndex = 36;
@@ -291,7 +289,7 @@
             // 
             txtNombreCliente.Enabled = false;
             txtNombreCliente.Font = new Font("Century Gothic", 9F);
-            txtNombreCliente.Location = new Point(22, 801);
+            txtNombreCliente.Location = new Point(18, 778);
             txtNombreCliente.Name = "txtNombreCliente";
             txtNombreCliente.ReadOnly = true;
             txtNombreCliente.Size = new Size(369, 26);
@@ -303,7 +301,7 @@
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Century Gothic", 9F);
-            label13.Location = new Point(367, 135);
+            label13.Location = new Point(367, 112);
             label13.Name = "label13";
             label13.Size = new Size(69, 20);
             label13.TabIndex = 38;
@@ -314,7 +312,7 @@
             datePickerFechaSolicitud.Anchor = AnchorStyles.None;
             datePickerFechaSolicitud.Font = new Font("Century Gothic", 9F);
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitud.Location = new Point(368, 159);
+            datePickerFechaSolicitud.Location = new Point(368, 136);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(292, 26);
             datePickerFechaSolicitud.TabIndex = 86;
@@ -323,7 +321,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Century Gothic", 9F);
-            label14.Location = new Point(363, 350);
+            label14.Location = new Point(363, 327);
             label14.Name = "label14";
             label14.Size = new Size(103, 20);
             label14.TabIndex = 40;
@@ -333,7 +331,7 @@
             // 
             textBoxEstatus.Enabled = false;
             textBoxEstatus.Font = new Font("Century Gothic", 9F);
-            textBoxEstatus.Location = new Point(365, 375);
+            textBoxEstatus.Location = new Point(365, 352);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
             textBoxEstatus.Size = new Size(293, 26);
@@ -343,7 +341,7 @@
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Century Gothic", 9F);
-            label16.Location = new Point(22, 853);
+            label16.Location = new Point(20, 823);
             label16.Name = "label16";
             label16.Size = new Size(121, 20);
             label16.TabIndex = 44;
@@ -352,7 +350,7 @@
             // richTextBox1
             // 
             richTextBox1.Font = new Font("Century Gothic", 9F);
-            richTextBox1.Location = new Point(22, 879);
+            richTextBox1.Location = new Point(20, 849);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(636, 120);
@@ -392,34 +390,15 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dateTimeUltimoPago);
-            groupBox1.Controls.Add(label22);
             groupBox1.Controls.Add(checkBoxTienePoder);
             groupBox1.Controls.Add(label20);
             groupBox1.Font = new Font("Century Gothic", 9F);
-            groupBox1.Location = new Point(720, 479);
+            groupBox1.Location = new Point(718, 434);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(341, 191);
+            groupBox1.Size = new Size(341, 119);
             groupBox1.TabIndex = 49;
             groupBox1.TabStop = false;
             groupBox1.Text = ".";
-            // 
-            // dateTimeUltimoPago
-            // 
-            dateTimeUltimoPago.Format = DateTimePickerFormat.Short;
-            dateTimeUltimoPago.Location = new Point(41, 116);
-            dateTimeUltimoPago.Name = "dateTimeUltimoPago";
-            dateTimeUltimoPago.Size = new Size(250, 26);
-            dateTimeUltimoPago.TabIndex = 98;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(41, 91);
-            label22.Name = "label22";
-            label22.Size = new Size(98, 20);
-            label22.TabIndex = 53;
-            label22.Text = "Último pago";
             // 
             // checkBoxTienePoder
             // 
@@ -443,7 +422,7 @@
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Century Gothic", 9F);
-            label24.Location = new Point(20, 144);
+            label24.Location = new Point(20, 121);
             label24.Name = "label24";
             label24.Size = new Size(119, 20);
             label24.TabIndex = 50;
@@ -457,7 +436,7 @@
             comboBox1.Font = new Font("Century Gothic", 9F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBox1.Location = new Point(20, 167);
+            comboBox1.Location = new Point(20, 144);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(280, 28);
             comboBox1.TabIndex = 85;
@@ -467,7 +446,7 @@
             // 
             label25.AutoSize = true;
             label25.Font = new Font("Century Gothic", 10F);
-            label25.Location = new Point(20, 65);
+            label25.Location = new Point(20, 42);
             label25.Name = "label25";
             label25.Size = new Size(104, 21);
             label25.TabIndex = 82;
@@ -476,7 +455,7 @@
             // txtExpediente
             // 
             txtExpediente.Font = new Font("Century Gothic", 10F);
-            txtExpediente.Location = new Point(20, 92);
+            txtExpediente.Location = new Point(20, 69);
             txtExpediente.Name = "txtExpediente";
             txtExpediente.Size = new Size(280, 28);
             txtExpediente.TabIndex = 83;
@@ -485,7 +464,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Century Gothic", 10F);
-            label15.Location = new Point(365, 66);
+            label15.Location = new Point(365, 43);
             label15.Name = "label15";
             label15.Size = new Size(77, 21);
             label15.TabIndex = 84;
@@ -494,7 +473,7 @@
             // txtNombre
             // 
             txtNombre.Font = new Font("Century Gothic", 10F);
-            txtNombre.Location = new Point(368, 92);
+            txtNombre.Location = new Point(368, 69);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(292, 28);
             txtNombre.TabIndex = 84;
@@ -510,7 +489,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 9F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(22, 366);
+            roundedButton1.Location = new Point(22, 343);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 90;
@@ -672,7 +651,6 @@
             panel1.Controls.Add(txtNombreTitular);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(btnAgregarTitular);
-            panel1.Controls.Add(label1);
             panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(pictureBox1);
@@ -681,7 +659,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(10, 28);
+            panel1.Location = new Point(15, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
@@ -694,7 +672,7 @@
             comboBoxTipoSigno.Font = new Font("Century Gothic", 9F);
             comboBoxTipoSigno.FormattingEnabled = true;
             comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
-            comboBoxTipoSigno.Location = new Point(368, 302);
+            comboBoxTipoSigno.Location = new Point(368, 279);
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
             comboBoxTipoSigno.TabIndex = 89;
@@ -707,7 +685,7 @@
             comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
             comboBoxSignoDistintivo.FormattingEnabled = true;
             comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            comboBoxSignoDistintivo.Location = new Point(24, 302);
+            comboBoxSignoDistintivo.Location = new Point(24, 279);
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
             comboBoxSignoDistintivo.TabIndex = 88;
@@ -717,7 +695,7 @@
             label26.Anchor = AnchorStyles.None;
             label26.AutoSize = true;
             label26.Font = new Font("Century Gothic", 10F);
-            label26.Location = new Point(368, 272);
+            label26.Location = new Point(368, 249);
             label26.Name = "label26";
             label26.Size = new Size(44, 21);
             label26.TabIndex = 149;
@@ -729,7 +707,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1133, 664);
+            ClientSize = new Size(1133, 689);
+            Controls.Add(label1);
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
             FormBorderStyle = FormBorderStyle.None;
@@ -744,6 +723,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -774,8 +754,6 @@
         private CheckBox checkBox1;
         private Clases.RoundedButton btnGuardar;
         private GroupBox groupBox1;
-        private DateTimePicker dateTimeUltimoPago;
-        private Label label22;
         private CheckBox checkBoxTienePoder;
         private Label label20;
         private Label label24;

@@ -318,6 +318,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton3_Click_1(object sender, EventArgs e)
         {
+            richTextBox1.Text = "";
             FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
             frmAgregarEtapa.ShowDialog();
 

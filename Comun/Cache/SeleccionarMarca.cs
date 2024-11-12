@@ -31,7 +31,7 @@ namespace Comun.Cache
         public static DateTime ultimo_pago;
         public static DateTime vencimiento;
         //
-        public static int idCliente;
+        public static int? idCliente;
         //registrada
         public static string registro;
         public static string folio;

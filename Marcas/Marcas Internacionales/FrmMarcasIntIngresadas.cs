@@ -27,6 +27,42 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarMarca.idInt = 0;
             ActualizarFechaVencimiento();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            if (UsuarioActivo.isAdmin == false)
+            {
+                btnAgregarTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                btnEditarEstadoHistorial.Visible = false;
+                txtExpediente.Enabled = false;
+                txtClase.Enabled = false;
+                txtNombre.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+                dateTimePickerFechaH.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                btnEditarH.Visible = false;
+            }
+            else if (UsuarioActivo.isAdmin == true)
+            {
+                btnAgregarTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                btnEditarEstadoHistorial.Visible = true;
+                txtExpediente.Enabled = true;
+                txtClase.Enabled = true;
+                txtNombre.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+                dateTimePickerFechaH.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Visible = true;
+            }
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -193,7 +229,7 @@ namespace Presentacion.Marcas_Internacionales
             byte[] logo = null;
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
-            int idCliente = SeleccionarPersona.idPersonaC;
+            int? idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
