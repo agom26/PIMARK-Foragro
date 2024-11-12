@@ -295,17 +295,7 @@ namespace AccesoDatos.Entidades
             {
                 connection.Open();
 
-                using (var checkCommand = new MySqlCommand("SELECT COUNT(*) FROM Personas WHERE id = @idCliente", connection))
-                {
-                    checkCommand.Parameters.AddWithValue("@idCliente", idCliente);
-                    int count = Convert.ToInt32(checkCommand.ExecuteScalar());
-
-                    if (count == 0)
-                    {
-                        throw new Exception("El cliente proporcionado no existe en la base de datos.");
-                    }
-                }
-
+                
                 using (var command = new MySqlCommand(@"INSERT INTO Marcas (expediente, nombre, signo_distintivo, tipoSigno, clase, logo, idTitular, idAgente, fecha_solicitud, pais_de_registro, tiene_poder, idCliente, tipo) 
                                                   VALUES (@expediente, @nombre, @signoDistintivo, @tipoSigno, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, @pais_de_registro, @tiene_poder, @idCliente, 'internacional'); 
                                                   SELECT LAST_INSERT_ID();", connection))
