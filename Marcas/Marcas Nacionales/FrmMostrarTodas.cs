@@ -458,6 +458,8 @@ namespace Presentacion.Marcas_Nacionales
                         if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
+                            SeleccionarMarca.estado= row["estado"].ToString();
+                            SeleccionarMarca.observaciones= row["observaciones"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["observaciones"].ToString();
                         }
