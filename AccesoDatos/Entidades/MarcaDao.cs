@@ -201,11 +201,13 @@ namespace AccesoDatos.Entidades
                         M.id,
                         M.nombre AS Nombre, 
                         M.estado AS Estado,
-                        M.observaciones as Observaciones,
+                        M.Observaciones as Observaciones,
                         M.expediente As Expediente,
                         M.clase AS Clase,  
                         P1.nombre AS Titular, 
-                        P2.nombre AS Agente
+                        P2.nombre AS Agente,
+                        M.Erenov,
+                        M.Etrasp
                     FROM 
                         `Marcas` M
                     JOIN 

@@ -682,7 +682,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageRenovacionesList);
             EliminarTabPage(tabPageRenovacionDetail);
-            EliminarTabPage(tabPageRenovacionDetail);
+            EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
         }
