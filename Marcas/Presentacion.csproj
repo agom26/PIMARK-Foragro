@@ -41,6 +41,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DsInforme.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DsInforme.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Marcas Nacionales\FrmAgregarEtapaRegistrada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +87,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DsInforme.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsInforme.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -361,30 +361,37 @@ namespace Presentacion.Marcas_Internacionales
 
                     if (row["expediente"] != DBNull.Value) // Comprueba si "registro" no es DBNull
                     {
-                        SeleccionarMarca.expediente = row["expediente"].ToString();
-                        SeleccionarMarca.nombre = row["nombre"].ToString();
-                        SeleccionarMarca.clase = row["clase"].ToString();
-                        SeleccionarMarca.estado = row["estado"].ToString();
-                        SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
-                        SeleccionarMarca.tipoSigno= row["Tipo"].ToString();
-                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
-                        SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
-                        SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
-                        SeleccionarMarca.idPersonaCliente = Convert.ToInt32(row["idCliente"]);
-                        SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
-                        SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
+                        // Example: Safely assigning fields, checking for DBNull
+                        SeleccionarMarca.expediente = row["expediente"] != DBNull.Value ? row["expediente"].ToString() : string.Empty;
+                        SeleccionarMarca.nombre = row["nombre"] != DBNull.Value ? row["nombre"].ToString() : string.Empty;
+                        SeleccionarMarca.clase = row["clase"] != DBNull.Value ? row["clase"].ToString() : string.Empty;
+                        SeleccionarMarca.estado = row["estado"] != DBNull.Value ? row["estado"].ToString() : string.Empty;
+                        SeleccionarMarca.signoDistintivo = row["signoDistintivo"] != DBNull.Value ? row["signoDistintivo"].ToString() : string.Empty;
+                        SeleccionarMarca.tipoSigno = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty;
+                        SeleccionarMarca.logo = row["logo"] != DBNull.Value ? (byte[])row["logo"] : null;
+                        SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
+                        SeleccionarMarca.idPersonaAgente = row["idAgente"] != DBNull.Value ? Convert.ToInt32(row["idAgente"]) : 0;
+                        SeleccionarMarca.idPersonaCliente = row["idCliente"] != DBNull.Value ? Convert.ToInt32(row["idCliente"]) : 0;
+                        SeleccionarMarca.fecha_solicitud = row["fechaSolicitud"] != DBNull.Value ? Convert.ToDateTime(row["fechaSolicitud"]) : DateTime.MinValue;
+                        SeleccionarMarca.observaciones = row["observaciones"] != DBNull.Value ? row["observaciones"].ToString() : string.Empty;
+                        SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
+                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
 
+                        // Cargar datos del titular y agente directamente
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-                        var clienteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente));
+
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != null
+                            ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
+                            : null;
+
                         await Task.WhenAll(titularTask, agenteTask, clienteTask);
 
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
-                        var cliente = clienteTask.Result;
+                        var cliente = clienteTask?.Result;
 
+                        // Set selected person IDs
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
                         SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;
@@ -399,10 +406,12 @@ namespace Presentacion.Marcas_Internacionales
                             txtNombreAgente.Text = agente[0].nombre;
                         }
 
-                        if (cliente.Count > 0)
+                        if (cliente != null && cliente.Count > 0)
                         {
-                            txtNombreCliente.Text = cliente[0].nombre; 
+                            txtNombreCliente.Text = cliente[0].nombre;
                         }
+
+
 
                         // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
