@@ -31,6 +31,7 @@
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="MailKit" Version="4.8.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="140.340.80" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
     <PackageReference Include="VisualBasic.PowerPacks.Vs" Version="1.0.0" />
   </ItemGroup>
@@ -41,11 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DsInforme.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DsInforme.xsd</DependentUpon>
-    </Compile>
     <Compile Update="Marcas Nacionales\FrmAgregarEtapaRegistrada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,10 +83,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DsInforme.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DsInforme.Designer.cs</LastGenOutput>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

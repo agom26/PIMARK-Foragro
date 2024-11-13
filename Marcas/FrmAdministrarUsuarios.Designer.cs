@@ -197,7 +197,7 @@
             // 
             // iconButton3
             // 
-            iconButton3.Anchor = AnchorStyles.None;
+            iconButton3.Anchor = AnchorStyles.Top;
             iconButton3.AutoSize = true;
             iconButton3.BackColor = Color.FromArgb(96, 149, 241);
             iconButton3.FlatAppearance.BorderSize = 0;
@@ -219,7 +219,7 @@
             // 
             // iconButton2
             // 
-            iconButton2.Anchor = AnchorStyles.None;
+            iconButton2.Anchor = AnchorStyles.Top;
             iconButton2.AutoSize = true;
             iconButton2.BackColor = Color.FromArgb(50, 164, 115);
             iconButton2.FlatAppearance.BorderSize = 0;

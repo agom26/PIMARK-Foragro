@@ -253,8 +253,9 @@ namespace Presentacion.Marcas_Internacionales
             }
             if (idCliente <= 0)
             {
-                MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                idCliente = null;
+                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //return;
             }
 
             // Validar campos 
