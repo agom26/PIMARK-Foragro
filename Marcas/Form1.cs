@@ -15,6 +15,7 @@ using Presentacion.Marcas_Nacionales;
 using Presentacion.Marcas_Internacionales;
 using Presentacion.Vencimientos;
 using Dominio;
+using Presentacion.Reportes;
 
 namespace Presentacion
 {
@@ -268,9 +269,12 @@ namespace Presentacion
             //openChildForm(new AlertasVencimiento());
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Reportes());
+            DisableButtons();
+            openChildForm(new FrmReportes());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void Form1_Load(object sender, EventArgs e)

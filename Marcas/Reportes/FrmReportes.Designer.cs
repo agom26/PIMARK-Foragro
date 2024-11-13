@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
-            roundedButton2 = new Clases.RoundedButton();
-            roundedButton1 = new Clases.RoundedButton();
+            btnConsultar = new Clases.RoundedButton();
+            btnCancelar = new Clases.RoundedButton();
             dtpSolicitudFinal = new DateTimePicker();
             dtpVencimientoFinal = new DateTimePicker();
             dtpFechaRegistroFinal = new DateTimePicker();
             dtpVencimientoInicial = new DateTimePicker();
             dtpFRegistroInicial = new DateTimePicker();
             dtpSolicitudInicial = new DateTimePicker();
-            checkBox6 = new CheckBox();
+            chckFVencimiento = new CheckBox();
             label12 = new Label();
             txtNumRegistro = new TextBox();
             label11 = new Label();
             txtClase = new TextBox();
             txtAgente = new TextBox();
             txtTitular = new TextBox();
-            checkBox5 = new CheckBox();
-            checkBox4 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            chckFRegistro = new CheckBox();
+            chckFSolicitud = new CheckBox();
+            chckClase = new CheckBox();
+            chckAgente = new CheckBox();
+            chckTitular = new CheckBox();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
@@ -70,38 +70,50 @@
             label2 = new Label();
             label1 = new Label();
             panel1 = new Panel();
-            dtgTitulares = new DataGridView();
             panel2 = new Panel();
+            dtgReportes = new DataGridView();
             roundedButton3 = new Clases.RoundedButton();
             roundedButton4 = new Clases.RoundedButton();
+            chckEstado = new CheckBox();
+            chckNombre = new CheckBox();
+            chckPais = new CheckBox();
+            chckFolio = new CheckBox();
+            chckTomo = new CheckBox();
+            chckNumRegistro = new CheckBox();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dtgTitulares).BeginInit();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dtgReportes).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(roundedButton2);
-            groupBox1.Controls.Add(roundedButton1);
+            groupBox1.Controls.Add(chckNumRegistro);
+            groupBox1.Controls.Add(chckTomo);
+            groupBox1.Controls.Add(chckFolio);
+            groupBox1.Controls.Add(chckPais);
+            groupBox1.Controls.Add(chckNombre);
+            groupBox1.Controls.Add(chckEstado);
+            groupBox1.Controls.Add(btnConsultar);
+            groupBox1.Controls.Add(btnCancelar);
             groupBox1.Controls.Add(dtpSolicitudFinal);
             groupBox1.Controls.Add(dtpVencimientoFinal);
             groupBox1.Controls.Add(dtpFechaRegistroFinal);
             groupBox1.Controls.Add(dtpVencimientoInicial);
             groupBox1.Controls.Add(dtpFRegistroInicial);
             groupBox1.Controls.Add(dtpSolicitudInicial);
-            groupBox1.Controls.Add(checkBox6);
+            groupBox1.Controls.Add(chckFVencimiento);
             groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(txtNumRegistro);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(txtClase);
             groupBox1.Controls.Add(txtAgente);
             groupBox1.Controls.Add(txtTitular);
-            groupBox1.Controls.Add(checkBox5);
-            groupBox1.Controls.Add(checkBox4);
-            groupBox1.Controls.Add(checkBox3);
-            groupBox1.Controls.Add(checkBox2);
-            groupBox1.Controls.Add(checkBox1);
+            groupBox1.Controls.Add(chckFRegistro);
+            groupBox1.Controls.Add(chckFSolicitud);
+            groupBox1.Controls.Add(chckClase);
+            groupBox1.Controls.Add(chckAgente);
+            groupBox1.Controls.Add(chckTitular);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(label8);
@@ -119,50 +131,51 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(876, 392);
+            groupBox1.Size = new Size(873, 392);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
-            // roundedButton2
+            // btnConsultar
             // 
-            roundedButton2.BackColor = Color.FromArgb(92, 107, 192);
-            roundedButton2.BackgroundColor = Color.FromArgb(92, 107, 192);
-            roundedButton2.BorderColor = Color.FromArgb(92, 107, 192);
-            roundedButton2.BorderRadius = 50;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(436, 337);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(185, 49);
-            roundedButton2.TabIndex = 213;
-            roundedButton2.Text = "Consultar";
-            roundedButton2.TextColor = Color.White;
-            roundedButton2.UseVisualStyleBackColor = false;
+            btnConsultar.BackColor = Color.FromArgb(92, 107, 192);
+            btnConsultar.BackgroundColor = Color.FromArgb(92, 107, 192);
+            btnConsultar.BorderColor = Color.FromArgb(92, 107, 192);
+            btnConsultar.BorderRadius = 50;
+            btnConsultar.BorderSize = 0;
+            btnConsultar.FlatAppearance.BorderSize = 0;
+            btnConsultar.FlatStyle = FlatStyle.Flat;
+            btnConsultar.ForeColor = Color.White;
+            btnConsultar.Location = new Point(436, 337);
+            btnConsultar.Name = "btnConsultar";
+            btnConsultar.Size = new Size(185, 49);
+            btnConsultar.TabIndex = 213;
+            btnConsultar.Text = "Consultar";
+            btnConsultar.TextColor = Color.White;
+            btnConsultar.UseVisualStyleBackColor = false;
+            btnConsultar.Click += btnConsultar_Click;
             // 
-            // roundedButton1
+            // btnCancelar
             // 
-            roundedButton1.BackColor = Color.FromArgb(117, 117, 117);
-            roundedButton1.BackgroundColor = Color.FromArgb(117, 117, 117);
-            roundedButton1.BorderColor = Color.FromArgb(117, 117, 117);
-            roundedButton1.BorderRadius = 50;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(630, 337);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(185, 49);
-            roundedButton1.TabIndex = 212;
-            roundedButton1.Text = "Cancelar";
-            roundedButton1.TextColor = Color.White;
-            roundedButton1.UseVisualStyleBackColor = false;
+            btnCancelar.BackColor = Color.FromArgb(117, 117, 117);
+            btnCancelar.BackgroundColor = Color.FromArgb(117, 117, 117);
+            btnCancelar.BorderColor = Color.FromArgb(117, 117, 117);
+            btnCancelar.BorderRadius = 50;
+            btnCancelar.BorderSize = 0;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(630, 337);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(185, 49);
+            btnCancelar.TabIndex = 212;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.TextColor = Color.White;
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // dtpSolicitudFinal
             // 
             dtpSolicitudFinal.Format = DateTimePickerFormat.Short;
-            dtpSolicitudFinal.Location = new Point(683, 156);
+            dtpSolicitudFinal.Location = new Point(723, 162);
             dtpSolicitudFinal.Name = "dtpSolicitudFinal";
             dtpSolicitudFinal.Size = new Size(132, 26);
             dtpSolicitudFinal.TabIndex = 211;
@@ -170,7 +183,7 @@
             // dtpVencimientoFinal
             // 
             dtpVencimientoFinal.Format = DateTimePickerFormat.Short;
-            dtpVencimientoFinal.Location = new Point(683, 257);
+            dtpVencimientoFinal.Location = new Point(723, 263);
             dtpVencimientoFinal.Name = "dtpVencimientoFinal";
             dtpVencimientoFinal.Size = new Size(132, 26);
             dtpVencimientoFinal.TabIndex = 210;
@@ -178,7 +191,7 @@
             // dtpFechaRegistroFinal
             // 
             dtpFechaRegistroFinal.Format = DateTimePickerFormat.Short;
-            dtpFechaRegistroFinal.Location = new Point(683, 203);
+            dtpFechaRegistroFinal.Location = new Point(723, 209);
             dtpFechaRegistroFinal.Name = "dtpFechaRegistroFinal";
             dtpFechaRegistroFinal.Size = new Size(132, 26);
             dtpFechaRegistroFinal.TabIndex = 209;
@@ -186,7 +199,7 @@
             // dtpVencimientoInicial
             // 
             dtpVencimientoInicial.Format = DateTimePickerFormat.Short;
-            dtpVencimientoInicial.Location = new Point(535, 257);
+            dtpVencimientoInicial.Location = new Point(575, 263);
             dtpVencimientoInicial.Name = "dtpVencimientoInicial";
             dtpVencimientoInicial.Size = new Size(132, 26);
             dtpVencimientoInicial.TabIndex = 208;
@@ -194,7 +207,7 @@
             // dtpFRegistroInicial
             // 
             dtpFRegistroInicial.Format = DateTimePickerFormat.Short;
-            dtpFRegistroInicial.Location = new Point(535, 205);
+            dtpFRegistroInicial.Location = new Point(575, 211);
             dtpFRegistroInicial.Name = "dtpFRegistroInicial";
             dtpFRegistroInicial.Size = new Size(132, 26);
             dtpFRegistroInicial.TabIndex = 207;
@@ -202,24 +215,24 @@
             // dtpSolicitudInicial
             // 
             dtpSolicitudInicial.Format = DateTimePickerFormat.Short;
-            dtpSolicitudInicial.Location = new Point(535, 156);
+            dtpSolicitudInicial.Location = new Point(575, 162);
             dtpSolicitudInicial.Name = "dtpSolicitudInicial";
             dtpSolicitudInicial.Size = new Size(132, 26);
             dtpSolicitudInicial.TabIndex = 206;
             // 
-            // checkBox6
+            // chckFVencimiento
             // 
-            checkBox6.AutoSize = true;
-            checkBox6.Location = new Point(502, 265);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(18, 17);
-            checkBox6.TabIndex = 205;
-            checkBox6.UseVisualStyleBackColor = true;
+            chckFVencimiento.AutoSize = true;
+            chckFVencimiento.Location = new Point(542, 271);
+            chckFVencimiento.Name = "chckFVencimiento";
+            chckFVencimiento.Size = new Size(18, 17);
+            chckFVencimiento.TabIndex = 205;
+            chckFVencimiento.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(427, 256);
+            label12.Location = new Point(467, 262);
             label12.Name = "label12";
             label12.Size = new Size(59, 20);
             label12.TabIndex = 204;
@@ -227,15 +240,15 @@
             // 
             // txtNumRegistro
             // 
-            txtNumRegistro.Location = new Point(97, 256);
+            txtNumRegistro.Location = new Point(146, 256);
             txtNumRegistro.Name = "txtNumRegistro";
-            txtNumRegistro.Size = new Size(280, 26);
+            txtNumRegistro.Size = new Size(174, 26);
             txtNumRegistro.TabIndex = 203;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(6, 262);
+            label11.Location = new Point(-4, 259);
             label11.Name = "label11";
             label11.Size = new Size(82, 20);
             label11.TabIndex = 202;
@@ -243,74 +256,74 @@
             // 
             // txtClase
             // 
-            txtClase.Location = new Point(535, 113);
+            txtClase.Location = new Point(575, 119);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(280, 26);
             txtClase.TabIndex = 201;
             // 
             // txtAgente
             // 
-            txtAgente.Location = new Point(535, 64);
+            txtAgente.Location = new Point(575, 70);
             txtAgente.Name = "txtAgente";
             txtAgente.Size = new Size(280, 26);
             txtAgente.TabIndex = 200;
             // 
             // txtTitular
             // 
-            txtTitular.Location = new Point(535, 16);
+            txtTitular.Location = new Point(575, 22);
             txtTitular.Name = "txtTitular";
             txtTitular.Size = new Size(280, 26);
             txtTitular.TabIndex = 199;
             // 
-            // checkBox5
+            // chckFRegistro
             // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new Point(502, 211);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(18, 17);
-            checkBox5.TabIndex = 198;
-            checkBox5.UseVisualStyleBackColor = true;
+            chckFRegistro.AutoSize = true;
+            chckFRegistro.Location = new Point(542, 217);
+            chckFRegistro.Name = "chckFRegistro";
+            chckFRegistro.Size = new Size(18, 17);
+            chckFRegistro.TabIndex = 198;
+            chckFRegistro.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // chckFSolicitud
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(502, 162);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(18, 17);
-            checkBox4.TabIndex = 197;
-            checkBox4.UseVisualStyleBackColor = true;
+            chckFSolicitud.AutoSize = true;
+            chckFSolicitud.Location = new Point(542, 168);
+            chckFSolicitud.Name = "chckFSolicitud";
+            chckFSolicitud.Size = new Size(18, 17);
+            chckFSolicitud.TabIndex = 197;
+            chckFSolicitud.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // chckClase
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(502, 119);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(18, 17);
-            checkBox3.TabIndex = 196;
-            checkBox3.UseVisualStyleBackColor = true;
+            chckClase.AutoSize = true;
+            chckClase.Location = new Point(542, 125);
+            chckClase.Name = "chckClase";
+            chckClase.Size = new Size(18, 17);
+            chckClase.TabIndex = 196;
+            chckClase.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // chckAgente
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(502, 70);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(18, 17);
-            checkBox2.TabIndex = 195;
-            checkBox2.UseVisualStyleBackColor = true;
+            chckAgente.AutoSize = true;
+            chckAgente.Location = new Point(542, 76);
+            chckAgente.Name = "chckAgente";
+            chckAgente.Size = new Size(18, 17);
+            chckAgente.TabIndex = 195;
+            chckAgente.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // chckTitular
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(502, 25);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(18, 17);
-            checkBox1.TabIndex = 194;
-            checkBox1.UseVisualStyleBackColor = true;
+            chckTitular.AutoSize = true;
+            chckTitular.Location = new Point(542, 31);
+            chckTitular.Name = "chckTitular";
+            chckTitular.Size = new Size(18, 17);
+            chckTitular.TabIndex = 194;
+            chckTitular.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(398, 208);
+            label10.Location = new Point(438, 214);
             label10.Name = "label10";
             label10.Size = new Size(88, 20);
             label10.TabIndex = 193;
@@ -319,7 +332,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(417, 159);
+            label9.Location = new Point(457, 165);
             label9.Name = "label9";
             label9.Size = new Size(69, 20);
             label9.TabIndex = 192;
@@ -328,7 +341,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(436, 111);
+            label8.Location = new Point(476, 117);
             label8.Name = "label8";
             label8.Size = new Size(50, 20);
             label8.TabIndex = 191;
@@ -336,15 +349,15 @@
             // 
             // txtTomo
             // 
-            txtTomo.Location = new Point(97, 208);
+            txtTomo.Location = new Point(146, 208);
             txtTomo.Name = "txtTomo";
-            txtTomo.Size = new Size(280, 26);
+            txtTomo.Size = new Size(174, 26);
             txtTomo.TabIndex = 190;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(39, 211);
+            label7.Location = new Point(31, 211);
             label7.Name = "label7";
             label7.Size = new Size(47, 20);
             label7.TabIndex = 189;
@@ -352,15 +365,15 @@
             // 
             // txtFolio
             // 
-            txtFolio.Location = new Point(97, 153);
+            txtFolio.Location = new Point(146, 153);
             txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(280, 26);
+            txtFolio.Size = new Size(174, 26);
             txtFolio.TabIndex = 188;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(44, 156);
+            label6.Location = new Point(31, 156);
             label6.Name = "label6";
             label6.Size = new Size(42, 20);
             label6.TabIndex = 187;
@@ -369,7 +382,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(422, 61);
+            label5.Location = new Point(462, 67);
             label5.Name = "label5";
             label5.Size = new Size(64, 20);
             label5.TabIndex = 186;
@@ -378,7 +391,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(437, 19);
+            label4.Location = new Point(477, 25);
             label4.Name = "label4";
             label4.Size = new Size(49, 20);
             label4.TabIndex = 185;
@@ -391,8 +404,8 @@
             comboBoxEstado.FlatStyle = FlatStyle.Flat;
             comboBoxEstado.Font = new Font("Century Gothic", 9F);
             comboBoxEstado.FormattingEnabled = true;
-            comboBoxEstado.Items.AddRange(new object[] { "", "Ingresadas", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
-            comboBoxEstado.Location = new Point(97, 19);
+            comboBoxEstado.Items.AddRange(new object[] { "", "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
+            comboBoxEstado.Location = new Point(146, 19);
             comboBoxEstado.Name = "comboBoxEstado";
             comboBoxEstado.Size = new Size(280, 28);
             comboBoxEstado.TabIndex = 184;
@@ -405,7 +418,7 @@
             comboBoxPais.Font = new Font("Century Gothic", 9F);
             comboBoxPais.FormattingEnabled = true;
             comboBoxPais.Items.AddRange(new object[] { "", "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBoxPais.Location = new Point(97, 108);
+            comboBoxPais.Location = new Point(146, 108);
             comboBoxPais.Name = "comboBoxPais";
             comboBoxPais.Size = new Size(280, 28);
             comboBoxPais.TabIndex = 183;
@@ -413,7 +426,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(49, 111);
+            label3.Location = new Point(36, 113);
             label3.Name = "label3";
             label3.Size = new Size(37, 20);
             label3.TabIndex = 4;
@@ -421,7 +434,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(97, 61);
+            txtNombre.Location = new Point(146, 61);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(280, 26);
             txtNombre.TabIndex = 3;
@@ -429,7 +442,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(18, 64);
+            label2.Location = new Point(5, 64);
             label2.Name = "label2";
             label2.Size = new Size(68, 20);
             label2.TabIndex = 2;
@@ -438,7 +451,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(30, 22);
+            label1.Location = new Point(6, 22);
             label1.Name = "label1";
             label1.Size = new Size(58, 20);
             label1.TabIndex = 0;
@@ -450,69 +463,69 @@
             panel1.Controls.Add(panel2);
             panel1.Location = new Point(12, 410);
             panel1.Name = "panel1";
-            panel1.Size = new Size(876, 542);
+            panel1.Size = new Size(858, 542);
             panel1.TabIndex = 1;
-            // 
-            // dtgTitulares
-            // 
-            dtgTitulares.AllowUserToAddRows = false;
-            dtgTitulares.AllowUserToDeleteRows = false;
-            dtgTitulares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtgTitulares.BackgroundColor = Color.FromArgb(251, 251, 251);
-            dtgTitulares.BorderStyle = BorderStyle.None;
-            dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dtgTitulares.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = SystemColors.Control;
-            dataGridViewCellStyle17.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle17.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            dtgTitulares.ColumnHeadersHeight = 40;
-            dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = SystemColors.Window;
-            dataGridViewCellStyle18.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle18.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle18.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.False;
-            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle18;
-            dtgTitulares.EnableHeadersVisualStyles = false;
-            dtgTitulares.GridColor = Color.LightGray;
-            dtgTitulares.Location = new Point(12, 17);
-            dtgTitulares.Name = "dtgTitulares";
-            dtgTitulares.ReadOnly = true;
-            dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = SystemColors.Control;
-            dataGridViewCellStyle19.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle19.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            dtgTitulares.RowHeadersWidth = 51;
-            dataGridViewCellStyle20.Font = new Font("Century Gothic", 9F);
-            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle20;
-            dtgTitulares.Size = new Size(828, 503);
-            dtgTitulares.TabIndex = 7;
             // 
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top;
             panel2.BackColor = Color.FromArgb(192, 202, 212);
-            panel2.Controls.Add(dtgTitulares);
-            panel2.Location = new Point(6, 3);
+            panel2.Controls.Add(dtgReportes);
+            panel2.Location = new Point(-3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(867, 539);
+            panel2.Size = new Size(858, 539);
             panel2.TabIndex = 63;
+            // 
+            // dtgReportes
+            // 
+            dtgReportes.AllowUserToAddRows = false;
+            dtgReportes.AllowUserToDeleteRows = false;
+            dtgReportes.AllowUserToResizeRows = false;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
+            dtgReportes.BorderStyle = BorderStyle.None;
+            dtgReportes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dtgReportes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dtgReportes.ColumnHeadersHeight = 40;
+            dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dtgReportes.DefaultCellStyle = dataGridViewCellStyle8;
+            dtgReportes.EnableHeadersVisualStyles = false;
+            dtgReportes.GridColor = Color.LightGray;
+            dtgReportes.Location = new Point(8, 17);
+            dtgReportes.Name = "dtgReportes";
+            dtgReportes.ReadOnly = true;
+            dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dtgReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dtgReportes.RowHeadersWidth = 51;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dtgReportes.Size = new Size(828, 503);
+            dtgReportes.TabIndex = 7;
             // 
             // roundedButton3
             // 
@@ -524,7 +537,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(506, 971);
+            roundedButton3.Location = new Point(488, 968);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(185, 49);
             roundedButton3.TabIndex = 215;
@@ -542,7 +555,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(700, 971);
+            roundedButton4.Location = new Point(682, 968);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(185, 49);
             roundedButton4.TabIndex = 214;
@@ -550,13 +563,67 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
+            // chckEstado
+            // 
+            chckEstado.AutoSize = true;
+            chckEstado.Location = new Point(95, 25);
+            chckEstado.Name = "chckEstado";
+            chckEstado.Size = new Size(18, 17);
+            chckEstado.TabIndex = 214;
+            chckEstado.UseVisualStyleBackColor = true;
+            // 
+            // chckNombre
+            // 
+            chckNombre.AutoSize = true;
+            chckNombre.Location = new Point(95, 67);
+            chckNombre.Name = "chckNombre";
+            chckNombre.Size = new Size(18, 17);
+            chckNombre.TabIndex = 215;
+            chckNombre.UseVisualStyleBackColor = true;
+            // 
+            // chckPais
+            // 
+            chckPais.AutoSize = true;
+            chckPais.Location = new Point(95, 114);
+            chckPais.Name = "chckPais";
+            chckPais.Size = new Size(18, 17);
+            chckPais.TabIndex = 216;
+            chckPais.UseVisualStyleBackColor = true;
+            // 
+            // chckFolio
+            // 
+            chckFolio.AutoSize = true;
+            chckFolio.Location = new Point(95, 159);
+            chckFolio.Name = "chckFolio";
+            chckFolio.Size = new Size(18, 17);
+            chckFolio.TabIndex = 217;
+            chckFolio.UseVisualStyleBackColor = true;
+            // 
+            // chckTomo
+            // 
+            chckTomo.AutoSize = true;
+            chckTomo.Location = new Point(95, 209);
+            chckTomo.Name = "chckTomo";
+            chckTomo.Size = new Size(18, 17);
+            chckTomo.TabIndex = 218;
+            chckTomo.UseVisualStyleBackColor = true;
+            // 
+            // chckNumRegistro
+            // 
+            chckNumRegistro.AutoSize = true;
+            chckNumRegistro.Location = new Point(95, 262);
+            chckNumRegistro.Name = "chckNumRegistro";
+            chckNumRegistro.Size = new Size(18, 17);
+            chckNumRegistro.TabIndex = 219;
+            chckNumRegistro.UseVisualStyleBackColor = true;
+            // 
             // FrmReportes
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(900, 1062);
+            ClientSize = new Size(900, 765);
             Controls.Add(roundedButton3);
             Controls.Add(roundedButton4);
             Controls.Add(panel1);
@@ -568,8 +635,8 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dtgTitulares).EndInit();
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dtgReportes).EndInit();
             ResumeLayout(false);
         }
 
@@ -591,17 +658,17 @@
         private Label label10;
         private Label label9;
         private Label label8;
-        private CheckBox checkBox5;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox chckFRegistro;
+        private CheckBox chckFSolicitud;
+        private CheckBox chckClase;
+        private CheckBox chckAgente;
+        private CheckBox chckTitular;
         private TextBox txtClase;
         private TextBox txtAgente;
         private TextBox txtTitular;
         private TextBox txtNumRegistro;
         private Label label11;
-        private CheckBox checkBox6;
+        private CheckBox chckFVencimiento;
         private Label label12;
         private DateTimePicker dtpVencimientoInicial;
         private DateTimePicker dtpFRegistroInicial;
@@ -609,12 +676,18 @@
         private DateTimePicker dtpSolicitudFinal;
         private DateTimePicker dtpVencimientoFinal;
         private DateTimePicker dtpFechaRegistroFinal;
-        private Clases.RoundedButton roundedButton2;
-        private Clases.RoundedButton roundedButton1;
+        private Clases.RoundedButton btnConsultar;
+        private Clases.RoundedButton btnCancelar;
         private Panel panel1;
         private Panel panel2;
-        private DataGridView dtgTitulares;
+        private DataGridView dtgReportes;
         private Clases.RoundedButton roundedButton3;
         private Clases.RoundedButton roundedButton4;
+        private CheckBox chckNumRegistro;
+        private CheckBox chckTomo;
+        private CheckBox chckFolio;
+        private CheckBox chckPais;
+        private CheckBox chckNombre;
+        private CheckBox chckEstado;
     }
 }

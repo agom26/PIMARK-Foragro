@@ -15,8 +15,11 @@ namespace Dominio
         {
             marcaDao = new MarcaDao();
         }
-
         
+
+
+
+
         public DataTable GetAllMarcasNacionalesEnTramite()
         {
             DataTable tabla = new DataTable();
@@ -90,6 +93,7 @@ namespace Dominio
             tabla = marcaDao.GetMarcaInternacionalById(id);
             return tabla;
         }
+        
 
 
 
@@ -129,6 +133,19 @@ namespace Dominio
             return marcaDao.EditarMarcaInternacionalRegistrada(id, expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fechaRegistro, fechaVencimiento);
         }
 
+        public DataTable FiltrarMarcas(
+        string estado, string nombre, string pais, string folio, string libro,
+        string registro, string clase, string titular, string agente,
+        DateTime? fechaSolicitudInicio, DateTime? fechaSolicitudFin,
+        DateTime? fechaRegistroInicio, DateTime? fechaRegistroFin,
+        DateTime? fechaVencimientoInicio, DateTime? fechaVencimientoFin)
+        {
+            return marcaDao.FiltrarMarcas(
+                estado, nombre, pais, folio, libro, registro, clase, titular, agente,
+                fechaSolicitudInicio, fechaSolicitudFin,
+                fechaRegistroInicio, fechaRegistroFin,
+                fechaVencimientoInicio, fechaVencimientoFin);
+        }
 
 
     }

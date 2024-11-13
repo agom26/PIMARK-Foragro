@@ -10,7 +10,52 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
-        
+
+        public DataTable FiltrarMarcas(
+        string estado, string nombre, string pais, string folio, string libro,
+        string registro, string clase, string titular, string agente,
+        DateTime? fechaSolicitudInicio, DateTime? fechaSolicitudFin,
+        DateTime? fechaRegistroInicio, DateTime? fechaRegistroFin,
+        DateTime? fechaVencimientoInicio, DateTime? fechaVencimientoFin)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                conexion.Open();
+                using (MySqlCommand cmd = new MySqlCommand("FiltrarMarcas", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros al comando y utilizar DBNull.Value cuando sea necesario
+                    cmd.Parameters.AddWithValue("p_estado", estado ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_nombre", nombre ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_pais", pais ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_folio", folio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_libro", libro ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_registro", registro ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_agente", agente ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaSolicitudInicio", fechaSolicitudInicio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaSolicitudFin", fechaSolicitudFin ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaRegistroInicio", fechaRegistroInicio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaRegistroFin", fechaRegistroFin ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaVencimientoInicio", fechaVencimientoInicio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_fechaVencimientoFin", fechaVencimientoFin ?? (object)DBNull.Value);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);  // Llenar el DataTable con los resultados
+                    }
+                }
+            }
+
+            return dataTable; // Retornar el DataTable con los datos filtrados
+        }
+
+
+
         public DataTable GetAllMarcasNacionalesEnTramite()
         {
             DataTable tabla = new DataTable();
