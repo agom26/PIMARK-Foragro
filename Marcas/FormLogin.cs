@@ -137,16 +137,25 @@ namespace Marcas
             //LOGIN                                
             UserModel userModel = new UserModel();
             (bool validLogin, bool isAdmin) = userModel.Login(txtUserName.Text, txtPassword.Text);
-            if (validLogin == true)
+            try
             {
-                Form1 dashboard = new Form1(isAdmin);
-                dashboard.Show();
-                dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
-                this.Hide();
+                if(validLogin == true)
+                {
+                    Form1 dashboard = new Form1(isAdmin);
+                    dashboard.Show();
+                    dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
+                    this.Hide();
+                    
+                }
+                else
+                {
+                    MessageBox.Show("aqui se quedo");
+                }
+                
             }
-            else
+            catch(Exception ex) 
             {
-                MessageBox.Show("Usuario o contraseña incorrecta");
+                MessageBox.Show(ex.Message);
             }
         }
     }

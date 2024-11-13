@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            chckNumRegistro = new CheckBox();
+            chckTomo = new CheckBox();
+            chckFolio = new CheckBox();
+            chckPais = new CheckBox();
+            chckNombre = new CheckBox();
+            chckEstado = new CheckBox();
             btnConsultar = new Clases.RoundedButton();
             btnCancelar = new Clases.RoundedButton();
             dtpSolicitudFinal = new DateTimePicker();
@@ -74,16 +77,12 @@
             dtgReportes = new DataGridView();
             roundedButton3 = new Clases.RoundedButton();
             roundedButton4 = new Clases.RoundedButton();
-            chckEstado = new CheckBox();
-            chckNombre = new CheckBox();
-            chckPais = new CheckBox();
-            chckFolio = new CheckBox();
-            chckTomo = new CheckBox();
-            chckNumRegistro = new CheckBox();
+            panel3 = new Panel();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgReportes).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -134,6 +133,60 @@
             groupBox1.Size = new Size(873, 392);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
+            // 
+            // chckNumRegistro
+            // 
+            chckNumRegistro.AutoSize = true;
+            chckNumRegistro.Location = new Point(122, 262);
+            chckNumRegistro.Name = "chckNumRegistro";
+            chckNumRegistro.Size = new Size(18, 17);
+            chckNumRegistro.TabIndex = 219;
+            chckNumRegistro.UseVisualStyleBackColor = true;
+            // 
+            // chckTomo
+            // 
+            chckTomo.AutoSize = true;
+            chckTomo.Location = new Point(122, 209);
+            chckTomo.Name = "chckTomo";
+            chckTomo.Size = new Size(18, 17);
+            chckTomo.TabIndex = 218;
+            chckTomo.UseVisualStyleBackColor = true;
+            // 
+            // chckFolio
+            // 
+            chckFolio.AutoSize = true;
+            chckFolio.Location = new Point(122, 159);
+            chckFolio.Name = "chckFolio";
+            chckFolio.Size = new Size(18, 17);
+            chckFolio.TabIndex = 217;
+            chckFolio.UseVisualStyleBackColor = true;
+            // 
+            // chckPais
+            // 
+            chckPais.AutoSize = true;
+            chckPais.Location = new Point(122, 114);
+            chckPais.Name = "chckPais";
+            chckPais.Size = new Size(18, 17);
+            chckPais.TabIndex = 216;
+            chckPais.UseVisualStyleBackColor = true;
+            // 
+            // chckNombre
+            // 
+            chckNombre.AutoSize = true;
+            chckNombre.Location = new Point(122, 67);
+            chckNombre.Name = "chckNombre";
+            chckNombre.Size = new Size(18, 17);
+            chckNombre.TabIndex = 215;
+            chckNombre.UseVisualStyleBackColor = true;
+            // 
+            // chckEstado
+            // 
+            chckEstado.AutoSize = true;
+            chckEstado.Location = new Point(122, 25);
+            chckEstado.Name = "chckEstado";
+            chckEstado.Size = new Size(18, 17);
+            chckEstado.TabIndex = 214;
+            chckEstado.UseVisualStyleBackColor = true;
             // 
             // btnConsultar
             // 
@@ -453,9 +506,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(6, 22);
             label1.Name = "label1";
-            label1.Size = new Size(58, 20);
+            label1.Size = new Size(91, 20);
             label1.TabIndex = 0;
-            label1.Text = "Estado";
+            label1.Text = "Estado act.";
             // 
             // panel1
             // 
@@ -463,7 +516,7 @@
             panel1.Controls.Add(panel2);
             panel1.Location = new Point(12, 410);
             panel1.Name = "panel1";
-            panel1.Size = new Size(858, 542);
+            panel1.Size = new Size(896, 542);
             panel1.TabIndex = 1;
             // 
             // panel2
@@ -471,9 +524,9 @@
             panel2.Anchor = AnchorStyles.Top;
             panel2.BackColor = Color.FromArgb(192, 202, 212);
             panel2.Controls.Add(dtgReportes);
-            panel2.Location = new Point(-3, 3);
+            panel2.Location = new Point(16, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(858, 539);
+            panel2.Size = new Size(877, 539);
             panel2.TabIndex = 63;
             // 
             // dtgReportes
@@ -481,50 +534,26 @@
             dtgReportes.AllowUserToAddRows = false;
             dtgReportes.AllowUserToDeleteRows = false;
             dtgReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgReportes.BorderStyle = BorderStyle.None;
             dtgReportes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgReportes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dtgReportes.ColumnHeadersHeight = 40;
             dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dtgReportes.DefaultCellStyle = dataGridViewCellStyle8;
             dtgReportes.EnableHeadersVisualStyles = false;
             dtgReportes.GridColor = Color.LightGray;
-            dtgReportes.Location = new Point(8, 17);
+            dtgReportes.Location = new Point(17, 17);
             dtgReportes.Name = "dtgReportes";
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dtgReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dtgReportes.RowHeadersWidth = 51;
-            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
-            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            dtgReportes.Size = new Size(828, 503);
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dtgReportes.Size = new Size(840, 503);
             dtgReportes.TabIndex = 7;
             // 
             // roundedButton3
@@ -537,7 +566,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(488, 968);
+            roundedButton3.Location = new Point(509, 16);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(185, 49);
             roundedButton3.TabIndex = 215;
@@ -555,7 +584,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(682, 968);
+            roundedButton4.Location = new Point(703, 16);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(185, 49);
             roundedButton4.TabIndex = 214;
@@ -563,59 +592,14 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
-            // chckEstado
+            // panel3
             // 
-            chckEstado.AutoSize = true;
-            chckEstado.Location = new Point(95, 25);
-            chckEstado.Name = "chckEstado";
-            chckEstado.Size = new Size(18, 17);
-            chckEstado.TabIndex = 214;
-            chckEstado.UseVisualStyleBackColor = true;
-            // 
-            // chckNombre
-            // 
-            chckNombre.AutoSize = true;
-            chckNombre.Location = new Point(95, 67);
-            chckNombre.Name = "chckNombre";
-            chckNombre.Size = new Size(18, 17);
-            chckNombre.TabIndex = 215;
-            chckNombre.UseVisualStyleBackColor = true;
-            // 
-            // chckPais
-            // 
-            chckPais.AutoSize = true;
-            chckPais.Location = new Point(95, 114);
-            chckPais.Name = "chckPais";
-            chckPais.Size = new Size(18, 17);
-            chckPais.TabIndex = 216;
-            chckPais.UseVisualStyleBackColor = true;
-            // 
-            // chckFolio
-            // 
-            chckFolio.AutoSize = true;
-            chckFolio.Location = new Point(95, 159);
-            chckFolio.Name = "chckFolio";
-            chckFolio.Size = new Size(18, 17);
-            chckFolio.TabIndex = 217;
-            chckFolio.UseVisualStyleBackColor = true;
-            // 
-            // chckTomo
-            // 
-            chckTomo.AutoSize = true;
-            chckTomo.Location = new Point(95, 209);
-            chckTomo.Name = "chckTomo";
-            chckTomo.Size = new Size(18, 17);
-            chckTomo.TabIndex = 218;
-            chckTomo.UseVisualStyleBackColor = true;
-            // 
-            // chckNumRegistro
-            // 
-            chckNumRegistro.AutoSize = true;
-            chckNumRegistro.Location = new Point(95, 262);
-            chckNumRegistro.Name = "chckNumRegistro";
-            chckNumRegistro.Size = new Size(18, 17);
-            chckNumRegistro.TabIndex = 219;
-            chckNumRegistro.UseVisualStyleBackColor = true;
+            panel3.Controls.Add(roundedButton3);
+            panel3.Controls.Add(roundedButton4);
+            panel3.Location = new Point(14, 963);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(891, 125);
+            panel3.TabIndex = 216;
             // 
             // FrmReportes
             // 
@@ -623,11 +607,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(900, 765);
-            Controls.Add(roundedButton3);
-            Controls.Add(roundedButton4);
+            ClientSize = new Size(941, 765);
             Controls.Add(panel1);
             Controls.Add(groupBox1);
+            Controls.Add(panel3);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmReportes";
@@ -637,6 +620,7 @@
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgReportes).EndInit();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -689,5 +673,6 @@
         private CheckBox chckPais;
         private CheckBox chckNombre;
         private CheckBox chckEstado;
+        private Panel panel3;
     }
 }

@@ -206,11 +206,11 @@ namespace AccesoDatos.Usuarios
                                 UsuarioActivo.apellidos = reader.GetString(4);
                                 UsuarioActivo.correo = reader.GetString(5);
                                 
-                                return (true, UsuarioActivo.isAdmin); // Retornar si el login es válido y si es admin
+                                return (true, UsuarioActivo.isAdmin); 
                             }
                             else
                             {
-                                return (false, false); // Si no existe el usuario
+                                return (false, false); 
                             }
                         }
                     }
@@ -218,7 +218,7 @@ namespace AccesoDatos.Usuarios
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}");
-                    return (false, false); // Maneja el error de manera adecuada
+                    return (false, false); 
                 }
             }
         }

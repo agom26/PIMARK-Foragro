@@ -62,101 +62,7 @@ namespace Presentacion.Marcas_Nacionales
                 btnEditarH.Visible = true;
             }
         }
-        public void ExportarPDF(DataGridView dataGridView)
-        {
-            try
-            {
-                // Configurar el archivo y el documento PDF
-                var saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "PDF file|*.pdf";
-                saveFileDialog.Title = "Guardar reporte como PDF";
-                saveFileDialog.ShowDialog();
-
-                if (saveFileDialog.FileName != "")
-                {
-                    FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create);
-                    Document doc = new Document(PageSize.A4, 50, 50, 60, 60);
-                    PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-                    doc.Open();
-
-                    // Crear tabla para combinar imagen y título
-                    PdfPTable headerTable = new PdfPTable(2);
-                    headerTable.WidthPercentage = 100;
-                    float[] widths = new float[] { 20f, 80f }; // Ajuste de proporciones de columna
-                    headerTable.SetWidths(widths);
-
-                    // Agregar imagen de membrete en la primera celda
-                    string imagePath = @"C:\Users\gabri\Downloads\bpalogo.jpeg"; // Ruta de la imagen de membrete
-                    if (File.Exists(imagePath))
-                    {
-                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagePath);
-                        img.ScaleToFit(100f, 100f); // Ajuste de tamaño discreto
-                        PdfPCell imageCell = new PdfPCell(img);
-                        imageCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                        imageCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        headerTable.AddCell(imageCell);
-                    }
-                    else
-                    {
-                        // Si no hay imagen, dejar la celda vacía
-                        PdfPCell emptyCell = new PdfPCell(new Phrase(""));
-                        emptyCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                        headerTable.AddCell(emptyCell);
-                    }
-
-                    // Agregar título y subtítulo en la segunda celda
-                    PdfPCell textCell = new PdfPCell();
-                    textCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                    textCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-
-                    iTextSharp.text.Font fontTitle = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-                    Paragraph title = new Paragraph("Reporte de oposiciones", fontTitle);
-                    title.Alignment = Element.ALIGN_CENTER;
-                    textCell.AddElement(title);
-
-                    iTextSharp.text.Font fontSubtitle = FontFactory.GetFont(FontFactory.HELVETICA, 12);
-                    Paragraph subtitle = new Paragraph("Berger, Pemueller y Asociados - Asesores legales", fontSubtitle);
-                    subtitle.Alignment = Element.ALIGN_CENTER;
-                    subtitle.SpacingAfter = 20;
-                    textCell.AddElement(subtitle);
-
-                    headerTable.AddCell(textCell);
-                    doc.Add(headerTable);
-
-                    // Crear la tabla PDF a partir del DataGridView
-                    PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);
-                    pdfTable.WidthPercentage = 100;
-
-                    // Agregar encabezados de la tabla
-                    foreach (DataGridViewColumn column in dataGridView.Columns)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
-                        cell.BackgroundColor = BaseColor.LIGHT_GRAY;
-                        pdfTable.AddCell(cell);
-                    }
-
-                    // Agregar las filas de datos
-                    foreach (DataGridViewRow row in dataGridView.Rows)
-                    {
-                        foreach (DataGridViewCell cell in row.Cells)
-                        {
-                            pdfTable.AddCell(cell.Value?.ToString() ?? "");
-                        }
-                    }
-
-                    // Agregar la tabla al documento
-                    doc.Add(pdfTable);
-                    doc.Close();
-                    fs.Close();
-
-                    MessageBox.Show("Reporte PDF creado con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al generar PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))
@@ -1030,7 +936,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
-            ExportarPDF(dtgMarcasO);
+            
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)

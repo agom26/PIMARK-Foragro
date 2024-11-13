@@ -31,7 +31,6 @@
             tabControl1 = new TabControl();
             tabPageOposicionesList = new TabPage();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            ibtnEliminar = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             dtgMarcasOp = new DataGridView();
             panel4 = new Panel();
@@ -151,7 +150,6 @@
             // tabPageOposicionesList
             // 
             tabPageOposicionesList.Controls.Add(iconButton3);
-            tabPageOposicionesList.Controls.Add(ibtnEliminar);
             tabPageOposicionesList.Controls.Add(ibtnEditar);
             tabPageOposicionesList.Controls.Add(dtgMarcasOp);
             tabPageOposicionesList.Controls.Add(panel4);
@@ -181,7 +179,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(1017, 332);
+            iconButton3.Location = new Point(1021, 264);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(144, 37);
             iconButton3.TabIndex = 45;
@@ -189,25 +187,6 @@
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
-            // 
-            // ibtnEliminar
-            // 
-            ibtnEliminar.Anchor = AnchorStyles.Top;
-            ibtnEliminar.BackColor = Color.FromArgb(183, 28, 28);
-            ibtnEliminar.FlatAppearance.BorderSize = 0;
-            ibtnEliminar.FlatStyle = FlatStyle.Flat;
-            ibtnEliminar.ForeColor = Color.White;
-            ibtnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            ibtnEliminar.IconColor = Color.White;
-            ibtnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEliminar.IconSize = 30;
-            ibtnEliminar.Location = new Point(1017, 270);
-            ibtnEliminar.Name = "ibtnEliminar";
-            ibtnEliminar.Size = new Size(144, 37);
-            ibtnEliminar.TabIndex = 44;
-            ibtnEliminar.Text = "Eliminar";
-            ibtnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtnEliminar.UseVisualStyleBackColor = false;
             // 
             // ibtnEditar
             // 
@@ -1401,7 +1380,6 @@
         private DataGridView dtgMarcasOp;
         private Panel panel4;
         private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton ibtnEliminar;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private Panel panel1;
         private ComboBox comboBoxSignoDistintivo;

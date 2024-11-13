@@ -30,6 +30,7 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+    <PackageReference Include="iTextSharp-LGPL" Version="4.1.6" />
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="140.340.80" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
