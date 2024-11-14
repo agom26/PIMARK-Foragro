@@ -166,7 +166,6 @@
             tabPageListaMarcas.Padding = new Padding(3);
             tabPageListaMarcas.Size = new Size(1161, 794);
             tabPageListaMarcas.TabIndex = 0;
-            tabPageListaMarcas.Text = "Lista de marcas";
             tabPageListaMarcas.UseVisualStyleBackColor = true;
             tabPageListaMarcas.Click += tabPageListaMarcas_Click;
             // 
@@ -356,7 +355,6 @@
             tabPageMarcaDetail.Padding = new Padding(3);
             tabPageMarcaDetail.Size = new Size(1161, 794);
             tabPageMarcaDetail.TabIndex = 1;
-            tabPageMarcaDetail.Text = "Detalle de marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -960,7 +958,6 @@
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
-            tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -1067,7 +1064,6 @@
             tabPageHistorialDetalle.Name = "tabPageHistorialDetalle";
             tabPageHistorialDetalle.Size = new Size(1161, 794);
             tabPageHistorialDetalle.TabIndex = 3;
-            tabPageHistorialDetalle.Text = "Editar historial";
             tabPageHistorialDetalle.UseVisualStyleBackColor = true;
             // 
             // panel6

@@ -103,7 +103,6 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(1161, 793);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Listado de usuarios";
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
             // 
@@ -345,7 +344,6 @@
             tabPageUserDetail.Padding = new Padding(3);
             tabPageUserDetail.Size = new Size(1161, 793);
             tabPageUserDetail.TabIndex = 1;
-            tabPageUserDetail.Text = "Detalle de usuario";
             tabPageUserDetail.UseVisualStyleBackColor = true;
             // 
             // iconPictureBox3

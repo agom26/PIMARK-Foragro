@@ -165,7 +165,6 @@
             tabPageAbandonadasList.Padding = new Padding(3);
             tabPageAbandonadasList.Size = new Size(1161, 794);
             tabPageAbandonadasList.TabIndex = 0;
-            tabPageAbandonadasList.Text = "Lista de abandonadas";
             tabPageAbandonadasList.UseVisualStyleBackColor = true;
             // 
             // ibtnEditar
@@ -334,7 +333,6 @@
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Size = new Size(1161, 794);
             tabPageMarcaDetail.TabIndex = 1;
-            tabPageMarcaDetail.Text = "Ver marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1043,7 +1041,6 @@
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
-            tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -1106,7 +1103,6 @@
             tabPageRenovacionesList.Name = "tabPageRenovacionesList";
             tabPageRenovacionesList.Size = new Size(1161, 794);
             tabPageRenovacionesList.TabIndex = 3;
-            tabPageRenovacionesList.Text = "Renovaciones";
             tabPageRenovacionesList.UseVisualStyleBackColor = true;
             // 
             // panel9
@@ -1190,7 +1186,6 @@
             tabPageTraspasosList.Name = "tabPageTraspasosList";
             tabPageTraspasosList.Size = new Size(1161, 794);
             tabPageTraspasosList.TabIndex = 4;
-            tabPageTraspasosList.Text = "Traspasos";
             tabPageTraspasosList.UseVisualStyleBackColor = true;
             // 
             // panel11

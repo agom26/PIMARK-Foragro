@@ -236,7 +236,6 @@
             tabPageRegistradasList.Padding = new Padding(3);
             tabPageRegistradasList.Size = new Size(1161, 794);
             tabPageRegistradasList.TabIndex = 0;
-            tabPageRegistradasList.Text = "Lista";
             tabPageRegistradasList.UseVisualStyleBackColor = true;
             // 
             // iconButton3
@@ -425,7 +424,6 @@
             tabPageMarcaDetail.Padding = new Padding(3);
             tabPageMarcaDetail.Size = new Size(1161, 794);
             tabPageMarcaDetail.TabIndex = 1;
-            tabPageMarcaDetail.Text = "Detalle de marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1122,7 +1120,6 @@
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
-            tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -1228,7 +1225,6 @@
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
             tabPageHistorialDetail.Size = new Size(1161, 794);
             tabPageHistorialDetail.TabIndex = 3;
-            tabPageHistorialDetail.Text = "Editar historial";
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
             // 
             // panel6
@@ -1417,7 +1413,6 @@
             tabPageRenovacionesList.Padding = new Padding(3);
             tabPageRenovacionesList.Size = new Size(1161, 794);
             tabPageRenovacionesList.TabIndex = 4;
-            tabPageRenovacionesList.Text = "Renovaciones";
             tabPageRenovacionesList.UseVisualStyleBackColor = true;
             // 
             // panel9
@@ -1501,7 +1496,6 @@
             tabPageRenovacionDetail.Name = "tabPageRenovacionDetail";
             tabPageRenovacionDetail.Size = new Size(1161, 794);
             tabPageRenovacionDetail.TabIndex = 6;
-            tabPageRenovacionDetail.Text = "Detalle renovacion";
             tabPageRenovacionDetail.UseVisualStyleBackColor = true;
             // 
             // panel15
@@ -1711,7 +1705,6 @@
             tabPageTraspasosList.Padding = new Padding(3);
             tabPageTraspasosList.Size = new Size(1161, 794);
             tabPageTraspasosList.TabIndex = 5;
-            tabPageTraspasosList.Text = "Traspasos";
             tabPageTraspasosList.UseVisualStyleBackColor = true;
             // 
             // panel11
@@ -1795,7 +1788,6 @@
             tabPageTraspasoDetail.Name = "tabPageTraspasoDetail";
             tabPageTraspasoDetail.Size = new Size(1161, 794);
             tabPageTraspasoDetail.TabIndex = 7;
-            tabPageTraspasoDetail.Text = "Detalle traspaso";
             tabPageTraspasoDetail.UseVisualStyleBackColor = true;
             // 
             // panel16

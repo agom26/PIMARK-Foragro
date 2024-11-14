@@ -165,7 +165,6 @@
             tabPageRegistradasList.Padding = new Padding(3);
             tabPageRegistradasList.Size = new Size(1161, 794);
             tabPageRegistradasList.TabIndex = 0;
-            tabPageRegistradasList.Text = "Lista";
             tabPageRegistradasList.UseVisualStyleBackColor = true;
             // 
             // iconButton3
@@ -354,7 +353,6 @@
             tabPageMarcaDetail.Padding = new Padding(3);
             tabPageMarcaDetail.Size = new Size(1161, 794);
             tabPageMarcaDetail.TabIndex = 1;
-            tabPageMarcaDetail.Text = "Detalle de marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1009,7 +1007,6 @@
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
-            tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -1093,7 +1090,6 @@
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
             tabPageHistorialDetail.Size = new Size(1161, 794);
             tabPageHistorialDetail.TabIndex = 3;
-            tabPageHistorialDetail.Text = "Editar historial";
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
             // 
             // panel6
