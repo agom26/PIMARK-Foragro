@@ -41,12 +41,13 @@
             label3 = new Label();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton4 = new Clases.RoundedButton();
+            panel12 = new Panel();
             panel5 = new Panel();
             panel8 = new Panel();
             label2 = new Label();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton3 = new Clases.RoundedButton();
             panel11 = new Panel();
+            roundedButton3 = new Clases.RoundedButton();
             panel4 = new Panel();
             panel7 = new Panel();
             label1 = new Label();
@@ -206,6 +207,7 @@
             panel9.Controls.Add(label3);
             panel9.Controls.Add(iconPictureBox3);
             panel9.Controls.Add(roundedButton4);
+            panel9.Controls.Add(panel12);
             panel9.Location = new Point(21, 35);
             panel9.Name = "panel9";
             panel9.Size = new Size(344, 280);
@@ -222,6 +224,7 @@
             label3.Size = new Size(334, 25);
             label3.TabIndex = 3;
             label3.Text = "BUSCAR MARCA REGISTRADA";
+            label3.Click += label3_Click;
             // 
             // iconPictureBox3
             // 
@@ -236,6 +239,7 @@
             iconPictureBox3.Size = new Size(164, 163);
             iconPictureBox3.TabIndex = 3;
             iconPictureBox3.TabStop = false;
+            iconPictureBox3.Click += iconPictureBox3_Click;
             // 
             // roundedButton4
             // 
@@ -256,6 +260,15 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(222, 227, 234);
+            panel12.Location = new Point(3, 19);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(338, 242);
+            panel12.TabIndex = 4;
+            panel12.Click += panel12_Click;
+            // 
             // panel5
             // 
             panel5.Controls.Add(panel8);
@@ -269,8 +282,8 @@
             // 
             panel8.Controls.Add(label2);
             panel8.Controls.Add(iconPictureBox2);
-            panel8.Controls.Add(roundedButton3);
             panel8.Controls.Add(panel11);
+            panel8.Controls.Add(roundedButton3);
             panel8.Location = new Point(23, 35);
             panel8.Name = "panel8";
             panel8.Size = new Size(344, 280);
@@ -304,6 +317,15 @@
             iconPictureBox2.TabStop = false;
             iconPictureBox2.Click += iconPictureBox2_Click;
             // 
+            // panel11
+            // 
+            panel11.BackColor = Color.FromArgb(222, 227, 234);
+            panel11.Location = new Point(3, 19);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(338, 242);
+            panel11.TabIndex = 3;
+            panel11.Click += panel11_Click;
+            // 
             // roundedButton3
             // 
             roundedButton3.BackColor = Color.FromArgb(222, 227, 234);
@@ -322,15 +344,6 @@
             roundedButton3.TabIndex = 1;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
-            // 
-            // panel11
-            // 
-            panel11.BackColor = Color.FromArgb(222, 227, 234);
-            panel11.Location = new Point(3, 19);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(338, 242);
-            panel11.TabIndex = 3;
-            panel11.Click += panel11_Click;
             // 
             // panel4
             // 
@@ -469,5 +482,6 @@
         private Clases.RoundedButton roundedButton5;
         private Panel panel10;
         private Panel panel11;
+        private Panel panel12;
     }
 }
