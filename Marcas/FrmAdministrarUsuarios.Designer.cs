@@ -366,7 +366,7 @@
             iconPictureBox4.IconColor = SystemColors.ControlText;
             iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox4.IconSize = 28;
-            iconPictureBox4.Location = new Point(496, 18);
+            iconPictureBox4.Location = new Point(482, 18);
             iconPictureBox4.Name = "iconPictureBox4";
             iconPictureBox4.Size = new Size(40, 28);
             iconPictureBox4.TabIndex = 54;
@@ -378,7 +378,7 @@
             lblAccion.AutoSize = true;
             lblAccion.BackColor = Color.FromArgb(175, 192, 218);
             lblAccion.Font = new Font("Century Gothic", 12F);
-            lblAccion.Location = new Point(542, 18);
+            lblAccion.Location = new Point(528, 18);
             lblAccion.Name = "lblAccion";
             lblAccion.Size = new Size(109, 23);
             lblAccion.TabIndex = 52;
@@ -396,7 +396,7 @@
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(468, 6);
+            roundedButton2.Location = new Point(454, 6);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(242, 49);
             roundedButton2.TabIndex = 53;
@@ -411,7 +411,7 @@
             iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(410, 6);
+            iconPictureBox3.Location = new Point(396, 6);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(55, 49);
             iconPictureBox3.TabIndex = 51;
@@ -426,7 +426,7 @@
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 28;
-            iconPictureBox1.Location = new Point(208, 18);
+            iconPictureBox1.Location = new Point(194, 18);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 28);
             iconPictureBox1.TabIndex = 50;
@@ -438,7 +438,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(175, 192, 218);
             label1.Font = new Font("Century Gothic", 12F);
-            label1.Location = new Point(254, 18);
+            label1.Location = new Point(240, 18);
             label1.Name = "label1";
             label1.Size = new Size(105, 23);
             label1.TabIndex = 48;
@@ -456,7 +456,7 @@
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(167, 6);
+            roundedButton1.Location = new Point(153, 6);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(234, 49);
             roundedButton1.TabIndex = 49;

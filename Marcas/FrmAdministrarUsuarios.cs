@@ -232,7 +232,7 @@ namespace Presentacion
                     txtConfirmarCont.Text = EditarUsuario.contrasena;
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
                     btnGuardar.Text = "ACTUALIZAR";
-                    lblAccion.Text = "ACTUALIZAR";
+                    lblAccion.Text = "EDITAR/VER";
                     AnadirTabPage(tabPageUserDetail);
                 }
                 else
