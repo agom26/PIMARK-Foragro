@@ -95,7 +95,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
-            btnGuardarTitular.Visible = true;
+            btnGuardarU.Visible = true;
         }
         public void Deshabilitar()
         {
@@ -107,7 +107,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
-            btnGuardarTitular.Visible = false;
+            btnGuardarU.Visible = false;
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
@@ -117,7 +117,7 @@ namespace Presentacion.Personas
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnGuardarTitular.Text = "GUARDAR";
+            btnGuardarU.Text = "GUARDAR";
         }
 
         private void btnCancelarTit_Click(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     AnadirTabPage(tabTitularDetail);
-                    btnGuardarTitular.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
+                    btnGuardarU.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
                 }
                 else
                 {
@@ -329,6 +329,16 @@ namespace Presentacion.Personas
 
         private async void btnGuardarTitular_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnGuardarU_Click(object sender, EventArgs e)
+        {
             string nombre = txtNombreTitular.Text;
             string direccion = txtDireccionTitular.Text;
             string nit = txtNitTitular.Text;
@@ -353,17 +363,17 @@ namespace Presentacion.Personas
             {
                 try
                 {
-                    // Deshabilitar el botón para evitar múltiples clics
-                    btnGuardarTitular.Enabled = false;
+                    
+                    btnGuardarU.Enabled = false;
 
-                    if (btnGuardarTitular.Text == "GUARDAR")
+                    if (btnGuardarU.Text == "GUARDAR")
                     {
-                        // Ejecutar la operación de guardado de manera asíncrona
+                        
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Titular agregado exitosamente");
                         dtgTitulares.ClearSelection();
                     }
-                    else if (btnGuardarTitular.Text == "ACTUALIZAR")
+                    else if (btnGuardarU.Text == "ACTUALIZAR")
                     {
                         bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreTitular.Text,
@@ -398,12 +408,12 @@ namespace Presentacion.Personas
                 }
                 finally
                 {
-                    btnGuardarTitular.Enabled = true;
+                    btnGuardarU.Enabled = true;
                 }
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void btnCancelarU_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabTitularDetail);
             dtgTitulares.ClearSelection();
