@@ -95,7 +95,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
-            btnGuardarTit.Visible = true;
+            btnGuardarTitular.Visible = true;
         }
         public void Deshabilitar()
         {
@@ -107,7 +107,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
-            btnGuardarTit.Visible = false;
+            btnGuardarTitular.Visible = false;
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
@@ -117,7 +117,7 @@ namespace Presentacion.Personas
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnGuardarTit.Text = "GUARDAR";
+            btnGuardarTitular.Text = "GUARDAR";
         }
 
         private void btnCancelarTit_Click(object sender, EventArgs e)
@@ -128,79 +128,7 @@ namespace Presentacion.Personas
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
         {
-            string nombre = txtNombreTitular.Text;
-            string direccion = txtDireccionTitular.Text;
-            string nit = txtNitTitular.Text;
-            string pais = comboBox1.SelectedItem.ToString();
-            string correo = txtCorreoContacto.Text;
-            string telefono = txtTelefonoContacto.Text;
-            string contacto = txtNombreContacto.Text;
-            string tipo = "titular";
 
-            // Verificar que el campo de nombre de usuario no esté vacío
-            if (string.IsNullOrWhiteSpace(txtNombreTitular.Text) ||
-                string.IsNullOrWhiteSpace(txtDireccionTitular.Text) ||
-                string.IsNullOrWhiteSpace(txtNitTitular.Text) ||
-                string.IsNullOrWhiteSpace(pais) ||
-                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
-            {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
-            }
-            else
-            {
-                try
-                {
-                    // Deshabilitar el botón para evitar múltiples clics
-                    btnGuardarTit.Enabled = false;
-
-                    if (btnGuardarTit.Text == "GUARDAR")
-                    {
-                        // Ejecutar la operación de guardado de manera asíncrona
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Titular agregado exitosamente");
-                        dtgTitulares.ClearSelection();
-                    }
-                    else if (btnGuardarTit.Text == "ACTUALIZAR")
-                    {
-                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
-                            txtNombreTitular.Text,
-                            txtDireccionTitular.Text,
-                            txtNitTitular.Text,
-                            pais,
-                            txtCorreoContacto.Text,
-                            txtTelefonoContacto.Text,
-                            txtNombreContacto.Text));
-
-                        if (update)
-                        {
-                            MessageBox.Show("Titular actualizado exitosamente");
-                            MostrarTitulares(); // Refrescar la lista de titulares
-                            EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
-                            dtgTitulares.ClearSelection();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error al actualizar el titular.");
-                        }
-                    }
-
-                    // Redirigir a tabPage1
-                    tabControl1.SelectedTab = tabListTitulares;
-                    MostrarTitulares();
-                    EliminarTabPage(tabTitularDetail);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("No se pudo ingresar el titular por :" + ex.Message);
-                }
-                finally
-                {
-                    // Volver a habilitar el botón
-                    btnGuardarTit.Enabled = true;
-                }
-            }
         }
 
 
@@ -209,15 +137,15 @@ namespace Presentacion.Personas
             Habilitar();
             if (dtgTitulares.SelectedRows.Count > 0)
             {
-                
+
                 int idPersona = EditarPersona.idPersona;
                 iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
-               
+
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
-                if (titularDetails.Count > 0) 
+                if (titularDetails.Count > 0)
                 {
-                   
+
                     EditarPersona.idPersona = titularDetails[0].id;
                     EditarPersona.nombre = titularDetails[0].nombre;
                     EditarPersona.direccion = titularDetails[0].direccion;
@@ -236,7 +164,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     AnadirTabPage(tabTitularDetail);
-                    btnGuardarTit.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
+                    btnGuardarTitular.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
                 }
                 else
                 {
@@ -397,6 +325,88 @@ namespace Presentacion.Personas
         private void roundedButton4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private async void btnGuardarTitular_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNombreTitular.Text;
+            string direccion = txtDireccionTitular.Text;
+            string nit = txtNitTitular.Text;
+            string pais = comboBox1.SelectedItem.ToString();
+            string correo = txtCorreoContacto.Text;
+            string telefono = txtTelefonoContacto.Text;
+            string contacto = txtNombreContacto.Text;
+            string tipo = "titular";
+
+            // Verificar que el campo de nombre de usuario no esté vacío
+            if (string.IsNullOrWhiteSpace(txtNombreTitular.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccionTitular.Text) ||
+                string.IsNullOrWhiteSpace(txtNitTitular.Text) ||
+                string.IsNullOrWhiteSpace(pais) ||
+                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+                try
+                {
+                    // Deshabilitar el botón para evitar múltiples clics
+                    btnGuardarTitular.Enabled = false;
+
+                    if (btnGuardarTitular.Text == "GUARDAR")
+                    {
+                        // Ejecutar la operación de guardado de manera asíncrona
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        MessageBox.Show("Titular agregado exitosamente");
+                        dtgTitulares.ClearSelection();
+                    }
+                    else if (btnGuardarTitular.Text == "ACTUALIZAR")
+                    {
+                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                            txtNombreTitular.Text,
+                            txtDireccionTitular.Text,
+                            txtNitTitular.Text,
+                            pais,
+                            txtCorreoContacto.Text,
+                            txtTelefonoContacto.Text,
+                            txtNombreContacto.Text));
+
+                        if (update)
+                        {
+                            MessageBox.Show("Titular actualizado exitosamente");
+                            MostrarTitulares(); // Refrescar la lista de titulares
+                            EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
+                            dtgTitulares.ClearSelection();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al actualizar el titular.");
+                        }
+                    }
+
+                    // Redirigir a tabPage1
+                    tabControl1.SelectedTab = tabListTitulares;
+                    MostrarTitulares();
+                    EliminarTabPage(tabTitularDetail);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo ingresar el titular por :" + ex.Message);
+                }
+                finally
+                {
+                    btnGuardarTitular.Enabled = true;
+                }
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabTitularDetail);
+            dtgTitulares.ClearSelection();
         }
     }
 }
