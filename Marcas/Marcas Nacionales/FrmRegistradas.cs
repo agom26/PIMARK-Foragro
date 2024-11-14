@@ -156,8 +156,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                convertirImagen();
-                pictureBox1.Image = documento;
+                
+                pictureBox1.Image = null;
             }
         }
         public void mostrarPanelRegistro(string isRegistrada)
@@ -232,12 +232,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            convertirImagen();
-            // Verificar que hay una imagen
-            if (pictureBox1.Image == documento)
-            {
-                MessageBox.Show("igual");
-            }
+            
 
             if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
