@@ -146,7 +146,7 @@
             button32.Padding = new Padding(58, 0, 0, 0);
             button32.Size = new Size(259, 47);
             button32.TabIndex = 6;
-            button32.Text = "Abandonadas";
+            button32.Text = "> Abandonadas";
             button32.TextAlign = ContentAlignment.MiddleLeft;
             button32.UseVisualStyleBackColor = true;
             // 
@@ -163,7 +163,7 @@
             button33.Padding = new Padding(58, 0, 0, 0);
             button33.Size = new Size(259, 47);
             button33.TabIndex = 5;
-            button33.Text = "Oposiciones";
+            button33.Text = "> Oposiciones";
             button33.TextAlign = ContentAlignment.MiddleLeft;
             button33.UseVisualStyleBackColor = true;
             // 
@@ -180,7 +180,7 @@
             button34.Padding = new Padding(58, 0, 0, 0);
             button34.Size = new Size(259, 47);
             button34.TabIndex = 4;
-            button34.Text = "Trámite de traspaso";
+            button34.Text = "> Trámite de traspaso";
             button34.TextAlign = ContentAlignment.MiddleLeft;
             button34.UseVisualStyleBackColor = true;
             button34.Click += button34_Click;
@@ -198,7 +198,7 @@
             button35.Padding = new Padding(58, 0, 0, 0);
             button35.Size = new Size(259, 47);
             button35.TabIndex = 3;
-            button35.Text = "Trámite de renovación";
+            button35.Text = "> Trámite de renovación";
             button35.TextAlign = ContentAlignment.MiddleLeft;
             button35.UseVisualStyleBackColor = true;
             button35.Click += button35_Click;
@@ -216,7 +216,7 @@
             button36.Padding = new Padding(58, 0, 0, 0);
             button36.Size = new Size(259, 47);
             button36.TabIndex = 0;
-            button36.Text = "Trámite inicial";
+            button36.Text = "> Trámite inicial";
             button36.TextAlign = ContentAlignment.MiddleLeft;
             button36.UseVisualStyleBackColor = true;
             // 
@@ -345,7 +345,7 @@
             button2.Padding = new Padding(58, 0, 0, 0);
             button2.Size = new Size(259, 47);
             button2.TabIndex = 9;
-            button2.Text = "Abandonadas";
+            button2.Text = "> Abandonadas";
             button2.TextAlign = ContentAlignment.MiddleLeft;
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click_1;
@@ -363,7 +363,7 @@
             button28.Padding = new Padding(58, 0, 0, 0);
             button28.Size = new Size(259, 47);
             button28.TabIndex = 5;
-            button28.Text = "Trámite de renovación";
+            button28.Text = "> Trámite de renovación";
             button28.TextAlign = ContentAlignment.MiddleLeft;
             button28.UseVisualStyleBackColor = true;
             // 
@@ -380,7 +380,7 @@
             button27.Padding = new Padding(58, 0, 0, 0);
             button27.Size = new Size(259, 60);
             button27.TabIndex = 7;
-            button27.Text = "Trámite de traspaso";
+            button27.Text = "> Trámite de traspaso";
             button27.TextAlign = ContentAlignment.MiddleLeft;
             button27.UseVisualStyleBackColor = true;
             // 
@@ -397,7 +397,7 @@
             button6.Padding = new Padding(58, 0, 0, 0);
             button6.Size = new Size(259, 47);
             button6.TabIndex = 11;
-            button6.Text = "Registradas";
+            button6.Text = "> Registradas";
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click_1;
@@ -415,7 +415,7 @@
             button1.Padding = new Padding(58, 0, 0, 0);
             button1.Size = new Size(259, 60);
             button1.TabIndex = 8;
-            button1.Text = "Oposiciones";
+            button1.Text = "> Oposiciones";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
@@ -433,7 +433,7 @@
             button5.Padding = new Padding(58, 0, 0, 0);
             button5.Size = new Size(259, 47);
             button5.TabIndex = 10;
-            button5.Text = "Ingresadas";
+            button5.Text = "> Ingresadas";
             button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click_1;
@@ -451,7 +451,7 @@
             button29.Padding = new Padding(58, 0, 0, 0);
             button29.Size = new Size(259, 47);
             button29.TabIndex = 4;
-            button29.Text = "Trámite inicial";
+            button29.Text = "> Trámite inicial";
             button29.TextAlign = ContentAlignment.MiddleLeft;
             button29.UseVisualStyleBackColor = true;
             button29.Click += button29_Click;
@@ -469,7 +469,7 @@
             button30.Padding = new Padding(58, 0, 0, 0);
             button30.Size = new Size(259, 47);
             button30.TabIndex = 3;
-            button30.Text = "Clientes";
+            button30.Text = "> Clientes";
             button30.TextAlign = ContentAlignment.MiddleLeft;
             button30.UseVisualStyleBackColor = true;
             button30.Click += button30_Click;
@@ -529,7 +529,7 @@
             btnAbandonadas.Padding = new Padding(58, 0, 0, 0);
             btnAbandonadas.Size = new Size(259, 47);
             btnAbandonadas.TabIndex = 5;
-            btnAbandonadas.Text = "Abandonadas";
+            btnAbandonadas.Text = "> Abandonadas";
             btnAbandonadas.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadas.UseVisualStyleBackColor = false;
             btnAbandonadas.Click += btnAbandonadas_Click;
@@ -548,7 +548,7 @@
             btnTramiteRenov.Padding = new Padding(58, 0, 0, 0);
             btnTramiteRenov.Size = new Size(259, 47);
             btnTramiteRenov.TabIndex = 4;
-            btnTramiteRenov.Text = "Trámite de traspaso";
+            btnTramiteRenov.Text = "> Trámite de traspaso";
             btnTramiteRenov.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteRenov.UseVisualStyleBackColor = false;
             btnTramiteRenov.Click += button22_Click;
@@ -568,7 +568,7 @@
             btnTramiteRenovacion.Padding = new Padding(58, 0, 0, 0);
             btnTramiteRenovacion.Size = new Size(259, 47);
             btnTramiteRenovacion.TabIndex = 3;
-            btnTramiteRenovacion.Text = "Trámite de renovación";
+            btnTramiteRenovacion.Text = "> Trámite de renovación";
             btnTramiteRenovacion.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteRenovacion.UseVisualStyleBackColor = false;
             btnTramiteRenovacion.Click += button23_Click;
@@ -587,7 +587,7 @@
             btnRegistradas.Padding = new Padding(58, 0, 0, 0);
             btnRegistradas.Size = new Size(259, 47);
             btnRegistradas.TabIndex = 2;
-            btnRegistradas.Text = "Registradas";
+            btnRegistradas.Text = "> Registradas";
             btnRegistradas.TextAlign = ContentAlignment.MiddleLeft;
             btnRegistradas.UseVisualStyleBackColor = false;
             btnRegistradas.Click += btnRegistradas_Click;
@@ -607,7 +607,7 @@
             btnOposiciones.Padding = new Padding(58, 0, 0, 0);
             btnOposiciones.Size = new Size(259, 47);
             btnOposiciones.TabIndex = 1;
-            btnOposiciones.Text = "Oposiciones";
+            btnOposiciones.Text = "> Oposiciones";
             btnOposiciones.TextAlign = ContentAlignment.MiddleLeft;
             btnOposiciones.UseVisualStyleBackColor = false;
             btnOposiciones.Click += btnOposiciones_Click;
@@ -627,7 +627,7 @@
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
             btnEnTramite.Size = new Size(259, 47);
             btnEnTramite.TabIndex = 6;
-            btnEnTramite.Text = "Ingresadas";
+            btnEnTramite.Text = "> Ingresadas";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
             btnEnTramite.UseVisualStyleBackColor = false;
             btnEnTramite.Click += button4_Click;
@@ -647,7 +647,7 @@
             btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
             btnTramiteInicial.Size = new Size(259, 47);
             btnTramiteInicial.TabIndex = 0;
-            btnTramiteInicial.Text = "Trámite inicial";
+            btnTramiteInicial.Text = "> Trámite inicial";
             btnTramiteInicial.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicial.UseVisualStyleBackColor = false;
             btnTramiteInicial.Click += button26_Click;

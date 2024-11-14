@@ -415,7 +415,7 @@
             btnTraspaso.Name = "btnTraspaso";
             btnTraspaso.Size = new Size(160, 62);
             btnTraspaso.TabIndex = 147;
-            btnTraspaso.Text = "Traspaso concedido";
+            btnTraspaso.Text = "TRASPASAR";
             btnTraspaso.TextColor = Color.White;
             btnTraspaso.UseVisualStyleBackColor = false;
             btnTraspaso.Click += roundedButton8_Click;
@@ -520,7 +520,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(160, 62);
             btnCancelar.TabIndex = 142;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -540,7 +540,7 @@
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(160, 62);
             btnActualizar.TabIndex = 141;
-            btnActualizar.Text = "Actualizar";
+            btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.TextColor = Color.White;
             btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Click += btnActualizar_Click;
