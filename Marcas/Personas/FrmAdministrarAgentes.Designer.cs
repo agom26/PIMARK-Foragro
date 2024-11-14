@@ -47,6 +47,12 @@
             panel1 = new Panel();
             dtgAgentes = new DataGridView();
             tabPageAgenteDetail = new TabPage();
+            iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton2 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            label10 = new Label();
+            roundedButton1 = new Clases.RoundedButton();
             btnCancelar = new Clases.RoundedButton();
             btnGuardarTitular = new Clases.RoundedButton();
             comboBox1 = new ComboBox();
@@ -70,6 +76,9 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgAgentes).BeginInit();
             tabPageAgenteDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -318,6 +327,12 @@
             // 
             // tabPageAgenteDetail
             // 
+            tabPageAgenteDetail.Controls.Add(iconPictureBoxIcono);
+            tabPageAgenteDetail.Controls.Add(roundedButton2);
+            tabPageAgenteDetail.Controls.Add(iconPictureBox3);
+            tabPageAgenteDetail.Controls.Add(iconPictureBox1);
+            tabPageAgenteDetail.Controls.Add(label10);
+            tabPageAgenteDetail.Controls.Add(roundedButton1);
             tabPageAgenteDetail.Controls.Add(btnCancelar);
             tabPageAgenteDetail.Controls.Add(btnGuardarTitular);
             tabPageAgenteDetail.Controls.Add(comboBox1);
@@ -342,11 +357,105 @@
             tabPageAgenteDetail.TabIndex = 1;
             tabPageAgenteDetail.UseVisualStyleBackColor = true;
             // 
+            // iconPictureBoxIcono
+            // 
+            iconPictureBoxIcono.Anchor = AnchorStyles.Top;
+            iconPictureBoxIcono.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBoxIcono.ForeColor = SystemColors.ControlText;
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Users;
+            iconPictureBoxIcono.IconColor = SystemColors.ControlText;
+            iconPictureBoxIcono.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBoxIcono.IconSize = 28;
+            iconPictureBoxIcono.Location = new Point(420, 42);
+            iconPictureBoxIcono.Name = "iconPictureBoxIcono";
+            iconPictureBoxIcono.Size = new Size(40, 28);
+            iconPictureBoxIcono.TabIndex = 150;
+            iconPictureBoxIcono.TabStop = false;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.Anchor = AnchorStyles.Top;
+            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(386, 30);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(94, 49);
+            roundedButton2.TabIndex = 149;
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(328, 30);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 148;
+            iconPictureBox3.TabStop = false;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.Anchor = AnchorStyles.Top;
+            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.UserTie;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 28;
+            iconPictureBox1.Location = new Point(126, 42);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 28);
+            iconPictureBox1.TabIndex = 147;
+            iconPictureBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top;
+            label10.AutoSize = true;
+            label10.BackColor = Color.FromArgb(175, 192, 218);
+            label10.Font = new Font("Century Gothic", 12F);
+            label10.Location = new Point(172, 42);
+            label10.Name = "label10";
+            label10.Size = new Size(97, 23);
+            label10.TabIndex = 145;
+            label10.Text = "AGENTES";
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.Anchor = AnchorStyles.Top;
+            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Enabled = false;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(85, 30);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(234, 49);
+            roundedButton1.TabIndex = 146;
+            roundedButton1.TextColor = Color.White;
+            roundedButton1.UseVisualStyleBackColor = false;
+            // 
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Top;
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.BackgroundColor = Color.White;
             btnCancelar.BorderColor = Color.Empty;
             btnCancelar.BorderRadius = 50;
             btnCancelar.BorderSize = 0;
@@ -574,6 +683,9 @@
             ((System.ComponentModel.ISupportInitialize)dtgAgentes).EndInit();
             tabPageAgenteDetail.ResumeLayout(false);
             tabPageAgenteDetail.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -611,5 +723,11 @@
         private Clases.RoundedButton btnGuardarTitular;
         private Clases.RoundedButton btnCancelar;
         private Clases.RoundedButton roundedButton4;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBoxIcono;
+        private Clases.RoundedButton roundedButton2;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Label label10;
+        private Clases.RoundedButton roundedButton1;
     }
 }

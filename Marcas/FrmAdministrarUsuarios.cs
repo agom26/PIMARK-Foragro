@@ -16,7 +16,7 @@ namespace Presentacion
     public partial class FrmAdministrarUsuarios : Form
     {
         UserModel UserModel = new UserModel();
-        
+
 
         public FrmAdministrarUsuarios()
         {
@@ -126,78 +126,20 @@ namespace Presentacion
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
-            btnGuardar.Text = "GUARDAR";
+            btnGuardarUsuario.Text = "GUARDAR";
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
 
         }
 
         private async void iconButton5_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsername.Text;
-            string contrasena = "";
-            string nombres = txtNombres.Text;
-            string apellidos = txtApellidos.Text;
-            string correo = txtCorreo.Text;
-            bool isAdmin = chckbIsAdmin.Checked;
 
-            // Verificar que el campo de nombre de usuario no esté vacío
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
-                string.IsNullOrWhiteSpace(txtCont.Text) ||
-                string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
-                string.IsNullOrWhiteSpace(txtCorreo.Text) ||
-                string.IsNullOrWhiteSpace(txtNombres.Text) ||
-                string.IsNullOrWhiteSpace(txtApellidos.Text))
-            {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
-            }
-            else
-            {
-                // Verificar si las contraseñas coinciden
-                if (txtCont.Text == txtConfirmarCont.Text)
-                {
-                    try
-                    {
-                        contrasena = txtConfirmarCont.Text;
-                        btnGuardar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
-
-                        if (btnGuardar.Text == "GUARDAR")
-                        {
-                            // Ejecutar la operación de adición de manera asíncrona
-                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
-                            MessageBox.Show("Usuario agregado exitosamente");
-                        }
-                        else if (btnGuardar.Text == "ACTUALIZAR")
-                        {
-                            // Ejecutar la operación de actualización de manera asíncrona
-                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
-                            MessageBox.Show("Usuario actualizado exitosamente");
-                        }
-
-                        // Redirigir a tabPage1
-                        tabControl1.SelectedTab = tabPage1;
-                        MostrarUsuarios();
-                        EliminarTabPage(tabPageUserDetail);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
-                    }
-                    finally
-                    {
-                        btnGuardar.Enabled = true; // Volver a habilitar el botón
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Las contraseñas no coinciden.");
-                }
-            }
         }
 
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageUserDetail);
+
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -208,14 +150,14 @@ namespace Presentacion
                 iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 int idUser = EditarUsuario.idUser;
 
-                
+
                 DataTable userDetails = UserModel.GetById(idUser);
 
-                if (userDetails.Rows.Count > 0) 
+                if (userDetails.Rows.Count > 0)
                 {
                     DataRow row = userDetails.Rows[0];
 
-                   
+
                     EditarUsuario.nombres = row["nombres"].ToString();
                     EditarUsuario.apellidos = row["apellidos"].ToString();
                     EditarUsuario.usuario = row["usuario"].ToString();
@@ -223,7 +165,7 @@ namespace Presentacion
                     EditarUsuario.correo = row["correo"].ToString();
                     EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
 
-                    
+
                     txtNombres.Text = EditarUsuario.nombres;
                     txtUsername.Text = EditarUsuario.usuario;
                     txtApellidos.Text = EditarUsuario.apellidos;
@@ -231,7 +173,7 @@ namespace Presentacion
                     txtCont.Text = EditarUsuario.contrasena;
                     txtConfirmarCont.Text = EditarUsuario.contrasena;
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-                    btnGuardar.Text = "ACTUALIZAR";
+                    btnGuardarUsuario.Text = "ACTUALIZAR";
                     AnadirTabPage(tabPageUserDetail);
                 }
                 else
@@ -293,7 +235,7 @@ namespace Presentacion
                 }
             }
 
-            
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -329,13 +271,86 @@ namespace Presentacion
             // Asegúrate de que el índice de la fila es válido (no en el encabezado)
             if (e.RowIndex >= 0)
             {
-               
+
             }
             else
             {
                 //MessageBox.Show("Por favor, selecciona una fila válida.");
             }
 
+        }
+
+        private async void btnGuardarTitular_Click(object sender, EventArgs e)
+        {
+            string usuario = txtUsername.Text;
+            string contrasena = "";
+            string nombres = txtNombres.Text;
+            string apellidos = txtApellidos.Text;
+            string correo = txtCorreo.Text;
+            bool isAdmin = chckbIsAdmin.Checked;
+
+            // Verificar que el campo de nombre de usuario no esté vacío
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtCont.Text) ||
+                string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
+                string.IsNullOrWhiteSpace(txtCorreo.Text) ||
+                string.IsNullOrWhiteSpace(txtNombres.Text) ||
+                string.IsNullOrWhiteSpace(txtApellidos.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+                // Verificar si las contraseñas coinciden
+                if (txtCont.Text == txtConfirmarCont.Text)
+                {
+                    try
+                    {
+                        contrasena = txtConfirmarCont.Text;
+                        btnGuardarUsuario.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+
+                        if (btnGuardarUsuario.Text == "GUARDAR")
+                        {
+                            // Ejecutar la operación de adición de manera asíncrona
+                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
+                            MessageBox.Show("Usuario agregado exitosamente");
+                        }
+                        else if (btnGuardarUsuario.Text == "ACTUALIZAR")
+                        {
+                            // Ejecutar la operación de actualización de manera asíncrona
+                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
+                            MessageBox.Show("Usuario actualizado exitosamente");
+                        }
+
+                        // Redirigir a tabPage1
+                        tabControl1.SelectedTab = tabPage1;
+                        MostrarUsuarios();
+                        EliminarTabPage(tabPageUserDetail);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
+                    }
+                    finally
+                    {
+                        btnGuardarUsuario.Enabled = true; // Volver a habilitar el botón
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Las contraseñas no coinciden.");
+                }
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageUserDetail);
+        }
+
+        private void roundedButton6_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageUserDetail);
         }
     }
 }

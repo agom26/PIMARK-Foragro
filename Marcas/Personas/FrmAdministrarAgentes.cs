@@ -122,6 +122,7 @@ namespace Presentacion.Personas
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageAgenteDetail;
             btnGuardarTitular.Text = "GUARDAR";
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
         }
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
@@ -143,7 +144,7 @@ namespace Presentacion.Personas
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 int idPersona = EditarPersona.idPersona;
-
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)

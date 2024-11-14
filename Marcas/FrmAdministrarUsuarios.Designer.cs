@@ -46,6 +46,7 @@
             dtgUsuarios = new DataGridView();
             roundedButton3 = new Clases.RoundedButton();
             tabPageUserDetail = new TabPage();
+            btnGuardarUsuario = new Clases.RoundedButton();
             iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
@@ -55,8 +56,6 @@
             txtConfirmarCont = new TextBox();
             label8 = new Label();
             chckbIsAdmin = new CheckBox();
-            iconButton6 = new FontAwesome.Sharp.IconButton();
-            btnGuardar = new FontAwesome.Sharp.IconButton();
             txtCont = new TextBox();
             label7 = new Label();
             txtCorreo = new TextBox();
@@ -68,6 +67,7 @@
             txtUsername = new TextBox();
             label3 = new Label();
             roundedButton4 = new Clases.RoundedButton();
+            roundedButton6 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -327,6 +327,8 @@
             // 
             // tabPageUserDetail
             // 
+            tabPageUserDetail.Controls.Add(roundedButton6);
+            tabPageUserDetail.Controls.Add(btnGuardarUsuario);
             tabPageUserDetail.Controls.Add(iconPictureBoxIcono);
             tabPageUserDetail.Controls.Add(roundedButton2);
             tabPageUserDetail.Controls.Add(iconPictureBox3);
@@ -336,8 +338,6 @@
             tabPageUserDetail.Controls.Add(txtConfirmarCont);
             tabPageUserDetail.Controls.Add(label8);
             tabPageUserDetail.Controls.Add(chckbIsAdmin);
-            tabPageUserDetail.Controls.Add(iconButton6);
-            tabPageUserDetail.Controls.Add(btnGuardar);
             tabPageUserDetail.Controls.Add(txtCont);
             tabPageUserDetail.Controls.Add(label7);
             tabPageUserDetail.Controls.Add(txtCorreo);
@@ -356,6 +356,27 @@
             tabPageUserDetail.Size = new Size(1161, 793);
             tabPageUserDetail.TabIndex = 1;
             tabPageUserDetail.UseVisualStyleBackColor = true;
+            // 
+            // btnGuardarUsuario
+            // 
+            btnGuardarUsuario.Anchor = AnchorStyles.Top;
+            btnGuardarUsuario.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarUsuario.BackgroundColor = Color.FromArgb(1, 87, 155);
+            btnGuardarUsuario.BorderColor = Color.FromArgb(1, 87, 155);
+            btnGuardarUsuario.BorderRadius = 50;
+            btnGuardarUsuario.BorderSize = 0;
+            btnGuardarUsuario.FlatAppearance.BorderSize = 0;
+            btnGuardarUsuario.FlatStyle = FlatStyle.Flat;
+            btnGuardarUsuario.Font = new Font("Century Gothic", 10F);
+            btnGuardarUsuario.ForeColor = Color.White;
+            btnGuardarUsuario.Location = new Point(382, 456);
+            btnGuardarUsuario.Name = "btnGuardarUsuario";
+            btnGuardarUsuario.Size = new Size(160, 50);
+            btnGuardarUsuario.TabIndex = 144;
+            btnGuardarUsuario.Text = "GUARDAR";
+            btnGuardarUsuario.TextColor = Color.White;
+            btnGuardarUsuario.UseVisualStyleBackColor = false;
+            btnGuardarUsuario.Click += btnGuardarTitular_Click;
             // 
             // iconPictureBoxIcono
             // 
@@ -485,48 +506,6 @@
             chckbIsAdmin.Text = "Permisos de administrador";
             chckbIsAdmin.UseVisualStyleBackColor = false;
             // 
-            // iconButton6
-            // 
-            iconButton6.Anchor = AnchorStyles.Top;
-            iconButton6.BackColor = Color.Gainsboro;
-            iconButton6.FlatAppearance.BorderSize = 0;
-            iconButton6.FlatStyle = FlatStyle.Flat;
-            iconButton6.Font = new Font("Century Gothic", 10F);
-            iconButton6.ForeColor = Color.Black;
-            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            iconButton6.IconColor = Color.Black;
-            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton6.IconSize = 30;
-            iconButton6.Location = new Point(600, 425);
-            iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(191, 37);
-            iconButton6.TabIndex = 9;
-            iconButton6.Text = "CANCELAR";
-            iconButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton6.UseVisualStyleBackColor = false;
-            iconButton6.Click += iconButton6_Click;
-            // 
-            // btnGuardar
-            // 
-            btnGuardar.Anchor = AnchorStyles.Top;
-            btnGuardar.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.Font = new Font("Century Gothic", 10F);
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.IconChar = FontAwesome.Sharp.IconChar.Save;
-            btnGuardar.IconColor = Color.White;
-            btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardar.IconSize = 30;
-            btnGuardar.Location = new Point(351, 425);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(191, 37);
-            btnGuardar.TabIndex = 8;
-            btnGuardar.Text = "GUARDAR";
-            btnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnGuardar.UseVisualStyleBackColor = false;
-            btnGuardar.Click += iconButton5_Click;
-            // 
             // txtCont
             // 
             txtCont.Anchor = AnchorStyles.Top;
@@ -650,6 +629,27 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
+            // roundedButton6
+            // 
+            roundedButton6.Anchor = AnchorStyles.Top;
+            roundedButton6.BackColor = Color.White;
+            roundedButton6.BackgroundColor = Color.White;
+            roundedButton6.BorderColor = Color.White;
+            roundedButton6.BorderRadius = 50;
+            roundedButton6.BorderSize = 0;
+            roundedButton6.FlatAppearance.BorderSize = 0;
+            roundedButton6.FlatStyle = FlatStyle.Flat;
+            roundedButton6.Font = new Font("Century Gothic", 10F);
+            roundedButton6.ForeColor = Color.Black;
+            roundedButton6.Location = new Point(600, 456);
+            roundedButton6.Name = "roundedButton6";
+            roundedButton6.Size = new Size(160, 50);
+            roundedButton6.TabIndex = 145;
+            roundedButton6.Text = "CANCELAR";
+            roundedButton6.TextColor = Color.Black;
+            roundedButton6.UseVisualStyleBackColor = false;
+            roundedButton6.Click += roundedButton6_Click;
+            // 
             // FrmAdministrarUsuarios
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -693,7 +693,6 @@
         private Label label3;
         private TextBox txtCont;
         private Label label7;
-        private FontAwesome.Sharp.IconButton btnGuardar;
         private FontAwesome.Sharp.IconButton iconButton6;
         private CheckBox chckbIsAdmin;
         private TextBox txtConfirmarCont;
@@ -713,5 +712,8 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxIcono;
         private Clases.RoundedButton roundedButton2;
         private Clases.RoundedButton roundedButton4;
+        private Clases.RoundedButton btnCancelar;
+        private Clases.RoundedButton btnGuardarUsuario;
+        private Clases.RoundedButton roundedButton6;
     }
 }
