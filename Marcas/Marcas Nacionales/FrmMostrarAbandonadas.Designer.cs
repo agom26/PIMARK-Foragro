@@ -61,7 +61,6 @@
             label23 = new Label();
             comboBoxSignoDistintivo = new ComboBox();
             btnCancelar = new Clases.RoundedButton();
-            btnActualizar = new Clases.RoundedButton();
             panel3 = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
@@ -414,7 +413,6 @@
             panel1.Controls.Add(label23);
             panel1.Controls.Add(comboBoxSignoDistintivo);
             panel1.Controls.Add(btnCancelar);
-            panel1.Controls.Add(btnActualizar);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(roundedButton6);
             panel1.Controls.Add(checkBox1);
@@ -610,26 +608,6 @@
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
-            // 
-            // btnActualizar
-            // 
-            btnActualizar.Anchor = AnchorStyles.None;
-            btnActualizar.BackColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderRadius = 60;
-            btnActualizar.BorderSize = 0;
-            btnActualizar.FlatAppearance.BorderSize = 0;
-            btnActualizar.FlatStyle = FlatStyle.Flat;
-            btnActualizar.ForeColor = Color.White;
-            btnActualizar.Location = new Point(68, 1171);
-            btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(315, 62);
-            btnActualizar.TabIndex = 141;
-            btnActualizar.Text = "ACTUALIZAR";
-            btnActualizar.TextColor = Color.White;
-            btnActualizar.UseVisualStyleBackColor = false;
-            btnActualizar.Click += btnActualizar_Click;
             // 
             // panel3
             // 
@@ -1505,7 +1483,6 @@
         private TextBox txtLibro;
         private Label label20;
         private Clases.RoundedButton btnCancelar;
-        private Clases.RoundedButton btnActualizar;
         private Panel panel2;
         private DataGridView dtgHistorialAban;
         private Panel panel5;

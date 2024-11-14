@@ -93,7 +93,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
-            btnGuardarTitular.Visible = true;
+            btnGuardarU.Visible = true;
         }
         public void Deshabilitar()
         {
@@ -105,7 +105,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
-            btnGuardarTitular.Visible = false;
+            btnGuardarU.Visible = false;
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace Presentacion.Personas
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageAgenteDetail;
-            btnGuardarTitular.Text = "GUARDAR";
+            btnGuardarU.Text = "GUARDAR";
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
         }
 
@@ -168,7 +168,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    btnGuardarTitular.Text = "ACTUALIZAR";
+                    btnGuardarU.Text = "ACTUALIZAR";
                     AnadirTabPage(tabPageAgenteDetail);
                 }
                 else
@@ -323,11 +323,15 @@ namespace Presentacion.Personas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageAgenteDetail);
-            dtgAgentes.ClearSelection();
+
         }
 
         private async void btnActualizar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnGuardarU_Click(object sender, EventArgs e)
         {
             string nombre = txtNombreAgente.Text;
             string direccion = txtDireccionAgente.Text;
@@ -353,15 +357,15 @@ namespace Presentacion.Personas
             {
                 try
                 {
-                    btnGuardarTitular.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+                    btnGuardarU.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
 
-                    if (btnGuardarTitular.Text == "GUARDAR")
+                    if (btnGuardarU.Text == "GUARDAR")
                     {
                         // Ejecutar la operación de adición de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Agente agregado exitosamente");
                     }
-                    else if (btnGuardarTitular.Text == "ACTUALIZAR")
+                    else if (btnGuardarU.Text == "ACTUALIZAR")
                     {
                         try
                         {
@@ -403,9 +407,15 @@ namespace Presentacion.Personas
                 }
                 finally
                 {
-                    btnGuardarTitular.Enabled = true;
+                    btnGuardarU.Enabled = true;
                 }
             }
+        }
+
+        private void btnCancelarU_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageAgenteDetail);
+            dtgAgentes.ClearSelection();
         }
     }
 }

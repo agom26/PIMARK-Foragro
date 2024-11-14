@@ -47,14 +47,14 @@
             panel1 = new Panel();
             dtgAgentes = new DataGridView();
             tabPageAgenteDetail = new TabPage();
+            btnGuardarU = new FontAwesome.Sharp.IconButton();
+            btnCancelarU = new FontAwesome.Sharp.IconButton();
             iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             label10 = new Label();
             roundedButton1 = new Clases.RoundedButton();
-            btnCancelar = new Clases.RoundedButton();
-            btnGuardarTitular = new Clases.RoundedButton();
             comboBox1 = new ComboBox();
             txtNombreContacto = new TextBox();
             label9 = new Label();
@@ -327,14 +327,14 @@
             // 
             // tabPageAgenteDetail
             // 
+            tabPageAgenteDetail.Controls.Add(btnGuardarU);
+            tabPageAgenteDetail.Controls.Add(btnCancelarU);
             tabPageAgenteDetail.Controls.Add(iconPictureBoxIcono);
             tabPageAgenteDetail.Controls.Add(roundedButton2);
             tabPageAgenteDetail.Controls.Add(iconPictureBox3);
             tabPageAgenteDetail.Controls.Add(iconPictureBox1);
             tabPageAgenteDetail.Controls.Add(label10);
             tabPageAgenteDetail.Controls.Add(roundedButton1);
-            tabPageAgenteDetail.Controls.Add(btnCancelar);
-            tabPageAgenteDetail.Controls.Add(btnGuardarTitular);
             tabPageAgenteDetail.Controls.Add(comboBox1);
             tabPageAgenteDetail.Controls.Add(txtNombreContacto);
             tabPageAgenteDetail.Controls.Add(label9);
@@ -356,6 +356,45 @@
             tabPageAgenteDetail.Size = new Size(1161, 791);
             tabPageAgenteDetail.TabIndex = 1;
             tabPageAgenteDetail.UseVisualStyleBackColor = true;
+            // 
+            // btnGuardarU
+            // 
+            btnGuardarU.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarU.FlatAppearance.BorderSize = 0;
+            btnGuardarU.FlatStyle = FlatStyle.Flat;
+            btnGuardarU.Font = new Font("Century Gothic", 12F);
+            btnGuardarU.ForeColor = Color.White;
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarU.IconColor = Color.White;
+            btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarU.IconSize = 30;
+            btnGuardarU.Location = new Point(340, 461);
+            btnGuardarU.Name = "btnGuardarU";
+            btnGuardarU.Size = new Size(191, 34);
+            btnGuardarU.TabIndex = 152;
+            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarU.UseVisualStyleBackColor = false;
+            btnGuardarU.Click += btnGuardarU_Click;
+            // 
+            // btnCancelarU
+            // 
+            btnCancelarU.BackColor = Color.White;
+            btnCancelarU.FlatAppearance.BorderSize = 0;
+            btnCancelarU.FlatStyle = FlatStyle.Flat;
+            btnCancelarU.Font = new Font("Century Gothic", 12F);
+            btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarU.IconColor = Color.Black;
+            btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarU.IconSize = 30;
+            btnCancelarU.Location = new Point(589, 461);
+            btnCancelarU.Name = "btnCancelarU";
+            btnCancelarU.Size = new Size(179, 34);
+            btnCancelarU.TabIndex = 151;
+            btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarU.UseVisualStyleBackColor = false;
+            btnCancelarU.Click += btnCancelarU_Click;
             // 
             // iconPictureBoxIcono
             // 
@@ -450,48 +489,6 @@
             roundedButton1.TabIndex = 146;
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.Top;
-            btnCancelar.BackColor = Color.White;
-            btnCancelar.BackgroundColor = Color.White;
-            btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 50;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.Font = new Font("Century Gothic", 10F);
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(579, 445);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(160, 50);
-            btnCancelar.TabIndex = 143;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
-            // 
-            // btnGuardarTitular
-            // 
-            btnGuardarTitular.Anchor = AnchorStyles.Top;
-            btnGuardarTitular.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardarTitular.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnGuardarTitular.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardarTitular.BorderRadius = 50;
-            btnGuardarTitular.BorderSize = 0;
-            btnGuardarTitular.FlatAppearance.BorderSize = 0;
-            btnGuardarTitular.FlatStyle = FlatStyle.Flat;
-            btnGuardarTitular.Font = new Font("Century Gothic", 10F);
-            btnGuardarTitular.ForeColor = Color.White;
-            btnGuardarTitular.Location = new Point(371, 445);
-            btnGuardarTitular.Name = "btnGuardarTitular";
-            btnGuardarTitular.Size = new Size(160, 50);
-            btnGuardarTitular.TabIndex = 142;
-            btnGuardarTitular.Text = "GUARDAR";
-            btnGuardarTitular.TextColor = Color.White;
-            btnGuardarTitular.UseVisualStyleBackColor = false;
-            btnGuardarTitular.Click += btnActualizar_Click;
             // 
             // comboBox1
             // 
@@ -720,8 +717,6 @@
         private Clases.RoundedButton roundedButton3;
         private Panel panel1;
         private ComboBox comboBox1;
-        private Clases.RoundedButton btnGuardarTitular;
-        private Clases.RoundedButton btnCancelar;
         private Clases.RoundedButton roundedButton4;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxIcono;
         private Clases.RoundedButton roundedButton2;
@@ -729,5 +724,7 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Label label10;
         private Clases.RoundedButton roundedButton1;
+        private FontAwesome.Sharp.IconButton btnGuardarU;
+        private FontAwesome.Sharp.IconButton btnCancelarU;
     }
 }

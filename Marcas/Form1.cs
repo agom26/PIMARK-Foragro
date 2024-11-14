@@ -110,9 +110,18 @@ namespace Presentacion
             btnTramiteInicial.Enabled = false;
             btnEnTramite.Enabled = false;
             btnOposiciones.Enabled = false;
+            btnTramiteTraspaso.Enabled = false;
+            btnTramiteRenovacion.Enabled = false;
             btnRegistradas.Enabled = false;
             btnAbandonadas.Enabled = false;
             iconButtonVencimientos.Enabled = false;
+            //internacionales
+            btnClientes.Enabled = false;
+            btnTramiteInicialInter.Enabled = false;
+            btnIngresadasInt.Enabled = false;
+            btnOpoInter.Enabled = false;
+            btnRegInter.Enabled = false;
+            btnAbandonadasInter.Enabled = false;
         }
 
         public void EnableButtons()
@@ -125,7 +134,16 @@ namespace Presentacion
             btnOposiciones.Enabled = true;
             btnRegistradas.Enabled = true;
             btnAbandonadas.Enabled = true;
+            btnTramiteRenovacion.Enabled = true;
+            btnTramiteTraspaso.Enabled = true;
             iconButtonVencimientos.Enabled = true;
+            //internacionales
+            btnClientes.Enabled = true;
+            btnTramiteInicialInter.Enabled = true;
+            btnIngresadasInt.Enabled = true;
+            btnOpoInter.Enabled = true;
+            btnRegInter.Enabled = true;
+            btnAbandonadasInter.Enabled = true;
         }
 
 

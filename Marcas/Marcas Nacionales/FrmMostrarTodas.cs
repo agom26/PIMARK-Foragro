@@ -107,16 +107,13 @@ namespace Presentacion.Marcas_Nacionales
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramite());
 
 
-            Invoke(new Action(() =>
+            dtgMarcasN.DataSource = marcasN;
+            dtgMarcasN.Refresh();
+            if (dtgMarcasN.Columns["id"] != null)
             {
-                dtgMarcasN.DataSource = marcasN;
-                dtgMarcasN.Refresh();
-                if (dtgMarcasN.Columns["id"] != null)
-                {
-                    dtgMarcasN.Columns["id"].Visible = false;
-                    dtgMarcasN.ClearSelection();
-                }
-            }));
+                dtgMarcasN.Columns["id"].Visible = false;
+                dtgMarcasN.ClearSelection();
+            }
         }
         private void AnadirTabPage(TabPage nombre)
         {

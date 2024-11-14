@@ -61,7 +61,6 @@
             checkBox1 = new CheckBox();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
-            btnActualizar = new Clases.RoundedButton();
             groupBox1 = new GroupBox();
             checkBoxTienePoder = new CheckBox();
             label26 = new Label();
@@ -387,7 +386,6 @@
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
-            panel1.Controls.Add(btnActualizar);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(txtNombreCliente);
             panel1.Controls.Add(label10);
@@ -578,25 +576,6 @@
             label16.Size = new Size(121, 20);
             label16.TabIndex = 226;
             label16.Text = "Observaciones";
-            // 
-            // btnActualizar
-            // 
-            btnActualizar.Anchor = AnchorStyles.None;
-            btnActualizar.BackColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderRadius = 60;
-            btnActualizar.BorderSize = 0;
-            btnActualizar.FlatAppearance.BorderSize = 0;
-            btnActualizar.FlatStyle = FlatStyle.Flat;
-            btnActualizar.ForeColor = Color.White;
-            btnActualizar.Location = new Point(36, 1151);
-            btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(315, 62);
-            btnActualizar.TabIndex = 228;
-            btnActualizar.Text = "ACTUALIZAR";
-            btnActualizar.TextColor = Color.White;
-            btnActualizar.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -1241,7 +1220,6 @@
         private CheckBox checkBox1;
         private RichTextBox richTextBox1;
         private Label label16;
-        private Clases.RoundedButton btnActualizar;
         private GroupBox groupBox1;
         private CheckBox checkBoxTienePoder;
         private Label label26;

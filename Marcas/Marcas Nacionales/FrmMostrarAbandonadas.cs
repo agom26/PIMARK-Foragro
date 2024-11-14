@@ -96,7 +96,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
+                //btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
                 btnCancelar.Location = new Point(370, panel3.Location.Y + panel3.Height + 10);
             }
             else
@@ -104,7 +104,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizar.Location = new Point(47, 960);
+                //btnActualizar.Location = new Point(47, 960);
                 btnCancelar.Location = new Point(370, 960);
             }
         }

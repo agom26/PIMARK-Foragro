@@ -43,18 +43,18 @@
             btnReportes = new FontAwesome.Sharp.IconButton();
             btnPatentes = new FontAwesome.Sharp.IconButton();
             panelSubMenuMarcasInter = new Panel();
-            button2 = new Button();
-            button28 = new Button();
-            button27 = new Button();
-            button6 = new Button();
-            button1 = new Button();
-            button5 = new Button();
-            button29 = new Button();
-            button30 = new Button();
+            btnAbandonadasInter = new Button();
+            btnTraspasoInter = new Button();
+            btnRenovInter = new Button();
+            btnRegInter = new Button();
+            btnOpoInter = new Button();
+            btnIngresadasInt = new Button();
+            btnTramiteInicialInter = new Button();
+            btnClientes = new Button();
             iconButton12 = new FontAwesome.Sharp.IconButton();
             panelSubMenuMarcasNacionales = new Panel();
             btnAbandonadas = new Button();
-            btnTramiteRenov = new Button();
+            btnTramiteTraspaso = new Button();
             btnTramiteRenovacion = new Button();
             btnRegistradas = new Button();
             btnOposiciones = new Button();
@@ -336,14 +336,14 @@
             // panelSubMenuMarcasInter
             // 
             panelSubMenuMarcasInter.BackColor = Color.FromArgb(196, 196, 208);
-            panelSubMenuMarcasInter.Controls.Add(button2);
-            panelSubMenuMarcasInter.Controls.Add(button28);
-            panelSubMenuMarcasInter.Controls.Add(button27);
-            panelSubMenuMarcasInter.Controls.Add(button6);
-            panelSubMenuMarcasInter.Controls.Add(button1);
-            panelSubMenuMarcasInter.Controls.Add(button5);
-            panelSubMenuMarcasInter.Controls.Add(button29);
-            panelSubMenuMarcasInter.Controls.Add(button30);
+            panelSubMenuMarcasInter.Controls.Add(btnAbandonadasInter);
+            panelSubMenuMarcasInter.Controls.Add(btnTraspasoInter);
+            panelSubMenuMarcasInter.Controls.Add(btnRenovInter);
+            panelSubMenuMarcasInter.Controls.Add(btnRegInter);
+            panelSubMenuMarcasInter.Controls.Add(btnOpoInter);
+            panelSubMenuMarcasInter.Controls.Add(btnIngresadasInt);
+            panelSubMenuMarcasInter.Controls.Add(btnTramiteInicialInter);
+            panelSubMenuMarcasInter.Controls.Add(btnClientes);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasInter.Location = new Point(0, 777);
@@ -351,147 +351,147 @@
             panelSubMenuMarcasInter.Size = new Size(259, 429);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
-            // button2
+            // btnAbandonadasInter
             // 
-            button2.AutoSize = true;
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Century Gothic", 9F);
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(0, 355);
-            button2.Name = "button2";
-            button2.Padding = new Padding(58, 0, 0, 0);
-            button2.Size = new Size(259, 47);
-            button2.TabIndex = 9;
-            button2.Text = "> ABANDONADAS";
-            button2.TextAlign = ContentAlignment.MiddleLeft;
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click_1;
+            btnAbandonadasInter.AutoSize = true;
+            btnAbandonadasInter.Dock = DockStyle.Top;
+            btnAbandonadasInter.FlatAppearance.BorderSize = 0;
+            btnAbandonadasInter.FlatStyle = FlatStyle.Flat;
+            btnAbandonadasInter.Font = new Font("Century Gothic", 9F);
+            btnAbandonadasInter.ForeColor = Color.Black;
+            btnAbandonadasInter.Location = new Point(0, 355);
+            btnAbandonadasInter.Name = "btnAbandonadasInter";
+            btnAbandonadasInter.Padding = new Padding(58, 0, 0, 0);
+            btnAbandonadasInter.Size = new Size(259, 47);
+            btnAbandonadasInter.TabIndex = 9;
+            btnAbandonadasInter.Text = "> ABANDONADAS";
+            btnAbandonadasInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnAbandonadasInter.UseVisualStyleBackColor = true;
+            btnAbandonadasInter.Click += button2_Click_1;
             // 
-            // button28
+            // btnTraspasoInter
             // 
-            button28.AutoSize = true;
-            button28.Dock = DockStyle.Top;
-            button28.FlatAppearance.BorderSize = 0;
-            button28.FlatStyle = FlatStyle.Flat;
-            button28.Font = new Font("Century Gothic", 9F);
-            button28.ForeColor = Color.Black;
-            button28.Location = new Point(0, 308);
-            button28.Name = "button28";
-            button28.Padding = new Padding(58, 0, 0, 0);
-            button28.Size = new Size(259, 47);
-            button28.TabIndex = 5;
-            button28.Text = "> TR. DE TRASPASO\r\n";
-            button28.TextAlign = ContentAlignment.MiddleLeft;
-            button28.UseVisualStyleBackColor = true;
+            btnTraspasoInter.AutoSize = true;
+            btnTraspasoInter.Dock = DockStyle.Top;
+            btnTraspasoInter.FlatAppearance.BorderSize = 0;
+            btnTraspasoInter.FlatStyle = FlatStyle.Flat;
+            btnTraspasoInter.Font = new Font("Century Gothic", 9F);
+            btnTraspasoInter.ForeColor = Color.Black;
+            btnTraspasoInter.Location = new Point(0, 308);
+            btnTraspasoInter.Name = "btnTraspasoInter";
+            btnTraspasoInter.Padding = new Padding(58, 0, 0, 0);
+            btnTraspasoInter.Size = new Size(259, 47);
+            btnTraspasoInter.TabIndex = 5;
+            btnTraspasoInter.Text = "> TR. DE TRASPASO\r\n";
+            btnTraspasoInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnTraspasoInter.UseVisualStyleBackColor = true;
             // 
-            // button27
+            // btnRenovInter
             // 
-            button27.AutoSize = true;
-            button27.Dock = DockStyle.Top;
-            button27.FlatAppearance.BorderSize = 0;
-            button27.FlatStyle = FlatStyle.Flat;
-            button27.Font = new Font("Century Gothic", 9F);
-            button27.ForeColor = Color.Black;
-            button27.Location = new Point(0, 248);
-            button27.Name = "button27";
-            button27.Padding = new Padding(58, 0, 0, 0);
-            button27.Size = new Size(259, 60);
-            button27.TabIndex = 7;
-            button27.Text = "> TR. DE RENOVACIÓN";
-            button27.TextAlign = ContentAlignment.MiddleLeft;
-            button27.UseVisualStyleBackColor = true;
+            btnRenovInter.AutoSize = true;
+            btnRenovInter.Dock = DockStyle.Top;
+            btnRenovInter.FlatAppearance.BorderSize = 0;
+            btnRenovInter.FlatStyle = FlatStyle.Flat;
+            btnRenovInter.Font = new Font("Century Gothic", 9F);
+            btnRenovInter.ForeColor = Color.Black;
+            btnRenovInter.Location = new Point(0, 248);
+            btnRenovInter.Name = "btnRenovInter";
+            btnRenovInter.Padding = new Padding(58, 0, 0, 0);
+            btnRenovInter.Size = new Size(259, 60);
+            btnRenovInter.TabIndex = 7;
+            btnRenovInter.Text = "> TR. DE RENOVACIÓN";
+            btnRenovInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnRenovInter.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btnRegInter
             // 
-            button6.AutoSize = true;
-            button6.Dock = DockStyle.Top;
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Century Gothic", 9F);
-            button6.ForeColor = Color.Black;
-            button6.Location = new Point(0, 201);
-            button6.Name = "button6";
-            button6.Padding = new Padding(58, 0, 0, 0);
-            button6.Size = new Size(259, 47);
-            button6.TabIndex = 11;
-            button6.Text = "> REGISTRADAS";
-            button6.TextAlign = ContentAlignment.MiddleLeft;
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click_1;
+            btnRegInter.AutoSize = true;
+            btnRegInter.Dock = DockStyle.Top;
+            btnRegInter.FlatAppearance.BorderSize = 0;
+            btnRegInter.FlatStyle = FlatStyle.Flat;
+            btnRegInter.Font = new Font("Century Gothic", 9F);
+            btnRegInter.ForeColor = Color.Black;
+            btnRegInter.Location = new Point(0, 201);
+            btnRegInter.Name = "btnRegInter";
+            btnRegInter.Padding = new Padding(58, 0, 0, 0);
+            btnRegInter.Size = new Size(259, 47);
+            btnRegInter.TabIndex = 11;
+            btnRegInter.Text = "> REGISTRADAS";
+            btnRegInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnRegInter.UseVisualStyleBackColor = true;
+            btnRegInter.Click += button6_Click_1;
             // 
-            // button1
+            // btnOpoInter
             // 
-            button1.AutoSize = true;
-            button1.Dock = DockStyle.Top;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Century Gothic", 9F);
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(0, 141);
-            button1.Name = "button1";
-            button1.Padding = new Padding(58, 0, 0, 0);
-            button1.Size = new Size(259, 60);
-            button1.TabIndex = 8;
-            button1.Text = "> OPOSICIONES";
-            button1.TextAlign = ContentAlignment.MiddleLeft;
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
+            btnOpoInter.AutoSize = true;
+            btnOpoInter.Dock = DockStyle.Top;
+            btnOpoInter.FlatAppearance.BorderSize = 0;
+            btnOpoInter.FlatStyle = FlatStyle.Flat;
+            btnOpoInter.Font = new Font("Century Gothic", 9F);
+            btnOpoInter.ForeColor = Color.Black;
+            btnOpoInter.Location = new Point(0, 141);
+            btnOpoInter.Name = "btnOpoInter";
+            btnOpoInter.Padding = new Padding(58, 0, 0, 0);
+            btnOpoInter.Size = new Size(259, 60);
+            btnOpoInter.TabIndex = 8;
+            btnOpoInter.Text = "> OPOSICIONES";
+            btnOpoInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnOpoInter.UseVisualStyleBackColor = true;
+            btnOpoInter.Click += button1_Click_1;
             // 
-            // button5
+            // btnIngresadasInt
             // 
-            button5.AutoSize = true;
-            button5.Dock = DockStyle.Top;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Century Gothic", 9F);
-            button5.ForeColor = Color.Black;
-            button5.Location = new Point(0, 94);
-            button5.Name = "button5";
-            button5.Padding = new Padding(58, 0, 0, 0);
-            button5.Size = new Size(259, 47);
-            button5.TabIndex = 10;
-            button5.Text = "> INGRESADAS";
-            button5.TextAlign = ContentAlignment.MiddleLeft;
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click_1;
+            btnIngresadasInt.AutoSize = true;
+            btnIngresadasInt.Dock = DockStyle.Top;
+            btnIngresadasInt.FlatAppearance.BorderSize = 0;
+            btnIngresadasInt.FlatStyle = FlatStyle.Flat;
+            btnIngresadasInt.Font = new Font("Century Gothic", 9F);
+            btnIngresadasInt.ForeColor = Color.Black;
+            btnIngresadasInt.Location = new Point(0, 94);
+            btnIngresadasInt.Name = "btnIngresadasInt";
+            btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
+            btnIngresadasInt.Size = new Size(259, 47);
+            btnIngresadasInt.TabIndex = 10;
+            btnIngresadasInt.Text = "> INGRESADAS";
+            btnIngresadasInt.TextAlign = ContentAlignment.MiddleLeft;
+            btnIngresadasInt.UseVisualStyleBackColor = true;
+            btnIngresadasInt.Click += button5_Click_1;
             // 
-            // button29
+            // btnTramiteInicialInter
             // 
-            button29.AutoSize = true;
-            button29.Dock = DockStyle.Top;
-            button29.FlatAppearance.BorderSize = 0;
-            button29.FlatStyle = FlatStyle.Flat;
-            button29.Font = new Font("Century Gothic", 9F);
-            button29.ForeColor = Color.Black;
-            button29.Location = new Point(0, 47);
-            button29.Name = "button29";
-            button29.Padding = new Padding(58, 0, 0, 0);
-            button29.Size = new Size(259, 47);
-            button29.TabIndex = 4;
-            button29.Text = "> TRÁMITE INICIAL";
-            button29.TextAlign = ContentAlignment.MiddleLeft;
-            button29.UseVisualStyleBackColor = true;
-            button29.Click += button29_Click;
+            btnTramiteInicialInter.AutoSize = true;
+            btnTramiteInicialInter.Dock = DockStyle.Top;
+            btnTramiteInicialInter.FlatAppearance.BorderSize = 0;
+            btnTramiteInicialInter.FlatStyle = FlatStyle.Flat;
+            btnTramiteInicialInter.Font = new Font("Century Gothic", 9F);
+            btnTramiteInicialInter.ForeColor = Color.Black;
+            btnTramiteInicialInter.Location = new Point(0, 47);
+            btnTramiteInicialInter.Name = "btnTramiteInicialInter";
+            btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteInicialInter.Size = new Size(259, 47);
+            btnTramiteInicialInter.TabIndex = 4;
+            btnTramiteInicialInter.Text = "> TRÁMITE INICIAL";
+            btnTramiteInicialInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteInicialInter.UseVisualStyleBackColor = true;
+            btnTramiteInicialInter.Click += button29_Click;
             // 
-            // button30
+            // btnClientes
             // 
-            button30.AutoSize = true;
-            button30.Dock = DockStyle.Top;
-            button30.FlatAppearance.BorderSize = 0;
-            button30.FlatStyle = FlatStyle.Flat;
-            button30.Font = new Font("Century Gothic", 9F);
-            button30.ForeColor = Color.Black;
-            button30.Location = new Point(0, 0);
-            button30.Name = "button30";
-            button30.Padding = new Padding(58, 0, 0, 0);
-            button30.Size = new Size(259, 47);
-            button30.TabIndex = 3;
-            button30.Text = "> CLIENTES";
-            button30.TextAlign = ContentAlignment.MiddleLeft;
-            button30.UseVisualStyleBackColor = true;
-            button30.Click += button30_Click;
+            btnClientes.AutoSize = true;
+            btnClientes.Dock = DockStyle.Top;
+            btnClientes.FlatAppearance.BorderSize = 0;
+            btnClientes.FlatStyle = FlatStyle.Flat;
+            btnClientes.Font = new Font("Century Gothic", 9F);
+            btnClientes.ForeColor = Color.Black;
+            btnClientes.Location = new Point(0, 0);
+            btnClientes.Name = "btnClientes";
+            btnClientes.Padding = new Padding(58, 0, 0, 0);
+            btnClientes.Size = new Size(259, 47);
+            btnClientes.TabIndex = 3;
+            btnClientes.Text = "> CLIENTES";
+            btnClientes.TextAlign = ContentAlignment.MiddleLeft;
+            btnClientes.UseVisualStyleBackColor = true;
+            btnClientes.Click += button30_Click;
             // 
             // iconButton12
             // 
@@ -520,7 +520,7 @@
             // 
             panelSubMenuMarcasNacionales.BackColor = Color.FromArgb(196, 196, 208);
             panelSubMenuMarcasNacionales.Controls.Add(btnAbandonadas);
-            panelSubMenuMarcasNacionales.Controls.Add(btnTramiteRenov);
+            panelSubMenuMarcasNacionales.Controls.Add(btnTramiteTraspaso);
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteRenovacion);
             panelSubMenuMarcasNacionales.Controls.Add(btnRegistradas);
             panelSubMenuMarcasNacionales.Controls.Add(btnOposiciones);
@@ -553,24 +553,24 @@
             btnAbandonadas.UseVisualStyleBackColor = false;
             btnAbandonadas.Click += btnAbandonadas_Click;
             // 
-            // btnTramiteRenov
+            // btnTramiteTraspaso
             // 
-            btnTramiteRenov.AutoSize = true;
-            btnTramiteRenov.BackColor = Color.FromArgb(196, 196, 208);
-            btnTramiteRenov.Dock = DockStyle.Top;
-            btnTramiteRenov.FlatAppearance.BorderSize = 0;
-            btnTramiteRenov.FlatStyle = FlatStyle.Flat;
-            btnTramiteRenov.Font = new Font("Century Gothic", 9F);
-            btnTramiteRenov.ForeColor = Color.Black;
-            btnTramiteRenov.Location = new Point(0, 235);
-            btnTramiteRenov.Name = "btnTramiteRenov";
-            btnTramiteRenov.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenov.Size = new Size(259, 47);
-            btnTramiteRenov.TabIndex = 4;
-            btnTramiteRenov.Text = "> TR. DE TRASPASO";
-            btnTramiteRenov.TextAlign = ContentAlignment.MiddleLeft;
-            btnTramiteRenov.UseVisualStyleBackColor = false;
-            btnTramiteRenov.Click += button22_Click;
+            btnTramiteTraspaso.AutoSize = true;
+            btnTramiteTraspaso.BackColor = Color.FromArgb(196, 196, 208);
+            btnTramiteTraspaso.Dock = DockStyle.Top;
+            btnTramiteTraspaso.FlatAppearance.BorderSize = 0;
+            btnTramiteTraspaso.FlatStyle = FlatStyle.Flat;
+            btnTramiteTraspaso.Font = new Font("Century Gothic", 9F);
+            btnTramiteTraspaso.ForeColor = Color.Black;
+            btnTramiteTraspaso.Location = new Point(0, 235);
+            btnTramiteTraspaso.Name = "btnTramiteTraspaso";
+            btnTramiteTraspaso.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteTraspaso.Size = new Size(259, 47);
+            btnTramiteTraspaso.TabIndex = 4;
+            btnTramiteTraspaso.Text = "> TR. DE TRASPASO";
+            btnTramiteTraspaso.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteTraspaso.UseVisualStyleBackColor = false;
+            btnTramiteTraspaso.Click += button22_Click;
             // 
             // btnTramiteRenovacion
             // 
@@ -962,7 +962,7 @@
         private FontAwesome.Sharp.IconButton iconButtonAgentes;
         private FontAwesome.Sharp.IconButton iconButtonUsuarios;
         private System.Windows.Forms.Panel panelSubMenuMarcasNacionales;
-        private System.Windows.Forms.Button btnTramiteRenov;
+        private System.Windows.Forms.Button btnTramiteTraspaso;
         private System.Windows.Forms.Button btnTramiteRenovacion;
         private System.Windows.Forms.Button btnRegistradas;
         private System.Windows.Forms.Button btnOposiciones;
@@ -975,19 +975,19 @@
         private System.Windows.Forms.Button button36;
         private FontAwesome.Sharp.IconButton btnPatentes;
         private System.Windows.Forms.Panel panelSubMenuMarcasInter;
-        private System.Windows.Forms.Button button27;
-        private System.Windows.Forms.Button button28;
-        private System.Windows.Forms.Button button29;
-        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button btnRenovInter;
+        private System.Windows.Forms.Button btnTraspasoInter;
+        private System.Windows.Forms.Button btnTramiteInicialInter;
+        private System.Windows.Forms.Button btnClientes;
         private FontAwesome.Sharp.IconButton iconButton12;
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton btnReportes;
         private FontAwesome.Sharp.IconButton iconButtonLogout;
-        private Button button1;
-        private Button button2;
+        private Button btnOpoInter;
+        private Button btnAbandonadasInter;
         private Button btnAbandonadas;
-        private Button button6;
-        private Button button5;
+        private Button btnRegInter;
+        private Button btnIngresadasInt;
         private FontAwesome.Sharp.IconButton iconButton3;
         private Label labelUsername;
         private Label labelName_LN;
