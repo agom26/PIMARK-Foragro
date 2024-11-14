@@ -22,7 +22,7 @@ namespace Presentacion.Personas
             if (UsuarioActivo.isAdmin == false)
             {
                 ibtnEditar.Visible = false;
-                
+
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -93,7 +93,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
-            btnGuardarTit.Visible = true;
+            btnGuardarTitular.Visible = true;
         }
         public void Deshabilitar()
         {
@@ -105,14 +105,14 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
-            btnGuardarTit.Visible = false;
+            btnGuardarTitular.Visible = false;
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
             Habilitar();
             LimpiarCampos();
-            
+
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             if (!tabControl1.TabPages.Contains(tabPageAgenteDetail))
             {
@@ -121,88 +121,12 @@ namespace Presentacion.Personas
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageAgenteDetail;
-            btnGuardarTit.Text = "Guardar";
+            btnGuardarTitular.Text = "GUARDAR";
         }
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
         {
-            string nombre = txtNombreAgente.Text;
-            string direccion = txtDireccionAgente.Text;
-            string nit = txtNitAgente.Text;
-            string pais = comboBox1.SelectedItem?.ToString();
-            string correo = txtCorreoContacto.Text;
-            string telefono = txtTelefonoContacto.Text;
-            string contacto = txtNombreContacto.Text;
-            string tipo = "agente";
 
-            // Verificar que el campo de nombre de usuario no esté vacío
-            if (string.IsNullOrWhiteSpace(txtNombreAgente.Text) ||
-                string.IsNullOrWhiteSpace(txtDireccionAgente.Text) ||
-                string.IsNullOrWhiteSpace(txtNitAgente.Text) ||
-                string.IsNullOrWhiteSpace(pais) ||
-                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
-            {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
-            }
-            else
-            {
-                try
-                {
-                    btnGuardarTit.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
-
-                    if (btnGuardarTit.Text == "Guardar")
-                    {
-                        // Ejecutar la operación de adición de manera asíncrona
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Agente agregado exitosamente");
-                    }
-                    else if (btnGuardarTit.Text == "Actualizar")
-                    {
-                        try
-                        {
-                            // Ejecutar la operación de actualización de manera asíncrona
-                            bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
-                                txtNombreAgente.Text,
-                                txtDireccionAgente.Text,
-                                txtNitAgente.Text,
-                                pais,
-                                txtCorreoContacto.Text,
-                                txtTelefonoContacto.Text,
-                                txtNombreContacto.Text));
-
-                            if (update)
-                            {
-                                MessageBox.Show("Agente actualizado exitosamente");
-                                MostrarAgentes();
-                                EliminarTabPage(tabPageAgenteDetail);
-                                dtgAgentes.ClearSelection();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Error al actualizar el agente.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Ocurrió un error al actualizar el agente: " + ex.Message);
-                        }
-                    }
-
-                    tabControl1.SelectedTab = tabPageListado;
-                    MostrarAgentes();
-                    EliminarTabPage(tabPageAgenteDetail);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("No se pudo ingresar el agente por :" + ex.Message);
-                }
-                finally
-                {
-                    btnGuardarTit.Enabled = true;
-                }
-            }
         }
 
 
@@ -235,7 +159,7 @@ namespace Presentacion.Personas
                     EditarPersona.contacto = titularDetails[0].contacto;
 
                     // Mostrar el formulario de edición con los valores del titular
-                   
+
                     txtNombreAgente.Text = EditarPersona.nombre;
                     txtDireccionAgente.Text = EditarPersona.direccion;
                     txtNitAgente.Text = EditarPersona.nit;
@@ -243,7 +167,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    btnGuardarTit.Text = "Actualizar";
+                    btnGuardarTitular.Text = "ACTUALIZAR";
                     AnadirTabPage(tabPageAgenteDetail);
                 }
                 else
@@ -307,8 +231,7 @@ namespace Presentacion.Personas
 
         private void btnCancelarTit_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageAgenteDetail);
-            dtgAgentes.ClearSelection();
+
         }
 
         private void dtgAgentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -375,7 +298,7 @@ namespace Presentacion.Personas
                     EditarPersona.contacto = titularDetails[0].contacto;
 
                     // Mostrar el formulario de edición con los valores del titular
-                   
+
                     txtNombreAgente.Text = EditarPersona.nombre;
                     txtDireccionAgente.Text = EditarPersona.direccion;
                     txtNitAgente.Text = EditarPersona.nit;
@@ -394,6 +317,93 @@ namespace Presentacion.Personas
             else
             {
                 MessageBox.Show("Por favor, seleccione una fila de agente.");
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageAgenteDetail);
+            dtgAgentes.ClearSelection();
+        }
+
+        private async void btnActualizar_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNombreAgente.Text;
+            string direccion = txtDireccionAgente.Text;
+            string nit = txtNitAgente.Text;
+            string pais = comboBox1.SelectedItem?.ToString();
+            string correo = txtCorreoContacto.Text;
+            string telefono = txtTelefonoContacto.Text;
+            string contacto = txtNombreContacto.Text;
+            string tipo = "agente";
+
+            // Verificar que el campo de nombre de usuario no esté vacío
+            if (string.IsNullOrWhiteSpace(txtNombreAgente.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccionAgente.Text) ||
+                string.IsNullOrWhiteSpace(txtNitAgente.Text) ||
+                string.IsNullOrWhiteSpace(pais) ||
+                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+                try
+                {
+                    btnGuardarTitular.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+
+                    if (btnGuardarTitular.Text == "GUARDAR")
+                    {
+                        // Ejecutar la operación de adición de manera asíncrona
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        MessageBox.Show("Agente agregado exitosamente");
+                    }
+                    else if (btnGuardarTitular.Text == "ACTUALIZAR")
+                    {
+                        try
+                        {
+                            // Ejecutar la operación de actualización de manera asíncrona
+                            bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                                txtNombreAgente.Text,
+                                txtDireccionAgente.Text,
+                                txtNitAgente.Text,
+                                pais,
+                                txtCorreoContacto.Text,
+                                txtTelefonoContacto.Text,
+                                txtNombreContacto.Text));
+
+                            if (update)
+                            {
+                                MessageBox.Show("Agente actualizado exitosamente");
+                                MostrarAgentes();
+                                EliminarTabPage(tabPageAgenteDetail);
+                                dtgAgentes.ClearSelection();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al actualizar el agente.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ocurrió un error al actualizar el agente: " + ex.Message);
+                        }
+                    }
+
+                    tabControl1.SelectedTab = tabPageListado;
+                    MostrarAgentes();
+                    EliminarTabPage(tabPageAgenteDetail);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo ingresar el agente por :" + ex.Message);
+                }
+                finally
+                {
+                    btnGuardarTitular.Enabled = true;
+                }
             }
         }
     }
