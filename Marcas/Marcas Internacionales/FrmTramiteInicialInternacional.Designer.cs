@@ -659,7 +659,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(5, 28);
+            panel1.Location = new Point(-5, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
@@ -715,6 +715,7 @@
             Margin = new Padding(4);
             Name = "FrmTramiteInicialInternacional";
             Text = "FrmTramiteInicialInternacional";
+            Load += FrmTramiteInicialInternacional_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

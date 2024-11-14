@@ -20,6 +20,16 @@ namespace Presentacion.Marcas_Internacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         public FrmMarcasIntIngresadas()
         {
             InitializeComponent();
@@ -185,7 +195,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (pictureBox1.Image != null && pictureBox1.Image!=documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -654,7 +664,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private void roundedButton1_Click(object sender, EventArgs e)

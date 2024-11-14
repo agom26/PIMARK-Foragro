@@ -19,6 +19,16 @@ namespace Presentacion.Marcas_Internacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
 
         public FrmTramiteInicialInternacional()
         {
@@ -49,7 +59,7 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre,string paisRegistro, string clase, string signoDistintivo, string tipo, string estado,
+        private bool ValidarCampos(string expediente, string nombre, string paisRegistro, string clase, string signoDistintivo, string tipo, string estado,
    ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
@@ -76,7 +86,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -113,7 +123,7 @@ namespace Presentacion.Marcas_Internacionales
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
             string paisRegistro = comboBox1.SelectedItem?.ToString();
-            string signoDistintivo =comboBoxSignoDistintivo.SelectedItem?.ToString();
+            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
             string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
@@ -154,7 +164,7 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             if (idCliente <= 0)
             {
                 //no colocarle cliente
@@ -168,7 +178,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Validar campos 
-            if (!ValidarCampos(expediente,nombre, paisRegistro, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(expediente, nombre, paisRegistro, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -177,8 +187,8 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -205,12 +215,13 @@ namespace Presentacion.Marcas_Internacionales
 
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtNombreCliente.Text = "";
@@ -298,7 +309,7 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 SeleccionarPersona.idPersonaC = null;
-                
+
             }
         }
 
@@ -314,7 +325,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -353,7 +365,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            LimpiarFormulario();
         }
 
         private void txtSignoDistintivo_TextChanged(object sender, EventArgs e)
@@ -364,6 +376,12 @@ namespace Presentacion.Marcas_Internacionales
         private void txtNombreCliente_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void FrmTramiteInicialInternacional_Load(object sender, EventArgs e)
+        {
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
     }
 }

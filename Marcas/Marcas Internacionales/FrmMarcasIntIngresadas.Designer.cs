@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
             iconButton3 = new FontAwesome.Sharp.IconButton();
@@ -217,6 +219,14 @@
             dtgMarcasIn.BorderStyle = BorderStyle.None;
             dtgMarcasIn.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgMarcasIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgMarcasIn.ColumnHeadersHeight = 40;
             dtgMarcasIn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasIn.EnableHeadersVisualStyles = false;
@@ -226,6 +236,7 @@
             dtgMarcasIn.ReadOnly = true;
             dtgMarcasIn.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgMarcasIn.RowHeadersWidth = 51;
+            dtgMarcasIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasIn.Size = new Size(934, 492);
             dtgMarcasIn.TabIndex = 34;
             // 
@@ -1071,6 +1082,14 @@
             dtgHistorialIn.BorderStyle = BorderStyle.None;
             dtgHistorialIn.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgHistorialIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgHistorialIn.ColumnHeadersHeight = 40;
             dtgHistorialIn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialIn.EnableHeadersVisualStyles = false;
@@ -1080,6 +1099,7 @@
             dtgHistorialIn.ReadOnly = true;
             dtgHistorialIn.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgHistorialIn.RowHeadersWidth = 51;
+            dtgHistorialIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorialIn.Size = new Size(934, 492);
             dtgHistorialIn.TabIndex = 45;
             // 

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageAbandonadasList = new TabPage();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -95,7 +97,6 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            iconButton6 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             label22 = new Label();
@@ -189,6 +190,14 @@
             dtgMarcasAban.BorderStyle = BorderStyle.None;
             dtgMarcasAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgMarcasAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgMarcasAban.ColumnHeadersHeight = 40;
             dtgMarcasAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasAban.EnableHeadersVisualStyles = false;
@@ -198,6 +207,7 @@
             dtgMarcasAban.ReadOnly = true;
             dtgMarcasAban.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgMarcasAban.RowHeadersWidth = 51;
+            dtgMarcasAban.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasAban.Size = new Size(934, 492);
             dtgMarcasAban.TabIndex = 29;
             // 
@@ -988,7 +998,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(iconButton6);
             panel2.Controls.Add(iconButton4);
             panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(label22);
@@ -998,26 +1007,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1145, 772);
             panel2.TabIndex = 1;
-            // 
-            // iconButton6
-            // 
-            iconButton6.Anchor = AnchorStyles.Top;
-            iconButton6.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton6.Enabled = false;
-            iconButton6.FlatAppearance.BorderSize = 0;
-            iconButton6.FlatStyle = FlatStyle.Flat;
-            iconButton6.ForeColor = Color.White;
-            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton6.IconColor = Color.White;
-            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton6.IconSize = 30;
-            iconButton6.Location = new Point(992, 83);
-            iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(150, 37);
-            iconButton6.TabIndex = 52;
-            iconButton6.Text = "EDITAR/ VER";
-            iconButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton6.UseVisualStyleBackColor = false;
             // 
             // iconButton4
             // 
@@ -1064,7 +1053,7 @@
             label22.Anchor = AnchorStyles.None;
             label22.AutoSize = true;
             label22.Font = new Font("Century Gothic", 19F);
-            label22.Location = new Point(445, 0);
+            label22.Location = new Point(508, 0);
             label22.Name = "label22";
             label22.Size = new Size(134, 39);
             label22.TabIndex = 47;
@@ -1081,15 +1070,24 @@
             dtgHistorialAban.BorderStyle = BorderStyle.None;
             dtgHistorialAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgHistorialAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgHistorialAban.ColumnHeadersHeight = 40;
             dtgHistorialAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialAban.EnableHeadersVisualStyles = false;
             dtgHistorialAban.GridColor = Color.LightGray;
-            dtgHistorialAban.Location = new Point(28, 104);
+            dtgHistorialAban.Location = new Point(108, 102);
             dtgHistorialAban.Name = "dtgHistorialAban";
             dtgHistorialAban.ReadOnly = true;
             dtgHistorialAban.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgHistorialAban.RowHeadersWidth = 51;
+            dtgHistorialAban.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorialAban.Size = new Size(934, 492);
             dtgHistorialAban.TabIndex = 48;
             // 
@@ -1097,7 +1095,7 @@
             // 
             panel5.Anchor = AnchorStyles.Top;
             panel5.BackColor = Color.FromArgb(192, 202, 212);
-            panel5.Location = new Point(14, 83);
+            panel5.Location = new Point(94, 81);
             panel5.Name = "panel5";
             panel5.Size = new Size(972, 542);
             panel5.TabIndex = 49;
@@ -1209,6 +1207,5 @@
         private Panel panel5;
         private Label label22;
         private DataGridView dtgHistorialAban;
-        private FontAwesome.Sharp.IconButton iconButton6;
     }
 }
