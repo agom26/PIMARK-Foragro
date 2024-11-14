@@ -36,7 +36,8 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2I.Visible = false;
-            btnGuardarM.Location = new Point(200, 950);
+            btnGuardarM.Location = new Point(109, 950);
+            btnCancelarM.Location = new Point(389, 950);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -217,14 +218,16 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(200, panel2I.Location.Y + panel2I.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnGuardarM.Location = new Point(109, panel2I.Location.Y + panel2I.Height + 10);
+                btnCancelarM.Location = new Point(389, panel2I.Location.Y + panel2I.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(200, 950);
+                btnGuardarM.Location = new Point(109, 950);
+                btnCancelarM.Location = new Point(389, 950);
             }
         }
 
@@ -365,6 +368,11 @@ namespace Presentacion.Marcas_Nacionales
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
             GuardarMarcaNacional();
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
         }
     }
 }

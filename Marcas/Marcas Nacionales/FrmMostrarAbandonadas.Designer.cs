@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageAbandonadasList = new TabPage();
             label1 = new Label();
@@ -49,6 +49,7 @@
             roundedButton3 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label26 = new Label();
@@ -60,7 +61,6 @@
             comboBoxTipoSigno = new ComboBox();
             label23 = new Label();
             comboBoxSignoDistintivo = new ComboBox();
-            btnCancelar = new Clases.RoundedButton();
             panel3 = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
@@ -313,14 +313,14 @@
             dtgMarcasAban.BorderStyle = BorderStyle.None;
             dtgMarcasAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgMarcasAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgMarcasAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgMarcasAban.ColumnHeadersHeight = 40;
             dtgMarcasAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasAban.EnableHeadersVisualStyles = false;
@@ -405,6 +405,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(roundedButton2);
@@ -412,7 +413,6 @@
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(label23);
             panel1.Controls.Add(comboBoxSignoDistintivo);
-            panel1.Controls.Add(btnCancelar);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(roundedButton6);
             panel1.Controls.Add(checkBox1);
@@ -448,6 +448,25 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(254, 1178);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(179, 43);
+            btnCancelarM.TabIndex = 153;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // Renovacion
             // 
@@ -588,26 +607,6 @@
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
             comboBoxSignoDistintivo.TabIndex = 143;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.None;
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 60;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(391, 1172);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(315, 62);
-            btnCancelar.TabIndex = 142;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
             // 
             // panel3
             // 
@@ -1129,14 +1128,14 @@
             dtgHistorialAban.BorderStyle = BorderStyle.None;
             dtgHistorialAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dtgHistorialAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgHistorialAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgHistorialAban.ColumnHeadersHeight = 40;
             dtgHistorialAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialAban.EnableHeadersVisualStyles = false;
@@ -1237,14 +1236,14 @@
             dtgRenovaciones.BorderStyle = BorderStyle.None;
             dtgRenovaciones.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgRenovaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgRenovaciones.ColumnHeadersHeight = 40;
             dtgRenovaciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgRenovaciones.EnableHeadersVisualStyles = false;
@@ -1355,14 +1354,14 @@
             dtgTraspasos.BorderStyle = BorderStyle.None;
             dtgTraspasos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTraspasos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Control;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgTraspasos.ColumnHeadersHeight = 40;
             dtgTraspasos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgTraspasos.EnableHeadersVisualStyles = false;
@@ -1482,7 +1481,6 @@
         private Label label15;
         private TextBox txtLibro;
         private Label label20;
-        private Clases.RoundedButton btnCancelar;
         private Panel panel2;
         private DataGridView dtgHistorialAban;
         private Panel panel5;
@@ -1519,5 +1517,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Label label5;
         private Clases.RoundedButton roundedButton5;
+        private FontAwesome.Sharp.IconButton btnCancelarM;
     }
 }

@@ -50,8 +50,10 @@
             roundedButton3 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            btnActualizarM = new FontAwesome.Sharp.IconButton();
             roundedButton9 = new Clases.RoundedButton();
             roundedButton8 = new Clases.RoundedButton();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label26 = new Label();
@@ -60,8 +62,6 @@
             comboBoxTipoSigno = new ComboBox();
             comboBoxSignoDistintivo = new ComboBox();
             label21 = new Label();
-            btnCancelar = new Clases.RoundedButton();
-            btnActualizar = new Clases.RoundedButton();
             panel3 = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
@@ -471,7 +471,7 @@
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderRadius = 20;
+            roundedButton3.BorderRadius = 60;
             roundedButton3.BorderSize = 0;
             roundedButton3.Enabled = false;
             roundedButton3.FlatAppearance.BorderSize = 0;
@@ -479,7 +479,7 @@
             roundedButton3.ForeColor = Color.White;
             roundedButton3.Location = new Point(177, 117);
             roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(683, 61);
+            roundedButton3.Size = new Size(692, 61);
             roundedButton3.TabIndex = 41;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
@@ -497,14 +497,14 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnActualizarM);
             panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(roundedButton8);
+            panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
             panel1.Controls.Add(label21);
-            panel1.Controls.Add(btnCancelar);
-            panel1.Controls.Add(btnActualizar);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
@@ -541,6 +541,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
+            // 
+            // btnActualizarM
+            // 
+            btnActualizarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnActualizarM.FlatAppearance.BorderSize = 0;
+            btnActualizarM.FlatStyle = FlatStyle.Flat;
+            btnActualizarM.Font = new Font("Century Gothic", 12F);
+            btnActualizarM.ForeColor = Color.White;
+            btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnActualizarM.IconColor = Color.White;
+            btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnActualizarM.IconSize = 30;
+            btnActualizarM.Location = new Point(176, 1166);
+            btnActualizarM.Name = "btnActualizarM";
+            btnActualizarM.Size = new Size(191, 42);
+            btnActualizarM.TabIndex = 151;
+            btnActualizarM.Text = "ACTUALIZAR";
+            btnActualizarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnActualizarM.UseVisualStyleBackColor = false;
+            btnActualizarM.Click += btnActualizarM_Click;
             // 
             // roundedButton9
             // 
@@ -581,6 +601,25 @@
             roundedButton8.TextColor = Color.Black;
             roundedButton8.UseVisualStyleBackColor = false;
             roundedButton8.Click += roundedButton8_Click;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(389, 1165);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(179, 43);
+            btnCancelarM.TabIndex = 150;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // Renovacion
             // 
@@ -666,46 +705,6 @@
             label21.Size = new Size(44, 21);
             label21.TabIndex = 143;
             label21.Text = "Tipo";
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.None;
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 60;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(378, 1153);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(315, 62);
-            btnCancelar.TabIndex = 142;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
-            // 
-            // btnActualizar
-            // 
-            btnActualizar.Anchor = AnchorStyles.None;
-            btnActualizar.BackColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnActualizar.BorderRadius = 60;
-            btnActualizar.BorderSize = 0;
-            btnActualizar.FlatAppearance.BorderSize = 0;
-            btnActualizar.FlatStyle = FlatStyle.Flat;
-            btnActualizar.ForeColor = Color.White;
-            btnActualizar.Location = new Point(55, 1152);
-            btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(315, 62);
-            btnActualizar.TabIndex = 141;
-            btnActualizar.Text = "ACTUALIZAR";
-            btnActualizar.TextColor = Color.White;
-            btnActualizar.UseVisualStyleBackColor = false;
-            btnActualizar.Click += btnActualizar_Click;
             // 
             // panel3
             // 
@@ -1401,7 +1400,7 @@
             // 
             // btnCancelarH
             // 
-            btnCancelarH.BackColor = Color.White;
+            btnCancelarH.BackColor = Color.Gainsboro;
             btnCancelarH.FlatAppearance.BorderSize = 0;
             btnCancelarH.FlatStyle = FlatStyle.Flat;
             btnCancelarH.Font = new Font("Century Gothic", 10F);
@@ -1798,7 +1797,7 @@
             // 
             // iconButton2
             // 
-            iconButton2.BackColor = Color.White;
+            iconButton2.BackColor = Color.Gainsboro;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
             iconButton2.Font = new Font("Century Gothic", 10F);
@@ -2005,7 +2004,7 @@
             // 
             // iconButton5
             // 
-            iconButton5.BackColor = Color.White;
+            iconButton5.BackColor = Color.Gainsboro;
             iconButton5.FlatAppearance.BorderSize = 0;
             iconButton5.FlatStyle = FlatStyle.Flat;
             iconButton5.Font = new Font("Century Gothic", 10F);
@@ -2248,8 +2247,6 @@
         private Label label6;
         private TextBox txtExpediente;
         private Label label7;
-        private Clases.RoundedButton btnCancelar;
-        private Clases.RoundedButton btnActualizar;
         private Panel panel3;
         private DateTimePicker dateTimePFecha_vencimiento;
         private Label label19;
@@ -2351,5 +2348,7 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Label label36;
         private Clases.RoundedButton roundedButton10;
+        private FontAwesome.Sharp.IconButton btnActualizarM;
+        private FontAwesome.Sharp.IconButton btnCancelarM;
     }
 }

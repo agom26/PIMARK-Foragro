@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
             btnGuardarM = new FontAwesome.Sharp.IconButton();
             label28 = new Label();
             label20 = new Label();
@@ -89,6 +90,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(label28);
             panel1.Controls.Add(label20);
@@ -135,6 +137,25 @@
             panel1.Size = new Size(1081, 1253);
             panel1.TabIndex = 0;
             // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(389, 1161);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(259, 40);
+            btnCancelarM.TabIndex = 164;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
+            // 
             // btnGuardarM
             // 
             btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
@@ -146,9 +167,9 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(227, 1168);
+            btnGuardarM.Location = new Point(109, 1163);
             btnGuardarM.Name = "btnGuardarM";
-            btnGuardarM.Size = new Size(239, 37);
+            btnGuardarM.Size = new Size(261, 37);
             btnGuardarM.TabIndex = 163;
             btnGuardarM.Text = "GUARDAR";
             btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -834,5 +855,6 @@
         private Label label21;
         private Clases.RoundedButton roundedButton5;
         private FontAwesome.Sharp.IconButton btnGuardarM;
+        private FontAwesome.Sharp.IconButton btnCancelarM;
     }
 }

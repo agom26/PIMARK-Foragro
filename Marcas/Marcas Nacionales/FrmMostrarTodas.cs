@@ -74,7 +74,7 @@ namespace Presentacion.Marcas_Nacionales
                 richTextBoxAnotacionesH.Enabled = true;
                 btnEditarH.Visible = true;
                 btnEditarH.Enabled = true;
-                btnEditarEstadoHistorial.Visible=true;
+                btnEditarEstadoHistorial.Visible = true;
                 btnEditarEstadoHistorial.Enabled = true;
                 btnVerH.Visible = false;
                 btnEditarEstadoHistorial.Location = btnVerH.Location;
@@ -152,16 +152,16 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
-                btnCancelar.Location = new Point(370, panel3.Location.Y + panel3.Height + 10);
+                btnActualizarM.Location = new Point(191, panel3.Location.Y + panel3.Height + 10);
+                btnCancelarM.Location = new Point(393, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizar.Location = new Point(47, 960);
-                btnCancelar.Location = new Point(370, 960);
+                btnActualizarM.Location = new Point(191, 960);
+                btnCancelarM.Location = new Point(393, 960);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -207,7 +207,7 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image!= documento)
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -634,8 +634,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaNacional();
-            EliminarTabPage(tabPageHistorialMarca);
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -662,42 +661,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            if (textBoxEstatus.Text != "Registrada")
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageListaMarcas;
-            }
-            else
-            {
-                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro , a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
-                    )
-                {
 
-                }
-                else
-                {
-                    if (
-                        (!int.TryParse(txtRegistro.Text, out _)) ||
-                        (!int.TryParse(txtFolio.Text, out _)) ||
-                        (!int.TryParse(txtLibro.Text, out _)))
-                    {
-                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    }
-                    else
-                    {
-                        ActualizarMarcaNacional();
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageHistorialMarca);
-                        tabControl1.SelectedTab = tabPageListaMarcas;
-                    }
-
-                }
-
-            }
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -791,7 +755,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
-                
+
                 Habilitar();
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -992,6 +956,52 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void btnActualizarM_Click(object sender, EventArgs e)
+        {
+            ActualizarMarcaNacional();
+            EliminarTabPage(tabPageHistorialMarca);
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageListaMarcas;
+            }
+            else
+            {
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro , a menos que elimine esa etapa") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                    )
+                {
+
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageListaMarcas;
+                    }
+
+                }
+
+            }
         }
     }
 }

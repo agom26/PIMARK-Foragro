@@ -1263,7 +1263,7 @@
             // 
             // btnCancelarH
             // 
-            btnCancelarH.BackColor = Color.White;
+            btnCancelarH.BackColor = Color.Gainsboro;
             btnCancelarH.FlatAppearance.BorderSize = 0;
             btnCancelarH.FlatStyle = FlatStyle.Flat;
             btnCancelarH.Font = new Font("Century Gothic", 10F);
