@@ -57,7 +57,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(19, 12, 70);
+            panel2.BackColor = Color.FromArgb(34, 77, 112);
             panel2.Controls.Add(button1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);

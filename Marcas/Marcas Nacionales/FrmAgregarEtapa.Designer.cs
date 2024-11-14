@@ -126,7 +126,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
-            roundedButton1.Text = "Agregar estado";
+            roundedButton1.Text = "AGREGAR ESTADO";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 

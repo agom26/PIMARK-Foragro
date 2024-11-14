@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageOposicionesList = new TabPage();
             iconButton3 = new FontAwesome.Sharp.IconButton();
@@ -77,7 +77,7 @@
             label13 = new Label();
             roundedButton6 = new Clases.RoundedButton();
             roundedButton1 = new Clases.RoundedButton();
-            label3 = new Label();
+            lblTitulo = new Label();
             textBoxEstatus = new TextBox();
             label14 = new Label();
             txtNombreAgente = new TextBox();
@@ -218,14 +218,14 @@
             dtgMarcasOp.BorderStyle = BorderStyle.None;
             dtgMarcasOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgMarcasOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dtgMarcasOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dtgMarcasOp.ColumnHeadersHeight = 40;
             dtgMarcasOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasOp.EnableHeadersVisualStyles = false;
@@ -251,7 +251,7 @@
             // iconPictureBox1
             // 
             iconPictureBox1.Anchor = AnchorStyles.Top;
-            iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
+            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
             iconPictureBox1.ForeColor = SystemColors.ControlText;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Globe;
             iconPictureBox1.IconColor = SystemColors.ControlText;
@@ -267,13 +267,13 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(196, 195, 209);
+            label1.BackColor = Color.FromArgb(175, 192, 218);
             label1.Font = new Font("Century Gothic", 15F);
             label1.Location = new Point(325, 16);
             label1.Name = "label1";
-            label1.Size = new Size(464, 31);
+            label1.Size = new Size(541, 31);
             label1.TabIndex = 34;
-            label1.Text = "Marcas internacionales en oposición";
+            label1.Text = "MARCAS INTERNACIONALES EN OPOSICION";
             // 
             // ibtnBuscar
             // 
@@ -338,9 +338,9 @@
             // roundedButton5
             // 
             roundedButton5.Anchor = AnchorStyles.Top;
-            roundedButton5.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton5.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton5.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderRadius = 60;
             roundedButton5.BorderSize = 0;
             roundedButton5.Enabled = false;
@@ -388,7 +388,7 @@
             panel1.Controls.Add(label13);
             panel1.Controls.Add(roundedButton6);
             panel1.Controls.Add(roundedButton1);
-            panel1.Controls.Add(label3);
+            panel1.Controls.Add(lblTitulo);
             panel1.Controls.Add(textBoxEstatus);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(txtNombreAgente);
@@ -802,15 +802,14 @@
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
             // 
-            // label3
+            // lblTitulo
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 19F);
-            label3.Location = new Point(431, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(132, 39);
-            label3.TabIndex = 154;
-            label3.Text = "Edición";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Century Gothic", 19F);
+            lblTitulo.Location = new Point(431, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(0, 39);
+            lblTitulo.TabIndex = 154;
             // 
             // textBoxEstatus
             // 
@@ -1073,14 +1072,14 @@
             dtgHistorialOp.BorderStyle = BorderStyle.None;
             dtgHistorialOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dtgHistorialOp.ColumnHeadersHeight = 40;
             dtgHistorialOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialOp.EnableHeadersVisualStyles = false;
@@ -1108,7 +1107,7 @@
             label21.Anchor = AnchorStyles.None;
             label21.AutoSize = true;
             label21.Font = new Font("Century Gothic", 19F);
-            label21.Location = new Point(500, 0);
+            label21.Location = new Point(418, 0);
             label21.Name = "label21";
             label21.Size = new Size(134, 39);
             label21.TabIndex = 47;
@@ -1135,9 +1134,9 @@
             // 
             // roundedButton7
             // 
-            roundedButton7.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton7.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton7.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderRadius = 50;
             roundedButton7.BorderSize = 0;
             roundedButton7.Enabled = false;
@@ -1149,7 +1148,7 @@
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(270, 50);
             roundedButton7.TabIndex = 18;
-            roundedButton7.Text = "Editar etapa";
+            roundedButton7.Text = "ESTADO";
             roundedButton7.TextColor = Color.Black;
             roundedButton7.UseVisualStyleBackColor = false;
             // 
@@ -1372,7 +1371,7 @@
         private Label label13;
         private Clases.RoundedButton roundedButton6;
         private Clases.RoundedButton roundedButton1;
-        private Label label3;
+        private Label lblTitulo;
         private TextBox textBoxEstatus;
         private Label label14;
         private TextBox txtNombreAgente;

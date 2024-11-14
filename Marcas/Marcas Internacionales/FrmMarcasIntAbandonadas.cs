@@ -87,7 +87,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public void mostrarPanelRegistro(string isRegistrada)
         {
-            if (isRegistrada=="si")
+            if (isRegistrada == "si")
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
@@ -315,7 +315,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                SeleccionarMarca.idInt=SeleccionarMarca.idInt;
+                SeleccionarMarca.idInt = SeleccionarMarca.idInt;
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
                 if (detallesMarcaInter.Rows.Count > 0) // Usa Rows.Count en lugar de Count
@@ -531,6 +531,11 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+        }
+
+        private void checkBoxTienePoder_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
