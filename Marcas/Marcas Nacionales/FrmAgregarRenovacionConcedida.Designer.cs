@@ -185,7 +185,7 @@
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(179, 34);
             iconButton3.TabIndex = 10;
-            iconButton3.Text = "Aceptar";
+            iconButton3.Text = "ACEPTAR";
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -204,7 +204,7 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 9;
-            iconButton2.Text = "Cancelar";
+            iconButton2.Text = "CANCELAR";
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -346,7 +346,7 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Historial";
             // 
-            // FrmAgregarEtapasRegistradas
+            // FrmAgregarRenovacionConcedida
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -359,7 +359,7 @@
             Controls.Add(groupBox1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmAgregarEtapasRegistradas";
+            Name = "FrmAgregarRenovacionConcedida";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapa";
             Load += FrmAgregarEtapasRegistradas_Load;

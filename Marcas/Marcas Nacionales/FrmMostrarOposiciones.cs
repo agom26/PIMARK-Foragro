@@ -42,6 +42,8 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxEstatusH.Enabled = false;
                 richTextBoxAnotacionesH.Enabled = false;
                 btnEditarH.Visible = false;
+                lblUser.Visible = false;
+                labelUserEditor.Visible = false;
             }
             else if (UsuarioActivo.isAdmin == true)
             {
@@ -60,6 +62,8 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxEstatusH.Enabled = true;
                 richTextBoxAnotacionesH.Enabled = true;
                 btnEditarH.Visible = true;
+                lblUser.Visible = false;
+                labelUserEditor.Visible = false;
             }
         }
 

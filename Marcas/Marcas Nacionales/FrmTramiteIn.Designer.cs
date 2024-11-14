@@ -240,7 +240,7 @@
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 35;
-            btnGuardar.Text = "Guardar";
+            btnGuardar.Text = "GUARDAR";
             btnGuardar.TextColor = Color.White;
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += roundedButton4_Click;

@@ -84,7 +84,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(164, 50);
             roundedButton1.TabIndex = 3;
-            roundedButton1.Text = "Abandonar";
+            roundedButton1.Text = "ABANDONAR";
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
@@ -103,7 +103,7 @@
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(164, 50);
             roundedButton2.TabIndex = 4;
-            roundedButton2.Text = "Cancelar";
+            roundedButton2.Text = "CANCELAR";
             roundedButton2.TextColor = Color.Black;
             roundedButton2.UseVisualStyleBackColor = false;
             roundedButton2.Click += roundedButton2_Click;

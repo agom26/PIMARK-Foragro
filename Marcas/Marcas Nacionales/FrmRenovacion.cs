@@ -75,6 +75,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageRenovacionesList = new TabPage();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -179,7 +180,7 @@ namespace Presentacion.Marcas_Nacionales
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(144, 37);
             ibtnEditar.TabIndex = 37;
-            ibtnEditar.Text = "Editar";
+            ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnEditar.UseVisualStyleBackColor = false;
             ibtnEditar.Click += ibtnEditar_Click_1;
@@ -199,7 +200,7 @@ namespace Presentacion.Marcas_Nacionales
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(144, 37);
             ibtnAgregar.TabIndex = 36;
-            ibtnAgregar.Text = "Agregar";
+            ibtnAgregar.Text = "AGREGAR";
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnEditar_Click;
@@ -215,6 +216,14 @@ namespace Presentacion.Marcas_Nacionales
             dtgRenovaciones.BorderStyle = BorderStyle.None;
             dtgRenovaciones.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgRenovaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgRenovaciones.ColumnHeadersHeight = 40;
             dtgRenovaciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgRenovaciones.EnableHeadersVisualStyles = false;
@@ -224,6 +233,7 @@ namespace Presentacion.Marcas_Nacionales
             dtgRenovaciones.ReadOnly = true;
             dtgRenovaciones.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgRenovaciones.RowHeadersWidth = 51;
+            dtgRenovaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgRenovaciones.Size = new Size(934, 492);
             dtgRenovaciones.TabIndex = 34;
             // 
@@ -271,7 +281,7 @@ namespace Presentacion.Marcas_Nacionales
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
             ibtnBuscar.Font = new Font("Century Gothic", 10F);
             ibtnBuscar.ForeColor = Color.White;
-            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
+            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
@@ -279,7 +289,7 @@ namespace Presentacion.Marcas_Nacionales
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 32);
             ibtnBuscar.TabIndex = 30;
-            ibtnBuscar.Text = "Buscar";
+            ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnBuscar.UseVisualStyleBackColor = false;
             // 
@@ -389,7 +399,7 @@ namespace Presentacion.Marcas_Nacionales
             panel1.Controls.Add(iconPictureBox2);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(roundedButton1);
-            panel1.Location = new Point(-37, 6);
+            panel1.Location = new Point(-47, 6);
             panel1.Name = "panel1";
             panel1.Size = new Size(1136, 1034);
             panel1.TabIndex = 0;
@@ -410,7 +420,7 @@ namespace Presentacion.Marcas_Nacionales
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(231, 62);
             btnCancelar.TabIndex = 82;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             // 
@@ -429,7 +439,7 @@ namespace Presentacion.Marcas_Nacionales
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(231, 62);
             btnActualizar.TabIndex = 81;
-            btnActualizar.Text = "Guardar";
+            btnActualizar.Text = "GUARDAR";
             btnActualizar.TextColor = Color.White;
             btnActualizar.UseVisualStyleBackColor = false;
             // 
