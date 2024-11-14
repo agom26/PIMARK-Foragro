@@ -167,7 +167,6 @@
             tabPageRegistradasList.Padding = new Padding(3);
             tabPageRegistradasList.Size = new Size(1161, 794);
             tabPageRegistradasList.TabIndex = 0;
-            tabPageRegistradasList.Text = "Lista";
             tabPageRegistradasList.UseVisualStyleBackColor = true;
             tabPageRegistradasList.Click += tabPage1_Click;
             // 
@@ -359,7 +358,6 @@
             tabPageMarcaDetail.Padding = new Padding(3);
             tabPageMarcaDetail.Size = new Size(1161, 794);
             tabPageMarcaDetail.TabIndex = 1;
-            tabPageMarcaDetail.Text = "Detalle marca";
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1052,7 +1050,6 @@
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
             tabPageHistorialMarca.Size = new Size(1161, 794);
             tabPageHistorialMarca.TabIndex = 2;
-            tabPageHistorialMarca.Text = "Historial";
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -1157,7 +1154,6 @@
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
             tabPageHistorialDetail.Size = new Size(1161, 794);
             tabPageHistorialDetail.TabIndex = 3;
-            tabPageHistorialDetail.Text = "Editar etapa";
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
             // 
             // panel6
