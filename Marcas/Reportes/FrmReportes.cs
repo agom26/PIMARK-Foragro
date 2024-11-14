@@ -22,6 +22,7 @@ namespace Presentacion.Reportes
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
+            bool algunValor = false;
             string? estado = null;
             string? nombre = null;
             string? pais = null;
@@ -41,6 +42,7 @@ namespace Presentacion.Reportes
             if (chckEstado.Checked)
             {
                 estado = comboBoxEstado.SelectedItem.ToString();
+                algunValor = true;
             }
             else
             {
@@ -50,6 +52,7 @@ namespace Presentacion.Reportes
             if (chckNombre.Checked)
             {
                 nombre = txtNombre.Text;
+                algunValor = true;
             }
             else
             {
@@ -59,6 +62,7 @@ namespace Presentacion.Reportes
             if (chckPais.Checked)
             {
                 pais = comboBoxPais.SelectedIndex.ToString();
+                algunValor = true;
             }
             else
             {
@@ -68,6 +72,7 @@ namespace Presentacion.Reportes
             if (chckFolio.Checked)
             {
                 folio = txtFolio.Text;
+                algunValor = true;
             }
             else
             {
@@ -77,6 +82,7 @@ namespace Presentacion.Reportes
             if (chckTomo.Checked)
             {
                 tomo = txtTomo.Text;
+                algunValor = true;
             }
             else
             {
@@ -86,6 +92,7 @@ namespace Presentacion.Reportes
             if (chckNumRegistro.Checked)
             {
                 numRegistro = txtNumRegistro.Text;
+                algunValor = true;
             }
             else
             {
@@ -95,6 +102,7 @@ namespace Presentacion.Reportes
             if (chckClase.Checked)
             {
                 clase = txtClase.Text;
+                algunValor = true;
             }
             else
             {
@@ -104,6 +112,7 @@ namespace Presentacion.Reportes
             if (chckTitular.Checked)
             {
                 titular = txtTitular.Text;
+                algunValor = true;
             }
             else
             {
@@ -113,6 +122,7 @@ namespace Presentacion.Reportes
             if (chckAgente.Checked)
             {
                 agente = txtAgente.Text;
+                algunValor = true;
             }
             else
             {
@@ -122,7 +132,7 @@ namespace Presentacion.Reportes
             if (chckFSolicitud.Checked)
             {
                 fechaSolicitudInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
-
+                algunValor = true;
                 fechaSolicitudFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
             }
             else
@@ -135,6 +145,7 @@ namespace Presentacion.Reportes
             {
                 fechaRegistroInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
                 fechaRegistroFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
+                algunValor = true;
             }
             else
             {
@@ -146,6 +157,7 @@ namespace Presentacion.Reportes
             {
                 fechaVencimientoInicio = dtpVencimientoInicial.Value.ToString("yyyy-MM-dd");
                 fechaVencimientoFinal = dtpVencimientoFinal.Value.ToString("yyyy-MM-dd");
+                algunValor = true;
             }
             else
             {
@@ -153,20 +165,33 @@ namespace Presentacion.Reportes
                 fechaVencimientoFinal = null;
             }
 
+            if (algunValor == true)
+            {
+                // Llamada al método FiltrarMarcas con los parámetros procesados
+                DataTable resultados = marcaModel.FiltrarMarcas(
+                    estado, nombre, pais, folio, tomo, numRegistro, clase, titular, agente,
+                    fechaSolicitudInicio, fechaSolicitudFin, fechaRegistroInicio, fechaRegistroFin,
+                    fechaVencimientoInicio, fechaVencimientoFinal);
+                dtgReportes.DataSource = resultados;
+                if (dtgReportes.Columns["id"] != null)
+                {
+                    dtgReportes.Columns["id"].Visible = false;
+                }
+                dtgReportes.ClearSelection();
+                
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar por lo menos un filtro");
+            }
 
-
-            // Llamada al método FiltrarMarcas con los parámetros procesados
-            DataTable resultados = marcaModel.FiltrarMarcas(
-                estado, nombre, pais, folio, tomo, numRegistro, clase, titular, agente,
-                fechaSolicitudInicio, fechaSolicitudFin, fechaRegistroInicio, fechaRegistroFin,
-                fechaVencimientoInicio, fechaVencimientoFinal);
-            dtgReportes.DataSource = resultados;
+            
 
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            dtgReportes.DataSource = null;
         }
 
         private void FrmReportes_Load(object sender, EventArgs e)

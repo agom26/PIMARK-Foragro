@@ -203,15 +203,16 @@
             // 
             // btnConsultar
             // 
-            btnConsultar.BackColor = Color.FromArgb(92, 107, 192);
-            btnConsultar.BackgroundColor = Color.FromArgb(92, 107, 192);
-            btnConsultar.BorderColor = Color.FromArgb(92, 107, 192);
+            btnConsultar.BackColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BackgroundColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BorderColor = Color.FromArgb(251, 140, 0);
             btnConsultar.BorderRadius = 50;
             btnConsultar.BorderSize = 0;
             btnConsultar.FlatAppearance.BorderSize = 0;
             btnConsultar.FlatStyle = FlatStyle.Flat;
+            btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(436, 337);
+            btnConsultar.Location = new Point(457, 337);
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(185, 49);
             btnConsultar.TabIndex = 213;
@@ -222,20 +223,21 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.FromArgb(117, 117, 117);
-            btnCancelar.BackgroundColor = Color.FromArgb(117, 117, 117);
-            btnCancelar.BorderColor = Color.FromArgb(117, 117, 117);
+            btnCancelar.BackColor = Color.Gainsboro;
+            btnCancelar.BackgroundColor = Color.Gainsboro;
+            btnCancelar.BorderColor = Color.Gainsboro;
             btnCancelar.BorderRadius = 50;
             btnCancelar.BorderSize = 0;
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(630, 337);
+            btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnCancelar.ForeColor = Color.Black;
+            btnCancelar.Location = new Point(688, 337);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(185, 49);
             btnCancelar.TabIndex = 212;
             btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.White;
+            btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
@@ -588,6 +590,7 @@
             roundedButton4.BorderSize = 0;
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton4.ForeColor = Color.White;
             roundedButton4.Location = new Point(671, 16);
             roundedButton4.Name = "roundedButton4";
@@ -624,7 +627,7 @@
             // 
             // iconPictureBox1
             // 
-            iconPictureBox1.BackColor = Color.FromArgb(191, 54, 12);
+            iconPictureBox1.BackColor = Color.FromArgb(229, 115, 115);
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
             iconPictureBox1.IconColor = Color.White;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -637,13 +640,14 @@
             // 
             // roundedButton3
             // 
-            roundedButton3.BackColor = Color.FromArgb(191, 54, 12);
-            roundedButton3.BackgroundColor = Color.FromArgb(191, 54, 12);
-            roundedButton3.BorderColor = Color.FromArgb(191, 54, 12);
+            roundedButton3.BackColor = Color.FromArgb(229, 115, 115);
+            roundedButton3.BackgroundColor = Color.FromArgb(229, 115, 115);
+            roundedButton3.BorderColor = Color.FromArgb(229, 115, 115);
             roundedButton3.BorderRadius = 50;
             roundedButton3.BorderSize = 0;
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton3.ForeColor = Color.White;
             roundedButton3.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton3.Location = new Point(443, 16);
@@ -691,7 +695,7 @@
             iconPictureBox3.IconColor = SystemColors.ControlText;
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 40;
-            iconPictureBox3.Location = new Point(450, 10);
+            iconPictureBox3.Location = new Point(420, 10);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(40, 40);
             iconPictureBox3.TabIndex = 219;
@@ -703,7 +707,7 @@
             label13.AutoSize = true;
             label13.BackColor = Color.FromArgb(175, 192, 218);
             label13.Font = new Font("Century Gothic", 15F);
-            label13.Location = new Point(496, 10);
+            label13.Location = new Point(466, 10);
             label13.Name = "label13";
             label13.Size = new Size(130, 31);
             label13.TabIndex = 217;
@@ -721,7 +725,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(342, 0);
+            roundedButton5.Location = new Point(312, 0);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(395, 61);
             roundedButton5.TabIndex = 218;

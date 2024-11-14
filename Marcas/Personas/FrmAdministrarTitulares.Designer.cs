@@ -47,6 +47,13 @@
             panel1 = new Panel();
             dtgTitulares = new DataGridView();
             tabTitularDetail = new TabPage();
+            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
+            lblAccion = new Label();
+            roundedButton2 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            label10 = new Label();
+            roundedButton1 = new Clases.RoundedButton();
             comboBox1 = new ComboBox();
             txtNombreContacto = new TextBox();
             label9 = new Label();
@@ -63,13 +70,7 @@
             label4 = new Label();
             txtNombreTitular = new TextBox();
             label3 = new Label();
-            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
-            lblAccion = new Label();
-            roundedButton2 = new Clases.RoundedButton();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label10 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton4 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabListTitulares.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -349,197 +350,13 @@
             tabTitularDetail.Controls.Add(label4);
             tabTitularDetail.Controls.Add(txtNombreTitular);
             tabTitularDetail.Controls.Add(label3);
+            tabTitularDetail.Controls.Add(roundedButton4);
             tabTitularDetail.Location = new Point(4, 32);
             tabTitularDetail.Name = "tabTitularDetail";
             tabTitularDetail.Padding = new Padding(3);
             tabTitularDetail.Size = new Size(1161, 791);
             tabTitularDetail.TabIndex = 1;
             tabTitularDetail.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            comboBox1.Anchor = AnchorStyles.Top;
-            comboBox1.BackColor = Color.FromArgb(241, 240, 245);
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.Font = new Font("Century Gothic", 9F);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBox1.Location = new Point(611, 211);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(389, 28);
-            comboBox1.TabIndex = 86;
-            // 
-            // txtNombreContacto
-            // 
-            txtNombreContacto.Anchor = AnchorStyles.Top;
-            txtNombreContacto.Font = new Font("Century Gothic", 9F);
-            txtNombreContacto.Location = new Point(164, 364);
-            txtNombreContacto.Name = "txtNombreContacto";
-            txtNombreContacto.Size = new Size(389, 26);
-            txtNombreContacto.TabIndex = 7;
-            // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Top;
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 9F);
-            label9.Location = new Point(164, 338);
-            label9.Name = "label9";
-            label9.Size = new Size(80, 20);
-            label9.TabIndex = 31;
-            label9.Text = "Contacto";
-            // 
-            // txtTelefonoContacto
-            // 
-            txtTelefonoContacto.Anchor = AnchorStyles.Top;
-            txtTelefonoContacto.Font = new Font("Century Gothic", 9F);
-            txtTelefonoContacto.Location = new Point(611, 289);
-            txtTelefonoContacto.Name = "txtTelefonoContacto";
-            txtTelefonoContacto.Size = new Size(389, 26);
-            txtTelefonoContacto.TabIndex = 6;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top;
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 9F);
-            label8.Location = new Point(611, 263);
-            label8.Name = "label8";
-            label8.Size = new Size(71, 20);
-            label8.TabIndex = 29;
-            label8.Text = "Teléfono";
-            // 
-            // btnCancelarTit
-            // 
-            btnCancelarTit.Anchor = AnchorStyles.Top;
-            btnCancelarTit.BackColor = Color.Gainsboro;
-            btnCancelarTit.FlatAppearance.BorderSize = 0;
-            btnCancelarTit.FlatStyle = FlatStyle.Flat;
-            btnCancelarTit.ForeColor = Color.Black;
-            btnCancelarTit.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            btnCancelarTit.IconColor = Color.Black;
-            btnCancelarTit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelarTit.IconSize = 30;
-            btnCancelarTit.Location = new Point(611, 440);
-            btnCancelarTit.Name = "btnCancelarTit";
-            btnCancelarTit.Size = new Size(389, 37);
-            btnCancelarTit.TabIndex = 9;
-            btnCancelarTit.Text = "Cancelar";
-            btnCancelarTit.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnCancelarTit.UseVisualStyleBackColor = false;
-            btnCancelarTit.Click += btnCancelarTit_Click;
-            // 
-            // btnGuardarTit
-            // 
-            btnGuardarTit.Anchor = AnchorStyles.Top;
-            btnGuardarTit.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardarTit.FlatAppearance.BorderSize = 0;
-            btnGuardarTit.FlatStyle = FlatStyle.Flat;
-            btnGuardarTit.ForeColor = Color.White;
-            btnGuardarTit.IconChar = FontAwesome.Sharp.IconChar.Save;
-            btnGuardarTit.IconColor = Color.White;
-            btnGuardarTit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardarTit.IconSize = 30;
-            btnGuardarTit.Location = new Point(164, 440);
-            btnGuardarTit.Name = "btnGuardarTit";
-            btnGuardarTit.Size = new Size(399, 37);
-            btnGuardarTit.TabIndex = 8;
-            btnGuardarTit.Text = "Guardar";
-            btnGuardarTit.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnGuardarTit.UseVisualStyleBackColor = false;
-            btnGuardarTit.Click += btnGuardarTit_Click;
-            // 
-            // txtCorreoContacto
-            // 
-            txtCorreoContacto.Anchor = AnchorStyles.Top;
-            txtCorreoContacto.Font = new Font("Century Gothic", 9F);
-            txtCorreoContacto.Location = new Point(164, 289);
-            txtCorreoContacto.Name = "txtCorreoContacto";
-            txtCorreoContacto.Size = new Size(389, 26);
-            txtCorreoContacto.TabIndex = 5;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top;
-            label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 9F);
-            label7.Location = new Point(164, 263);
-            label7.Name = "label7";
-            label7.Size = new Size(61, 20);
-            label7.TabIndex = 28;
-            label7.Text = "Correo";
-            // 
-            // txtDireccionTitular
-            // 
-            txtDireccionTitular.Anchor = AnchorStyles.Top;
-            txtDireccionTitular.Font = new Font("Century Gothic", 9F);
-            txtDireccionTitular.Location = new Point(611, 142);
-            txtDireccionTitular.Name = "txtDireccionTitular";
-            txtDireccionTitular.Size = new Size(389, 26);
-            txtDireccionTitular.TabIndex = 2;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top;
-            label6.AutoSize = true;
-            label6.Font = new Font("Century Gothic", 9F);
-            label6.Location = new Point(611, 116);
-            label6.Name = "label6";
-            label6.Size = new Size(80, 20);
-            label6.TabIndex = 26;
-            label6.Text = "Dirección";
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top;
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 9F);
-            label5.Location = new Point(611, 185);
-            label5.Name = "label5";
-            label5.Size = new Size(37, 20);
-            label5.TabIndex = 24;
-            label5.Text = "Pais";
-            // 
-            // txtNitTitular
-            // 
-            txtNitTitular.Anchor = AnchorStyles.Top;
-            txtNitTitular.Font = new Font("Century Gothic", 9F);
-            txtNitTitular.Location = new Point(164, 211);
-            txtNitTitular.Name = "txtNitTitular";
-            txtNitTitular.Size = new Size(389, 26);
-            txtNitTitular.TabIndex = 3;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top;
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 9F);
-            label4.Location = new Point(164, 185);
-            label4.Name = "label4";
-            label4.Size = new Size(30, 20);
-            label4.TabIndex = 21;
-            label4.Text = "NIT";
-            // 
-            // txtNombreTitular
-            // 
-            txtNombreTitular.Anchor = AnchorStyles.Top;
-            txtNombreTitular.Font = new Font("Century Gothic", 9F);
-            txtNombreTitular.Location = new Point(164, 142);
-            txtNombreTitular.Name = "txtNombreTitular";
-            txtNombreTitular.Size = new Size(389, 26);
-            txtNombreTitular.TabIndex = 1;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 9F);
-            label3.Location = new Point(164, 116);
-            label3.Name = "label3";
-            label3.Size = new Size(68, 20);
-            label3.TabIndex = 18;
-            label3.Text = "Nombre";
             // 
             // iconPictureBox4
             // 
@@ -647,6 +464,216 @@
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
+            // comboBox1
+            // 
+            comboBox1.Anchor = AnchorStyles.Top;
+            comboBox1.BackColor = Color.FromArgb(241, 240, 245);
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.Font = new Font("Century Gothic", 9F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
+            comboBox1.Location = new Point(563, 251);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(389, 28);
+            comboBox1.TabIndex = 86;
+            // 
+            // txtNombreContacto
+            // 
+            txtNombreContacto.Anchor = AnchorStyles.Top;
+            txtNombreContacto.Font = new Font("Century Gothic", 9F);
+            txtNombreContacto.Location = new Point(116, 404);
+            txtNombreContacto.Name = "txtNombreContacto";
+            txtNombreContacto.Size = new Size(389, 26);
+            txtNombreContacto.TabIndex = 7;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top;
+            label9.AutoSize = true;
+            label9.BackColor = Color.FromArgb(222, 227, 234);
+            label9.Font = new Font("Century Gothic", 9F);
+            label9.Location = new Point(116, 378);
+            label9.Name = "label9";
+            label9.Size = new Size(80, 20);
+            label9.TabIndex = 31;
+            label9.Text = "Contacto";
+            // 
+            // txtTelefonoContacto
+            // 
+            txtTelefonoContacto.Anchor = AnchorStyles.Top;
+            txtTelefonoContacto.Font = new Font("Century Gothic", 9F);
+            txtTelefonoContacto.Location = new Point(563, 329);
+            txtTelefonoContacto.Name = "txtTelefonoContacto";
+            txtTelefonoContacto.Size = new Size(389, 26);
+            txtTelefonoContacto.TabIndex = 6;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top;
+            label8.AutoSize = true;
+            label8.BackColor = Color.FromArgb(222, 227, 234);
+            label8.Font = new Font("Century Gothic", 9F);
+            label8.Location = new Point(563, 303);
+            label8.Name = "label8";
+            label8.Size = new Size(71, 20);
+            label8.TabIndex = 29;
+            label8.Text = "Teléfono";
+            // 
+            // btnCancelarTit
+            // 
+            btnCancelarTit.Anchor = AnchorStyles.Top;
+            btnCancelarTit.BackColor = Color.Gainsboro;
+            btnCancelarTit.FlatAppearance.BorderSize = 0;
+            btnCancelarTit.FlatStyle = FlatStyle.Flat;
+            btnCancelarTit.ForeColor = Color.Black;
+            btnCancelarTit.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarTit.IconColor = Color.Black;
+            btnCancelarTit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarTit.IconSize = 30;
+            btnCancelarTit.Location = new Point(563, 473);
+            btnCancelarTit.Name = "btnCancelarTit";
+            btnCancelarTit.Size = new Size(389, 37);
+            btnCancelarTit.TabIndex = 9;
+            btnCancelarTit.Text = "Cancelar";
+            btnCancelarTit.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCancelarTit.UseVisualStyleBackColor = false;
+            btnCancelarTit.Click += btnCancelarTit_Click;
+            // 
+            // btnGuardarTit
+            // 
+            btnGuardarTit.Anchor = AnchorStyles.Top;
+            btnGuardarTit.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarTit.FlatAppearance.BorderSize = 0;
+            btnGuardarTit.FlatStyle = FlatStyle.Flat;
+            btnGuardarTit.ForeColor = Color.White;
+            btnGuardarTit.IconChar = FontAwesome.Sharp.IconChar.Save;
+            btnGuardarTit.IconColor = Color.White;
+            btnGuardarTit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarTit.IconSize = 30;
+            btnGuardarTit.Location = new Point(106, 473);
+            btnGuardarTit.Name = "btnGuardarTit";
+            btnGuardarTit.Size = new Size(399, 37);
+            btnGuardarTit.TabIndex = 8;
+            btnGuardarTit.Text = "Guardar";
+            btnGuardarTit.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnGuardarTit.UseVisualStyleBackColor = false;
+            btnGuardarTit.Click += btnGuardarTit_Click;
+            // 
+            // txtCorreoContacto
+            // 
+            txtCorreoContacto.Anchor = AnchorStyles.Top;
+            txtCorreoContacto.Font = new Font("Century Gothic", 9F);
+            txtCorreoContacto.Location = new Point(116, 329);
+            txtCorreoContacto.Name = "txtCorreoContacto";
+            txtCorreoContacto.Size = new Size(389, 26);
+            txtCorreoContacto.TabIndex = 5;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top;
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(222, 227, 234);
+            label7.Font = new Font("Century Gothic", 9F);
+            label7.Location = new Point(116, 303);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 20);
+            label7.TabIndex = 28;
+            label7.Text = "Correo";
+            // 
+            // txtDireccionTitular
+            // 
+            txtDireccionTitular.Anchor = AnchorStyles.Top;
+            txtDireccionTitular.Font = new Font("Century Gothic", 9F);
+            txtDireccionTitular.Location = new Point(563, 182);
+            txtDireccionTitular.Name = "txtDireccionTitular";
+            txtDireccionTitular.Size = new Size(389, 26);
+            txtDireccionTitular.TabIndex = 2;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top;
+            label6.AutoSize = true;
+            label6.BackColor = Color.FromArgb(222, 227, 234);
+            label6.Font = new Font("Century Gothic", 9F);
+            label6.Location = new Point(563, 156);
+            label6.Name = "label6";
+            label6.Size = new Size(80, 20);
+            label6.TabIndex = 26;
+            label6.Text = "Dirección";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top;
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(222, 227, 234);
+            label5.Font = new Font("Century Gothic", 9F);
+            label5.Location = new Point(563, 225);
+            label5.Name = "label5";
+            label5.Size = new Size(37, 20);
+            label5.TabIndex = 24;
+            label5.Text = "Pais";
+            // 
+            // txtNitTitular
+            // 
+            txtNitTitular.Anchor = AnchorStyles.Top;
+            txtNitTitular.Font = new Font("Century Gothic", 9F);
+            txtNitTitular.Location = new Point(116, 251);
+            txtNitTitular.Name = "txtNitTitular";
+            txtNitTitular.Size = new Size(389, 26);
+            txtNitTitular.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top;
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(222, 227, 234);
+            label4.Font = new Font("Century Gothic", 9F);
+            label4.Location = new Point(116, 225);
+            label4.Name = "label4";
+            label4.Size = new Size(30, 20);
+            label4.TabIndex = 21;
+            label4.Text = "NIT";
+            // 
+            // txtNombreTitular
+            // 
+            txtNombreTitular.Anchor = AnchorStyles.Top;
+            txtNombreTitular.Font = new Font("Century Gothic", 9F);
+            txtNombreTitular.Location = new Point(116, 182);
+            txtNombreTitular.Name = "txtNombreTitular";
+            txtNombreTitular.Size = new Size(389, 26);
+            txtNombreTitular.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top;
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(222, 227, 234);
+            label3.Font = new Font("Century Gothic", 9F);
+            label3.Location = new Point(116, 156);
+            label3.Name = "label3";
+            label3.Size = new Size(68, 20);
+            label3.TabIndex = 18;
+            label3.Text = "Nombre";
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.BackColor = Color.FromArgb(222, 227, 234);
+            roundedButton4.BackgroundColor = Color.FromArgb(222, 227, 234);
+            roundedButton4.BorderColor = Color.Empty;
+            roundedButton4.BorderRadius = 40;
+            roundedButton4.BorderSize = 0;
+            roundedButton4.Enabled = false;
+            roundedButton4.FlatAppearance.BorderSize = 0;
+            roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.ForeColor = Color.White;
+            roundedButton4.Location = new Point(68, 137);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.Size = new Size(942, 407);
+            roundedButton4.TabIndex = 145;
+            roundedButton4.TextColor = Color.White;
+            roundedButton4.UseVisualStyleBackColor = false;
+            // 
             // FrmAdministrarTitulares
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -710,5 +737,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Label label10;
         private Clases.RoundedButton roundedButton1;
+        private Clases.RoundedButton roundedButton4;
     }
 }

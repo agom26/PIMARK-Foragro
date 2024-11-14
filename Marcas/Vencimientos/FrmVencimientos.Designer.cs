@@ -96,7 +96,7 @@
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(299, 22);
+            iconPictureBox1.Location = new Point(277, 22);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 40);
             iconPictureBox1.TabIndex = 40;
@@ -108,11 +108,11 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(175, 192, 218);
             label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(350, 22);
+            label2.Location = new Point(328, 22);
             label2.Name = "label2";
-            label2.Size = new Size(291, 31);
+            label2.Size = new Size(336, 31);
             label2.TabIndex = 34;
-            label2.Text = "Próximos vencimientos";
+            label2.Text = "PRÓXIMOS VENCIMIENTOS";
             // 
             // ibtnBuscar
             // 
@@ -120,7 +120,7 @@
             ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
-            ibtnBuscar.Font = new Font("Century Gothic", 10F);
+            ibtnBuscar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             ibtnBuscar.ForeColor = Color.White;
             ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.White;
@@ -199,7 +199,7 @@
             ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
             ibtnEditar.FlatAppearance.BorderSize = 0;
             ibtnEditar.FlatStyle = FlatStyle.Flat;
-            ibtnEditar.Font = new Font("Century Gothic", 9F);
+            ibtnEditar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             ibtnEditar.ForeColor = Color.White;
             ibtnEditar.IconChar = FontAwesome.Sharp.IconChar.Eye;
             ibtnEditar.IconColor = Color.White;
