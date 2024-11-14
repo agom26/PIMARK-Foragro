@@ -27,7 +27,7 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmMostrarAbandonadas_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
-            
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -394,7 +394,7 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageTraspasosList);
                 EliminarTabPage(tabPageHistorialMarca);
             }
-            else if(tabControl1.SelectedTab== tabPageTraspasosList)
+            else if (tabControl1.SelectedTab == tabPageTraspasosList)
             {
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -461,6 +461,21 @@ namespace Presentacion.Marcas_Nacionales
         {
             loadTraspasosById();
             AnadirTabPage(tabPageTraspasosList);
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

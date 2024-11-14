@@ -304,7 +304,7 @@
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
             dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dtgClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -335,6 +335,7 @@
             dtgClientes.RowHeadersWidth = 51;
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dtgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgClientes.Size = new Size(898, 501);
             dtgClientes.TabIndex = 13;
             dtgClientes.CellClick += dtgClientes_CellClick;
@@ -362,10 +363,10 @@
             tabClienteDetail.Controls.Add(txtNombreCliente);
             tabClienteDetail.Controls.Add(label3);
             tabClienteDetail.Controls.Add(roundedButton1);
-            tabClienteDetail.Location = new Point(4, 32);
+            tabClienteDetail.Location = new Point(4, 29);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(1161, 791);
+            tabClienteDetail.Size = new Size(1161, 794);
             tabClienteDetail.TabIndex = 1;
             // 
             // comboBox1
