@@ -46,6 +46,7 @@
             dtgUsuarios = new DataGridView();
             roundedButton3 = new Clases.RoundedButton();
             tabPageUserDetail = new TabPage();
+            roundedButton6 = new Clases.RoundedButton();
             btnGuardarUsuario = new Clases.RoundedButton();
             iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
@@ -67,7 +68,6 @@
             txtUsername = new TextBox();
             label3 = new Label();
             roundedButton4 = new Clases.RoundedButton();
-            roundedButton6 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -267,7 +267,7 @@
             dtgUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -356,6 +356,27 @@
             tabPageUserDetail.Size = new Size(1161, 793);
             tabPageUserDetail.TabIndex = 1;
             tabPageUserDetail.UseVisualStyleBackColor = true;
+            // 
+            // roundedButton6
+            // 
+            roundedButton6.Anchor = AnchorStyles.Top;
+            roundedButton6.BackColor = Color.White;
+            roundedButton6.BackgroundColor = Color.White;
+            roundedButton6.BorderColor = Color.White;
+            roundedButton6.BorderRadius = 50;
+            roundedButton6.BorderSize = 0;
+            roundedButton6.FlatAppearance.BorderSize = 0;
+            roundedButton6.FlatStyle = FlatStyle.Flat;
+            roundedButton6.Font = new Font("Century Gothic", 10F);
+            roundedButton6.ForeColor = Color.Black;
+            roundedButton6.Location = new Point(600, 456);
+            roundedButton6.Name = "roundedButton6";
+            roundedButton6.Size = new Size(160, 50);
+            roundedButton6.TabIndex = 145;
+            roundedButton6.Text = "CANCELAR";
+            roundedButton6.TextColor = Color.Black;
+            roundedButton6.UseVisualStyleBackColor = false;
+            roundedButton6.Click += roundedButton6_Click;
             // 
             // btnGuardarUsuario
             // 
@@ -628,27 +649,6 @@
             roundedButton4.TabIndex = 55;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton6
-            // 
-            roundedButton6.Anchor = AnchorStyles.Top;
-            roundedButton6.BackColor = Color.White;
-            roundedButton6.BackgroundColor = Color.White;
-            roundedButton6.BorderColor = Color.White;
-            roundedButton6.BorderRadius = 50;
-            roundedButton6.BorderSize = 0;
-            roundedButton6.FlatAppearance.BorderSize = 0;
-            roundedButton6.FlatStyle = FlatStyle.Flat;
-            roundedButton6.Font = new Font("Century Gothic", 10F);
-            roundedButton6.ForeColor = Color.Black;
-            roundedButton6.Location = new Point(600, 456);
-            roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(160, 50);
-            roundedButton6.TabIndex = 145;
-            roundedButton6.Text = "CANCELAR";
-            roundedButton6.TextColor = Color.Black;
-            roundedButton6.UseVisualStyleBackColor = false;
-            roundedButton6.Click += roundedButton6_Click;
             // 
             // FrmAdministrarUsuarios
             // 

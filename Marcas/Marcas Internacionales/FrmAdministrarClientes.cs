@@ -46,7 +46,7 @@ namespace Presentacion.Marcas_Internacionales
         private void MostrarClientes()
         {
             dtgClientes.DataSource = personaModel.GetAllClientes();
-            // Ocultar la columna 'id'
+            
             if (dtgClientes.Columns["id"] != null)
             {
                 dtgClientes.Columns["id"].Visible = false;
@@ -58,7 +58,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.TabPages.Add(nombre);
             }
-            // Muestra el TabPage especificado (lo selecciona)
+            
             tabControl1.SelectedTab = nombre;
         }
 
