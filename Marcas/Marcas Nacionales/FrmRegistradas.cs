@@ -53,6 +53,8 @@ namespace Presentacion.Marcas_Nacionales
                 //Datos de traspaso
                 btnEditarTraspaso.Visible = false;
                 txtETraspaso.Enabled = false;
+                lblUser.Visible = false;
+                labelUserEditor.Visible = false;
             }
             else if (UsuarioActivo.isAdmin == true)
             {
@@ -82,6 +84,8 @@ namespace Presentacion.Marcas_Nacionales
                 //Datos de traspaso
                 btnEditarTraspaso.Visible = true;
                 txtETraspaso.Enabled = true;
+                lblUser.Visible = false;
+                labelUserEditor.Visible = false;
             }
         }
         private void EliminarTabPage(TabPage nombre)

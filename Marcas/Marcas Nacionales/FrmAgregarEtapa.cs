@@ -12,6 +12,7 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmAgregarEtapa_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
+            lblUser.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -43,6 +43,9 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxEstatusH.Enabled = false;
                 richTextBoxAnotacionesH.Enabled = false;
                 btnEditarH.Visible = false;
+                btnVerH.Visible = true;
+                labelUserEditor.Visible = false;
+                lblUser.Visible = false;
             }
             else if (UsuarioActivo.isAdmin == true)
             {
@@ -61,6 +64,13 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxEstatusH.Enabled = true;
                 richTextBoxAnotacionesH.Enabled = true;
                 btnEditarH.Visible = true;
+                btnEditarH.Enabled = true;
+                btnEditarEstadoHistorial.Visible=true;
+                btnEditarEstadoHistorial.Enabled = true;
+                btnVerH.Visible = false;
+                btnEditarEstadoHistorial.Location = btnVerH.Location;
+                labelUserEditor.Visible = false;
+                lblUser.Visible = false;
             }
         }
 
@@ -458,8 +468,8 @@ namespace Presentacion.Marcas_Nacionales
                         if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
-                            SeleccionarMarca.estado= row["estado"].ToString();
-                            SeleccionarMarca.observaciones= row["observaciones"].ToString();
+                            SeleccionarMarca.estado = row["estado"].ToString();
+                            SeleccionarMarca.observaciones = row["observaciones"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["observaciones"].ToString();
                         }
@@ -769,6 +779,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
+                
                 Habilitar();
                 var filaSeleccionada = dtgHistorial.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -964,6 +975,11 @@ namespace Presentacion.Marcas_Nacionales
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

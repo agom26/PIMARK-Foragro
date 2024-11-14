@@ -26,6 +26,7 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmAgregarEtapasRegistradas_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
+            lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.erenov;
             dateFechRegAntigua.Value = SeleccionarMarca.fechaRegistro.Value;
             ActualizarFechaVencimiento();

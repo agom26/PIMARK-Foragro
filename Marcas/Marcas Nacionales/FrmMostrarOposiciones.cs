@@ -62,7 +62,7 @@ namespace Presentacion.Marcas_Nacionales
                 btnEditarH.Visible = true;
             }
         }
-        
+
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))
@@ -384,8 +384,8 @@ namespace Presentacion.Marcas_Nacionales
                         if (row["estado"] != DBNull.Value && row["observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
-                            SeleccionarMarca.estado= row["estado"].ToString();
-                            SeleccionarMarca.observaciones= row["observaciones"].ToString();
+                            SeleccionarMarca.estado = row["estado"].ToString();
+                            SeleccionarMarca.observaciones = row["observaciones"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["observaciones"].ToString();
                         }
@@ -471,7 +471,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
                     MessageBox.Show("Etapa agregada con éxito");
-                    
+
                     if (AgregarEtapa.etapa == "Registrada")
                     {
                         checkBox1.Checked = true;
@@ -936,7 +936,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
@@ -982,6 +982,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 MessageBox.Show("Por favor, seleccione una fila del historial.");
             }
+        }
+
+        private void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

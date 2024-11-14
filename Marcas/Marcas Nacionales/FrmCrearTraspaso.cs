@@ -24,6 +24,7 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmCrearTraspaso_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
+            lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
            txtNombreTitularA.Text=AgregarTraspaso.nombreTitulara;
             txtNombreMarcaA.Text = AgregarTraspaso.antiguoNombre;
