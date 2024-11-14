@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnGuardarM = new FontAwesome.Sharp.IconButton();
             label28 = new Label();
             label20 = new Label();
             roundedButton4 = new Clases.RoundedButton();
@@ -42,7 +43,6 @@
             roundedButton5 = new Clases.RoundedButton();
             roundedButton3 = new Clases.RoundedButton();
             checkBox1 = new CheckBox();
-            btnGuardar = new Clases.RoundedButton();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
             textBoxEstatus = new TextBox();
@@ -89,6 +89,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(label28);
             panel1.Controls.Add(label20);
             panel1.Controls.Add(roundedButton4);
@@ -102,7 +103,6 @@
             panel1.Controls.Add(roundedButton5);
             panel1.Controls.Add(roundedButton3);
             panel1.Controls.Add(checkBox1);
-            panel1.Controls.Add(btnGuardar);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
             panel1.Controls.Add(textBoxEstatus);
@@ -135,13 +135,33 @@
             panel1.Size = new Size(1081, 1253);
             panel1.TabIndex = 0;
             // 
+            // btnGuardarM
+            // 
+            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarM.FlatAppearance.BorderSize = 0;
+            btnGuardarM.FlatStyle = FlatStyle.Flat;
+            btnGuardarM.Font = new Font("Century Gothic", 12F);
+            btnGuardarM.ForeColor = Color.White;
+            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarM.IconColor = Color.White;
+            btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarM.IconSize = 30;
+            btnGuardarM.Location = new Point(227, 1168);
+            btnGuardarM.Name = "btnGuardarM";
+            btnGuardarM.Size = new Size(239, 37);
+            btnGuardarM.TabIndex = 163;
+            btnGuardarM.Text = "GUARDAR";
+            btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarM.UseVisualStyleBackColor = false;
+            btnGuardarM.Click += btnGuardarM_Click;
+            // 
             // label28
             // 
             label28.Anchor = AnchorStyles.Top;
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(175, 192, 218);
             label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(522, 13);
+            label28.Location = new Point(461, 13);
             label28.Name = "label28";
             label28.Size = new Size(162, 23);
             label28.TabIndex = 162;
@@ -170,7 +190,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(477, 0);
+            roundedButton4.Location = new Point(416, 0);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(266, 49);
             roundedButton4.TabIndex = 161;
@@ -198,7 +218,7 @@
             iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(416, 0);
+            iconPictureBox3.Location = new Point(355, 0);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(55, 49);
             iconPictureBox3.TabIndex = 160;
@@ -221,7 +241,7 @@
             label21.AutoSize = true;
             label21.BackColor = Color.FromArgb(175, 192, 218);
             label21.Font = new Font("Century Gothic", 12F);
-            label21.Location = new Point(151, 12);
+            label21.Location = new Point(90, 12);
             label21.Name = "label21";
             label21.Size = new Size(229, 23);
             label21.TabIndex = 157;
@@ -247,7 +267,7 @@
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 28;
-            iconPictureBox1.Location = new Point(105, 12);
+            iconPictureBox1.Location = new Point(44, 12);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 28);
             iconPictureBox1.TabIndex = 159;
@@ -278,7 +298,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(64, 0);
+            roundedButton5.Location = new Point(3, 0);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(346, 49);
             roundedButton5.TabIndex = 158;
@@ -317,26 +337,6 @@
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
-            // 
-            // btnGuardar
-            // 
-            btnGuardar.Anchor = AnchorStyles.None;
-            btnGuardar.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderRadius = 60;
-            btnGuardar.BorderSize = 0;
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(226, 1153);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(315, 62);
-            btnGuardar.TabIndex = 35;
-            btnGuardar.Text = "GUARDAR";
-            btnGuardar.TextColor = Color.White;
-            btnGuardar.UseVisualStyleBackColor = false;
-            btnGuardar.Click += roundedButton4_Click;
             // 
             // richTextBox1
             // 
@@ -812,7 +812,6 @@
         private TextBox txtNombreAgente;
         private Label label12;
         private Clases.RoundedButton roundedButton2;
-        private Clases.RoundedButton btnGuardar;
         private RichTextBox richTextBox1;
         private Label label16;
         private Panel panel2I;
@@ -834,5 +833,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Label label21;
         private Clases.RoundedButton roundedButton5;
+        private FontAwesome.Sharp.IconButton btnGuardarM;
     }
 }

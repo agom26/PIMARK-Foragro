@@ -75,7 +75,7 @@
             roundedButton1.BackColor = Color.FromArgb(183, 28, 28);
             roundedButton1.BackgroundColor = Color.FromArgb(183, 28, 28);
             roundedButton1.BorderColor = Color.FromArgb(183, 28, 28);
-            roundedButton1.BorderRadius = 40;
+            roundedButton1.BorderRadius = 10;
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
@@ -94,7 +94,7 @@
             roundedButton2.BackColor = Color.FromArgb(189, 189, 189);
             roundedButton2.BackgroundColor = Color.FromArgb(189, 189, 189);
             roundedButton2.BorderColor = Color.FromArgb(189, 189, 189);
-            roundedButton2.BorderRadius = 40;
+            roundedButton2.BorderRadius = 10;
             roundedButton2.BorderSize = 0;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;

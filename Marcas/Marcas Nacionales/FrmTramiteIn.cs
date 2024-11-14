@@ -36,7 +36,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2I.Visible = false;
-            btnGuardar.Location = new Point(200, 950);
+            btnGuardarM.Location = new Point(200, 950);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -83,7 +83,7 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image!=documento)
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -128,7 +128,7 @@ namespace Presentacion.Marcas_Nacionales
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
-            
+
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
@@ -154,7 +154,7 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-           
+
 
             // Guardar la marca
             try
@@ -217,14 +217,14 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardar.Location = new Point(200, panel2I.Location.Y + panel2I.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnGuardarM.Location = new Point(200, panel2I.Location.Y + panel2I.Height + 10); // Mueve btnGuardar debajo de panel2
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardar.Location = new Point(200, 950);
+                btnGuardarM.Location = new Point(200, 950);
             }
         }
 
@@ -277,7 +277,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton4_Click(object sender, EventArgs e)
         {
-            GuardarMarcaNacional();
+
 
         }
 
@@ -360,6 +360,11 @@ namespace Presentacion.Marcas_Nacionales
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnGuardarM_Click(object sender, EventArgs e)
+        {
+            GuardarMarcaNacional();
         }
     }
 }
