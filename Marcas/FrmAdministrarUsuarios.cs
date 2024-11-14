@@ -242,7 +242,7 @@ namespace Presentacion
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una fila.");
+                //MessageBox.Show("Por favor, seleccione una fila.");
             }
 
 
@@ -271,24 +271,30 @@ namespace Presentacion
         {
             if (dtgUsuarios.RowCount <= 0)
             {
-                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                EditarUsuario.idUser = 0;
                 return;
-            }
-
-            if (dtgUsuarios.SelectedRows.Count > 0)
-            {
-                var filaSeleccionada = dtgUsuarios.SelectedRows[0];
-                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
-                {
-                    int id = Convert.ToInt32(dataRowView["id"]);
-                    EditarUsuario.idUser = id;
-                    tabControl1.SelectedTab = tabPageUserDetail;
-                }
             }
             else
             {
-                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (dtgUsuarios.SelectedRows.Count > 0)
+                {
+                    var filaSeleccionada = dtgUsuarios.SelectedRows[0];
+                    if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                    {
+                        int id = Convert.ToInt32(dataRowView["id"]);
+                        EditarUsuario.idUser = id;
+                        tabControl1.SelectedTab = tabPageUserDetail;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    EditarUsuario.idUser = 0;
+                }
             }
+
+            
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -328,7 +334,7 @@ namespace Presentacion
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona una fila válida.");
+                //MessageBox.Show("Por favor, selecciona una fila válida.");
             }
 
         }
