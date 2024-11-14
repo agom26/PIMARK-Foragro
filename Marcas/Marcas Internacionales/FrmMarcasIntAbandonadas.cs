@@ -537,5 +537,10 @@ namespace Presentacion.Marcas_Internacionales
         {
 
         }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab=tabPageMarcaDetail;
+        }
     }
 }

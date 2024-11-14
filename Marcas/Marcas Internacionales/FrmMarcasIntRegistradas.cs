@@ -336,7 +336,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
-                        
+
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
                         var clienteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente));
@@ -903,6 +903,11 @@ namespace Presentacion.Marcas_Internacionales
         private void FrmMarcasIntRegistradas_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

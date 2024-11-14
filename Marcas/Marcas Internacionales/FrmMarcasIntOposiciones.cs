@@ -693,7 +693,7 @@ namespace Presentacion.Marcas_Internacionales
                     !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
                     )
                 {
-                    
+
                 }
                 else
                 {
@@ -792,7 +792,7 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarHistorial.anotaciones = anotaciones;
 
 
-                    DialogResult confirmacionInicial = MessageBox.Show( "¿Está seguro que desea eliminar esta etapa? "+usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmacionInicial == DialogResult.Yes)
                     {
@@ -884,6 +884,11 @@ namespace Presentacion.Marcas_Internacionales
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
         {
             richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }
