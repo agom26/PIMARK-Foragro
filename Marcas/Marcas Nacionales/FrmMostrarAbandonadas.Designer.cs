@@ -934,6 +934,7 @@
             // 
             btnQuitarImagen.Anchor = AnchorStyles.None;
             btnQuitarImagen.BackColor = Color.MistyRose;
+            btnQuitarImagen.Enabled = false;
             btnQuitarImagen.FlatAppearance.BorderSize = 0;
             btnQuitarImagen.FlatStyle = FlatStyle.Flat;
             btnQuitarImagen.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
@@ -951,6 +952,7 @@
             // 
             btnSubirImagen.Anchor = AnchorStyles.None;
             btnSubirImagen.BackColor = Color.PowderBlue;
+            btnSubirImagen.Enabled = false;
             btnSubirImagen.FlatAppearance.BorderSize = 0;
             btnSubirImagen.FlatStyle = FlatStyle.Flat;
             btnSubirImagen.IconChar = FontAwesome.Sharp.IconChar.Upload;
