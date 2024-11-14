@@ -114,9 +114,9 @@
             // 
             // roundedButton1
             // 
-            roundedButton1.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderRadius = 50;
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
@@ -127,7 +127,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(290, 50);
             roundedButton1.TabIndex = 7;
-            roundedButton1.Text = "Traspaso concedido";
+            roundedButton1.Text = "TRASPASAR";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 

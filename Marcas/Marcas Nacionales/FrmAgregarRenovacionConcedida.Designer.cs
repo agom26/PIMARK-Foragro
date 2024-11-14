@@ -114,20 +114,20 @@
             // 
             // roundedButton1
             // 
-            roundedButton1.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderRadius = 50;
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(378, 77);
+            roundedButton1.Location = new Point(347, 77);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(290, 50);
+            roundedButton1.Size = new Size(329, 50);
             roundedButton1.TabIndex = 7;
-            roundedButton1.Text = "Renovación concedida";
+            roundedButton1.Text = "RENOVACIÓN CONCEDIDA";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
