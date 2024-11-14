@@ -50,8 +50,6 @@
             comboBox1 = new ComboBox();
             label5 = new Label();
             groupBox1 = new GroupBox();
-            dateTimeUltimoPago = new DateTimePicker();
-            label11 = new Label();
             checkBoxTienePoder = new CheckBox();
             label26 = new Label();
             txtNombreCliente = new TextBox();
@@ -476,34 +474,15 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dateTimeUltimoPago);
-            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(checkBoxTienePoder);
             groupBox1.Controls.Add(label26);
             groupBox1.Font = new Font("Century Gothic", 9F);
             groupBox1.Location = new Point(719, 427);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(341, 191);
+            groupBox1.Size = new Size(341, 125);
             groupBox1.TabIndex = 116;
             groupBox1.TabStop = false;
             groupBox1.Text = ".";
-            // 
-            // dateTimeUltimoPago
-            // 
-            dateTimeUltimoPago.Format = DateTimePickerFormat.Short;
-            dateTimeUltimoPago.Location = new Point(41, 116);
-            dateTimeUltimoPago.Name = "dateTimeUltimoPago";
-            dateTimeUltimoPago.Size = new Size(250, 26);
-            dateTimeUltimoPago.TabIndex = 54;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(41, 91);
-            label11.Name = "label11";
-            label11.Size = new Size(98, 20);
-            label11.TabIndex = 53;
-            label11.Text = "Último pago";
             // 
             // checkBoxTienePoder
             // 
@@ -691,7 +670,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(315, 62);
             btnCancelar.TabIndex = 109;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -711,7 +690,7 @@
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(315, 62);
             btnActualizar.TabIndex = 106;
-            btnActualizar.Text = "Actualizar";
+            btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.TextColor = Color.White;
             btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Click += btnActualizar_Click;
@@ -1076,7 +1055,7 @@
             btnEditarEstadoHistorial.Name = "btnEditarEstadoHistorial";
             btnEditarEstadoHistorial.Size = new Size(144, 37);
             btnEditarEstadoHistorial.TabIndex = 47;
-            btnEditarEstadoHistorial.Text = "Editar";
+            btnEditarEstadoHistorial.Text = "EDITAR/ VER";
             btnEditarEstadoHistorial.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarEstadoHistorial.UseVisualStyleBackColor = false;
             btnEditarEstadoHistorial.Click += iconButton5_Click;
@@ -1197,7 +1176,7 @@
             btnEditarH.Name = "btnEditarH";
             btnEditarH.Size = new Size(179, 34);
             btnEditarH.TabIndex = 20;
-            btnEditarH.Text = "Actualizar";
+            btnEditarH.Text = "ACTUALIZAR";
             btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnEditarH.UseVisualStyleBackColor = false;
             btnEditarH.Click += btnEditarH_Click;
@@ -1226,7 +1205,7 @@
             btnCancelarH.Name = "btnCancelarH";
             btnCancelarH.Size = new Size(179, 34);
             btnCancelarH.TabIndex = 19;
-            btnCancelarH.Text = "Cancelar";
+            btnCancelarH.Text = "CANCELAR";
             btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarH.UseVisualStyleBackColor = false;
             btnCancelarH.Click += btnCancelarH_Click;
@@ -1428,8 +1407,6 @@
         private Label label10;
         private Clases.RoundedButton btnAgregarCliente;
         private GroupBox groupBox1;
-        private DateTimePicker dateTimeUltimoPago;
-        private Label label11;
         private CheckBox checkBoxTienePoder;
         private Label label26;
         private ComboBox comboBox1;

@@ -383,7 +383,7 @@
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(315, 62);
             btnGuardar.TabIndex = 103;
-            btnGuardar.Text = "Guardar";
+            btnGuardar.Text = "GUARDAR";
             btnGuardar.TextColor = Color.White;
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
@@ -614,7 +614,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(315, 62);
             btnCancelar.TabIndex = 104;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -659,7 +659,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(15, 28);
+            panel1.Location = new Point(5, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;

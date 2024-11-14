@@ -96,7 +96,6 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             label21 = new Label();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorialIn = new DataGridView();
@@ -569,7 +568,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(315, 62);
             btnCancelar.TabIndex = 191;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -589,7 +588,7 @@
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(315, 62);
             btnActualizar.TabIndex = 189;
-            btnActualizar.Text = "Actualizar";
+            btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.TextColor = Color.White;
             btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Click += btnActualizar_Click;
@@ -1033,7 +1032,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(iconButton4);
             panel2.Controls.Add(label21);
             panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(dtgHistorialIn);
@@ -1042,26 +1040,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1150, 783);
             panel2.TabIndex = 0;
-            // 
-            // iconButton4
-            // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(993, 153);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 53;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
-            iconButton4.Click += iconButton4_Click;
             // 
             // label21
             // 
@@ -1089,7 +1067,7 @@
             iconButton5.Name = "iconButton5";
             iconButton5.Size = new Size(144, 37);
             iconButton5.TabIndex = 52;
-            iconButton5.Text = "Editar";
+            iconButton5.Text = "EDITAR/ VER";
             iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton5.UseVisualStyleBackColor = false;
             iconButton5.Click += iconButton5_Click;
@@ -1199,7 +1177,7 @@
             btnEditarH.Name = "btnEditarH";
             btnEditarH.Size = new Size(179, 34);
             btnEditarH.TabIndex = 20;
-            btnEditarH.Text = "Actualizar";
+            btnEditarH.Text = "ACTUALIZAR";
             btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnEditarH.UseVisualStyleBackColor = false;
             btnEditarH.Click += btnEditarH_Click;
@@ -1228,7 +1206,7 @@
             btnCancelarH.Name = "btnCancelarH";
             btnCancelarH.Size = new Size(179, 34);
             btnCancelarH.TabIndex = 19;
-            btnCancelarH.Text = "Cancelar";
+            btnCancelarH.Text = "CANCELAR";
             btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarH.UseVisualStyleBackColor = false;
             btnCancelarH.Click += btnCancelarH_Click;
@@ -1421,7 +1399,6 @@
         private Clases.RoundedButton btnCancelar;
         private Clases.RoundedButton btnActualizar;
         private Panel panel2;
-        private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton5;
         private DataGridView dtgHistorialIn;
         private Panel panel5;

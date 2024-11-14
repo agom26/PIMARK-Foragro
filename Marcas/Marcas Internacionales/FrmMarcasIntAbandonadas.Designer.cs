@@ -95,7 +95,6 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton6 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton5 = new FontAwesome.Sharp.IconButton();
@@ -531,7 +530,7 @@
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(315, 62);
             btnActualizar.TabIndex = 228;
-            btnActualizar.Text = "Actualizar";
+            btnActualizar.Text = "ACTUALIZAR";
             btnActualizar.TextColor = Color.White;
             btnActualizar.UseVisualStyleBackColor = false;
             // 
@@ -686,7 +685,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(315, 62);
             btnCancelar.TabIndex = 230;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -989,7 +988,6 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(iconButton3);
             panel2.Controls.Add(iconButton6);
             panel2.Controls.Add(iconButton4);
             panel2.Controls.Add(iconButton5);
@@ -1000,26 +998,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1145, 772);
             panel2.TabIndex = 1;
-            // 
-            // iconButton3
-            // 
-            iconButton3.Anchor = AnchorStyles.Top;
-            iconButton3.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton3.Enabled = false;
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.ForeColor = Color.White;
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton3.IconColor = Color.White;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(998, 145);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(144, 37);
-            iconButton3.TabIndex = 53;
-            iconButton3.Text = "Eliminar";
-            iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton3.UseVisualStyleBackColor = false;
             // 
             // iconButton6
             // 
@@ -1033,11 +1011,11 @@
             iconButton6.IconColor = Color.White;
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 30;
-            iconButton6.Location = new Point(998, 83);
+            iconButton6.Location = new Point(992, 83);
             iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(144, 37);
+            iconButton6.Size = new Size(150, 37);
             iconButton6.TabIndex = 52;
-            iconButton6.Text = "Editar";
+            iconButton6.Text = "EDITAR/ VER";
             iconButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton6.UseVisualStyleBackColor = false;
             // 
@@ -1231,7 +1209,6 @@
         private Panel panel5;
         private Label label22;
         private DataGridView dtgHistorialAban;
-        private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton6;
     }
 }

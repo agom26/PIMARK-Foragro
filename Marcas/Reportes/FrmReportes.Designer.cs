@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             chckNumRegistro = new CheckBox();
             chckTomo = new CheckBox();
@@ -202,7 +202,7 @@
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(185, 49);
             btnConsultar.TabIndex = 213;
-            btnConsultar.Text = "Consultar";
+            btnConsultar.Text = "CONSULTAR";
             btnConsultar.TextColor = Color.White;
             btnConsultar.UseVisualStyleBackColor = false;
             btnConsultar.Click += btnConsultar_Click;
@@ -221,7 +221,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(185, 49);
             btnCancelar.TabIndex = 212;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.White;
             btnCancelar.UseVisualStyleBackColor = false;
             // 
@@ -534,8 +534,8 @@
             dtgReportes.AllowUserToAddRows = false;
             dtgReportes.AllowUserToDeleteRows = false;
             dtgReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
@@ -551,8 +551,8 @@
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgReportes.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
-            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dtgReportes.Size = new Size(840, 503);
             dtgReportes.TabIndex = 7;
             // 
@@ -570,7 +570,7 @@
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(185, 49);
             roundedButton3.TabIndex = 215;
-            roundedButton3.Text = "Exportar a PDF";
+            roundedButton3.Text = "EXPORTAR A PDF";
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
             // 
@@ -588,7 +588,7 @@
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(185, 49);
             roundedButton4.TabIndex = 214;
-            roundedButton4.Text = "Exportar a Excel";
+            roundedButton4.Text = "EXPORTAR A Excel";
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 

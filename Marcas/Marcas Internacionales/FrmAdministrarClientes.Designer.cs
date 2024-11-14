@@ -363,10 +363,10 @@
             tabClienteDetail.Controls.Add(txtNombreCliente);
             tabClienteDetail.Controls.Add(label3);
             tabClienteDetail.Controls.Add(roundedButton1);
-            tabClienteDetail.Location = new Point(4, 29);
+            tabClienteDetail.Location = new Point(4, 32);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(1161, 794);
+            tabClienteDetail.Size = new Size(1161, 791);
             tabClienteDetail.TabIndex = 1;
             // 
             // comboBox1
@@ -424,7 +424,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(389, 50);
             btnCancelar.TabIndex = 49;
-            btnCancelar.Text = "Cancelar";
+            btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -443,7 +443,7 @@
             btnGuardarCliente.Name = "btnGuardarCliente";
             btnGuardarCliente.Size = new Size(389, 50);
             btnGuardarCliente.TabIndex = 48;
-            btnGuardarCliente.Text = "Guardar";
+            btnGuardarCliente.Text = "GUARDAR";
             btnGuardarCliente.TextColor = Color.White;
             btnGuardarCliente.UseVisualStyleBackColor = false;
             btnGuardarCliente.Click += btnGuardarCliente_Click;
