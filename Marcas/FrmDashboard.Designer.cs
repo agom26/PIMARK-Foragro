@@ -107,6 +107,7 @@
             roundedButton5.Text = "VER VENCIMIENTOS";
             roundedButton5.TextColor = SystemColors.ControlText;
             roundedButton5.UseVisualStyleBackColor = false;
+            roundedButton5.Click += roundedButton5_Click;
             // 
             // iconPictureBox4
             // 
@@ -379,6 +380,8 @@
             roundedButton2.TabIndex = 0;
             roundedButton2.TextColor = Color.White;
             roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click;
+            roundedButton2.MouseClick += roundedButton2_MouseClick;
             // 
             // FrmDashboard
             // 

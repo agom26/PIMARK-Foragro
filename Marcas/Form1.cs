@@ -140,7 +140,7 @@ namespace Presentacion
                 activeForm.WindowState = FormWindowState.Maximized;
             }
         }
-        private void openChildForm(Form childForm)
+        public void openChildForm(Form childForm)
         {
 
             if (activeForm != null)
@@ -281,7 +281,7 @@ namespace Presentacion
         {
             labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
-            openChildForm(new FrmDashboard());
+            openChildForm(new FrmDashboard(this));
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -466,7 +466,7 @@ namespace Presentacion
         private async void panel3_Click_1(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmDashboard());
+            openChildForm(new FrmDashboard(this));
             await Task.Delay(1000);
             EnableButtons();
         }
