@@ -46,6 +46,7 @@
             label2 = new Label();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton3 = new Clases.RoundedButton();
+            panel11 = new Panel();
             panel4 = new Panel();
             panel7 = new Panel();
             label1 = new Label();
@@ -269,6 +270,7 @@
             panel8.Controls.Add(label2);
             panel8.Controls.Add(iconPictureBox2);
             panel8.Controls.Add(roundedButton3);
+            panel8.Controls.Add(panel11);
             panel8.Location = new Point(23, 35);
             panel8.Name = "panel8";
             panel8.Size = new Size(344, 280);
@@ -285,6 +287,7 @@
             label2.Size = new Size(116, 25);
             label2.TabIndex = 2;
             label2.Text = "REPORTES";
+            label2.Click += label2_Click;
             // 
             // iconPictureBox2
             // 
@@ -299,6 +302,7 @@
             iconPictureBox2.Size = new Size(164, 163);
             iconPictureBox2.TabIndex = 2;
             iconPictureBox2.TabStop = false;
+            iconPictureBox2.Click += iconPictureBox2_Click;
             // 
             // roundedButton3
             // 
@@ -318,6 +322,15 @@
             roundedButton3.TabIndex = 1;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.FromArgb(222, 227, 234);
+            panel11.Location = new Point(3, 19);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(338, 242);
+            panel11.TabIndex = 3;
+            panel11.Click += panel11_Click;
             // 
             // panel4
             // 
@@ -455,5 +468,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
         private Clases.RoundedButton roundedButton5;
         private Panel panel10;
+        private Panel panel11;
     }
 }

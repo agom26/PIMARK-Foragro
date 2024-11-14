@@ -1,4 +1,5 @@
 ﻿using Presentacion.Marcas_Nacionales;
+using Presentacion.Reportes;
 using Presentacion.Vencimientos;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,30 @@ namespace Presentacion
         {
             mainForm.DisableButtons();
             mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel11_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void iconPictureBox2_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void label2_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportes());
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
