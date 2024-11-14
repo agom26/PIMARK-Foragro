@@ -19,7 +19,7 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
-        byte[] defaultImage = Properties.Resources.documento;
+        byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
         public void convertirImagen()
         {

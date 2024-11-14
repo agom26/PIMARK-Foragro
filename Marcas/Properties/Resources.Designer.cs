@@ -69,5 +69,15 @@ namespace Presentacion.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] logoImage {
+            get {
+                object obj = ResourceManager.GetObject("logoImage", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
