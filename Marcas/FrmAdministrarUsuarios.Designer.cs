@@ -46,6 +46,13 @@
             dtgUsuarios = new DataGridView();
             roundedButton3 = new Clases.RoundedButton();
             tabPageUserDetail = new TabPage();
+            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
+            lblAccion = new Label();
+            roundedButton2 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            label1 = new Label();
+            roundedButton1 = new Clases.RoundedButton();
             txtConfirmarCont = new TextBox();
             label8 = new Label();
             chckbIsAdmin = new CheckBox();
@@ -61,22 +68,15 @@
             label4 = new Label();
             txtUsername = new TextBox();
             label3 = new Label();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label1 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
-            label10 = new Label();
-            roundedButton2 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgUsuarios).BeginInit();
             tabPageUserDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -121,7 +121,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(406, 19);
+            iconPictureBox2.Location = new Point(405, 19);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 40);
             iconPictureBox2.TabIndex = 47;
@@ -133,7 +133,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(175, 192, 218);
             label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(452, 19);
+            label2.Location = new Point(451, 19);
             label2.Name = "label2";
             label2.Size = new Size(132, 31);
             label2.TabIndex = 41;
@@ -193,9 +193,9 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(363, 7);
+            roundedButton5.Location = new Point(226, 7);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(273, 61);
+            roundedButton5.Size = new Size(556, 61);
             roundedButton5.TabIndex = 46;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -328,7 +328,7 @@
             // tabPageUserDetail
             // 
             tabPageUserDetail.Controls.Add(iconPictureBox4);
-            tabPageUserDetail.Controls.Add(label10);
+            tabPageUserDetail.Controls.Add(lblAccion);
             tabPageUserDetail.Controls.Add(roundedButton2);
             tabPageUserDetail.Controls.Add(iconPictureBox3);
             tabPageUserDetail.Controls.Add(iconPictureBox1);
@@ -356,6 +356,112 @@
             tabPageUserDetail.Size = new Size(1161, 793);
             tabPageUserDetail.TabIndex = 1;
             tabPageUserDetail.UseVisualStyleBackColor = true;
+            // 
+            // iconPictureBox4
+            // 
+            iconPictureBox4.Anchor = AnchorStyles.Top;
+            iconPictureBox4.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox4.ForeColor = SystemColors.ControlText;
+            iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.Users;
+            iconPictureBox4.IconColor = SystemColors.ControlText;
+            iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox4.IconSize = 28;
+            iconPictureBox4.Location = new Point(496, 18);
+            iconPictureBox4.Name = "iconPictureBox4";
+            iconPictureBox4.Size = new Size(40, 28);
+            iconPictureBox4.TabIndex = 54;
+            iconPictureBox4.TabStop = false;
+            // 
+            // lblAccion
+            // 
+            lblAccion.Anchor = AnchorStyles.Top;
+            lblAccion.AutoSize = true;
+            lblAccion.BackColor = Color.FromArgb(175, 192, 218);
+            lblAccion.Font = new Font("Century Gothic", 12F);
+            lblAccion.Location = new Point(542, 18);
+            lblAccion.Name = "lblAccion";
+            lblAccion.Size = new Size(109, 23);
+            lblAccion.TabIndex = 52;
+            lblAccion.Text = "AGREGAR";
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.Anchor = AnchorStyles.Top;
+            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(468, 6);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(242, 49);
+            roundedButton2.TabIndex = 53;
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(410, 6);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 51;
+            iconPictureBox3.TabStop = false;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.Anchor = AnchorStyles.Top;
+            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Users;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 28;
+            iconPictureBox1.Location = new Point(208, 18);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 28);
+            iconPictureBox1.TabIndex = 50;
+            iconPictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(175, 192, 218);
+            label1.Font = new Font("Century Gothic", 12F);
+            label1.Location = new Point(254, 18);
+            label1.Name = "label1";
+            label1.Size = new Size(105, 23);
+            label1.TabIndex = 48;
+            label1.Text = "USUARIOS";
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.Anchor = AnchorStyles.Top;
+            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Enabled = false;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(167, 6);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(234, 49);
+            roundedButton1.TabIndex = 49;
+            roundedButton1.TextColor = Color.White;
+            roundedButton1.UseVisualStyleBackColor = false;
             // 
             // txtConfirmarCont
             // 
@@ -529,112 +635,6 @@
             label3.TabIndex = 2;
             label3.Text = "Usuario";
             // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.Anchor = AnchorStyles.Top;
-            iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
-            iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Users;
-            iconPictureBox1.IconColor = SystemColors.ControlText;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(196, 18);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(40, 40);
-            iconPictureBox1.TabIndex = 50;
-            iconPictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(196, 195, 209);
-            label1.Font = new Font("Century Gothic", 15F);
-            label1.Location = new Point(242, 18);
-            label1.Name = "label1";
-            label1.Size = new Size(132, 31);
-            label1.TabIndex = 48;
-            label1.Text = "USUARIOS";
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.Anchor = AnchorStyles.Top;
-            roundedButton1.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BorderColor = Color.FromArgb(196, 195, 209);
-            roundedButton1.BorderRadius = 60;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Enabled = false;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(153, 6);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(273, 61);
-            roundedButton1.TabIndex = 49;
-            roundedButton1.TextColor = Color.White;
-            roundedButton1.UseVisualStyleBackColor = false;
-            // 
-            // iconPictureBox3
-            // 
-            iconPictureBox3.BackColor = Color.Transparent;
-            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
-            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 52;
-            iconPictureBox3.Location = new Point(432, 15);
-            iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(55, 52);
-            iconPictureBox3.TabIndex = 51;
-            iconPictureBox3.TabStop = false;
-            // 
-            // iconPictureBox4
-            // 
-            iconPictureBox4.Anchor = AnchorStyles.Top;
-            iconPictureBox4.BackColor = Color.FromArgb(196, 195, 209);
-            iconPictureBox4.ForeColor = SystemColors.ControlText;
-            iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.Users;
-            iconPictureBox4.IconColor = SystemColors.ControlText;
-            iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox4.IconSize = 40;
-            iconPictureBox4.Location = new Point(554, 18);
-            iconPictureBox4.Name = "iconPictureBox4";
-            iconPictureBox4.Size = new Size(40, 40);
-            iconPictureBox4.TabIndex = 54;
-            iconPictureBox4.TabStop = false;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top;
-            label10.AutoSize = true;
-            label10.BackColor = Color.FromArgb(196, 195, 209);
-            label10.Font = new Font("Century Gothic", 15F);
-            label10.Location = new Point(600, 18);
-            label10.Name = "label10";
-            label10.Size = new Size(132, 31);
-            label10.TabIndex = 52;
-            label10.Text = "USUARIOS";
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.Anchor = AnchorStyles.Top;
-            roundedButton2.BackColor = Color.FromArgb(196, 195, 209);
-            roundedButton2.BackgroundColor = Color.FromArgb(196, 195, 209);
-            roundedButton2.BorderColor = Color.FromArgb(196, 195, 209);
-            roundedButton2.BorderRadius = 60;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Enabled = false;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(511, 6);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(273, 61);
-            roundedButton2.TabIndex = 53;
-            roundedButton2.TextColor = Color.White;
-            roundedButton2.UseVisualStyleBackColor = false;
-            // 
             // FrmAdministrarUsuarios
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -655,9 +655,9 @@
             ((System.ComponentModel.ISupportInitialize)dtgUsuarios).EndInit();
             tabPageUserDetail.ResumeLayout(false);
             tabPageUserDetail.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -696,7 +696,7 @@
         private Clases.RoundedButton roundedButton1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
-        private Label label10;
+        private Label lblAccion;
         private Clases.RoundedButton roundedButton2;
     }
 }

@@ -126,7 +126,8 @@ namespace Presentacion
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
-            btnGuardar.Text = "Guardar";
+            btnGuardar.Text = "GUARDAR";
+            lblAccion.Text = "AGREGAR";
 
         }
 
@@ -204,18 +205,16 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
-                // Obtener el valor del 'id' de la fila seleccionada
+                
                 int idUser = EditarUsuario.idUser;
 
-                // Llamar al método que obtiene los datos del usuario basándose en el campo 'idUser'
+                
                 DataTable userDetails = UserModel.GetById(idUser);
 
-                if (userDetails.Rows.Count > 0) // Asegurarse de que se haya encontrado el usuario
+                if (userDetails.Rows.Count > 0) 
                 {
-                    // Acceder a la primera fila del DataTable
                     DataRow row = userDetails.Rows[0];
 
-                    // Asignar los valores obtenidos a la clase estática EditarUsuario
                    
                     EditarUsuario.nombres = row["nombres"].ToString();
                     EditarUsuario.apellidos = row["apellidos"].ToString();
@@ -224,8 +223,7 @@ namespace Presentacion
                     EditarUsuario.correo = row["correo"].ToString();
                     EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
 
-                    // Mostrar el formulario de edición con los valores del usuario
-                    AnadirTabPage(tabPageUserDetail);
+                    
                     txtNombres.Text = EditarUsuario.nombres;
                     txtUsername.Text = EditarUsuario.usuario;
                     txtApellidos.Text = EditarUsuario.apellidos;
@@ -233,7 +231,9 @@ namespace Presentacion
                     txtCont.Text = EditarUsuario.contrasena;
                     txtConfirmarCont.Text = EditarUsuario.contrasena;
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-                    btnGuardar.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                    btnGuardar.Text = "ACTUALIZAR";
+                    lblAccion.Text = "ACTUALIZAR";
+                    AnadirTabPage(tabPageUserDetail);
                 }
                 else
                 {
