@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
             iconButton3 = new FontAwesome.Sharp.IconButton();
@@ -171,7 +171,7 @@
             // iconButton3
             // 
             iconButton3.Anchor = AnchorStyles.Top;
-            iconButton3.BackColor = Color.FromArgb(255, 167, 38);
+            iconButton3.BackColor = Color.FromArgb(255, 112, 67);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
             iconButton3.ForeColor = Color.White;
@@ -270,7 +270,7 @@
             // ibtnBuscar
             // 
             ibtnBuscar.Anchor = AnchorStyles.Top;
-            ibtnBuscar.BackColor = Color.Black;
+            ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
             ibtnBuscar.Font = new Font("Century Gothic", 10F);
@@ -1052,14 +1052,14 @@
             dtgHistorialR.BorderStyle = BorderStyle.None;
             dtgHistorialR.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialR.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgHistorialR.ColumnHeadersHeight = 40;
             dtgHistorialR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialR.EnableHeadersVisualStyles = false;

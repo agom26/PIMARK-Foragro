@@ -123,7 +123,7 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(144, 37);
             iconButton2.TabIndex = 57;
-            iconButton2.Text = "Ver";
+            iconButton2.Text = "VER";
             iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -158,12 +158,12 @@
             // iconButton1
             // 
             iconButton1.Anchor = AnchorStyles.Top;
-            iconButton1.BackColor = Color.Black;
+            iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.Font = new Font("Century Gothic", 10F);
             iconButton1.ForeColor = Color.White;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
@@ -171,7 +171,7 @@
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(144, 32);
             iconButton1.TabIndex = 51;
-            iconButton1.Text = "Buscar";
+            iconButton1.Text = "BUSCAR";
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
@@ -251,7 +251,7 @@
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(144, 37);
             ibtnEditar.TabIndex = 16;
-            ibtnEditar.Text = "Editar";
+            ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnEditar.UseVisualStyleBackColor = false;
             ibtnEditar.Click += ibtnEditar_Click;
@@ -272,7 +272,7 @@
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(144, 37);
             ibtnAgregar.TabIndex = 15;
-            ibtnAgregar.Text = "Agregar";
+            ibtnAgregar.Text = "AGREGAR";
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnAgregar_Click;

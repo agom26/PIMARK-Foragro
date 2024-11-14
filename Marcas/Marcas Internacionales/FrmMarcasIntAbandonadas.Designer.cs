@@ -164,7 +164,7 @@
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(144, 37);
             ibtnEditar.TabIndex = 53;
-            ibtnEditar.Text = "Ver";
+            ibtnEditar.Text = "VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnEditar.UseVisualStyleBackColor = false;
             ibtnEditar.Click += ibtnEditar_Click;
@@ -231,12 +231,12 @@
             // ibtnBuscar
             // 
             ibtnBuscar.Anchor = AnchorStyles.Top;
-            ibtnBuscar.BackColor = Color.Black;
+            ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
             ibtnBuscar.Font = new Font("Century Gothic", 10F);
             ibtnBuscar.ForeColor = Color.White;
-            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
+            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
@@ -244,7 +244,7 @@
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 32);
             ibtnBuscar.TabIndex = 47;
-            ibtnBuscar.Text = "Buscar";
+            ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnBuscar.UseVisualStyleBackColor = false;
             // 

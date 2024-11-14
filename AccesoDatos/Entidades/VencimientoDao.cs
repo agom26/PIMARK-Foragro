@@ -10,7 +10,7 @@ namespace AccesoDatos.Entidades
 {
     public class VencimientoDao:ConnectionSQL
     {
-        //Obtener correos de titulares y agentes por id
+        
         public (string CorreoTitular, string CorreoAgente) GetCorreosPorMarcaId(int id)
         {
             (string CorreoTitular, string CorreoAgente) correos = (null, null);
@@ -84,13 +84,13 @@ namespace AccesoDatos.Entidades
         public DataTable GetVencimientoByValue(string value)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection())
             {
                 using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Vencimientos WHERE (nombre LIKE @value OR fecha_vencimiento LIKE @value OR clase LIKE @value OR tipo LIKE @value OR registro LIKE @value OR folio LIKE @value OR libro LIKE @value OR titular LIKE @value OR agente LIKE @value)", conexion)) // Inicializa correctamente el comando
                 {
                     comando.Parameters.AddWithValue("@value", value);
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
 
                         tabla.Load(leer);
@@ -116,7 +116,7 @@ namespace AccesoDatos.Entidades
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Error al ejecutar el procedimiento: {ex.Message}");
-                        // Maneja la excepción como desees
+                        
                     }
                 }
             }

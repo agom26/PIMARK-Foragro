@@ -24,7 +24,7 @@ namespace Presentacion.Vencimientos
         {
             await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
             await Task.Run(() => LoadVencimientos());
-            AgregarBotonEnviarCorreo(); 
+            AgregarBotonEnviarCorreo();
         }
 
         private async void LoadVencimientos()
@@ -38,7 +38,7 @@ namespace Presentacion.Vencimientos
                 {
                     dtgVencimientos.Columns["id"].Visible = false;
                     dtgVencimientos.Columns["marcaID"].Visible = false;
-                    
+
                 }
                 dtgVencimientos.Refresh();
             }));
@@ -61,7 +61,7 @@ namespace Presentacion.Vencimientos
 
             dtgVencimientos.CellClick += DtgVencimientos_CellClick;
 
-           
+
             dtgVencimientos.CellPainting += DtgVencimientos_CellPainting;
         }
 
@@ -170,7 +170,7 @@ namespace Presentacion.Vencimientos
                     client.Disconnect(true);
                     MessageBox.Show("Correo enviado con éxito.");
 
-                    
+
                     try
                     {
                         vencimientoModel.ActualizarNotificado(marcaId);
@@ -188,8 +188,9 @@ namespace Presentacion.Vencimientos
             }
         }
 
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }

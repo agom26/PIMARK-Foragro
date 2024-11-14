@@ -172,7 +172,7 @@
             // iconButton3
             // 
             iconButton3.Anchor = AnchorStyles.Top;
-            iconButton3.BackColor = Color.FromArgb(255, 167, 38);
+            iconButton3.BackColor = Color.FromArgb(255, 112, 67);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
             iconButton3.ForeColor = Color.White;
@@ -280,7 +280,7 @@
             // ibtnBuscar
             // 
             ibtnBuscar.Anchor = AnchorStyles.Top;
-            ibtnBuscar.BackColor = Color.Black;
+            ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
             ibtnBuscar.Font = new Font("Century Gothic", 10F);

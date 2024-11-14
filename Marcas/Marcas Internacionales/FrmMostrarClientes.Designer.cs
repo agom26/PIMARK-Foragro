@@ -89,11 +89,11 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(640, 440);
+            iconButton3.Location = new Point(628, 440);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
+            iconButton3.Size = new Size(191, 34);
             iconButton3.TabIndex = 4;
-            iconButton3.Text = "Seleccionar";
+            iconButton3.Text = "SELECCIONAR";
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -112,7 +112,7 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 3;
-            iconButton2.Text = "Cancelar";
+            iconButton2.Text = "CANCELAR";
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -138,19 +138,20 @@
             // 
             // iconButton1
             // 
-            iconButton1.BackColor = Color.FromArgb(255, 164, 0);
+            iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.Font = new Font("Century Gothic", 12F);
+            iconButton1.ForeColor = Color.White;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
-            iconButton1.IconColor = Color.Black;
+            iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
             iconButton1.Location = new Point(876, 41);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(148, 34);
             iconButton1.TabIndex = 1;
-            iconButton1.Text = "Buscar";
+            iconButton1.Text = "BUSCAR";
             iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
