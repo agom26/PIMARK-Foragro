@@ -66,8 +66,6 @@
             comboBox1 = new ComboBox();
             label5 = new Label();
             groupBox1 = new GroupBox();
-            dateTimeUltimoPago = new DateTimePicker();
-            label11 = new Label();
             checkBoxTienePoder = new CheckBox();
             label26 = new Label();
             txtNombreCliente = new TextBox();
@@ -668,34 +666,15 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dateTimeUltimoPago);
-            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(checkBoxTienePoder);
             groupBox1.Controls.Add(label26);
             groupBox1.Font = new Font("Century Gothic", 9F);
             groupBox1.Location = new Point(714, 440);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(341, 191);
+            groupBox1.Size = new Size(341, 125);
             groupBox1.TabIndex = 180;
             groupBox1.TabStop = false;
             groupBox1.Text = ".";
-            // 
-            // dateTimeUltimoPago
-            // 
-            dateTimeUltimoPago.Format = DateTimePickerFormat.Short;
-            dateTimeUltimoPago.Location = new Point(41, 116);
-            dateTimeUltimoPago.Name = "dateTimeUltimoPago";
-            dateTimeUltimoPago.Size = new Size(250, 26);
-            dateTimeUltimoPago.TabIndex = 54;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(41, 91);
-            label11.Name = "label11";
-            label11.Size = new Size(98, 20);
-            label11.TabIndex = 53;
-            label11.Text = "Último pago";
             // 
             // checkBoxTienePoder
             // 
@@ -1397,8 +1376,6 @@
         private ComboBox comboBox1;
         private Label label5;
         private GroupBox groupBox1;
-        private DateTimePicker dateTimeUltimoPago;
-        private Label label11;
         private CheckBox checkBoxTienePoder;
         private Label label26;
         private TextBox txtNombreCliente;
