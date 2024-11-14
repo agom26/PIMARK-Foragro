@@ -18,7 +18,16 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
 
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         public FrmMostrarTodas()
         {
             InitializeComponent();
@@ -196,7 +205,7 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (pictureBox1.Image != null && pictureBox1.Image!= documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -640,7 +649,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
