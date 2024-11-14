@@ -127,7 +127,7 @@ namespace Presentacion
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
             btnGuardar.Text = "GUARDAR";
-            lblAccion.Text = "AGREGAR";
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
 
         }
 
@@ -205,7 +205,7 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
-                
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 int idUser = EditarUsuario.idUser;
 
                 
@@ -232,7 +232,6 @@ namespace Presentacion
                     txtConfirmarCont.Text = EditarUsuario.contrasena;
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
                     btnGuardar.Text = "ACTUALIZAR";
-                    lblAccion.Text = "EDITAR/VER";
                     AnadirTabPage(tabPageUserDetail);
                 }
                 else

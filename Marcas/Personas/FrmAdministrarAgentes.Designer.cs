@@ -50,8 +50,6 @@
             btnCancelar = new Clases.RoundedButton();
             btnGuardarTitular = new Clases.RoundedButton();
             comboBox1 = new ComboBox();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label10 = new Label();
             txtNombreContacto = new TextBox();
             label9 = new Label();
             txtTelefonoContacto = new TextBox();
@@ -65,7 +63,6 @@
             label4 = new Label();
             txtNombreAgente = new TextBox();
             label3 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
             roundedButton4 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPageListado.SuspendLayout();
@@ -73,7 +70,6 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgAgentes).BeginInit();
             tabPageAgenteDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -325,8 +321,6 @@
             tabPageAgenteDetail.Controls.Add(btnCancelar);
             tabPageAgenteDetail.Controls.Add(btnGuardarTitular);
             tabPageAgenteDetail.Controls.Add(comboBox1);
-            tabPageAgenteDetail.Controls.Add(iconPictureBox1);
-            tabPageAgenteDetail.Controls.Add(label10);
             tabPageAgenteDetail.Controls.Add(txtNombreContacto);
             tabPageAgenteDetail.Controls.Add(label9);
             tabPageAgenteDetail.Controls.Add(txtTelefonoContacto);
@@ -340,7 +334,6 @@
             tabPageAgenteDetail.Controls.Add(label4);
             tabPageAgenteDetail.Controls.Add(txtNombreAgente);
             tabPageAgenteDetail.Controls.Add(label3);
-            tabPageAgenteDetail.Controls.Add(roundedButton1);
             tabPageAgenteDetail.Controls.Add(roundedButton4);
             tabPageAgenteDetail.Location = new Point(4, 32);
             tabPageAgenteDetail.Name = "tabPageAgenteDetail";
@@ -355,14 +348,15 @@
             btnCancelar.BackColor = Color.Gainsboro;
             btnCancelar.BackgroundColor = Color.Gainsboro;
             btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 60;
+            btnCancelar.BorderRadius = 50;
             btnCancelar.BorderSize = 0;
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 10F);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(565, 453);
+            btnCancelar.Location = new Point(579, 445);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(160, 56);
+            btnCancelar.Size = new Size(160, 50);
             btnCancelar.TabIndex = 143;
             btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
@@ -375,14 +369,15 @@
             btnGuardarTitular.BackColor = Color.FromArgb(1, 87, 155);
             btnGuardarTitular.BackgroundColor = Color.FromArgb(1, 87, 155);
             btnGuardarTitular.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardarTitular.BorderRadius = 60;
+            btnGuardarTitular.BorderRadius = 50;
             btnGuardarTitular.BorderSize = 0;
             btnGuardarTitular.FlatAppearance.BorderSize = 0;
             btnGuardarTitular.FlatStyle = FlatStyle.Flat;
+            btnGuardarTitular.Font = new Font("Century Gothic", 10F);
             btnGuardarTitular.ForeColor = Color.White;
-            btnGuardarTitular.Location = new Point(357, 453);
+            btnGuardarTitular.Location = new Point(371, 445);
             btnGuardarTitular.Name = "btnGuardarTitular";
-            btnGuardarTitular.Size = new Size(160, 56);
+            btnGuardarTitular.Size = new Size(160, 50);
             btnGuardarTitular.TabIndex = 142;
             btnGuardarTitular.Text = "GUARDAR";
             btnGuardarTitular.TextColor = Color.White;
@@ -398,43 +393,16 @@
             comboBox1.Font = new Font("Century Gothic", 9F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBox1.Location = new Point(565, 242);
+            comboBox1.Location = new Point(579, 234);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(389, 28);
             comboBox1.TabIndex = 87;
-            // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.Anchor = AnchorStyles.Top;
-            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.UserTie;
-            iconPictureBox1.IconColor = SystemColors.ControlText;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(490, 37);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(40, 40);
-            iconPictureBox1.TabIndex = 57;
-            iconPictureBox1.TabStop = false;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top;
-            label10.AutoSize = true;
-            label10.BackColor = Color.FromArgb(175, 192, 218);
-            label10.Font = new Font("Century Gothic", 15F);
-            label10.Location = new Point(536, 37);
-            label10.Name = "label10";
-            label10.Size = new Size(122, 31);
-            label10.TabIndex = 55;
-            label10.Text = "AGENTES";
             // 
             // txtNombreContacto
             // 
             txtNombreContacto.Anchor = AnchorStyles.Top;
             txtNombreContacto.Font = new Font("Century Gothic", 9F);
-            txtNombreContacto.Location = new Point(128, 398);
+            txtNombreContacto.Location = new Point(142, 390);
             txtNombreContacto.Name = "txtNombreContacto";
             txtNombreContacto.Size = new Size(389, 26);
             txtNombreContacto.TabIndex = 7;
@@ -445,7 +413,7 @@
             label9.AutoSize = true;
             label9.BackColor = Color.FromArgb(222, 227, 234);
             label9.Font = new Font("Century Gothic", 9F);
-            label9.Location = new Point(128, 372);
+            label9.Location = new Point(142, 364);
             label9.Name = "label9";
             label9.Size = new Size(80, 20);
             label9.TabIndex = 47;
@@ -455,7 +423,7 @@
             // 
             txtTelefonoContacto.Anchor = AnchorStyles.Top;
             txtTelefonoContacto.Font = new Font("Century Gothic", 9F);
-            txtTelefonoContacto.Location = new Point(565, 323);
+            txtTelefonoContacto.Location = new Point(579, 315);
             txtTelefonoContacto.Name = "txtTelefonoContacto";
             txtTelefonoContacto.Size = new Size(389, 26);
             txtTelefonoContacto.TabIndex = 6;
@@ -466,7 +434,7 @@
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(222, 227, 234);
             label8.Font = new Font("Century Gothic", 9F);
-            label8.Location = new Point(565, 297);
+            label8.Location = new Point(579, 289);
             label8.Name = "label8";
             label8.Size = new Size(71, 20);
             label8.TabIndex = 45;
@@ -476,7 +444,7 @@
             // 
             txtCorreoContacto.Anchor = AnchorStyles.Top;
             txtCorreoContacto.Font = new Font("Century Gothic", 9F);
-            txtCorreoContacto.Location = new Point(128, 323);
+            txtCorreoContacto.Location = new Point(142, 315);
             txtCorreoContacto.Name = "txtCorreoContacto";
             txtCorreoContacto.Size = new Size(389, 26);
             txtCorreoContacto.TabIndex = 5;
@@ -487,7 +455,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(222, 227, 234);
             label7.Font = new Font("Century Gothic", 9F);
-            label7.Location = new Point(128, 297);
+            label7.Location = new Point(142, 289);
             label7.Name = "label7";
             label7.Size = new Size(61, 20);
             label7.TabIndex = 44;
@@ -497,7 +465,7 @@
             // 
             txtDireccionAgente.Anchor = AnchorStyles.Top;
             txtDireccionAgente.Font = new Font("Century Gothic", 9F);
-            txtDireccionAgente.Location = new Point(565, 176);
+            txtDireccionAgente.Location = new Point(579, 168);
             txtDireccionAgente.Name = "txtDireccionAgente";
             txtDireccionAgente.Size = new Size(389, 26);
             txtDireccionAgente.TabIndex = 2;
@@ -508,7 +476,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(222, 227, 234);
             label6.Font = new Font("Century Gothic", 9F);
-            label6.Location = new Point(565, 150);
+            label6.Location = new Point(579, 142);
             label6.Name = "label6";
             label6.Size = new Size(80, 20);
             label6.TabIndex = 42;
@@ -520,7 +488,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(222, 227, 234);
             label5.Font = new Font("Century Gothic", 9F);
-            label5.Location = new Point(565, 219);
+            label5.Location = new Point(579, 211);
             label5.Name = "label5";
             label5.Size = new Size(37, 20);
             label5.TabIndex = 40;
@@ -530,7 +498,7 @@
             // 
             txtNitAgente.Anchor = AnchorStyles.Top;
             txtNitAgente.Font = new Font("Century Gothic", 9F);
-            txtNitAgente.Location = new Point(128, 245);
+            txtNitAgente.Location = new Point(142, 237);
             txtNitAgente.Name = "txtNitAgente";
             txtNitAgente.Size = new Size(389, 26);
             txtNitAgente.TabIndex = 3;
@@ -541,7 +509,7 @@
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(222, 227, 234);
             label4.Font = new Font("Century Gothic", 9F);
-            label4.Location = new Point(128, 219);
+            label4.Location = new Point(142, 211);
             label4.Name = "label4";
             label4.Size = new Size(30, 20);
             label4.TabIndex = 37;
@@ -551,7 +519,7 @@
             // 
             txtNombreAgente.Anchor = AnchorStyles.Top;
             txtNombreAgente.Font = new Font("Century Gothic", 9F);
-            txtNombreAgente.Location = new Point(128, 176);
+            txtNombreAgente.Location = new Point(142, 168);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.Size = new Size(389, 26);
             txtNombreAgente.TabIndex = 1;
@@ -562,30 +530,11 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(222, 227, 234);
             label3.Font = new Font("Century Gothic", 9F);
-            label3.Location = new Point(128, 150);
+            label3.Location = new Point(142, 142);
             label3.Name = "label3";
             label3.Size = new Size(68, 20);
             label3.TabIndex = 34;
             label3.Text = "Nombre";
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.Anchor = AnchorStyles.Top;
-            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 60;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Enabled = false;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(451, 25);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(244, 61);
-            roundedButton1.TabIndex = 56;
-            roundedButton1.TextColor = Color.White;
-            roundedButton1.UseVisualStyleBackColor = false;
             // 
             // roundedButton4
             // 
@@ -598,7 +547,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(71, 131);
+            roundedButton4.Location = new Point(85, 123);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(942, 407);
             roundedButton4.TabIndex = 144;
@@ -625,7 +574,6 @@
             ((System.ComponentModel.ISupportInitialize)dtgAgentes).EndInit();
             tabPageAgenteDetail.ResumeLayout(false);
             tabPageAgenteDetail.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -659,9 +607,6 @@
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton roundedButton3;
         private Panel panel1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Label label10;
-        private Clases.RoundedButton roundedButton1;
         private ComboBox comboBox1;
         private Clases.RoundedButton btnGuardarTitular;
         private Clases.RoundedButton btnCancelar;

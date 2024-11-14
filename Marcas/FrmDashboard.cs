@@ -1,4 +1,5 @@
-﻿using Presentacion.Marcas_Nacionales;
+﻿using Dominio;
+using Presentacion.Marcas_Nacionales;
 using Presentacion.Reportes;
 using Presentacion.Vencimientos;
 using System;
@@ -16,10 +17,30 @@ namespace Presentacion
     public partial class FrmDashboard : Form
     {
         public Form1 mainForm;
+        VencimientoModel vencimientoModel= new VencimientoModel();
+
+        private async void LoadVencimientos()
+        {
+            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
+            Invoke(new Action(() =>
+            {
+                dtgVencimientos.DataSource = titulares;
+
+                if (dtgVencimientos.Columns["id"] != null)
+                {
+                    dtgVencimientos.Columns["id"].Visible = false;
+                    dtgVencimientos.Columns["marcaID"].Visible = false;
+
+                }
+                dtgVencimientos.Refresh();
+            }));
+        }
         public FrmDashboard(Form1 mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            LoadVencimientos();
+            
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)

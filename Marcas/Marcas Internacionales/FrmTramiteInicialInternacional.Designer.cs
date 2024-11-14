@@ -35,7 +35,6 @@
             pictureBox1 = new PictureBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            label1 = new Label();
             btnAgregarTitular = new Clases.RoundedButton();
             label9 = new Label();
             txtNombreTitular = new TextBox();
@@ -164,16 +163,6 @@
             iconButton2.TabIndex = 92;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 19F);
-            label1.Location = new Point(394, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(229, 39);
-            label1.TabIndex = 16;
-            label1.Text = "Trámite inicial";
             // 
             // btnAgregarTitular
             // 
@@ -659,7 +648,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(-5, 28);
+            panel1.Location = new Point(-15, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
@@ -708,7 +697,6 @@
             AutoScroll = true;
             BackColor = Color.White;
             ClientSize = new Size(1133, 689);
-            Controls.Add(label1);
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
             FormBorderStyle = FormBorderStyle.None;
@@ -724,7 +712,6 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -736,7 +723,6 @@
         private PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private Label label1;
         private Clases.RoundedButton btnAgregarTitular;
         private Label label9;
         private TextBox txtNombreTitular;
