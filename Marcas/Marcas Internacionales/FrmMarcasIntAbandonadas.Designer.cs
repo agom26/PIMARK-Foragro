@@ -28,20 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageAbandonadasList = new TabPage();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
             dtgMarcasAban = new DataGridView();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label1 = new Label();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
             textBox1 = new TextBox();
             label2 = new Label();
             roundedButton3 = new Clases.RoundedButton();
-            roundedButton5 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
             panel3 = new Panel();
@@ -102,11 +99,16 @@
             label22 = new Label();
             dtgHistorialAban = new DataGridView();
             panel5 = new Panel();
+            label28 = new Label();
+            roundedButton5 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            label29 = new Label();
+            roundedButton7 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPageAbandonadasList.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgMarcasAban).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -115,6 +117,8 @@
             tabPageHistorialMarca.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -132,15 +136,18 @@
             // 
             // tabPageAbandonadasList
             // 
+            tabPageAbandonadasList.Controls.Add(label28);
+            tabPageAbandonadasList.Controls.Add(roundedButton5);
+            tabPageAbandonadasList.Controls.Add(iconPictureBox3);
+            tabPageAbandonadasList.Controls.Add(iconPictureBox2);
+            tabPageAbandonadasList.Controls.Add(label29);
+            tabPageAbandonadasList.Controls.Add(roundedButton7);
             tabPageAbandonadasList.Controls.Add(ibtnEditar);
             tabPageAbandonadasList.Controls.Add(panel4);
-            tabPageAbandonadasList.Controls.Add(iconPictureBox1);
-            tabPageAbandonadasList.Controls.Add(label1);
             tabPageAbandonadasList.Controls.Add(ibtnBuscar);
             tabPageAbandonadasList.Controls.Add(textBox1);
             tabPageAbandonadasList.Controls.Add(label2);
             tabPageAbandonadasList.Controls.Add(roundedButton3);
-            tabPageAbandonadasList.Controls.Add(roundedButton5);
             tabPageAbandonadasList.Location = new Point(4, 29);
             tabPageAbandonadasList.Name = "tabPageAbandonadasList";
             tabPageAbandonadasList.Padding = new Padding(3);
@@ -190,14 +197,14 @@
             dtgMarcasAban.BorderStyle = BorderStyle.None;
             dtgMarcasAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgMarcasAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgMarcasAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgMarcasAban.ColumnHeadersHeight = 40;
             dtgMarcasAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasAban.EnableHeadersVisualStyles = false;
@@ -210,32 +217,6 @@
             dtgMarcasAban.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasAban.Size = new Size(934, 492);
             dtgMarcasAban.TabIndex = 29;
-            // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Globe;
-            iconPictureBox1.IconColor = SystemColors.ControlText;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(269, 16);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(40, 40);
-            iconPictureBox1.TabIndex = 51;
-            iconPictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(175, 192, 218);
-            label1.Font = new Font("Century Gothic", 15F);
-            label1.Location = new Point(315, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(476, 31);
-            label1.TabIndex = 50;
-            label1.Text = "Marcas internacionales en abandono";
             // 
             // ibtnBuscar
             // 
@@ -295,25 +276,6 @@
             roundedButton3.TabIndex = 48;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton5
-            // 
-            roundedButton5.Anchor = AnchorStyles.Top;
-            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 60;
-            roundedButton5.BorderSize = 0;
-            roundedButton5.Enabled = false;
-            roundedButton5.FlatAppearance.BorderSize = 0;
-            roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(172, 6);
-            roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(683, 61);
-            roundedButton5.TabIndex = 49;
-            roundedButton5.TextColor = Color.White;
-            roundedButton5.UseVisualStyleBackColor = false;
             // 
             // tabPageMarcaDetail
             // 
@@ -1070,14 +1032,14 @@
             dtgHistorialAban.BorderStyle = BorderStyle.None;
             dtgHistorialAban.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgHistorialAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgHistorialAban.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgHistorialAban.ColumnHeadersHeight = 40;
             dtgHistorialAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialAban.EnableHeadersVisualStyles = false;
@@ -1100,6 +1062,97 @@
             panel5.Size = new Size(972, 542);
             panel5.TabIndex = 49;
             // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top;
+            label28.AutoSize = true;
+            label28.BackColor = Color.FromArgb(175, 192, 218);
+            label28.Font = new Font("Century Gothic", 12F);
+            label28.Location = new Point(662, 45);
+            label28.Name = "label28";
+            label28.Size = new Size(168, 23);
+            label28.TabIndex = 180;
+            label28.Text = "ABANDONADAS";
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.Anchor = AnchorStyles.Top;
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderRadius = 50;
+            roundedButton5.BorderSize = 0;
+            roundedButton5.Enabled = false;
+            roundedButton5.FlatAppearance.BorderSize = 0;
+            roundedButton5.FlatStyle = FlatStyle.Flat;
+            roundedButton5.ForeColor = Color.White;
+            roundedButton5.Location = new Point(644, 33);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.Size = new Size(203, 49);
+            roundedButton5.TabIndex = 179;
+            roundedButton5.TextColor = Color.White;
+            roundedButton5.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(583, 34);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 178;
+            iconPictureBox3.TabStop = false;
+            // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.Anchor = AnchorStyles.Top;
+            iconPictureBox2.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox2.ForeColor = SystemColors.ControlText;
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Globe;
+            iconPictureBox2.IconColor = SystemColors.ControlText;
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 28;
+            iconPictureBox2.Location = new Point(229, 46);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(40, 28);
+            iconPictureBox2.TabIndex = 177;
+            iconPictureBox2.TabStop = false;
+            // 
+            // label29
+            // 
+            label29.Anchor = AnchorStyles.Top;
+            label29.AutoSize = true;
+            label29.BackColor = Color.FromArgb(175, 192, 218);
+            label29.Font = new Font("Century Gothic", 12F);
+            label29.Location = new Point(275, 46);
+            label29.Name = "label29";
+            label29.Size = new Size(280, 23);
+            label29.TabIndex = 175;
+            label29.Text = "MARCAS INTERNACIONALES";
+            // 
+            // roundedButton7
+            // 
+            roundedButton7.Anchor = AnchorStyles.Top;
+            roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderSize = 0;
+            roundedButton7.Enabled = false;
+            roundedButton7.FlatAppearance.BorderSize = 0;
+            roundedButton7.FlatStyle = FlatStyle.Flat;
+            roundedButton7.ForeColor = Color.White;
+            roundedButton7.Location = new Point(188, 34);
+            roundedButton7.Name = "roundedButton7";
+            roundedButton7.Size = new Size(389, 49);
+            roundedButton7.TabIndex = 176;
+            roundedButton7.TextColor = Color.White;
+            roundedButton7.UseVisualStyleBackColor = false;
+            // 
             // FrmMarcasIntAbandonadas
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -1117,7 +1170,6 @@
             tabPageAbandonadasList.PerformLayout();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgMarcasAban).EndInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             tabPageMarcaDetail.ResumeLayout(false);
             tabPageMarcaDetail.PerformLayout();
             panel1.ResumeLayout(false);
@@ -1131,6 +1183,8 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1138,13 +1192,10 @@
 
         private TabControl tabControl1;
         private TabPage tabPageAbandonadasList;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Label label1;
         private FontAwesome.Sharp.IconButton ibtnBuscar;
         private TextBox textBox1;
         private Label label2;
         private Clases.RoundedButton roundedButton3;
-        private Clases.RoundedButton roundedButton5;
         private TabPage tabPageMarcaDetail;
         private Panel panel4;
         private DataGridView dtgMarcasAban;
@@ -1208,5 +1259,11 @@
         private Panel panel5;
         private Label label22;
         private DataGridView dtgHistorialAban;
+        private Label label28;
+        private Clases.RoundedButton roundedButton5;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
+        private Label label29;
+        private Clases.RoundedButton roundedButton7;
     }
 }

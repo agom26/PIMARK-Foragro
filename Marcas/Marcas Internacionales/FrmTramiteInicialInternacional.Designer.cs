@@ -78,17 +78,25 @@
             comboBoxTipoSigno = new ComboBox();
             comboBoxSignoDistintivo = new ComboBox();
             label26 = new Label();
+            label28 = new Label();
+            roundedButton2 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            label29 = new Label();
+            roundedButton4 = new Clases.RoundedButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             panelRegistroI.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 9F);
-            label4.Location = new Point(24, 192);
+            label4.Location = new Point(22, 200);
             label4.Name = "label4";
             label4.Size = new Size(50, 20);
             label4.TabIndex = 21;
@@ -97,7 +105,7 @@
             // txtClase
             // 
             txtClase.Font = new Font("Century Gothic", 9F);
-            txtClase.Location = new Point(24, 215);
+            txtClase.Location = new Point(22, 223);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(278, 26);
             txtClase.TabIndex = 87;
@@ -106,7 +114,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 9F);
-            label5.Location = new Point(24, 256);
+            label5.Location = new Point(22, 264);
             label5.Name = "label5";
             label5.Size = new Size(116, 20);
             label5.TabIndex = 23;
@@ -290,7 +298,7 @@
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Century Gothic", 9F);
-            label13.Location = new Point(367, 112);
+            label13.Location = new Point(367, 132);
             label13.Name = "label13";
             label13.Size = new Size(69, 20);
             label13.TabIndex = 38;
@@ -301,7 +309,7 @@
             datePickerFechaSolicitud.Anchor = AnchorStyles.None;
             datePickerFechaSolicitud.Font = new Font("Century Gothic", 9F);
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitud.Location = new Point(368, 136);
+            datePickerFechaSolicitud.Location = new Point(368, 156);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(292, 26);
             datePickerFechaSolicitud.TabIndex = 86;
@@ -310,7 +318,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Century Gothic", 9F);
-            label14.Location = new Point(363, 327);
+            label14.Location = new Point(361, 335);
             label14.Name = "label14";
             label14.Size = new Size(103, 20);
             label14.TabIndex = 40;
@@ -320,7 +328,7 @@
             // 
             textBoxEstatus.Enabled = false;
             textBoxEstatus.Font = new Font("Century Gothic", 9F);
-            textBoxEstatus.Location = new Point(365, 352);
+            textBoxEstatus.Location = new Point(363, 360);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
             textBoxEstatus.Size = new Size(293, 26);
@@ -411,7 +419,7 @@
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Century Gothic", 9F);
-            label24.Location = new Point(20, 121);
+            label24.Location = new Point(20, 141);
             label24.Name = "label24";
             label24.Size = new Size(119, 20);
             label24.TabIndex = 50;
@@ -425,7 +433,7 @@
             comboBox1.Font = new Font("Century Gothic", 9F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBox1.Location = new Point(20, 144);
+            comboBox1.Location = new Point(20, 164);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(280, 28);
             comboBox1.TabIndex = 85;
@@ -435,7 +443,7 @@
             // 
             label25.AutoSize = true;
             label25.Font = new Font("Century Gothic", 10F);
-            label25.Location = new Point(20, 42);
+            label25.Location = new Point(20, 62);
             label25.Name = "label25";
             label25.Size = new Size(104, 21);
             label25.TabIndex = 82;
@@ -444,7 +452,7 @@
             // txtExpediente
             // 
             txtExpediente.Font = new Font("Century Gothic", 10F);
-            txtExpediente.Location = new Point(20, 69);
+            txtExpediente.Location = new Point(20, 89);
             txtExpediente.Name = "txtExpediente";
             txtExpediente.Size = new Size(280, 28);
             txtExpediente.TabIndex = 83;
@@ -453,7 +461,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Century Gothic", 10F);
-            label15.Location = new Point(365, 43);
+            label15.Location = new Point(365, 63);
             label15.Name = "label15";
             label15.Size = new Size(77, 21);
             label15.TabIndex = 84;
@@ -462,7 +470,7 @@
             // txtNombre
             // 
             txtNombre.Font = new Font("Century Gothic", 10F);
-            txtNombre.Location = new Point(368, 69);
+            txtNombre.Location = new Point(368, 89);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(292, 28);
             txtNombre.TabIndex = 84;
@@ -478,7 +486,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 9F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(22, 343);
+            roundedButton1.Location = new Point(20, 351);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 90;
@@ -611,10 +619,16 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
+            panel1.Controls.Add(label28);
             panel1.Controls.Add(comboBoxTipoSigno);
+            panel1.Controls.Add(roundedButton2);
             panel1.Controls.Add(comboBoxSignoDistintivo);
+            panel1.Controls.Add(iconPictureBox3);
             panel1.Controls.Add(label26);
+            panel1.Controls.Add(iconPictureBox2);
             panel1.Controls.Add(btnCancelar);
+            panel1.Controls.Add(label29);
+            panel1.Controls.Add(roundedButton4);
             panel1.Controls.Add(panelRegistroI);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label15);
@@ -648,7 +662,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(-15, 28);
+            panel1.Location = new Point(15, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
@@ -661,7 +675,7 @@
             comboBoxTipoSigno.Font = new Font("Century Gothic", 9F);
             comboBoxTipoSigno.FormattingEnabled = true;
             comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
-            comboBoxTipoSigno.Location = new Point(368, 279);
+            comboBoxTipoSigno.Location = new Point(366, 287);
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
             comboBoxTipoSigno.TabIndex = 89;
@@ -674,7 +688,7 @@
             comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
             comboBoxSignoDistintivo.FormattingEnabled = true;
             comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            comboBoxSignoDistintivo.Location = new Point(24, 279);
+            comboBoxSignoDistintivo.Location = new Point(22, 287);
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
             comboBoxSignoDistintivo.TabIndex = 88;
@@ -684,11 +698,102 @@
             label26.Anchor = AnchorStyles.None;
             label26.AutoSize = true;
             label26.Font = new Font("Century Gothic", 10F);
-            label26.Location = new Point(368, 249);
+            label26.Location = new Point(366, 257);
             label26.Name = "label26";
             label26.Size = new Size(44, 21);
             label26.TabIndex = 149;
             label26.Text = "Tipo";
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top;
+            label28.AutoSize = true;
+            label28.BackColor = Color.FromArgb(175, 192, 218);
+            label28.Font = new Font("Century Gothic", 12F);
+            label28.Location = new Point(479, 14);
+            label28.Name = "label28";
+            label28.Size = new Size(162, 23);
+            label28.TabIndex = 174;
+            label28.Text = "TRÁMITE INICIAL";
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.Anchor = AnchorStyles.Top;
+            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(461, 2);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(203, 49);
+            roundedButton2.TabIndex = 173;
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(400, 3);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 172;
+            iconPictureBox3.TabStop = false;
+            // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.Anchor = AnchorStyles.Top;
+            iconPictureBox2.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox2.ForeColor = SystemColors.ControlText;
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Globe;
+            iconPictureBox2.IconColor = SystemColors.ControlText;
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 28;
+            iconPictureBox2.Location = new Point(46, 15);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(40, 28);
+            iconPictureBox2.TabIndex = 171;
+            iconPictureBox2.TabStop = false;
+            // 
+            // label29
+            // 
+            label29.Anchor = AnchorStyles.Top;
+            label29.AutoSize = true;
+            label29.BackColor = Color.FromArgb(175, 192, 218);
+            label29.Font = new Font("Century Gothic", 12F);
+            label29.Location = new Point(92, 15);
+            label29.Name = "label29";
+            label29.Size = new Size(280, 23);
+            label29.TabIndex = 169;
+            label29.Text = "MARCAS INTERNACIONALES";
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.Anchor = AnchorStyles.Top;
+            roundedButton4.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton4.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton4.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton4.BorderRadius = 50;
+            roundedButton4.BorderSize = 0;
+            roundedButton4.Enabled = false;
+            roundedButton4.FlatAppearance.BorderSize = 0;
+            roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.ForeColor = Color.White;
+            roundedButton4.Location = new Point(5, 3);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.Size = new Size(389, 49);
+            roundedButton4.TabIndex = 170;
+            roundedButton4.TextColor = Color.White;
+            roundedButton4.UseVisualStyleBackColor = false;
             // 
             // FrmTramiteInicialInternacional
             // 
@@ -711,6 +816,8 @@
             panelRegistroI.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -766,5 +873,11 @@
         private ComboBox comboBoxTipoSigno;
         private ComboBox comboBoxSignoDistintivo;
         private Label label26;
+        private Label label28;
+        private Clases.RoundedButton roundedButton2;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
+        private Label label29;
+        private Clases.RoundedButton roundedButton4;
     }
 }
