@@ -756,6 +756,8 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(259, 65);
             panel3.TabIndex = 2;
+            panel3.Click += panel3_Click_1;
+            panel3.Paint += panel3_Paint;
             // 
             // iconButton1
             // 
