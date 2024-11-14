@@ -160,13 +160,13 @@ namespace Presentacion
                         contrasena = txtConfirmarCont.Text;
                         btnGuardar.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
 
-                        if (btnGuardar.Text == "Guardar")
+                        if (btnGuardar.Text == "GUARDAR")
                         {
                             // Ejecutar la operación de adición de manera asíncrona
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
                             MessageBox.Show("Usuario agregado exitosamente");
                         }
-                        else if (btnGuardar.Text == "Actualizar")
+                        else if (btnGuardar.Text == "ACTUALIZAR")
                         {
                             // Ejecutar la operación de actualización de manera asíncrona
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
