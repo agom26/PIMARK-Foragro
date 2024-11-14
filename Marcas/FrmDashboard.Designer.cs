@@ -50,6 +50,7 @@
             panel7 = new Panel();
             label1 = new Label();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            panel10 = new Panel();
             roundedButton2 = new Clases.RoundedButton();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -331,6 +332,7 @@
             // 
             panel7.Controls.Add(label1);
             panel7.Controls.Add(iconPictureBox1);
+            panel7.Controls.Add(panel10);
             panel7.Controls.Add(roundedButton2);
             panel7.Location = new Point(22, 35);
             panel7.Name = "panel7";
@@ -347,6 +349,7 @@
             label1.Size = new Size(303, 25);
             label1.TabIndex = 1;
             label1.Text = "INGRESAR TRÁMITE INICIAL";
+            label1.Click += label1_Click;
             // 
             // iconPictureBox1
             // 
@@ -361,6 +364,16 @@
             iconPictureBox1.Size = new Size(164, 163);
             iconPictureBox1.TabIndex = 1;
             iconPictureBox1.TabStop = false;
+            iconPictureBox1.Click += iconPictureBox1_Click;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(222, 227, 234);
+            panel10.Location = new Point(3, 19);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(338, 242);
+            panel10.TabIndex = 1;
+            panel10.Click += panel10_Click;
             // 
             // roundedButton2
             // 
@@ -382,6 +395,7 @@
             roundedButton2.UseVisualStyleBackColor = false;
             roundedButton2.Click += roundedButton2_Click;
             roundedButton2.MouseClick += roundedButton2_MouseClick;
+            roundedButton2.MouseDown += roundedButton2_MouseDown;
             // 
             // FrmDashboard
             // 
@@ -440,5 +454,6 @@
         private DataGridView dtgVencimientos;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
         private Clases.RoundedButton roundedButton5;
+        private Panel panel10;
     }
 }
