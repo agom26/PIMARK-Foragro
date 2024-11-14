@@ -101,6 +101,7 @@
             label7 = new Label();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             label21 = new Label();
             iconButton5 = new FontAwesome.Sharp.IconButton();
             dtgHistorialIn = new DataGridView();
@@ -120,7 +121,6 @@
             label23 = new Label();
             label22 = new Label();
             panel8 = new Panel();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -321,7 +321,7 @@
             dtgMarcasIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -1104,6 +1104,21 @@
             panel2.Size = new Size(1150, 783);
             panel2.TabIndex = 0;
             // 
+            // iconButton4
+            // 
+            iconButton4.BackColor = Color.White;
+            iconButton4.FlatAppearance.BorderSize = 0;
+            iconButton4.FlatStyle = FlatStyle.Flat;
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
+            iconButton4.IconColor = Color.Black;
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.Location = new Point(3, 36);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(62, 49);
+            iconButton4.TabIndex = 63;
+            iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click_1;
+            // 
             // label21
             // 
             label21.Anchor = AnchorStyles.None;
@@ -1148,7 +1163,7 @@
             dtgHistorialIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -1363,21 +1378,6 @@
             panel8.Name = "panel8";
             panel8.Size = new Size(946, 369);
             panel8.TabIndex = 21;
-            // 
-            // iconButton4
-            // 
-            iconButton4.BackColor = Color.White;
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
-            iconButton4.IconColor = Color.Black;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.Location = new Point(3, 36);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(62, 49);
-            iconButton4.TabIndex = 63;
-            iconButton4.UseVisualStyleBackColor = false;
-            iconButton4.Click += iconButton4_Click_1;
             // 
             // FrmMarcasIntRegistradas
             // 
