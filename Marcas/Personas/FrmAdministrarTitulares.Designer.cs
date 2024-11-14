@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabListTitulares = new TabPage();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             label2 = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -66,7 +67,6 @@
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             label10 = new Label();
             roundedButton1 = new Clases.RoundedButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabListTitulares.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -109,12 +109,33 @@
             tabListTitulares.Text = "Listado de titulares";
             tabListTitulares.UseVisualStyleBackColor = true;
             // 
+            // iconButton2
+            // 
+            iconButton2.Anchor = AnchorStyles.Top;
+            iconButton2.BackColor = Color.FromArgb(0, 137, 123);
+            iconButton2.FlatAppearance.BorderSize = 0;
+            iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.ForeColor = Color.White;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            iconButton2.IconColor = Color.White;
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 30;
+            iconButton2.Location = new Point(1009, 203);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(144, 37);
+            iconButton2.TabIndex = 63;
+            iconButton2.Text = "Ver";
+            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click;
+            // 
             // iconPictureBox2
             // 
             iconPictureBox2.Anchor = AnchorStyles.Top;
             iconPictureBox2.BackColor = Color.FromArgb(196, 195, 209);
             iconPictureBox2.ForeColor = SystemColors.ControlText;
-            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.UserTag;
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.HospitalUser;
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
@@ -272,49 +293,49 @@
             dtgTitulares.AllowUserToAddRows = false;
             dtgTitulares.AllowUserToDeleteRows = false;
             dtgTitulares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgTitulares.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgTitulares.BorderStyle = BorderStyle.None;
             dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTitulares.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = SystemColors.Control;
-            dataGridViewCellStyle12.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle12.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dtgTitulares.ColumnHeadersHeight = 40;
             dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = SystemColors.Window;
-            dataGridViewCellStyle13.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle13.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.False;
-            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle8;
             dtgTitulares.EnableHeadersVisualStyles = false;
             dtgTitulares.GridColor = Color.LightGray;
             dtgTitulares.Location = new Point(15, 14);
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
             dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = SystemColors.Control;
-            dataGridViewCellStyle14.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle14.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dtgTitulares.RowHeadersWidth = 51;
-            dataGridViewCellStyle15.Font = new Font("Century Gothic", 9F);
-            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
+            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dtgTitulares.Size = new Size(921, 500);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
@@ -539,7 +560,7 @@
             iconPictureBox1.Anchor = AnchorStyles.Top;
             iconPictureBox1.BackColor = Color.FromArgb(196, 195, 209);
             iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.UserTag;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.HospitalUser;
             iconPictureBox1.IconColor = SystemColors.ControlText;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 40;
@@ -579,27 +600,6 @@
             roundedButton1.TabIndex = 88;
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
-            // 
-            // iconButton2
-            // 
-            iconButton2.Anchor = AnchorStyles.Top;
-            iconButton2.BackColor = Color.FromArgb(0, 137, 123);
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            iconButton2.IconColor = Color.White;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(1009, 203);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(144, 37);
-            iconButton2.TabIndex = 63;
-            iconButton2.Text = "Ver";
-            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
             // 
             // FrmAdministrarTitulares
             // 

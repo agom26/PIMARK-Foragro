@@ -684,7 +684,7 @@
             iconButtonTitulares.FlatStyle = FlatStyle.Flat;
             iconButtonTitulares.Font = new Font("Century Gothic", 9F);
             iconButtonTitulares.ForeColor = Color.Gainsboro;
-            iconButtonTitulares.IconChar = FontAwesome.Sharp.IconChar.UserTag;
+            iconButtonTitulares.IconChar = FontAwesome.Sharp.IconChar.HospitalUser;
             iconButtonTitulares.IconColor = Color.FromArgb(255, 145, 0);
             iconButtonTitulares.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonTitulares.ImageAlign = ContentAlignment.MiddleLeft;
