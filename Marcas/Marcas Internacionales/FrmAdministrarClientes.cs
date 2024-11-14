@@ -14,7 +14,7 @@ namespace Presentacion.Marcas_Internacionales
 {
     public partial class FrmAdministrarClientes : Form
     {
-       
+
         PersonaModel personaModel = new PersonaModel();
         public FrmAdministrarClientes()
         {
@@ -46,7 +46,7 @@ namespace Presentacion.Marcas_Internacionales
         private void MostrarClientes()
         {
             dtgClientes.DataSource = personaModel.GetAllClientes();
-            
+
             if (dtgClientes.Columns["id"] != null)
             {
                 dtgClientes.Columns["id"].Visible = false;
@@ -58,7 +58,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.TabPages.Add(nombre);
             }
-            
+
             tabControl1.SelectedTab = nombre;
         }
 
@@ -90,84 +90,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabClienteDetail);
-            dtgClientes.ClearSelection();
+
         }
 
         private async void btnGuardarCliente_Click(object sender, EventArgs e)
         {
-            string nombre = txtNitCliente.Text;
-            string direccion = txtDireccionCliente.Text;
-            string nit = txtNitCliente.Text;
-            string pais = comboBox1.SelectedItem?.ToString();
-            string correo = txtCorreoContacto.Text;
-            string telefono = txtTelefonoContacto.Text;
-            string contacto = txtNombreContacto.Text;
-            string tipo = "cliente";
 
-            // Verificar que el campo de nombre de usuario no esté vacío
-            if (string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
-                string.IsNullOrWhiteSpace(txtDireccionCliente.Text) ||
-                string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
-                string.IsNullOrWhiteSpace(pais) ||
-                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
-            {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
-            }
-            else
-            {
-                try
-                {
-                    // Deshabilitar el botón para evitar múltiples clics
-                    btnGuardarCliente.Enabled = false;
-
-                    if (btnGuardarCliente.Text == "Guardar")
-                    {
-                        // Ejecutar la operación de guardado de manera asíncrona
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Cliente agregado exitosamente");
-                        dtgClientes.ClearSelection();
-                    }
-                    else if (btnGuardarCliente.Text == "Actualizar")
-                    {
-                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
-                            txtNombreCliente.Text,
-                            txtDireccionCliente.Text,
-                            txtNitCliente.Text,
-                            pais,
-                            txtCorreoContacto.Text,
-                            txtTelefonoContacto.Text,
-                            txtNombreContacto.Text));
-
-                        if (update)
-                        {
-                            MessageBox.Show("Cliente actualizado exitosamente");
-                            dtgClientes.ClearSelection();
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error al actualizar el cliente.");
-                        }
-                    }
-
-                    // Redirigir a tabPage1
-                    tabControl1.SelectedTab = tabClientesList;
-                    MostrarClientes();
-                    EliminarTabPage(tabClienteDetail);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
-                }
-                finally
-                {
-                    // Volver a habilitar el botón
-                    btnGuardarCliente.Enabled = true;
-                }
-            }
         }
 
         private async void FrmAdministrarClientes_Load(object sender, EventArgs e)
@@ -190,7 +118,7 @@ namespace Presentacion.Marcas_Internacionales
             txtTelefonoContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
             txtNombreContacto.Enabled = true;
-            btnGuardarCliente.Visible = true;
+            btnGuardarU.Visible = true;
         }
         public void Deshabilitar()
         {
@@ -202,7 +130,7 @@ namespace Presentacion.Marcas_Internacionales
             txtTelefonoContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
             txtNombreContacto.Enabled = false;
-            btnGuardarCliente.Visible = false;
+            btnGuardarU.Visible = false;
         }
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
@@ -217,7 +145,7 @@ namespace Presentacion.Marcas_Internacionales
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabClienteDetail;
-            btnGuardarCliente.Text = "Guardar";
+            btnGuardarU.Text = "GUARDAR";
         }
 
         private void dtgClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -270,7 +198,7 @@ namespace Presentacion.Marcas_Internacionales
                         txtCorreoContacto.Text = EditarPersona.correo;
                         txtTelefonoContacto.Text = EditarPersona.telefono;
                         txtNombreContacto.Text = EditarPersona.contacto;
-                        btnGuardarCliente.Text = "Actualizar";
+                        btnGuardarU.Text = "ACTUALIZAR";
                         AnadirTabPage(tabClienteDetail);
                     }
                     else
@@ -401,6 +329,86 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 MessageBox.Show("Por favor, seleccione una fila de cliente.");
+            }
+        }
+
+        private void btnCancelarU_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabClienteDetail);
+            dtgClientes.ClearSelection();
+        }
+
+        private async void btnGuardarU_Click(object sender, EventArgs e)
+        {
+            string nombre = txtNitCliente.Text;
+            string direccion = txtDireccionCliente.Text;
+            string nit = txtNitCliente.Text;
+            string pais = comboBox1.SelectedItem?.ToString();
+            string correo = txtCorreoContacto.Text;
+            string telefono = txtTelefonoContacto.Text;
+            string contacto = txtNombreContacto.Text;
+            string tipo = "cliente";
+
+            // Verificar que el campo de nombre de usuario no esté vacío
+            if (string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccionCliente.Text) ||
+                string.IsNullOrWhiteSpace(txtNitCliente.Text) ||
+                string.IsNullOrWhiteSpace(pais) ||
+                string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+                try
+                {
+                    
+                    btnGuardarU.Enabled = false;
+
+                    if (btnGuardarU.Text == "GUARDAR")
+                    {
+                        
+                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        MessageBox.Show("Cliente agregado exitosamente");
+                        dtgClientes.ClearSelection();
+                    }
+                    else if (btnGuardarU.Text == "ACTUALIZAR")
+                    {
+                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                            txtNombreCliente.Text,
+                            txtDireccionCliente.Text,
+                            txtNitCliente.Text,
+                            pais,
+                            txtCorreoContacto.Text,
+                            txtTelefonoContacto.Text,
+                            txtNombreContacto.Text));
+
+                        if (update)
+                        {
+                            MessageBox.Show("Cliente actualizado exitosamente");
+                            dtgClientes.ClearSelection();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al actualizar el cliente.");
+                        }
+                    }
+
+                    tabControl1.SelectedTab = tabClientesList;
+                    MostrarClientes();
+                    EliminarTabPage(tabClienteDetail);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
+                }
+                finally
+                {
+                    btnGuardarU.Enabled = true;
+                }
             }
         }
     }

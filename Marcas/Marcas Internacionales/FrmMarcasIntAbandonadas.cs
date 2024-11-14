@@ -93,7 +93,7 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
                 //btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
-                btnCancelar.Location = new Point(370, panel3.Location.Y + panel3.Height + 10);
+                btnCancelarM.Location = new Point(254, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
@@ -101,7 +101,7 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = false;
                 panel3.Visible = false;
                 //btnActualizar.Location = new Point(47, 960);
-                btnCancelar.Location = new Point(370, 960);
+                btnCancelarM.Location = new Point(254, 960);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -528,9 +528,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageAbandonadasList;
+
         }
 
         private void checkBoxTienePoder_CheckedChanged(object sender, EventArgs e)
@@ -540,7 +538,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab=tabPageMarcaDetail;
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageAbandonadasList;
         }
     }
 }

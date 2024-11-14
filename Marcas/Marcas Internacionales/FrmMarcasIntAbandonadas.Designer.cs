@@ -47,6 +47,7 @@
             roundedButton3 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
             panel3 = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
@@ -72,7 +73,6 @@
             comboBoxSignoDistintivo = new ComboBox();
             label25 = new Label();
             label27 = new Label();
-            btnCancelar = new Clases.RoundedButton();
             comboBox1 = new ComboBox();
             label5 = new Label();
             datePickerFechaSolicitud = new DateTimePicker();
@@ -382,6 +382,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
@@ -395,7 +396,6 @@
             panel1.Controls.Add(comboBoxSignoDistintivo);
             panel1.Controls.Add(label25);
             panel1.Controls.Add(label27);
-            panel1.Controls.Add(btnCancelar);
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(datePickerFechaSolicitud);
@@ -423,6 +423,25 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(247, 1164);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(179, 43);
+            btnCancelarM.TabIndex = 232;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // panel3
             // 
@@ -715,26 +734,6 @@
             label27.Size = new Size(116, 20);
             label27.TabIndex = 222;
             label27.Text = "Signo distintivo";
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.None;
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 60;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(359, 1152);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(315, 62);
-            btnCancelar.TabIndex = 230;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
             // 
             // comboBox1
             // 
@@ -1231,7 +1230,6 @@
         private ComboBox comboBoxSignoDistintivo;
         private Label label25;
         private Label label27;
-        private Clases.RoundedButton btnCancelar;
         private ComboBox comboBox1;
         private Label label5;
         private DateTimePicker datePickerFechaSolicitud;
@@ -1269,5 +1267,6 @@
         private Label label29;
         private Clases.RoundedButton roundedButton7;
         private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton btnCancelarM;
     }
 }
