@@ -692,6 +692,7 @@
             // 
             comboBoxTipoSigno.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxTipoSigno.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTipoSigno.Enabled = false;
             comboBoxTipoSigno.FlatStyle = FlatStyle.Flat;
             comboBoxTipoSigno.Font = new Font("Century Gothic", 9F);
             comboBoxTipoSigno.FormattingEnabled = true;
@@ -705,6 +706,7 @@
             // 
             comboBoxSignoDistintivo.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxSignoDistintivo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSignoDistintivo.Enabled = false;
             comboBoxSignoDistintivo.FlatStyle = FlatStyle.Flat;
             comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
             comboBoxSignoDistintivo.FormattingEnabled = true;
@@ -759,6 +761,7 @@
             // 
             comboBox1.BackColor = Color.FromArgb(241, 240, 245);
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Enabled = false;
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.Font = new Font("Century Gothic", 9F);
             comboBox1.FormattingEnabled = true;
@@ -922,6 +925,7 @@
             // 
             iconButton2.Anchor = AnchorStyles.None;
             iconButton2.BackColor = Color.MistyRose;
+            iconButton2.Enabled = false;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.XmarkCircle;
@@ -938,6 +942,7 @@
             // 
             iconButton1.Anchor = AnchorStyles.None;
             iconButton1.BackColor = Color.PowderBlue;
+            iconButton1.Enabled = false;
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Upload;
@@ -975,6 +980,7 @@
             // txtClase
             // 
             txtClase.Anchor = AnchorStyles.None;
+            txtClase.Enabled = false;
             txtClase.Font = new Font("Microsoft Sans Serif", 9F);
             txtClase.Location = new Point(38, 198);
             txtClase.Name = "txtClase";
@@ -995,6 +1001,7 @@
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.None;
+            txtNombre.Enabled = false;
             txtNombre.Font = new Font("Microsoft Sans Serif", 9F);
             txtNombre.Location = new Point(382, 73);
             txtNombre.Name = "txtNombre";
@@ -1015,6 +1022,7 @@
             // txtExpediente
             // 
             txtExpediente.Anchor = AnchorStyles.None;
+            txtExpediente.Enabled = false;
             txtExpediente.Font = new Font("Microsoft Sans Serif", 9F);
             txtExpediente.Location = new Point(36, 73);
             txtExpediente.Name = "txtExpediente";
