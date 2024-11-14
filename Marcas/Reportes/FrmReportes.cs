@@ -30,12 +30,12 @@ namespace Presentacion.Reportes
             string? clase= null;
             string? titular= null;
             string? agente= null;
-            DateTime? fechaSolicitudInicio = null;
-            DateTime? fechaSolicitudFin= null;
-            DateTime? fechaRegistroInicio = null;
-            DateTime? fechaRegistroFin= null;
-            DateTime? fechaVencimientoInicio= null;
-            DateTime? fechaVencimientoFinal= null;
+            string? fechaSolicitudInicio = null;
+            string? fechaSolicitudFin= null;
+            string? fechaRegistroInicio = null;
+            string? fechaRegistroFin= null;
+            string? fechaVencimientoInicio= null;
+            string? fechaVencimientoFinal= null;
 
             if (chckEstado.Checked)
             {
@@ -120,8 +120,9 @@ namespace Presentacion.Reportes
 
             if (chckFSolicitud.Checked)
             {
-                fechaSolicitudInicio = dtpFRegistroInicial.Value;
-                fechaSolicitudFin=dtpFechaRegistroFinal.Value;
+                fechaSolicitudInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
+
+                fechaSolicitudFin=dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -131,8 +132,8 @@ namespace Presentacion.Reportes
 
             if (chckFRegistro.Checked)
             {
-                fechaRegistroInicio = dtpFRegistroInicial.Value;
-                fechaRegistroFin=dtpFechaRegistroFinal.Value;
+                fechaRegistroInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd"); 
+                fechaRegistroFin=dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -142,8 +143,8 @@ namespace Presentacion.Reportes
 
             if(chckFVencimiento.Checked)
             {
-                fechaVencimientoInicio=dtpVencimientoFinal.Value;
-                fechaVencimientoFinal=dtpVencimientoFinal.Value;
+                fechaVencimientoInicio=dtpVencimientoInicial.Value.ToString("yyyy-MM-dd");
+                fechaVencimientoFinal=dtpVencimientoFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {

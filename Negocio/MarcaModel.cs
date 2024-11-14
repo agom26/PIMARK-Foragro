@@ -136,9 +136,9 @@ namespace Dominio
         public DataTable FiltrarMarcas(
         string estado, string nombre, string pais, string folio, string libro,
         string registro, string clase, string titular, string agente,
-        DateTime? fechaSolicitudInicio, DateTime? fechaSolicitudFin,
-        DateTime? fechaRegistroInicio, DateTime? fechaRegistroFin,
-        DateTime? fechaVencimientoInicio, DateTime? fechaVencimientoFin)
+        string? fechaSolicitudInicio, string? fechaSolicitudFin,
+        string? fechaRegistroInicio, string? fechaRegistroFin,
+        string? fechaVencimientoInicio, string? fechaVencimientoFin)
         {
             return marcaDao.FiltrarMarcas(
                 estado, nombre, pais, folio, libro, registro, clase, titular, agente,
