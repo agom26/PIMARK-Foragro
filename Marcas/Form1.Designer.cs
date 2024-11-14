@@ -36,6 +36,7 @@
             button33 = new Button();
             button34 = new Button();
             button35 = new Button();
+            button3 = new Button();
             button36 = new Button();
             panel2 = new Panel();
             iconButtonVencimientos = new FontAwesome.Sharp.IconButton();
@@ -73,7 +74,6 @@
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
-            button3 = new Button();
             panelSubMenuPatentes.SuspendLayout();
             panel2.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
@@ -204,6 +204,23 @@
             button35.TextAlign = ContentAlignment.MiddleLeft;
             button35.UseVisualStyleBackColor = true;
             button35.Click += button35_Click;
+            // 
+            // button3
+            // 
+            button3.AutoSize = true;
+            button3.Dock = DockStyle.Top;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Century Gothic", 9F);
+            button3.ForeColor = Color.Black;
+            button3.Location = new Point(0, 47);
+            button3.Name = "button3";
+            button3.Padding = new Padding(58, 0, 0, 0);
+            button3.Size = new Size(259, 47);
+            button3.TabIndex = 7;
+            button3.Text = "> INGRESADAS";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = true;
             // 
             // button36
             // 
@@ -766,6 +783,7 @@
             iconButton1.AutoSize = true;
             iconButton1.BackColor = Color.FromArgb(34, 77, 112);
             iconButton1.Dock = DockStyle.Top;
+            iconButton1.Enabled = false;
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.Font = new Font("Century Gothic", 9F);
@@ -898,23 +916,6 @@
             iconButton4.TabIndex = 5;
             iconButton4.UseVisualStyleBackColor = true;
             iconButton4.Click += iconButton4_Click_1;
-            // 
-            // button3
-            // 
-            button3.AutoSize = true;
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 9F);
-            button3.ForeColor = Color.Black;
-            button3.Location = new Point(0, 47);
-            button3.Name = "button3";
-            button3.Padding = new Padding(58, 0, 0, 0);
-            button3.Size = new Size(259, 47);
-            button3.TabIndex = 7;
-            button3.Text = "> INGRESADAS";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

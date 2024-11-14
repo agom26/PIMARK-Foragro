@@ -395,7 +395,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        
+
 
                         if (row["Erenov"] != DBNull.Value)
                         {
@@ -920,6 +920,11 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Traspaso guardado correctamente");
             }
 
+        }
+
+        private void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

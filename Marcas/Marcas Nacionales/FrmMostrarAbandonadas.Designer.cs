@@ -1072,7 +1072,7 @@
             // 
             // iconButton1
             // 
-            iconButton1.BackColor = Color.Gainsboro;
+            iconButton1.BackColor = Color.White;
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
@@ -1161,7 +1161,7 @@
             // 
             // iconButton2
             // 
-            iconButton2.BackColor = Color.Gainsboro;
+            iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;
@@ -1268,7 +1268,7 @@
             // 
             // iconButton3
             // 
-            iconButton3.BackColor = Color.Gainsboro;
+            iconButton3.BackColor = Color.White;
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.AngleLeft;

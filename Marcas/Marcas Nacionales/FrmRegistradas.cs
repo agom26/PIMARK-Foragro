@@ -817,11 +817,11 @@ namespace Presentacion.Marcas_Nacionales
                         mostrarPanelRegistro("no");
                     }
 
-                    if(AgregarEtapa.etapa=="Trámite de renovación" && string.IsNullOrEmpty(SeleccionarMarca.erenov))
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && string.IsNullOrEmpty(SeleccionarMarca.erenov))
                     {
                         txtERenovacion.Enabled = true;
                     }
-                    else if( AgregarEtapa.etapa=="Trámite de traspaso" && string.IsNullOrEmpty(SeleccionarMarca.etraspaso))
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && string.IsNullOrEmpty(SeleccionarMarca.etraspaso))
                     {
                         txtETraspaso.Enabled = true;
                     }
@@ -1405,6 +1405,21 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageRenovacionesList;
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton8_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

@@ -886,7 +886,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton8_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionConcedida frmAgregarConcesion=new FrmAgregarRenovacionConcedida();
+            FrmAgregarRenovacionConcedida frmAgregarConcesion = new FrmAgregarRenovacionConcedida();
             frmAgregarConcesion.ShowDialog();
 
             if (AgregarRenovacion.renovacionTerminada == true)
@@ -898,6 +898,11 @@ namespace Presentacion.Marcas_Nacionales
 
             }
 
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }
