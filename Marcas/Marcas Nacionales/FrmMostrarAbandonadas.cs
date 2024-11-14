@@ -477,5 +477,10 @@ namespace Presentacion.Marcas_Nacionales
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
+
+        private void btnQuitarImagen_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

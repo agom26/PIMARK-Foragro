@@ -945,6 +945,7 @@
             btnQuitarImagen.Size = new Size(74, 33);
             btnQuitarImagen.TabIndex = 120;
             btnQuitarImagen.UseVisualStyleBackColor = false;
+            btnQuitarImagen.Click += btnQuitarImagen_Click;
             // 
             // btnSubirImagen
             // 

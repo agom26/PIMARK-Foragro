@@ -19,6 +19,17 @@ namespace Presentacion.Marcas_Nacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        byte[] defaultImage = Properties.Resources.documento;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
+            
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
+        
         public FrmMostrarOposiciones()
         {
             InitializeComponent();
@@ -127,7 +138,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                pictureBox1.Image = null;
+                convertirImagen();
+                pictureBox1.Image = documento;
             }
         }
         public void mostrarPanelRegistro(string isRegistrada)
@@ -169,6 +181,8 @@ namespace Presentacion.Marcas_Nacionales
         private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
     ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
+           
+
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
@@ -192,7 +206,7 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (pictureBox1.Image != null && pictureBox1.Image!=documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -230,7 +244,7 @@ namespace Presentacion.Marcas_Nacionales
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtDireccionTitular.Text = "";
             txtEntidadTitular.Text = "";
@@ -461,7 +475,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private void roundedButton1_Click(object sender, EventArgs e)
@@ -567,6 +582,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         public void ActualizarMarcaNacional()
         {
+            
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
@@ -598,6 +614,8 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            
 
 
             // Validar campos 
