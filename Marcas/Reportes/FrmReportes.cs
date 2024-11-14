@@ -17,25 +17,26 @@ namespace Presentacion.Reportes
         public FrmReportes()
         {
             InitializeComponent();
+            this.Load += FrmReportes_Load; // Mueve la lógica de carga aq
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             string? estado = null;
             string? nombre = null;
-            string? pais= null;
+            string? pais = null;
             string? folio = null;
-            string? tomo= null;
-            string? numRegistro= null;
-            string? clase= null;
-            string? titular= null;
-            string? agente= null;
+            string? tomo = null;
+            string? numRegistro = null;
+            string? clase = null;
+            string? titular = null;
+            string? agente = null;
             string? fechaSolicitudInicio = null;
-            string? fechaSolicitudFin= null;
+            string? fechaSolicitudFin = null;
             string? fechaRegistroInicio = null;
-            string? fechaRegistroFin= null;
-            string? fechaVencimientoInicio= null;
-            string? fechaVencimientoFinal= null;
+            string? fechaRegistroFin = null;
+            string? fechaVencimientoInicio = null;
+            string? fechaVencimientoFinal = null;
 
             if (chckEstado.Checked)
             {
@@ -55,9 +56,9 @@ namespace Presentacion.Reportes
                 nombre = null;
             }
 
-            if(chckPais.Checked)
+            if (chckPais.Checked)
             {
-                pais=comboBoxPais.SelectedIndex.ToString();
+                pais = comboBoxPais.SelectedIndex.ToString();
             }
             else
             {
@@ -66,7 +67,7 @@ namespace Presentacion.Reportes
 
             if (chckFolio.Checked)
             {
-                folio=txtFolio.Text;
+                folio = txtFolio.Text;
             }
             else
             {
@@ -75,7 +76,7 @@ namespace Presentacion.Reportes
 
             if (chckTomo.Checked)
             {
-                tomo=txtTomo.Text;
+                tomo = txtTomo.Text;
             }
             else
             {
@@ -111,7 +112,7 @@ namespace Presentacion.Reportes
 
             if (chckAgente.Checked)
             {
-                agente= txtAgente.Text;
+                agente = txtAgente.Text;
             }
             else
             {
@@ -122,29 +123,29 @@ namespace Presentacion.Reportes
             {
                 fechaSolicitudInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
 
-                fechaSolicitudFin=dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
+                fechaSolicitudFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
-                fechaSolicitudInicio=null;
-                fechaSolicitudFin=null;
+                fechaSolicitudInicio = null;
+                fechaSolicitudFin = null;
             }
 
             if (chckFRegistro.Checked)
             {
-                fechaRegistroInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd"); 
-                fechaRegistroFin=dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
+                fechaRegistroInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
+                fechaRegistroFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
-                fechaRegistroInicio=null;
-                fechaRegistroFin=null;
+                fechaRegistroInicio = null;
+                fechaRegistroFin = null;
             }
 
-            if(chckFVencimiento.Checked)
+            if (chckFVencimiento.Checked)
             {
-                fechaVencimientoInicio=dtpVencimientoInicial.Value.ToString("yyyy-MM-dd");
-                fechaVencimientoFinal=dtpVencimientoFinal.Value.ToString("yyyy-MM-dd");
+                fechaVencimientoInicio = dtpVencimientoInicial.Value.ToString("yyyy-MM-dd");
+                fechaVencimientoFinal = dtpVencimientoFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -160,6 +161,16 @@ namespace Presentacion.Reportes
                 fechaSolicitudInicio, fechaSolicitudFin, fechaRegistroInicio, fechaRegistroFin,
                 fechaVencimientoInicio, fechaVencimientoFinal);
             dtgReportes.DataSource = resultados;
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmReportes_Load(object sender, EventArgs e)
+        {
 
         }
     }

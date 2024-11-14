@@ -76,14 +76,26 @@
             panel1 = new Panel();
             panel2 = new Panel();
             dtgReportes = new DataGridView();
-            roundedButton3 = new Clases.RoundedButton();
             roundedButton4 = new Clases.RoundedButton();
             panel3 = new Panel();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton3 = new Clases.RoundedButton();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            label13 = new Label();
+            roundedButton5 = new Clases.RoundedButton();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgReportes).BeginInit();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -129,7 +141,7 @@
             groupBox1.Controls.Add(txtNombre);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Location = new Point(95, 84);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(873, 392);
             groupBox1.TabIndex = 0;
@@ -225,6 +237,7 @@
             btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.White;
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // dtpSolicitudFinal
             // 
@@ -515,9 +528,9 @@
             // 
             panel1.AutoScroll = true;
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(12, 410);
+            panel1.Location = new Point(91, 476);
             panel1.Name = "panel1";
-            panel1.Size = new Size(896, 542);
+            panel1.Size = new Size(877, 472);
             panel1.TabIndex = 1;
             // 
             // panel2
@@ -525,9 +538,9 @@
             panel2.Anchor = AnchorStyles.Top;
             panel2.BackColor = Color.FromArgb(192, 202, 212);
             panel2.Controls.Add(dtgReportes);
-            panel2.Location = new Point(16, 3);
+            panel2.Location = new Point(6, 6);
             panel2.Name = "panel2";
-            panel2.Size = new Size(877, 539);
+            panel2.Size = new Size(877, 457);
             panel2.TabIndex = 63;
             // 
             // dtgReportes
@@ -555,7 +568,7 @@
             dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgReportes.EnableHeadersVisualStyles = false;
             dtgReportes.GridColor = Color.LightGray;
-            dtgReportes.Location = new Point(17, 17);
+            dtgReportes.Location = new Point(13, 18);
             dtgReportes.Name = "dtgReportes";
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -563,26 +576,8 @@
             dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
             dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(840, 503);
+            dtgReportes.Size = new Size(840, 416);
             dtgReportes.TabIndex = 7;
-            // 
-            // roundedButton3
-            // 
-            roundedButton3.BackColor = Color.FromArgb(191, 54, 12);
-            roundedButton3.BackgroundColor = Color.FromArgb(191, 54, 12);
-            roundedButton3.BorderColor = Color.FromArgb(191, 54, 12);
-            roundedButton3.BorderRadius = 50;
-            roundedButton3.BorderSize = 0;
-            roundedButton3.FlatAppearance.BorderSize = 0;
-            roundedButton3.FlatStyle = FlatStyle.Flat;
-            roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(509, 16);
-            roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(185, 49);
-            roundedButton3.TabIndex = 215;
-            roundedButton3.Text = "EXPORTAR A PDF";
-            roundedButton3.TextColor = Color.White;
-            roundedButton3.UseVisualStyleBackColor = false;
             // 
             // roundedButton4
             // 
@@ -594,22 +589,144 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(703, 16);
+            roundedButton4.Location = new Point(671, 16);
             roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(185, 49);
+            roundedButton4.Size = new Size(203, 49);
             roundedButton4.TabIndex = 214;
-            roundedButton4.Text = "EXPORTAR A Excel";
+            roundedButton4.Text = "EXPORTAR A EXCEL";
+            roundedButton4.TextAlign = ContentAlignment.MiddleLeft;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
-            panel3.Controls.Add(roundedButton3);
+            panel3.Controls.Add(iconPictureBox2);
+            panel3.Controls.Add(iconPictureBox1);
             panel3.Controls.Add(roundedButton4);
-            panel3.Location = new Point(14, 963);
+            panel3.Controls.Add(roundedButton3);
+            panel3.Location = new Point(91, 954);
             panel3.Name = "panel3";
-            panel3.Size = new Size(891, 125);
+            panel3.Size = new Size(877, 130);
             panel3.TabIndex = 216;
+            // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.BackColor = Color.FromArgb(0, 137, 123);
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.FileExcel;
+            iconPictureBox2.IconColor = Color.White;
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 40;
+            iconPictureBox2.Location = new Point(818, 22);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(40, 40);
+            iconPictureBox2.TabIndex = 218;
+            iconPictureBox2.TabStop = false;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.FromArgb(191, 54, 12);
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+            iconPictureBox1.IconColor = Color.White;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 40;
+            iconPictureBox1.Location = new Point(583, 22);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 40);
+            iconPictureBox1.TabIndex = 217;
+            iconPictureBox1.TabStop = false;
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.BackColor = Color.FromArgb(191, 54, 12);
+            roundedButton3.BackgroundColor = Color.FromArgb(191, 54, 12);
+            roundedButton3.BorderColor = Color.FromArgb(191, 54, 12);
+            roundedButton3.BorderRadius = 50;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.ForeColor = Color.White;
+            roundedButton3.ImageAlign = ContentAlignment.MiddleRight;
+            roundedButton3.Location = new Point(443, 16);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(203, 49);
+            roundedButton3.TabIndex = 215;
+            roundedButton3.Text = "EXPORTAR A PDF";
+            roundedButton3.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton3.TextColor = Color.White;
+            roundedButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
+            roundedButton3.UseVisualStyleBackColor = false;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1169, 827);
+            tabControl1.TabIndex = 217;
+            // 
+            // tabPage1
+            // 
+            tabPage1.AutoScroll = true;
+            tabPage1.Controls.Add(iconPictureBox3);
+            tabPage1.Controls.Add(label13);
+            tabPage1.Controls.Add(roundedButton5);
+            tabPage1.Controls.Add(panel3);
+            tabPage1.Controls.Add(panel1);
+            tabPage1.Controls.Add(groupBox1);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(1161, 794);
+            tabPage1.TabIndex = 2;
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.Anchor = AnchorStyles.Top;
+            iconPictureBox3.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox3.ForeColor = SystemColors.ControlText;
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
+            iconPictureBox3.IconColor = SystemColors.ControlText;
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 40;
+            iconPictureBox3.Location = new Point(450, 10);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(40, 40);
+            iconPictureBox3.TabIndex = 219;
+            iconPictureBox3.TabStop = false;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Top;
+            label13.AutoSize = true;
+            label13.BackColor = Color.FromArgb(175, 192, 218);
+            label13.Font = new Font("Century Gothic", 15F);
+            label13.Location = new Point(496, 10);
+            label13.Name = "label13";
+            label13.Size = new Size(130, 31);
+            label13.TabIndex = 217;
+            label13.Text = "REPORTES";
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.Anchor = AnchorStyles.Top;
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderRadius = 60;
+            roundedButton5.BorderSize = 0;
+            roundedButton5.Enabled = false;
+            roundedButton5.FlatAppearance.BorderSize = 0;
+            roundedButton5.FlatStyle = FlatStyle.Flat;
+            roundedButton5.ForeColor = Color.White;
+            roundedButton5.Location = new Point(342, 0);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.Size = new Size(395, 61);
+            roundedButton5.TabIndex = 218;
+            roundedButton5.TextColor = Color.White;
+            roundedButton5.UseVisualStyleBackColor = false;
             // 
             // FrmReportes
             // 
@@ -617,20 +734,25 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(941, 765);
-            Controls.Add(panel1);
-            Controls.Add(groupBox1);
-            Controls.Add(panel3);
+            ClientSize = new Size(1169, 827);
+            Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmReportes";
             Text = "FrmReportes";
+            Load += FrmReportes_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgReportes).EndInit();
             panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -675,7 +797,6 @@
         private Panel panel1;
         private Panel panel2;
         private DataGridView dtgReportes;
-        private Clases.RoundedButton roundedButton3;
         private Clases.RoundedButton roundedButton4;
         private CheckBox chckNumRegistro;
         private CheckBox chckTomo;
@@ -684,5 +805,13 @@
         private CheckBox chckNombre;
         private CheckBox chckEstado;
         private Panel panel3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Clases.RoundedButton roundedButton3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private Label label13;
+        private Clases.RoundedButton roundedButton5;
     }
 }
