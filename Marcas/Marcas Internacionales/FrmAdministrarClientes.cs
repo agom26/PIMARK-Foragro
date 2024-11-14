@@ -214,7 +214,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.TabPages.Add(tabClienteDetail);
             }
-
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabClienteDetail;
             btnGuardarCliente.Text = "Guardar";
@@ -241,9 +241,8 @@ namespace Presentacion.Marcas_Internacionales
             Habilitar();
             if (dtgClientes.SelectedRows.Count > 0)
             {
-                // Deshabilitar temporalmente el botón para evitar múltiples clics
                 ibtnEditar.Enabled = false;
-
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 try
                 {
                     int idPersona = EditarPersona.idPersona;
@@ -369,7 +368,7 @@ namespace Presentacion.Marcas_Internacionales
                 int idPersona = EditarPersona.idPersona;
 
                 var clienteDetails = personaModel.GetPersonaById(idPersona);
-
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Eye;
                 if (clienteDetails.Count > 0)
                 {
 

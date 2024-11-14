@@ -31,8 +31,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabClientesList = new TabPage();
             iconButton2 = new FontAwesome.Sharp.IconButton();
@@ -49,8 +47,6 @@
             dtgClientes = new DataGridView();
             tabClienteDetail = new TabPage();
             comboBox1 = new ComboBox();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label10 = new Label();
             btnCancelar = new Clases.RoundedButton();
             btnGuardarCliente = new Clases.RoundedButton();
             txtNombreContacto = new TextBox();
@@ -66,14 +62,21 @@
             label4 = new Label();
             txtNombreCliente = new TextBox();
             label3 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
             roundedButton4 = new Clases.RoundedButton();
+            iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton2 = new Clases.RoundedButton();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            label10 = new Label();
+            roundedButton1 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabClientesList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgClientes).BeginInit();
             tabClienteDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -152,9 +155,9 @@
             label2.Font = new Font("Century Gothic", 15F);
             label2.Location = new Point(479, 18);
             label2.Name = "label2";
-            label2.Size = new Size(111, 31);
+            label2.Size = new Size(119, 31);
             label2.TabIndex = 48;
-            label2.Text = "Clientes";
+            label2.Text = "CLIENTES";
             // 
             // iconButton1
             // 
@@ -303,7 +306,7 @@
             dtgClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -311,31 +314,15 @@
             dtgClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgClientes.ColumnHeadersHeight = 40;
             dtgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dtgClientes.DefaultCellStyle = dataGridViewCellStyle3;
             dtgClientes.EnableHeadersVisualStyles = false;
             dtgClientes.GridColor = Color.LightGray;
             dtgClientes.Location = new Point(25, 19);
             dtgClientes.Name = "dtgClientes";
             dtgClientes.ReadOnly = true;
             dtgClientes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgClientes.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgClientes.Size = new Size(898, 501);
             dtgClientes.TabIndex = 13;
@@ -345,9 +332,13 @@
             // tabClienteDetail
             // 
             tabClienteDetail.BackColor = Color.White;
-            tabClienteDetail.Controls.Add(comboBox1);
+            tabClienteDetail.Controls.Add(iconPictureBoxIcono);
+            tabClienteDetail.Controls.Add(roundedButton2);
+            tabClienteDetail.Controls.Add(iconPictureBox3);
             tabClienteDetail.Controls.Add(iconPictureBox1);
             tabClienteDetail.Controls.Add(label10);
+            tabClienteDetail.Controls.Add(roundedButton1);
+            tabClienteDetail.Controls.Add(comboBox1);
             tabClienteDetail.Controls.Add(btnCancelar);
             tabClienteDetail.Controls.Add(btnGuardarCliente);
             tabClienteDetail.Controls.Add(txtNombreContacto);
@@ -363,7 +354,6 @@
             tabClienteDetail.Controls.Add(label4);
             tabClienteDetail.Controls.Add(txtNombreCliente);
             tabClienteDetail.Controls.Add(label3);
-            tabClienteDetail.Controls.Add(roundedButton1);
             tabClienteDetail.Controls.Add(roundedButton4);
             tabClienteDetail.Location = new Point(4, 32);
             tabClienteDetail.Name = "tabClienteDetail";
@@ -385,46 +375,20 @@
             comboBox1.Size = new Size(389, 28);
             comboBox1.TabIndex = 88;
             // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.Anchor = AnchorStyles.Top;
-            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Suitcase;
-            iconPictureBox1.IconColor = SystemColors.ControlText;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(502, 27);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(40, 40);
-            iconPictureBox1.TabIndex = 57;
-            iconPictureBox1.TabStop = false;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top;
-            label10.AutoSize = true;
-            label10.BackColor = Color.FromArgb(175, 192, 218);
-            label10.Font = new Font("Century Gothic", 15F);
-            label10.Location = new Point(548, 27);
-            label10.Name = "label10";
-            label10.Size = new Size(111, 31);
-            label10.TabIndex = 55;
-            label10.Text = "Clientes";
-            // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Gainsboro;
-            btnCancelar.BorderRadius = 55;
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.BackgroundColor = Color.White;
+            btnCancelar.BorderColor = Color.White;
+            btnCancelar.BorderRadius = 50;
             btnCancelar.BorderSize = 0;
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 10F);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(502, 535);
+            btnCancelar.Location = new Point(576, 460);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(191, 50);
+            btnCancelar.Size = new Size(191, 45);
             btnCancelar.TabIndex = 49;
             btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
@@ -436,14 +400,15 @@
             btnGuardarCliente.BackColor = Color.FromArgb(1, 87, 155);
             btnGuardarCliente.BackgroundColor = Color.FromArgb(1, 87, 155);
             btnGuardarCliente.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardarCliente.BorderRadius = 55;
+            btnGuardarCliente.BorderRadius = 50;
             btnGuardarCliente.BorderSize = 0;
             btnGuardarCliente.FlatAppearance.BorderSize = 0;
             btnGuardarCliente.FlatStyle = FlatStyle.Flat;
+            btnGuardarCliente.Font = new Font("Century Gothic", 10F);
             btnGuardarCliente.ForeColor = Color.White;
-            btnGuardarCliente.Location = new Point(502, 464);
+            btnGuardarCliente.Location = new Point(335, 460);
             btnGuardarCliente.Name = "btnGuardarCliente";
-            btnGuardarCliente.Size = new Size(193, 50);
+            btnGuardarCliente.Size = new Size(193, 45);
             btnGuardarCliente.TabIndex = 48;
             btnGuardarCliente.Text = "GUARDAR";
             btnGuardarCliente.TextColor = Color.White;
@@ -575,25 +540,6 @@
             label3.TabIndex = 41;
             label3.Text = "Nombre";
             // 
-            // roundedButton1
-            // 
-            roundedButton1.Anchor = AnchorStyles.Top;
-            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 60;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Enabled = false;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(244, 15);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(683, 61);
-            roundedButton1.TabIndex = 56;
-            roundedButton1.TextColor = Color.White;
-            roundedButton1.UseVisualStyleBackColor = false;
-            // 
             // roundedButton4
             // 
             roundedButton4.BackColor = Color.FromArgb(222, 227, 234);
@@ -611,6 +557,100 @@
             roundedButton4.TabIndex = 89;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBoxIcono
+            // 
+            iconPictureBoxIcono.Anchor = AnchorStyles.Top;
+            iconPictureBoxIcono.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBoxIcono.ForeColor = SystemColors.ControlText;
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Users;
+            iconPictureBoxIcono.IconColor = SystemColors.ControlText;
+            iconPictureBoxIcono.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBoxIcono.IconSize = 28;
+            iconPictureBoxIcono.Location = new Point(410, 45);
+            iconPictureBoxIcono.Name = "iconPictureBoxIcono";
+            iconPictureBoxIcono.Size = new Size(40, 28);
+            iconPictureBoxIcono.TabIndex = 156;
+            iconPictureBoxIcono.TabStop = false;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.Anchor = AnchorStyles.Top;
+            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(376, 33);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(94, 49);
+            roundedButton2.TabIndex = 155;
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(318, 33);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 154;
+            iconPictureBox3.TabStop = false;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.Anchor = AnchorStyles.Top;
+            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox1.ForeColor = SystemColors.ControlText;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Suitcase;
+            iconPictureBox1.IconColor = SystemColors.ControlText;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 28;
+            iconPictureBox1.Location = new Point(116, 45);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(40, 28);
+            iconPictureBox1.TabIndex = 153;
+            iconPictureBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top;
+            label10.AutoSize = true;
+            label10.BackColor = Color.FromArgb(175, 192, 218);
+            label10.Font = new Font("Century Gothic", 12F);
+            label10.Location = new Point(162, 45);
+            label10.Name = "label10";
+            label10.Size = new Size(95, 23);
+            label10.TabIndex = 151;
+            label10.Text = "CLIENTES";
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.Anchor = AnchorStyles.Top;
+            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Enabled = false;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(75, 33);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(234, 49);
+            roundedButton1.TabIndex = 152;
+            roundedButton1.TextColor = Color.White;
+            roundedButton1.UseVisualStyleBackColor = false;
             // 
             // FrmAdministrarClientes
             // 
@@ -633,6 +673,8 @@
             ((System.ComponentModel.ISupportInitialize)dtgClientes).EndInit();
             tabClienteDetail.ResumeLayout(false);
             tabClienteDetail.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -667,11 +709,14 @@
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton roundedButton3;
         private Panel panel1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Label label10;
-        private Clases.RoundedButton roundedButton1;
         private ComboBox comboBox1;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Clases.RoundedButton roundedButton4;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBoxIcono;
+        private Clases.RoundedButton roundedButton2;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Label label10;
+        private Clases.RoundedButton roundedButton1;
     }
 }
