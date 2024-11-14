@@ -250,7 +250,7 @@
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(157, 37);
             ibtnAgregar.TabIndex = 16;
-            ibtnAgregar.Text = "AGREGAR/VER";
+            ibtnAgregar.Text = "AGREGAR/ VER";
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnAgregar_Click;

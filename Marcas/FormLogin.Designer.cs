@@ -85,7 +85,7 @@
             // 
             iconButton1.Dock = DockStyle.Right;
             iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.ForeColor = Color.FromArgb(133, 182, 222);
+            iconButton1.ForeColor = Color.FromArgb(51, 109, 156);
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Close;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;

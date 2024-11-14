@@ -129,20 +129,20 @@
             label2.Font = new Font("Century Gothic", 15F);
             label2.Location = new Point(474, 18);
             label2.Name = "label2";
-            label2.Size = new Size(112, 31);
+            label2.Size = new Size(132, 31);
             label2.TabIndex = 41;
-            label2.Text = "Usuarios";
+            label2.Text = "USUARIOS";
             label2.Click += label2_Click;
             // 
             // iconButton1
             // 
             iconButton1.Anchor = AnchorStyles.Top;
-            iconButton1.BackColor = Color.Black;
+            iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.Font = new Font("Century Gothic", 10F);
             iconButton1.ForeColor = Color.White;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlassPlus;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
@@ -150,7 +150,7 @@
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(144, 32);
             iconButton1.TabIndex = 44;
-            iconButton1.Text = "Buscar";
+            iconButton1.Text = "BUSCAR";
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
@@ -207,11 +207,11 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
-            iconButton3.Location = new Point(1009, 258);
+            iconButton3.Location = new Point(984, 255);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(144, 37);
+            iconButton3.Size = new Size(174, 37);
             iconButton3.TabIndex = 6;
-            iconButton3.Text = "Editar";
+            iconButton3.Text = "EDITAR";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -229,11 +229,11 @@
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
-            iconButton2.Location = new Point(1009, 200);
+            iconButton2.Location = new Point(984, 200);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(144, 37);
+            iconButton2.Size = new Size(174, 37);
             iconButton2.TabIndex = 5;
-            iconButton2.Text = "Agregar";
+            iconButton2.Text = "AGREGAR/ VER";
             iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -294,6 +294,7 @@
             dtgUsuarios.RowHeadersWidth = 51;
             dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
             dtgUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgUsuarios.Size = new Size(916, 494);
             dtgUsuarios.TabIndex = 4;
             dtgUsuarios.CellClick += dtgUsuarios_CellClick;
@@ -369,9 +370,9 @@
             label1.Font = new Font("Century Gothic", 15F);
             label1.Location = new Point(516, 35);
             label1.Name = "label1";
-            label1.Size = new Size(112, 31);
+            label1.Size = new Size(132, 31);
             label1.TabIndex = 48;
-            label1.Text = "Usuarios";
+            label1.Text = "USUARIOS";
             // 
             // roundedButton1
             // 
