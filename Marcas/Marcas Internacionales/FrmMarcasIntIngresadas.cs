@@ -195,7 +195,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image!=documento)
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -233,7 +233,7 @@ namespace Presentacion.Marcas_Internacionales
             string clase = txtClase.Text;
             string paisRegistro = comboBox1.SelectedItem?.ToString();
             string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
-            string tipoSigno=comboBoxTipoSigno.SelectedItem?.ToString();
+            string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -277,7 +277,7 @@ namespace Presentacion.Marcas_Internacionales
             // Editar la marca
             try
             {
-                
+
                 string tienePoder = checkBoxTienePoder.Checked ? "si" : "no";
 
                 bool esActualizado;
@@ -432,14 +432,14 @@ namespace Presentacion.Marcas_Internacionales
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
                         comboBoxTipoSigno.SelectedItem = SeleccionarMarca.tipoSigno;
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
-                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud; 
+                        datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
                         comboBox1.SelectedIndex = index;
 
                         checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
-                        
+
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -448,7 +448,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            mostrarPanelRegistro(); 
+                            mostrarPanelRegistro();
                         }
                     }
                     else
@@ -505,7 +505,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         DataRow row = detallesMarcaInt.Rows[0];
 
-                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value) 
+                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
                         {
                             // Actualizar los controles 
                             textBoxEstatus.Text = row["estado"].ToString();
@@ -690,11 +690,11 @@ namespace Presentacion.Marcas_Internacionales
                     mostrarPanelRegistro();
                     refrescarMarca();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
         }
 
@@ -749,7 +749,7 @@ namespace Presentacion.Marcas_Internacionales
                     )
                 {
                     // Validar que el expediente, clase, folio, registro y libro sean enteros
-                    
+
                     //MessageBox.Show("No es posible salir sin ingresar datos de registro");
                 }
                 else
@@ -768,11 +768,11 @@ namespace Presentacion.Marcas_Internacionales
                         EliminarTabPage(tabPageHistorialMarca);
                         EliminarTabPage(tabPageMarcaDetail);
                     }
-                    
+
                 }
-                
+
             }
-            
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -839,15 +839,15 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarHistorial.etapa = etapa;
                     SeleccionarHistorial.anotaciones = anotaciones;
 
-                    
-                    DialogResult confirmacionInicial = MessageBox.Show(" ¿Está seguro que desea eliminar esta etapa? "+usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    DialogResult confirmacionInicial = MessageBox.Show(" ¿Está seguro que desea eliminar esta etapa? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmacionInicial == DialogResult.Yes)
                     {
-                        
+
                         if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
                         {
-                            
+
                             DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                             if (confirmacionRegistro == DialogResult.Yes)
@@ -856,7 +856,7 @@ namespace Presentacion.Marcas_Internacionales
 
                                 if (eliminarhistorial)
                                 {
-                                    
+
                                     MessageBox.Show("Estado eliminado y datos de registro borrados.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                                 else
@@ -867,7 +867,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id,usuario );
+                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
 
                             if (eliminarhistorial)
                             {
@@ -940,6 +940,11 @@ namespace Presentacion.Marcas_Internacionales
                 txtNombreCliente.Text = SeleccionarPersona.nombre;
 
             }
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }
