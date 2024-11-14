@@ -211,7 +211,7 @@
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(174, 37);
             iconButton3.TabIndex = 6;
-            iconButton3.Text = "EDITAR";
+            iconButton3.Text = "EDITAR/ VER";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -233,7 +233,7 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(174, 37);
             iconButton2.TabIndex = 5;
-            iconButton2.Text = "AGREGAR/ VER";
+            iconButton2.Text = "AGREGAR";
             iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;

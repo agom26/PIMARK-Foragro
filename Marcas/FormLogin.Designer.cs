@@ -112,7 +112,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(132, 6);
+            label1.Location = new Point(83, 10);
             label1.Name = "label1";
             label1.Size = new Size(79, 23);
             label1.TabIndex = 2;
@@ -122,19 +122,19 @@
             // 
             txtUserName.Anchor = AnchorStyles.None;
             txtUserName.Font = new Font("Century Gothic", 9F);
-            txtUserName.Location = new Point(63, 267);
+            txtUserName.Location = new Point(106, 267);
             txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(350, 26);
+            txtUserName.Size = new Size(256, 26);
             txtUserName.TabIndex = 3;
             // 
             // txtPassword
             // 
             txtPassword.Anchor = AnchorStyles.None;
             txtPassword.Font = new Font("Century Gothic", 9F);
-            txtPassword.Location = new Point(60, 385);
+            txtPassword.Location = new Point(106, 385);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(353, 26);
+            txtPassword.Size = new Size(256, 26);
             txtPassword.TabIndex = 5;
             // 
             // label2
@@ -143,7 +143,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(107, 10);
+            label2.Location = new Point(59, 10);
             label2.Name = "label2";
             label2.Size = new Size(125, 23);
             label2.TabIndex = 4;
@@ -153,9 +153,9 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(150, 71);
+            pictureBox1.Location = new Point(106, 56);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(165, 144);
+            pictureBox1.Size = new Size(256, 159);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
@@ -167,7 +167,7 @@
             checkBoxRememberme.AutoSize = true;
             checkBoxRememberme.Font = new Font("Century Gothic", 12F);
             checkBoxRememberme.ForeColor = Color.White;
-            checkBoxRememberme.Location = new Point(63, 467);
+            checkBoxRememberme.Location = new Point(167, 470);
             checkBoxRememberme.Name = "checkBoxRememberme";
             checkBoxRememberme.Size = new Size(155, 27);
             checkBoxRememberme.TabIndex = 8;
@@ -186,11 +186,11 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Century Gothic", 12F);
             btnGuardar.ForeColor = Color.Black;
-            btnGuardar.Location = new Point(63, 533);
+            btnGuardar.Location = new Point(106, 533);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(350, 62);
+            btnGuardar.Size = new Size(256, 62);
             btnGuardar.TabIndex = 48;
-            btnGuardar.Text = "Iniciar sesión";
+            btnGuardar.Text = "INICIAR SESIÓN";
             btnGuardar.TextColor = Color.Black;
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
@@ -201,16 +201,16 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 50);
             panel2.Name = "panel2";
-            panel2.Size = new Size(57, 654);
+            panel2.Size = new Size(100, 654);
             panel2.TabIndex = 49;
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(34, 77, 112);
             panel3.Dock = DockStyle.Right;
-            panel3.Location = new Point(416, 50);
+            panel3.Location = new Point(368, 50);
             panel3.Name = "panel3";
-            panel3.Size = new Size(57, 654);
+            panel3.Size = new Size(105, 654);
             panel3.TabIndex = 50;
             // 
             // panel4
@@ -233,18 +233,18 @@
             // 
             panel5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(label1);
-            panel5.Location = new Point(60, 232);
+            panel5.Location = new Point(106, 221);
             panel5.Name = "panel5";
-            panel5.Size = new Size(353, 29);
+            panel5.Size = new Size(256, 40);
             panel5.TabIndex = 49;
             // 
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panel6.Controls.Add(label2);
-            panel6.Location = new Point(60, 345);
+            panel6.Location = new Point(106, 345);
             panel6.Name = "panel6";
-            panel6.Size = new Size(353, 34);
+            panel6.Size = new Size(256, 34);
             panel6.TabIndex = 50;
             // 
             // LoginForm

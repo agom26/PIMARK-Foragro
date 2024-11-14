@@ -187,9 +187,9 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(167, 6);
+            roundedButton5.Location = new Point(329, 6);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(683, 61);
+            roundedButton5.Size = new Size(339, 61);
             roundedButton5.TabIndex = 53;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -229,7 +229,7 @@
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(157, 37);
             ibtnEditar.TabIndex = 17;
-            ibtnEditar.Text = "EDITAR";
+            ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnEditar.UseVisualStyleBackColor = false;
             ibtnEditar.Click += ibtnEditar_Click;
@@ -250,7 +250,7 @@
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(157, 37);
             ibtnAgregar.TabIndex = 16;
-            ibtnAgregar.Text = "AGREGAR/ VER";
+            ibtnAgregar.Text = "AGREGAR";
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnAgregar_Click;
@@ -313,6 +313,7 @@
             dtgAgentes.RowHeadersWidth = 51;
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgAgentes.Size = new Size(904, 495);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
@@ -570,9 +571,9 @@
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(232, 25);
+            roundedButton1.Location = new Point(451, 25);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(683, 61);
+            roundedButton1.Size = new Size(244, 61);
             roundedButton1.TabIndex = 56;
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
