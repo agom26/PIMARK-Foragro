@@ -19,6 +19,16 @@ namespace Presentacion.Marcas_Nacionales
         HistorialModel historialModel = new HistorialModel();
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         public FrmRegistradas()
         {
             InitializeComponent();
@@ -146,7 +156,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                pictureBox1.Image = null;
+                convertirImagen();
+                pictureBox1.Image = documento;
             }
         }
         public void mostrarPanelRegistro(string isRegistrada)
@@ -188,6 +199,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         private bool ValidarCampo(string campo, string mensaje)
         {
+            
             if (string.IsNullOrEmpty(campo))
             {
                 MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -220,9 +232,14 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
+            convertirImagen();
             // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (pictureBox1.Image == documento)
+            {
+                MessageBox.Show("igual");
+            }
+
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
             {
                 using (var ms = new System.IO.MemoryStream())
                 {
@@ -276,7 +293,7 @@ namespace Presentacion.Marcas_Nacionales
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-
+           
             // Validaciones
             if (idTitular <= 0)
             {
@@ -885,7 +902,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
