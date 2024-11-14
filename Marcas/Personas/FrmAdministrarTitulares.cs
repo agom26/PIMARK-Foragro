@@ -116,8 +116,8 @@ namespace Presentacion.Personas
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
-
-            btnGuardarTit.Text = "Guardar";
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnGuardarTit.Text = "GUARDAR";
         }
 
         private void btnCancelarTit_Click(object sender, EventArgs e)
@@ -155,14 +155,14 @@ namespace Presentacion.Personas
                     // Deshabilitar el botón para evitar múltiples clics
                     btnGuardarTit.Enabled = false;
 
-                    if (btnGuardarTit.Text == "Guardar")
+                    if (btnGuardarTit.Text == "GUARDAR")
                     {
                         // Ejecutar la operación de guardado de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         MessageBox.Show("Titular agregado exitosamente");
                         dtgTitulares.ClearSelection();
                     }
-                    else if (btnGuardarTit.Text == "Actualizar")
+                    else if (btnGuardarTit.Text == "ACTUALIZAR")
                     {
                         bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreTitular.Text,
@@ -209,15 +209,15 @@ namespace Presentacion.Personas
             Habilitar();
             if (dtgTitulares.SelectedRows.Count > 0)
             {
-                // Obtener el valor del 'id' de la fila seleccionada
+                
                 int idPersona = EditarPersona.idPersona;
-
-                // Llamar al método que obtiene los datos del titular basándose en el campo 'idPersona'
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+               
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
-                if (titularDetails.Count > 0) // Asegurarse de que se haya encontrado el titular
+                if (titularDetails.Count > 0) 
                 {
-                    // Asignar los valores obtenidos a la clase estática EditarPersona
+                   
                     EditarPersona.idPersona = titularDetails[0].id;
                     EditarPersona.nombre = titularDetails[0].nombre;
                     EditarPersona.direccion = titularDetails[0].direccion;
@@ -236,7 +236,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     AnadirTabPage(tabTitularDetail);
-                    btnGuardarTit.Text = "Actualizar"; // Cambiar el texto del botón a "Actualizar"
+                    btnGuardarTit.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
                 }
                 else
                 {
@@ -392,6 +392,11 @@ namespace Presentacion.Personas
             {
                 MessageBox.Show("Por favor, seleccione una fila de titular.");
             }
+        }
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
