@@ -483,6 +483,11 @@ namespace Presentacion
 
         private async void panel3_Click_1(object sender, EventArgs e)
         {
+
+        }
+
+        private async void btnHome_Click(object sender, EventArgs e)
+        {
             DisableButtons();
             openChildForm(new FrmDashboard(this));
             await Task.Delay(1000);
