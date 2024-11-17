@@ -73,9 +73,59 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] ErrorIcon {
+            get {
+                object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] InfoIcon {
+            get {
+                object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] logoImage {
             get {
                 object obj = ResourceManager.GetObject("logoImage", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] QuestionIcon {
+            get {
+                object obj = ResourceManager.GetObject("QuestionIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] SucessIcon {
+            get {
+                object obj = ResourceManager.GetObject("SucessIcon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] WarningIcon {
+            get {
+                object obj = ResourceManager.GetObject("WarningIcon", resourceCulture);
                 return ((byte[])(obj));
             }
         }

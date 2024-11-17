@@ -31,8 +31,10 @@
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="iTextSharp-LGPL" Version="4.1.6" />
     <PackageReference Include="MailKit" Version="4.8.0" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="140.340.80" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+    <PackageReference Include="MaterialSkin" Version="0.2.1" />
+    <PackageReference Include="MetroModernUI" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1652.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="VisualBasic.PowerPacks.Vs" Version="1.0.0" />
   </ItemGroup>
 
@@ -92,10 +94,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Libs\Bunifu.Licensing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Bunifu.Licensing">
+      <HintPath>Libs\Bunifu.Licensing.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

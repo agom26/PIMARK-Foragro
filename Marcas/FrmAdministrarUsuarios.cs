@@ -8,8 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using Comun.Cache;
 using Dominio;
+using MetroFramework;
+using MetroFramework.Controls;
+using Presentacion.Alertas;
 
 namespace Presentacion
 {
@@ -322,29 +326,32 @@ namespace Presentacion
                     try
                     {
                         contrasena = txtConfirmarCont.Text;
-                        btnGuardarU.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
+                        btnGuardarU.Enabled = false; 
 
                         if (btnGuardarU.Text == "GUARDAR")
                         {
-                            // Ejecutar la operación de adición de manera asíncrona
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
-                            MessageBox.Show("Usuario agregado exitosamente");
+                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
                         }
                         else if (btnGuardarU.Text == "ACTUALIZAR")
                         {
-                            // Ejecutar la operación de actualización de manera asíncrona
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
-                            MessageBox.Show("Usuario actualizado exitosamente");
+                           
+                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
                         }
 
-                        // Redirigir a tabPage1
+                        
                         tabControl1.SelectedTab = tabPage1;
                         MostrarUsuarios();
                         EliminarTabPage(tabPageUserDetail);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
+                        FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
                     }
                     finally
                     {
@@ -353,7 +360,9 @@ namespace Presentacion
                 }
                 else
                 {
-                    MessageBox.Show("Las contraseñas no coinciden.");
+                    FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Las contraseñas no coinciden.");
                 }
             }
         }
