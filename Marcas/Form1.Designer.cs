@@ -219,7 +219,7 @@
             button3.Padding = new Padding(58, 0, 0, 0);
             button3.Size = new Size(259, 47);
             button3.TabIndex = 7;
-            button3.Text = "> INGRESADAS";
+            button3.Text = "> TRÁMITE INICIAL";
             button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = true;
             // 
@@ -236,7 +236,7 @@
             button36.Padding = new Padding(58, 0, 0, 0);
             button36.Size = new Size(259, 47);
             button36.TabIndex = 0;
-            button36.Text = "> TRÁMITE INICIAL";
+            button36.Text = "> INGRESAR PATENTE";
             button36.TextAlign = ContentAlignment.MiddleLeft;
             button36.UseVisualStyleBackColor = true;
             // 
@@ -454,7 +454,7 @@
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
             btnIngresadasInt.Size = new Size(259, 47);
             btnIngresadasInt.TabIndex = 10;
-            btnIngresadasInt.Text = "> INGRESADAS";
+            btnIngresadasInt.Text = "> TRÁMITE INICIAL";
             btnIngresadasInt.TextAlign = ContentAlignment.MiddleLeft;
             btnIngresadasInt.UseVisualStyleBackColor = true;
             btnIngresadasInt.Click += button5_Click_1;
@@ -472,7 +472,7 @@
             btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
             btnTramiteInicialInter.Size = new Size(259, 47);
             btnTramiteInicialInter.TabIndex = 4;
-            btnTramiteInicialInter.Text = "> TRÁMITE INICIAL";
+            btnTramiteInicialInter.Text = "> INGRESAR MARCA";
             btnTramiteInicialInter.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicialInter.UseVisualStyleBackColor = true;
             btnTramiteInicialInter.Click += button29_Click;
@@ -648,7 +648,7 @@
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
             btnEnTramite.Size = new Size(259, 47);
             btnEnTramite.TabIndex = 6;
-            btnEnTramite.Text = "> INGRESADAS";
+            btnEnTramite.Text = "> TRÁMITE INICIAL";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
             btnEnTramite.UseVisualStyleBackColor = false;
             btnEnTramite.Click += button4_Click;
@@ -668,7 +668,7 @@
             btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
             btnTramiteInicial.Size = new Size(259, 47);
             btnTramiteInicial.TabIndex = 0;
-            btnTramiteInicial.Text = "> TRÁMITE INICIAL";
+            btnTramiteInicial.Text = "> INGRESAR MARCA";
             btnTramiteInicial.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicial.UseVisualStyleBackColor = false;
             btnTramiteInicial.Click += button26_Click;
