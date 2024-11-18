@@ -184,9 +184,9 @@
             label28.Font = new Font("Century Gothic", 12F);
             label28.Location = new Point(461, 13);
             label28.Name = "label28";
-            label28.Size = new Size(162, 23);
+            label28.Size = new Size(188, 23);
             label28.TabIndex = 162;
-            label28.Text = "TRÁMITE INICIAL";
+            label28.Text = "INGRESAR MARCA";
             // 
             // label20
             // 
