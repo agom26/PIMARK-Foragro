@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -185,18 +186,8 @@ namespace Presentacion.Marcas_Nacionales
             DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
             dateTimePFecha_vencimiento.Value = fecha_vencimiento;
         }
-        private void ActualizarFechaRegistroAntiguoRenovacion()
-        {
-            DateTime fecha_registro = dateFechRegAntigua.Value;
-            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateFechVencAnt.Value = fecha_vencimiento;
-        }
-        private void ActualizarFechaRegistroNuevoRenovacion()
-        {
-            DateTime fecha_registro = dateFechRegNueva.Value;
-            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateFechVencNueva.Value = fecha_vencimiento;
-        }
+        
+       
         private bool ValidarCampo(string campo, string mensaje)
         {
 
@@ -311,14 +302,16 @@ namespace Presentacion.Marcas_Nacionales
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
-
-                MessageBox.Show("Por favor, ingrese el número de trámite de renovación", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE RENOVACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.Show();
                 return;
             }
 
             if (estado == "Trámite de traspaso" && string.IsNullOrEmpty(etrasp))
             {
-                MessageBox.Show("Por favor, ingrese el número de trámite de traspaso.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE TRASPASO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.Show();
+                
                 return;
             }
             // Editar la marca
@@ -348,21 +341,24 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                         {
-                            MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.Show();
                             SeleccionarMarca.idN = 0;
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                         else
                         {
                             historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                            MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.Show();
                             SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR LA MARCA NACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.Show();
                     }
                 }
                 else
@@ -1180,16 +1176,15 @@ namespace Presentacion.Marcas_Nacionales
                         DataRow fila = renovacion.Rows[0];
 
                         SeleccionarRenovacion.idRenovacion = Convert.ToInt32(fila["Id"]);
-                        SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
-                        SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
+                        //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
+                        //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
                         SeleccionarRenovacion.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
                         SeleccionarRenovacion.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
                         SeleccionarRenovacion.NumExpediente = fila["NumExpediente"].ToString();
                         SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
                         //Asignar valores a controles
                         txtNoExpediente.Text = SeleccionarRenovacion.NumExpediente;
-                        dateFechRegAntigua.Value = SeleccionarRenovacion.Reg_Antiguo;
-                        dateFechRegNueva.Value = SeleccionarRenovacion.Reg_nuevo;
+                        
                         dateFechVencAnt.Value = SeleccionarRenovacion.Venc_antiguo;
                         dateFechVencNueva.Value = SeleccionarRenovacion.Venc_nuevo;
 
@@ -1210,8 +1205,8 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
             string numExpediente = txtNoExpediente.Text;
-            DateTime fechaRegistroA = dateFechRegAntigua.Value;
-            DateTime fechaRegistroN = dateFechRegNueva.Value;
+           
+            
             DateTime fechaVencimientoA = dateFechVencAnt.Value;
             DateTime fechaVencimientoN = dateFechVencNueva.Value;
             int id = SeleccionarRenovacion.idRenovacion;
@@ -1219,35 +1214,41 @@ namespace Presentacion.Marcas_Nacionales
 
             if (!string.IsNullOrEmpty(numExpediente))
             {
-                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaRegistroA, fechaVencimientoA, fechaRegistroN, fechaVencimientoN);
+                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
 
                 if (actualizado)
                 {
                     loadRenovacionesById();
-                    MessageBox.Show("Registro de renovación actualizado exitosamente.");
+                    FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.Show();
+                    //MessageBox.Show("Registro de renovación actualizado exitosamente.");
                     tabControl1.SelectedTab = tabPageRenovacionesList;
 
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo actualizar el registro de renovación.");
+                    FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.Show();
+                   //MessageBox.Show("No se pudo actualizar el registro de renovación.");
                 }
             }
             else
             {
-                MessageBox.Show("El número de expediente no puede estar vacío.");
+                FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.Show();
+                //MessageBox.Show("El número de expediente no puede estar vacío.");
             }
 
         }
 
         private void dateFechRegAntigua_ValueChanged(object sender, EventArgs e)
         {
-            ActualizarFechaRegistroAntiguoRenovacion();
+            //ActualizarFechaRegistroAntiguoRenovacion();
         }
 
         private void dateFechRegNueva_ValueChanged(object sender, EventArgs e)
         {
-            ActualizarFechaRegistroNuevoRenovacion();
+            //ActualizarFechaRegistroNuevoRenovacion();
         }
 
         private void roundedButton9_Click(object sender, EventArgs e)

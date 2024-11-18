@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -450,6 +451,7 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
                             SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+                            AgregarRenovacion.fechaVencimientoAntigua=(DateTime)SeleccionarMarca.fechaVencimiento;
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
@@ -513,7 +515,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
 
-                // Invoca el método para actualizar el DataGridView en el hilo principal
+                
                 Invoke(new Action(() =>
                 {
                     dtgHistorialR.AutoGenerateColumns = true;
@@ -577,6 +579,8 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
         }
+
+        
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
@@ -891,7 +895,8 @@ namespace Presentacion.Marcas_Nacionales
                 LimpiarFormulario();
                 AgregarRenovacion.renovacionTerminada = false;
                 tabControl1.SelectedTab = tabPageRegistradasList;
-                MessageBox.Show("Renovacion guardada correctamente");
+                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.Show();
 
             }
         }

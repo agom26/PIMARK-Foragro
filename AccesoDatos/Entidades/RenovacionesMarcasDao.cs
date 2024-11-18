@@ -13,9 +13,9 @@ namespace AccesoDatos.Entidades
         public void InsertRenovacionMarca(
             string numExpediente,
             int idMarca,
-            DateTime fechaRegistroAntigua,
+           
             DateTime fechaVencimientoAntigua,
-            DateTime fechaRegistroNueva,
+           
             DateTime fechaVencimientoNueva)
         {
             using (MySqlConnection conexion = GetConnection())
@@ -26,9 +26,7 @@ namespace AccesoDatos.Entidades
 
                     comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
                     comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
-                    comando.Parameters.AddWithValue("@p_FechaRegistroAntigua", fechaRegistroAntigua);
                     comando.Parameters.AddWithValue("@p_FechaVencimientoAntigua", fechaVencimientoAntigua);
-                    comando.Parameters.AddWithValue("@p_FechaRegistroNueva", fechaRegistroNueva);
                     comando.Parameters.AddWithValue("@p_FechaVencimientoNueva", fechaVencimientoNueva);
 
                     conexion.Open();
@@ -80,7 +78,7 @@ namespace AccesoDatos.Entidades
 
             return resultado;
         }
-        public bool ActualizarRenovacionMarca(int id, string numExpediente, int idMarca, DateTime fechaRegistroAntigua, DateTime fechaVencimientoAntigua, DateTime fechaRegistroNueva, DateTime fechaVencimientoNueva)
+        public bool ActualizarRenovacionMarca(int id, string numExpediente, int idMarca,DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
         {
             try
             {
@@ -92,9 +90,7 @@ namespace AccesoDatos.Entidades
                         comando.Parameters.AddWithValue("p_Id", id);
                         comando.Parameters.AddWithValue("p_NumExpediente", numExpediente);
                         comando.Parameters.AddWithValue("p_IdMarca", idMarca);
-                        comando.Parameters.AddWithValue("p_FechaRegistroAntigua", fechaRegistroAntigua);
                         comando.Parameters.AddWithValue("p_FechaVencimientoAntigua", fechaVencimientoAntigua);
-                        comando.Parameters.AddWithValue("p_FechaRegistroNueva", fechaRegistroNueva);
                         comando.Parameters.AddWithValue("p_FechaVencimientoNueva", fechaVencimientoNueva);
 
                         conexion.Open();

@@ -308,7 +308,7 @@ namespace Presentacion
             string correo = txtCorreo.Text;
             bool isAdmin = chckbIsAdmin.Checked;
 
-            // Verificar que el campo de nombre de usuario no esté vacío
+           
             if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtCont.Text) ||
                 string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
@@ -320,7 +320,7 @@ namespace Presentacion
             }
             else
             {
-                // Verificar si las contraseñas coinciden
+               
                 if (txtCont.Text == txtConfirmarCont.Text)
                 {
                     try
@@ -351,18 +351,18 @@ namespace Presentacion
                     {
                         FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
-                        //MessageBox.Show("No se pudo ingresar el usuario por :" + ex.Message);
+                        
                     }
                     finally
                     {
-                        btnGuardarU.Enabled = true; // Volver a habilitar el botón
+                        btnGuardarU.Enabled = true; 
                     }
                 }
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Las contraseñas no coinciden.");
+                    
                 }
             }
         }

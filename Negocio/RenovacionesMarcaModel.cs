@@ -18,9 +18,9 @@ namespace Dominio
             renovacionesDao = new RenovacionesMarcasDao();
         }
 
-        public void AddRenovacion(string numExpediente, int idMarca,DateTime fechaRegistroAntigua, DateTime fechaVencimientoAntigua, DateTime fechaRegistroNueva, DateTime fechaVencimientoNueva) 
+        public void AddRenovacion(string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva) 
         {
-            renovacionesDao.InsertRenovacionMarca(numExpediente, idMarca, fechaRegistroAntigua, fechaVencimientoAntigua, fechaRegistroNueva, fechaVencimientoNueva);
+            renovacionesDao.InsertRenovacionMarca(numExpediente, idMarca,  fechaVencimientoAntigua, fechaVencimientoNueva);
         }
 
         public DataTable GetAllRenovacionesByIdMarca(int idMarca)
@@ -32,9 +32,9 @@ namespace Dominio
         {
             return renovacionesDao.ObtenerRenovacionPorId(id);
         }
-        public bool ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaRegistroAntigua, DateTime fechaVencimientoAntigua, DateTime fechaRegistroNueva, DateTime fechaVencimientoNueva)
+        public bool ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
         {
-            return renovacionesDao.ActualizarRenovacionMarca(id, numExpediente, idMarca, fechaRegistroAntigua, fechaVencimientoAntigua, fechaRegistroNueva, fechaVencimientoNueva);
+            return renovacionesDao.ActualizarRenovacionMarca(id, numExpediente, idMarca, fechaVencimientoAntigua, fechaVencimientoNueva);
         }
 
 

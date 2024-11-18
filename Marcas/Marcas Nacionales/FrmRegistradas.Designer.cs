@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
             label1 = new Label();
@@ -145,12 +145,8 @@
             label30 = new Label();
             dateFechVencAnt = new DateTimePicker();
             dateFechVencNueva = new DateTimePicker();
-            label31 = new Label();
             label32 = new Label();
-            dateFechRegAntigua = new DateTimePicker();
-            label33 = new Label();
             label34 = new Label();
-            dateFechRegNueva = new DateTimePicker();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             tabPageTraspasosList = new TabPage();
             panel11 = new Panel();
@@ -404,14 +400,14 @@
             dtgMarcasR.BorderStyle = BorderStyle.None;
             dtgMarcasR.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasR.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgMarcasR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dtgMarcasR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dtgMarcasR.ColumnHeadersHeight = 40;
             dtgMarcasR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasR.EnableHeadersVisualStyles = false;
@@ -1269,14 +1265,14 @@
             dtgHistorialR.BorderStyle = BorderStyle.None;
             dtgHistorialR.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialR.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dtgHistorialR.ColumnHeadersHeight = 40;
             dtgHistorialR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialR.EnableHeadersVisualStyles = false;
@@ -1565,14 +1561,14 @@
             dtgRenovaciones.BorderStyle = BorderStyle.None;
             dtgRenovaciones.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgRenovaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dtgRenovaciones.ColumnHeadersHeight = 40;
             dtgRenovaciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgRenovaciones.EnableHeadersVisualStyles = false;
@@ -1691,12 +1687,8 @@
             Fechas.Controls.Add(label30);
             Fechas.Controls.Add(dateFechVencAnt);
             Fechas.Controls.Add(dateFechVencNueva);
-            Fechas.Controls.Add(label31);
             Fechas.Controls.Add(label32);
-            Fechas.Controls.Add(dateFechRegAntigua);
-            Fechas.Controls.Add(label33);
             Fechas.Controls.Add(label34);
-            Fechas.Controls.Add(dateFechRegNueva);
             Fechas.FlatStyle = FlatStyle.Flat;
             Fechas.Location = new Point(154, 22);
             Fechas.Name = "Fechas";
@@ -1708,7 +1700,7 @@
             // txtNoExpediente
             // 
             txtNoExpediente.BorderStyle = BorderStyle.FixedSingle;
-            txtNoExpediente.Location = new Point(242, 47);
+            txtNoExpediente.Location = new Point(241, 63);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.Size = new Size(120, 26);
             txtNoExpediente.TabIndex = 12;
@@ -1717,7 +1709,7 @@
             // label30
             // 
             label30.AutoSize = true;
-            label30.Location = new Point(242, 24);
+            label30.Location = new Point(241, 40);
             label30.Name = "label30";
             label30.Size = new Size(120, 20);
             label30.TabIndex = 12;
@@ -1727,7 +1719,7 @@
             // 
             dateFechVencAnt.Enabled = false;
             dateFechVencAnt.Format = DateTimePickerFormat.Short;
-            dateFechVencAnt.Location = new Point(81, 215);
+            dateFechVencAnt.Location = new Point(74, 163);
             dateFechVencAnt.Name = "dateFechVencAnt";
             dateFechVencAnt.Size = new Size(185, 26);
             dateFechVencAnt.TabIndex = 17;
@@ -1736,64 +1728,28 @@
             // 
             dateFechVencNueva.Enabled = false;
             dateFechVencNueva.Format = DateTimePickerFormat.Short;
-            dateFechVencNueva.Location = new Point(353, 215);
+            dateFechVencNueva.Location = new Point(346, 163);
             dateFechVencNueva.Name = "dateFechVencNueva";
             dateFechVencNueva.Size = new Size(178, 26);
             dateFechVencNueva.TabIndex = 19;
             // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Location = new Point(81, 102);
-            label31.Name = "label31";
-            label31.Size = new Size(171, 20);
-            label31.TabIndex = 12;
-            label31.Text = "Antigua fecha de reg.";
-            // 
             // label32
             // 
             label32.AutoSize = true;
-            label32.Location = new Point(353, 192);
+            label32.Location = new Point(346, 140);
             label32.Name = "label32";
             label32.Size = new Size(178, 20);
             label32.TabIndex = 18;
             label32.Text = "Nueva fecha de venc.";
             // 
-            // dateFechRegAntigua
-            // 
-            dateFechRegAntigua.Format = DateTimePickerFormat.Short;
-            dateFechRegAntigua.Location = new Point(81, 125);
-            dateFechRegAntigua.Name = "dateFechRegAntigua";
-            dateFechRegAntigua.Size = new Size(185, 26);
-            dateFechRegAntigua.TabIndex = 13;
-            dateFechRegAntigua.ValueChanged += dateFechRegAntigua_ValueChanged;
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.Location = new Point(353, 102);
-            label33.Name = "label33";
-            label33.Size = new Size(164, 20);
-            label33.TabIndex = 14;
-            label33.Text = "Nueva fecha de reg.";
-            // 
             // label34
             // 
             label34.AutoSize = true;
-            label34.Location = new Point(81, 192);
+            label34.Location = new Point(74, 140);
             label34.Name = "label34";
             label34.Size = new Size(185, 20);
             label34.TabIndex = 16;
             label34.Text = "Antigua fecha de venc.";
-            // 
-            // dateFechRegNueva
-            // 
-            dateFechRegNueva.Format = DateTimePickerFormat.Short;
-            dateFechRegNueva.Location = new Point(353, 125);
-            dateFechRegNueva.Name = "dateFechRegNueva";
-            dateFechRegNueva.Size = new Size(178, 26);
-            dateFechRegNueva.TabIndex = 15;
-            dateFechRegNueva.ValueChanged += dateFechRegNueva_ValueChanged;
             // 
             // iconButton2
             // 
@@ -1882,14 +1838,14 @@
             dtgTraspasos.BorderStyle = BorderStyle.None;
             dtgTraspasos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTraspasos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Control;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dtgTraspasos.ColumnHeadersHeight = 40;
             dtgTraspasos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgTraspasos.EnableHeadersVisualStyles = false;
@@ -2316,12 +2272,8 @@
         private Label label30;
         private DateTimePicker dateFechVencAnt;
         private DateTimePicker dateFechVencNueva;
-        private Label label31;
         private Label label32;
-        private DateTimePicker dateFechRegAntigua;
-        private Label label33;
         private Label label34;
-        private DateTimePicker dateFechRegNueva;
         private Panel panel16;
         private Clases.RoundedButton roundedButton4;
         private Panel panel17;

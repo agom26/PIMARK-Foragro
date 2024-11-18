@@ -41,10 +41,6 @@
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             txtEstado = new TextBox();
-            dateFechRegAntigua = new DateTimePicker();
-            label4 = new Label();
-            dateFechRegNueva = new DateTimePicker();
-            label5 = new Label();
             dateFechVencAnt = new DateTimePicker();
             label6 = new Label();
             dateFechVencNueva = new DateTimePicker();
@@ -218,56 +214,20 @@
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
-            // dateFechRegAntigua
-            // 
-            dateFechRegAntigua.Enabled = false;
-            dateFechRegAntigua.Format = DateTimePickerFormat.Short;
-            dateFechRegAntigua.Location = new Point(15, 133);
-            dateFechRegAntigua.Name = "dateFechRegAntigua";
-            dateFechRegAntigua.Size = new Size(154, 26);
-            dateFechRegAntigua.TabIndex = 13;
-            dateFechRegAntigua.ValueChanged += dateFechRegAntigua_ValueChanged;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(15, 110);
-            label4.Name = "label4";
-            label4.Size = new Size(171, 20);
-            label4.TabIndex = 12;
-            label4.Text = "Antigua fecha de reg.";
-            // 
-            // dateFechRegNueva
-            // 
-            dateFechRegNueva.Format = DateTimePickerFormat.Short;
-            dateFechRegNueva.Location = new Point(287, 133);
-            dateFechRegNueva.Name = "dateFechRegNueva";
-            dateFechRegNueva.Size = new Size(154, 26);
-            dateFechRegNueva.TabIndex = 15;
-            dateFechRegNueva.ValueChanged += dateFechRegNueva_ValueChanged;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(287, 110);
-            label5.Name = "label5";
-            label5.Size = new Size(164, 20);
-            label5.TabIndex = 14;
-            label5.Text = "Nueva fecha de reg.";
-            // 
             // dateFechVencAnt
             // 
             dateFechVencAnt.Enabled = false;
             dateFechVencAnt.Format = DateTimePickerFormat.Short;
-            dateFechVencAnt.Location = new Point(15, 223);
+            dateFechVencAnt.Location = new Point(24, 172);
             dateFechVencAnt.Name = "dateFechVencAnt";
-            dateFechVencAnt.Size = new Size(154, 26);
+            dateFechVencAnt.Size = new Size(185, 26);
             dateFechVencAnt.TabIndex = 17;
+            dateFechVencAnt.ValueChanged += dateFechVencAnt_ValueChanged;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(15, 200);
+            label6.Location = new Point(24, 149);
             label6.Name = "label6";
             label6.Size = new Size(185, 20);
             label6.TabIndex = 16;
@@ -277,15 +237,15 @@
             // 
             dateFechVencNueva.Enabled = false;
             dateFechVencNueva.Format = DateTimePickerFormat.Short;
-            dateFechVencNueva.Location = new Point(287, 223);
+            dateFechVencNueva.Location = new Point(296, 172);
             dateFechVencNueva.Name = "dateFechVencNueva";
-            dateFechVencNueva.Size = new Size(154, 26);
+            dateFechVencNueva.Size = new Size(178, 26);
             dateFechVencNueva.TabIndex = 19;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(287, 200);
+            label7.Location = new Point(296, 149);
             label7.Name = "label7";
             label7.Size = new Size(178, 20);
             label7.TabIndex = 18;
@@ -297,12 +257,8 @@
             Fechas.Controls.Add(label8);
             Fechas.Controls.Add(dateFechVencAnt);
             Fechas.Controls.Add(dateFechVencNueva);
-            Fechas.Controls.Add(label4);
             Fechas.Controls.Add(label7);
-            Fechas.Controls.Add(dateFechRegAntigua);
-            Fechas.Controls.Add(label5);
             Fechas.Controls.Add(label6);
-            Fechas.Controls.Add(dateFechRegNueva);
             Fechas.Location = new Point(522, 177);
             Fechas.Name = "Fechas";
             Fechas.Size = new Size(503, 272);
@@ -313,7 +269,7 @@
             // txtNoExpediente
             // 
             txtNoExpediente.BorderStyle = BorderStyle.None;
-            txtNoExpediente.Location = new Point(176, 64);
+            txtNoExpediente.Location = new Point(175, 93);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.ReadOnly = true;
             txtNoExpediente.Size = new Size(120, 19);
@@ -324,7 +280,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(176, 41);
+            label8.Location = new Point(175, 70);
             label8.Name = "label8";
             label8.Size = new Size(120, 20);
             label8.TabIndex = 12;
@@ -386,10 +342,6 @@
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private TextBox txtEstado;
-        private DateTimePicker dateFechRegAntigua;
-        private Label label4;
-        private DateTimePicker dateFechRegNueva;
-        private Label label5;
         private DateTimePicker dateFechVencAnt;
         private Label label6;
         private DateTimePicker dateFechVencNueva;

@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 
 namespace Presentacion.Marcas_Nacionales
 {
@@ -10,43 +11,16 @@ namespace Presentacion.Marcas_Nacionales
             InitializeComponent();
         }
 
-        private void ActualizarFechaVencimiento()
-        {
-            DateTime fecha_registro = dateFechRegAntigua.Value;
-            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateFechVencAnt.Value = fecha_vencimiento;
-        }
+
         private void ActualizarFechaVencimientoNueva()
         {
-            DateTime fecha_registro = dateFechRegNueva.Value;
-            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateFechVencNueva.Value = fecha_vencimiento;
+            DateTime fechaVencA = dateFechVencAnt.Value;
+            DateTime fecha_vencimientoN = fechaVencA.AddYears(10);
+            dateFechVencNueva.Value = fecha_vencimientoN;
+            AgregarRenovacion.fechaVencimientoNueva = fecha_vencimientoN;
         }
 
-        private void FrmAgregarEtapasRegistradas_Load(object sender, EventArgs e)
-        {
-            lblUser.Text = UsuarioActivo.usuario;
-            lblUser.Visible = false;
-            txtNoExpediente.Text = SeleccionarMarca.erenov;
-            dateFechRegAntigua.Value = SeleccionarMarca.fechaRegistro.Value;
-            ActualizarFechaVencimiento();
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            AgregarEtapa.LimpiarEtapa();
-            this.Close();
-        }
-
-        private void iconButton2_Click(object sender, EventArgs e)
-        {
-
-            this.Close();
-            AgregarEtapa.LimpiarEtapa();
-        }
-
-        private void iconButton3_Click(object sender, EventArgs e)
+        public void RenovarMarca()
         {
             HistorialModel historialModel = new HistorialModel();
             RenovacionesMarcaModel renovacionModel = new RenovacionesMarcaModel();
@@ -57,11 +31,9 @@ namespace Presentacion.Marcas_Nacionales
 
             //renovacion
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacion.idMarca= SeleccionarMarca.idN;
-            AgregarRenovacion.fechaRegistroAntigua = dateFechRegAntigua.Value;
-            AgregarRenovacion.fechaRegistroNueva=dateFechRegNueva.Value;
-            AgregarRenovacion.fechaVencimientoAntigua=dateFechVencAnt.Value;
-            AgregarRenovacion.fechaVencimientoNueva= dateFechVencNueva.Value;
+            AgregarRenovacion.idMarca = SeleccionarMarca.idN;
+            AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
+            AgregarRenovacion.fechaVencimientoNueva = dateFechVencNueva.Value;
 
             if (txtEstado.Text != "")
             {
@@ -81,16 +53,18 @@ namespace Presentacion.Marcas_Nacionales
                 try
                 {
                     //Agregar a renovaciones
-                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacion.idMarca, AgregarRenovacion.fechaRegistroAntigua, AgregarRenovacion.fechaVencimientoAntigua, AgregarRenovacion.fechaRegistroNueva, AgregarRenovacion.fechaVencimientoNueva);
-                    
+                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacion.idMarca, AgregarRenovacion.fechaVencimientoAntigua, AgregarRenovacion.fechaVencimientoNueva);
+
                     AgregarRenovacion.renovacionTerminada = true;
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.Show();
+                    //MessageBox.Show(ex.Message);
                 }
-                
+
 
                 this.Close();
             }
@@ -98,6 +72,45 @@ namespace Presentacion.Marcas_Nacionales
             {
                 //MessageBox.Show("No ha seleccionado ningun estado");
             }
+        }
+
+        private void FrmAgregarEtapasRegistradas_Load(object sender, EventArgs e)
+        {
+            lblUser.Text = UsuarioActivo.usuario;
+            lblUser.Visible = false;
+            txtNoExpediente.Text = SeleccionarMarca.erenov;
+            dateFechVencAnt.Value = AgregarRenovacion.fechaVencimientoAntigua;
+            ActualizarFechaVencimientoNueva();
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AgregarEtapa.LimpiarEtapa();
+            this.Close();
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+
+            this.Close();
+            AgregarEtapa.LimpiarEtapa();
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE RENOVAR LA MARCA?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            DialogResult resultado = alerta.ShowDialog();
+            if (resultado == DialogResult.Yes)
+            {
+                RenovarMarca();
+            }
+            else
+            {
+
+            }
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,12 +130,17 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateFechRegNueva_ValueChanged(object sender, EventArgs e)
         {
-            ActualizarFechaVencimientoNueva();
+            
         }
 
         private void dateFechRegAntigua_ValueChanged(object sender, EventArgs e)
         {
-            ActualizarFechaVencimiento();
+           
+        }
+
+        private void dateFechVencAnt_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimientoNueva();
         }
     }
 }

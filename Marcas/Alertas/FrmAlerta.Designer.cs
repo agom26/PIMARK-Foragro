@@ -38,7 +38,7 @@
             // 
             // picIcon
             // 
-            picIcon.Location = new Point(283, 64);
+            picIcon.Location = new Point(241, 26);
             picIcon.Name = "picIcon";
             picIcon.Size = new Size(159, 141);
             picIcon.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -49,7 +49,7 @@
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(304, 231);
+            lblTitulo.Location = new Point(262, 193);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(118, 40);
             lblTitulo.TabIndex = 1;
@@ -60,7 +60,7 @@
             btnYes.IconChar = FontAwesome.Sharp.IconChar.None;
             btnYes.IconColor = Color.Black;
             btnYes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnYes.Location = new Point(194, 373);
+            btnYes.Location = new Point(152, 335);
             btnYes.Name = "btnYes";
             btnYes.Size = new Size(147, 54);
             btnYes.TabIndex = 2;
@@ -73,7 +73,7 @@
             btnNo.IconChar = FontAwesome.Sharp.IconChar.None;
             btnNo.IconColor = Color.Black;
             btnNo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnNo.Location = new Point(378, 373);
+            btnNo.Location = new Point(336, 335);
             btnNo.Name = "btnNo";
             btnNo.Size = new Size(147, 54);
             btnNo.TabIndex = 3;
@@ -85,7 +85,7 @@
             // 
             lblMessage.AutoSize = true;
             lblMessage.Font = new Font("Century Gothic", 12F);
-            lblMessage.Location = new Point(239, 307);
+            lblMessage.Location = new Point(197, 269);
             lblMessage.Name = "lblMessage";
             lblMessage.Size = new Size(72, 23);
             lblMessage.TabIndex = 4;
@@ -95,7 +95,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(748, 450);
+            ClientSize = new Size(666, 423);
             Controls.Add(lblMessage);
             Controls.Add(btnNo);
             Controls.Add(btnYes);
