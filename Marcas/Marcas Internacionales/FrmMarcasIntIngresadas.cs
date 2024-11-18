@@ -366,11 +366,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
-                if (detallesMarcaInter.Rows.Count > 0) // Usa Rows.Count en lugar de Count
+                if (detallesMarcaInter.Rows.Count > 0) 
                 {
-                    DataRow row = detallesMarcaInter.Rows[0]; // Accede a la primera fila del DataTable
+                    DataRow row = detallesMarcaInter.Rows[0]; 
 
-                    if (row["expediente"] != DBNull.Value) // Comprueba si "registro" no es DBNull
+                    if (row["expediente"] != DBNull.Value) 
                     {
                         // Example: Safely assigning fields, checking for DBNull
                         SeleccionarMarca.expediente = row["expediente"] != DBNull.Value ? row["expediente"].ToString() : string.Empty;
@@ -388,7 +388,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
 
-                        // Cargar datos del titular y agente directamente
+                        // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
 
@@ -402,7 +402,7 @@ namespace Presentacion.Marcas_Internacionales
                         var agente = agenteTask.Result;
                         var cliente = clienteTask?.Result;
 
-                        // Set selected person IDs
+                        
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
                         SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;

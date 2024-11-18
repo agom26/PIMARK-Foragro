@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System;
 using System.Collections.Generic;
@@ -212,10 +213,12 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (idCliente <= 0)
             {
-                MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                idCliente = null;
+                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //return;
             }
 
             // Validar campos 
@@ -247,21 +250,24 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (esActualizado)
                 {
-                    // Verificar si la actualización fue exitosa
                     if (esActualizado)
                     {
-                        // Verificar si las observaciones ya contienen el estado actual
+                        
                         if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                         {
-                            MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageOposicionesList;
                         }
                         else
                         {
-                            // Guardar la nueva etapa en el historial
+                           
                             historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                            MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageOposicionesList;
                         }
@@ -280,7 +286,9 @@ namespace Presentacion.Marcas_Internacionales
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + " LA MARCA:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LimpiarFormulario();
             }
         }
@@ -318,11 +326,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
-                if (detallesMarcaInter.Rows.Count > 0) // Usa Rows.Count en lugar de Count
+                if (detallesMarcaInter.Rows.Count > 0)
                 {
-                    DataRow row = detallesMarcaInter.Rows[0]; // Accede a la primera fila del DataTable
+                    DataRow row = detallesMarcaInter.Rows[0]; 
 
-                    if (row["expediente"] != DBNull.Value) // Comprueba si "registro" no es DBNull
+                    if (row["expediente"] != DBNull.Value) 
                     {
                         SeleccionarMarca.expediente = row["expediente"].ToString();
                         SeleccionarMarca.nombre = row["nombre"].ToString();
@@ -331,22 +339,28 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
                         SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
                         SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
-                        SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
-                        SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
-                        SeleccionarMarca.idPersonaCliente = Convert.ToInt32(row["idCliente"]);
+                        SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
+                        SeleccionarMarca.idPersonaAgente = row["idAgente"] != DBNull.Value ? Convert.ToInt32(row["idAgente"]) : 0;
+                        SeleccionarMarca.idPersonaCliente = row["idCliente"] != DBNull.Value ? Convert.ToInt32(row["idCliente"]) : 0;
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
 
+                        // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-                        var clienteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente));
+
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != null
+                            ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
+                            : null;
+
                         await Task.WhenAll(titularTask, agenteTask, clienteTask);
 
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
-                        var cliente = clienteTask.Result;
+                        var cliente = clienteTask?.Result;
+
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
@@ -362,7 +376,7 @@ namespace Presentacion.Marcas_Internacionales
                             txtNombreAgente.Text = agente[0].nombre;
                         }
 
-                        if (cliente.Count > 0)
+                        if (cliente != null && cliente.Count > 0)
                         {
                             txtNombreCliente.Text = cliente[0].nombre;
                         }
@@ -416,7 +430,9 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (dtgMarcasOp.RowCount <= 0)
             {
-                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "INFORMACION", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -432,7 +448,8 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUNA FILA", "INFORMACION", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
             }
         }
 
@@ -578,14 +595,17 @@ namespace Presentacion.Marcas_Internacionales
 
                                 // Actualizar el estado y la justificación en la base de datos
                                 historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono);
-
-                                MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasIngresadas();
                             }
                         }
                         else
                         {
-                            MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA MARCA PARA ABANDONAR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     catch (Exception ex)
