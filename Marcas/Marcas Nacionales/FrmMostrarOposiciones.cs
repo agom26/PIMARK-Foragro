@@ -554,6 +554,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetalle);
+            EliminarTabPage(tabPageAgregarOposicion);
             ActualizarFechaVencimiento();
         }
 
@@ -563,6 +564,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 loadHistorialById();
                 EliminarTabPage(tabPageHistorialDetalle);
+                EliminarTabPage(tabPageAgregarOposicion);
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
@@ -571,12 +573,20 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetalle);
+                EliminarTabPage(tabPageAgregarOposicion);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
                 CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetalle);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageAgregarOposicion);
+            }
+            else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageHistorialDetalle);
             }
         }
         public void ActualizarMarcaNacional()
@@ -1030,6 +1040,29 @@ namespace Presentacion.Marcas_Nacionales
             {
                 txtEstadoAO.Text = AgregarEtapa.etapa;
                 richtxtObservacionesAO.Text = AgregarEtapa.anotaciones;
+            }
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            if (!tabControl1.TabPages.Contains(tabPageAgregarOposicion))
+            {
+                tabControl1.TabPages.Add(tabPageAgregarOposicion);
+            }
+            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            tabControl1.SelectedTab = tabPageAgregarOposicion;
+        }
+
+        private void btnAgregarTitularAO_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitularAO.Text = SeleccionarPersona.nombre;
+                txtDireccionTAO.Text = SeleccionarPersona.direccion;
+                txtEntidadTAO.Text = SeleccionarPersona.pais;
             }
         }
     }
