@@ -394,7 +394,7 @@ namespace Presentacion.Marcas_Nacionales
             txtETraspaso.Text = "";
         }
 
-        private async void CargarDatosMarca()
+        private async Task CargarDatosMarca()
         {
             try
             {
@@ -615,7 +615,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void refrescarMarca()
+        private async Task refrescarMarca()
         {
             if (SeleccionarMarca.idInt > 0)
             {
@@ -797,7 +797,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void roundedButton1_Click(object sender, EventArgs e)
+        private async void roundedButton1_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
             frmAgregarEtapa.ShowDialog();
@@ -820,8 +820,9 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    refrescarMarca();
-                    CargarDatosMarca();
+                    await refrescarMarca();
+                    await CargarDatosMarca();
+
 
                     if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente>0)
                     {

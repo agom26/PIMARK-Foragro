@@ -662,7 +662,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(5, 28);
+            panel1.Location = new Point(-5, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
@@ -770,7 +770,7 @@
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(78, 15);
+            label29.Location = new Point(78, 14);
             label29.Name = "label29";
             label29.Size = new Size(280, 23);
             label29.TabIndex = 169;

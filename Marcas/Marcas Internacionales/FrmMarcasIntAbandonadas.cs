@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -429,7 +430,8 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (dtgMarcasAban.RowCount <= 0)
             {
-                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUNA FILA", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
                 return;
             }
 
@@ -445,7 +447,8 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUNA FILA", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
             }
         }
 

@@ -31,11 +31,11 @@ namespace Presentacion
 
             if (isAdmin)
             {
-                iconButtonUsuarios.Visible = true; //Mostrar apartado de usuarios
+                iconButtonUsuarios.Visible = true; 
             }
             else
             {
-                iconButtonUsuarios.Visible = false; //No mostrarlo si no son admin
+                iconButtonUsuarios.Visible = false; 
             }
             VencimientoModel.EjecutarProcedimiento();
 
@@ -267,14 +267,20 @@ namespace Presentacion
             //openChildForm(new Patentes());
         }
 
-        private void button30_Click(object sender, EventArgs e)
+        private async void button30_Click(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmAdministrarClientes());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
-        private void button29_Click(object sender, EventArgs e)
+        private async void button29_Click(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmTramiteInicialInternacional());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void button34_Click(object sender, EventArgs e)
@@ -295,11 +301,14 @@ namespace Presentacion
             EnableButtons();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async  void Form1_Load(object sender, EventArgs e)
         {
             labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
+            DisableButtons();
             openChildForm(new FrmDashboard(this));
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -352,19 +361,18 @@ namespace Presentacion
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-            // Verifica el estado de la ventana
+          
             if (this.WindowState == FormWindowState.Maximized)
             {
-                // Restaura la ventana a su tamaño normal
+              
                 this.WindowState = FormWindowState.Normal;
-                // Cambia el icono a maximizar
+              
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize; // Cambia a icono de maximizar
             }
             else
             {
-                // Cambia el estado de la ventana a maximizado
                 this.WindowState = FormWindowState.Maximized;
-                // Cambia el icono a restaurar
+                
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowRestore; // Cambia a icono de restaurar
             }
             FormResize();
@@ -405,9 +413,12 @@ namespace Presentacion
             FormResize();
         }
 
-        private void iconButton5_Click_1(object sender, EventArgs e)
+        private async void iconButton5_Click_1(object sender, EventArgs e)
         {
+            DisableButtons();
             openChildForm(new FrmVencimientos());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private void labelName_LN_Click(object sender, EventArgs e)
@@ -420,59 +431,67 @@ namespace Presentacion
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMostrarTodas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void btnOposiciones_Click(object sender, EventArgs e)
+        private async void btnOposiciones_Click(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMostrarOposiciones());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void btnAbandonadas_Click(object sender, EventArgs e)
+        private async void btnAbandonadas_Click(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMostrarAbandonadas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void btnRegistradas_Click(object sender, EventArgs e)
+        private async void btnRegistradas_Click(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+        private async void button5_Click_1(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMarcasIntIngresadas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void button6_Click_1(object sender, EventArgs e)
+        private async void button6_Click_1(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMarcasIntRegistradas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private async void button1_Click_1(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMarcasIntOposiciones());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private async void button2_Click_1(object sender, EventArgs e)
         {
             DisableButtons();
             openChildForm(new FrmMarcasIntAbandonadas());
+            await Task.Delay(1000);
             EnableButtons();
         }
 
