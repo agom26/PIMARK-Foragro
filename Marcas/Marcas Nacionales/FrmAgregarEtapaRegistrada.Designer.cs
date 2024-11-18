@@ -39,15 +39,19 @@
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            btnSeleccionar = new FontAwesome.Sharp.IconButton();
+            btnCancelar = new FontAwesome.Sharp.IconButton();
+            txtNoExpedienteRT = new TextBox();
+            lblNoExpediente = new Label();
+            groupBox1 = new GroupBox();
             panel2.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(168, 195);
+            label1.Location = new Point(167, 179);
             label1.Name = "label1";
             label1.Size = new Size(55, 20);
             label1.TabIndex = 0;
@@ -56,7 +60,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(349, 197);
+            label2.Location = new Point(348, 181);
             label2.Name = "label2";
             label2.Size = new Size(58, 20);
             label2.TabIndex = 1;
@@ -65,7 +69,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(168, 274);
+            label3.Location = new Point(167, 258);
             label3.Name = "label3";
             label3.Size = new Size(102, 20);
             label3.TabIndex = 2;
@@ -74,7 +78,7 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(168, 218);
+            dateTimePicker1.Location = new Point(167, 202);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 26);
             dateTimePicker1.TabIndex = 3;
@@ -86,8 +90,8 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso´", "Trámite de renovación", "Trámite de traspaso" });
-            comboBox1.Location = new Point(349, 220);
+            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
+            comboBox1.Location = new Point(348, 204);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(250, 28);
             comboBox1.TabIndex = 4;
@@ -96,7 +100,7 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(168, 297);
+            richTextBox1.Location = new Point(167, 281);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(431, 102);
             richTextBox1.TabIndex = 5;
@@ -105,7 +109,7 @@
             // lblUser
             // 
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(349, 153);
+            lblUser.Location = new Point(348, 137);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(55, 20);
             lblUser.TabIndex = 6;
@@ -122,7 +126,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(241, 74);
+            roundedButton1.Location = new Point(240, 58);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -169,52 +173,80 @@
             button1.Text = "X";
             button1.UseVisualStyleBackColor = true;
             // 
-            // iconButton3
+            // btnSeleccionar
             // 
-            iconButton3.BackColor = Color.FromArgb(1, 87, 155);
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 10F);
-            iconButton3.ForeColor = Color.White;
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
-            iconButton3.IconColor = Color.White;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(188, 425);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
-            iconButton3.TabIndex = 10;
-            iconButton3.Text = "SELECCIONAR";
-            iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton3.UseVisualStyleBackColor = false;
-            iconButton3.Click += iconButton3_Click;
+            btnSeleccionar.BackColor = Color.FromArgb(1, 87, 155);
+            btnSeleccionar.FlatAppearance.BorderSize = 0;
+            btnSeleccionar.FlatStyle = FlatStyle.Flat;
+            btnSeleccionar.Font = new Font("Century Gothic", 10F);
+            btnSeleccionar.ForeColor = Color.White;
+            btnSeleccionar.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnSeleccionar.IconColor = Color.White;
+            btnSeleccionar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSeleccionar.IconSize = 30;
+            btnSeleccionar.Location = new Point(185, 518);
+            btnSeleccionar.Name = "btnSeleccionar";
+            btnSeleccionar.Size = new Size(179, 34);
+            btnSeleccionar.TabIndex = 10;
+            btnSeleccionar.Text = "SELECCIONAR";
+            btnSeleccionar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnSeleccionar.UseVisualStyleBackColor = false;
+            btnSeleccionar.Click += iconButton3_Click;
             // 
-            // iconButton2
+            // btnCancelar
             // 
-            iconButton2.BackColor = Color.White;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(393, 425);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 34);
-            iconButton2.TabIndex = 9;
-            iconButton2.Text = "CANCELAR";
-            iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 10F);
+            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelar.IconColor = Color.Black;
+            btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelar.IconSize = 30;
+            btnCancelar.Location = new Point(390, 518);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(179, 34);
+            btnCancelar.TabIndex = 9;
+            btnCancelar.Text = "CANCELAR";
+            btnCancelar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += iconButton2_Click;
+            // 
+            // txtNoExpedienteRT
+            // 
+            txtNoExpedienteRT.Location = new Point(138, 43);
+            txtNoExpedienteRT.Name = "txtNoExpedienteRT";
+            txtNoExpedienteRT.Size = new Size(154, 26);
+            txtNoExpedienteRT.TabIndex = 11;
+            // 
+            // lblNoExpediente
+            // 
+            lblNoExpediente.AutoSize = true;
+            lblNoExpediente.Location = new Point(138, 20);
+            lblNoExpediente.Name = "lblNoExpediente";
+            lblNoExpediente.Size = new Size(71, 20);
+            lblNoExpediente.TabIndex = 12;
+            lblNoExpediente.Text = "Traspaso";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(txtNoExpedienteRT);
+            groupBox1.Controls.Add(lblNoExpediente);
+            groupBox1.Location = new Point(167, 403);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(431, 89);
+            groupBox1.TabIndex = 13;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "No. Expediente";
             // 
             // FrmAgregarEtapaRegistrada
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(779, 493);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
+            ClientSize = new Size(779, 576);
+            Controls.Add(groupBox1);
+            Controls.Add(btnSeleccionar);
+            Controls.Add(btnCancelar);
             Controls.Add(panel2);
             Controls.Add(roundedButton1);
             Controls.Add(lblUser);
@@ -231,6 +263,8 @@
             Text = "FrmAgregarEtapaRegistrada";
             Load += FrmAgregarEtapaRegistrada_Load;
             panel2.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -248,7 +282,10 @@
         private Panel panel2;
         private Button button1;
         private Button button2;
-        private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton btnSeleccionar;
+        private FontAwesome.Sharp.IconButton btnCancelar;
+        private TextBox txtNoExpedienteRT;
+        private Label lblNoExpediente;
+        private GroupBox groupBox1;
     }
 }

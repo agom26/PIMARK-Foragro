@@ -820,13 +820,17 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
+                    refrescarMarca();
+                    CargarDatosMarca();
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && string.IsNullOrEmpty(SeleccionarMarca.erenov))
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente>0)
                     {
+                        txtERenovacion.Text=AgregarEtapa.numExpediente.ToString();  
                         txtERenovacion.Enabled = true;
                     }
-                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && string.IsNullOrEmpty(SeleccionarMarca.etraspaso))
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente > 0)
                     {
+                        txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
                     }
                     else
@@ -834,8 +838,7 @@ namespace Presentacion.Marcas_Nacionales
                         txtERenovacion.Enabled = false;
                         txtETraspaso.Enabled = false;
                     }
-                    refrescarMarca();
-                    CargarDatosMarca();
+                    
 
                 }
                 catch (Exception ex)
