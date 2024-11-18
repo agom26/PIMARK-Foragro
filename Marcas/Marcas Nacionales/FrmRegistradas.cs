@@ -303,21 +303,20 @@ namespace Presentacion.Marcas_Nacionales
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
                 FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE RENOVACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.Show();
+                alerta.ShowDialog();
                 return;
             }
 
             if (estado == "Trámite de traspaso" && string.IsNullOrEmpty(etrasp))
             {
                 FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE TRASPASO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.Show();
+                alerta.ShowDialog();
                 
                 return;
             }
-            // Editar la marca
+            
             try
             {
-
 
                 bool esActualizado;
 
@@ -334,36 +333,31 @@ namespace Presentacion.Marcas_Nacionales
 
                 DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
-                if (esActualizado)
+                if (esActualizado==true)
                 {
                     // Verificar si la actualización fue exitosa
-                    if (esActualizado)
+                    if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                     {
-                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
-                        {
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.Show();
-                            SeleccionarMarca.idN = 0;
-                            tabControl1.SelectedTab = tabPageRegistradasList;
-                        }
-                        else
-                        {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.Show();
-                            SeleccionarMarca.idInt = 0;
-                            tabControl1.SelectedTab = tabPageRegistradasList;
-                        }
+                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        SeleccionarMarca.idN = 0;
+                        tabControl1.SelectedTab = tabPageRegistradasList;
                     }
                     else
                     {
-                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR LA MARCA NACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.Show();
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        SeleccionarMarca.idInt = 0;
+                        tabControl1.SelectedTab = tabPageRegistradasList;
                     }
+
+
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR LA MARCA NACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.Show();
                 }
 
                 LimpiarFormulario();
@@ -813,7 +807,9 @@ namespace Presentacion.Marcas_Nacionales
                 try
                 {
                     historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
-                    MessageBox.Show("Etapa agregada con éxito");
+                    FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+
                     if (AgregarEtapa.etapa == "Registrada")
                     {
                         checkBox1.Checked = true;
