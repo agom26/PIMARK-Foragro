@@ -75,12 +75,12 @@
             label10 = new Label();
             btnCancelar = new Clases.RoundedButton();
             panel1 = new Panel();
-            comboBoxTipoSigno = new ComboBox();
-            comboBoxSignoDistintivo = new ComboBox();
-            label26 = new Label();
             label28 = new Label();
+            comboBoxTipoSigno = new ComboBox();
             roundedButton2 = new Clases.RoundedButton();
+            comboBoxSignoDistintivo = new ComboBox();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            label26 = new Label();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             label29 = new Label();
             roundedButton4 = new Clases.RoundedButton();
@@ -662,10 +662,22 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(15, 28);
+            panel1.Location = new Point(5, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top;
+            label28.AutoSize = true;
+            label28.BackColor = Color.FromArgb(175, 192, 218);
+            label28.Font = new Font("Century Gothic", 12F);
+            label28.Location = new Point(479, 14);
+            label28.Name = "label28";
+            label28.Size = new Size(188, 23);
+            label28.TabIndex = 174;
+            label28.Text = "INGRESAR MARCA";
             // 
             // comboBoxTipoSigno
             // 
@@ -679,42 +691,6 @@
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
             comboBoxTipoSigno.TabIndex = 89;
-            // 
-            // comboBoxSignoDistintivo
-            // 
-            comboBoxSignoDistintivo.BackColor = Color.FromArgb(241, 240, 245);
-            comboBoxSignoDistintivo.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxSignoDistintivo.FlatStyle = FlatStyle.Flat;
-            comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
-            comboBoxSignoDistintivo.FormattingEnabled = true;
-            comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            comboBoxSignoDistintivo.Location = new Point(22, 287);
-            comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
-            comboBoxSignoDistintivo.Size = new Size(280, 28);
-            comboBoxSignoDistintivo.TabIndex = 88;
-            // 
-            // label26
-            // 
-            label26.Anchor = AnchorStyles.None;
-            label26.AutoSize = true;
-            label26.Font = new Font("Century Gothic", 10F);
-            label26.Location = new Point(366, 257);
-            label26.Name = "label26";
-            label26.Size = new Size(44, 21);
-            label26.TabIndex = 149;
-            label26.Text = "Tipo";
-            // 
-            // label28
-            // 
-            label28.Anchor = AnchorStyles.Top;
-            label28.AutoSize = true;
-            label28.BackColor = Color.FromArgb(175, 192, 218);
-            label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(479, 14);
-            label28.Name = "label28";
-            label28.Size = new Size(162, 23);
-            label28.TabIndex = 174;
-            label28.Text = "TRÁMITE INICIAL";
             // 
             // roundedButton2
             // 
@@ -730,10 +706,23 @@
             roundedButton2.ForeColor = Color.White;
             roundedButton2.Location = new Point(461, 2);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(203, 49);
+            roundedButton2.Size = new Size(216, 49);
             roundedButton2.TabIndex = 173;
             roundedButton2.TextColor = Color.White;
             roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // comboBoxSignoDistintivo
+            // 
+            comboBoxSignoDistintivo.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxSignoDistintivo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSignoDistintivo.FlatStyle = FlatStyle.Flat;
+            comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
+            comboBoxSignoDistintivo.FormattingEnabled = true;
+            comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
+            comboBoxSignoDistintivo.Location = new Point(22, 287);
+            comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
+            comboBoxSignoDistintivo.Size = new Size(280, 28);
+            comboBoxSignoDistintivo.TabIndex = 88;
             // 
             // iconPictureBox3
             // 
@@ -743,11 +732,22 @@
             iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(400, 3);
+            iconPictureBox3.Location = new Point(409, 3);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(55, 49);
             iconPictureBox3.TabIndex = 172;
             iconPictureBox3.TabStop = false;
+            // 
+            // label26
+            // 
+            label26.Anchor = AnchorStyles.None;
+            label26.AutoSize = true;
+            label26.Font = new Font("Century Gothic", 10F);
+            label26.Location = new Point(366, 257);
+            label26.Name = "label26";
+            label26.Size = new Size(44, 21);
+            label26.TabIndex = 149;
+            label26.Text = "Tipo";
             // 
             // iconPictureBox2
             // 
@@ -758,7 +758,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 28;
-            iconPictureBox2.Location = new Point(46, 15);
+            iconPictureBox2.Location = new Point(32, 15);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 28);
             iconPictureBox2.TabIndex = 171;
@@ -770,7 +770,7 @@
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(92, 15);
+            label29.Location = new Point(78, 15);
             label29.Name = "label29";
             label29.Size = new Size(280, 23);
             label29.TabIndex = 169;

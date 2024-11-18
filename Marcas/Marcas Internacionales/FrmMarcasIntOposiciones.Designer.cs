@@ -181,7 +181,7 @@
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(175, 192, 218);
             label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(660, 44);
+            label28.Location = new Point(506, 33);
             label28.Name = "label28";
             label28.Size = new Size(145, 23);
             label28.TabIndex = 180;
@@ -199,7 +199,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(635, 31);
+            roundedButton5.Location = new Point(481, 20);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(203, 49);
             roundedButton5.TabIndex = 179;
@@ -214,7 +214,7 @@
             iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(574, 32);
+            iconPictureBox3.Location = new Point(420, 21);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(55, 49);
             iconPictureBox3.TabIndex = 178;
@@ -229,7 +229,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 28;
-            iconPictureBox2.Location = new Point(220, 44);
+            iconPictureBox2.Location = new Point(66, 33);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 28);
             iconPictureBox2.TabIndex = 177;
@@ -241,7 +241,7 @@
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(266, 44);
+            label29.Location = new Point(112, 33);
             label29.Name = "label29";
             label29.Size = new Size(280, 23);
             label29.TabIndex = 175;
@@ -259,7 +259,7 @@
             roundedButton8.FlatAppearance.BorderSize = 0;
             roundedButton8.FlatStyle = FlatStyle.Flat;
             roundedButton8.ForeColor = Color.White;
-            roundedButton8.Location = new Point(179, 32);
+            roundedButton8.Location = new Point(25, 21);
             roundedButton8.Name = "roundedButton8";
             roundedButton8.Size = new Size(389, 49);
             roundedButton8.TabIndex = 176;
