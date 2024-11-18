@@ -38,8 +38,15 @@ namespace Presentacion.Marcas_Nacionales
             if (comboBox1.SelectedIndex != -1)
             {
                 string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                anotaciones = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
-                AgregarEtapa.anotaciones = anotaciones;
+                string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
+                if (anotaciones.Contains(formato))
+                {
+                    AgregarEtapa.anotaciones = anotaciones;
+                }
+                else
+                {
+                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                }
                 this.Close();
             }
             else

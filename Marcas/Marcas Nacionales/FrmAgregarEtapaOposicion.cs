@@ -2,14 +2,14 @@
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmAgregarEtapa : Form
+    public partial class FrmAgregarEtapaOposicion : Form
     {
-        public FrmAgregarEtapa()
+        public FrmAgregarEtapaOposicion()
         {
             InitializeComponent();
         }
 
-        private void FrmAgregarEtapa_Load(object sender, EventArgs e)
+        private void FrmAgregarEtapaOposicion_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;

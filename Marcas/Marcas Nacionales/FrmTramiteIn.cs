@@ -339,7 +339,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
-                richTextBox1.Text += AgregarEtapa.anotaciones;
+                richTextBox1.Text = AgregarEtapa.anotaciones;
             }
         }
 

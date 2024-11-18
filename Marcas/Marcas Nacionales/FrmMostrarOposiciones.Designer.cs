@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListaMarcas = new TabPage();
             label28 = new Label();
@@ -123,6 +123,34 @@
             panel8 = new Panel();
             label21 = new Label();
             dtgHistorialO = new DataGridView();
+            tabPageAgregarOposicion = new TabPage();
+            panel9 = new Panel();
+            cmbTipoAO = new ComboBox();
+            cmbSignoDAO = new ComboBox();
+            label1 = new Label();
+            btnAgregarEstadoAO = new Clases.RoundedButton();
+            txtEstadoAO = new TextBox();
+            label27 = new Label();
+            dtpFPublicacionAO = new DateTimePicker();
+            label30 = new Label();
+            txtDireccionAO = new TextBox();
+            label31 = new Label();
+            txtDireccionTAO = new TextBox();
+            label32 = new Label();
+            txtNombreTitularAO = new TextBox();
+            label33 = new Label();
+            btnAgregarTitularAO = new Clases.RoundedButton();
+            label34 = new Label();
+            txtNombreAO = new TextBox();
+            label35 = new Label();
+            txtExpedienteAO = new TextBox();
+            label36 = new Label();
+            richtxtObservacionesAO = new RichTextBox();
+            label37 = new Label();
+            richtxtComentariosAO = new RichTextBox();
+            label38 = new Label();
+            btnGuardarU = new FontAwesome.Sharp.IconButton();
+            btnCancelarU = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageListaMarcas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -140,6 +168,8 @@
             panel6.SuspendLayout();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialO).BeginInit();
+            tabPageAgregarOposicion.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -148,6 +178,7 @@
             tabControl1.Controls.Add(tabPageMarcaDetail);
             tabControl1.Controls.Add(tabPageHistorialMarca);
             tabControl1.Controls.Add(tabPageHistorialDetalle);
+            tabControl1.Controls.Add(tabPageAgregarOposicion);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -390,14 +421,14 @@
             dtgMarcasO.BorderStyle = BorderStyle.None;
             dtgMarcasO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasO.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgMarcasO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dtgMarcasO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dtgMarcasO.ColumnHeadersHeight = 40;
             dtgMarcasO.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasO.EnableHeadersVisualStyles = false;
@@ -746,9 +777,9 @@
             label14.Font = new Font("Century Gothic", 10F);
             label14.Location = new Point(405, 317);
             label14.Name = "label14";
-            label14.Size = new Size(133, 21);
+            label14.Size = new Size(128, 21);
             label14.TabIndex = 98;
-            label14.Text = "Eatado actual";
+            label14.Text = "Estado actual";
             // 
             // datePickerFechaSolicitud
             // 
@@ -1104,14 +1135,14 @@
             dtgHistorialOp.BorderStyle = BorderStyle.None;
             dtgHistorialOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dtgHistorialOp.ColumnHeadersHeight = 40;
             dtgHistorialOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialOp.EnableHeadersVisualStyles = false;
@@ -1352,41 +1383,392 @@
             dtgHistorialO.BorderStyle = BorderStyle.None;
             dtgHistorialO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialO.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Control;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dtgHistorialO.ColumnHeadersHeight = 40;
             dtgHistorialO.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dtgHistorialO.DefaultCellStyle = dataGridViewCellStyle9;
             dtgHistorialO.EnableHeadersVisualStyles = false;
             dtgHistorialO.GridColor = Color.LightGray;
             dtgHistorialO.Location = new Point(94, 68);
             dtgHistorialO.Name = "dtgHistorialO";
             dtgHistorialO.ReadOnly = true;
             dtgHistorialO.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Control;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            dtgHistorialO.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             dtgHistorialO.RowHeadersWidth = 51;
             dtgHistorialO.Size = new Size(934, 492);
             dtgHistorialO.TabIndex = 43;
+            // 
+            // tabPageAgregarOposicion
+            // 
+            tabPageAgregarOposicion.AutoScroll = true;
+            tabPageAgregarOposicion.Controls.Add(panel9);
+            tabPageAgregarOposicion.Location = new Point(4, 29);
+            tabPageAgregarOposicion.Name = "tabPageAgregarOposicion";
+            tabPageAgregarOposicion.Padding = new Padding(3);
+            tabPageAgregarOposicion.Size = new Size(1161, 794);
+            tabPageAgregarOposicion.TabIndex = 4;
+            tabPageAgregarOposicion.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(btnGuardarU);
+            panel9.Controls.Add(btnCancelarU);
+            panel9.Controls.Add(richtxtComentariosAO);
+            panel9.Controls.Add(label38);
+            panel9.Controls.Add(richtxtObservacionesAO);
+            panel9.Controls.Add(label37);
+            panel9.Controls.Add(cmbTipoAO);
+            panel9.Controls.Add(cmbSignoDAO);
+            panel9.Controls.Add(label1);
+            panel9.Controls.Add(btnAgregarEstadoAO);
+            panel9.Controls.Add(txtEstadoAO);
+            panel9.Controls.Add(label27);
+            panel9.Controls.Add(dtpFPublicacionAO);
+            panel9.Controls.Add(label30);
+            panel9.Controls.Add(txtDireccionAO);
+            panel9.Controls.Add(label31);
+            panel9.Controls.Add(txtDireccionTAO);
+            panel9.Controls.Add(label32);
+            panel9.Controls.Add(txtNombreTitularAO);
+            panel9.Controls.Add(label33);
+            panel9.Controls.Add(btnAgregarTitularAO);
+            panel9.Controls.Add(label34);
+            panel9.Controls.Add(txtNombreAO);
+            panel9.Controls.Add(label35);
+            panel9.Controls.Add(txtExpedienteAO);
+            panel9.Controls.Add(label36);
+            panel9.Location = new Point(6, 6);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(1122, 1100);
+            panel9.TabIndex = 0;
+            // 
+            // cmbTipoAO
+            // 
+            cmbTipoAO.BackColor = Color.FromArgb(241, 240, 245);
+            cmbTipoAO.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoAO.FlatStyle = FlatStyle.Flat;
+            cmbTipoAO.FormattingEnabled = true;
+            cmbTipoAO.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
+            cmbTipoAO.Location = new Point(587, 305);
+            cmbTipoAO.Name = "cmbTipoAO";
+            cmbTipoAO.Size = new Size(292, 28);
+            cmbTipoAO.TabIndex = 168;
+            // 
+            // cmbSignoDAO
+            // 
+            cmbSignoDAO.BackColor = Color.FromArgb(241, 240, 245);
+            cmbSignoDAO.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSignoDAO.FlatStyle = FlatStyle.Flat;
+            cmbSignoDAO.FormattingEnabled = true;
+            cmbSignoDAO.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
+            cmbSignoDAO.Location = new Point(243, 305);
+            cmbSignoDAO.Name = "cmbSignoDAO";
+            cmbSignoDAO.Size = new Size(280, 28);
+            cmbSignoDAO.TabIndex = 167;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 10F);
+            label1.Location = new Point(587, 281);
+            label1.Name = "label1";
+            label1.Size = new Size(44, 21);
+            label1.TabIndex = 166;
+            label1.Text = "Tipo";
+            // 
+            // btnAgregarEstadoAO
+            // 
+            btnAgregarEstadoAO.BackColor = Color.LightSteelBlue;
+            btnAgregarEstadoAO.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarEstadoAO.BorderColor = Color.LightSteelBlue;
+            btnAgregarEstadoAO.BorderRadius = 10;
+            btnAgregarEstadoAO.BorderSize = 0;
+            btnAgregarEstadoAO.FlatAppearance.BorderSize = 0;
+            btnAgregarEstadoAO.FlatStyle = FlatStyle.Flat;
+            btnAgregarEstadoAO.Font = new Font("Century Gothic", 9F);
+            btnAgregarEstadoAO.ForeColor = Color.Black;
+            btnAgregarEstadoAO.Location = new Point(243, 394);
+            btnAgregarEstadoAO.Name = "btnAgregarEstadoAO";
+            btnAgregarEstadoAO.Size = new Size(280, 35);
+            btnAgregarEstadoAO.TabIndex = 165;
+            btnAgregarEstadoAO.Text = "+ ESTADO ACTUAL";
+            btnAgregarEstadoAO.TextColor = Color.Black;
+            btnAgregarEstadoAO.UseVisualStyleBackColor = false;
+            btnAgregarEstadoAO.Click += roundedButton5_Click;
+            // 
+            // txtEstadoAO
+            // 
+            txtEstadoAO.Anchor = AnchorStyles.None;
+            txtEstadoAO.Enabled = false;
+            txtEstadoAO.Font = new Font("Century Gothic", 10F);
+            txtEstadoAO.Location = new Point(591, 401);
+            txtEstadoAO.Name = "txtEstadoAO";
+            txtEstadoAO.ReadOnly = true;
+            txtEstadoAO.Size = new Size(290, 28);
+            txtEstadoAO.TabIndex = 164;
+            // 
+            // label27
+            // 
+            label27.Anchor = AnchorStyles.None;
+            label27.AutoSize = true;
+            label27.Font = new Font("Century Gothic", 10F);
+            label27.Location = new Point(591, 363);
+            label27.Name = "label27";
+            label27.Size = new Size(128, 21);
+            label27.TabIndex = 163;
+            label27.Text = "Estado actual";
+            // 
+            // dtpFPublicacionAO
+            // 
+            dtpFPublicacionAO.Anchor = AnchorStyles.None;
+            dtpFPublicacionAO.Font = new Font("Century Gothic", 10F);
+            dtpFPublicacionAO.Format = DateTimePickerFormat.Short;
+            dtpFPublicacionAO.Location = new Point(586, 219);
+            dtpFPublicacionAO.Name = "dtpFPublicacionAO";
+            dtpFPublicacionAO.Size = new Size(295, 28);
+            dtpFPublicacionAO.TabIndex = 162;
+            // 
+            // label30
+            // 
+            label30.Anchor = AnchorStyles.None;
+            label30.AutoSize = true;
+            label30.Font = new Font("Century Gothic", 10F);
+            label30.Location = new Point(586, 194);
+            label30.Name = "label30";
+            label30.Size = new Size(78, 21);
+            label30.TabIndex = 161;
+            label30.Text = "Solicitud";
+            // 
+            // txtDireccionAO
+            // 
+            txtDireccionAO.Enabled = false;
+            txtDireccionAO.Font = new Font("Century Gothic", 10F);
+            txtDireccionAO.Location = new Point(243, 629);
+            txtDireccionAO.Name = "txtDireccionAO";
+            txtDireccionAO.Size = new Size(280, 28);
+            txtDireccionAO.TabIndex = 160;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Century Gothic", 10F);
+            label31.Location = new Point(243, 603);
+            label31.Name = "label31";
+            label31.Size = new Size(75, 21);
+            label31.TabIndex = 159;
+            label31.Text = "Entidad";
+            // 
+            // txtDireccionTAO
+            // 
+            txtDireccionTAO.Enabled = false;
+            txtDireccionTAO.Font = new Font("Century Gothic", 10F);
+            txtDireccionTAO.Location = new Point(595, 562);
+            txtDireccionTAO.Name = "txtDireccionTAO";
+            txtDireccionTAO.Size = new Size(286, 28);
+            txtDireccionTAO.TabIndex = 158;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Century Gothic", 10F);
+            label32.Location = new Point(595, 538);
+            label32.Name = "label32";
+            label32.Size = new Size(88, 21);
+            label32.TabIndex = 157;
+            label32.Text = "Dirección";
+            // 
+            // txtNombreTitularAO
+            // 
+            txtNombreTitularAO.Enabled = false;
+            txtNombreTitularAO.Font = new Font("Century Gothic", 10F);
+            txtNombreTitularAO.Location = new Point(243, 562);
+            txtNombreTitularAO.Name = "txtNombreTitularAO";
+            txtNombreTitularAO.Size = new Size(280, 28);
+            txtNombreTitularAO.TabIndex = 156;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Century Gothic", 10F);
+            label33.Location = new Point(243, 536);
+            label33.Name = "label33";
+            label33.Size = new Size(77, 21);
+            label33.TabIndex = 155;
+            label33.Text = "Nombre";
+            // 
+            // btnAgregarTitularAO
+            // 
+            btnAgregarTitularAO.BackColor = Color.LightSteelBlue;
+            btnAgregarTitularAO.BackgroundColor = Color.LightSteelBlue;
+            btnAgregarTitularAO.BorderColor = Color.LightSteelBlue;
+            btnAgregarTitularAO.BorderRadius = 40;
+            btnAgregarTitularAO.BorderSize = 0;
+            btnAgregarTitularAO.FlatAppearance.BorderSize = 0;
+            btnAgregarTitularAO.FlatStyle = FlatStyle.Flat;
+            btnAgregarTitularAO.Font = new Font("Century Gothic", 10F);
+            btnAgregarTitularAO.ForeColor = Color.Black;
+            btnAgregarTitularAO.Location = new Point(243, 461);
+            btnAgregarTitularAO.Name = "btnAgregarTitularAO";
+            btnAgregarTitularAO.Size = new Size(638, 56);
+            btnAgregarTitularAO.TabIndex = 154;
+            btnAgregarTitularAO.Text = "+ TITULAR";
+            btnAgregarTitularAO.TextColor = Color.Black;
+            btnAgregarTitularAO.UseVisualStyleBackColor = false;
+            // 
+            // label34
+            // 
+            label34.Anchor = AnchorStyles.None;
+            label34.AutoSize = true;
+            label34.Font = new Font("Century Gothic", 10F);
+            label34.Location = new Point(242, 281);
+            label34.Name = "label34";
+            label34.Size = new Size(132, 21);
+            label34.TabIndex = 153;
+            label34.Text = "Signo distintivo";
+            // 
+            // txtNombreAO
+            // 
+            txtNombreAO.Anchor = AnchorStyles.None;
+            txtNombreAO.Font = new Font("Century Gothic", 10F);
+            txtNombreAO.Location = new Point(589, 146);
+            txtNombreAO.Name = "txtNombreAO";
+            txtNombreAO.Size = new Size(292, 28);
+            txtNombreAO.TabIndex = 152;
+            // 
+            // label35
+            // 
+            label35.Anchor = AnchorStyles.None;
+            label35.AutoSize = true;
+            label35.Font = new Font("Century Gothic", 10F);
+            label35.Location = new Point(589, 122);
+            label35.Name = "label35";
+            label35.Size = new Size(77, 21);
+            label35.TabIndex = 151;
+            label35.Text = "Nombre";
+            // 
+            // txtExpedienteAO
+            // 
+            txtExpedienteAO.Anchor = AnchorStyles.None;
+            txtExpedienteAO.Font = new Font("Century Gothic", 10F);
+            txtExpedienteAO.Location = new Point(243, 146);
+            txtExpedienteAO.Name = "txtExpedienteAO";
+            txtExpedienteAO.Size = new Size(280, 28);
+            txtExpedienteAO.TabIndex = 150;
+            // 
+            // label36
+            // 
+            label36.Anchor = AnchorStyles.None;
+            label36.AutoSize = true;
+            label36.Font = new Font("Century Gothic", 10F);
+            label36.Location = new Point(243, 120);
+            label36.Name = "label36";
+            label36.Size = new Size(104, 21);
+            label36.TabIndex = 149;
+            label36.Text = "Expediente";
+            // 
+            // richtxtObservacionesAO
+            // 
+            richtxtObservacionesAO.Anchor = AnchorStyles.None;
+            richtxtObservacionesAO.BorderStyle = BorderStyle.FixedSingle;
+            richtxtObservacionesAO.Font = new Font("Century Gothic", 10F);
+            richtxtObservacionesAO.Location = new Point(243, 708);
+            richtxtObservacionesAO.Name = "richtxtObservacionesAO";
+            richtxtObservacionesAO.ReadOnly = true;
+            richtxtObservacionesAO.Size = new Size(638, 120);
+            richtxtObservacionesAO.TabIndex = 170;
+            richtxtObservacionesAO.Text = "";
+            // 
+            // label37
+            // 
+            label37.Anchor = AnchorStyles.None;
+            label37.AutoSize = true;
+            label37.Font = new Font("Century Gothic", 10F);
+            label37.Location = new Point(243, 682);
+            label37.Name = "label37";
+            label37.Size = new Size(136, 21);
+            label37.TabIndex = 169;
+            label37.Text = "Observaciones";
+            // 
+            // richtxtComentariosAO
+            // 
+            richtxtComentariosAO.Anchor = AnchorStyles.None;
+            richtxtComentariosAO.BorderStyle = BorderStyle.FixedSingle;
+            richtxtComentariosAO.Font = new Font("Century Gothic", 10F);
+            richtxtComentariosAO.Location = new Point(243, 873);
+            richtxtComentariosAO.Name = "richtxtComentariosAO";
+            richtxtComentariosAO.Size = new Size(638, 120);
+            richtxtComentariosAO.TabIndex = 172;
+            richtxtComentariosAO.Text = "";
+            // 
+            // label38
+            // 
+            label38.Anchor = AnchorStyles.None;
+            label38.AutoSize = true;
+            label38.Font = new Font("Century Gothic", 10F);
+            label38.Location = new Point(243, 847);
+            label38.Name = "label38";
+            label38.Size = new Size(116, 21);
+            label38.TabIndex = 171;
+            label38.Text = "Comentarios";
+            // 
+            // btnGuardarU
+            // 
+            btnGuardarU.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarU.FlatAppearance.BorderSize = 0;
+            btnGuardarU.FlatStyle = FlatStyle.Flat;
+            btnGuardarU.Font = new Font("Century Gothic", 12F);
+            btnGuardarU.ForeColor = Color.White;
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarU.IconColor = Color.White;
+            btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarU.IconSize = 30;
+            btnGuardarU.Location = new Point(332, 1018);
+            btnGuardarU.Name = "btnGuardarU";
+            btnGuardarU.Size = new Size(191, 40);
+            btnGuardarU.TabIndex = 174;
+            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarU.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelarU
+            // 
+            btnCancelarU.BackColor = Color.Gainsboro;
+            btnCancelarU.FlatAppearance.BorderSize = 0;
+            btnCancelarU.FlatStyle = FlatStyle.Flat;
+            btnCancelarU.Font = new Font("Century Gothic", 12F);
+            btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarU.IconColor = Color.Black;
+            btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarU.IconSize = 30;
+            btnCancelarU.Location = new Point(581, 1018);
+            btnCancelarU.Name = "btnCancelarU";
+            btnCancelarU.Size = new Size(179, 40);
+            btnCancelarU.TabIndex = 173;
+            btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarU.UseVisualStyleBackColor = false;
             // 
             // FrmMostrarOposiciones
             // 
@@ -1422,6 +1804,9 @@
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialO).EndInit();
+            tabPageAgregarOposicion.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1518,5 +1903,33 @@
         private Clases.RoundedButton roundedButton4;
         private FontAwesome.Sharp.IconButton btnActualizarM;
         private FontAwesome.Sharp.IconButton btnCancelarM;
+        private TabPage tabPageAgregarOposicion;
+        private Panel panel9;
+        private RichTextBox richtxtComentariosAO;
+        private Label label38;
+        private RichTextBox richtxtObservacionesAO;
+        private Label label37;
+        private ComboBox cmbTipoAO;
+        private ComboBox cmbSignoDAO;
+        private Label label1;
+        private Clases.RoundedButton btnAgregarEstadoAO;
+        private TextBox txtEstadoAO;
+        private Label label27;
+        private DateTimePicker dtpFPublicacionAO;
+        private Label label30;
+        private TextBox txtDireccionAO;
+        private Label label31;
+        private TextBox txtDireccionTAO;
+        private Label label32;
+        private TextBox txtNombreTitularAO;
+        private Label label33;
+        private Clases.RoundedButton btnAgregarTitularAO;
+        private Label label34;
+        private TextBox txtNombreAO;
+        private Label label35;
+        private TextBox txtExpedienteAO;
+        private Label label36;
+        private FontAwesome.Sharp.IconButton btnGuardarU;
+        private FontAwesome.Sharp.IconButton btnCancelarU;
     }
 }

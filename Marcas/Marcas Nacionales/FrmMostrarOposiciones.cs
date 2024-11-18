@@ -9,8 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 namespace Presentacion.Marcas_Nacionales
 {
@@ -1019,6 +1018,19 @@ namespace Presentacion.Marcas_Nacionales
         {
             ActualizarMarcaNacional();
             EliminarTabPage(tabPageHistorialMarca);
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+            richtxtObservacionesAO.Text = "";
+            FrmAgregarEtapaOposicion frmAgregarEtapa = new FrmAgregarEtapaOposicion();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapa.etapa != "")
+            {
+                txtEstadoAO.Text = AgregarEtapa.etapa;
+                richtxtObservacionesAO.Text = AgregarEtapa.anotaciones;
+            }
         }
     }
 }
