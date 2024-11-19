@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using MySqlX.XDevAPI.Common;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +42,7 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
+            this.Load += FrmTramiteIn_Load;
         }
         private void ActualizarFechaVencimiento()
         {
@@ -52,7 +54,9 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (string.IsNullOrEmpty(campo))
             {
-                MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta(mensaje.ToUpper(), "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             return true;
@@ -79,7 +83,9 @@ namespace Presentacion.Marcas_Nacionales
                 (registroChek && !int.TryParse(folio, out _)) ||
                 (registroChek && !int.TryParse(libro, out _)))
             {
-                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("EL EXPEDIENTE, CLASE, FOLIO, REGISTRO Y TOMO DEBEN SER VALORES NUMÉRICOS ENTEROS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -94,7 +100,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -104,7 +112,7 @@ namespace Presentacion.Marcas_Nacionales
                 // Validar campos adicionales para marcas registradas
                 if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
                     !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
                     )
                 {
                     return false;
@@ -139,13 +147,17 @@ namespace Presentacion.Marcas_Nacionales
             // Validaciones
             if (idTitular <= 0)
             {
-                MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN TITULAR VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (idAgente <= 0)
             {
-                MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -172,7 +184,10 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                     }
-                    MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     LimpiarFormulario();
                 }
                 else
@@ -209,6 +224,8 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.LimpiarEtapa();
             comboBoxSignoDistintivo.SelectedIndex = -1;
             comboBoxTipoSigno.SelectedIndex = -1;
+            SeleccionarPersona.idPersonaT = 0;
+            SeleccionarPersona.idPersonaA = 0;
         }
 
         public void mostrarPanelRegistro()
@@ -353,6 +370,8 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
             convertirImagen();
             pictureBox1.Image = documento;
+            SeleccionarPersona.idPersonaA = 0;
+            SeleccionarPersona.idPersonaT = 0;
         }
 
         private void roundedButton4_Click_1(object sender, EventArgs e)
