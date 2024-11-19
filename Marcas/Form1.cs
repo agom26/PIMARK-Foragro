@@ -31,11 +31,11 @@ namespace Presentacion
 
             if (isAdmin)
             {
-                iconButtonUsuarios.Visible = true; 
+                iconButtonUsuarios.Visible = true;
             }
             else
             {
-                iconButtonUsuarios.Visible = false; 
+                iconButtonUsuarios.Visible = false;
             }
             VencimientoModel.EjecutarProcedimiento();
 
@@ -301,7 +301,7 @@ namespace Presentacion
             EnableButtons();
         }
 
-        private async  void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
@@ -361,18 +361,18 @@ namespace Presentacion
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-          
+
             if (this.WindowState == FormWindowState.Maximized)
             {
-              
+
                 this.WindowState = FormWindowState.Normal;
-              
+
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize; // Cambia a icono de maximizar
             }
             else
             {
                 this.WindowState = FormWindowState.Maximized;
-                
+
                 iconButton2.IconChar = FontAwesome.Sharp.IconChar.WindowRestore; // Cambia a icono de restaurar
             }
             FormResize();
@@ -509,6 +509,14 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmDashboard(this));
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void btnRenovInter_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmRenovacionesInt());
             await Task.Delay(1000);
             EnableButtons();
         }

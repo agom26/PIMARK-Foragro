@@ -404,6 +404,7 @@
             btnRenovInter.Text = "> TR. DE RENOVACIÓN";
             btnRenovInter.TextAlign = ContentAlignment.MiddleLeft;
             btnRenovInter.UseVisualStyleBackColor = true;
+            btnRenovInter.Click += btnRenovInter_Click;
             // 
             // btnRegInter
             // 

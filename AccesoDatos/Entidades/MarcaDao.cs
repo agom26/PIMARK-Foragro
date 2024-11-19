@@ -662,12 +662,50 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeRenovacion()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("ObtenerMarcasInternacionalesRegistradasRenovaciones", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable resultado = new DataTable();
+                        adapter.Fill(resultado);
+                        return resultado;
+                    }
+                }
+            }
+        }
+
         public DataTable ObtenerMarcasRegistradasEnTramiteDeTraspaso()
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
                 using (var command = new MySqlCommand("ObtenerMarcasRegistradasEnTramiteDeTraspaso", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable resultado = new DataTable();
+                        adapter.Fill(resultado);
+                        return resultado;
+                    }
+                }
+            }
+        }
+
+        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
