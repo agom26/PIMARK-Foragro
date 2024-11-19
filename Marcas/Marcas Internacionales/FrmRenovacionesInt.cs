@@ -639,7 +639,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionConcedida frmAgregarEtapa = new FrmAgregarRenovacionConcedida();
+            FrmAgregarRenovacionIntConcedida frmAgregarEtapa = new FrmAgregarRenovacionIntConcedida();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
@@ -901,7 +901,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnTraspasar_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionConcedida frmAgregarConcesion = new FrmAgregarRenovacionConcedida();
+            FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
             frmAgregarConcesion.ShowDialog();
 
             if (AgregarRenovacion.renovacionTerminada == true)

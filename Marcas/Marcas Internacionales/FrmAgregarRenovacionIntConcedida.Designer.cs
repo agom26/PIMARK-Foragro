@@ -1,6 +1,6 @@
-﻿namespace Presentacion.Marcas_Nacionales
+﻿namespace Presentacion.Marcas_Internacionales
 {
-    partial class FrmAgregarRenovacionConcedida
+    partial class FrmAgregarRenovacionIntConcedida
     {
         /// <summary>
         /// Required designer variable.
@@ -315,10 +315,10 @@
             Controls.Add(groupBox1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmAgregarRenovacionConcedida";
+            Name = "FrmAgregarRenovacionIntConcedida";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmAgregarRenovacionConcedida";
-            Load += FrmAgregarRenovacionConcedida_Load;
+            Text = "FrmAgregarRenovacionIntConcedida";
+            Load += FrmAgregarRenovacionIntConcedida_Load;
             panel2.ResumeLayout(false);
             Fechas.ResumeLayout(false);
             Fechas.PerformLayout();

@@ -2,11 +2,11 @@
 using Dominio;
 using Presentacion.Alertas;
 
-namespace Presentacion.Marcas_Nacionales
+namespace Presentacion.Marcas_Internacionales
 {
-    public partial class FrmAgregarRenovacionConcedida : Form
+    public partial class FrmAgregarRenovacionIntConcedida : Form
     {
-        public FrmAgregarRenovacionConcedida()
+        public FrmAgregarRenovacionIntConcedida()
         {
             InitializeComponent();
         }
@@ -31,7 +31,7 @@ namespace Presentacion.Marcas_Nacionales
 
             //renovacion
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacion.idMarca = SeleccionarMarca.idN;
+            AgregarRenovacion.idMarca = SeleccionarMarca.idInt;
             AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
             AgregarRenovacion.fechaVencimientoNueva = dateFechVencNueva.Value;
 
@@ -48,7 +48,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
 
                 try
                 {
@@ -74,7 +74,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void FrmAgregarRenovacionConcedida_Load(object sender, EventArgs e)
+        private void FrmAgregarRenovacionIntConcedida_Load(object sender, EventArgs e)
         {
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
