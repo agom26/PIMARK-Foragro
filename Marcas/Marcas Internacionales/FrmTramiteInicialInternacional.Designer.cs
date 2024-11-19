@@ -574,9 +574,9 @@
             label10.AutoSize = true;
             label10.Location = new Point(451, 30);
             label10.Name = "label10";
-            label10.Size = new Size(49, 21);
+            label10.Size = new Size(55, 21);
             label10.TabIndex = 10;
-            label10.Text = "Libro";
+            label10.Text = "Tomo";
             // 
             // panel1
             // 
@@ -624,7 +624,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(20, 28);
+            panel1.Location = new Point(10, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
