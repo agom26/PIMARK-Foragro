@@ -220,7 +220,7 @@ namespace Presentacion.Marcas_Nacionales
                 (registroChek && !int.TryParse(folio, out _)) ||
                 (registroChek && !int.TryParse(libro, out _)))
             {
-                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El expediente, clase, folio, registro y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -245,7 +245,7 @@ namespace Presentacion.Marcas_Nacionales
                 // Validar campos adicionales para marcas registradas
                 if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
                     !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
                     )
                 {
                     return false;
@@ -976,7 +976,7 @@ namespace Presentacion.Marcas_Nacionales
                         if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
                         {
 
-                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, tomo, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                             if (confirmacionRegistro == DialogResult.Yes)
                             {
@@ -1418,7 +1418,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
                     !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
                     )
                 {
 
@@ -1430,7 +1430,7 @@ namespace Presentacion.Marcas_Nacionales
                         (!int.TryParse(txtFolio.Text, out _)) ||
                         (!int.TryParse(txtLibro.Text, out _)))
                     {
-                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("El registro, folio y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     }
                     else

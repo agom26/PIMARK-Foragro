@@ -20,6 +20,7 @@ namespace Presentacion.Marcas_Internacionales
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
+        TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
@@ -144,7 +145,7 @@ namespace Presentacion.Marcas_Internacionales
                 (registroChek && !int.TryParse(folio, out _)) ||
                 (registroChek && !int.TryParse(libro, out _)))
             {
-                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El expediente, clase, folio, registro y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -169,7 +170,7 @@ namespace Presentacion.Marcas_Internacionales
                 // Validar campos adicionales para marcas registradas
                 if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
                     !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
                     )
                 {
                     return false;
@@ -575,6 +576,36 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
+        private async void loadTraspasosById()
+        {
+            try
+            {
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idInt));
+
+                // Invoca el método para actualizar el DataGridView en el hilo principal
+                Invoke(new Action(() =>
+                {
+                    dtgTraspasos.AutoGenerateColumns = true;
+                    dtgTraspasos.DataSource = traspasos;
+                    dtgTraspasos.Refresh();
+
+                    if (dtgTraspasos.Columns["id"] != null)
+                    {
+                        dtgTraspasos.Columns["id"].Visible = false;
+                        dtgTraspasos.Columns["IdMarca"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
+                    }
+
+                    dtgTraspasos.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void FrmMarcasIntIngresadas_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadMarcas());
@@ -605,6 +636,9 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
@@ -612,6 +646,30 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageRenovacionesList)
+            {
+                loadRenovacionesById();
+                SeleccionarRenovacion.idRenovacion = 0;
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasoDetail);
+                EliminarTabPage(tabPageTraspasosList);
+
+            }
+            else if (tabControl1.SelectedTab == tabPageTraspasosList)
+            {
+                loadTraspasosById();
+                SeleccionarTraspaso.id = 0;
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasoDetail);
             }
         }
 
@@ -778,7 +836,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
                     !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro , a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
                     )
                 {
                     // Validar que el expediente, clase, folio, registro y libro sean enteros
@@ -792,7 +850,7 @@ namespace Presentacion.Marcas_Internacionales
                         (!int.TryParse(txtFolio.Text, out _)) ||
                         (!int.TryParse(txtLibro.Text, out _)))
                     {
-                        MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("El registro, folio y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     }
                     else
@@ -880,7 +938,7 @@ namespace Presentacion.Marcas_Internacionales
                         if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
                         {
 
-                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, tomo, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                             if (confirmacionRegistro == DialogResult.Yes)
                             {
@@ -986,9 +1044,9 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageRenovacionesList);
-            //EliminarTabPage(tabPageRenovacionDetail);
-            //EliminarTabPage(tabPageTraspasosList);
-            //EliminarTabPage(tabPageTraspasoDetail);
+            EliminarTabPage(tabPageRenovacionDetail);
+            EliminarTabPage(tabPageTraspasosList);
+            EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
         }
 
@@ -1006,6 +1064,191 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton8_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            loadTraspasosById();
+            AnadirTabPage(tabPageTraspasosList);
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        {
+            if (dtgRenovaciones.SelectedRows.Count > 0)
+            {
+                //Habilitar();
+                var filaSeleccionada = dtgRenovaciones.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarRenovacion.idRenovacion = id;
+
+                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+
+                    if (renovacion.Rows.Count > 0)
+                    {
+                        DataRow fila = renovacion.Rows[0];
+
+                        SeleccionarRenovacion.idRenovacion = Convert.ToInt32(fila["Id"]);
+                        //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
+                        //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
+                        SeleccionarRenovacion.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
+                        SeleccionarRenovacion.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacion.NumExpediente = fila["NumExpediente"].ToString();
+                        SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
+                        //Asignar valores a controles
+                        txtNoExpediente.Text = SeleccionarRenovacion.NumExpediente;
+
+                        dateFechVencAnt.Value = SeleccionarRenovacion.Venc_antiguo;
+                        dateFechVencNueva.Value = SeleccionarRenovacion.Venc_nuevo;
+
+                        AnadirTabPage(tabPageRenovacionDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la renovacion", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            string numExpediente = txtNoExpediente.Text;
+
+
+            DateTime fechaVencimientoA = dateFechVencAnt.Value;
+            DateTime fechaVencimientoN = dateFechVencNueva.Value;
+            int id = SeleccionarRenovacion.idRenovacion;
+            int idMarca = SeleccionarRenovacion.IdMarca;
+
+            if (!string.IsNullOrEmpty(numExpediente))
+            {
+                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+
+                if (actualizado)
+                {
+                    loadRenovacionesById();
+                    FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.Show();
+                    //MessageBox.Show("Registro de renovación actualizado exitosamente.");
+                    tabControl1.SelectedTab = tabPageRenovacionesList;
+
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.Show();
+                    //MessageBox.Show("No se pudo actualizar el registro de renovación.");
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.Show();
+                //MessageBox.Show("El número de expediente no puede estar vacío.");
+            }
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageRenovacionesList;
+        }
+
+        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        {
+            if (dtgTraspasos.SelectedRows.Count > 0)
+            {
+                //Habilitar();
+                var filaSeleccionada = dtgTraspasos.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarTraspaso.id = id;
+
+                    DataTable traspaso = traspasosModel.ObtenerTraspasoPorId(id);
+
+                    if (traspaso.Rows.Count > 0)
+                    {
+                        DataRow fila = traspaso.Rows[0];
+
+                        SeleccionarTraspaso.id = Convert.ToInt32(fila["Id"]);
+                        SeleccionarTraspaso.IdMarca = Convert.ToInt32(fila["IdMarca"]);
+                        SeleccionarTraspaso.numExpediente = fila["NumExpediente"].ToString();
+                        SeleccionarTraspaso.idTitularA = Convert.ToInt32(fila["IdTitularAnterior"]);
+                        SeleccionarTraspaso.nombreTitularA = fila["TitularAnterior"].ToString();
+                        SeleccionarTraspaso.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
+                        SeleccionarTraspaso.nombreTitularN = fila["TitularNuevo"].ToString();
+                        SeleccionarTraspaso.nombreA = fila["AntiguoNombre"].ToString();
+                        SeleccionarTraspaso.nombreN = fila["NuevoNombre"].ToString();
+                        //Asignar valores a controles
+                        txtNumExpedienteTraspaso.Text = SeleccionarTraspaso.numExpediente;
+                        txtNombreMarcaA.Text = SeleccionarTraspaso.nombreA;
+                        txtNombreMarcaN.Text = SeleccionarTraspaso.nombreN;
+                        txtNombreTitularA.Text = SeleccionarTraspaso.nombreTitularA;
+                        txtNombreTitularN.Text = SeleccionarTraspaso.nombreTitularN;
+
+                        AnadirTabPage(tabPageTraspasoDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del traspaso", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton10_Click(object sender, EventArgs e)
+        {
+            string nombreMarcaAntigua = txtNombreMarcaA.Text.Trim();
+            string nombreMarcaNueva = txtNombreMarcaN.Text.Trim();
+            string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
+            string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
+            string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
+
+
+            int idTraspaso = SeleccionarTraspaso.id;
+            int idMarca = SeleccionarTraspaso.IdMarca;
+            int idTitularAntiguo = SeleccionarTraspaso.idTitularA;
+            int idTitularNuevo = SeleccionarTraspaso.idTitularN;
+
+
+            if (!string.IsNullOrEmpty(numeroExpediente) &&
+                !string.IsNullOrEmpty(nombreMarcaAntigua) &&
+                !string.IsNullOrEmpty(nombreMarcaNueva) &&
+                !string.IsNullOrEmpty(nombreTitularAntiguo) &&
+                !string.IsNullOrEmpty(nombreTitularNuevo))
+            {
+
+                traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo, nombreMarcaAntigua, nombreMarcaNueva);
+                MessageBox.Show("Traspaso actualizado correctamente");
+                tabControl1.SelectedTab = tabPageTraspasosList;
+            }
+            else
+            {
+
+                MessageBox.Show("Debe llenar todos los campos para poder actualizar el traspaso", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton11_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageTraspasosList;
         }
     }
 }
