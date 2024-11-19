@@ -357,7 +357,8 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
-
+                        SeleccionarMarca.erenov = row["Erenov"].ToString();
+                        SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
                         // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -404,6 +405,8 @@ namespace Presentacion.Marcas_Internacionales
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
                         comboBox1.SelectedIndex = index;
+                        txtERenovacion.Text = SeleccionarMarca.erenov;
+                        txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
                         checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
@@ -961,25 +964,47 @@ namespace Presentacion.Marcas_Internacionales
         private void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
-            string etapa = comboBoxEstatusH.SelectedItem.ToString();
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
             DateTime fecha = dateTimePickerFechaH.Value;
             string anotaciones = richTextBoxAnotacionesH.Text;
             SeleccionarHistorial.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
-            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+            bool actualizar;
 
-            if (actualizar == true)
+            if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                tabControl1.SelectedTab = tabPageHistorialMarca;
-                SeleccionarHistorial.id = 0;
-                refrescarMarca();
+                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
+                if (anotaciones.Contains(formato))
+                {
+                    AgregarEtapa.anotaciones = anotaciones;
+                }
+                else
+                {
+                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                }
+                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                if (actualizar == true)
+                {
+                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    SeleccionarHistorial.id = 0;
+                    refrescarMarca();
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No ha seleccionado ningun estado");
             }
+
+            
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)

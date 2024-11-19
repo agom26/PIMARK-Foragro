@@ -1030,22 +1030,44 @@ namespace Presentacion.Marcas_Nacionales
         private void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
-            string etapa = comboBoxEstatusH.SelectedItem.ToString();
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
             DateTime fecha = dateTimePickerFechaH.Value;
             string anotaciones = richTextBoxAnotacionesH.Text;
             SeleccionarHistorial.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
-            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+            bool actualizar;
 
-            if (actualizar == true)
+            if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                tabControl1.SelectedTab = tabPageHistorialMarca;
+                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
+                if (anotaciones.Contains(formato))
+                {
+                    AgregarEtapa.anotaciones = anotaciones;
+                }
+                else
+                {
+                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                }
+                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                if (actualizar == true)
+                {
+                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    SeleccionarHistorial.id = 0;
+                    refrescarMarca();
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No ha seleccionado ningun estado");
             }
 
 

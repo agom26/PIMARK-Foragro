@@ -19,6 +19,8 @@ namespace Presentacion.Marcas_Internacionales
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
+        RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
+        TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         public FrmMarcasIntAbandonadas()
         {
             InitializeComponent();
@@ -180,7 +182,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-       
+
 
 
         public void LimpiarFormulario()
@@ -233,15 +235,23 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
+                        SeleccionarMarca.erenov = row["Erenov"].ToString();
+                        SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
 
+                        // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
-                        var clienteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente));
+
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != null
+                            ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
+                            : null;
+
                         await Task.WhenAll(titularTask, agenteTask, clienteTask);
 
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
-                        var cliente = clienteTask.Result;
+                        var cliente = clienteTask?.Result;
+
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
@@ -257,7 +267,7 @@ namespace Presentacion.Marcas_Internacionales
                             txtNombreAgente.Text = agente[0].nombre;
                         }
 
-                        if (cliente.Count > 0)
+                        if (cliente != null && cliente.Count > 0)
                         {
                             txtNombreCliente.Text = cliente[0].nombre;
                         }
@@ -274,11 +284,13 @@ namespace Presentacion.Marcas_Internacionales
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
                         comboBox1.SelectedIndex = index;
+                        txtERenovacion.Text = SeleccionarMarca.erenov;
+                        txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
                         checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
@@ -374,6 +386,62 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private async void loadRenovacionesById()
+        {
+            try
+            {
+                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt));
+
+                // Invoca el método para actualizar el DataGridView en el hilo principal
+                Invoke(new Action(() =>
+                {
+                    dtgRenovaciones.AutoGenerateColumns = true;
+                    dtgRenovaciones.DataSource = renovaciones;
+                    dtgRenovaciones.Refresh();
+
+                    if (dtgRenovaciones.Columns["id"] != null)
+                    {
+                        dtgRenovaciones.Columns["id"].Visible = false;
+                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
+                    }
+
+                    dtgRenovaciones.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las renovaciones de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private async void loadTraspasosById()
+        {
+            try
+            {
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idInt));
+
+                // Invoca el método para actualizar el DataGridView en el hilo principal
+                Invoke(new Action(() =>
+                {
+                    dtgTraspasos.AutoGenerateColumns = true;
+                    dtgTraspasos.DataSource = traspasos;
+                    dtgTraspasos.Refresh();
+
+                    if (dtgTraspasos.Columns["id"] != null)
+                    {
+                        dtgTraspasos.Columns["id"].Visible = false;
+                        dtgTraspasos.Columns["IdMarca"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
+                    }
+
+                    dtgTraspasos.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
@@ -399,6 +467,8 @@ namespace Presentacion.Marcas_Internacionales
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
                 //EliminarTabPage(tabPageHistorialDetalle);
             }
             else if (tabControl1.SelectedTab == tabPageAbandonadasList)
@@ -407,12 +477,26 @@ namespace Presentacion.Marcas_Internacionales
                 SeleccionarMarca.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
                 //EliminarTabPage(tabPageHistorialDetalle);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
                 CargarDatosMarca();
                 //EliminarTabPage(tabPageHistorialDetalle);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
+            }
+            else if (tabControl1.SelectedTab == tabPageRenovacionesList)
+            {
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else if (tabControl1.SelectedTab == tabPageTraspasosList)
+            {
+                EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
@@ -443,6 +527,28 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+        }
+
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void roundedButton8_Click(object sender, EventArgs e)
+        {
+            loadRenovacionesById();
+            AnadirTabPage(tabPageRenovacionesList);
+        }
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            loadTraspasosById();
+            AnadirTabPage(tabPageTraspasosList);
         }
     }
 }

@@ -371,6 +371,8 @@ namespace Presentacion.Marcas_Nacionales
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
                 //EliminarTabPage(tabPageHistorialDetalle);
             }
             else if (tabControl1.SelectedTab == tabPageAbandonadasList)
@@ -379,6 +381,8 @@ namespace Presentacion.Marcas_Nacionales
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
                 //EliminarTabPage(tabPageHistorialDetalle);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
