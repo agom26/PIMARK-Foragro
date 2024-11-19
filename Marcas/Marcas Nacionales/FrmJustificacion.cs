@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,9 @@ namespace Presentacion.Marcas_Nacionales
             fecha=dateTimePicker1.Value;
             if (string.IsNullOrEmpty(Justificacion))
             {
-                MessageBox.Show("Por favor ingrese una justificación.", "Justificación requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UNA JUSTIFICACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor ingrese una justificación.", "Justificación requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

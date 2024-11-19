@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using Presentacion.Alertas;
 
 namespace Presentacion.Marcas_Nacionales
 {
@@ -51,7 +52,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                MessageBox.Show("No ha seleccionado ningun estado");
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
 
