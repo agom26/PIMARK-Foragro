@@ -387,6 +387,7 @@
             btnTraspasoInter.Text = "> TR. DE TRASPASO\r\n";
             btnTraspasoInter.TextAlign = ContentAlignment.MiddleLeft;
             btnTraspasoInter.UseVisualStyleBackColor = true;
+            btnTraspasoInter.Click += btnTraspasoInter_Click;
             // 
             // btnRenovInter
             // 

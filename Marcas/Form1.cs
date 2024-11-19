@@ -520,5 +520,13 @@ namespace Presentacion
             await Task.Delay(1000);
             EnableButtons();
         }
+
+        private async void btnTraspasoInter_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmTraspasosInt());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
     }
 }

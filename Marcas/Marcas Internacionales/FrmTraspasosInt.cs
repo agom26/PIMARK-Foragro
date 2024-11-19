@@ -1,6 +1,5 @@
 ﻿using Comun.Cache;
 using Dominio;
-using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,11 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Presentacion.Marcas_Nacionales;
-
+using Presentacion.Alertas;
 namespace Presentacion.Marcas_Internacionales
-
 {
-    public partial class FrmRenovacionesInt : Form
+    public partial class FrmTraspasosInt : Form
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
@@ -30,10 +28,10 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
-        public FrmRenovacionesInt()
+        public FrmTraspasosInt()
         {
             InitializeComponent();
-            this.Load += FrmRenovacionesInt_Load;
+            this.Load += FrmTraspasosInt_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             if (UsuarioActivo.isAdmin == false)
@@ -105,7 +103,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void MostrarMarcasRegistradas()
         {
-            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
+            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasInternacionalesEnTramiteDeTraspaso();
 
             if (dtgMarcasRenov.Columns["id"] != null)
             {
@@ -115,7 +113,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         private async void LoadMarcas()
         {
-            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeRenovacion());
+            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeTraspaso());
 
             Invoke(new Action(() =>
             {
@@ -160,7 +158,7 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
                 btnActualizarM.Location = new Point(42, panel3.Location.Y + panel3.Height + 10);
-                btnTraspasar.Location = new Point(266, panel3.Location.Y + panel3.Height + 10);
+                btnTraspasar.Location = new Point(268, panel3.Location.Y + panel3.Height + 10);
                 btnCancelarM.Location = new Point(499, panel3.Location.Y + panel3.Height + 10);
             }
             else
@@ -169,7 +167,7 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = false;
                 panel3.Visible = false;
                 btnActualizarM.Location = new Point(42, 960);
-                btnTraspasar.Location = new Point(266, 960);
+                btnTraspasar.Location = new Point(268, 960);
                 btnCancelarM.Location = new Point(499, 960);
             }
         }
@@ -390,6 +388,8 @@ namespace Presentacion.Marcas_Internacionales
             txtRegistro.Text = "";
             richTextBox1.Text = "";
             AgregarEtapa.LimpiarEtapa();
+            txtERenovacion.Text = "";
+            txtETraspaso.Text = "";
         }
 
         private async void CargarDatosMarca()
@@ -406,6 +406,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         SeleccionarMarca.expediente = row["expediente"].ToString();
                         SeleccionarMarca.nombre = row["nombre"].ToString();
+                        AgregarTraspaso.antiguoNombre = row["nombre"].ToString();
                         SeleccionarMarca.clase = row["clase"].ToString();
                         SeleccionarMarca.estado = row["estado"].ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
@@ -416,8 +417,19 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
+
+                        if (row["Erenov"] != DBNull.Value)
+                        {
+                            SeleccionarMarca.erenov = row["Erenov"].ToString();
+                            txtERenovacion.Text = SeleccionarMarca.erenov;
+                        }
+
+                        if (row["Etrasp"] != DBNull.Value)
+                        {
+                            SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
+                            txtETraspaso.Text = SeleccionarMarca.etraspaso;
+                        }
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -429,10 +441,11 @@ namespace Presentacion.Marcas_Internacionales
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
-
+                        AgregarTraspaso.idTitularAnterior = SeleccionarMarca.idPersonaTitular;
                         if (titular.Count > 0)
                         {
                             txtNombreTitular.Text = titular[0].nombre;
+                            AgregarTraspaso.nombreTitulara = titular[0].nombre;
                         }
 
                         if (agente.Count > 0)
@@ -444,6 +457,7 @@ namespace Presentacion.Marcas_Internacionales
                         // Actualizar los controles 
                         txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
+                        AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
@@ -466,7 +480,6 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
                             SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
-                            AgregarRenovacion.fechaVencimientoAntigua = (DateTime)SeleccionarMarca.fechaVencimiento;
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
@@ -530,7 +543,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
 
-
+                // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
                     dtgHistorialR.AutoGenerateColumns = true;
@@ -551,7 +564,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void FrmRenovacionesInt_Load(object sender, EventArgs e)
+        private async void FrmTraspasosInt_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadMarcas());
             tabControl1.SelectedTab = tabPageRegistradasList;
@@ -595,8 +608,6 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-
-
         private void iconButton3_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
@@ -639,7 +650,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionIntConcedida frmAgregarEtapa = new FrmAgregarRenovacionIntConcedida();
+            FrmAgregarRenovacionConcedida frmAgregarEtapa = new FrmAgregarRenovacionConcedida();
             frmAgregarEtapa.ShowDialog();
 
             if (AgregarEtapa.etapa != "")
@@ -675,8 +686,10 @@ namespace Presentacion.Marcas_Internacionales
 
             if (SeleccionarPersona.idPersonaT != 0)
             {
+                AgregarTraspaso.idTitularAnterior = SeleccionarPersona.idPersonaT;
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
-
+                AgregarTraspaso.nombreTitulara = SeleccionarPersona.nombre;
+              
             }
         }
 
@@ -883,14 +896,9 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton9_Click(object sender, EventArgs e)
+        private void iconButton2_Click_1(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void btnActualizarM_Click(object sender, EventArgs e)
@@ -899,19 +907,20 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
         }
 
-        private void btnTraspasar_Click(object sender, EventArgs e)
+        private void iconButton1_Click_1(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
-            frmAgregarConcesion.ShowDialog();
+            AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
+            FrmCrearTraspasoInt frmCrearTraspaso = new FrmCrearTraspasoInt();
+            frmCrearTraspaso.ShowDialog();
 
-            if (AgregarRenovacion.renovacionTerminada == true)
+            if (AgregarTraspaso.traspasoFinalizado == true)
             {
+                //Limpiar campos
                 LimpiarFormulario();
-                AgregarRenovacion.renovacionTerminada = false;
+                //Volver a poner traspasos = false
+                AgregarTraspaso.traspasoFinalizado = false;
                 tabControl1.SelectedTab = tabPageRegistradasList;
-                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.Show();
-
+                MessageBox.Show("Traspaso guardado correctamente");
             }
         }
 
@@ -944,6 +953,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
+                        //ActualizarMarcaNacional();
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageRegistradasList;
@@ -952,11 +962,6 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
-        }
-
-        private void btnAgregarCliente_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
