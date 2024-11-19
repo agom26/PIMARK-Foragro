@@ -133,9 +133,9 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public void mostrarPanelRegistro()
+        public void mostrarPanelRegistro(string isRegistrada)
         {
-            if (textBoxEstatus.Text == "Registrada")
+            if (isRegistrada == "si")
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
@@ -151,6 +151,7 @@ namespace Presentacion.Marcas_Internacionales
                 btnActualizar.Location = new Point(47, 960);
                 btnCancelar.Location = new Point(370, 960);
             }
+            
         }
         private void ActualizarFechaVencimiento()
         {
@@ -286,7 +287,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento,null,null);
                 }
                 else
                 {
@@ -360,7 +361,7 @@ namespace Presentacion.Marcas_Internacionales
             AgregarEtapa.LimpiarEtapa();
         }
 
-        private async void CargarDatosMarca()
+        private async Task CargarDatosMarca()
         {
             try
             {
@@ -440,15 +441,15 @@ namespace Presentacion.Marcas_Internacionales
                         checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
-                            mostrarPanelRegistro();
+                            mostrarPanelRegistro("si");
                         }
                         else
                         {
-                            mostrarPanelRegistro();
+                            mostrarPanelRegistro("no");
                         }
                     }
                     else
@@ -493,7 +494,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void refrescarMarca()
+        private async Task refrescarMarca()
         {
             if (SeleccionarMarca.idInt > 0)
             {
@@ -521,11 +522,11 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (contieneRegistrada)
                         {
-                            mostrarPanelRegistro();
+                            mostrarPanelRegistro("si");
                         }
                         else
                         {
-                            mostrarPanelRegistro();
+                            mostrarPanelRegistro("no");
                         }
                     }
                     else
@@ -668,7 +669,7 @@ namespace Presentacion.Marcas_Internacionales
             pictureBox1.Image = documento;
         }
 
-        private void roundedButton1_Click(object sender, EventArgs e)
+        private async void roundedButton1_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
             frmAgregarEtapa.ShowDialog();
@@ -682,13 +683,15 @@ namespace Presentacion.Marcas_Internacionales
                     if (AgregarEtapa.etapa == "Registrada")
                     {
                         checkBox1.Checked = true;
+                        mostrarPanelRegistro("si");
                     }
                     else
                     {
                         checkBox1.Checked = false;
+                        mostrarPanelRegistro("no");
                     }
-                    mostrarPanelRegistro();
-                    refrescarMarca();
+                    await refrescarMarca();
+                    await CargarDatosMarca();
                 }
                 catch (Exception ex)
                 {

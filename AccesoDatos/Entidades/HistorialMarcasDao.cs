@@ -41,13 +41,13 @@ namespace AccesoDatos.Entidades
         public DataTable GetHistorialById(int id)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) // Asegura que la conexión se cierre al finalizar
+            using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Historial WHERE id=@id;", conexion)) // Inicializa correctamente el comando
                 {
                     comando.Parameters.AddWithValue("@id", id);
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) // Asegura que el lector se cierre
+                    using (MySqlDataReader leer = comando.ExecuteReader()) 
                     {
                         tabla.Load(leer);
                     }

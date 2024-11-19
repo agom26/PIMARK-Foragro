@@ -51,7 +51,7 @@ namespace AccesoDatos.Entidades
                 }
             }
 
-            return dataTable; // Retornar el DataTable con los datos filtrados
+            return dataTable; 
         }
 
 
@@ -572,7 +572,7 @@ namespace AccesoDatos.Entidades
         public bool EditarMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,
         string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fechaSolicitud,
         string paisRegistro, string tienePoder, int? idCliente, string registro, string folio,
-        string libro, DateTime fechaRegistro, DateTime fechaVencimiento)
+        string libro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
         {
             int resultado;
 
@@ -601,6 +601,8 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("p_libro", libro);
                     command.Parameters.AddWithValue("p_fecha_registro", fechaRegistro);
                     command.Parameters.AddWithValue("p_fecha_vencimiento", fechaVencimiento);
+                    command.Parameters.AddWithValue("@p_erenov", erenov);
+                    command.Parameters.AddWithValue("@p_etrasp", etrasp);
 
                     MySqlParameter resultadoParam = new MySqlParameter("p_resultado", MySqlDbType.Int32)
                     {

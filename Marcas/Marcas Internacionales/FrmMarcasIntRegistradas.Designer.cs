@@ -121,6 +121,13 @@
             label23 = new Label();
             label22 = new Label();
             panel8 = new Panel();
+            roundedButton9 = new Clases.RoundedButton();
+            Renovacion = new GroupBox();
+            txtETraspaso = new TextBox();
+            label1 = new Label();
+            txtERenovacion = new TextBox();
+            label11 = new Label();
+            roundedButton10 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -137,6 +144,7 @@
             tabPageHistorialDetail.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
+            Renovacion.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -422,6 +430,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(roundedButton9);
+            panel1.Controls.Add(Renovacion);
+            panel1.Controls.Add(roundedButton10);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
@@ -733,7 +744,7 @@
             groupBox1.Font = new Font("Century Gothic", 9F);
             groupBox1.Location = new Point(714, 440);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(341, 125);
+            groupBox1.Size = new Size(341, 107);
             groupBox1.TabIndex = 180;
             groupBox1.TabStop = false;
             groupBox1.Text = ".";
@@ -1379,6 +1390,94 @@
             panel8.Size = new Size(946, 369);
             panel8.TabIndex = 21;
             // 
+            // roundedButton9
+            // 
+            roundedButton9.BackColor = Color.LightSteelBlue;
+            roundedButton9.BackgroundColor = Color.LightSteelBlue;
+            roundedButton9.BorderColor = Color.LightSteelBlue;
+            roundedButton9.BorderRadius = 40;
+            roundedButton9.BorderSize = 0;
+            roundedButton9.FlatAppearance.BorderSize = 0;
+            roundedButton9.FlatStyle = FlatStyle.Flat;
+            roundedButton9.Font = new Font("Century Gothic", 9F);
+            roundedButton9.ForeColor = Color.Black;
+            roundedButton9.Location = new Point(748, 797);
+            roundedButton9.Name = "roundedButton9";
+            roundedButton9.Size = new Size(276, 56);
+            roundedButton9.TabIndex = 195;
+            roundedButton9.Text = "VER TRASPASOS";
+            roundedButton9.TextColor = Color.Black;
+            roundedButton9.UseVisualStyleBackColor = false;
+            // 
+            // Renovacion
+            // 
+            Renovacion.Controls.Add(txtETraspaso);
+            Renovacion.Controls.Add(label1);
+            Renovacion.Controls.Add(txtERenovacion);
+            Renovacion.Controls.Add(label11);
+            Renovacion.Font = new Font("Century Gothic", 9F);
+            Renovacion.Location = new Point(766, 922);
+            Renovacion.Name = "Renovacion";
+            Renovacion.Size = new Size(276, 188);
+            Renovacion.TabIndex = 194;
+            Renovacion.TabStop = false;
+            Renovacion.Text = "No. Expediente";
+            // 
+            // txtETraspaso
+            // 
+            txtETraspaso.Font = new Font("Century Gothic", 10F);
+            txtETraspaso.Location = new Point(16, 129);
+            txtETraspaso.Name = "txtETraspaso";
+            txtETraspaso.Size = new Size(233, 28);
+            txtETraspaso.TabIndex = 48;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 10F);
+            label1.Location = new Point(16, 105);
+            label1.Name = "label1";
+            label1.Size = new Size(84, 21);
+            label1.TabIndex = 47;
+            label1.Text = "Traspaso";
+            // 
+            // txtERenovacion
+            // 
+            txtERenovacion.Font = new Font("Century Gothic", 10F);
+            txtERenovacion.Location = new Point(16, 62);
+            txtERenovacion.Name = "txtERenovacion";
+            txtERenovacion.Size = new Size(233, 28);
+            txtERenovacion.TabIndex = 46;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Century Gothic", 10F);
+            label11.Location = new Point(16, 38);
+            label11.Name = "label11";
+            label11.Size = new Size(110, 21);
+            label11.TabIndex = 45;
+            label11.Text = "Renovación";
+            // 
+            // roundedButton10
+            // 
+            roundedButton10.BackColor = Color.LightSteelBlue;
+            roundedButton10.BackgroundColor = Color.LightSteelBlue;
+            roundedButton10.BorderColor = Color.LightSteelBlue;
+            roundedButton10.BorderRadius = 40;
+            roundedButton10.BorderSize = 0;
+            roundedButton10.FlatAppearance.BorderSize = 0;
+            roundedButton10.FlatStyle = FlatStyle.Flat;
+            roundedButton10.Font = new Font("Century Gothic", 9F);
+            roundedButton10.ForeColor = Color.Black;
+            roundedButton10.Location = new Point(748, 716);
+            roundedButton10.Name = "roundedButton10";
+            roundedButton10.Size = new Size(276, 56);
+            roundedButton10.TabIndex = 193;
+            roundedButton10.Text = "VER RENOVACIONES";
+            roundedButton10.TextColor = Color.Black;
+            roundedButton10.UseVisualStyleBackColor = false;
+            // 
             // FrmMarcasIntRegistradas
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -1413,6 +1512,8 @@
             panel6.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
+            Renovacion.ResumeLayout(false);
+            Renovacion.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1509,5 +1610,12 @@
         private Label label29;
         private Clases.RoundedButton roundedButton8;
         private FontAwesome.Sharp.IconButton iconButton4;
+        private Clases.RoundedButton roundedButton9;
+        private GroupBox Renovacion;
+        private TextBox txtETraspaso;
+        private Label label1;
+        private TextBox txtERenovacion;
+        private Label label11;
+        private Clases.RoundedButton roundedButton10;
     }
 }

@@ -239,7 +239,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento,null,null);
                 }
                 else
                 {
@@ -637,6 +637,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     mostrarPanelRegistro();
                     refrescarMarca();
+                    
                 }
                 catch (Exception ex)
                 {
