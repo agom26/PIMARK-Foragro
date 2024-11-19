@@ -51,7 +51,6 @@
             label16 = new Label();
             richTextBox1 = new RichTextBox();
             checkBox1 = new CheckBox();
-            btnGuardar = new Clases.RoundedButton();
             groupBox1 = new GroupBox();
             checkBoxTienePoder = new CheckBox();
             label20 = new Label();
@@ -73,8 +72,9 @@
             label7 = new Label();
             txtLibro = new TextBox();
             label10 = new Label();
-            btnCancelar = new Clases.RoundedButton();
             panel1 = new Panel();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
+            btnGuardarM = new FontAwesome.Sharp.IconButton();
             label28 = new Label();
             comboBoxTipoSigno = new ComboBox();
             roundedButton2 = new Clases.RoundedButton();
@@ -366,25 +366,6 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
-            // btnGuardar
-            // 
-            btnGuardar.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BackgroundColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderColor = Color.FromArgb(1, 87, 155);
-            btnGuardar.BorderRadius = 60;
-            btnGuardar.BorderSize = 0;
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(24, 1250);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(315, 62);
-            btnGuardar.TabIndex = 103;
-            btnGuardar.Text = "GUARDAR";
-            btnGuardar.TextColor = Color.White;
-            btnGuardar.UseVisualStyleBackColor = false;
-            btnGuardar.Click += btnGuardar_Click;
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(checkBoxTienePoder);
@@ -597,28 +578,11 @@
             label10.TabIndex = 10;
             label10.Text = "Libro";
             // 
-            // btnCancelar
-            // 
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Empty;
-            btnCancelar.BorderRadius = 60;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(343, 1249);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(315, 62);
-            btnCancelar.TabIndex = 104;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
-            // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top;
+            panel1.Controls.Add(btnCancelarM);
+            panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(label28);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(roundedButton2);
@@ -626,7 +590,6 @@
             panel1.Controls.Add(iconPictureBox3);
             panel1.Controls.Add(label26);
             panel1.Controls.Add(iconPictureBox2);
-            panel1.Controls.Add(btnCancelar);
             panel1.Controls.Add(label29);
             panel1.Controls.Add(roundedButton4);
             panel1.Controls.Add(panelRegistroI);
@@ -637,7 +600,6 @@
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(label24);
             panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(btnGuardar);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
@@ -662,10 +624,49 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(-5, 28);
+            panel1.Location = new Point(20, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(339, 1262);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(259, 40);
+            btnCancelarM.TabIndex = 176;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
+            // 
+            // btnGuardarM
+            // 
+            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarM.FlatAppearance.BorderSize = 0;
+            btnGuardarM.FlatStyle = FlatStyle.Flat;
+            btnGuardarM.Font = new Font("Century Gothic", 12F);
+            btnGuardarM.ForeColor = Color.White;
+            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarM.IconColor = Color.White;
+            btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarM.IconSize = 30;
+            btnGuardarM.Location = new Point(59, 1262);
+            btnGuardarM.Name = "btnGuardarM";
+            btnGuardarM.Size = new Size(259, 40);
+            btnGuardarM.TabIndex = 175;
+            btnGuardarM.Text = "GUARDAR";
+            btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarM.UseVisualStyleBackColor = false;
+            btnGuardarM.Click += btnGuardarM_Click;
             // 
             // label28
             // 
@@ -846,7 +847,6 @@
         private Label label16;
         private RichTextBox richTextBox1;
         private CheckBox checkBox1;
-        private Clases.RoundedButton btnGuardar;
         private GroupBox groupBox1;
         private CheckBox checkBoxTienePoder;
         private Label label20;
@@ -868,7 +868,6 @@
         private Label label7;
         private TextBox txtLibro;
         private Label label10;
-        private Clases.RoundedButton btnCancelar;
         private Panel panel1;
         private ComboBox comboBoxTipoSigno;
         private ComboBox comboBoxSignoDistintivo;
@@ -879,5 +878,7 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Label label29;
         private Clases.RoundedButton roundedButton4;
+        private FontAwesome.Sharp.IconButton btnCancelarM;
+        private FontAwesome.Sharp.IconButton btnGuardarM;
     }
 }

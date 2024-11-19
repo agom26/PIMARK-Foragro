@@ -35,8 +35,8 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
             SeleccionarMarca.idN = 0;
             panelRegistroI.Visible = false;
-            btnGuardar.Location = new Point(24, 1050);
-            btnCancelar.Location = new Point(343, 1050);
+            btnGuardarM.Location = new Point(59, 1050);
+            btnCancelarM.Location = new Point(339, 1050);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -247,16 +247,16 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panelRegistroI.Visible = true;
-                btnGuardar.Location = new Point(24, panelRegistroI.Location.Y + panelRegistroI.Height + 10); // Mueve btnGuardar debajo de panel2
-                btnCancelar.Location = new Point(343, panelRegistroI.Location.Y + panelRegistroI.Height + 10);
+                btnGuardarM.Location = new Point(59, panelRegistroI.Location.Y + panelRegistroI.Height + 10); // Mueve btnGuardar debajo de panel2
+                btnCancelarM.Location = new Point(339, panelRegistroI.Location.Y + panelRegistroI.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panelRegistroI.Visible = false;
-                btnGuardar.Location = new Point(24, 1050);
-                btnCancelar.Location = new Point(343, 1050);
+                btnGuardarM.Location = new Point(59, 1050);
+                btnCancelarM.Location = new Point(339, 1050);
             }
         }
 
@@ -271,7 +271,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            GuardarMarcaInter();
+
         }
 
         private void btnAgregarTitular_Click(object sender, EventArgs e)
@@ -365,7 +365,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            LimpiarFormulario();
+
         }
 
         private void txtSignoDistintivo_TextChanged(object sender, EventArgs e)
@@ -382,6 +382,16 @@ namespace Presentacion.Marcas_Internacionales
         {
             convertirImagen();
             pictureBox1.Image = documento;
+        }
+
+        private void btnGuardarM_Click(object sender, EventArgs e)
+        {
+            GuardarMarcaInter();
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
         }
     }
 }
