@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -250,7 +251,9 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (dtgMarcasAban.RowCount <= 0)
             {
-                MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -266,7 +269,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

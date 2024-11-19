@@ -772,9 +772,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(434, 27);
             label6.Name = "label6";
-            label6.Size = new Size(49, 21);
+            label6.Size = new Size(55, 21);
             label6.TabIndex = 10;
-            label6.Text = "Libro";
+            label6.Text = "Tomo";
             // 
             // FrmTramiteIn
             // 
