@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -203,7 +204,9 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        MessageBox.Show("No se encontró el cliente.");
+                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL CLIENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("No se encontró el cliente.");
                     }
                 }
                 catch (Exception ex)
@@ -218,7 +221,9 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un cliente.");
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN CLIENTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, selecciona un cliente.");
             }
         }
 
@@ -328,7 +333,9 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una fila de cliente.");
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione una fila de cliente.");
             }
         }
 
@@ -358,7 +365,9 @@ namespace Presentacion.Marcas_Internacionales
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
             {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
+                FrmAlerta alerta = new FrmAlerta("LOS CAMPOS NO PUEDEN ESTAR VACÍOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Los campos no pueden estar vacíos.");
             }
             else
             {
@@ -371,7 +380,9 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Cliente agregado exitosamente");
+                        FrmAlerta alerta = new FrmAlerta("CLIENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Cliente agregado exitosamente");
                         dtgClientes.ClearSelection();
                     }
                     else if (btnGuardarU.Text == "ACTUALIZAR")
@@ -387,13 +398,17 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (update)
                         {
-                            MessageBox.Show("Cliente actualizado exitosamente");
+                            FrmAlerta alerta = new FrmAlerta("CLIENTE ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Cliente actualizado exitosamente");
                             dtgClientes.ClearSelection();
 
                         }
                         else
                         {
-                            MessageBox.Show("Error al actualizar el cliente.");
+                            FrmAlerta alerta = new FrmAlerta("CLIENTE NO ACTUALIZADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Error al actualizar el cliente.");
                         }
                     }
 
@@ -403,7 +418,9 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
+                    FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR AL CLIENTE POR:\n"+ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
                 }
                 finally
                 {

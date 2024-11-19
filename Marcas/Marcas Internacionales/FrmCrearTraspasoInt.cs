@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 namespace Presentacion.Marcas_Internacionales
 {
@@ -94,7 +95,9 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR Y NOMBRE NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
                 }
             }
             else
@@ -140,7 +143,9 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                MessageBox.Show("No selecciono un nuevo titular");
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ UN TITULAR NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("No selecciono un nuevo titular");
             }
 
         }
