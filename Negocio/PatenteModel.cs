@@ -17,7 +17,7 @@ namespace Dominio
             patenteDao = new PatenteDao();
         }
 
-        public void CrearPatente(
+        public int CrearPatente(
            string caso,
            string expediente,
            string nombre,
@@ -29,8 +29,8 @@ namespace Dominio
            string registro,
            string folio,
            string libro,
-           DateTime fechaRegistro,
-           DateTime fechaVencimiento,
+           DateTime? fechaRegistro,
+           DateTime? fechaVencimiento,
            string erenov,
            string etrasp,
            int anualidades,
@@ -43,7 +43,7 @@ namespace Dominio
            string documentoCesion,
            string poderNombramiento)
         {
-            patenteDao.InsertarPatente(
+            return patenteDao.InsertarPatente(
                 caso, expediente, nombre, estado, tipo,
                 idTitular, idAgente, fechaSolicitud,
                 registro, folio, libro, fechaRegistro,

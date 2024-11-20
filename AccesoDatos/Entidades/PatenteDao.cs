@@ -10,7 +10,7 @@ namespace AccesoDatos.Entidades
 {
     public class PatenteDao:ConnectionSQL
     {
-        public void InsertarPatente(
+        public int InsertarPatente(
         string caso,
         string expediente,
         string nombre,
@@ -22,8 +22,8 @@ namespace AccesoDatos.Entidades
         string registro,
         string folio,
         string libro,
-        DateTime fechaRegistro,
-        DateTime fechaVencimiento,
+        DateTime? fechaRegistro,
+        DateTime? fechaVencimiento,
         string erenov,
         string etrasp,
         int anualidades,
@@ -69,7 +69,15 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@p_documento_cesion", documentoCesion);
                     command.Parameters.AddWithValue("@p_poder_nombramiento", poderNombramiento);
 
+                    MySqlParameter outputParam = new MySqlParameter("p_id_patente", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(outputParam);
+
                     command.ExecuteNonQuery();
+                    int idPatente = Convert.ToInt32(outputParam.Value);
+                    return idPatente;
                 }
             }
         }

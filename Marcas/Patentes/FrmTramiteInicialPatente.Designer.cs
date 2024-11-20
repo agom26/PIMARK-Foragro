@@ -45,7 +45,7 @@
             label6 = new Label();
             comboBoxAnualidades = new ComboBox();
             label5 = new Label();
-            checkedListBox1 = new CheckedListBox();
+            checkedListBoxDocumentos = new CheckedListBox();
             txtNombreAgente = new TextBox();
             label12 = new Label();
             roundedButton3 = new Clases.RoundedButton();
@@ -91,7 +91,7 @@
             panel1.Controls.Add(panel2I);
             panel1.Controls.Add(comboBoxAnualidades);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(checkedListBox1);
+            panel1.Controls.Add(checkedListBoxDocumentos);
             panel1.Controls.Add(txtNombreAgente);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(roundedButton3);
@@ -302,17 +302,17 @@
             label5.TabIndex = 203;
             label5.Text = "Número de anualidades";
             // 
-            // checkedListBox1
+            // checkedListBoxDocumentos
             // 
-            checkedListBox1.BorderStyle = BorderStyle.None;
-            checkedListBox1.CheckOnClick = true;
-            checkedListBox1.Font = new Font("Century Gothic", 9.5F);
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Items.AddRange(new object[] { "Comprobante de pagos", "Descripción (original y 1 copia)", "Reivindicaciones (original y 1 copia)", "Dibujo(s) o fórmula (original y 1 copia)", "Resumen (original y 1 copia)", "Documento de cesión", "Poder o nombramiento" });
-            checkedListBox1.Location = new Point(184, 806);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(374, 154);
-            checkedListBox1.TabIndex = 11;
+            checkedListBoxDocumentos.BorderStyle = BorderStyle.None;
+            checkedListBoxDocumentos.CheckOnClick = true;
+            checkedListBoxDocumentos.Font = new Font("Century Gothic", 9.5F);
+            checkedListBoxDocumentos.FormattingEnabled = true;
+            checkedListBoxDocumentos.Items.AddRange(new object[] { "Comprobante de pagos", "Descripción (original y 1 copia)", "Reivindicaciones (original y 1 copia)", "Dibujo(s) o fórmula (original y 1 copia)", "Resumen (original y 1 copia)", "Documento de cesión", "Poder o nombramiento" });
+            checkedListBoxDocumentos.Location = new Point(184, 806);
+            checkedListBoxDocumentos.Name = "checkedListBoxDocumentos";
+            checkedListBoxDocumentos.Size = new Size(374, 154);
+            checkedListBoxDocumentos.TabIndex = 11;
             // 
             // txtNombreAgente
             // 
@@ -709,7 +709,7 @@
         private TextBox txtNombreTitular;
         private Label label9;
         private Clases.RoundedButton roundedButton5;
-        private CheckedListBox checkedListBox1;
+        private CheckedListBox checkedListBoxDocumentos;
         private ComboBox comboBoxAnualidades;
         private Label label5;
         private CheckBox checkBox1;

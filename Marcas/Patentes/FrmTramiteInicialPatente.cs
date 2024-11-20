@@ -18,6 +18,7 @@ namespace Presentacion.Patentes
     public partial class FrmTramiteInicialPatente : Form
     {
         PatenteModel patenteModel = new PatenteModel();
+        HistorialPatenteModel historialPatenteModel=new HistorialPatenteModel();
         public FrmTramiteInicialPatente()
         {
             InitializeComponent();
@@ -86,7 +87,7 @@ namespace Presentacion.Patentes
             if (mensajesError.Any())
             {
                 string mensajeConcatenado = string.Join("", mensajesError);
-                FrmAlerta alerta = new FrmAlerta(mensajeConcatenado, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta(mensajeConcatenado, "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 return false;
             }
@@ -94,28 +95,75 @@ namespace Presentacion.Patentes
             return true;
         }
 
+        public void LimpiarFomulario()
+        {
+            txtCaso.Text = "";
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            comboBoxTipo.SelectedIndex = -1;
+            comboBoxAnualidades.SelectedIndex = -1;
+            checkBoxPCT.Checked = false;
+            datePickerFechaSolicitud.Value = DateTime.Now;
+            AgregarEtapaPatente.LimpiarEtapa();
+            textBoxEstatus.Text = "";
+            SeleccionarPersonaPatente.LimpiarPersona();
+            for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
+            {
+                checkedListBoxDocumentos.SetItemChecked(i, false);
+            }
+            checkedListBoxDocumentos.ClearSelected();
+            txtFolio.Text = "";
+            txtLibro.Text = "";
+            txtRegistro.Text = "";
+            dateTimePFecha_Registro.Value = DateTime.Now;
+            mostrarPanelRegistro("no");
 
+
+        }
+
+        public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
+        {
+            try
+            {
+                historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario,usuarioEdicion
+                    , idPatente);    
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta=new FrmAlerta(ex.Message.ToUpper(), "ERROR",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
 
         public void IngresarPatente()
         {
-            string caso=txtCaso.Text;
+            string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string tipo = comboBoxTipo.SelectedItem?.ToString();
-            string anualidad=comboBoxAnualidades.SelectedItem?.ToString();
+            string anualidad = comboBoxAnualidades.SelectedItem?.ToString();
+            int anualidades = int.Parse(anualidad);
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             int idTitular = SeleccionarPersonaPatente.idPersonaT;
             int idAgente = SeleccionarPersonaPatente.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
-
+            string pct = "no";
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            string erenov = null;
+            string etrasp = null;
+            string comprobante_pagos = "no";
+            string descripcion = "no";
+            string reivindicaciones = "no";
+            string dibujos = "no";
+            string resumen = "no";
+            string documento_cesion = "no";
+            string poder_nombramiento = "no";
 
             // Validaciones
             if (idTitular <= 0)
@@ -134,6 +182,48 @@ namespace Presentacion.Patentes
                 return;
             }
 
+            if (checkBoxPCT.Checked)
+            {
+                pct = "si";
+            }
+
+            // Validar las selecciones en el CheckedListBox
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Comprobante de pagos"))
+            {
+                comprobante_pagos = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Descripción (original y 1 copia)"))
+            {
+                descripcion = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Reivindicaciones (original y 1 copia)"))
+            {
+                reivindicaciones = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Dibujo(s) o fórmula (original y 1 copia)"))
+            {
+                dibujos = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Resumen (original y 1 copia)"))
+            {
+                resumen = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Documento de cesión"))
+            {
+                documento_cesion = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Poder o nombramiento"))
+            {
+                poder_nombramiento = "si";
+            }
+
+
 
             // Validar campos 
             if (!ValidarCampos(caso, expediente, nombre, tipo, anualidad, estado, registroChek, registro, folio, libro))
@@ -143,14 +233,19 @@ namespace Presentacion.Patentes
 
             try
             {
-
-               
-
                 if (registroChek)
                 {
                     try
                     {
-
+                        int idPatente=patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
+                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                            poder_nombramiento);
+                        GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                            , AgregarEtapaPatente.usuario, null, idPatente);
+                        FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        LimpiarFomulario();
                     }
                     catch (Exception ex)
                     {
@@ -162,7 +257,15 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-
+                        int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                            null, null, null, null, null, erenov, etrasp, anualidades, pct,
+                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                            poder_nombramiento);
+                            GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                            , AgregarEtapaPatente.usuario, null, idPatente); 
+                        FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        LimpiarFomulario();
                     }
                     catch (Exception ex)
                     {
@@ -171,7 +274,7 @@ namespace Presentacion.Patentes
                     }
                 }
 
-               
+
                 //LimpiarFormulario();
             }
             catch (Exception ex)
@@ -269,6 +372,11 @@ namespace Presentacion.Patentes
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
             IngresarPatente();
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            LimpiarFomulario();
         }
     }
 }
