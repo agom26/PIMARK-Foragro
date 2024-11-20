@@ -239,6 +239,7 @@
             button36.Text = "> INGRESAR PATENTE";
             button36.TextAlign = ContentAlignment.MiddleLeft;
             button36.UseVisualStyleBackColor = true;
+            button36.Click += button36_Click;
             // 
             // panel2
             // 

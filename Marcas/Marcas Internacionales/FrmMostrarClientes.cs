@@ -19,24 +19,24 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMostrarClientes()
         {
             InitializeComponent();
-            this.Load += FrmMostrarClientes_Load; // Mueve la lógica de carga aquí
+            this.Load += FrmMostrarClientes_Load; 
         }
 
         private void MostrarClientes()
         {
             dtgClientes.DataSource = personaModel.GetAllClientes();
-            // Ocultar la columna 'id'
+           
             if (dtgClientes.Columns["id"] != null)
             {
                 dtgClientes.Columns["id"].Visible = false;
-                // Desactiva la selección automática de la primera fila
+               
                 dtgClientes.ClearSelection();
             }
         }
 
         private void LoadClientes()
         {
-            // Obtiene los clientes
+            
             var clientes = personaModel.GetAllClientes();
 
             Invoke(new Action(() =>
@@ -96,13 +96,13 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            if (dtgClientes.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
+            if (dtgClientes.SelectedRows.Count > 0) 
             {
-                // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
+               
                 var filaSeleccionada = dtgClientes.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID de la fila seleccionada
+                   
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarPersona.idPersonaC = id;
                     //MessageBox.Show("id" + SeleccionarPersona.idPersonaC);
@@ -112,7 +112,6 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
 
-                        // Asignar los valores obtenidos a la clase SeleccionarPersona
                         SeleccionarPersona.nombre = detallesCliente[0].nombre;
                         SeleccionarPersona.direccion = detallesCliente[0].direccion;
                         SeleccionarPersona.correo = detallesCliente[0].correo;
@@ -121,7 +120,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarPersona.nit = detallesCliente[0].nit;
                         SeleccionarPersona.telefono = detallesCliente[0].telefono;
 
-                        this.Close(); // Cierra el formulario si todo fue correcto
+                        this.Close();
                     }
                     else
                     {
@@ -139,7 +138,6 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void FrmMostrarClientes_Load(object sender, EventArgs e)
         {
-            // Cargar usuarios en segundo plano
             await Task.Run(() => LoadClientes());
         }
     }

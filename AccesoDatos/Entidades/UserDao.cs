@@ -188,7 +188,6 @@ namespace AccesoDatos.Usuarios
                 {
                     connection.Open();
 
-                    // Primera consulta: verificar si el usuario existe y obtener isAdmin
                     using (var command = new MySqlCommand("SELECT isAdmin, id, usuario, nombres, apellidos, correo FROM USERS WHERE usuario=@user AND contrasena=@pass", connection))
                     {
                         command.Parameters.AddWithValue("@user", user);
@@ -196,10 +195,10 @@ namespace AccesoDatos.Usuarios
 
                         using (var reader = command.ExecuteReader())
                         {
-                            if (reader.Read()) // Si el usuario existe
+                            if (reader.Read()) 
                             {
                                 Console.WriteLine("Si hay usuario");
-                                UsuarioActivo.isAdmin = reader.GetBoolean(0); // Obtener el valor de isAdmin
+                                UsuarioActivo.isAdmin = reader.GetBoolean(0); 
                                 UsuarioActivo.idUser = reader.GetInt32(1);
                                 UsuarioActivo.usuario = reader.GetString(2);
                                 UsuarioActivo.nombres = reader.GetString(3);

@@ -84,6 +84,15 @@
     <Compile Update="Marcas Nacionales\FrmRenovaciones.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmAgregarEtapaPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Patentes\FrmMostrarTitularesPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

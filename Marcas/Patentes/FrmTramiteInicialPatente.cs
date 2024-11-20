@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Comun.Cache;
+using Dominio;
+using Presentacion.Alertas;
+using Presentacion.Marcas_Nacionales;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,15 +10,265 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Presentacion.Patentes
 {
     public partial class FrmTramiteInicialPatente : Form
     {
+        PatenteModel patenteModel = new PatenteModel();
         public FrmTramiteInicialPatente()
         {
             InitializeComponent();
+            panel2I.Visible = false;
+            btnGuardarM.Location = new Point(197, 1050);
+            btnCancelarM.Location = new Point(525, 1050);
+            lblVencimiento.Visible = false;
+            dateTimePFecha_vencimiento.Visible = false;
+            ActualizarFechaVencimiento();
+        }
+
+        private bool ValidarCampo(string campo)
+        {
+            return !string.IsNullOrEmpty(campo);
+        }
+
+
+        private bool ValidarCampos(string caso, string expediente, string nombre, string tipo, string anualidad, string estado,
+                    bool registroChek, string registro, string folio, string libro)
+        {
+            // Lista para acumular mensajes de error
+            List<string> mensajesError = new List<string>();
+
+            // Validaciones de campos requeridos
+            if (!ValidarCampo(caso))
+                mensajesError.Add("INGRESE EL CASO\n");
+            if (!ValidarCampo(expediente))
+                mensajesError.Add("INGRESE EL EXPEDIENTE\n");
+            if (!ValidarCampo(nombre))
+                mensajesError.Add("INGRESE EL NOMBRE\n");
+            if (!ValidarCampo(tipo))
+                mensajesError.Add("SELECCIONE UN TIPO\n");
+            if (!ValidarCampo(anualidad))
+                mensajesError.Add("SELECCIONE UN NÚMERO DE ANUALIDAD\n");
+            if (!ValidarCampo(estado))
+                mensajesError.Add("SELECCIONE UN ESTADO\n");
+
+            // Validación de valores numéricos 
+            if (!int.TryParse(expediente, out _))
+                mensajesError.Add("EL EXPEDIENTE DEBE SER UN VALOR NUMÉRICO\n");
+            if (!int.TryParse(anualidad, out _))
+                mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
+
+            if (registroChek)
+            {
+                if (!int.TryParse(registro, out _))
+                    mensajesError.Add("EL REGISTRO DEBE SER UN VALOR NUMÉRICO\n");
+                if (!int.TryParse(folio, out _))
+                    mensajesError.Add("EL FOLIO DEBE SER UN VALOR NUMÉRICO\n");
+                if (!int.TryParse(libro, out _))
+                    mensajesError.Add("EL TOMO DEBE SER UN VALOR NUMÉRICO\n");
+            }
+
+            // Validación de campos de registro 
+            if (registroChek)
+            {
+                if (!ValidarCampo(folio))
+                    mensajesError.Add("INGRESE EL NÚMERO DE FOLIO\n");
+                if (!ValidarCampo(registro))
+                    mensajesError.Add("INGRESE EL NÚMERO DE REGISTRO\n");
+                if (!ValidarCampo(libro))
+                    mensajesError.Add("INGRESE EL NÚMERO DE TOMO\n");
+            }
+
+            // Si hay mensajes de error, mostrar la alerta con todos los mensajes
+            if (mensajesError.Any())
+            {
+                string mensajeConcatenado = string.Join("", mensajesError);
+                FrmAlerta alerta = new FrmAlerta(mensajeConcatenado, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+
+
+        public void IngresarPatente()
+        {
+            string caso=txtCaso.Text;
+            string expediente = txtExpediente.Text;
+            string nombre = txtNombre.Text;
+            string tipo = comboBoxTipo.SelectedItem?.ToString();
+            string anualidad=comboBoxAnualidades.SelectedItem?.ToString();
+            string folio = txtFolio.Text;
+            string libro = txtLibro.Text;
+            int idTitular = SeleccionarPersonaPatente.idPersonaT;
+            int idAgente = SeleccionarPersonaPatente.idPersonaA;
+            DateTime solicitud = datePickerFechaSolicitud.Value;
+
+            string estado = textBoxEstatus.Text;
+            bool registroChek = checkBox1.Checked;
+            string registro = txtRegistro.Text;
+            DateTime fecha_registro = dateTimePFecha_Registro.Value;
+            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+
+            // Validaciones
+            if (idTitular <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("INGRESE UN TITULAR VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (idAgente <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("INGRESE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            // Validar campos 
+            if (!ValidarCampos(caso, expediente, nombre, tipo, anualidad, estado, registroChek, registro, folio, libro))
+            {
+                return;
+            }
+
+            try
+            {
+
+               
+
+                if (registroChek)
+                {
+                    try
+                    {
+
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+                else
+                {
+                    try
+                    {
+
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+
+               
+                //LimpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //LimpiarFormulario();
+            }
+        }
+        private void ActualizarFechaVencimiento()
+        {
+            DateTime fecha_solicitud = datePickerFechaSolicitud.Value;
+            DateTime fecha_vencimiento = fecha_solicitud.AddYears(20);
+            dateTimePFecha_vencimiento.Value = fecha_vencimiento;
+        }
+
+        public void mostrarPanelRegistro(string isRegistrada)
+        {
+            if (isRegistrada == "si")
+            {
+                ActualizarFechaVencimiento();
+                lblVencimiento.Visible = true;
+                dateTimePFecha_vencimiento.Visible = true;
+                checkBox1.Checked = true;
+                checkBox1.Enabled = false;
+                panel2I.Visible = true;
+                btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
+                btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
+            }
+            else
+            {
+                lblVencimiento.Visible = false;
+                dateTimePFecha_vencimiento.Visible = false;
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+                panel2I.Visible = false;
+                btnGuardarM.Location = new Point(197, 1050);
+                btnCancelarM.Location = new Point(525, 1050);
+            }
+        }
+
+        private void txtExpediente_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+
+            FrmAgregarEtapaPatente frmAgregarEtapa = new FrmAgregarEtapaPatente();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapaPatente.etapa != "")
+            {
+                textBoxEstatus.Text = AgregarEtapaPatente.etapa;
+                if (AgregarEtapaPatente.etapa == "Registro/concesión")
+                {
+                    checkBox1.Checked = true;
+                    mostrarPanelRegistro("si");
+                }
+                else
+                {
+                    checkBox1.Checked = false;
+                    mostrarPanelRegistro("no");
+                }
+            }
+        }
+
+        private void roundedButton3_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentesPatente frmMostrarAgentes = new FrmMostrarAgentesPatente();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersonaPatente.nombre;
+            }
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesPatente frmMostrarAgentes = new FrmMostrarTitularesPatente();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersonaPatente.nombre;
+                txtDireccionTitular.Text = SeleccionarPersonaPatente.direccion;
+            }
+        }
+
+        private void datePickerFechaSolicitud_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
+        }
+
+        private void btnGuardarM_Click(object sender, EventArgs e)
+        {
+            IngresarPatente();
         }
     }
 }

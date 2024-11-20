@@ -320,9 +320,9 @@
             label14.Font = new Font("Century Gothic", 9F);
             label14.Location = new Point(361, 335);
             label14.Name = "label14";
-            label14.Size = new Size(103, 20);
+            label14.Size = new Size(109, 20);
             label14.TabIndex = 40;
-            label14.Text = "Etapa actual";
+            label14.Text = "Estado actual";
             // 
             // textBoxEstatus
             // 
@@ -471,7 +471,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
             roundedButton1.TabIndex = 90;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
+            roundedButton1.Text = "+ ESTADO ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
@@ -580,7 +580,6 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top;
             panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(label28);
@@ -624,7 +623,7 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(10, 28);
+            panel1.Location = new Point(20, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;

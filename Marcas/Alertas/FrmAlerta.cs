@@ -23,8 +23,9 @@ namespace Presentacion.Alertas
         public FrmAlerta(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             InitializeComponent();
-            lblMessage.Text = message;
-            lblMessage.TextAlign = ContentAlignment.MiddleCenter;
+            richTextBoxMensaje.Text = message;
+            richTextBoxMensaje.SelectAll();
+            richTextBoxMensaje.SelectionAlignment = HorizontalAlignment.Center;
 
             lblTitulo.Text = title;
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -78,7 +79,7 @@ namespace Presentacion.Alertas
         }
         private void FrmAlerta_Resize(object sender, EventArgs e)
         {
-
+            richTextBoxMensaje.Left = (this.ClientSize.Width - richTextBoxMensaje.Width) / 2;
             lblMessage.Left = (this.ClientSize.Width - lblMessage.Width) / 2;
             lblTitulo.Left = (this.ClientSize.Width - lblTitulo.Width) / 2;
 

@@ -27,7 +27,7 @@ namespace AccesoDatos.Entidades
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Agregar parámetros al comando y utilizar DBNull.Value cuando sea necesario
+                   
                     cmd.Parameters.AddWithValue("p_estado", estado ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_nombre", nombre ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_pais", pais ?? (object)DBNull.Value);
@@ -46,7 +46,7 @@ namespace AccesoDatos.Entidades
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                     {
-                        adapter.Fill(dataTable);  // Llenar el DataTable con los resultados
+                        adapter.Fill(dataTable);  
                     }
                 }
             }

@@ -33,6 +33,7 @@
             btnYes = new FontAwesome.Sharp.IconButton();
             btnNo = new FontAwesome.Sharp.IconButton();
             lblMessage = new Label();
+            richTextBoxMensaje = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
             SuspendLayout();
             // 
@@ -91,11 +92,23 @@
             lblMessage.TabIndex = 4;
             lblMessage.Text = "label1";
             // 
+            // richTextBoxMensaje
+            // 
+            richTextBoxMensaje.BackColor = SystemColors.Control;
+            richTextBoxMensaje.BorderStyle = BorderStyle.None;
+            richTextBoxMensaje.Location = new Point(103, 236);
+            richTextBoxMensaje.Name = "richTextBoxMensaje";
+            richTextBoxMensaje.ReadOnly = true;
+            richTextBoxMensaje.Size = new Size(435, 79);
+            richTextBoxMensaje.TabIndex = 5;
+            richTextBoxMensaje.Text = "";
+            // 
             // FrmAlerta
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(666, 423);
+            Controls.Add(richTextBoxMensaje);
             Controls.Add(lblMessage);
             Controls.Add(btnNo);
             Controls.Add(btnYes);
@@ -118,5 +131,6 @@
         private FontAwesome.Sharp.IconButton btnYes;
         private FontAwesome.Sharp.IconButton btnNo;
         private Label lblMessage;
+        private RichTextBox richTextBoxMensaje;
     }
 }

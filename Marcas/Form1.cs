@@ -16,6 +16,7 @@ using Presentacion.Marcas_Internacionales;
 using Presentacion.Vencimientos;
 using Dominio;
 using Presentacion.Reportes;
+using Presentacion.Patentes;
 
 namespace Presentacion
 {
@@ -23,6 +24,7 @@ namespace Presentacion
     {
         VencimientoModel VencimientoModel = new VencimientoModel();
         private bool isAdmin;
+
         public Form1(bool isAdmin)
         {
             InitializeComponent();
@@ -525,6 +527,14 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmTraspasosInt());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button36_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmTramiteInicialPatente());
             await Task.Delay(1000);
             EnableButtons();
         }
