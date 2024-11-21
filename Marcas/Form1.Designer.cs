@@ -844,6 +844,7 @@
             button1.TabIndex = 0;
             button1.Text = "Desarrollado por Sitios en Red";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_2;
             // 
             // panel1
             // 

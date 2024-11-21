@@ -17,6 +17,7 @@ using Presentacion.Vencimientos;
 using Dominio;
 using Presentacion.Reportes;
 using Presentacion.Patentes;
+using System.Diagnostics;
 
 namespace Presentacion
 {
@@ -555,6 +556,25 @@ namespace Presentacion
         private void iconButton5_Click_3(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            string url = "https://www.facebook.com/SitiosEnRed/";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true 
+                });
+            }
+            catch (Exception ex)
+            {
+                
+                MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
