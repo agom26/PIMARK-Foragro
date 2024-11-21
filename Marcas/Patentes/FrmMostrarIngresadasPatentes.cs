@@ -18,6 +18,7 @@ namespace Presentacion.Patentes
     {
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
+        HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
@@ -73,23 +74,34 @@ namespace Presentacion.Patentes
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void ActualizarFechaVencimiento()
+        {
+            DateTime fecha_solicitud = datePickerFechaSolicitud.Value;
+            DateTime fecha_vencimiento = fecha_solicitud.AddYears(20);
+            dateTimePFecha_vencimiento.Value = fecha_vencimiento;
+        }
         public void mostrarPanelRegistro(string isRegistrada)
         {
             if (isRegistrada == "si")
             {
+                ActualizarFechaVencimiento();
+                lblVencimiento.Visible = true;
+                dateTimePFecha_vencimiento.Visible = true;
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
-                btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
+                btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
+                btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
             }
             else
             {
+                lblVencimiento.Visible = false;
+                dateTimePFecha_vencimiento.Visible = false;
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(197, 1050);
-                btnCancelarM.Location = new Point(525, 1050);
+                btnGuardarM.Location = new Point(150, 1050);
+                btnCancelarM.Location = new Point(478, 1050);
             }
         }
         private async Task CargarDatosPatente()
@@ -150,7 +162,7 @@ namespace Presentacion.Patentes
                         {
                             txtNombreTitular.Text = titular[0].nombre;
                             txtDireccionTitular.Text = titular[0].direccion;
-                           
+
                         }
 
                         if (agente.Count > 0)
@@ -255,6 +267,246 @@ namespace Presentacion.Patentes
                 MessageBox.Show("Error al cargar los detalles de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private bool ValidarCampo(string campo)
+        {
+            return !string.IsNullOrEmpty(campo);
+        }
+
+
+        private bool ValidarCampos(string caso, string expediente, string nombre, string tipo, string anualidad, string estado,
+                    bool registroChek, string registro, string folio, string libro)
+        {
+            // Lista para acumular mensajes de error
+            List<string> mensajesError = new List<string>();
+
+            // Validaciones de campos requeridos
+            if (!ValidarCampo(caso))
+                mensajesError.Add("INGRESE EL CASO\n");
+            if (!ValidarCampo(expediente))
+                mensajesError.Add("INGRESE EL EXPEDIENTE\n");
+            if (!ValidarCampo(nombre))
+                mensajesError.Add("INGRESE EL NOMBRE\n");
+            if (!ValidarCampo(tipo))
+                mensajesError.Add("SELECCIONE UN TIPO\n");
+            if (!ValidarCampo(anualidad))
+                mensajesError.Add("SELECCIONE UN NÚMERO DE ANUALIDAD\n");
+            if (!ValidarCampo(estado))
+                mensajesError.Add("SELECCIONE UN ESTADO\n");
+
+            // Validación de valores numéricos 
+            if (!int.TryParse(expediente, out _))
+                mensajesError.Add("EL EXPEDIENTE DEBE SER UN VALOR NUMÉRICO\n");
+            if (!int.TryParse(anualidad, out _))
+                mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
+
+            if (registroChek)
+            {
+                if (!int.TryParse(registro, out _))
+                    mensajesError.Add("EL REGISTRO DEBE SER UN VALOR NUMÉRICO\n");
+                if (!int.TryParse(folio, out _))
+                    mensajesError.Add("EL FOLIO DEBE SER UN VALOR NUMÉRICO\n");
+                if (!int.TryParse(libro, out _))
+                    mensajesError.Add("EL TOMO DEBE SER UN VALOR NUMÉRICO\n");
+            }
+
+            // Validación de campos de registro 
+            if (registroChek)
+            {
+                if (!ValidarCampo(folio))
+                    mensajesError.Add("INGRESE EL NÚMERO DE FOLIO\n");
+                if (!ValidarCampo(registro))
+                    mensajesError.Add("INGRESE EL NÚMERO DE REGISTRO\n");
+                if (!ValidarCampo(libro))
+                    mensajesError.Add("INGRESE EL NÚMERO DE TOMO\n");
+            }
+
+            // Si hay mensajes de error, mostrar la alerta con todos los mensajes
+            if (mensajesError.Any())
+            {
+                string mensajeConcatenado = string.Join("", mensajesError);
+                FrmAlerta alerta = new FrmAlerta(mensajeConcatenado, "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return false;
+            }
+
+            return true;
+        }
+
+        public void LimpiarFomulario()
+        {
+            txtCaso.Text = "";
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            comboBoxTipo.SelectedIndex = -1;
+            comboBoxAnualidades.SelectedIndex = -1;
+            checkBoxPCT.Checked = false;
+            datePickerFechaSolicitud.Value = DateTime.Now;
+            AgregarEtapaPatente.LimpiarEtapa();
+            textBoxEstatus.Text = "";
+            SeleccionarPersonaPatente.LimpiarPersona();
+            for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
+            {
+                checkedListBoxDocumentos.SetItemChecked(i, false);
+            }
+            checkedListBoxDocumentos.ClearSelected();
+            txtFolio.Text = "";
+            txtLibro.Text = "";
+            txtRegistro.Text = "";
+            dateTimePFecha_Registro.Value = DateTime.Now;
+            mostrarPanelRegistro("no");
+            txtNombreAgente.Text = "";
+            txtNombreTitular.Text = "";
+            txtDireccionTitular.Text = "";
+
+
+        }
+
+        public void EditarPatente()
+        {
+            string caso = txtCaso.Text;
+            string expediente = txtExpediente.Text;
+            string nombre = txtNombre.Text;
+            string tipo = comboBoxTipo.SelectedItem?.ToString();
+            string anualidad = comboBoxAnualidades.SelectedItem?.ToString();
+            int anualidades = int.Parse(anualidad);
+            string folio = txtFolio.Text;
+            string libro = txtLibro.Text;
+            int idTitular = SeleccionarPersonaPatente.idPersonaT;
+            int idAgente = SeleccionarPersonaPatente.idPersonaA;
+            DateTime solicitud = datePickerFechaSolicitud.Value;
+            string pct = "no";
+            string estado = textBoxEstatus.Text;
+            bool registroChek = checkBox1.Checked;
+            string registro = txtRegistro.Text;
+            DateTime fecha_registro = dateTimePFecha_Registro.Value;
+            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            string erenov = null;
+            string etrasp = null;
+            string comprobante_pagos = "no";
+            string descripcion = "no";
+            string reivindicaciones = "no";
+            string dibujos = "no";
+            string resumen = "no";
+            string documento_cesion = "no";
+            string poder_nombramiento = "no";
+
+            // Validaciones
+            if (idTitular <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("INGRESE UN TITULAR VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (idAgente <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("INGRESE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (checkBoxPCT.Checked)
+            {
+                pct = "si";
+            }
+
+            // Validar las selecciones en el CheckedListBox
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Comprobante de pagos"))
+            {
+                comprobante_pagos = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Descripción (original y 1 copia)"))
+            {
+                descripcion = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Reivindicaciones (original y 1 copia)"))
+            {
+                reivindicaciones = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Dibujo(s) o fórmula (original y 1 copia)"))
+            {
+                dibujos = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Resumen (original y 1 copia)"))
+            {
+                resumen = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Documento de cesión"))
+            {
+                documento_cesion = "si";
+            }
+
+            if (checkedListBoxDocumentos.CheckedItems.Contains("Poder o nombramiento"))
+            {
+                poder_nombramiento = "si";
+            }
+
+
+
+            // Validar campos 
+            if (!ValidarCampos(caso, expediente, nombre, tipo, anualidad, estado, registroChek, registro, folio, libro))
+            {
+                return;
+            }
+
+            try
+            {
+                if (registroChek)
+                {
+                    try
+                    {
+                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
+                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                            poder_nombramiento);
+
+                        FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        LimpiarFomulario();
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                            null, null, null, null, null, erenov, etrasp, anualidades, pct,
+                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                            poder_nombramiento);
+                        FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        LimpiarFomulario();
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+
+
+                //LimpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //LimpiarFormulario();
+            }
+        }
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -263,6 +515,32 @@ namespace Presentacion.Patentes
             }
 
             tabControl1.SelectedTab = nombre;
+        }
+        private async void loadHistorialById()
+        {
+            try
+            {
+                var historial = await Task.Run(() => historialPatenteModel.ObtenerHistorialPorIdPatente(SeleccionarPatente.id));
+
+
+                Invoke(new Action(() =>
+                {
+                    dtgHistorial.AutoGenerateColumns = true;
+                    dtgHistorial.DataSource = historial;
+                    dtgHistorial.Refresh();
+
+                    if (dtgHistorial.Columns["id"] != null)
+                    {
+                        dtgHistorial.Columns["id"].Visible = false;
+                    }
+
+                    dtgHistorial.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el historial de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void FrmMostrarIngresadasPatentes_Load(object sender, EventArgs e)
@@ -274,14 +552,54 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageHistorialMarca);
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
             {
-                CargarDatosPatente();
+                await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
             }
+        }
+
+        private void btnGuardarM_Click(object sender, EventArgs e)
+        {
+            EditarPatente();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPageHistorialMarca)
+            {
+                loadHistorialById();
+                EliminarTabPage(tabPageHistorialDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageIngresadasList)
+            {
+                LoadPatentes();
+                SeleccionarPatente.id = 0;
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageHistorialDetail);
+
+            }
+            else if (tabControl1.SelectedTab == tabPageMarcaDetail)
+            {
+                CargarDatosPatente();
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+        }
+
+        private async void roundedButton8_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() => loadHistorialById());
+            AnadirTabPage(tabPageHistorialMarca);
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
         }
     }
 }

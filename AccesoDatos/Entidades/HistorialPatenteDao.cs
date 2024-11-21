@@ -36,5 +36,25 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+
+        public DataTable GetAllEstadosByIdPatente(int idPatente)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("ObtenerHistorialPatentePorId", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader())
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
+        }
+
     }
 }

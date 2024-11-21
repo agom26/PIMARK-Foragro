@@ -1,6 +1,7 @@
 ﻿using AccesoDatos.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,11 @@ namespace Dominio
                 usuario,
                 usuarioEdicion,
                 idPatente);
+        }
+
+        public DataTable ObtenerHistorialPorIdPatente(int idPatente)
+        {
+            return historialPatenteDao.GetAllEstadosByIdPatente(idPatente);
         }
     }
 }
