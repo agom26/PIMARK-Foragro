@@ -33,9 +33,9 @@
             iconButtonLogout = new FontAwesome.Sharp.IconButton();
             panelSubMenuPatentes = new Panel();
             button32 = new Button();
-            button33 = new Button();
             button34 = new Button();
             button35 = new Button();
+            button33 = new Button();
             button3 = new Button();
             button36 = new Button();
             panel2 = new Panel();
@@ -66,6 +66,8 @@
             iconButtonUsuarios = new FontAwesome.Sharp.IconButton();
             btnHome = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
+            panel3 = new Panel();
+            button1 = new Button();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
@@ -77,6 +79,7 @@
             panel2.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
             panelSubMenuMarcasNacionales.SuspendLayout();
+            panel3.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
@@ -122,9 +125,9 @@
             // 
             panelSubMenuPatentes.BackColor = Color.FromArgb(196, 196, 208);
             panelSubMenuPatentes.Controls.Add(button32);
-            panelSubMenuPatentes.Controls.Add(button33);
             panelSubMenuPatentes.Controls.Add(button34);
             panelSubMenuPatentes.Controls.Add(button35);
+            panelSubMenuPatentes.Controls.Add(button33);
             panelSubMenuPatentes.Controls.Add(button3);
             panelSubMenuPatentes.Controls.Add(button36);
             panelSubMenuPatentes.Dock = DockStyle.Top;
@@ -152,23 +155,6 @@
             button32.TextAlign = ContentAlignment.MiddleLeft;
             button32.UseVisualStyleBackColor = true;
             // 
-            // button33
-            // 
-            button33.AutoSize = true;
-            button33.Dock = DockStyle.Top;
-            button33.FlatAppearance.BorderSize = 0;
-            button33.FlatStyle = FlatStyle.Flat;
-            button33.Font = new Font("Century Gothic", 9F);
-            button33.ForeColor = Color.Black;
-            button33.Location = new Point(0, 188);
-            button33.Name = "button33";
-            button33.Padding = new Padding(58, 0, 0, 0);
-            button33.Size = new Size(259, 47);
-            button33.TabIndex = 5;
-            button33.Text = "> OPOSICIONES";
-            button33.TextAlign = ContentAlignment.MiddleLeft;
-            button33.UseVisualStyleBackColor = true;
-            // 
             // button34
             // 
             button34.AutoSize = true;
@@ -177,7 +163,7 @@
             button34.FlatStyle = FlatStyle.Flat;
             button34.Font = new Font("Century Gothic", 9F);
             button34.ForeColor = Color.Black;
-            button34.Location = new Point(0, 141);
+            button34.Location = new Point(0, 188);
             button34.Name = "button34";
             button34.Padding = new Padding(58, 0, 0, 0);
             button34.Size = new Size(259, 47);
@@ -195,7 +181,7 @@
             button35.FlatStyle = FlatStyle.Flat;
             button35.Font = new Font("Century Gothic", 9F);
             button35.ForeColor = Color.Black;
-            button35.Location = new Point(0, 94);
+            button35.Location = new Point(0, 141);
             button35.Name = "button35";
             button35.Padding = new Padding(58, 0, 0, 0);
             button35.Size = new Size(259, 47);
@@ -204,6 +190,23 @@
             button35.TextAlign = ContentAlignment.MiddleLeft;
             button35.UseVisualStyleBackColor = true;
             button35.Click += button35_Click;
+            // 
+            // button33
+            // 
+            button33.AutoSize = true;
+            button33.Dock = DockStyle.Top;
+            button33.FlatAppearance.BorderSize = 0;
+            button33.FlatStyle = FlatStyle.Flat;
+            button33.Font = new Font("Century Gothic", 9F);
+            button33.ForeColor = Color.Black;
+            button33.Location = new Point(0, 94);
+            button33.Name = "button33";
+            button33.Padding = new Padding(58, 0, 0, 0);
+            button33.Size = new Size(259, 47);
+            button33.TabIndex = 5;
+            button33.Text = "> REGISTRADAS";
+            button33.TextAlign = ContentAlignment.MiddleLeft;
+            button33.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -259,6 +262,7 @@
             panel2.Controls.Add(iconButtonUsuarios);
             panel2.Controls.Add(btnHome);
             panel2.Controls.Add(iconButton1);
+            panel2.Controls.Add(panel3);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -817,6 +821,30 @@
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(button1);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 1721);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(259, 54);
+            panel3.TabIndex = 18;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button1.BackColor = Color.FromArgb(64, 100, 133);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(3, 10);
+            button1.Name = "button1";
+            button1.Size = new Size(276, 29);
+            button1.TabIndex = 0;
+            button1.Text = "Desarrollado por Sitios en Red";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(34, 77, 112);
@@ -862,11 +890,11 @@
             // labelUsername
             // 
             labelUsername.AutoSize = true;
-            labelUsername.Font = new Font("Century Gothic", 9F);
+            labelUsername.Font = new Font("Century Gothic", 10F);
             labelUsername.ForeColor = Color.White;
             labelUsername.Location = new Point(255, 34);
             labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(53, 20);
+            labelUsername.Size = new Size(60, 21);
             labelUsername.TabIndex = 3;
             labelUsername.Text = "label1";
             labelUsername.Click += labelUsername_Click;
@@ -946,6 +974,7 @@
             panelSubMenuMarcasInter.PerformLayout();
             panelSubMenuMarcasNacionales.ResumeLayout(false);
             panelSubMenuMarcasNacionales.PerformLayout();
+            panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -999,6 +1028,8 @@
         private Button button3;
         private FontAwesome.Sharp.IconButton btnHome;
         private PictureBox pictureBox1;
+        private Panel panel3;
+        private Button button1;
     }
 }
 

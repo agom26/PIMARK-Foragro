@@ -35,6 +35,7 @@
             iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
             dtgVencimientos = new DataGridView();
             label4 = new Label();
+            roundedButton6 = new Clases.RoundedButton();
             roundedButton1 = new Clases.RoundedButton();
             panel2 = new Panel();
             panel6 = new Panel();
@@ -91,6 +92,7 @@
             panel3.Controls.Add(iconPictureBox4);
             panel3.Controls.Add(dtgVencimientos);
             panel3.Controls.Add(label4);
+            panel3.Controls.Add(roundedButton6);
             panel3.Controls.Add(roundedButton1);
             panel3.Location = new Point(40, 31);
             panel3.Name = "panel3";
@@ -121,7 +123,7 @@
             // iconPictureBox4
             // 
             iconPictureBox4.Anchor = AnchorStyles.Top;
-            iconPictureBox4.BackColor = Color.FromArgb(222, 227, 234);
+            iconPictureBox4.BackColor = Color.FromArgb(196, 205, 218);
             iconPictureBox4.ForeColor = SystemColors.ControlText;
             iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
             iconPictureBox4.IconColor = SystemColors.ControlText;
@@ -169,7 +171,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(222, 227, 234);
+            label4.BackColor = Color.FromArgb(196, 205, 218);
             label4.Font = new Font("Century Gothic", 14F);
             label4.ForeColor = SystemColors.ControlText;
             label4.Location = new Point(417, 22);
@@ -177,6 +179,24 @@
             label4.Size = new Size(325, 30);
             label4.TabIndex = 3;
             label4.Text = "PRÓXIMOS VENCIMIENTOS";
+            // 
+            // roundedButton6
+            // 
+            roundedButton6.BackColor = Color.FromArgb(196, 205, 218);
+            roundedButton6.BackgroundColor = Color.FromArgb(196, 205, 218);
+            roundedButton6.BorderColor = Color.FromArgb(196, 205, 218);
+            roundedButton6.BorderRadius = 40;
+            roundedButton6.BorderSize = 0;
+            roundedButton6.Enabled = false;
+            roundedButton6.FlatAppearance.BorderSize = 0;
+            roundedButton6.FlatStyle = FlatStyle.Flat;
+            roundedButton6.ForeColor = Color.White;
+            roundedButton6.Location = new Point(0, 2);
+            roundedButton6.Name = "roundedButton6";
+            roundedButton6.Size = new Size(1078, 70);
+            roundedButton6.TabIndex = 1;
+            roundedButton6.TextColor = Color.White;
+            roundedButton6.UseVisualStyleBackColor = false;
             // 
             // roundedButton1
             // 
@@ -538,5 +558,6 @@
         private Panel panel14;
         private Panel panel13;
         private Panel panel15;
+        private Clases.RoundedButton roundedButton6;
     }
 }

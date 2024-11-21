@@ -546,5 +546,15 @@ namespace Presentacion
             await Task.Delay(1000);
             EnableButtons();
         }
+
+        private void iconButton5_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconButton5_Click_3(object sender, EventArgs e)
+        {
+
+        }
     }
 }
