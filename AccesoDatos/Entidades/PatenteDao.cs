@@ -109,5 +109,35 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public DataTable ObtenerPatentePorId(int idPatente)
+        {
+            DataTable patente = new DataTable();
+
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerPatentePorId", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@patenteId", idPatente);
+                        conexion.Open();
+
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            patente.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener la patente por ID: {ex.Message}");
+            }
+
+            return patente;
+        }
+
+
     }
 }

@@ -73,11 +73,30 @@ namespace Presentacion.Patentes
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private async Task CargarDatosMarca()
+        public void mostrarPanelRegistro(string isRegistrada)
+        {
+            if (isRegistrada == "si")
+            {
+                checkBox1.Checked = true;
+                checkBox1.Enabled = false;
+                panel2I.Visible = true;
+                btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
+                btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
+            }
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+                panel2I.Visible = false;
+                btnGuardarM.Location = new Point(197, 1050);
+                btnCancelarM.Location = new Point(525, 1050);
+            }
+        }
+        private async Task CargarDatosPatente()
         {
             try
             {
-                DataTable detallesPatente = await Task.Run(() => patenteModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                DataTable detallesPatente = await Task.Run(() => patenteModel.ObtenerPatentePorId(SeleccionarPatente.id));
 
                 if (detallesPatente.Rows.Count > 0)
                 {
@@ -103,6 +122,7 @@ namespace Presentacion.Patentes
                         SeleccionarPatente.documento_cesion = row["documento_cesion"].ToString();
                         SeleccionarPatente.poder_nombramiento = row["poder_nombramiento"].ToString();
 
+                        /*
                         if (row["Erenov"] != DBNull.Value)
                         {
                             SeleccionarPatente.Erenov = row["Erenov"].ToString();
@@ -113,7 +133,7 @@ namespace Presentacion.Patentes
                         {
                             SeleccionarPatente.Etrasp = row["Etrasp"].ToString();
                             txtETraspaso.Text = SeleccionarMarca.etraspaso;
-                        }
+                        }*/
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarPatente.idTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarPatente.idAgente));
@@ -140,13 +160,61 @@ namespace Presentacion.Patentes
 
 
                         // Actualizar los controles 
+                        txtCaso.Text = SeleccionarPatente.caso;
                         txtExpediente.Text = SeleccionarPatente.expediente;
                         txtNombre.Text = SeleccionarPatente.nombre;
                         textBoxEstatus.Text = SeleccionarPatente.estado;
                         datePickerFechaSolicitud.Value = SeleccionarPatente.fecha_solicitud;
+                        comboBoxTipo.SelectedItem = SeleccionarPatente.tipo;
+                        comboBoxAnualidades.SelectedItem = SeleccionarPatente.anualidades.ToString();
+
+                        if (SeleccionarPatente.pct == "si")
+                        {
+                            checkBoxPCT.Checked = true;
+                        }
+                        else
+                        {
+                            checkBoxPCT.Checked = false;
+                        }
+
+                        // Recorrer cada ítem del CheckedListBox
+                        for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
+                        {
+                            string itemName = checkedListBoxDocumentos.Items[i].ToString();
+
+                            // Comparar el nombre del ítem con las propiedades de SeleccionarPatente
+                            if (itemName == "Comprobante de pagos" && SeleccionarPatente.comprobante_pagos == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Descripción (original y 1 copia)" && SeleccionarPatente.descripcion == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Reivindicaciones (original y 1 copia)" && SeleccionarPatente.reivindicaciones == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Dibujo(s) o fórmula (original y 1 copia)" && SeleccionarPatente.dibujos == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Resumen (original y 1 copia)" && SeleccionarPatente.resumen == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Documento de cesión" && SeleccionarPatente.documento_cesion == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                            else if (itemName == "Poder o nombramiento" && SeleccionarPatente.poder_nombramiento == "si")
+                            {
+                                checkedListBoxDocumentos.SetItemChecked(i, true);
+                            }
+                        }
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registro/Concesión", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
@@ -187,6 +255,15 @@ namespace Presentacion.Patentes
                 MessageBox.Show("Error al cargar los detalles de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void AnadirTabPage(TabPage nombre)
+        {
+            if (!tabControl1.TabPages.Contains(nombre))
+            {
+                tabControl1.TabPages.Add(nombre);
+            }
+
+            tabControl1.SelectedTab = nombre;
+        }
 
         private async void FrmMostrarIngresadasPatentes_Load(object sender, EventArgs e)
         {
@@ -202,7 +279,8 @@ namespace Presentacion.Patentes
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
             {
-
+                CargarDatosPatente();
+                AnadirTabPage(tabPageMarcaDetail);
             }
         }
     }
