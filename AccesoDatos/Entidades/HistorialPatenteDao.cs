@@ -56,5 +56,54 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public DataTable GetHistorialById(int idHistorial)
+        {
+            DataTable tabla = new DataTable();
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("ObtenerHistorialPatentePorIdHistorial", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@p_IdHistorial", idHistorial);
+
+                    conexion.Open();
+                    using (MySqlDataReader leer = comando.ExecuteReader())
+                    {
+                        tabla.Load(leer);
+                    }
+                }
+            }
+            return tabla;
+        }
+
+        public void EditarHistorialPatente(
+            int idHistorial,
+            DateTime fecha,
+            string etapa,
+            string anotaciones,
+            string usuario,
+            string usuarioEdicion)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("EditarHistorialPatentePorId", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@p_IdHistorial", idHistorial);
+                    command.Parameters.AddWithValue("@p_Fecha", fecha);
+                    command.Parameters.AddWithValue("@p_Etapa", etapa);
+                    command.Parameters.AddWithValue("@p_Anotaciones", anotaciones ?? (object)DBNull.Value); // Si es null, asignar DBNull
+                    command.Parameters.AddWithValue("@p_Usuario", usuario);
+                    command.Parameters.AddWithValue("@p_UsuarioEdicion", usuarioEdicion ?? (object)DBNull.Value); // Si es null, asignar DBNull
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }

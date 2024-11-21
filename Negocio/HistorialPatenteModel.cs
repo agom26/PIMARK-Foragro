@@ -38,5 +38,26 @@ namespace Dominio
         {
             return historialPatenteDao.GetAllEstadosByIdPatente(idPatente);
         }
+
+        public DataTable ObtenerHistorialPorId(int idHistorial)
+        {
+            return historialPatenteDao.GetHistorialById(idHistorial);  // Llamada al DAO
+        }
+        public void EditarHistorialPatente(
+            int idHistorial,
+            DateTime fecha,
+            string etapa,
+            string anotaciones,
+            string usuario,
+            string usuarioEdicion)
+        {
+            historialPatenteDao.EditarHistorialPatente(
+                idHistorial,
+                fecha,
+                etapa,
+                anotaciones,
+                usuario,
+                usuarioEdicion);
+        }
     }
 }

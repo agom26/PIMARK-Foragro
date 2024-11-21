@@ -98,6 +98,20 @@
             panel5 = new Panel();
             label22 = new Label();
             tabPageHistorialDetail = new TabPage();
+            panel6 = new Panel();
+            roundedButton7 = new Clases.RoundedButton();
+            panel7 = new Panel();
+            btnEditarH = new FontAwesome.Sharp.IconButton();
+            labelUserEditor = new Label();
+            btnCancelarH = new FontAwesome.Sharp.IconButton();
+            lblUser = new Label();
+            richTextBoxAnotacionesH = new RichTextBox();
+            comboBoxEstatusH = new ComboBox();
+            label24 = new Label();
+            dateTimePickerFechaH = new DateTimePicker();
+            label23 = new Label();
+            label25 = new Label();
+            panel8 = new Panel();
             tabControl1.SuspendLayout();
             tabPageIngresadasList.SuspendLayout();
             panel4.SuspendLayout();
@@ -110,6 +124,9 @@
             tabPageHistorialMarca.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorial).BeginInit();
+            tabPageHistorialDetail.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -467,6 +484,7 @@
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // btnGuardarM
             // 
@@ -935,6 +953,7 @@
             iconButton7.Text = "VER";
             iconButton7.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton7.UseVisualStyleBackColor = false;
+            iconButton7.Click += iconButton7_Click;
             // 
             // btnEditarEstadoHistorial
             // 
@@ -953,6 +972,7 @@
             btnEditarEstadoHistorial.Text = "EDITAR/ VER";
             btnEditarEstadoHistorial.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarEstadoHistorial.UseVisualStyleBackColor = false;
+            btnEditarEstadoHistorial.Click += btnEditarEstadoHistorial_Click;
             // 
             // dtgHistorial
             // 
@@ -1005,11 +1025,190 @@
             // 
             // tabPageHistorialDetail
             // 
+            tabPageHistorialDetail.Controls.Add(panel6);
             tabPageHistorialDetail.Location = new Point(4, 29);
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
             tabPageHistorialDetail.Size = new Size(1161, 794);
             tabPageHistorialDetail.TabIndex = 3;
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.Anchor = AnchorStyles.Top;
+            panel6.Controls.Add(roundedButton7);
+            panel6.Controls.Add(panel7);
+            panel6.Location = new Point(24, 42);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1112, 555);
+            panel6.TabIndex = 3;
+            // 
+            // roundedButton7
+            // 
+            roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton7.BorderColor = Color.FromArgb(196, 195, 209);
+            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderSize = 0;
+            roundedButton7.Enabled = false;
+            roundedButton7.FlatAppearance.BorderSize = 0;
+            roundedButton7.FlatStyle = FlatStyle.Flat;
+            roundedButton7.Font = new Font("Century Gothic", 13F);
+            roundedButton7.ForeColor = Color.Black;
+            roundedButton7.Location = new Point(414, 43);
+            roundedButton7.Name = "roundedButton7";
+            roundedButton7.Size = new Size(270, 50);
+            roundedButton7.TabIndex = 18;
+            roundedButton7.Text = "ESTADO";
+            roundedButton7.TextColor = Color.Black;
+            roundedButton7.UseVisualStyleBackColor = false;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(192, 202, 212);
+            panel7.Controls.Add(btnEditarH);
+            panel7.Controls.Add(labelUserEditor);
+            panel7.Controls.Add(btnCancelarH);
+            panel7.Controls.Add(lblUser);
+            panel7.Controls.Add(richTextBoxAnotacionesH);
+            panel7.Controls.Add(comboBoxEstatusH);
+            panel7.Controls.Add(label24);
+            panel7.Controls.Add(dateTimePickerFechaH);
+            panel7.Controls.Add(label23);
+            panel7.Controls.Add(label25);
+            panel7.Controls.Add(panel8);
+            panel7.Location = new Point(46, 110);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(1012, 406);
+            panel7.TabIndex = 21;
+            // 
+            // btnEditarH
+            // 
+            btnEditarH.BackColor = Color.FromArgb(1, 87, 155);
+            btnEditarH.FlatAppearance.BorderSize = 0;
+            btnEditarH.FlatStyle = FlatStyle.Flat;
+            btnEditarH.Font = new Font("Century Gothic", 10F);
+            btnEditarH.ForeColor = Color.White;
+            btnEditarH.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnEditarH.IconColor = Color.White;
+            btnEditarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEditarH.IconSize = 30;
+            btnEditarH.Location = new Point(315, 321);
+            btnEditarH.Name = "btnEditarH";
+            btnEditarH.Size = new Size(179, 34);
+            btnEditarH.TabIndex = 20;
+            btnEditarH.Text = "ACTUALIZAR";
+            btnEditarH.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnEditarH.UseVisualStyleBackColor = false;
+            btnEditarH.Click += btnEditarH_Click;
+            // 
+            // labelUserEditor
+            // 
+            labelUserEditor.AutoSize = true;
+            labelUserEditor.BackColor = Color.White;
+            labelUserEditor.Location = new Point(476, 51);
+            labelUserEditor.Name = "labelUserEditor";
+            labelUserEditor.Size = new Size(55, 20);
+            labelUserEditor.TabIndex = 18;
+            labelUserEditor.Text = "Fecha";
+            // 
+            // btnCancelarH
+            // 
+            btnCancelarH.BackColor = Color.Gainsboro;
+            btnCancelarH.FlatAppearance.BorderSize = 0;
+            btnCancelarH.FlatStyle = FlatStyle.Flat;
+            btnCancelarH.Font = new Font("Century Gothic", 10F);
+            btnCancelarH.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarH.IconColor = Color.Black;
+            btnCancelarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarH.IconSize = 30;
+            btnCancelarH.Location = new Point(520, 321);
+            btnCancelarH.Name = "btnCancelarH";
+            btnCancelarH.Size = new Size(179, 34);
+            btnCancelarH.TabIndex = 19;
+            btnCancelarH.Text = "CANCELAR";
+            btnCancelarH.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarH.UseVisualStyleBackColor = false;
+            btnCancelarH.Click += btnCancelarH_Click;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.BackColor = Color.White;
+            lblUser.Location = new Point(295, 51);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(55, 20);
+            lblUser.TabIndex = 17;
+            lblUser.Text = "Fecha";
+            // 
+            // richTextBoxAnotacionesH
+            // 
+            richTextBoxAnotacionesH.BackColor = Color.White;
+            richTextBoxAnotacionesH.BorderStyle = BorderStyle.FixedSingle;
+            richTextBoxAnotacionesH.Location = new Point(295, 193);
+            richTextBoxAnotacionesH.Name = "richTextBoxAnotacionesH";
+            richTextBoxAnotacionesH.Size = new Size(431, 102);
+            richTextBoxAnotacionesH.TabIndex = 16;
+            richTextBoxAnotacionesH.Text = "";
+            // 
+            // comboBoxEstatusH
+            // 
+            comboBoxEstatusH.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxEstatusH.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstatusH.FlatStyle = FlatStyle.Flat;
+            comboBoxEstatusH.FormattingEnabled = true;
+            comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
+            comboBoxEstatusH.Location = new Point(476, 116);
+            comboBoxEstatusH.Name = "comboBoxEstatusH";
+            comboBoxEstatusH.Size = new Size(250, 28);
+            comboBoxEstatusH.TabIndex = 15;
+            comboBoxEstatusH.SelectedIndexChanged += comboBoxEstatusH_SelectedIndexChanged;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.BackColor = Color.White;
+            label24.Location = new Point(295, 91);
+            label24.Name = "label24";
+            label24.Size = new Size(55, 20);
+            label24.TabIndex = 11;
+            label24.Text = "Fecha";
+            // 
+            // dateTimePickerFechaH
+            // 
+            dateTimePickerFechaH.Format = DateTimePickerFormat.Short;
+            dateTimePickerFechaH.Location = new Point(295, 114);
+            dateTimePickerFechaH.Name = "dateTimePickerFechaH";
+            dateTimePickerFechaH.Size = new Size(154, 26);
+            dateTimePickerFechaH.TabIndex = 14;
+            dateTimePickerFechaH.ValueChanged += dateTimePickerFechaH_ValueChanged;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.BackColor = Color.White;
+            label23.Location = new Point(476, 93);
+            label23.Name = "label23";
+            label23.Size = new Size(58, 20);
+            label23.TabIndex = 12;
+            label23.Text = "Estado";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.BackColor = Color.White;
+            label25.Location = new Point(295, 170);
+            label25.Name = "label25";
+            label25.Size = new Size(102, 20);
+            label25.TabIndex = 13;
+            label25.Text = "Anotaciones";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.White;
+            panel8.Location = new Point(42, 21);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(946, 369);
+            panel8.TabIndex = 21;
             // 
             // FrmMostrarIngresadasPatentes
             // 
@@ -1039,6 +1238,10 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorial).EndInit();
+            tabPageHistorialDetail.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1112,5 +1315,19 @@
         private DataGridView dtgHistorial;
         private Panel panel5;
         private Label label22;
+        private Panel panel6;
+        private Clases.RoundedButton roundedButton7;
+        private Panel panel7;
+        private FontAwesome.Sharp.IconButton btnEditarH;
+        private Label labelUserEditor;
+        private FontAwesome.Sharp.IconButton btnCancelarH;
+        private Label lblUser;
+        private RichTextBox richTextBoxAnotacionesH;
+        private ComboBox comboBoxEstatusH;
+        private Label label24;
+        private DateTimePicker dateTimePickerFechaH;
+        private Label label23;
+        private Label label25;
+        private Panel panel8;
     }
 }

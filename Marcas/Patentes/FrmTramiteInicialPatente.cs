@@ -18,7 +18,7 @@ namespace Presentacion.Patentes
     public partial class FrmTramiteInicialPatente : Form
     {
         PatenteModel patenteModel = new PatenteModel();
-        HistorialPatenteModel historialPatenteModel=new HistorialPatenteModel();
+        HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         public FrmTramiteInicialPatente()
         {
             InitializeComponent();
@@ -117,6 +117,9 @@ namespace Presentacion.Patentes
             txtRegistro.Text = "";
             dateTimePFecha_Registro.Value = DateTime.Now;
             mostrarPanelRegistro("no");
+            txtNombreAgente.Text = "";
+            txtDireccionTitular.Text = "";
+            txtNombreTitular.Text = "";
 
 
         }
@@ -125,12 +128,12 @@ namespace Presentacion.Patentes
         {
             try
             {
-                historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario,usuarioEdicion
-                    , idPatente);    
+                historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario, usuarioEdicion
+                    , idPatente);
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta=new FrmAlerta(ex.Message.ToUpper(), "ERROR",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -237,7 +240,7 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-                        int idPatente=patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -261,8 +264,8 @@ namespace Presentacion.Patentes
                             null, null, null, null, null, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
-                            GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                            , AgregarEtapaPatente.usuario, null, idPatente); 
+                        GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                        , AgregarEtapaPatente.usuario, null, idPatente);
                         FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
@@ -375,6 +378,11 @@ namespace Presentacion.Patentes
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            LimpiarFomulario();
+        }
+
+        private void btnCancelarM_Click_1(object sender, EventArgs e)
         {
             LimpiarFomulario();
         }

@@ -543,6 +543,57 @@ namespace Presentacion.Patentes
             }
         }
 
+        public void Habilitar()
+        {
+            dateTimePickerFechaH.Enabled = true;
+            comboBoxEstatusH.Enabled = true;
+            richTextBoxAnotacionesH.Enabled = true;
+            btnEditarH.Enabled = true;
+        }
+        public void Deshabilitar()
+        {
+            dateTimePickerFechaH.Enabled = false;
+            comboBoxEstatusH.Enabled = false;
+            richTextBoxAnotacionesH.Enabled = true;
+            richTextBoxAnotacionesH.ReadOnly = true;
+            btnEditarH.Enabled = false;
+        }
+
+        private async Task refrescarMarca()
+        {
+            if (SeleccionarMarca.idInt > 0)
+            {
+                try
+                {
+                    DataTable detallesPatente = await Task.Run(() => patenteModel.ObtenerPatentePorId(SeleccionarPatente.id));
+
+                    if (detallesPatente.Rows.Count > 0)
+                    {
+                        DataRow row = detallesPatente.Rows[0];
+
+                        bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+                            mostrarPanelRegistro("si");
+                        }
+                        else
+                        {
+                            mostrarPanelRegistro("no");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la marca.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al refrescar los datos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private async void FrmMostrarIngresadasPatentes_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadPatentes());
@@ -600,6 +651,205 @@ namespace Presentacion.Patentes
         private void iconButton6_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            if (dtgHistorial.SelectedRows.Count > 0)
+            {
+                Deshabilitar();
+                var filaSeleccionada = dtgHistorial.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorialPatente.id = id;
+
+                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+
+                        SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorialPatente.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorialPatente.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorialPatente.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorialPatente.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione una fila del historial.");
+            }
+        }
+
+        private void btnCancelarH_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageHistorialMarca;
+        }
+
+        private void btnEditarH_Click(object sender, EventArgs e)
+        {
+
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
+            DateTime fecha = dateTimePickerFechaH.Value;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorialPatente.anotaciones = anotaciones;
+            string usuario = lblUser.Text;
+            string usuarioEditor = labelUserEditor.Text;
+
+
+            if (comboBoxEstatusH.SelectedIndex != -1)
+            {
+                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
+                if (anotaciones.Contains(formato))
+                {
+                    AgregarEtapaPatente.anotaciones = anotaciones;
+                }
+                else
+                {
+                    AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
+                }
+
+                try
+                {
+                    historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fecha, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor);
+                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    SeleccionarHistorialPatente.LimpiarHistorial();
+                    refrescarMarca();
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No ha seleccionado ningun estado");
+            }
+        }
+
+        private void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
+        {
+            if (dtgHistorial.SelectedRows.Count > 0)
+            {
+                Habilitar();
+                var filaSeleccionada = dtgHistorial.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorialPatente.id = id;
+
+                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+                        SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorialPatente.etapa;
+                        dateTimePickerFechaH.Value = SeleccionarHistorialPatente.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorialPatente.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorialPatente.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+            }
+            else
+            {/*
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa")
+                    )
+                {
+
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("El registro, folio y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        //ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                    }
+
+                }
+                */
+            }
         }
     }
 }
