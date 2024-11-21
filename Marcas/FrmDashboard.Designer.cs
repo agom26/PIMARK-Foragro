@@ -30,6 +30,8 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            panel17 = new Panel();
+            panel16 = new Panel();
             panel3 = new Panel();
             roundedButton5 = new Clases.RoundedButton();
             iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
@@ -80,11 +82,29 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.None;
+            panel1.Controls.Add(panel17);
+            panel1.Controls.Add(panel16);
             panel1.Controls.Add(panel3);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1169, 466);
             panel1.TabIndex = 0;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.FromArgb(196, 205, 218);
+            panel17.Location = new Point(20, 460);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(1125, 5);
+            panel17.TabIndex = 2;
+            // 
+            // panel16
+            // 
+            panel16.BackColor = Color.FromArgb(196, 205, 218);
+            panel16.Location = new Point(38, 8);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(1080, 5);
+            panel16.TabIndex = 1;
             // 
             // panel3
             // 
@@ -562,5 +582,7 @@
         private Panel panel13;
         private Panel panel15;
         private Clases.RoundedButton roundedButton6;
+        private Panel panel16;
+        private Panel panel17;
     }
 }
