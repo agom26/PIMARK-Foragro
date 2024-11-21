@@ -172,11 +172,11 @@
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(196, 205, 218);
-            label4.Font = new Font("Century Gothic", 14F);
+            label4.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ControlText;
             label4.Location = new Point(417, 22);
             label4.Name = "label4";
-            label4.Size = new Size(325, 30);
+            label4.Size = new Size(303, 27);
             label4.TabIndex = 3;
             label4.Text = "PRÓXIMOS VENCIMIENTOS";
             // 
@@ -296,6 +296,7 @@
             panel15.Name = "panel15";
             panel15.Size = new Size(334, 40);
             panel15.TabIndex = 5;
+            panel15.Click += panel15_Click;
             // 
             // roundedButton4
             // 
@@ -373,6 +374,7 @@
             panel14.Name = "panel14";
             panel14.Size = new Size(335, 40);
             panel14.TabIndex = 1;
+            panel14.Click += panel14_Click;
             // 
             // panel11
             // 
@@ -468,6 +470,7 @@
             panel13.Name = "panel13";
             panel13.Size = new Size(335, 40);
             panel13.TabIndex = 0;
+            panel13.Click += panel13_Click;
             // 
             // roundedButton2
             // 

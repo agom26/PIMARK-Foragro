@@ -151,5 +151,29 @@ namespace Presentacion
         {
 
         }
+
+        private async void panel14_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel15_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel13_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
     }
 }
