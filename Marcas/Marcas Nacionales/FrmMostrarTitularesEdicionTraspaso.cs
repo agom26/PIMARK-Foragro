@@ -1,15 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
 {
@@ -73,8 +65,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dtgTitulares_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            
+
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -107,13 +99,13 @@ namespace Presentacion.Marcas_Nacionales
 
             if (dtgTitulares.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
             {
-                
+
                 var filaSeleccionada = dtgTitulares.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    
+
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    
+
 
                     var detallesTitular = personaModel.GetPersonaById(id);
 
@@ -122,7 +114,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarTraspaso.idComodin = id;
                         SeleccionarTraspaso.nombreComodin = detallesTitular[0].nombre;
 
-                        this.Close(); 
+                        this.Close();
                     }
                     else
                     {

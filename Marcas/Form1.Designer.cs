@@ -65,13 +65,11 @@
             iconButtonAgentes = new FontAwesome.Sharp.IconButton();
             iconButtonUsuarios = new FontAwesome.Sharp.IconButton();
             btnHome = new FontAwesome.Sharp.IconButton();
-            panel3 = new Panel();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
-            label1 = new Label();
+            pictureBox1 = new PictureBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             labelUsername = new Label();
-            labelName_LN = new Label();
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
@@ -80,6 +78,7 @@
             panelSubMenuMarcasInter.SuspendLayout();
             panelSubMenuMarcasNacionales.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             SuspendLayout();
             // 
@@ -109,7 +108,7 @@
             iconButtonLogout.IconColor = Color.FromArgb(211, 47, 47);
             iconButtonLogout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonLogout.Location = new Point(0, 1732);
+            iconButtonLogout.Location = new Point(0, 1667);
             iconButtonLogout.Name = "iconButtonLogout";
             iconButtonLogout.Padding = new Padding(9, 0, 0, 0);
             iconButtonLogout.Size = new Size(259, 54);
@@ -130,7 +129,7 @@
             panelSubMenuPatentes.Controls.Add(button36);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuPatentes.Location = new Point(0, 1314);
+            panelSubMenuPatentes.Location = new Point(0, 1249);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
             panelSubMenuPatentes.Size = new Size(259, 310);
             panelSubMenuPatentes.TabIndex = 12;
@@ -222,6 +221,7 @@
             button3.Text = "> TRÁMITE INICIAL";
             button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button36
             // 
@@ -258,7 +258,6 @@
             panel2.Controls.Add(iconButtonAgentes);
             panel2.Controls.Add(iconButtonUsuarios);
             panel2.Controls.Add(btnHome);
-            panel2.Controls.Add(panel3);
             panel2.Controls.Add(iconButton1);
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
@@ -280,7 +279,7 @@
             iconButtonVencimientos.IconColor = Color.Red;
             iconButtonVencimientos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonVencimientos.Location = new Point(0, 1678);
+            iconButtonVencimientos.Location = new Point(0, 1613);
             iconButtonVencimientos.Name = "iconButtonVencimientos";
             iconButtonVencimientos.Padding = new Padding(9, 0, 0, 0);
             iconButtonVencimientos.Size = new Size(259, 54);
@@ -303,7 +302,7 @@
             btnReportes.IconColor = Color.FromArgb(38, 166, 154);
             btnReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(0, 1624);
+            btnReportes.Location = new Point(0, 1559);
             btnReportes.Name = "btnReportes";
             btnReportes.Padding = new Padding(9, 0, 0, 0);
             btnReportes.Size = new Size(259, 54);
@@ -326,7 +325,7 @@
             btnPatentes.IconColor = Color.FromArgb(255, 190, 69);
             btnPatentes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatentes.Location = new Point(0, 1260);
+            btnPatentes.Location = new Point(0, 1195);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Padding = new Padding(9, 0, 0, 0);
             btnPatentes.Size = new Size(259, 54);
@@ -349,7 +348,7 @@
             panelSubMenuMarcasInter.Controls.Add(btnClientes);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasInter.Location = new Point(0, 831);
+            panelSubMenuMarcasInter.Location = new Point(0, 766);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
             panelSubMenuMarcasInter.Size = new Size(259, 429);
             panelSubMenuMarcasInter.TabIndex = 10;
@@ -511,7 +510,7 @@
             iconButton12.IconColor = Color.FromArgb(129, 199, 132);
             iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton12.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton12.Location = new Point(0, 770);
+            iconButton12.Location = new Point(0, 705);
             iconButton12.Name = "iconButton12";
             iconButton12.Padding = new Padding(9, 0, 0, 0);
             iconButton12.Size = new Size(259, 61);
@@ -533,7 +532,7 @@
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteInicial);
             panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasNacionales.Location = new Point(0, 424);
+            panelSubMenuMarcasNacionales.Location = new Point(0, 359);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
             panelSubMenuMarcasNacionales.Size = new Size(259, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
@@ -689,7 +688,7 @@
             iconButton10.IconColor = Color.FromArgb(2, 136, 209);
             iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton10.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton10.Location = new Point(0, 370);
+            iconButton10.Location = new Point(0, 305);
             iconButton10.Name = "iconButton10";
             iconButton10.Padding = new Padding(9, 0, 0, 0);
             iconButton10.Size = new Size(259, 54);
@@ -712,7 +711,7 @@
             iconButtonTitulares.IconColor = Color.FromArgb(255, 145, 0);
             iconButtonTitulares.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonTitulares.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonTitulares.Location = new Point(0, 316);
+            iconButtonTitulares.Location = new Point(0, 251);
             iconButtonTitulares.Name = "iconButtonTitulares";
             iconButtonTitulares.Padding = new Padding(9, 0, 0, 0);
             iconButtonTitulares.Size = new Size(259, 54);
@@ -735,7 +734,7 @@
             iconButtonAgentes.IconColor = Color.FromArgb(116, 89, 255);
             iconButtonAgentes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonAgentes.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonAgentes.Location = new Point(0, 262);
+            iconButtonAgentes.Location = new Point(0, 197);
             iconButtonAgentes.Name = "iconButtonAgentes";
             iconButtonAgentes.Padding = new Padding(9, 0, 0, 0);
             iconButtonAgentes.Size = new Size(259, 54);
@@ -758,7 +757,7 @@
             iconButtonUsuarios.IconColor = Color.FromArgb(230, 148, 226);
             iconButtonUsuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButtonUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonUsuarios.Location = new Point(0, 208);
+            iconButtonUsuarios.Location = new Point(0, 143);
             iconButtonUsuarios.Margin = new Padding(3, 5, 3, 3);
             iconButtonUsuarios.Name = "iconButtonUsuarios";
             iconButtonUsuarios.Padding = new Padding(9, 0, 0, 0);
@@ -782,7 +781,7 @@
             btnHome.IconColor = Color.White;
             btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnHome.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHome.Location = new Point(0, 154);
+            btnHome.Location = new Point(0, 89);
             btnHome.Margin = new Padding(3, 5, 3, 3);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
@@ -793,24 +792,12 @@
             btnHome.UseVisualStyleBackColor = false;
             btnHome.Click += btnHome_Click;
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(34, 77, 112);
-            panel3.BackgroundImage = (Image)resources.GetObject("panel3.BackgroundImage");
-            panel3.BackgroundImageLayout = ImageLayout.Stretch;
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 89);
-            panel3.Margin = new Padding(0, 2, 0, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(259, 65);
-            panel3.TabIndex = 2;
-            panel3.Click += panel3_Click_1;
-            panel3.Paint += panel3_Paint;
-            // 
             // iconButton1
             // 
             iconButton1.AutoSize = true;
             iconButton1.BackColor = Color.FromArgb(34, 77, 112);
+            iconButton1.BackgroundImage = (Image)resources.GetObject("iconButton1.BackgroundImage");
+            iconButton1.BackgroundImageLayout = ImageLayout.Stretch;
             iconButton1.Dock = DockStyle.Top;
             iconButton1.Enabled = false;
             iconButton1.FlatAppearance.BorderSize = 0;
@@ -822,7 +809,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton1.Location = new Point(0, 0);
-            iconButton1.Margin = new Padding(3, 5, 3, 3);
+            iconButton1.Margin = new Padding(0);
             iconButton1.Name = "iconButton1";
             iconButton1.Padding = new Padding(9, 0, 0, 0);
             iconButton1.Size = new Size(259, 89);
@@ -833,10 +820,9 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(34, 77, 112);
-            panel1.Controls.Add(label1);
+            panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(labelUsername);
-            panel1.Controls.Add(labelName_LN);
             panel1.Controls.Add(iconPictureBoxUser);
             panel1.Controls.Add(iconButton3);
             panel1.Controls.Add(iconButton4);
@@ -847,16 +833,15 @@
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
-            // label1
+            // pictureBox1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 15F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(19, 13);
-            label1.Name = "label1";
-            label1.Size = new Size(370, 31);
-            label1.TabIndex = 6;
-            label1.Text = "PIMARK- Software de marcas";
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(89, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(94, 61);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 6;
+            pictureBox1.TabStop = false;
             // 
             // iconButton2
             // 
@@ -876,41 +861,26 @@
             // 
             // labelUsername
             // 
-            labelUsername.Anchor = AnchorStyles.None;
             labelUsername.AutoSize = true;
             labelUsername.Font = new Font("Century Gothic", 9F);
             labelUsername.ForeColor = Color.White;
-            labelUsername.Location = new Point(746, 14);
+            labelUsername.Location = new Point(255, 34);
             labelUsername.Name = "labelUsername";
             labelUsername.Size = new Size(53, 20);
             labelUsername.TabIndex = 3;
             labelUsername.Text = "label1";
             labelUsername.Click += labelUsername_Click;
             // 
-            // labelName_LN
-            // 
-            labelName_LN.Anchor = AnchorStyles.None;
-            labelName_LN.AutoSize = true;
-            labelName_LN.Font = new Font("Century Gothic", 9F);
-            labelName_LN.ForeColor = Color.White;
-            labelName_LN.Location = new Point(746, 45);
-            labelName_LN.Name = "labelName_LN";
-            labelName_LN.Size = new Size(53, 20);
-            labelName_LN.TabIndex = 2;
-            labelName_LN.Text = "label1";
-            labelName_LN.Click += labelName_LN_Click;
-            // 
             // iconPictureBoxUser
             // 
-            iconPictureBoxUser.Anchor = AnchorStyles.None;
             iconPictureBoxUser.BackColor = Color.FromArgb(34, 77, 112);
             iconPictureBoxUser.IconChar = FontAwesome.Sharp.IconChar.UserCircle;
             iconPictureBoxUser.IconColor = Color.White;
             iconPictureBoxUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBoxUser.IconSize = 60;
-            iconPictureBoxUser.Location = new Point(680, 3);
+            iconPictureBoxUser.IconSize = 59;
+            iconPictureBoxUser.Location = new Point(189, 14);
             iconPictureBoxUser.Name = "iconPictureBoxUser";
-            iconPictureBoxUser.Size = new Size(60, 61);
+            iconPictureBoxUser.Size = new Size(60, 59);
             iconPictureBoxUser.TabIndex = 1;
             iconPictureBoxUser.TabStop = false;
             // 
@@ -978,6 +948,7 @@
             panelSubMenuMarcasNacionales.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1019,17 +990,15 @@
         private Button btnIngresadasInt;
         private FontAwesome.Sharp.IconButton iconButton3;
         private Label labelUsername;
-        private Label labelName_LN;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButtonVencimientos;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private Panel panel3;
-        private Label label1;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Button btnEnTramite;
         private Button button3;
         private FontAwesome.Sharp.IconButton btnHome;
+        private PictureBox pictureBox1;
     }
 }
 

@@ -82,5 +82,32 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public DataTable GetAllPatentesEnTramite()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesSinRegistro", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
     }
 }

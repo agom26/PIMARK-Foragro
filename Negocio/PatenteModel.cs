@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,13 @@ namespace Dominio
                 descripcion, reivindicaciones, dibujos,
                 resumen, documentoCesion, poderNombramiento
             );
+        }
+
+        public DataTable GetAllPatentesEnTramite()
+        {
+            DataTable tabla = new DataTable();
+            tabla = patenteDao.GetAllPatentesEnTramite();
+            return tabla;
         }
     }
 }

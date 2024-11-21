@@ -17,7 +17,7 @@ namespace Presentacion
     public partial class FrmDashboard : Form
     {
         public Form1 mainForm;
-        VencimientoModel vencimientoModel= new VencimientoModel();
+        VencimientoModel vencimientoModel = new VencimientoModel();
 
         private async void LoadVencimientos()
         {
@@ -40,7 +40,7 @@ namespace Presentacion
             InitializeComponent();
             this.mainForm = mainForm;
             LoadVencimientos();
-            
+
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
@@ -145,6 +145,11 @@ namespace Presentacion
             mainForm.openChildForm(new FrmRegistradas());
             await Task.Delay(1000);
             mainForm.EnableButtons();
+        }
+
+        private void FrmDashboard_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

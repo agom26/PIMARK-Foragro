@@ -305,7 +305,7 @@ namespace Presentacion
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
+            //labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
             DisableButtons();
             openChildForm(new FrmDashboard(this));
@@ -535,6 +535,14 @@ namespace Presentacion
         {
             DisableButtons();
             openChildForm(new FrmTramiteInicialPatente());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarIngresadasPatentes());
             await Task.Delay(1000);
             EnableButtons();
         }

@@ -13,13 +13,13 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ActualizarFechaVencimiento()
         {
-            
+
         }
 
         private void ActualizarFechaVencimientoNueva()
         {
-            
-           
+
+
         }
 
         private void FrmCrearTraspaso_Load(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace Presentacion.Marcas_Nacionales
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
-           txtNombreTitularA.Text=AgregarTraspaso.nombreTitulara;
+            txtNombreTitularA.Text = AgregarTraspaso.nombreTitulara;
             txtNombreMarcaA.Text = AgregarTraspaso.antiguoNombre;
         }
 
@@ -62,7 +62,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (txtEstado.Text != "")
             {
-                if (nombreNuevoMarca != "" || nuevoTitular !="")
+                if (nombreNuevoMarca != "" || nuevoTitular != "")
                 {
                     //Historial
                     string fechaSinHora = dateTimePicker1.Value.ToShortDateString();

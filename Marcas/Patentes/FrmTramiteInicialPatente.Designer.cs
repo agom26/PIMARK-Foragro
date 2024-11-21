@@ -198,7 +198,6 @@
             // 
             // panel2I
             // 
-            panel2I.Anchor = AnchorStyles.None;
             panel2I.Controls.Add(dateTimePFecha_Registro);
             panel2I.Controls.Add(label18);
             panel2I.Controls.Add(txtRegistro);
@@ -293,7 +292,6 @@
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 9F);
             label5.Location = new Point(184, 255);
@@ -487,7 +485,6 @@
             // 
             // label26
             // 
-            label26.Anchor = AnchorStyles.None;
             label26.AutoSize = true;
             label26.Font = new Font("Century Gothic", 9F);
             label26.Location = new Point(527, 169);
@@ -514,7 +511,6 @@
             // 
             // datePickerFechaSolicitud
             // 
-            datePickerFechaSolicitud.Anchor = AnchorStyles.None;
             datePickerFechaSolicitud.Font = new Font("Century Gothic", 9F);
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
             datePickerFechaSolicitud.Location = new Point(184, 357);
@@ -540,7 +536,6 @@
             // 
             // label28
             // 
-            label28.Anchor = AnchorStyles.Top;
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(175, 192, 218);
             label28.Font = new Font("Century Gothic", 12F);
@@ -552,7 +547,6 @@
             // 
             // roundedButton2
             // 
-            roundedButton2.Anchor = AnchorStyles.Top;
             roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
@@ -585,7 +579,6 @@
             // 
             // iconPictureBox2
             // 
-            iconPictureBox2.Anchor = AnchorStyles.Top;
             iconPictureBox2.BackColor = Color.FromArgb(175, 192, 218);
             iconPictureBox2.ForeColor = SystemColors.ControlText;
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Certificate;
@@ -600,7 +593,6 @@
             // 
             // label29
             // 
-            label29.Anchor = AnchorStyles.Top;
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
@@ -612,7 +604,6 @@
             // 
             // roundedButton4
             // 
-            roundedButton4.Anchor = AnchorStyles.Top;
             roundedButton4.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BorderColor = Color.FromArgb(175, 192, 218);

@@ -1,16 +1,8 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Presentacion.Marcas_Nacionales;
+using System.Data;
 
 namespace Presentacion.Marcas_Internacionales
 
@@ -140,7 +132,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
-            if (logo != null && logo.Length > 0) 
+            if (logo != null && logo.Length > 0)
             {
                 using (var ms = new MemoryStream(logo))
                 {
@@ -380,7 +372,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") +"\n"+ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + "\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LimpiarFormulario();

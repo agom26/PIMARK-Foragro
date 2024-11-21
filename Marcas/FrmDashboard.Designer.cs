@@ -39,14 +39,16 @@
             panel2 = new Panel();
             panel6 = new Panel();
             panel9 = new Panel();
-            label3 = new Label();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton4 = new Clases.RoundedButton();
+            label3 = new Label();
             panel12 = new Panel();
+            panel15 = new Panel();
+            roundedButton4 = new Clases.RoundedButton();
             panel5 = new Panel();
             panel8 = new Panel();
             label2 = new Label();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            panel14 = new Panel();
             panel11 = new Panel();
             roundedButton3 = new Clases.RoundedButton();
             panel4 = new Panel();
@@ -54,6 +56,7 @@
             label1 = new Label();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             panel10 = new Panel();
+            panel13 = new Panel();
             roundedButton2 = new Clases.RoundedButton();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -63,18 +66,20 @@
             panel6.SuspendLayout();
             panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
+            panel12.SuspendLayout();
             panel5.SuspendLayout();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panel10.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.None;
             panel1.Controls.Add(panel3);
-            panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1169, 466);
@@ -194,10 +199,10 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.None;
             panel2.Controls.Add(panel6);
             panel2.Controls.Add(panel5);
             panel2.Controls.Add(panel4);
-            panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 466);
             panel2.Name = "panel2";
             panel2.Size = new Size(1169, 346);
@@ -214,31 +219,18 @@
             // 
             // panel9
             // 
-            panel9.Controls.Add(label3);
             panel9.Controls.Add(iconPictureBox3);
-            panel9.Controls.Add(roundedButton4);
+            panel9.Controls.Add(label3);
             panel9.Controls.Add(panel12);
+            panel9.Controls.Add(roundedButton4);
             panel9.Location = new Point(21, 35);
             panel9.Name = "panel9";
             panel9.Size = new Size(344, 280);
             panel9.TabIndex = 2;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(222, 227, 234);
-            label3.Font = new Font("Century Gothic", 13F);
-            label3.ForeColor = SystemColors.ControlText;
-            label3.Location = new Point(7, 215);
-            label3.Name = "label3";
-            label3.Size = new Size(334, 25);
-            label3.TabIndex = 3;
-            label3.Text = "BUSCAR MARCA REGISTRADA";
-            label3.Click += label3_Click;
-            // 
             // iconPictureBox3
             // 
-            iconPictureBox3.BackColor = Color.FromArgb(222, 227, 234);
+            iconPictureBox3.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox3.ForeColor = Color.FromArgb(255, 183, 77);
             iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconPictureBox3.IconColor = Color.FromArgb(255, 183, 77);
@@ -250,6 +242,40 @@
             iconPictureBox3.TabIndex = 3;
             iconPictureBox3.TabStop = false;
             iconPictureBox3.Click += iconPictureBox3_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(255, 182, 79);
+            label3.Font = new Font("Century Gothic", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(7, 215);
+            label3.Name = "label3";
+            label3.Size = new Size(333, 27);
+            label3.TabIndex = 3;
+            label3.Text = "BUSCAR MARCA REGISTRADA";
+            label3.Click += label3_Click;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(222, 227, 234);
+            panel12.Controls.Add(panel15);
+            panel12.Location = new Point(3, 19);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(338, 242);
+            panel12.TabIndex = 4;
+            panel12.Click += panel12_Click;
+            // 
+            // panel15
+            // 
+            panel15.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel15.BackColor = Color.FromArgb(255, 182, 79);
+            panel15.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            panel15.ForeColor = Color.White;
+            panel15.Location = new Point(3, 190);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(334, 40);
+            panel15.TabIndex = 5;
             // 
             // roundedButton4
             // 
@@ -270,15 +296,6 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
-            // panel12
-            // 
-            panel12.BackColor = Color.FromArgb(222, 227, 234);
-            panel12.Location = new Point(3, 19);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(338, 242);
-            panel12.TabIndex = 4;
-            panel12.Click += panel12_Click;
-            // 
             // panel5
             // 
             panel5.Controls.Add(panel8);
@@ -292,6 +309,7 @@
             // 
             panel8.Controls.Add(label2);
             panel8.Controls.Add(iconPictureBox2);
+            panel8.Controls.Add(panel14);
             panel8.Controls.Add(panel11);
             panel8.Controls.Add(roundedButton3);
             panel8.Location = new Point(23, 35);
@@ -302,19 +320,19 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(222, 227, 234);
-            label2.Font = new Font("Century Gothic", 13F);
-            label2.ForeColor = SystemColors.ControlText;
+            label2.BackColor = Color.FromArgb(38, 165, 154);
+            label2.Font = new Font("Century Gothic", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
             label2.Location = new Point(113, 215);
             label2.Name = "label2";
-            label2.Size = new Size(116, 25);
+            label2.Size = new Size(116, 27);
             label2.TabIndex = 2;
             label2.Text = "REPORTES";
             label2.Click += label2_Click;
             // 
             // iconPictureBox2
             // 
-            iconPictureBox2.BackColor = Color.FromArgb(222, 227, 234);
+            iconPictureBox2.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox2.ForeColor = Color.FromArgb(38, 166, 154);
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
             iconPictureBox2.IconColor = Color.FromArgb(38, 166, 154);
@@ -326,6 +344,15 @@
             iconPictureBox2.TabIndex = 2;
             iconPictureBox2.TabStop = false;
             iconPictureBox2.Click += iconPictureBox2_Click;
+            // 
+            // panel14
+            // 
+            panel14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel14.BackColor = Color.FromArgb(38, 165, 154);
+            panel14.Location = new Point(3, 209);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(335, 40);
+            panel14.TabIndex = 1;
             // 
             // panel11
             // 
@@ -378,18 +405,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(222, 227, 234);
-            label1.Font = new Font("Century Gothic", 13F);
+            label1.BackColor = Color.FromArgb(60, 120, 172);
+            label1.Font = new Font("Century Gothic", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
             label1.Location = new Point(18, 215);
             label1.Name = "label1";
-            label1.Size = new Size(303, 25);
+            label1.Size = new Size(302, 27);
             label1.TabIndex = 1;
             label1.Text = "INGRESAR TRÁMITE INICIAL";
             label1.Click += label1_Click;
             // 
             // iconPictureBox1
             // 
-            iconPictureBox1.BackColor = Color.FromArgb(222, 227, 234);
+            iconPictureBox1.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox1.ForeColor = Color.FromArgb(60, 120, 172);
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FileContract;
             iconPictureBox1.IconColor = Color.FromArgb(60, 120, 172);
@@ -405,11 +433,21 @@
             // panel10
             // 
             panel10.BackColor = Color.FromArgb(222, 227, 234);
+            panel10.Controls.Add(panel13);
             panel10.Location = new Point(3, 19);
             panel10.Name = "panel10";
             panel10.Size = new Size(338, 242);
             panel10.TabIndex = 1;
             panel10.Click += panel10_Click;
+            // 
+            // panel13
+            // 
+            panel13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel13.BackColor = Color.FromArgb(60, 120, 172);
+            panel13.Location = new Point(0, 190);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(335, 40);
+            panel13.TabIndex = 0;
             // 
             // roundedButton2
             // 
@@ -437,6 +475,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.White;
             ClientSize = new Size(1169, 827);
             Controls.Add(panel2);
@@ -444,6 +483,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmDashboard";
             Text = "FrmDashboard";
+            Load += FrmDashboard_Load;
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -454,6 +494,7 @@
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
+            panel12.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
@@ -462,6 +503,7 @@
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            panel10.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -493,5 +535,8 @@
         private Panel panel10;
         private Panel panel11;
         private Panel panel12;
+        private Panel panel14;
+        private Panel panel13;
+        private Panel panel15;
     }
 }
