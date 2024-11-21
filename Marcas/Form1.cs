@@ -179,8 +179,8 @@ namespace Presentacion
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-            //childForm.Dock = DockStyle.Fill;
-            panelChildForm.AutoScroll = true;
+            childForm.Dock = DockStyle.Fill;
+            //panelChildForm.AutoScroll = true;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
             childForm.BringToFront();

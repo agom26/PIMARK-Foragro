@@ -90,7 +90,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1169, 827);
+            tabControl1.Size = new Size(1024, 827);
             tabControl1.TabIndex = 1;
             // 
             // tabPageListado
@@ -105,10 +105,10 @@
             tabPageListado.Controls.Add(ibtnEditar);
             tabPageListado.Controls.Add(ibtnAgregar);
             tabPageListado.Controls.Add(panel1);
-            tabPageListado.Location = new Point(4, 32);
+            tabPageListado.Location = new Point(4, 30);
             tabPageListado.Name = "tabPageListado";
             tabPageListado.Padding = new Padding(3);
-            tabPageListado.Size = new Size(1161, 791);
+            tabPageListado.Size = new Size(1016, 793);
             tabPageListado.TabIndex = 0;
             tabPageListado.UseVisualStyleBackColor = true;
             tabPageListado.Click += tabPageListado_Click;
@@ -122,7 +122,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(419, 18);
+            iconPictureBox2.Location = new Point(347, 18);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 40);
             iconPictureBox2.TabIndex = 54;
@@ -134,9 +134,9 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(175, 192, 218);
             label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(465, 18);
+            label2.Location = new Point(393, 18);
             label2.Name = "label2";
-            label2.Size = new Size(122, 31);
+            label2.Size = new Size(97, 23);
             label2.TabIndex = 48;
             label2.Text = "AGENTES";
             // 
@@ -152,7 +152,7 @@
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(589, 129);
+            iconButton1.Location = new Point(517, 129);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(144, 32);
             iconButton1.TabIndex = 51;
@@ -164,9 +164,9 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(250, 130);
+            textBox1.Location = new Point(178, 130);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 32);
+            textBox1.Size = new Size(301, 27);
             textBox1.TabIndex = 50;
             // 
             // label1
@@ -175,9 +175,9 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(236, 236, 238);
             label1.Font = new Font("Century Gothic", 9F);
-            label1.Location = new Point(250, 107);
+            label1.Location = new Point(178, 107);
             label1.Name = "label1";
-            label1.Size = new Size(195, 20);
+            label1.Size = new Size(157, 17);
             label1.TabIndex = 49;
             label1.Text = "Buscar por nombre o pais";
             // 
@@ -193,7 +193,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(226, 6);
+            roundedButton5.Location = new Point(154, 6);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(556, 61);
             roundedButton5.TabIndex = 53;
@@ -212,7 +212,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(226, 101);
+            roundedButton3.Location = new Point(154, 101);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(556, 74);
             roundedButton3.TabIndex = 52;
@@ -231,7 +231,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
-            ibtnEditar.Location = new Point(996, 263);
+            ibtnEditar.Location = new Point(856, 260);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(157, 37);
             ibtnEditar.TabIndex = 17;
@@ -252,7 +252,7 @@
             ibtnAgregar.IconColor = Color.White;
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnAgregar.IconSize = 25;
-            ibtnAgregar.Location = new Point(996, 205);
+            ibtnAgregar.Location = new Point(859, 205);
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(157, 37);
             ibtnAgregar.TabIndex = 16;
@@ -266,9 +266,9 @@
             panel1.Anchor = AnchorStyles.Top;
             panel1.BackColor = Color.FromArgb(192, 202, 212);
             panel1.Controls.Add(dtgAgentes);
-            panel1.Location = new Point(38, 205);
+            panel1.Location = new Point(10, 205);
             panel1.Name = "panel1";
-            panel1.Size = new Size(952, 539);
+            panel1.Size = new Size(843, 451);
             panel1.TabIndex = 55;
             // 
             // dtgAgentes
@@ -278,7 +278,6 @@
             dtgAgentes.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtgAgentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgAgentes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgAgentes.BorderStyle = BorderStyle.None;
@@ -304,7 +303,7 @@
             dtgAgentes.DefaultCellStyle = dataGridViewCellStyle3;
             dtgAgentes.EnableHeadersVisualStyles = false;
             dtgAgentes.GridColor = Color.LightGray;
-            dtgAgentes.Location = new Point(20, 21);
+            dtgAgentes.Location = new Point(15, 24);
             dtgAgentes.Name = "dtgAgentes";
             dtgAgentes.ReadOnly = true;
             dtgAgentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -320,7 +319,7 @@
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgAgentes.Size = new Size(904, 495);
+            dtgAgentes.Size = new Size(807, 402);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
             dtgAgentes.CellContentClick += dtgAgentes_CellContentClick;
@@ -350,10 +349,10 @@
             tabPageAgenteDetail.Controls.Add(txtNombreAgente);
             tabPageAgenteDetail.Controls.Add(label3);
             tabPageAgenteDetail.Controls.Add(roundedButton4);
-            tabPageAgenteDetail.Location = new Point(4, 32);
+            tabPageAgenteDetail.Location = new Point(4, 30);
             tabPageAgenteDetail.Name = "tabPageAgenteDetail";
             tabPageAgenteDetail.Padding = new Padding(3);
-            tabPageAgenteDetail.Size = new Size(1161, 791);
+            tabPageAgenteDetail.Size = new Size(1161, 793);
             tabPageAgenteDetail.TabIndex = 1;
             tabPageAgenteDetail.UseVisualStyleBackColor = true;
             // 
@@ -467,7 +466,7 @@
             label10.Font = new Font("Century Gothic", 12F);
             label10.Location = new Point(172, 42);
             label10.Name = "label10";
-            label10.Size = new Size(97, 23);
+            label10.Size = new Size(83, 21);
             label10.TabIndex = 145;
             label10.Text = "AGENTES";
             // 
@@ -501,7 +500,7 @@
             comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
             comboBox1.Location = new Point(579, 234);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(389, 28);
+            comboBox1.Size = new Size(389, 25);
             comboBox1.TabIndex = 87;
             // 
             // txtNombreContacto
@@ -510,7 +509,7 @@
             txtNombreContacto.Font = new Font("Century Gothic", 9F);
             txtNombreContacto.Location = new Point(142, 390);
             txtNombreContacto.Name = "txtNombreContacto";
-            txtNombreContacto.Size = new Size(389, 26);
+            txtNombreContacto.Size = new Size(389, 22);
             txtNombreContacto.TabIndex = 7;
             // 
             // label9
@@ -521,7 +520,7 @@
             label9.Font = new Font("Century Gothic", 9F);
             label9.Location = new Point(142, 364);
             label9.Name = "label9";
-            label9.Size = new Size(80, 20);
+            label9.Size = new Size(66, 17);
             label9.TabIndex = 47;
             label9.Text = "Contacto";
             // 
@@ -531,7 +530,7 @@
             txtTelefonoContacto.Font = new Font("Century Gothic", 9F);
             txtTelefonoContacto.Location = new Point(579, 315);
             txtTelefonoContacto.Name = "txtTelefonoContacto";
-            txtTelefonoContacto.Size = new Size(389, 26);
+            txtTelefonoContacto.Size = new Size(389, 22);
             txtTelefonoContacto.TabIndex = 6;
             // 
             // label8
@@ -542,7 +541,7 @@
             label8.Font = new Font("Century Gothic", 9F);
             label8.Location = new Point(579, 289);
             label8.Name = "label8";
-            label8.Size = new Size(71, 20);
+            label8.Size = new Size(59, 17);
             label8.TabIndex = 45;
             label8.Text = "Teléfono";
             // 
@@ -552,7 +551,7 @@
             txtCorreoContacto.Font = new Font("Century Gothic", 9F);
             txtCorreoContacto.Location = new Point(142, 315);
             txtCorreoContacto.Name = "txtCorreoContacto";
-            txtCorreoContacto.Size = new Size(389, 26);
+            txtCorreoContacto.Size = new Size(389, 22);
             txtCorreoContacto.TabIndex = 5;
             // 
             // label7
@@ -563,7 +562,7 @@
             label7.Font = new Font("Century Gothic", 9F);
             label7.Location = new Point(142, 289);
             label7.Name = "label7";
-            label7.Size = new Size(61, 20);
+            label7.Size = new Size(49, 17);
             label7.TabIndex = 44;
             label7.Text = "Correo";
             // 
@@ -573,7 +572,7 @@
             txtDireccionAgente.Font = new Font("Century Gothic", 9F);
             txtDireccionAgente.Location = new Point(579, 168);
             txtDireccionAgente.Name = "txtDireccionAgente";
-            txtDireccionAgente.Size = new Size(389, 26);
+            txtDireccionAgente.Size = new Size(389, 22);
             txtDireccionAgente.TabIndex = 2;
             // 
             // label6
@@ -584,7 +583,7 @@
             label6.Font = new Font("Century Gothic", 9F);
             label6.Location = new Point(579, 142);
             label6.Name = "label6";
-            label6.Size = new Size(80, 20);
+            label6.Size = new Size(66, 17);
             label6.TabIndex = 42;
             label6.Text = "Dirección";
             // 
@@ -596,7 +595,7 @@
             label5.Font = new Font("Century Gothic", 9F);
             label5.Location = new Point(579, 211);
             label5.Name = "label5";
-            label5.Size = new Size(37, 20);
+            label5.Size = new Size(31, 17);
             label5.TabIndex = 40;
             label5.Text = "Pais";
             // 
@@ -606,7 +605,7 @@
             txtNitAgente.Font = new Font("Century Gothic", 9F);
             txtNitAgente.Location = new Point(142, 237);
             txtNitAgente.Name = "txtNitAgente";
-            txtNitAgente.Size = new Size(389, 26);
+            txtNitAgente.Size = new Size(389, 22);
             txtNitAgente.TabIndex = 3;
             // 
             // label4
@@ -617,7 +616,7 @@
             label4.Font = new Font("Century Gothic", 9F);
             label4.Location = new Point(142, 211);
             label4.Name = "label4";
-            label4.Size = new Size(30, 20);
+            label4.Size = new Size(25, 17);
             label4.TabIndex = 37;
             label4.Text = "NIT";
             // 
@@ -627,7 +626,7 @@
             txtNombreAgente.Font = new Font("Century Gothic", 9F);
             txtNombreAgente.Location = new Point(142, 168);
             txtNombreAgente.Name = "txtNombreAgente";
-            txtNombreAgente.Size = new Size(389, 26);
+            txtNombreAgente.Size = new Size(389, 22);
             txtNombreAgente.TabIndex = 1;
             // 
             // label3
@@ -638,7 +637,7 @@
             label3.Font = new Font("Century Gothic", 9F);
             label3.Location = new Point(142, 142);
             label3.Name = "label3";
-            label3.Size = new Size(68, 20);
+            label3.Size = new Size(56, 17);
             label3.TabIndex = 34;
             label3.Text = "Nombre";
             // 
@@ -662,10 +661,10 @@
             // 
             // FrmAdministrarAgentes
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1169, 827);
+            ClientSize = new Size(1024, 827);
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;

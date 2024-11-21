@@ -87,14 +87,14 @@
             // 
             // panelChildForm
             // 
-            panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelChildForm.AutoScroll = true;
             panelChildForm.AutoSize = true;
             panelChildForm.BackColor = Color.White;
             panelChildForm.Font = new Font("Century Gothic", 9F);
-            panelChildForm.Location = new Point(285, 106);
+            panelChildForm.Location = new Point(287, 106);
             panelChildForm.Name = "panelChildForm";
-            panelChildForm.Size = new Size(1184, 794);
+            panelChildForm.Size = new Size(725, 794);
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
             // 
@@ -246,6 +246,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(34, 77, 112);
             panel2.Controls.Add(iconButtonLogout);
@@ -263,7 +264,6 @@
             panel2.Controls.Add(btnHome);
             panel2.Controls.Add(iconButton1);
             panel2.Controls.Add(panel3);
-            panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(280, 900);
@@ -848,6 +848,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(34, 77, 112);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(iconButton2);
@@ -855,10 +856,9 @@
             panel1.Controls.Add(iconPictureBoxUser);
             panel1.Controls.Add(iconButton3);
             panel1.Controls.Add(iconButton4);
-            panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(280, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1201, 89);
+            panel1.Size = new Size(744, 89);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
@@ -881,7 +881,7 @@
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
-            iconButton2.Location = new Point(1082, 0);
+            iconButton2.Location = new Point(625, 0);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(55, 64);
             iconButton2.TabIndex = 4;
@@ -922,7 +922,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
-            iconButton3.Location = new Point(1143, -1);
+            iconButton3.Location = new Point(686, -1);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(55, 65);
             iconButton3.TabIndex = 0;
@@ -938,7 +938,7 @@
             iconButton4.IconColor = Color.White;
             iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton4.IconSize = 25;
-            iconButton4.Location = new Point(1021, 2);
+            iconButton4.Location = new Point(564, 2);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(55, 62);
             iconButton4.TabIndex = 5;
@@ -952,7 +952,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1481, 900);
+            ClientSize = new Size(1024, 900);
             ControlBox = false;
             Controls.Add(panel1);
             Controls.Add(panelChildForm);
@@ -960,7 +960,7 @@
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
-            MinimumSize = new Size(1481, 900);
+            MinimumSize = new Size(1024, 726);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PIMARK";
