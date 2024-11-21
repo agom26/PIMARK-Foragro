@@ -36,8 +36,8 @@
             button34 = new Button();
             button35 = new Button();
             button33 = new Button();
-            button3 = new Button();
-            button36 = new Button();
+            btnTramiteInicialPatente = new Button();
+            btnIngresarPatente = new Button();
             panel2 = new Panel();
             iconButtonVencimientos = new FontAwesome.Sharp.IconButton();
             btnReportes = new FontAwesome.Sharp.IconButton();
@@ -128,8 +128,8 @@
             panelSubMenuPatentes.Controls.Add(button34);
             panelSubMenuPatentes.Controls.Add(button35);
             panelSubMenuPatentes.Controls.Add(button33);
-            panelSubMenuPatentes.Controls.Add(button3);
-            panelSubMenuPatentes.Controls.Add(button36);
+            panelSubMenuPatentes.Controls.Add(btnTramiteInicialPatente);
+            panelSubMenuPatentes.Controls.Add(btnIngresarPatente);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuPatentes.Location = new Point(0, 1249);
@@ -208,41 +208,41 @@
             button33.TextAlign = ContentAlignment.MiddleLeft;
             button33.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnTramiteInicialPatente
             // 
-            button3.AutoSize = true;
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 9F);
-            button3.ForeColor = Color.Black;
-            button3.Location = new Point(0, 47);
-            button3.Name = "button3";
-            button3.Padding = new Padding(58, 0, 0, 0);
-            button3.Size = new Size(259, 47);
-            button3.TabIndex = 7;
-            button3.Text = "> TRÁMITE INICIAL";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            btnTramiteInicialPatente.AutoSize = true;
+            btnTramiteInicialPatente.Dock = DockStyle.Top;
+            btnTramiteInicialPatente.FlatAppearance.BorderSize = 0;
+            btnTramiteInicialPatente.FlatStyle = FlatStyle.Flat;
+            btnTramiteInicialPatente.Font = new Font("Century Gothic", 9F);
+            btnTramiteInicialPatente.ForeColor = Color.Black;
+            btnTramiteInicialPatente.Location = new Point(0, 47);
+            btnTramiteInicialPatente.Name = "btnTramiteInicialPatente";
+            btnTramiteInicialPatente.Padding = new Padding(58, 0, 0, 0);
+            btnTramiteInicialPatente.Size = new Size(259, 47);
+            btnTramiteInicialPatente.TabIndex = 7;
+            btnTramiteInicialPatente.Text = "> TRÁMITE INICIAL";
+            btnTramiteInicialPatente.TextAlign = ContentAlignment.MiddleLeft;
+            btnTramiteInicialPatente.UseVisualStyleBackColor = true;
+            btnTramiteInicialPatente.Click += button3_Click;
             // 
-            // button36
+            // btnIngresarPatente
             // 
-            button36.AutoSize = true;
-            button36.Dock = DockStyle.Top;
-            button36.FlatAppearance.BorderSize = 0;
-            button36.FlatStyle = FlatStyle.Flat;
-            button36.Font = new Font("Century Gothic", 9F);
-            button36.ForeColor = Color.Black;
-            button36.Location = new Point(0, 0);
-            button36.Name = "button36";
-            button36.Padding = new Padding(58, 0, 0, 0);
-            button36.Size = new Size(259, 47);
-            button36.TabIndex = 0;
-            button36.Text = "> INGRESAR PATENTE";
-            button36.TextAlign = ContentAlignment.MiddleLeft;
-            button36.UseVisualStyleBackColor = true;
-            button36.Click += button36_Click;
+            btnIngresarPatente.AutoSize = true;
+            btnIngresarPatente.Dock = DockStyle.Top;
+            btnIngresarPatente.FlatAppearance.BorderSize = 0;
+            btnIngresarPatente.FlatStyle = FlatStyle.Flat;
+            btnIngresarPatente.Font = new Font("Century Gothic", 9F);
+            btnIngresarPatente.ForeColor = Color.Black;
+            btnIngresarPatente.Location = new Point(0, 0);
+            btnIngresarPatente.Name = "btnIngresarPatente";
+            btnIngresarPatente.Padding = new Padding(58, 0, 0, 0);
+            btnIngresarPatente.Size = new Size(259, 47);
+            btnIngresarPatente.TabIndex = 0;
+            btnIngresarPatente.Text = "> INGRESAR PATENTE";
+            btnIngresarPatente.TextAlign = ContentAlignment.MiddleLeft;
+            btnIngresarPatente.UseVisualStyleBackColor = true;
+            btnIngresarPatente.Click += button36_Click;
             // 
             // panel2
             // 
@@ -1002,7 +1002,7 @@
         private System.Windows.Forms.Button button33;
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Button button35;
-        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.Button btnIngresarPatente;
         private FontAwesome.Sharp.IconButton btnPatentes;
         private System.Windows.Forms.Panel panelSubMenuMarcasInter;
         private System.Windows.Forms.Button btnRenovInter;
@@ -1026,7 +1026,7 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Button btnEnTramite;
-        private Button button3;
+        private Button btnTramiteInicialPatente;
         private FontAwesome.Sharp.IconButton btnHome;
         private PictureBox pictureBox1;
         private Panel panel3;

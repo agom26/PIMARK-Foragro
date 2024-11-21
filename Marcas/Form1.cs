@@ -107,6 +107,8 @@ namespace Presentacion
 
         public void DisableButtons()
         {
+            //home
+            btnHome.Enabled = false;
             iconButtonUsuarios.Enabled = false;
             iconButtonAgentes.Enabled = false;
             iconButtonTitulares.Enabled = false;
@@ -125,10 +127,15 @@ namespace Presentacion
             btnOpoInter.Enabled = false;
             btnRegInter.Enabled = false;
             btnAbandonadasInter.Enabled = false;
+            //patentes
+            btnIngresarPatente.Enabled = false;
+            btnTramiteInicialPatente.Enabled = false;
         }
 
         public void EnableButtons()
         {
+            //home
+            btnHome.Enabled =true;
             iconButtonUsuarios.Enabled = true;
             iconButtonAgentes.Enabled = true;
             iconButtonTitulares.Enabled = true;
@@ -147,6 +154,9 @@ namespace Presentacion
             btnOpoInter.Enabled = true;
             btnRegInter.Enabled = true;
             btnAbandonadasInter.Enabled = true;
+            //patentes
+            btnIngresarPatente.Enabled = true;
+            btnTramiteInicialPatente.Enabled = true;
         }
 
 

@@ -120,8 +120,6 @@ namespace Presentacion.Patentes
             txtNombreAgente.Text = "";
             txtDireccionTitular.Text = "";
             txtNombreTitular.Text = "";
-
-
         }
 
         public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
