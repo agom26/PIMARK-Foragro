@@ -32,9 +32,9 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             label28 = new Label();
             roundedButton2 = new Clases.RoundedButton();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             label29 = new Label();
             roundedButton1 = new Clases.RoundedButton();
@@ -157,9 +157,9 @@
             // 
             // tabPageRegistradasList
             // 
+            tabPageRegistradasList.Controls.Add(iconPictureBox3);
             tabPageRegistradasList.Controls.Add(label28);
             tabPageRegistradasList.Controls.Add(roundedButton2);
-            tabPageRegistradasList.Controls.Add(iconPictureBox3);
             tabPageRegistradasList.Controls.Add(iconPictureBox2);
             tabPageRegistradasList.Controls.Add(label29);
             tabPageRegistradasList.Controls.Add(roundedButton1);
@@ -177,13 +177,26 @@
             tabPageRegistradasList.TabIndex = 0;
             tabPageRegistradasList.UseVisualStyleBackColor = true;
             // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.Transparent;
+            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 49;
+            iconPictureBox3.Location = new Point(358, 6);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(55, 49);
+            iconPictureBox3.TabIndex = 160;
+            iconPictureBox3.TabStop = false;
+            // 
             // label28
             // 
-            label28.Anchor = AnchorStyles.Top;
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(175, 192, 218);
             label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(457, 32);
+            label28.Location = new Point(437, 18);
             label28.Name = "label28";
             label28.Size = new Size(262, 23);
             label28.TabIndex = 162;
@@ -191,7 +204,6 @@
             // 
             // roundedButton2
             // 
-            roundedButton2.Anchor = AnchorStyles.Top;
             roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
@@ -201,37 +213,22 @@
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(439, 20);
+            roundedButton2.Location = new Point(419, 6);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(290, 49);
             roundedButton2.TabIndex = 161;
             roundedButton2.TextColor = Color.White;
             roundedButton2.UseVisualStyleBackColor = false;
             // 
-            // iconPictureBox3
-            // 
-            iconPictureBox3.BackColor = Color.Transparent;
-            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
-            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(378, 20);
-            iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(55, 49);
-            iconPictureBox3.TabIndex = 160;
-            iconPictureBox3.TabStop = false;
-            // 
             // iconPictureBox2
             // 
-            iconPictureBox2.Anchor = AnchorStyles.Top;
             iconPictureBox2.BackColor = Color.FromArgb(175, 192, 218);
             iconPictureBox2.ForeColor = SystemColors.ControlText;
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Flag;
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 28;
-            iconPictureBox2.Location = new Point(67, 32);
+            iconPictureBox2.Location = new Point(47, 18);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 28);
             iconPictureBox2.TabIndex = 159;
@@ -239,11 +236,10 @@
             // 
             // label29
             // 
-            label29.Anchor = AnchorStyles.Top;
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(113, 32);
+            label29.Location = new Point(93, 18);
             label29.Name = "label29";
             label29.Size = new Size(229, 23);
             label29.TabIndex = 157;
@@ -251,7 +247,6 @@
             // 
             // roundedButton1
             // 
-            roundedButton1.Anchor = AnchorStyles.Top;
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
@@ -261,7 +256,7 @@
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(26, 20);
+            roundedButton1.Location = new Point(6, 6);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(346, 49);
             roundedButton1.TabIndex = 158;
@@ -270,7 +265,7 @@
             // 
             // iconButton3
             // 
-            iconButton3.Anchor = AnchorStyles.Top;
+            iconButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             iconButton3.BackColor = Color.FromArgb(255, 112, 67);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -290,7 +285,7 @@
             // 
             // ibtnEditar
             // 
-            ibtnEditar.Anchor = AnchorStyles.Top;
+            ibtnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
             ibtnEditar.FlatAppearance.BorderSize = 0;
             ibtnEditar.FlatStyle = FlatStyle.Flat;
@@ -310,7 +305,7 @@
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Top;
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.BackColor = Color.FromArgb(192, 202, 212);
             panel4.Controls.Add(dtgMarcasRenov);
             panel4.Location = new Point(26, 207);
@@ -323,7 +318,7 @@
             dtgMarcasRenov.AllowUserToAddRows = false;
             dtgMarcasRenov.AllowUserToDeleteRows = false;
             dtgMarcasRenov.AllowUserToResizeRows = false;
-            dtgMarcasRenov.Anchor = AnchorStyles.Top;
+            dtgMarcasRenov.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgMarcasRenov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgMarcasRenov.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgMarcasRenov.BorderStyle = BorderStyle.None;
@@ -1080,9 +1075,10 @@
             panel2.Controls.Add(dtgHistorialR);
             panel2.Controls.Add(panel5);
             panel2.Controls.Add(label22);
-            panel2.Location = new Point(8, 14);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1145, 772);
+            panel2.Size = new Size(1161, 794);
             panel2.TabIndex = 0;
             // 
             // iconButton9
@@ -1102,7 +1098,7 @@
             // 
             // btnEditarEstadoHistorial
             // 
-            btnEditarEstadoHistorial.Anchor = AnchorStyles.Top;
+            btnEditarEstadoHistorial.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnEditarEstadoHistorial.BackColor = Color.FromArgb(96, 149, 241);
             btnEditarEstadoHistorial.FlatAppearance.BorderSize = 0;
             btnEditarEstadoHistorial.FlatStyle = FlatStyle.Flat;
@@ -1111,7 +1107,7 @@
             btnEditarEstadoHistorial.IconColor = Color.White;
             btnEditarEstadoHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarEstadoHistorial.IconSize = 30;
-            btnEditarEstadoHistorial.Location = new Point(990, 76);
+            btnEditarEstadoHistorial.Location = new Point(1006, 76);
             btnEditarEstadoHistorial.Name = "btnEditarEstadoHistorial";
             btnEditarEstadoHistorial.Size = new Size(144, 37);
             btnEditarEstadoHistorial.TabIndex = 52;
@@ -1125,7 +1121,7 @@
             dtgHistorialR.AllowUserToAddRows = false;
             dtgHistorialR.AllowUserToDeleteRows = false;
             dtgHistorialR.AllowUserToResizeRows = false;
-            dtgHistorialR.Anchor = AnchorStyles.Top;
+            dtgHistorialR.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgHistorialR.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgHistorialR.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgHistorialR.BorderStyle = BorderStyle.None;
@@ -1149,21 +1145,20 @@
             dtgHistorialR.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgHistorialR.RowHeadersWidth = 51;
             dtgHistorialR.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgHistorialR.Size = new Size(934, 492);
+            dtgHistorialR.Size = new Size(950, 492);
             dtgHistorialR.TabIndex = 50;
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel5.BackColor = Color.FromArgb(192, 202, 212);
             panel5.Location = new Point(3, 76);
             panel5.Name = "panel5";
-            panel5.Size = new Size(972, 542);
+            panel5.Size = new Size(988, 542);
             panel5.TabIndex = 51;
             // 
             // label22
             // 
-            label22.Anchor = AnchorStyles.None;
             label22.AutoSize = true;
             label22.Font = new Font("Century Gothic", 19F);
             label22.Location = new Point(55, 21);
