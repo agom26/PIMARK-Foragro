@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using FontAwesome.Sharp;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -110,6 +111,54 @@ namespace Presentacion.Personas
             btnGuardarU.Visible = false;
         }
 
+        public async Task Editar()
+        {
+            Habilitar();
+            if (dtgTitulares.SelectedRows.Count > 0)
+            {
+                tabControl1.Visible = false;
+                int idPersona = EditarPersona.idPersona;
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+
+                var titularDetails = personaModel.GetPersonaById(idPersona);
+
+                if (titularDetails.Count > 0)
+                {
+
+                    EditarPersona.idPersona = titularDetails[0].id;
+                    EditarPersona.nombre = titularDetails[0].nombre;
+                    EditarPersona.direccion = titularDetails[0].direccion;
+                    EditarPersona.nit = titularDetails[0].nit;
+                    EditarPersona.pais = titularDetails[0].pais;
+                    EditarPersona.correo = titularDetails[0].correo;
+                    EditarPersona.telefono = titularDetails[0].telefono;
+                    EditarPersona.contacto = titularDetails[0].contacto;
+
+
+                    txtNombreTitular.Text = EditarPersona.nombre;
+                    txtDireccionTitular.Text = EditarPersona.direccion;
+                    txtNitTitular.Text = EditarPersona.nit;
+                    comboBox1.SelectedItem = EditarPersona.pais;
+                    txtCorreoContacto.Text = EditarPersona.correo;
+                    txtTelefonoContacto.Text = EditarPersona.telefono;
+                    txtNombreContacto.Text = EditarPersona.contacto;
+                    AnadirTabPage(tabTitularDetail);
+                    btnGuardarU.Text = "ACTUALIZAR";
+                    tabControl1.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el titular.");
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione una fila de titular.");
+            }
+        }
+
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
             Habilitar();
@@ -132,49 +181,9 @@ namespace Presentacion.Personas
         }
 
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Habilitar();
-            if (dtgTitulares.SelectedRows.Count > 0)
-            {
-
-                int idPersona = EditarPersona.idPersona;
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
-
-                var titularDetails = personaModel.GetPersonaById(idPersona);
-
-                if (titularDetails.Count > 0)
-                {
-
-                    EditarPersona.idPersona = titularDetails[0].id;
-                    EditarPersona.nombre = titularDetails[0].nombre;
-                    EditarPersona.direccion = titularDetails[0].direccion;
-                    EditarPersona.nit = titularDetails[0].nit;
-                    EditarPersona.pais = titularDetails[0].pais;
-                    EditarPersona.correo = titularDetails[0].correo;
-                    EditarPersona.telefono = titularDetails[0].telefono;
-                    EditarPersona.contacto = titularDetails[0].contacto;
-                    // Mostrar el formulario de edición con los valores del titular
-
-                    txtNombreTitular.Text = EditarPersona.nombre;
-                    txtDireccionTitular.Text = EditarPersona.direccion;
-                    txtNitTitular.Text = EditarPersona.nit;
-                    comboBox1.SelectedItem = EditarPersona.pais;
-                    txtCorreoContacto.Text = EditarPersona.correo;
-                    txtTelefonoContacto.Text = EditarPersona.telefono;
-                    txtNombreContacto.Text = EditarPersona.contacto;
-                    AnadirTabPage(tabTitularDetail);
-                    btnGuardarU.Text = "ACTUALIZAR"; // Cambiar el texto del botón a "Actualizar"
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el titular.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, seleccione una fila de titular.");
-            }
+            await Editar();
         }
 
         private void dtgTitulares_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -269,7 +278,9 @@ namespace Presentacion.Personas
                 }
                 else
                 {
-                    MessageBox.Show("No existen titulares con esos datos");
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN TITULARES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
                     LoadTitulares();
                 }
             }
@@ -363,14 +374,16 @@ namespace Presentacion.Personas
             {
                 try
                 {
-                    
+
                     btnGuardarU.Enabled = false;
 
                     if (btnGuardarU.Text == "GUARDAR")
                     {
-                        
+
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Titular agregado exitosamente");
+                        FrmAlerta alerta = new FrmAlerta("TITULAR AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Titular agregado exitosamente");
                         dtgTitulares.ClearSelection();
                     }
                     else if (btnGuardarU.Text == "ACTUALIZAR")
@@ -386,7 +399,9 @@ namespace Presentacion.Personas
 
                         if (update)
                         {
-                            MessageBox.Show("Titular actualizado exitosamente");
+                            FrmAlerta alerta = new FrmAlerta("TITULAR ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Titular actualizado exitosamente");
                             MostrarTitulares(); // Refrescar la lista de titulares
                             EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
                             dtgTitulares.ClearSelection();
@@ -417,6 +432,11 @@ namespace Presentacion.Personas
         {
             EliminarTabPage(tabTitularDetail);
             dtgTitulares.ClearSelection();
+        }
+
+        private async void dtgTitulares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            await Editar();
         }
     }
 }

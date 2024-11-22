@@ -303,7 +303,9 @@ namespace Presentacion
                 }
                 else
                 {
-                    MessageBox.Show("No existen usuarios con esos datos");
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN USUARIOS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen usuarios con esos datos");
                     LoadUsers();
                 }
 

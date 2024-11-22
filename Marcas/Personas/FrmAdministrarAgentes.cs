@@ -162,7 +162,9 @@ namespace Presentacion.Personas
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una fila de agente.");
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
             
         }

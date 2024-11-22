@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListado = new TabPage();
             panel1 = new Panel();
@@ -124,22 +124,22 @@
             dtgAgentes.AllowUserToAddRows = false;
             dtgAgentes.AllowUserToDeleteRows = false;
             dtgAgentes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgAgentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgAgentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             dtgAgentes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgAgentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgAgentes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgAgentes.BorderStyle = BorderStyle.None;
             dtgAgentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgAgentes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 12F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgAgentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = SystemColors.Control;
+            dataGridViewCellStyle17.Font = new Font("Century Gothic", 12F);
+            dataGridViewCellStyle17.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle17.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.True;
+            dtgAgentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             dtgAgentes.ColumnHeadersHeight = 40;
             dtgAgentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgAgentes.EnableHeadersVisualStyles = false;
@@ -149,8 +149,8 @@
             dtgAgentes.ReadOnly = true;
             dtgAgentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgAgentes.RowHeadersWidth = 51;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 10F);
-            dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Font = new Font("Century Gothic", 10F);
+            dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle18;
             dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgAgentes.Size = new Size(502, 364);
             dtgAgentes.TabIndex = 14;
@@ -219,7 +219,7 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(151, 101);
+            textBox1.Location = new Point(151, 98);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(264, 27);
             textBox1.TabIndex = 50;
@@ -233,7 +233,7 @@
             iconPictureBox2.IconColor = SystemColors.ControlText;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(263, 12);
+            iconPictureBox2.Location = new Point(265, 9);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(46, 40);
             iconPictureBox2.TabIndex = 54;
@@ -245,7 +245,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(175, 192, 218);
             label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(315, 19);
+            label2.Location = new Point(310, 13);
             label2.Name = "label2";
             label2.Size = new Size(97, 23);
             label2.TabIndex = 48;
@@ -263,7 +263,7 @@
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(448, 94);
+            iconButton1.Location = new Point(440, 90);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(126, 30);
             iconButton1.TabIndex = 51;
@@ -278,7 +278,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(236, 236, 238);
             label1.Font = new Font("Century Gothic", 10F);
-            label1.Location = new Point(152, 83);
+            label1.Location = new Point(152, 78);
             label1.Name = "label1";
             label1.Size = new Size(184, 19);
             label1.TabIndex = 49;
@@ -296,7 +296,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(122, 8);
+            roundedButton5.Location = new Point(109, 4);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(486, 46);
             roundedButton5.TabIndex = 53;
@@ -315,7 +315,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(122, 79);
+            roundedButton3.Location = new Point(109, 75);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(486, 56);
             roundedButton3.TabIndex = 52;

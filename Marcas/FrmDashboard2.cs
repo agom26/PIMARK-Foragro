@@ -19,8 +19,14 @@ namespace Presentacion
         public Form1 mainForm;
         VencimientoModel vencimientoModel = new VencimientoModel();
 
+        public async void Ejecutar()
+        {
+            await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
+            await Task.Run(() => LoadVencimientos());
+        }
         private async void LoadVencimientos()
         {
+            
             var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
             Invoke(new Action(() =>
             {
@@ -39,7 +45,7 @@ namespace Presentacion
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            LoadVencimientos();
+            Ejecutar();
 
         }
 

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             btnEliminar = new FontAwesome.Sharp.IconButton();
@@ -128,10 +128,10 @@
             btnEliminar.IconColor = Color.White;
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEliminar.IconSize = 25;
-            btnEliminar.Location = new Point(559, 241);
+            btnEliminar.Location = new Point(559, 250);
             btnEliminar.Margin = new Padding(3, 2, 3, 2);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(152, 31);
+            btnEliminar.Size = new Size(152, 37);
             btnEliminar.TabIndex = 49;
             btnEliminar.Text = "ELIMINAR";
             btnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -151,10 +151,10 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
-            iconButton3.Location = new Point(559, 194);
+            iconButton3.Location = new Point(559, 200);
             iconButton3.Margin = new Padding(3, 2, 3, 2);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(152, 31);
+            iconButton3.Size = new Size(152, 37);
             iconButton3.TabIndex = 6;
             iconButton3.Text = "EDITAR/ VER";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -177,7 +177,7 @@
             iconButton2.Location = new Point(559, 150);
             iconButton2.Margin = new Padding(3, 2, 3, 2);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(152, 31);
+            iconButton2.Size = new Size(152, 37);
             iconButton2.TabIndex = 5;
             iconButton2.Text = "AGREGAR";
             iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -192,7 +192,7 @@
             panel1.Location = new Point(10, 150);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(525, 404);
+            panel1.Size = new Size(532, 404);
             panel1.TabIndex = 48;
             // 
             // dtgUsuarios
@@ -206,14 +206,14 @@
             dtgUsuarios.BorderStyle = BorderStyle.None;
             dtgUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgUsuarios.ColumnHeadersHeight = 40;
             dtgUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgUsuarios.EnableHeadersVisualStyles = false;
@@ -224,10 +224,10 @@
             dtgUsuarios.ReadOnly = true;
             dtgUsuarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgUsuarios.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dtgUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dtgUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgUsuarios.Size = new Size(485, 370);
+            dtgUsuarios.Size = new Size(492, 370);
             dtgUsuarios.TabIndex = 4;
             dtgUsuarios.CellClick += dtgUsuarios_CellClick;
             dtgUsuarios.CellContentClick += dtgUsuarios_CellContentClick;
