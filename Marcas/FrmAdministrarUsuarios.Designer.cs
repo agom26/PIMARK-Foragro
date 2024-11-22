@@ -47,28 +47,29 @@
             btngrisBuscar = new Clases.RoundedButton();
             tabPageUserDetail = new TabPage();
             panel5 = new Panel();
+            panel3 = new Panel();
+            label3 = new Label();
+            txtUsername = new TextBox();
+            label4 = new Label();
+            txtNombres = new TextBox();
+            label5 = new Label();
+            txtApellidos = new TextBox();
+            btnGuardarU = new FontAwesome.Sharp.IconButton();
+            label6 = new Label();
+            btnCancelarU = new FontAwesome.Sharp.IconButton();
+            txtCorreo = new TextBox();
+            txtConfirmarCont = new TextBox();
+            label7 = new Label();
+            label8 = new Label();
+            txtCont = new TextBox();
+            chckbIsAdmin = new CheckBox();
+            roundedButton4 = new Clases.RoundedButton();
             label1 = new Label();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBoxIcono = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
             roundedButton1 = new Clases.RoundedButton();
-            btnGuardarU = new FontAwesome.Sharp.IconButton();
-            btnCancelarU = new FontAwesome.Sharp.IconButton();
-            txtConfirmarCont = new TextBox();
-            label8 = new Label();
-            chckbIsAdmin = new CheckBox();
-            txtCont = new TextBox();
-            label7 = new Label();
-            txtCorreo = new TextBox();
-            label6 = new Label();
-            txtApellidos = new TextBox();
-            label5 = new Label();
-            txtNombres = new TextBox();
-            label4 = new Label();
-            txtUsername = new TextBox();
-            label3 = new Label();
-            roundedButton4 = new Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
@@ -77,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)iconoTitulo).BeginInit();
             tabPageUserDetail.SuspendLayout();
             panel5.SuspendLayout();
+            panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -254,7 +256,7 @@
             lblBuscar.AutoSize = true;
             lblBuscar.BackColor = Color.FromArgb(236, 236, 238);
             lblBuscar.Font = new Font("Century Gothic", 9F);
-            lblBuscar.Location = new Point(130, 79);
+            lblBuscar.Location = new Point(138, 79);
             lblBuscar.Name = "lblBuscar";
             lblBuscar.Size = new Size(175, 17);
             lblBuscar.TabIndex = 42;
@@ -276,7 +278,7 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.None;
-            txtBuscar.Location = new Point(130, 97);
+            txtBuscar.Location = new Point(135, 97);
             txtBuscar.Margin = new Padding(3, 2, 3, 2);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(264, 27);
@@ -310,7 +312,7 @@
             btnBuscar.IconColor = Color.White;
             btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnBuscar.IconSize = 25;
-            btnBuscar.Location = new Point(426, 90);
+            btnBuscar.Location = new Point(430, 90);
             btnBuscar.Margin = new Padding(3, 2, 3, 2);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(126, 30);
@@ -376,33 +378,252 @@
             // panel5
             // 
             panel5.AutoScroll = true;
+            panel5.Controls.Add(panel3);
             panel5.Controls.Add(label1);
             panel5.Controls.Add(iconPictureBox1);
             panel5.Controls.Add(iconPictureBoxIcono);
             panel5.Controls.Add(iconPictureBox3);
             panel5.Controls.Add(roundedButton2);
             panel5.Controls.Add(roundedButton1);
-            panel5.Controls.Add(btnGuardarU);
-            panel5.Controls.Add(btnCancelarU);
-            panel5.Controls.Add(txtConfirmarCont);
-            panel5.Controls.Add(label8);
-            panel5.Controls.Add(chckbIsAdmin);
-            panel5.Controls.Add(txtCont);
-            panel5.Controls.Add(label7);
-            panel5.Controls.Add(txtCorreo);
-            panel5.Controls.Add(label6);
-            panel5.Controls.Add(txtApellidos);
-            panel5.Controls.Add(label5);
-            panel5.Controls.Add(txtNombres);
-            panel5.Controls.Add(label4);
-            panel5.Controls.Add(txtUsername);
-            panel5.Controls.Add(label3);
-            panel5.Controls.Add(roundedButton4);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(3, 2);
             panel5.Name = "panel5";
             panel5.Size = new Size(711, 586);
             panel5.TabIndex = 150;
+            // 
+            // panel3
+            // 
+            panel3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panel3.Controls.Add(label3);
+            panel3.Controls.Add(txtUsername);
+            panel3.Controls.Add(label4);
+            panel3.Controls.Add(txtNombres);
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(txtApellidos);
+            panel3.Controls.Add(btnGuardarU);
+            panel3.Controls.Add(label6);
+            panel3.Controls.Add(btnCancelarU);
+            panel3.Controls.Add(txtCorreo);
+            panel3.Controls.Add(txtConfirmarCont);
+            panel3.Controls.Add(label7);
+            panel3.Controls.Add(label8);
+            panel3.Controls.Add(txtCont);
+            panel3.Controls.Add(chckbIsAdmin);
+            panel3.Controls.Add(roundedButton4);
+            panel3.Location = new Point(35, 57);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(659, 358);
+            panel3.TabIndex = 186;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top;
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(222, 227, 234);
+            label3.Font = new Font("Century Gothic", 10.2F);
+            label3.Location = new Point(74, 39);
+            label3.Name = "label3";
+            label3.Size = new Size(58, 19);
+            label3.TabIndex = 166;
+            label3.Text = "Usuario";
+            // 
+            // txtUsername
+            // 
+            txtUsername.Anchor = AnchorStyles.Top;
+            txtUsername.Font = new Font("Century Gothic", 10.2F);
+            txtUsername.Location = new Point(74, 59);
+            txtUsername.Margin = new Padding(3, 2, 3, 2);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(205, 24);
+            txtUsername.TabIndex = 164;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top;
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(222, 227, 234);
+            label4.Font = new Font("Century Gothic", 10.2F);
+            label4.Location = new Point(74, 91);
+            label4.Name = "label4";
+            label4.Size = new Size(69, 19);
+            label4.TabIndex = 169;
+            label4.Text = "Nombres";
+            // 
+            // txtNombres
+            // 
+            txtNombres.Anchor = AnchorStyles.Top;
+            txtNombres.Font = new Font("Century Gothic", 10.2F);
+            txtNombres.Location = new Point(74, 111);
+            txtNombres.Margin = new Padding(3, 2, 3, 2);
+            txtNombres.Name = "txtNombres";
+            txtNombres.Size = new Size(205, 24);
+            txtNombres.TabIndex = 167;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top;
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(222, 227, 234);
+            label5.Font = new Font("Century Gothic", 10.2F);
+            label5.Location = new Point(363, 91);
+            label5.Name = "label5";
+            label5.Size = new Size(70, 19);
+            label5.TabIndex = 172;
+            label5.Text = "Apellidos";
+            // 
+            // txtApellidos
+            // 
+            txtApellidos.Anchor = AnchorStyles.Top;
+            txtApellidos.Font = new Font("Century Gothic", 10.2F);
+            txtApellidos.Location = new Point(363, 111);
+            txtApellidos.Margin = new Padding(3, 2, 3, 2);
+            txtApellidos.Name = "txtApellidos";
+            txtApellidos.Size = new Size(205, 24);
+            txtApellidos.TabIndex = 168;
+            // 
+            // btnGuardarU
+            // 
+            btnGuardarU.Anchor = AnchorStyles.Top;
+            btnGuardarU.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarU.FlatAppearance.BorderSize = 0;
+            btnGuardarU.FlatStyle = FlatStyle.Flat;
+            btnGuardarU.Font = new Font("Century Gothic", 12F);
+            btnGuardarU.ForeColor = Color.White;
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarU.IconColor = Color.White;
+            btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarU.IconSize = 30;
+            btnGuardarU.Location = new Point(127, 249);
+            btnGuardarU.Margin = new Padding(3, 2, 3, 2);
+            btnGuardarU.Name = "btnGuardarU";
+            btnGuardarU.Size = new Size(152, 36);
+            btnGuardarU.TabIndex = 179;
+            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarU.UseVisualStyleBackColor = false;
+            btnGuardarU.Click += btnGuardarU_Click_2;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top;
+            label6.AutoSize = true;
+            label6.BackColor = Color.FromArgb(222, 227, 234);
+            label6.Font = new Font("Century Gothic", 10.2F);
+            label6.Location = new Point(363, 39);
+            label6.Name = "label6";
+            label6.Size = new Size(55, 19);
+            label6.TabIndex = 174;
+            label6.Text = "Correo";
+            // 
+            // btnCancelarU
+            // 
+            btnCancelarU.Anchor = AnchorStyles.Top;
+            btnCancelarU.BackColor = Color.White;
+            btnCancelarU.FlatAppearance.BorderSize = 0;
+            btnCancelarU.FlatStyle = FlatStyle.Flat;
+            btnCancelarU.Font = new Font("Century Gothic", 12F);
+            btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarU.IconColor = Color.Black;
+            btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarU.IconSize = 30;
+            btnCancelarU.Location = new Point(363, 249);
+            btnCancelarU.Margin = new Padding(3, 2, 3, 2);
+            btnCancelarU.Name = "btnCancelarU";
+            btnCancelarU.Size = new Size(152, 36);
+            btnCancelarU.TabIndex = 178;
+            btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarU.UseVisualStyleBackColor = false;
+            btnCancelarU.Click += btnCancelarU_Click_1;
+            // 
+            // txtCorreo
+            // 
+            txtCorreo.Anchor = AnchorStyles.Top;
+            txtCorreo.Font = new Font("Century Gothic", 10.2F);
+            txtCorreo.Location = new Point(363, 59);
+            txtCorreo.Margin = new Padding(3, 2, 3, 2);
+            txtCorreo.Name = "txtCorreo";
+            txtCorreo.Size = new Size(205, 24);
+            txtCorreo.TabIndex = 165;
+            // 
+            // txtConfirmarCont
+            // 
+            txtConfirmarCont.Anchor = AnchorStyles.Top;
+            txtConfirmarCont.Font = new Font("Century Gothic", 10.2F);
+            txtConfirmarCont.Location = new Point(363, 169);
+            txtConfirmarCont.Margin = new Padding(3, 2, 3, 2);
+            txtConfirmarCont.Name = "txtConfirmarCont";
+            txtConfirmarCont.Size = new Size(205, 24);
+            txtConfirmarCont.TabIndex = 171;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top;
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(222, 227, 234);
+            label7.Font = new Font("Century Gothic", 10.2F);
+            label7.Location = new Point(74, 150);
+            label7.Name = "label7";
+            label7.Size = new Size(90, 19);
+            label7.TabIndex = 175;
+            label7.Text = "Contraseña";
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top;
+            label8.AutoSize = true;
+            label8.BackColor = Color.FromArgb(222, 227, 234);
+            label8.Font = new Font("Century Gothic", 10.2F);
+            label8.Location = new Point(363, 150);
+            label8.Name = "label8";
+            label8.Size = new Size(159, 19);
+            label8.TabIndex = 176;
+            label8.Text = "Confirmar contraseña";
+            // 
+            // txtCont
+            // 
+            txtCont.Anchor = AnchorStyles.Top;
+            txtCont.Font = new Font("Century Gothic", 10.2F);
+            txtCont.Location = new Point(74, 169);
+            txtCont.Margin = new Padding(3, 2, 3, 2);
+            txtCont.Name = "txtCont";
+            txtCont.Size = new Size(205, 24);
+            txtCont.TabIndex = 170;
+            // 
+            // chckbIsAdmin
+            // 
+            chckbIsAdmin.Anchor = AnchorStyles.Top;
+            chckbIsAdmin.AutoSize = true;
+            chckbIsAdmin.BackColor = Color.FromArgb(222, 227, 234);
+            chckbIsAdmin.Font = new Font("Century Gothic", 10.2F);
+            chckbIsAdmin.Location = new Point(74, 210);
+            chckbIsAdmin.Margin = new Padding(3, 2, 3, 2);
+            chckbIsAdmin.Name = "chckbIsAdmin";
+            chckbIsAdmin.Size = new Size(206, 23);
+            chckbIsAdmin.TabIndex = 173;
+            chckbIsAdmin.Text = "Permisos de administrador";
+            chckbIsAdmin.UseVisualStyleBackColor = false;
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.Anchor = AnchorStyles.Top;
+            roundedButton4.AutoSize = true;
+            roundedButton4.BackColor = Color.FromArgb(222, 227, 234);
+            roundedButton4.BackgroundColor = Color.FromArgb(222, 227, 234);
+            roundedButton4.BorderColor = Color.Empty;
+            roundedButton4.BorderRadius = 40;
+            roundedButton4.BorderSize = 0;
+            roundedButton4.Enabled = false;
+            roundedButton4.FlatAppearance.BorderSize = 0;
+            roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.ForeColor = Color.White;
+            roundedButton4.Location = new Point(19, 14);
+            roundedButton4.Margin = new Padding(3, 2, 3, 2);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.Size = new Size(631, 305);
+            roundedButton4.TabIndex = 177;
+            roundedButton4.TextColor = Color.White;
+            roundedButton4.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -498,216 +719,6 @@
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
-            // btnGuardarU
-            // 
-            btnGuardarU.Anchor = AnchorStyles.Top;
-            btnGuardarU.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardarU.FlatAppearance.BorderSize = 0;
-            btnGuardarU.FlatStyle = FlatStyle.Flat;
-            btnGuardarU.Font = new Font("Century Gothic", 12F);
-            btnGuardarU.ForeColor = Color.White;
-            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
-            btnGuardarU.IconColor = Color.White;
-            btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardarU.IconSize = 30;
-            btnGuardarU.Location = new Point(141, 331);
-            btnGuardarU.Margin = new Padding(3, 2, 3, 2);
-            btnGuardarU.Name = "btnGuardarU";
-            btnGuardarU.Size = new Size(152, 36);
-            btnGuardarU.TabIndex = 179;
-            btnGuardarU.Text = "GUARDAR";
-            btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnGuardarU.UseVisualStyleBackColor = false;
-            btnGuardarU.Click += btnGuardarU_Click_2;
-            // 
-            // btnCancelarU
-            // 
-            btnCancelarU.Anchor = AnchorStyles.Top;
-            btnCancelarU.BackColor = Color.White;
-            btnCancelarU.FlatAppearance.BorderSize = 0;
-            btnCancelarU.FlatStyle = FlatStyle.Flat;
-            btnCancelarU.Font = new Font("Century Gothic", 12F);
-            btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            btnCancelarU.IconColor = Color.Black;
-            btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelarU.IconSize = 30;
-            btnCancelarU.Location = new Point(377, 331);
-            btnCancelarU.Margin = new Padding(3, 2, 3, 2);
-            btnCancelarU.Name = "btnCancelarU";
-            btnCancelarU.Size = new Size(152, 36);
-            btnCancelarU.TabIndex = 178;
-            btnCancelarU.Text = "CANCELAR";
-            btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnCancelarU.UseVisualStyleBackColor = false;
-            btnCancelarU.Click += btnCancelarU_Click_1;
-            // 
-            // txtConfirmarCont
-            // 
-            txtConfirmarCont.Anchor = AnchorStyles.Top;
-            txtConfirmarCont.Font = new Font("Century Gothic", 10.2F);
-            txtConfirmarCont.Location = new Point(377, 251);
-            txtConfirmarCont.Margin = new Padding(3, 2, 3, 2);
-            txtConfirmarCont.Name = "txtConfirmarCont";
-            txtConfirmarCont.Size = new Size(205, 24);
-            txtConfirmarCont.TabIndex = 171;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top;
-            label8.AutoSize = true;
-            label8.BackColor = Color.FromArgb(222, 227, 234);
-            label8.Font = new Font("Century Gothic", 10.2F);
-            label8.Location = new Point(377, 232);
-            label8.Name = "label8";
-            label8.Size = new Size(159, 19);
-            label8.TabIndex = 176;
-            label8.Text = "Confirmar contraseña";
-            // 
-            // chckbIsAdmin
-            // 
-            chckbIsAdmin.Anchor = AnchorStyles.Top;
-            chckbIsAdmin.AutoSize = true;
-            chckbIsAdmin.BackColor = Color.FromArgb(222, 227, 234);
-            chckbIsAdmin.Font = new Font("Century Gothic", 10.2F);
-            chckbIsAdmin.Location = new Point(88, 292);
-            chckbIsAdmin.Margin = new Padding(3, 2, 3, 2);
-            chckbIsAdmin.Name = "chckbIsAdmin";
-            chckbIsAdmin.Size = new Size(206, 23);
-            chckbIsAdmin.TabIndex = 173;
-            chckbIsAdmin.Text = "Permisos de administrador";
-            chckbIsAdmin.UseVisualStyleBackColor = false;
-            // 
-            // txtCont
-            // 
-            txtCont.Anchor = AnchorStyles.Top;
-            txtCont.Font = new Font("Century Gothic", 10.2F);
-            txtCont.Location = new Point(88, 251);
-            txtCont.Margin = new Padding(3, 2, 3, 2);
-            txtCont.Name = "txtCont";
-            txtCont.Size = new Size(205, 24);
-            txtCont.TabIndex = 170;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top;
-            label7.AutoSize = true;
-            label7.BackColor = Color.FromArgb(222, 227, 234);
-            label7.Font = new Font("Century Gothic", 10.2F);
-            label7.Location = new Point(88, 232);
-            label7.Name = "label7";
-            label7.Size = new Size(90, 19);
-            label7.TabIndex = 175;
-            label7.Text = "Contraseña";
-            // 
-            // txtCorreo
-            // 
-            txtCorreo.Anchor = AnchorStyles.Top;
-            txtCorreo.Font = new Font("Century Gothic", 10.2F);
-            txtCorreo.Location = new Point(377, 141);
-            txtCorreo.Margin = new Padding(3, 2, 3, 2);
-            txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(205, 24);
-            txtCorreo.TabIndex = 165;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top;
-            label6.AutoSize = true;
-            label6.BackColor = Color.FromArgb(222, 227, 234);
-            label6.Font = new Font("Century Gothic", 10.2F);
-            label6.Location = new Point(377, 121);
-            label6.Name = "label6";
-            label6.Size = new Size(55, 19);
-            label6.TabIndex = 174;
-            label6.Text = "Correo";
-            // 
-            // txtApellidos
-            // 
-            txtApellidos.Anchor = AnchorStyles.Top;
-            txtApellidos.Font = new Font("Century Gothic", 10.2F);
-            txtApellidos.Location = new Point(377, 193);
-            txtApellidos.Margin = new Padding(3, 2, 3, 2);
-            txtApellidos.Name = "txtApellidos";
-            txtApellidos.Size = new Size(205, 24);
-            txtApellidos.TabIndex = 168;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top;
-            label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(222, 227, 234);
-            label5.Font = new Font("Century Gothic", 10.2F);
-            label5.Location = new Point(377, 173);
-            label5.Name = "label5";
-            label5.Size = new Size(70, 19);
-            label5.TabIndex = 172;
-            label5.Text = "Apellidos";
-            // 
-            // txtNombres
-            // 
-            txtNombres.Anchor = AnchorStyles.Top;
-            txtNombres.Font = new Font("Century Gothic", 10.2F);
-            txtNombres.Location = new Point(88, 193);
-            txtNombres.Margin = new Padding(3, 2, 3, 2);
-            txtNombres.Name = "txtNombres";
-            txtNombres.Size = new Size(205, 24);
-            txtNombres.TabIndex = 167;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top;
-            label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(222, 227, 234);
-            label4.Font = new Font("Century Gothic", 10.2F);
-            label4.Location = new Point(88, 173);
-            label4.Name = "label4";
-            label4.Size = new Size(69, 19);
-            label4.TabIndex = 169;
-            label4.Text = "Nombres";
-            // 
-            // txtUsername
-            // 
-            txtUsername.Anchor = AnchorStyles.Top;
-            txtUsername.Font = new Font("Century Gothic", 10.2F);
-            txtUsername.Location = new Point(88, 141);
-            txtUsername.Margin = new Padding(3, 2, 3, 2);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(205, 24);
-            txtUsername.TabIndex = 164;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(222, 227, 234);
-            label3.Font = new Font("Century Gothic", 10.2F);
-            label3.Location = new Point(88, 121);
-            label3.Name = "label3";
-            label3.Size = new Size(58, 19);
-            label3.TabIndex = 166;
-            label3.Text = "Usuario";
-            // 
-            // roundedButton4
-            // 
-            roundedButton4.Anchor = AnchorStyles.Top;
-            roundedButton4.AutoSize = true;
-            roundedButton4.BackColor = Color.FromArgb(222, 227, 234);
-            roundedButton4.BackgroundColor = Color.FromArgb(222, 227, 234);
-            roundedButton4.BorderColor = Color.Empty;
-            roundedButton4.BorderRadius = 40;
-            roundedButton4.BorderSize = 0;
-            roundedButton4.Enabled = false;
-            roundedButton4.FlatAppearance.BorderSize = 0;
-            roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(33, 96);
-            roundedButton4.Margin = new Padding(3, 2, 3, 2);
-            roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(631, 305);
-            roundedButton4.TabIndex = 177;
-            roundedButton4.TextColor = Color.White;
-            roundedButton4.UseVisualStyleBackColor = false;
-            // 
             // FrmAdministrarUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -732,6 +743,8 @@
             tabPageUserDetail.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxIcono).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
@@ -780,5 +793,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private Clases.RoundedButton roundedButton2;
         private Clases.RoundedButton roundedButton1;
+        private Panel panel3;
     }
 }

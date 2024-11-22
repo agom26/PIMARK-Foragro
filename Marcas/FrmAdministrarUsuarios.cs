@@ -28,7 +28,7 @@ namespace Presentacion
             AssociateAndRaiseViewEvents();
             dtgUsuarios.CellDoubleClick += dtgUsuarios_CellDoubleClick;
             this.Load += FrmAdministrarUsuarios_Load; // Mueve la lógica de carga aquí
-
+           
         }
         private void EliminarTabPage(TabPage nombre)
         {

@@ -417,5 +417,10 @@ namespace Presentacion.Personas
             EliminarTabPage(tabPageAgenteDetail);
             dtgAgentes.ClearSelection();
         }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
