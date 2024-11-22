@@ -56,19 +56,19 @@ namespace Presentacion.Personas
         }
         private void LoadAgentes()
         {
-            // Obtiene los usuarios
+           
             var agentes = personaModel.GetAllAgentes();
 
-            // Invoca el método para actualizar el DataGridView en el hilo principal
+           
             Invoke(new Action(() =>
             {
                 dtgAgentes.DataSource = agentes;
 
-                // Oculta la columna 'id'
+               
                 if (dtgAgentes.Columns["id"] != null)
                 {
                     dtgAgentes.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
+                   
                     dtgAgentes.ClearSelection();
                 }
             }));
@@ -136,7 +136,6 @@ namespace Presentacion.Personas
 
                 if (titularDetails.Count > 0)
                 {
-
                     EditarPersona.idPersona = titularDetails[0].id;
                     EditarPersona.nombre = titularDetails[0].nombre;
                     EditarPersona.direccion = titularDetails[0].direccion;
@@ -146,8 +145,6 @@ namespace Presentacion.Personas
                     EditarPersona.telefono = titularDetails[0].telefono;
                     EditarPersona.contacto = titularDetails[0].contacto;
 
-                    // Mostrar el formulario de edición con los valores del titular
-
                     txtNombreAgente.Text = EditarPersona.nombre;
                     txtDireccionAgente.Text = EditarPersona.direccion;
                     txtNitAgente.Text = EditarPersona.nit;
@@ -156,7 +153,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     btnGuardarU.Text = "ACTUALIZAR";
-                    AnadirTabPage(tabPageAgenteDetail);
+                    //AnadirTabPage(tabPageAgenteDetail);
                 }
                 else
                 {
@@ -185,6 +182,11 @@ namespace Presentacion.Personas
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
             await Editar();
+            if (EditarPersona.idPersona > 0)
+            {
+                AnadirTabPage(tabPageAgenteDetail);
+            }
+            
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -313,7 +315,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     Deshabilitar();
-                    AnadirTabPage(tabPageAgenteDetail);
+                   
                 }
                 else
                 {
@@ -436,6 +438,10 @@ namespace Presentacion.Personas
         private async void dtgAgentes_DoubleClick(object sender, EventArgs e)
         {
             await Editar();
+            if (EditarPersona.idPersona > 0)
+            {
+                AnadirTabPage(tabPageAgenteDetail);
+            }
         }
     }
 }
