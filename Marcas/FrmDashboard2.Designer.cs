@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
             panel6 = new Panel();
@@ -38,7 +38,6 @@
             panel22 = new Panel();
             label6 = new Label();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            label3 = new Label();
             panel19 = new Panel();
             roundedButton4 = new Clases.RoundedButton();
             panel9 = new Panel();
@@ -94,13 +93,14 @@
             // 
             // panel1
             // 
+            panel1.AutoScroll = true;
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(829, 827);
+            panel1.Size = new Size(829, 712);
             panel1.TabIndex = 0;
             // 
             // panel3
@@ -111,7 +111,7 @@
             panel3.Location = new Point(3, 445);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(822, 377);
+            panel3.Size = new Size(780, 377);
             panel3.TabIndex = 1;
             // 
             // panel6
@@ -123,14 +123,14 @@
             panel6.Location = new Point(11, 25);
             panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Size = new Size(797, 340);
+            panel6.Size = new Size(755, 340);
             panel6.TabIndex = 4;
             // 
             // panel15
             // 
             panel15.Anchor = AnchorStyles.Top;
             panel15.Controls.Add(panel17);
-            panel15.Location = new Point(530, 0);
+            panel15.Location = new Point(509, 0);
             panel15.Name = "panel15";
             panel15.Size = new Size(265, 340);
             panel15.TabIndex = 3;
@@ -149,7 +149,6 @@
             panel18.BackColor = Color.FromArgb(222, 227, 234);
             panel18.Controls.Add(panel22);
             panel18.Controls.Add(iconPictureBox3);
-            panel18.Controls.Add(label3);
             panel18.Controls.Add(panel19);
             panel18.Location = new Point(3, 19);
             panel18.Name = "panel18";
@@ -173,11 +172,11 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(255, 183, 77);
-            label6.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            label6.Font = new Font("Century Gothic", 9.6F, FontStyle.Bold);
             label6.ForeColor = Color.White;
             label6.Location = new Point(3, 7);
             label6.Name = "label6";
-            label6.Size = new Size(250, 19);
+            label6.Size = new Size(229, 19);
             label6.TabIndex = 1;
             label6.Text = "BUSCAR MARCA REGISTRADA";
             label6.Click += label6_Click;
@@ -196,18 +195,6 @@
             iconPictureBox3.TabIndex = 1;
             iconPictureBox3.TabStop = false;
             iconPictureBox3.Click += iconPictureBox3_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(255, 183, 77);
-            label3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 200);
-            label3.Name = "label3";
-            label3.Size = new Size(250, 19);
-            label3.TabIndex = 1;
-            label3.Text = "BUSCAR MARCA REGISTRADA";
             // 
             // panel19
             // 
@@ -242,7 +229,7 @@
             // 
             panel9.Anchor = AnchorStyles.Top;
             panel9.Controls.Add(panel11);
-            panel9.Location = new Point(265, 0);
+            panel9.Location = new Point(244, 0);
             panel9.Name = "panel9";
             panel9.Size = new Size(265, 340);
             panel9.TabIndex = 2;
@@ -286,11 +273,11 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(38, 166, 154);
-            label5.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            label5.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             label5.ForeColor = Color.White;
             label5.Location = new Point(71, 7);
             label5.Name = "label5";
-            label5.Size = new Size(100, 23);
+            label5.Size = new Size(87, 19);
             label5.TabIndex = 1;
             label5.Text = "REPORTES";
             label5.Click += label5_Click;
@@ -355,7 +342,7 @@
             // 
             panel7.Anchor = AnchorStyles.Top;
             panel7.Controls.Add(panel8);
-            panel7.Location = new Point(0, 0);
+            panel7.Location = new Point(-21, 0);
             panel7.Name = "panel7";
             panel7.Size = new Size(265, 340);
             panel7.TabIndex = 1;
@@ -422,11 +409,11 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(60, 120, 172);
-            label1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            label1.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             label1.ForeColor = Color.White;
             label1.Location = new Point(0, 7);
             label1.Name = "label1";
-            label1.Size = new Size(269, 23);
+            label1.Size = new Size(229, 19);
             label1.TabIndex = 1;
             label1.Text = "INGRESAR TRÁMITE INICIAL";
             label1.Click += label1_Click;
@@ -455,7 +442,7 @@
             // 
             panel5.Anchor = AnchorStyles.Top;
             panel5.BackColor = Color.FromArgb(196, 205, 218);
-            panel5.Location = new Point(10, 13);
+            panel5.Location = new Point(-11, 13);
             panel5.Name = "panel5";
             panel5.Size = new Size(800, 5);
             panel5.TabIndex = 3;
@@ -468,7 +455,7 @@
             panel2.Location = new Point(3, 4);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(822, 433);
+            panel2.Size = new Size(780, 433);
             panel2.TabIndex = 0;
             // 
             // panel4
@@ -480,7 +467,7 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(roundedButton6);
             panel4.Controls.Add(roundedButton1);
-            panel4.Location = new Point(8, 37);
+            panel4.Location = new Point(-13, 37);
             panel4.Name = "panel4";
             panel4.Size = new Size(800, 381);
             panel4.TabIndex = 3;
@@ -533,14 +520,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -607,7 +594,7 @@
             // 
             panel16.Anchor = AnchorStyles.Top;
             panel16.BackColor = Color.FromArgb(196, 205, 218);
-            panel16.Location = new Point(11, 7);
+            panel16.Location = new Point(-10, 7);
             panel16.Name = "panel16";
             panel16.Size = new Size(800, 5);
             panel16.TabIndex = 2;
@@ -618,7 +605,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(829, 827);
+            ClientSize = new Size(829, 712);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
@@ -630,7 +617,6 @@
             panel15.ResumeLayout(false);
             panel17.ResumeLayout(false);
             panel18.ResumeLayout(false);
-            panel18.PerformLayout();
             panel22.ResumeLayout(false);
             panel22.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
@@ -681,7 +667,6 @@
         private Panel panel17;
         private Panel panel18;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
-        private Label label3;
         private Panel panel19;
         private Clases.RoundedButton roundedButton4;
         private Panel panel9;

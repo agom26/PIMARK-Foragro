@@ -383,6 +383,7 @@
             dtgClientes.TabIndex = 13;
             dtgClientes.CellClick += dtgClientes_CellClick;
             dtgClientes.CellContentClick += dtgClientes_CellContentClick;
+            dtgClientes.CellDoubleClick += dtgClientes_CellDoubleClick;
             // 
             // tabClienteDetail
             // 

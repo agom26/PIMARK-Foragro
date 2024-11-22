@@ -165,15 +165,17 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        public async void EditarCliente()
         {
             Habilitar();
             if (dtgClientes.SelectedRows.Count > 0)
             {
+
                 ibtnEditar.Enabled = false;
                 iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 try
                 {
+                    tabControl1.Visible = false;
                     int idPersona = EditarPersona.idPersona;
 
                     var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
@@ -208,6 +210,7 @@ namespace Presentacion.Marcas_Internacionales
                         alerta.ShowDialog();
                         //MessageBox.Show("No se encontró el cliente.");
                     }
+                    tabControl1.Visible = true;
                 }
                 catch (Exception ex)
                 {
@@ -225,6 +228,11 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, selecciona un cliente.");
             }
+        }
+
+        private async void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            EditarCliente();
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
@@ -373,12 +381,12 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    
+
                     btnGuardarU.Enabled = false;
 
                     if (btnGuardarU.Text == "GUARDAR")
                     {
-                        
+
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         FrmAlerta alerta = new FrmAlerta("CLIENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
@@ -418,7 +426,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR AL CLIENTE POR:\n"+ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR AL CLIENTE POR:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                     //MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
                 }
@@ -427,6 +435,11 @@ namespace Presentacion.Marcas_Internacionales
                     btnGuardarU.Enabled = true;
                 }
             }
+        }
+
+        private void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarCliente();
         }
     }
 }
