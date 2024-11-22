@@ -213,8 +213,6 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(779, 493);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
             Controls.Add(panel2);
             Controls.Add(roundedButton1);
             Controls.Add(lblUser);
@@ -224,6 +222,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(iconButton3);
+            Controls.Add(iconButton2);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarEtapa";

@@ -308,11 +308,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 600);
             Controls.Add(Fechas);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
             Controls.Add(panel2);
             Controls.Add(roundedButton1);
             Controls.Add(groupBox1);
+            Controls.Add(iconButton3);
+            Controls.Add(iconButton2);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarRenovacionConcedida";

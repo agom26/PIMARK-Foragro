@@ -8,6 +8,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmAgregarEtapaRegistrada()
         {
             InitializeComponent();
+            this.Load+=FrmAgregarEtapaRegistrada_Load;
         }
 
         public bool validarTramites()
@@ -47,8 +48,10 @@ namespace Presentacion.Marcas_Nacionales
             groupBox1.Visible = false;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
-            btnSeleccionar.Location = new Point(185, 400);
-            btnCancelar.Location = new Point(390, 400);
+            btnSeleccionar.Location = new Point(206, 400);
+            btnCancelar.Location = new Point(411, 400);
+            btnSeleccionar.BringToFront();
+            btnCancelar.BringToFront();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -123,22 +126,28 @@ namespace Presentacion.Marcas_Nacionales
             if(comboBox1.SelectedItem.ToString()=="Trámite de renovación")
             {
                 lblNoExpediente.Text = "Renovación";
-                btnSeleccionar.Location = new Point(185, 518);
-                btnCancelar.Location = new Point(390, 518);
+                btnSeleccionar.Location = new Point(206, 466);
+                btnCancelar.Location = new Point(411, 466);
+                btnSeleccionar.BringToFront();
+                btnCancelar.BringToFront();
                 groupBox1.Visible = true;
             }
             else if(comboBox1.SelectedItem.ToString()=="Trámite de traspaso")
             {
                 lblNoExpediente.Text = "Traspaso";
-                btnSeleccionar.Location = new Point(185, 518);
-                btnCancelar.Location = new Point(390, 518);
+                btnSeleccionar.Location = new Point(206, 466);
+                btnCancelar.Location = new Point(411, 466);
+                btnSeleccionar.BringToFront();
+                btnCancelar.BringToFront();
                 groupBox1.Visible = true;
             }
             else
             {
                 groupBox1.Visible = false;
-                btnSeleccionar.Location = new Point(185, 400);
-                btnCancelar.Location = new Point(390, 400);
+                btnSeleccionar.Location = new Point(206, 400);
+                btnCancelar.Location = new Point(411, 400);
+                btnSeleccionar.BringToFront();
+                btnCancelar.BringToFront();
             }
                 
         }
