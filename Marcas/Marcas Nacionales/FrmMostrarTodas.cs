@@ -153,16 +153,16 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizarM.Location = new Point(191, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(393, panel3.Location.Y + panel3.Height + 10);
+                btnActualizarM.Location = new Point(83, panel3.Location.Y + panel3.Height + 10);
+                btnCancelarM.Location = new Point(399, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(191, 960);
-                btnCancelarM.Location = new Point(393, 960);
+                btnActualizarM.Location = new Point(83, 960);
+                btnCancelarM.Location = new Point(399, 960);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -271,7 +271,7 @@ namespace Presentacion.Marcas_Nacionales
                 //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             if (idAgente <= 0)
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -368,7 +368,7 @@ namespace Presentacion.Marcas_Nacionales
             comboBoxSignoDistintivo.SelectedIndex = -1;
         }
 
-        private async void CargarDatosMarca()
+        private async Task CargarDatosMarca()
         {
             try
             {
@@ -578,16 +578,22 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
-                CargarDatosMarca();
+                tabControl1.Visible = false;
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
+                tabControl1.Visible = true;
             }
+        }
 
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
@@ -1059,6 +1065,11 @@ namespace Presentacion.Marcas_Nacionales
                 }
 
             }
+        }
+
+        private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }
