@@ -228,8 +228,12 @@ namespace Presentacion
         private async void iconButton3_Click(object sender, EventArgs e)
         {
             VerificarSeleccionIdUser();
-            await CargarDatos();
-            tabControl1.SelectedTab = tabPageUserDetail;
+            if (EditarUsuario.idUser > 0)
+            {
+                await CargarDatos();
+                tabControl1.SelectedTab = tabPageUserDetail;
+            }
+            
 
         }
 
@@ -535,8 +539,12 @@ namespace Presentacion
         private async void dtgUsuarios_DoubleClick(object sender, EventArgs e)
         {
             VerificarSeleccionIdUser();
-            await CargarDatos();
-            tabControl1.SelectedTab = tabPageUserDetail;
+            if (EditarUsuario.idUser > 0)
+            {
+                await CargarDatos();
+                tabControl1.SelectedTab = tabPageUserDetail;
+            }
+            
         }
     }
 }

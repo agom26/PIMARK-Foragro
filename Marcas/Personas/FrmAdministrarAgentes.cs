@@ -125,20 +125,7 @@ namespace Presentacion.Personas
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
         }
 
-        private async void btnGuardarTit_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
-        {
-
-            await Task.Run(() => LoadAgentes());
-            tabControl1.TabPages.Remove(tabPageAgenteDetail);
-        }
-
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public async Task Editar()
         {
             Habilitar();
             if (dtgAgentes.SelectedRows.Count > 0)
@@ -180,6 +167,24 @@ namespace Presentacion.Personas
             {
                 MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
+        }
+
+        private async void btnGuardarTit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
+        {
+
+            await Task.Run(() => LoadAgentes());
+            tabControl1.TabPages.Remove(tabPageAgenteDetail);
+        }
+
+        private async void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            await Editar();
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -421,6 +426,16 @@ namespace Presentacion.Personas
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dtgAgentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void dtgAgentes_DoubleClick(object sender, EventArgs e)
+        {
+            await Editar();
         }
     }
 }
