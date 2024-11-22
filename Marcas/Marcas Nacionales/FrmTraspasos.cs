@@ -952,5 +952,10 @@ namespace Presentacion.Marcas_Nacionales
 
             }
         }
+
+        private void tabPageRegistradasList_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

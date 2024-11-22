@@ -176,6 +176,7 @@
             tabPageRegistradasList.Size = new Size(1161, 797);
             tabPageRegistradasList.TabIndex = 0;
             tabPageRegistradasList.UseVisualStyleBackColor = true;
+            tabPageRegistradasList.Click += tabPageRegistradasList_Click;
             // 
             // label28
             // 
@@ -265,7 +266,7 @@
             // 
             // iconButton3
             // 
-            iconButton3.Anchor = AnchorStyles.Top;
+            iconButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             iconButton3.BackColor = Color.FromArgb(255, 112, 67);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -286,7 +287,7 @@
             // 
             // ibtnEditar
             // 
-            ibtnEditar.Anchor = AnchorStyles.Top;
+            ibtnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
             ibtnEditar.FlatAppearance.BorderSize = 0;
             ibtnEditar.FlatStyle = FlatStyle.Flat;
@@ -307,7 +308,7 @@
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Top;
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.BackColor = Color.FromArgb(192, 202, 212);
             panel4.Controls.Add(dtgMarcasRenov);
             panel4.Location = new Point(26, 207);
@@ -320,7 +321,7 @@
             dtgMarcasRenov.AllowUserToAddRows = false;
             dtgMarcasRenov.AllowUserToDeleteRows = false;
             dtgMarcasRenov.AllowUserToResizeRows = false;
-            dtgMarcasRenov.Anchor = AnchorStyles.Top;
+            dtgMarcasRenov.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgMarcasRenov.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgMarcasRenov.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgMarcasRenov.BorderStyle = BorderStyle.None;
@@ -410,10 +411,10 @@
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
-            tabPageMarcaDetail.Location = new Point(4, 26);
+            tabPageMarcaDetail.Location = new Point(4, 24);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 797);
+            tabPageMarcaDetail.Size = new Size(1161, 799);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 

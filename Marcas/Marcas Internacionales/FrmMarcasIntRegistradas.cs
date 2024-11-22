@@ -742,7 +742,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     catch (Exception ex)
                     {
-                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR EL ESTADO DE LA MARCA:\n"+ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR EL ESTADO DE LA MARCA:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
                         //MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -1031,7 +1031,7 @@ namespace Presentacion.Marcas_Internacionales
                 //MessageBox.Show("No ha seleccionado ningun estado");
             }
 
-            
+
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
@@ -1228,7 +1228,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
-               //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1320,6 +1320,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void panel14_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
