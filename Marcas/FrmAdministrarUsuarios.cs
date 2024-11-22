@@ -244,9 +244,9 @@ namespace Presentacion
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "")
+            if (txtBuscar.Text != "")
             {
-                DataTable usuarios = UserModel.GetByValue(textBox1.Text);
+                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text);
                 if (usuarios.Rows.Count > 0)
                 {
                     dtgUsuarios.DataSource = usuarios;
@@ -308,7 +308,7 @@ namespace Presentacion
             string correo = txtCorreo.Text;
             bool isAdmin = chckbIsAdmin.Checked;
 
-           
+
             if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtCont.Text) ||
                 string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
@@ -320,13 +320,13 @@ namespace Presentacion
             }
             else
             {
-               
+
                 if (txtCont.Text == txtConfirmarCont.Text)
                 {
                     try
                     {
                         contrasena = txtConfirmarCont.Text;
-                        btnGuardarU.Enabled = false; 
+                        btnGuardarU.Enabled = false;
 
                         if (btnGuardarU.Text == "GUARDAR")
                         {
@@ -337,12 +337,12 @@ namespace Presentacion
                         else if (btnGuardarU.Text == "ACTUALIZAR")
                         {
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
-                           
+
                             FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
 
-                        
+
                         tabControl1.SelectedTab = tabPage1;
                         MostrarUsuarios();
                         EliminarTabPage(tabPageUserDetail);
@@ -351,23 +351,106 @@ namespace Presentacion
                     {
                         FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
-                        
+
                     }
                     finally
                     {
-                        btnGuardarU.Enabled = true; 
+                        btnGuardarU.Enabled = true;
                     }
                 }
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
-                    
+
                 }
             }
         }
 
         private void btnCancelarU_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageUserDetail);
+        }
+
+        private void tabPage1_Resize(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardarU_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnGuardarU_Click_2(object sender, EventArgs e)
+        {
+            string usuario = txtUsername.Text;
+            string contrasena = "";
+            string nombres = txtNombres.Text;
+            string apellidos = txtApellidos.Text;
+            string correo = txtCorreo.Text;
+            bool isAdmin = chckbIsAdmin.Checked;
+
+
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtCont.Text) ||
+                string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
+                string.IsNullOrWhiteSpace(txtCorreo.Text) ||
+                string.IsNullOrWhiteSpace(txtNombres.Text) ||
+                string.IsNullOrWhiteSpace(txtApellidos.Text))
+            {
+                MessageBox.Show("Los campos no pueden estar vacíos.");
+            }
+            else
+            {
+
+                if (txtCont.Text == txtConfirmarCont.Text)
+                {
+                    try
+                    {
+                        contrasena = txtConfirmarCont.Text;
+                        btnGuardarU.Enabled = false;
+
+                        if (btnGuardarU.Text == "GUARDAR")
+                        {
+                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
+                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                        }
+                        else if (btnGuardarU.Text == "ACTUALIZAR")
+                        {
+                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
+
+                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                        }
+
+
+                        tabControl1.SelectedTab = tabPage1;
+                        MostrarUsuarios();
+                        EliminarTabPage(tabPageUserDetail);
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+
+                    }
+                    finally
+                    {
+                        btnGuardarU.Enabled = true;
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+
+                }
+            }
+        }
+
+        private void btnCancelarU_Click_1(object sender, EventArgs e)
         {
             EliminarTabPage(tabPageUserDetail);
         }
