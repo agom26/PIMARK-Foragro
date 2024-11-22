@@ -42,7 +42,7 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
         }
-        private void MostrarAgentes()
+        private async Task MostrarAgentes()
         {
             dtgAgentes.DataSource = personaModel.GetAllAgentes();
             // Ocultar la columna 'id'
@@ -73,14 +73,15 @@ namespace Presentacion.Personas
                 }
             }));
         }
-        private void AnadirTabPage(TabPage nombre)
+        private async Task AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
             {
                 tabControl1.TabPages.Add(nombre);
             }
-            // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = nombre;
+
+
         }
 
         public void Habilitar()
@@ -113,14 +114,9 @@ namespace Presentacion.Personas
             Habilitar();
             LimpiarCampos();
 
-            // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
-            if (!tabControl1.TabPages.Contains(tabPageAgenteDetail))
-            {
-                tabControl1.TabPages.Add(tabPageAgenteDetail);
-            }
 
-            // Muestra el TabPage especificado (lo selecciona)
-            tabControl1.SelectedTab = tabPageAgenteDetail;
+            AnadirTabPage(tabPageAgenteDetail);
+            
             btnGuardarU.Text = "GUARDAR";
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
         }
@@ -175,8 +171,8 @@ namespace Presentacion.Personas
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
 
-            await Task.Run(() => LoadAgentes());
-            tabControl1.TabPages.Remove(tabPageAgenteDetail);
+            await MostrarAgentes();
+            EliminarTabPage(tabPageAgenteDetail);
         }
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
@@ -184,7 +180,7 @@ namespace Presentacion.Personas
             await Editar();
             if (EditarPersona.idPersona > 0)
             {
-                AnadirTabPage(tabPageAgenteDetail);
+                await AnadirTabPage(tabPageAgenteDetail);
             }
             
         }
@@ -440,7 +436,7 @@ namespace Presentacion.Personas
             await Editar();
             if (EditarPersona.idPersona > 0)
             {
-                AnadirTabPage(tabPageAgenteDetail);
+                 await AnadirTabPage(tabPageAgenteDetail);
             }
         }
     }
