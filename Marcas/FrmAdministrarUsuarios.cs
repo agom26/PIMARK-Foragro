@@ -139,6 +139,40 @@ namespace Presentacion
             }
         }
 
+        public async Task CargarDatosEliminar()
+        {
+            if (EditarUsuario.idUser > 0)
+            {
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                int idUser = EditarUsuario.idUser;
+
+
+                DataTable userDetails = UserModel.GetById(idUser);
+
+                if (userDetails.Rows.Count > 0)
+                {
+                    DataRow row = userDetails.Rows[0];
+
+
+                    EditarUsuario.nombres = row["nombres"].ToString();
+                    EditarUsuario.apellidos = row["apellidos"].ToString();
+                    EditarUsuario.usuario = row["usuario"].ToString();
+                    EditarUsuario.contrasena = row["contrasena"].ToString();
+                    EditarUsuario.correo = row["correo"].ToString();
+                    EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
+
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el usuario.");
+                }
+            }
+            else
+            {
+                //MessageBox.Show("Por favor, seleccione una fila.");
+            }
+        }
+
 
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
@@ -195,6 +229,7 @@ namespace Presentacion
         {
             VerificarSeleccionIdUser();
             await CargarDatos();
+            tabControl1.SelectedTab = tabPageUserDetail;
 
         }
 
@@ -234,7 +269,7 @@ namespace Presentacion
                     {
                         int id = Convert.ToInt32(dataRowView["id"]);
                         EditarUsuario.idUser = id;
-                        tabControl1.SelectedTab = tabPageUserDetail;
+                        
                     }
                 }
                 else
@@ -460,9 +495,36 @@ namespace Presentacion
             EliminarTabPage(tabPageUserDetail);
         }
 
-        private void iconButton4_Click_1(object sender, EventArgs e)
+        private async void iconButton4_Click_1(object sender, EventArgs e)
         {
+            VerificarSeleccionIdUser();
+            if (EditarUsuario.idUser > 0)
+            {
+                await CargarDatosEliminar();
+                FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE ELIMINAR AL USUARIO " + EditarUsuario.usuario + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var resultado=alerta.ShowDialog();
 
+                if(resultado== DialogResult.Yes)
+                {
+                    try
+                    {
+                        UserModel.RemoveUser(EditarUsuario.idUser, EditarUsuario.usuario, UsuarioActivo.usuario);
+                        FrmAlerta alertae = new FrmAlerta("USUARIO ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alertae.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alertae = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alertae.ShowDialog();
+                    }
+                    
+                }
+                else
+                {
+                    
+                }
+            }
+           
         }
 
         private void dtgUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -474,6 +536,7 @@ namespace Presentacion
         {
             VerificarSeleccionIdUser();
             await CargarDatos();
+            tabControl1.SelectedTab = tabPageUserDetail;
         }
     }
 }
