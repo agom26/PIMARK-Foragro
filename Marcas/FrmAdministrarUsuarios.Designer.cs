@@ -134,6 +134,7 @@
             iconButton4.Text = "ELIMINAR";
             iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click_1;
             // 
             // iconButton3
             // 
@@ -228,6 +229,8 @@
             dtgUsuarios.TabIndex = 4;
             dtgUsuarios.CellClick += dtgUsuarios_CellClick;
             dtgUsuarios.CellContentClick += dtgUsuarios_CellContentClick;
+            dtgUsuarios.CellDoubleClick += dtgUsuarios_CellDoubleClick;
+            dtgUsuarios.DoubleClick += dtgUsuarios_DoubleClick;
             // 
             // panel2
             // 
@@ -507,10 +510,10 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
-            btnGuardarU.Location = new Point(153, 331);
+            btnGuardarU.Location = new Point(141, 331);
             btnGuardarU.Margin = new Padding(3, 2, 3, 2);
             btnGuardarU.Name = "btnGuardarU";
-            btnGuardarU.Size = new Size(140, 36);
+            btnGuardarU.Size = new Size(152, 36);
             btnGuardarU.TabIndex = 179;
             btnGuardarU.Text = "GUARDAR";
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -531,7 +534,7 @@
             btnCancelarU.Location = new Point(377, 331);
             btnCancelarU.Margin = new Padding(3, 2, 3, 2);
             btnCancelarU.Name = "btnCancelarU";
-            btnCancelarU.Size = new Size(141, 36);
+            btnCancelarU.Size = new Size(152, 36);
             btnCancelarU.TabIndex = 178;
             btnCancelarU.Text = "CANCELAR";
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;

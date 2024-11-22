@@ -26,6 +26,7 @@ namespace Presentacion
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
+            dtgUsuarios.CellDoubleClick += dtgUsuarios_CellDoubleClick;
             this.Load += FrmAdministrarUsuarios_Load; // Mueve la lógica de carga aquí
 
         }
@@ -94,6 +95,50 @@ namespace Presentacion
             }));
         }
 
+        public async Task CargarDatos()
+        {
+            if (EditarUsuario.idUser > 0)
+            {
+                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                int idUser = EditarUsuario.idUser;
+
+
+                DataTable userDetails = UserModel.GetById(idUser);
+
+                if (userDetails.Rows.Count > 0)
+                {
+                    DataRow row = userDetails.Rows[0];
+
+
+                    EditarUsuario.nombres = row["nombres"].ToString();
+                    EditarUsuario.apellidos = row["apellidos"].ToString();
+                    EditarUsuario.usuario = row["usuario"].ToString();
+                    EditarUsuario.contrasena = row["contrasena"].ToString();
+                    EditarUsuario.correo = row["correo"].ToString();
+                    EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
+
+
+                    txtNombres.Text = EditarUsuario.nombres;
+                    txtUsername.Text = EditarUsuario.usuario;
+                    txtApellidos.Text = EditarUsuario.apellidos;
+                    txtCorreo.Text = EditarUsuario.correo;
+                    txtCont.Text = EditarUsuario.contrasena;
+                    txtConfirmarCont.Text = EditarUsuario.contrasena;
+                    chckbIsAdmin.Checked = EditarUsuario.isAdmin;
+                    btnGuardarU.Text = "ACTUALIZAR";
+                    AnadirTabPage(tabPageUserDetail);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el usuario.");
+                }
+            }
+            else
+            {
+                //MessageBox.Show("Por favor, seleccione una fila.");
+            }
+        }
+
 
 
         private async void FrmAdministrarUsuarios_Load(object sender, EventArgs e)
@@ -146,50 +191,10 @@ namespace Presentacion
 
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             VerificarSeleccionIdUser();
-            if (EditarUsuario.idUser > 0)
-            {
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
-                int idUser = EditarUsuario.idUser;
-
-
-                DataTable userDetails = UserModel.GetById(idUser);
-
-                if (userDetails.Rows.Count > 0)
-                {
-                    DataRow row = userDetails.Rows[0];
-
-
-                    EditarUsuario.nombres = row["nombres"].ToString();
-                    EditarUsuario.apellidos = row["apellidos"].ToString();
-                    EditarUsuario.usuario = row["usuario"].ToString();
-                    EditarUsuario.contrasena = row["contrasena"].ToString();
-                    EditarUsuario.correo = row["correo"].ToString();
-                    EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
-
-
-                    txtNombres.Text = EditarUsuario.nombres;
-                    txtUsername.Text = EditarUsuario.usuario;
-                    txtApellidos.Text = EditarUsuario.apellidos;
-                    txtCorreo.Text = EditarUsuario.correo;
-                    txtCont.Text = EditarUsuario.contrasena;
-                    txtConfirmarCont.Text = EditarUsuario.contrasena;
-                    chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-                    btnGuardarU.Text = "ACTUALIZAR";
-                    AnadirTabPage(tabPageUserDetail);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el usuario.");
-                }
-            }
-            else
-            {
-                //MessageBox.Show("Por favor, seleccione una fila.");
-            }
-
+            await CargarDatos();
 
         }
 
@@ -453,6 +458,22 @@ namespace Presentacion
         private void btnCancelarU_Click_1(object sender, EventArgs e)
         {
             EliminarTabPage(tabPageUserDetail);
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtgUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void dtgUsuarios_DoubleClick(object sender, EventArgs e)
+        {
+            VerificarSeleccionIdUser();
+            await CargarDatos();
         }
     }
 }
