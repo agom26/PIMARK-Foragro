@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
@@ -784,8 +785,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
-
-        private void iconButton5_Click(object sender, EventArgs e)
+        public void EditarHistorial()
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -831,6 +831,10 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarHistorial();
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
@@ -1070,6 +1074,11 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void dtgHistorial_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarHistorial();
         }
     }
 }

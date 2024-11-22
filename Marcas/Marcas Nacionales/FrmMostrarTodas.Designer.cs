@@ -1025,9 +1025,9 @@
             // tabPageHistorialMarca
             // 
             tabPageHistorialMarca.Controls.Add(panel1);
-            tabPageHistorialMarca.Location = new Point(4, 24);
+            tabPageHistorialMarca.Location = new Point(4, 26);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
-            tabPageHistorialMarca.Size = new Size(1161, 799);
+            tabPageHistorialMarca.Size = new Size(1161, 797);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
@@ -1042,7 +1042,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1161, 799);
+            panel1.Size = new Size(1161, 797);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -1153,14 +1153,15 @@
             dtgHistorial.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorial.Size = new Size(934, 492);
             dtgHistorial.TabIndex = 42;
+            dtgHistorial.CellDoubleClick += dtgHistorial_CellDoubleClick;
             // 
             // tabPageHistorialDetail
             // 
             tabPageHistorialDetail.Controls.Add(panel6);
-            tabPageHistorialDetail.Location = new Point(4, 26);
+            tabPageHistorialDetail.Location = new Point(4, 24);
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
             tabPageHistorialDetail.Padding = new Padding(3);
-            tabPageHistorialDetail.Size = new Size(1161, 797);
+            tabPageHistorialDetail.Size = new Size(1161, 799);
             tabPageHistorialDetail.TabIndex = 3;
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
             // 
@@ -1171,7 +1172,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1155, 791);
+            panel6.Size = new Size(1155, 793);
             panel6.TabIndex = 0;
             // 
             // roundedButton7
