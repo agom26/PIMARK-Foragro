@@ -81,6 +81,7 @@
             label7 = new Label();
             txtLibro = new TextBox();
             label6 = new Label();
+            panel2 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -91,6 +92,7 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(panel2);
             panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(label28);
@@ -133,9 +135,10 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2I);
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1050, 1253);
+            panel1.Size = new Size(1035, 664);
             panel1.TabIndex = 0;
             // 
             // btnCancelarM
@@ -148,7 +151,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(410, 1158);
+            btnCancelarM.Location = new Point(413, 1146);
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(259, 40);
             btnCancelarM.TabIndex = 164;
@@ -168,7 +171,7 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(105, 1158);
+            btnGuardarM.Location = new Point(105, 1146);
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(259, 40);
             btnGuardarM.TabIndex = 163;
@@ -267,7 +270,7 @@
             // pictureBox1
             // 
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Location = new Point(741, 123);
+            pictureBox1.Location = new Point(728, 123);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(276, 240);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -538,7 +541,7 @@
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(881, 369);
+            iconButton2.Location = new Point(868, 369);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(74, 33);
             iconButton2.TabIndex = 15;
@@ -554,7 +557,7 @@
             iconButton1.IconColor = Color.Black;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 30;
-            iconButton1.Location = new Point(801, 369);
+            iconButton1.Location = new Point(788, 369);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(74, 33);
             iconButton1.TabIndex = 14;
@@ -565,7 +568,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 10F);
-            label8.Location = new Point(833, 97);
+            label8.Location = new Point(820, 97);
             label8.Name = "label8";
             label8.Size = new Size(62, 19);
             label8.TabIndex = 12;
@@ -576,7 +579,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1066, -102);
+            label5.Location = new Point(1050, 968);
             label5.Name = "label5";
             label5.Size = new Size(110, 19);
             label5.TabIndex = 6;
@@ -742,13 +745,20 @@
             label6.TabIndex = 10;
             label6.Text = "Tomo";
             // 
+            // panel2
+            // 
+            panel2.Location = new Point(105, 1189);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(567, 31);
+            panel2.TabIndex = 165;
+            // 
             // FrmTramiteIn
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1050, 664);
+            ClientSize = new Size(1035, 664);
             ControlBox = false;
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
@@ -822,5 +832,6 @@
         private Clases.RoundedButton roundedButton5;
         private FontAwesome.Sharp.IconButton btnGuardarM;
         private FontAwesome.Sharp.IconButton btnCancelarM;
+        private Panel panel2;
     }
 }

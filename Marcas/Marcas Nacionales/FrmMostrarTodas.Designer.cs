@@ -180,9 +180,9 @@
             panel9.Controls.Add(textBox1);
             panel9.Controls.Add(ibtnBuscar);
             panel9.Controls.Add(roundedButton3);
-            panel9.Location = new Point(23, 72);
+            panel9.Location = new Point(22, 58);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1130, 109);
+            panel9.Size = new Size(1130, 101);
             panel9.TabIndex = 169;
             // 
             // label2
@@ -341,7 +341,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(995, 267);
+            iconButton3.Location = new Point(995, 219);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 37);
             iconButton3.TabIndex = 25;
@@ -361,7 +361,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(995, 213);
+            ibtnEditar.Location = new Point(995, 165);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(160, 37);
             ibtnEditar.TabIndex = 20;
@@ -375,9 +375,9 @@
             panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.BackColor = Color.FromArgb(192, 202, 212);
             panel4.Controls.Add(dtgMarcasN);
-            panel4.Location = new Point(8, 213);
+            panel4.Location = new Point(8, 165);
             panel4.Name = "panel4";
-            panel4.Size = new Size(972, 542);
+            panel4.Size = new Size(972, 404);
             panel4.TabIndex = 23;
             // 
             // dtgMarcasN
@@ -403,23 +403,23 @@
             dtgMarcasN.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasN.EnableHeadersVisualStyles = false;
             dtgMarcasN.GridColor = Color.LightGray;
-            dtgMarcasN.Location = new Point(14, 22);
+            dtgMarcasN.Location = new Point(14, 19);
             dtgMarcasN.Name = "dtgMarcasN";
             dtgMarcasN.ReadOnly = true;
             dtgMarcasN.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgMarcasN.RowHeadersWidth = 51;
             dtgMarcasN.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgMarcasN.Size = new Size(934, 492);
+            dtgMarcasN.Size = new Size(938, 370);
             dtgMarcasN.TabIndex = 17;
             // 
             // tabPageMarcaDetail
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel2);
-            tabPageMarcaDetail.Location = new Point(4, 26);
+            tabPageMarcaDetail.Location = new Point(4, 24);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 797);
+            tabPageMarcaDetail.Size = new Size(1161, 799);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             tabPageMarcaDetail.Click += tabPageMarcaDetail_Click;

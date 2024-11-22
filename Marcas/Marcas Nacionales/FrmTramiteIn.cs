@@ -37,8 +37,8 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2I.Visible = false;
-            btnGuardarM.Location = new Point(109, 950);
-            btnCancelarM.Location = new Point(389, 950);
+            btnGuardarM.Location = new Point(105, 950);
+            btnCancelarM.Location = new Point(413, 950);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -239,16 +239,16 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(109, panel2I.Location.Y + panel2I.Height + 10);
-                btnCancelarM.Location = new Point(389, panel2I.Location.Y + panel2I.Height + 10);
+                btnGuardarM.Location = new Point(105, panel2I.Location.Y + panel2I.Height + 5);
+                btnCancelarM.Location = new Point(413, panel2I.Location.Y + panel2I.Height + 5);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(109, 950);
-                btnCancelarM.Location = new Point(389, 950);
+                btnGuardarM.Location = new Point(105, 950);
+                btnCancelarM.Location = new Point(413, 950);
             }
         }
 
