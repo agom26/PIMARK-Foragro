@@ -506,6 +506,7 @@
             panel10.Size = new Size(296, 182);
             panel10.TabIndex = 1;
             panel10.Click += panel10_Click;
+            panel10.Paint += panel10_Paint;
             // 
             // panel13
             // 

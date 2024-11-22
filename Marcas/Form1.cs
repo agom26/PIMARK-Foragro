@@ -321,7 +321,7 @@ namespace Presentacion
             //labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
             DisableButtons();
-            openChildForm(new FrmDashboard(this));
+            openChildForm(new FrmDashboard2(this));
             await Task.Delay(1000);
             EnableButtons();
         }
@@ -523,7 +523,7 @@ namespace Presentacion
         private async void btnHome_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmDashboard(this));
+            openChildForm(new FrmDashboard2(this));
             await Task.Delay(1000);
             EnableButtons();
         }

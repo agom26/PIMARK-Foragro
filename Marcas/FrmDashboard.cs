@@ -175,5 +175,13 @@ namespace Presentacion
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
+
+        private async void panel10_Paint(object sender, PaintEventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
     }
 }
