@@ -94,7 +94,7 @@
             panelChildForm.Font = new Font("Century Gothic", 9F);
             panelChildForm.Location = new Point(287, 106);
             panelChildForm.Name = "panelChildForm";
-            panelChildForm.Size = new Size(725, 694);
+            panelChildForm.Size = new Size(725, 594);
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
             // 
@@ -266,7 +266,7 @@
             panel2.Controls.Add(panel3);
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(280, 800);
+            panel2.Size = new Size(280, 700);
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
@@ -952,7 +952,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1024, 800);
+            ClientSize = new Size(1024, 700);
             ControlBox = false;
             Controls.Add(panel1);
             Controls.Add(panelChildForm);
@@ -960,7 +960,7 @@
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
-            MinimumSize = new Size(1022, 726);
+            MinimumSize = new Size(1022, 700);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PIMARK";
