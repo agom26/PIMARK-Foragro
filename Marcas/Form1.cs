@@ -167,8 +167,10 @@ namespace Presentacion
         {
             if (activeForm != null)
             {
+                activeForm.Hide();
                 activeForm.WindowState = FormWindowState.Normal;
                 activeForm.WindowState = FormWindowState.Maximized;
+                activeForm.Show();
             }
         }
         public void openChildForm(Form childForm)

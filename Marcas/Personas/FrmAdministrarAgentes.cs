@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,7 +55,7 @@ namespace Presentacion.Personas
                 dtgAgentes.ClearSelection();
             }
         }
-        private void LoadAgentes()
+        private async Task LoadAgentes()
         {
            
             var agentes = personaModel.GetAllAgentes();
@@ -109,23 +110,25 @@ namespace Presentacion.Personas
             btnGuardarU.Visible = false;
         }
 
-        private void ibtnAgregar_Click(object sender, EventArgs e)
+        private async void ibtnAgregar_Click(object sender, EventArgs e)
         {
             Habilitar();
+            tabControl1.Visible = false;
             LimpiarCampos();
-
-
-            AnadirTabPage(tabPageAgenteDetail);
+            await AnadirTabPage(tabPageAgenteDetail);
             
             btnGuardarU.Text = "GUARDAR";
             iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            tabControl1.Visible = true;
         }
 
         public async Task Editar()
         {
+            
             Habilitar();
             if (dtgAgentes.SelectedRows.Count > 0)
             {
+                tabControl1.Visible = false;
                 int idPersona = EditarPersona.idPersona;
                 iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 var titularDetails = personaModel.GetPersonaById(idPersona);
@@ -149,7 +152,8 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     btnGuardarU.Text = "ACTUALIZAR";
-                    //AnadirTabPage(tabPageAgenteDetail);
+                    AnadirTabPage(tabPageAgenteDetail);
+                    tabControl1.Visible = true;
                 }
                 else
                 {
@@ -160,6 +164,7 @@ namespace Presentacion.Personas
             {
                 MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
+            
         }
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
@@ -170,9 +175,10 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
-
-            await MostrarAgentes();
+            tabControl1.Visible = false;
+            await LoadAgentes();
             EliminarTabPage(tabPageAgenteDetail);
+            tabControl1.Visible = true;
         }
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
@@ -180,7 +186,7 @@ namespace Presentacion.Personas
             await Editar();
             if (EditarPersona.idPersona > 0)
             {
-                await AnadirTabPage(tabPageAgenteDetail);
+                //await AnadirTabPage(tabPageAgenteDetail);
             }
             
         }
@@ -271,7 +277,9 @@ namespace Presentacion.Personas
                 }
                 else
                 {
-                    MessageBox.Show("No existen agentes con esos datos");
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN AGENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen agentes con esos datos");
                     LoadAgentes();
                 }
             }
@@ -366,7 +374,9 @@ namespace Presentacion.Personas
                     {
                         // Ejecutar la operación de adición de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        MessageBox.Show("Agente agregado exitosamente");
+                        FrmAlerta alerta = new FrmAlerta("AGENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Agente agregado exitosamente");
                     }
                     else if (btnGuardarU.Text == "ACTUALIZAR")
                     {
@@ -384,8 +394,10 @@ namespace Presentacion.Personas
 
                             if (update)
                             {
-                                MessageBox.Show("Agente actualizado exitosamente");
-                                MostrarAgentes();
+                                FrmAlerta alerta = new FrmAlerta("AGENTE ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("Agente actualizado exitosamente");
+                                await MostrarAgentes();
                                 EliminarTabPage(tabPageAgenteDetail);
                                 dtgAgentes.ClearSelection();
                             }
@@ -400,9 +412,7 @@ namespace Presentacion.Personas
                         }
                     }
 
-                    tabControl1.SelectedTab = tabPageListado;
-                    MostrarAgentes();
-                    EliminarTabPage(tabPageAgenteDetail);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -436,7 +446,7 @@ namespace Presentacion.Personas
             await Editar();
             if (EditarPersona.idPersona > 0)
             {
-                 await AnadirTabPage(tabPageAgenteDetail);
+                 //await AnadirTabPage(tabPageAgenteDetail);
             }
         }
     }
