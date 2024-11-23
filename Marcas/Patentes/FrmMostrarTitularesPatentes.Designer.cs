@@ -1,6 +1,6 @@
 ﻿namespace Presentacion.Patentes
 {
-    partial class FrmMostrarTitularesPatente
+    partial class FrmMostrarTitularesPatentes
     {
         /// <summary>
         /// Required designer variable.
@@ -211,10 +211,10 @@
             Font = new Font("Century Gothic", 12F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 3, 4, 3);
-            Name = "FrmMostrarTitularesPatente";
+            Name = "FrmMostrarTitularesPatentes";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmMostrarTitularesPatente";
-            Load += FrmMostrarTitularesPatente_Load;
+            Text = "FrmMostrarTitularesPatentes";
+            Load += FrmMostrarTitularesPatentes_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTitulares).EndInit();

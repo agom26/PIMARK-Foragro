@@ -355,7 +355,7 @@ namespace Presentacion.Patentes
 
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-            FrmMostrarTitularesPatente frmMostrarAgentes = new FrmMostrarTitularesPatente();
+            FrmMostrarTitularesPatentes frmMostrarAgentes = new FrmMostrarTitularesPatentes();
             frmMostrarAgentes.ShowDialog();
 
             if (SeleccionarPersonaPatente.idPersonaT != 0)

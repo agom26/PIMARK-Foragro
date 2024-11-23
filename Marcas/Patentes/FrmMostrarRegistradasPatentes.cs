@@ -4,6 +4,7 @@ using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Presentacion.Patentes
         }
         private async Task LoadPatentes()
         {
-            var patentes = await Task.Run(() => patenteModel.GetAllPatentesEnTramite());
+            var patentes = await Task.Run(() => patenteModel.GetAllPatentesRegistradas());
 
 
             Invoke(new Action(() =>
@@ -601,6 +602,11 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageRenovacionesList);
+            EliminarTabPage(tabPageRenovacionDetail);
+            EliminarTabPage(tabPageTraspasosList);
+            EliminarTabPage(tabPageTraspasoDetail);
+
         }
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
@@ -624,6 +630,10 @@ namespace Presentacion.Patentes
             {
                 loadHistorialById();
                 EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
             }
             else if (tabControl1.SelectedTab == tabPageIngresadasList)
             {
@@ -632,6 +642,10 @@ namespace Presentacion.Patentes
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail); 
 
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
@@ -639,6 +653,25 @@ namespace Presentacion.Patentes
                 CargarDatosPatente();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageRenovacionesList)
+            {
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageTraspasosList)
+            {
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
             }
         }
 

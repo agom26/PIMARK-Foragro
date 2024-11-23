@@ -1,25 +1,17 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Patentes
 {
-    public partial class FrmMostrarTitularesPatente : Form
+    public partial class FrmMostrarTitularesPatentes : Form
     {
         PersonaModel personaModel = new PersonaModel();
-        public FrmMostrarTitularesPatente()
+        public FrmMostrarTitularesPatentes()
         {
             InitializeComponent();
-            this.Load += FrmMostrarTitularesPatente_Load; 
+            this.Load += FrmMostrarTitularesPatentes_Load; // Mueve la lógica de carga aquí
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -31,11 +23,11 @@ namespace Presentacion.Patentes
         private void MostrarTitulares()
         {
             dtgTitulares.DataSource = personaModel.GetAllTitulares();
-           
+            // Ocultar la columna 'id'
             if (dtgTitulares.Columns["id"] != null)
             {
                 dtgTitulares.Columns["id"].Visible = false;
-                
+                // Desactiva la selección automática de la primera fila
                 dtgTitulares.ClearSelection();
             }
         }
@@ -44,7 +36,7 @@ namespace Presentacion.Patentes
         {
 
 
-           
+            // Obtiene los usuarios
             var titulares = personaModel.GetAllTitulares();
 
             Invoke(new Action(() =>
@@ -59,22 +51,22 @@ namespace Presentacion.Patentes
 
             }));
         }
-        private async void FrmMostrarTitularesPatente_Load(object sender, EventArgs e)
+        private async void FrmMostrarTitularesPatentes_Load(object sender, EventArgs e)
         {
-            
+            // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersonaT = 0;
+            SeleccionarPersonaPatente.idPersonaT = 0;
             this.Close();
         }
 
         private void dtgTitulares_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            
+
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -105,13 +97,13 @@ namespace Presentacion.Patentes
                 return;
             }
 
-            if (dtgTitulares.SelectedRows.Count > 0) 
+            if (dtgTitulares.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
             {
-               
+                // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
                 var filaSeleccionada = dtgTitulares.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                   
+                    // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarPersonaPatente.idPersonaT = id;
 
@@ -121,6 +113,7 @@ namespace Presentacion.Patentes
                     {
                         //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
 
+                        // Asignar los valores obtenidos a la clase SeleccionarPersona
                         SeleccionarPersonaPatente.nombre = detallesTitular[0].nombre;
                         SeleccionarPersonaPatente.direccion = detallesTitular[0].direccion;
                         SeleccionarPersonaPatente.correo = detallesTitular[0].correo;
@@ -129,7 +122,7 @@ namespace Presentacion.Patentes
                         SeleccionarPersonaPatente.nit = detallesTitular[0].nit;
                         SeleccionarPersonaPatente.telefono = detallesTitular[0].telefono;
 
-                        this.Close(); 
+                        this.Close(); // Cierra el formulario si todo fue correcto
                     }
                     else
                     {

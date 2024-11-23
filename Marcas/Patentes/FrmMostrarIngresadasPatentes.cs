@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
+using Presentacion.Marcas_Nacionales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -559,9 +560,9 @@ namespace Presentacion.Patentes
             btnEditarH.Enabled = false;
         }
 
-        private async Task refrescarMarca()
+        private async Task refrescarPatente()
         {
-            if (SeleccionarMarca.idInt > 0)
+            if (SeleccionarPatente.id> 0)
             {
                 try
                 {
@@ -571,6 +572,16 @@ namespace Presentacion.Patentes
                     {
                         DataRow row = detallesPatente.Rows[0];
 
+                        if (row["estado"] != DBNull.Value )
+                        {
+                          
+                            SeleccionarPatente.estado = row["estado"].ToString();
+                            textBoxEstatus.Text = row["estado"].ToString();
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                         bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -705,7 +716,7 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageHistorialMarca;
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
 
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -736,7 +747,7 @@ namespace Presentacion.Patentes
                     alerta.ShowDialog();
                     tabControl1.SelectedTab = tabPageHistorialMarca;
                     SeleccionarHistorialPatente.LimpiarHistorial();
-                    refrescarMarca();
+                    await refrescarPatente();
                 }
                 catch (Exception ex)
                 {
@@ -849,6 +860,70 @@ namespace Presentacion.Patentes
 
                 }
                 */
+            }
+        }
+
+        private async void roundedButton6_Click(object sender, EventArgs e)
+        {
+
+            FrmAgregarEtapaPatente frmAgregarEtapa = new FrmAgregarEtapaPatente();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapaPatente.etapa != "")
+            {
+
+                try
+                {
+                    historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
+                    FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Etapa agregada con éxito");
+                    if (AgregarEtapaPatente.etapa == "Registro/concesión")
+                    {
+                        checkBox1.Checked = true;
+                        mostrarPanelRegistro("si");
+                    }
+                    else
+                    {
+                        checkBox1.Checked = false;
+                        mostrarPanelRegistro("no");
+                    }
+
+                    await refrescarPatente();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+            }
+
+
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesPatentes frmMostrarTitulares= new FrmMostrarTitularesPatentes();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersonaPatente.nombre;
+                txtDireccionTitular.Text = SeleccionarPersonaPatente.direccion;
+            }
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentesPatente frmMostrarAgentes = new FrmMostrarAgentesPatente();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersonaPatente.nombre;
+
             }
         }
     }
