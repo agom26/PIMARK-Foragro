@@ -107,19 +107,18 @@ namespace Presentacion.Patentes
             AgregarEtapaPatente.LimpiarEtapa();
             textBoxEstatus.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
-            for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
-            {
-                checkedListBoxDocumentos.SetItemChecked(i, false);
-            }
             checkedListBoxDocumentos.ClearSelected();
             txtFolio.Text = "";
             txtLibro.Text = "";
             txtRegistro.Text = "";
             dateTimePFecha_Registro.Value = DateTime.Now;
             mostrarPanelRegistro("no");
+            checkBoxPCT.Checked = false;
             txtNombreAgente.Text = "";
             txtDireccionTitular.Text = "";
             txtNombreTitular.Text = "";
+            SeleccionarPersonaPatente.LimpiarPersona();
+            ActualizarFechaVencimiento();
         }
 
         public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
