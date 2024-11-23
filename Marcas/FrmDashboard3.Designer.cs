@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel2 = new Panel();
             roundedButton3 = new Clases.RoundedButton();
@@ -39,12 +39,8 @@
             roundedButton1 = new Clases.RoundedButton();
             tabControl1 = new TabControl();
             tabPage2 = new TabPage();
+            panel9 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            label3 = new Label();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton6 = new Clases.RoundedButton();
             panel3 = new Panel();
             panel6 = new Panel();
             label2 = new Label();
@@ -55,31 +51,35 @@
             label1 = new Label();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton4 = new Clases.RoundedButton();
-            tabPage1 = new TabPage();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            label3 = new Label();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton6 = new Clases.RoundedButton();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
             tabControl1.SuspendLayout();
             tabPage2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panel7.SuspendLayout();
+            panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.None;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(196, 205, 218);
-            panel1.Location = new Point(8, 29);
+            panel1.Location = new Point(26, 15);
             panel1.Name = "panel1";
-            panel1.Size = new Size(900, 5);
+            panel1.Size = new Size(863, 5);
             panel1.TabIndex = 0;
             // 
             // panel2
@@ -128,14 +128,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -218,7 +218,6 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage1);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -229,16 +228,25 @@
             // tabPage2
             // 
             tabPage2.AutoScroll = true;
+            tabPage2.Controls.Add(panel1);
+            tabPage2.Controls.Add(panel9);
             tabPage2.Controls.Add(tableLayoutPanel1);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Controls.Add(panel1);
             tabPage2.Location = new Point(4, 30);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(992, 866);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel9.BackColor = Color.FromArgb(196, 205, 218);
+            panel9.Location = new Point(26, 437);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(900, 5);
+            panel9.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
@@ -256,71 +264,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(958, 274);
             tableLayoutPanel1.TabIndex = 10;
-            // 
-            // panel7
-            // 
-            panel7.Anchor = AnchorStyles.Top;
-            panel7.Controls.Add(panel8);
-            panel7.Controls.Add(iconPictureBox3);
-            panel7.Controls.Add(roundedButton6);
-            panel7.Location = new Point(687, 3);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(221, 248);
-            panel7.TabIndex = 14;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.FromArgb(255, 183, 77);
-            panel8.Controls.Add(label3);
-            panel8.Location = new Point(3, 188);
-            panel8.Margin = new Padding(3, 4, 3, 4);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(214, 37);
-            panel8.TabIndex = 7;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(255, 183, 77);
-            label3.Font = new Font("Century Gothic", 8F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 12);
-            label3.Name = "label3";
-            label3.Size = new Size(203, 17);
-            label3.TabIndex = 1;
-            label3.Text = "BUSCAR MARCA REGISTRADA";
-            // 
-            // iconPictureBox3
-            // 
-            iconPictureBox3.BackColor = Color.FromArgb(201, 211, 221);
-            iconPictureBox3.ForeColor = Color.FromArgb(255, 183, 77);
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Search;
-            iconPictureBox3.IconColor = Color.FromArgb(255, 183, 77);
-            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 163;
-            iconPictureBox3.Location = new Point(25, 31);
-            iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(165, 163);
-            iconPictureBox3.TabIndex = 4;
-            iconPictureBox3.TabStop = false;
-            // 
-            // roundedButton6
-            // 
-            roundedButton6.AutoSize = true;
-            roundedButton6.BackColor = Color.FromArgb(222, 227, 234);
-            roundedButton6.BackgroundColor = Color.FromArgb(222, 227, 234);
-            roundedButton6.BorderColor = Color.Empty;
-            roundedButton6.BorderRadius = 40;
-            roundedButton6.BorderSize = 0;
-            roundedButton6.FlatAppearance.BorderSize = 0;
-            roundedButton6.FlatStyle = FlatStyle.Flat;
-            roundedButton6.ForeColor = Color.White;
-            roundedButton6.Location = new Point(3, 3);
-            roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(214, 242);
-            roundedButton6.TabIndex = 1;
-            roundedButton6.TextColor = Color.White;
-            roundedButton6.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
@@ -454,15 +397,70 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
-            // tabPage1
+            // panel7
             // 
-            tabPage1.Location = new Point(4, 29);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(992, 867);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
+            panel7.Anchor = AnchorStyles.Top;
+            panel7.Controls.Add(panel8);
+            panel7.Controls.Add(iconPictureBox3);
+            panel7.Controls.Add(roundedButton6);
+            panel7.Location = new Point(687, 3);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(221, 248);
+            panel7.TabIndex = 14;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(255, 183, 77);
+            panel8.Controls.Add(label3);
+            panel8.Location = new Point(3, 188);
+            panel8.Margin = new Padding(3, 4, 3, 4);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(214, 37);
+            panel8.TabIndex = 7;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(255, 183, 77);
+            label3.Font = new Font("Century Gothic", 8F, FontStyle.Bold);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(3, 12);
+            label3.Name = "label3";
+            label3.Size = new Size(203, 17);
+            label3.TabIndex = 1;
+            label3.Text = "BUSCAR MARCA REGISTRADA";
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.FromArgb(201, 211, 221);
+            iconPictureBox3.ForeColor = Color.FromArgb(255, 183, 77);
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Search;
+            iconPictureBox3.IconColor = Color.FromArgb(255, 183, 77);
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 163;
+            iconPictureBox3.Location = new Point(25, 31);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(165, 163);
+            iconPictureBox3.TabIndex = 4;
+            iconPictureBox3.TabStop = false;
+            // 
+            // roundedButton6
+            // 
+            roundedButton6.AutoSize = true;
+            roundedButton6.BackColor = Color.FromArgb(222, 227, 234);
+            roundedButton6.BackgroundColor = Color.FromArgb(222, 227, 234);
+            roundedButton6.BorderColor = Color.Empty;
+            roundedButton6.BorderRadius = 40;
+            roundedButton6.BorderSize = 0;
+            roundedButton6.FlatAppearance.BorderSize = 0;
+            roundedButton6.FlatStyle = FlatStyle.Flat;
+            roundedButton6.ForeColor = Color.White;
+            roundedButton6.Location = new Point(3, 3);
+            roundedButton6.Name = "roundedButton6";
+            roundedButton6.Size = new Size(214, 242);
+            roundedButton6.TabIndex = 1;
+            roundedButton6.TextColor = Color.White;
+            roundedButton6.UseVisualStyleBackColor = false;
             // 
             // FrmDashboard3
             // 
@@ -484,11 +482,6 @@
             tabControl1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel6.ResumeLayout(false);
@@ -499,6 +492,11 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -514,7 +512,6 @@
         private Label label4;
         private TabControl tabControl1;
         private TabPage tabPage2;
-        private TabPage tabPage1;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel4;
         private Panel panel5;
@@ -531,5 +528,6 @@
         private Label label2;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Clases.RoundedButton roundedButton5;
+        private Panel panel9;
     }
 }
