@@ -466,6 +466,8 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedTab = tabPageAbandonadasList;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageRenovacionesList);
+            EliminarTabPage(tabPageTraspasosList);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
