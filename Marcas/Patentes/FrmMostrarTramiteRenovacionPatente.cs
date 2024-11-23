@@ -668,6 +668,9 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageRenovacionDetail);
             EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageTraspasoDetail);
+            btnVerRenovaciones.Visible = false;
+            btnVerTraspasos.Visible = false;
+
 
         }
 
@@ -1021,6 +1024,11 @@ namespace Presentacion.Patentes
                 alerta.Show();
 
             }
+        }
+
+        private void roundedButton10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
