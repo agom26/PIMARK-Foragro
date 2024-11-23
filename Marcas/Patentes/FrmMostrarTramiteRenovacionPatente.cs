@@ -1030,5 +1030,29 @@ namespace Presentacion.Patentes
         {
 
         }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesPatentes frmMostrarTitulares = new FrmMostrarTitularesPatentes();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersonaPatente.nombre;
+                txtDireccionTitular.Text = SeleccionarPersonaPatente.direccion;
+            }
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentesPatente frmMostrarAgentes = new FrmMostrarAgentesPatente();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaPatente.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersonaPatente.nombre;
+
+            }
+        }
     }
 }

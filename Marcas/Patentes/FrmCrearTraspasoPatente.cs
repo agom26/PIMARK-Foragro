@@ -61,7 +61,7 @@ namespace Presentacion.Patentes
 
             if (txtEstado.Text != "")
             {
-                if (nuevoTitular != "" || nuevoTitular != "")
+                if (nuevoTitular != "")
                 {
                     //Historial
                     string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
@@ -74,7 +74,7 @@ namespace Presentacion.Patentes
                     {
                         AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
                     }
-                    historialModel.CrearHistorialPatente( (DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario,null, SeleccionarPatente.id);
+                    historialModel.CrearHistorialPatente( (DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario,null,SeleccionarPatente.id);
 
                     try
                     {
@@ -96,7 +96,7 @@ namespace Presentacion.Patentes
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR Y NOMBRE NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
                     //MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
                 }

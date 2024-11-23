@@ -907,6 +907,7 @@
             roundedButton1.Text = "+ AGENTE";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
             // 
             // txtDireccionTitular
             // 
@@ -966,6 +967,7 @@
             roundedButton5.Text = "+ TITULAR";
             roundedButton5.TextColor = Color.Black;
             roundedButton5.UseVisualStyleBackColor = false;
+            roundedButton5.Click += roundedButton5_Click;
             // 
             // checkBoxPCT
             // 

@@ -23,7 +23,7 @@ namespace AccesoDatos.Entidades
                     comando.CommandType = CommandType.StoredProcedure;
 
                     comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
-                    comando.Parameters.AddWithValue("@p_IdMarca", idPatente);
+                    comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
                     comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
                     comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
 
