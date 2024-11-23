@@ -230,6 +230,7 @@ namespace Presentacion.Patentes
                                 checkedListBoxDocumentos.SetItemChecked(i, true);
                             }
                         }
+
                         bool contieneRegistrada = false;
 
                         if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
@@ -245,19 +246,22 @@ namespace Presentacion.Patentes
                         if (contieneRegistrada)
                         {
 
+                            if (SeleccionarPatente.registro != null)
+                            {
+                                SeleccionarPatente.registro = row["registro"].ToString();
+                                SeleccionarPatente.folio = row["folio"].ToString();
+                                SeleccionarPatente.libro = row["libro"].ToString();
+                                SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
+                                SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+
+                                txtRegistro.Text = SeleccionarPatente.registro;
+                                txtFolio.Text = SeleccionarPatente.folio;
+                                txtLibro.Text = SeleccionarPatente.libro;
+                                dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
+                                dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
+                            }
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
-                            SeleccionarPatente.registro = row["registro"].ToString();
-                            SeleccionarPatente.folio = row["folio"].ToString();
-                            SeleccionarPatente.libro = row["libro"].ToString();
-                            SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
-                            SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
-
-                            txtRegistro.Text = SeleccionarPatente.registro;
-                            txtFolio.Text = SeleccionarPatente.folio;
-                            txtLibro.Text = SeleccionarPatente.libro;
-                            dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
-                            dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
                         }
                         else
                         {
