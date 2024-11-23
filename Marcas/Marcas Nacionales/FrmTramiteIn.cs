@@ -37,8 +37,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             panel2I.Visible = false;
-            btnGuardarM.Location = new Point(105, 950);
-            btnCancelarM.Location = new Point(413, 950);
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -230,6 +228,8 @@ namespace Presentacion.Marcas_Nacionales
             comboBoxTipoSigno.SelectedIndex = -1;
             SeleccionarPersona.idPersonaT = 0;
             SeleccionarPersona.idPersonaA = 0;
+            //btnGuardarM.Location = new Point(105, 950);
+            //btnCancelarM.Location = new Point(413, 950);
         }
 
         public void mostrarPanelRegistro()
@@ -376,6 +376,7 @@ namespace Presentacion.Marcas_Nacionales
             pictureBox1.Image = documento;
             SeleccionarPersona.idPersonaA = 0;
             SeleccionarPersona.idPersonaT = 0;
+            mostrarPanelRegistro();
         }
 
         private void roundedButton4_Click_1(object sender, EventArgs e)
