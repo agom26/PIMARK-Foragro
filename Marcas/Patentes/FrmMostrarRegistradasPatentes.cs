@@ -135,7 +135,7 @@ namespace Presentacion.Patentes
                         SeleccionarPatente.documento_cesion = row["documento_cesion"].ToString();
                         SeleccionarPatente.poder_nombramiento = row["poder_nombramiento"].ToString();
 
-                        /*
+                        
                         if (row["Erenov"] != DBNull.Value)
                         {
                             SeleccionarPatente.Erenov = row["Erenov"].ToString();
@@ -146,7 +146,7 @@ namespace Presentacion.Patentes
                         {
                             SeleccionarPatente.Etrasp = row["Etrasp"].ToString();
                             txtETraspaso.Text = SeleccionarMarca.etraspaso;
-                        }*/
+                        }
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarPatente.idTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarPatente.idAgente));
@@ -237,8 +237,8 @@ namespace Presentacion.Patentes
                             SeleccionarPatente.registro = row["registro"].ToString();
                             SeleccionarPatente.folio = row["folio"].ToString();
                             SeleccionarPatente.libro = row["libro"].ToString();
-                            SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fechaRegistro"]);
-                            SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+                            SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
+                            SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
 
                             txtRegistro.Text = SeleccionarPatente.registro;
                             txtFolio.Text = SeleccionarPatente.folio;
