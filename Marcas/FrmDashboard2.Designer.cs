@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
             panel6 = new Panel();
@@ -106,12 +106,13 @@
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel3.AutoSize = true;
             panel3.Controls.Add(panel6);
             panel3.Controls.Add(panel5);
             panel3.Location = new Point(4, 445);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(801, 377);
+            panel3.Size = new Size(780, 377);
             panel3.TabIndex = 1;
             // 
             // panel6
@@ -123,14 +124,14 @@
             panel6.Location = new Point(11, 25);
             panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Size = new Size(776, 340);
+            panel6.Size = new Size(755, 340);
             panel6.TabIndex = 4;
             // 
             // panel15
             // 
             panel15.Anchor = AnchorStyles.Top;
             panel15.Controls.Add(panel17);
-            panel15.Location = new Point(530, 0);
+            panel15.Location = new Point(519, 0);
             panel15.Name = "panel15";
             panel15.Size = new Size(265, 340);
             panel15.TabIndex = 3;
@@ -229,7 +230,7 @@
             // 
             panel9.Anchor = AnchorStyles.Top;
             panel9.Controls.Add(panel11);
-            panel9.Location = new Point(265, 0);
+            panel9.Location = new Point(254, 0);
             panel9.Name = "panel9";
             panel9.Size = new Size(265, 340);
             panel9.TabIndex = 2;
@@ -342,7 +343,7 @@
             // 
             panel7.Anchor = AnchorStyles.Top;
             panel7.Controls.Add(panel8);
-            panel7.Location = new Point(0, 0);
+            panel7.Location = new Point(-11, 0);
             panel7.Name = "panel7";
             panel7.Size = new Size(265, 340);
             panel7.TabIndex = 1;
@@ -442,7 +443,7 @@
             // 
             panel5.Anchor = AnchorStyles.Top;
             panel5.BackColor = Color.FromArgb(196, 205, 218);
-            panel5.Location = new Point(10, 13);
+            panel5.Location = new Point(0, 13);
             panel5.Name = "panel5";
             panel5.Size = new Size(779, 5);
             panel5.TabIndex = 3;
@@ -450,12 +451,13 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.AutoSize = true;
             panel2.Controls.Add(panel4);
             panel2.Controls.Add(panel16);
             panel2.Location = new Point(3, 4);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(789, 433);
+            panel2.Size = new Size(781, 433);
             panel2.TabIndex = 0;
             // 
             // panel4
@@ -467,7 +469,7 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(roundedButton6);
             panel4.Controls.Add(roundedButton1);
-            panel4.Location = new Point(-9, 37);
+            panel4.Location = new Point(-13, 37);
             panel4.Name = "panel4";
             panel4.Size = new Size(800, 381);
             panel4.TabIndex = 3;
@@ -520,14 +522,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -594,7 +596,7 @@
             // 
             panel16.Anchor = AnchorStyles.Top;
             panel16.BackColor = Color.FromArgb(196, 205, 218);
-            panel16.Location = new Point(-6, 7);
+            panel16.Location = new Point(-10, 7);
             panel16.Name = "panel16";
             panel16.Size = new Size(800, 5);
             panel16.TabIndex = 2;
@@ -612,6 +614,7 @@
             Name = "FrmDashboard2";
             Text = "FrmDashboard2";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel3.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel15.ResumeLayout(false);
