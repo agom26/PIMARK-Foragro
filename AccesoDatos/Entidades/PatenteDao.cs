@@ -190,6 +190,33 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public DataTable GetAllPatentesEnAbandono()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnAbandono", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
         public DataTable ObtenerPatentePorId(int idPatente)
         {
             DataTable patente = new DataTable();

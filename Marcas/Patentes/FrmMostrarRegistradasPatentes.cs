@@ -1306,5 +1306,60 @@ namespace Presentacion.Patentes
 
             }
         }
+
+        private async void iconButton3_Click(object sender, EventArgs e)
+        {
+            if (dtgPatentes.SelectedRows.Count > 0)
+            {
+
+                using (FrmJustificacion justificacionForm = new FrmJustificacion())
+                {
+
+                    if (justificacionForm.ShowDialog() == DialogResult.OK)
+                    {
+                        string justificacion = justificacionForm.Justificacion;
+                        DateTime fechaAbandono = justificacionForm.fecha;
+                        string usuarioAbandono = justificacionForm.usuarioAbandono;
+
+                        try
+                        {
+
+                            var filaSeleccionada = dtgPatentes.SelectedRows[0];
+
+
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+
+                                int idPatente = Convert.ToInt32(dataRowView["id"]);
+
+                                historialPatenteModel.CrearHistorialPatente(
+
+                                    fechaAbandono,
+                                    "Abandono",
+                                    fechaAbandono.ToShortDateString() + " Abandono " + justificacion,
+                                    usuarioAbandono,
+                                    null,
+                                    idPatente
+                                );
+
+                                FrmAlerta alerta = new FrmAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+
+                                await LoadPatentes();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al actualizar el estado de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA PATENTE PARA ABANDONAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+            }
+        }
     }
 }

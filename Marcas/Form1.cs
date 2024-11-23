@@ -618,5 +618,13 @@ namespace Presentacion
             await Task.Delay(1000);
             EnableButtons();
         }
+
+        private async void btnAbandonadasPatentes_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarAbandonadasPatentes());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
     }
 }

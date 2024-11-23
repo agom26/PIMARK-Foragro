@@ -1,6 +1,6 @@
 ﻿namespace Presentacion.Patentes
 {
-    partial class FrmMostrarRegistradasPatentes
+    partial class FrmMostrarAbandonadasPatentes
     {
         /// <summary>
         /// Required designer variable.
@@ -316,9 +316,9 @@
             label28.Font = new Font("Century Gothic", 12F);
             label28.Location = new Point(291, 17);
             label28.Name = "label28";
-            label28.Size = new Size(140, 23);
+            label28.Size = new Size(168, 23);
             label28.TabIndex = 186;
-            label28.Text = "REGISTRADAS";
+            label28.Text = "ABANDONADAS";
             // 
             // roundedButton2
             // 
@@ -413,7 +413,6 @@
             iconButton3.Text = "ABANDONAR";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton3.UseVisualStyleBackColor = false;
-            iconButton3.Click += iconButton3_Click;
             // 
             // ibtnEditar
             // 
@@ -2009,7 +2008,7 @@
             label38.TabIndex = 16;
             label38.Text = "Nombre antiguo";
             // 
-            // FrmMostrarRegistradasPatentes
+            // FrmMostrarAbandonadasPatentes
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -2018,9 +2017,9 @@
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmMostrarRegistradasPatentes";
-            Text = "FrmMostrarRegistradasPatentes";
-            Load += FrmMostrarRegistradasPatentes_Load;
+            Name = "FrmMostrarAbandonadasPatentes";
+            Text = "FrmMostrarAbandonadasPatentes";
+            Load += FrmMostrarAbandonadasPatentes_Load;
             tabControl1.ResumeLayout(false);
             tabPageIngresadasList.ResumeLayout(false);
             tabPageIngresadasList.PerformLayout();

@@ -154,6 +154,7 @@
             btnAbandonadasPatentes.Text = "> ABANDONADAS";
             btnAbandonadasPatentes.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadasPatentes.UseVisualStyleBackColor = true;
+            btnAbandonadasPatentes.Click += btnAbandonadasPatentes_Click;
             // 
             // btnTramiteTraspPatentes
             // 
