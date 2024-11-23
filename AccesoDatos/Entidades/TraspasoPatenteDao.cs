@@ -11,12 +11,10 @@ namespace AccesoDatos.Entidades
     public class TraspasoPatenteDao:ConnectionSQL
     {
         public void InsertarTraspasoPatente(
-       string numExpediente,
-       int idPatente,
-       int idTitularAnterior,
-       int idTitularNuevo,
-       string antiguoNombre,
-       string nuevoNombre)
+           string numExpediente,
+           int idPatente,
+           int idTitularAnterior,
+           int idTitularNuevo)
         {
             using (MySqlConnection conexion = GetConnection())
             {
@@ -28,8 +26,6 @@ namespace AccesoDatos.Entidades
                     comando.Parameters.AddWithValue("@p_IdMarca", idPatente);
                     comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
                     comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
-                    comando.Parameters.AddWithValue("@p_AntiguoNombre", antiguoNombre);
-                    comando.Parameters.AddWithValue("@p_NuevoNombre", nuevoNombre);
 
                     conexion.Open();
                     comando.ExecuteNonQuery();
@@ -80,7 +76,7 @@ namespace AccesoDatos.Entidades
             return resultado;
         }
 
-        public bool ActualizarTraspasoPatente(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public bool ActualizarTraspasoPatente(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
         {
             using (MySqlConnection conexion = GetConnection())
             {
@@ -92,8 +88,6 @@ namespace AccesoDatos.Entidades
                     comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
                     comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
                     comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
-                    comando.Parameters.AddWithValue("@p_AntiguoNombre", antiguoNombre);
-                    comando.Parameters.AddWithValue("@p_NuevoNombre", nuevoNombre);
 
                     conexion.Open();
                     int filasAfectadas = comando.ExecuteNonQuery();

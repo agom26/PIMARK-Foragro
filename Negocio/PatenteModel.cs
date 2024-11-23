@@ -74,6 +74,13 @@ namespace Dominio
             tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeRenovacion();
             return tabla;
         }
+
+        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso()
+        {
+            DataTable tabla = new DataTable();
+            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeTraspaso();
+            return tabla;
+        }
         public DataTable ObtenerPatentePorId(int idPatente)
         {
             return patenteDao.ObtenerPatentePorId(idPatente);

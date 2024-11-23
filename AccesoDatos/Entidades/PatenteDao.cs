@@ -135,6 +135,7 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        
         public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion()
         {
             DataTable tabla = new DataTable();
@@ -143,6 +144,33 @@ namespace AccesoDatos.Entidades
                 using (MySqlConnection conexion = GetConnection())
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnTramiteRenovacion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
+        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnTramiteTraspaso", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

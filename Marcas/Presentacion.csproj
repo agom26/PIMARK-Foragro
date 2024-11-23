@@ -102,10 +102,19 @@
     <Compile Update="Patentes\FrmAgregarRenovacionConcedidaPatente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmCrearTraspasoPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Patentes\FrmMostrarTitularesEdicionTraspasoPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Patentes\FrmMostrarTitularesTraspasoPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Patentes\FrmMostrarTramiteTraspasoPatente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Patentes\FrmMostrarTramiteRenovacionPatente.cs">

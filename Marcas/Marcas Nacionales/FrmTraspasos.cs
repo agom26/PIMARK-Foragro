@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -909,7 +910,9 @@ namespace Presentacion.Marcas_Nacionales
                 //Volver a poner traspasos = false
                 AgregarTraspaso.traspasoFinalizado = false;
                 tabControl1.SelectedTab = tabPageRegistradasList;
-                MessageBox.Show("Traspaso guardado correctamente");
+                FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+                //MessageBox.Show("Traspaso guardado correctamente");
             }
         }
 

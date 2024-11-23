@@ -17,9 +17,9 @@ namespace Dominio
             traspasoPatenteDao= new TraspasoPatenteDao();
         }
 
-        public void AddTraspaso(string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public void AddTraspaso(string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
         {
-            traspasoPatenteDao.InsertarTraspasoPatente(numExpediente, idPatente, idTitularAnterior, idTitularNuevo, antiguoNombre, nuevoNombre);
+            traspasoPatenteDao.InsertarTraspasoPatente(numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
         }
 
         public DataTable ObtenerTraspasosPatentePorIdPatente(int idPatente)
@@ -30,9 +30,9 @@ namespace Dominio
         {
             return traspasoPatenteDao.ObtenerTraspasoPatentePorId(id);
         }
-        public bool ActualizarTraspaso(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public bool ActualizarTraspaso(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
         {
-            return traspasoPatenteDao.ActualizarTraspasoPatente(id, numExpediente, idPatente, idTitularAnterior, idTitularNuevo, antiguoNombre, nuevoNombre);
+            return traspasoPatenteDao.ActualizarTraspasoPatente(id, numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
         }
     }
 }
