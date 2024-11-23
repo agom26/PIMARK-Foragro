@@ -114,7 +114,7 @@
             iconButtonLogout.Location = new Point(0, 1667);
             iconButtonLogout.Name = "iconButtonLogout";
             iconButtonLogout.Padding = new Padding(9, 0, 0, 0);
-            iconButtonLogout.Size = new Size(263, 54);
+            iconButtonLogout.Size = new Size(259, 54);
             iconButtonLogout.TabIndex = 14;
             iconButtonLogout.Text = "CERRAR SESIÓN";
             iconButtonLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -134,7 +134,7 @@
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuPatentes.Location = new Point(0, 1249);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
-            panelSubMenuPatentes.Size = new Size(263, 310);
+            panelSubMenuPatentes.Size = new Size(259, 310);
             panelSubMenuPatentes.TabIndex = 12;
             panelSubMenuPatentes.Paint += panel5_Paint;
             // 
@@ -149,7 +149,7 @@
             button32.Location = new Point(0, 235);
             button32.Name = "button32";
             button32.Padding = new Padding(58, 0, 0, 0);
-            button32.Size = new Size(263, 47);
+            button32.Size = new Size(259, 47);
             button32.TabIndex = 6;
             button32.Text = "> ABANDONADAS";
             button32.TextAlign = ContentAlignment.MiddleLeft;
@@ -166,7 +166,7 @@
             button34.Location = new Point(0, 188);
             button34.Name = "button34";
             button34.Padding = new Padding(58, 0, 0, 0);
-            button34.Size = new Size(263, 47);
+            button34.Size = new Size(259, 47);
             button34.TabIndex = 4;
             button34.Text = "> TR. DE TRASPASO";
             button34.TextAlign = ContentAlignment.MiddleLeft;
@@ -184,7 +184,7 @@
             button35.Location = new Point(0, 141);
             button35.Name = "button35";
             button35.Padding = new Padding(58, 0, 0, 0);
-            button35.Size = new Size(263, 47);
+            button35.Size = new Size(259, 47);
             button35.TabIndex = 3;
             button35.Text = "> TR. DE RENOVACIÓN";
             button35.TextAlign = ContentAlignment.MiddleLeft;
@@ -202,7 +202,7 @@
             button33.Location = new Point(0, 94);
             button33.Name = "button33";
             button33.Padding = new Padding(58, 0, 0, 0);
-            button33.Size = new Size(263, 47);
+            button33.Size = new Size(259, 47);
             button33.TabIndex = 5;
             button33.Text = "> REGISTRADAS";
             button33.TextAlign = ContentAlignment.MiddleLeft;
@@ -219,7 +219,7 @@
             btnTramiteInicialPatente.Location = new Point(0, 47);
             btnTramiteInicialPatente.Name = "btnTramiteInicialPatente";
             btnTramiteInicialPatente.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialPatente.Size = new Size(263, 47);
+            btnTramiteInicialPatente.Size = new Size(259, 47);
             btnTramiteInicialPatente.TabIndex = 7;
             btnTramiteInicialPatente.Text = "> TRÁMITE INICIAL";
             btnTramiteInicialPatente.TextAlign = ContentAlignment.MiddleLeft;
@@ -237,7 +237,7 @@
             btnIngresarPatente.Location = new Point(0, 0);
             btnIngresarPatente.Name = "btnIngresarPatente";
             btnIngresarPatente.Padding = new Padding(58, 0, 0, 0);
-            btnIngresarPatente.Size = new Size(263, 47);
+            btnIngresarPatente.Size = new Size(259, 47);
             btnIngresarPatente.TabIndex = 0;
             btnIngresarPatente.Text = "> INGRESAR PATENTE";
             btnIngresarPatente.TextAlign = ContentAlignment.MiddleLeft;
@@ -286,7 +286,7 @@
             iconButtonVencimientos.Location = new Point(0, 1613);
             iconButtonVencimientos.Name = "iconButtonVencimientos";
             iconButtonVencimientos.Padding = new Padding(9, 0, 0, 0);
-            iconButtonVencimientos.Size = new Size(263, 54);
+            iconButtonVencimientos.Size = new Size(259, 54);
             iconButtonVencimientos.TabIndex = 15;
             iconButtonVencimientos.Text = "VENCIMIENTOS";
             iconButtonVencimientos.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -309,7 +309,7 @@
             btnReportes.Location = new Point(0, 1559);
             btnReportes.Name = "btnReportes";
             btnReportes.Padding = new Padding(9, 0, 0, 0);
-            btnReportes.Size = new Size(263, 54);
+            btnReportes.Size = new Size(259, 54);
             btnReportes.TabIndex = 13;
             btnReportes.Text = "REPORTES";
             btnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -332,7 +332,7 @@
             btnPatentes.Location = new Point(0, 1195);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Padding = new Padding(9, 0, 0, 0);
-            btnPatentes.Size = new Size(263, 54);
+            btnPatentes.Size = new Size(259, 54);
             btnPatentes.TabIndex = 11;
             btnPatentes.Text = "PATENTES";
             btnPatentes.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -354,7 +354,7 @@
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasInter.Location = new Point(0, 766);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
-            panelSubMenuMarcasInter.Size = new Size(263, 429);
+            panelSubMenuMarcasInter.Size = new Size(259, 429);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
             // btnAbandonadasInter
@@ -368,7 +368,7 @@
             btnAbandonadasInter.Location = new Point(0, 355);
             btnAbandonadasInter.Name = "btnAbandonadasInter";
             btnAbandonadasInter.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadasInter.Size = new Size(263, 47);
+            btnAbandonadasInter.Size = new Size(259, 47);
             btnAbandonadasInter.TabIndex = 9;
             btnAbandonadasInter.Text = "> ABANDONADAS";
             btnAbandonadasInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -386,7 +386,7 @@
             btnTraspasoInter.Location = new Point(0, 308);
             btnTraspasoInter.Name = "btnTraspasoInter";
             btnTraspasoInter.Padding = new Padding(58, 0, 0, 0);
-            btnTraspasoInter.Size = new Size(263, 47);
+            btnTraspasoInter.Size = new Size(259, 47);
             btnTraspasoInter.TabIndex = 5;
             btnTraspasoInter.Text = "> TR. DE TRASPASO\r\n";
             btnTraspasoInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -404,7 +404,7 @@
             btnRenovInter.Location = new Point(0, 248);
             btnRenovInter.Name = "btnRenovInter";
             btnRenovInter.Padding = new Padding(58, 0, 0, 0);
-            btnRenovInter.Size = new Size(263, 60);
+            btnRenovInter.Size = new Size(259, 60);
             btnRenovInter.TabIndex = 7;
             btnRenovInter.Text = "> TR. DE RENOVACIÓN";
             btnRenovInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -422,7 +422,7 @@
             btnRegInter.Location = new Point(0, 201);
             btnRegInter.Name = "btnRegInter";
             btnRegInter.Padding = new Padding(58, 0, 0, 0);
-            btnRegInter.Size = new Size(263, 47);
+            btnRegInter.Size = new Size(259, 47);
             btnRegInter.TabIndex = 11;
             btnRegInter.Text = "> REGISTRADAS";
             btnRegInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -440,7 +440,7 @@
             btnOpoInter.Location = new Point(0, 141);
             btnOpoInter.Name = "btnOpoInter";
             btnOpoInter.Padding = new Padding(58, 0, 0, 0);
-            btnOpoInter.Size = new Size(263, 60);
+            btnOpoInter.Size = new Size(259, 60);
             btnOpoInter.TabIndex = 8;
             btnOpoInter.Text = "> OPOSICIONES";
             btnOpoInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -458,7 +458,7 @@
             btnIngresadasInt.Location = new Point(0, 94);
             btnIngresadasInt.Name = "btnIngresadasInt";
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
-            btnIngresadasInt.Size = new Size(263, 47);
+            btnIngresadasInt.Size = new Size(259, 47);
             btnIngresadasInt.TabIndex = 10;
             btnIngresadasInt.Text = "> TRÁMITE INICIAL";
             btnIngresadasInt.TextAlign = ContentAlignment.MiddleLeft;
@@ -476,7 +476,7 @@
             btnTramiteInicialInter.Location = new Point(0, 47);
             btnTramiteInicialInter.Name = "btnTramiteInicialInter";
             btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialInter.Size = new Size(263, 47);
+            btnTramiteInicialInter.Size = new Size(259, 47);
             btnTramiteInicialInter.TabIndex = 4;
             btnTramiteInicialInter.Text = "> INGRESAR MARCA";
             btnTramiteInicialInter.TextAlign = ContentAlignment.MiddleLeft;
@@ -494,7 +494,7 @@
             btnClientes.Location = new Point(0, 0);
             btnClientes.Name = "btnClientes";
             btnClientes.Padding = new Padding(58, 0, 0, 0);
-            btnClientes.Size = new Size(263, 47);
+            btnClientes.Size = new Size(259, 47);
             btnClientes.TabIndex = 3;
             btnClientes.Text = "> CLIENTES";
             btnClientes.TextAlign = ContentAlignment.MiddleLeft;
@@ -517,7 +517,7 @@
             iconButton12.Location = new Point(0, 705);
             iconButton12.Name = "iconButton12";
             iconButton12.Padding = new Padding(9, 0, 0, 0);
-            iconButton12.Size = new Size(263, 61);
+            iconButton12.Size = new Size(259, 61);
             iconButton12.TabIndex = 9;
             iconButton12.Text = "M. INTERNACIONALES";
             iconButton12.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -538,7 +538,7 @@
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasNacionales.Location = new Point(0, 359);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
-            panelSubMenuMarcasNacionales.Size = new Size(263, 346);
+            panelSubMenuMarcasNacionales.Size = new Size(259, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
             // 
             // btnAbandonadas
@@ -554,7 +554,7 @@
             btnAbandonadas.Margin = new Padding(0);
             btnAbandonadas.Name = "btnAbandonadas";
             btnAbandonadas.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadas.Size = new Size(263, 47);
+            btnAbandonadas.Size = new Size(259, 47);
             btnAbandonadas.TabIndex = 5;
             btnAbandonadas.Text = "> ABANDONADAS";
             btnAbandonadas.TextAlign = ContentAlignment.MiddleLeft;
@@ -573,7 +573,7 @@
             btnTramiteTraspaso.Location = new Point(0, 235);
             btnTramiteTraspaso.Name = "btnTramiteTraspaso";
             btnTramiteTraspaso.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteTraspaso.Size = new Size(263, 47);
+            btnTramiteTraspaso.Size = new Size(259, 47);
             btnTramiteTraspaso.TabIndex = 4;
             btnTramiteTraspaso.Text = "> TR. DE TRASPASO";
             btnTramiteTraspaso.TextAlign = ContentAlignment.MiddleLeft;
@@ -593,7 +593,7 @@
             btnTramiteRenovacion.Margin = new Padding(0);
             btnTramiteRenovacion.Name = "btnTramiteRenovacion";
             btnTramiteRenovacion.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenovacion.Size = new Size(263, 47);
+            btnTramiteRenovacion.Size = new Size(259, 47);
             btnTramiteRenovacion.TabIndex = 3;
             btnTramiteRenovacion.Text = "> TR. DE RENOVACIÓN";
             btnTramiteRenovacion.TextAlign = ContentAlignment.MiddleLeft;
@@ -612,7 +612,7 @@
             btnRegistradas.Location = new Point(0, 141);
             btnRegistradas.Name = "btnRegistradas";
             btnRegistradas.Padding = new Padding(58, 0, 0, 0);
-            btnRegistradas.Size = new Size(263, 47);
+            btnRegistradas.Size = new Size(259, 47);
             btnRegistradas.TabIndex = 2;
             btnRegistradas.Text = "> REGISTRADAS";
             btnRegistradas.TextAlign = ContentAlignment.MiddleLeft;
@@ -632,7 +632,7 @@
             btnOposiciones.Margin = new Padding(0);
             btnOposiciones.Name = "btnOposiciones";
             btnOposiciones.Padding = new Padding(58, 0, 0, 0);
-            btnOposiciones.Size = new Size(263, 47);
+            btnOposiciones.Size = new Size(259, 47);
             btnOposiciones.TabIndex = 1;
             btnOposiciones.Text = "> OPOSICIONES";
             btnOposiciones.TextAlign = ContentAlignment.MiddleLeft;
@@ -652,7 +652,7 @@
             btnEnTramite.Margin = new Padding(0);
             btnEnTramite.Name = "btnEnTramite";
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
-            btnEnTramite.Size = new Size(263, 47);
+            btnEnTramite.Size = new Size(259, 47);
             btnEnTramite.TabIndex = 6;
             btnEnTramite.Text = "> TRÁMITE INICIAL";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
@@ -672,7 +672,7 @@
             btnTramiteInicial.Margin = new Padding(0);
             btnTramiteInicial.Name = "btnTramiteInicial";
             btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicial.Size = new Size(263, 47);
+            btnTramiteInicial.Size = new Size(259, 47);
             btnTramiteInicial.TabIndex = 0;
             btnTramiteInicial.Text = "> INGRESAR MARCA";
             btnTramiteInicial.TextAlign = ContentAlignment.MiddleLeft;
@@ -695,7 +695,7 @@
             iconButton10.Location = new Point(0, 305);
             iconButton10.Name = "iconButton10";
             iconButton10.Padding = new Padding(9, 0, 0, 0);
-            iconButton10.Size = new Size(263, 54);
+            iconButton10.Size = new Size(259, 54);
             iconButton10.TabIndex = 6;
             iconButton10.Text = "MARCAS NACIONALES";
             iconButton10.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -718,7 +718,7 @@
             iconButtonTitulares.Location = new Point(0, 251);
             iconButtonTitulares.Name = "iconButtonTitulares";
             iconButtonTitulares.Padding = new Padding(9, 0, 0, 0);
-            iconButtonTitulares.Size = new Size(263, 54);
+            iconButtonTitulares.Size = new Size(259, 54);
             iconButtonTitulares.TabIndex = 4;
             iconButtonTitulares.Text = "TITULARES";
             iconButtonTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -741,7 +741,7 @@
             iconButtonAgentes.Location = new Point(0, 197);
             iconButtonAgentes.Name = "iconButtonAgentes";
             iconButtonAgentes.Padding = new Padding(9, 0, 0, 0);
-            iconButtonAgentes.Size = new Size(263, 54);
+            iconButtonAgentes.Size = new Size(259, 54);
             iconButtonAgentes.TabIndex = 3;
             iconButtonAgentes.Text = "AGENTES";
             iconButtonAgentes.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -765,7 +765,7 @@
             iconButtonUsuarios.Margin = new Padding(3, 5, 3, 3);
             iconButtonUsuarios.Name = "iconButtonUsuarios";
             iconButtonUsuarios.Padding = new Padding(9, 0, 0, 0);
-            iconButtonUsuarios.Size = new Size(263, 54);
+            iconButtonUsuarios.Size = new Size(259, 54);
             iconButtonUsuarios.TabIndex = 2;
             iconButtonUsuarios.Text = "USUARIOS";
             iconButtonUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -789,7 +789,7 @@
             btnHome.Margin = new Padding(3, 5, 3, 3);
             btnHome.Name = "btnHome";
             btnHome.Padding = new Padding(9, 0, 0, 0);
-            btnHome.Size = new Size(263, 54);
+            btnHome.Size = new Size(259, 54);
             btnHome.TabIndex = 17;
             btnHome.Text = "INICIO";
             btnHome.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -816,7 +816,7 @@
             iconButton1.Margin = new Padding(0);
             iconButton1.Name = "iconButton1";
             iconButton1.Padding = new Padding(9, 0, 0, 0);
-            iconButton1.Size = new Size(263, 89);
+            iconButton1.Size = new Size(259, 89);
             iconButton1.TabIndex = 16;
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
@@ -827,7 +827,7 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 1721);
             panel3.Name = "panel3";
-            panel3.Size = new Size(263, 54);
+            panel3.Size = new Size(259, 54);
             panel3.TabIndex = 18;
             // 
             // button1
@@ -840,7 +840,7 @@
             button1.ForeColor = Color.White;
             button1.Location = new Point(3, 10);
             button1.Name = "button1";
-            button1.Size = new Size(280, 29);
+            button1.Size = new Size(276, 29);
             button1.TabIndex = 0;
             button1.Text = "Desarrollado por Sitios en Red";
             button1.UseVisualStyleBackColor = false;
@@ -895,7 +895,7 @@
             labelUsername.ForeColor = Color.White;
             labelUsername.Location = new Point(255, 34);
             labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(52, 19);
+            labelUsername.Size = new Size(60, 21);
             labelUsername.TabIndex = 3;
             labelUsername.Text = "label1";
             labelUsername.Click += labelUsername_Click;
@@ -948,7 +948,7 @@
             // Form1
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
@@ -959,6 +959,7 @@
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MinimumSize = new Size(1022, 700);
             Name = "Form1";

@@ -331,6 +331,7 @@
             Controls.Add(TitleBar);
             Controls.Add(panel4);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LOGIN";

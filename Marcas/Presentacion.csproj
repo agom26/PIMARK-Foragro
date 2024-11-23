@@ -7,12 +7,13 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>PIMARK</AssemblyName>
-    <ApplicationIcon>mero-logo.ico</ApplicationIcon>
+    <ApplicationIcon>WhatsApp-Image-2024-11-21-at-3.17.08-PM.ico</ApplicationIcon>
     <Version>1</Version>
     <StartupObject>Marcas.Program</StartupObject>
     <SignAssembly>False</SignAssembly>
     <PackageOutputPath>D:\</PackageOutputPath>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <PackageIcon>WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,11 +25,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\DataSources\**" />
+    <EmbeddedResource Remove="Properties\DataSources\**" />
+    <None Remove="Properties\DataSources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Marcas Internacionales\FrmMarcasIntIngresadas.cs~RF23b52d9.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="mero-logo.ico" />
+    <Content Include="WhatsApp-Image-2024-11-21-at-3.17.08-PM.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,6 +102,9 @@
     <Compile Update="Patentes\FrmMostrarTitularesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmMostrarRegistradasPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -135,7 +145,13 @@
 
   <ItemGroup>
     <Folder Include="Libs\" />
-    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
