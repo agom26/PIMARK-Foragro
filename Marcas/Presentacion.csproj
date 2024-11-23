@@ -96,7 +96,13 @@
     <Compile Update="Patentes\FrmAgregarEtapaPatente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmAgregarEtapaRegistradaPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Patentes\FrmMostrarTramiteRenovacionPatente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Patentes\FrmMostrarRegistradasPatentes.cs">

@@ -291,9 +291,12 @@ namespace Presentacion
             //openChildForm(new Form5());
         }
 
-        private void button35_Click(object sender, EventArgs e)
+        private async void button35_Click(object sender, EventArgs e)
         {
-            //openChildForm(new Patentes());
+            DisableButtons();
+            openChildForm(new FrmMostrarTramiteRenovacionPatente());
+            await Task.Delay(1000);
+            EnableButtons();
         }
 
         private async void button30_Click(object sender, EventArgs e)

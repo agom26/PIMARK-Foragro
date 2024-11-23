@@ -16,18 +16,18 @@ using System.Windows.Forms;
 
 namespace Presentacion.Patentes
 {
-    public partial class FrmMostrarRegistradasPatentes : Form
+    public partial class FrmMostrarTramiteRenovacionPatente : Form
     {
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
-        public FrmMostrarRegistradasPatentes()
+        public FrmMostrarTramiteRenovacionPatente()
         {
             InitializeComponent();
         }
         private async Task LoadPatentes()
         {
-            var patentes = await Task.Run(() => patenteModel.GetAllPatentesRegistradas());
+            var patentes = await Task.Run(() => patenteModel.GetAllPatentesRegistradasEnTramiteDeRenovacion());
 
 
             Invoke(new Action(() =>
@@ -631,7 +631,7 @@ namespace Presentacion.Patentes
             }
         }
 
-        private async void FrmMostrarRegistradasPatentes_Load(object sender, EventArgs e)
+        private async void FrmMostrarTramiteRenovacionPatente_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadPatentes());
             tabControl1.SelectedTab = tabPageIngresadasList;

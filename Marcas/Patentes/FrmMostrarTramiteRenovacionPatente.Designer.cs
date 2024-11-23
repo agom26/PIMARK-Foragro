@@ -1,6 +1,6 @@
 ﻿namespace Presentacion.Patentes
 {
-    partial class FrmMostrarRegistradasPatentes
+    partial class FrmMostrarTramiteRenovacionPatente
     {
         /// <summary>
         /// Required designer variable.
@@ -316,9 +316,9 @@
             label28.Font = new Font("Century Gothic", 12F);
             label28.Location = new Point(291, 17);
             label28.Name = "label28";
-            label28.Size = new Size(140, 23);
+            label28.Size = new Size(262, 23);
             label28.TabIndex = 186;
-            label28.Text = "REGISTRADAS";
+            label28.Text = "TRÁMITE DE RENOVACIÓN";
             // 
             // roundedButton2
             // 
@@ -333,7 +333,7 @@
             roundedButton2.ForeColor = Color.White;
             roundedButton2.Location = new Point(258, 5);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(223, 49);
+            roundedButton2.Size = new Size(307, 49);
             roundedButton2.TabIndex = 185;
             roundedButton2.TextColor = Color.White;
             roundedButton2.UseVisualStyleBackColor = false;
@@ -1993,7 +1993,7 @@
             label38.TabIndex = 16;
             label38.Text = "Nombre antiguo";
             // 
-            // FrmMostrarRegistradasPatentes
+            // FrmMostrarTramiteRenovacionPatente
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -2002,9 +2002,9 @@
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmMostrarRegistradasPatentes";
-            Text = "FrmMostrarRegistradasPatentes";
-            Load += FrmMostrarRegistradasPatentes_Load;
+            Name = "FrmMostrarTramiteRenovacionPatente";
+            Text = "FrmMostrarTramiteRenovacionPatente";
+            Load += FrmMostrarTramiteRenovacionPatente_Load;
             tabControl1.ResumeLayout(false);
             tabPageIngresadasList.ResumeLayout(false);
             tabPageIngresadasList.PerformLayout();
