@@ -21,6 +21,7 @@ namespace Presentacion.Patentes
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
+        RenovacionesPatenteModel renovacionesModel = new RenovacionesPatenteModel();
         public FrmMostrarRegistradasPatentes()
         {
             InitializeComponent();
@@ -228,7 +229,7 @@ namespace Presentacion.Patentes
                         }
                         bool contieneRegistrada = false;
 
-                        if(SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase)|| SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase)|| SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
+                        if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
                         {
                             contieneRegistrada = true;
                         }
@@ -237,7 +238,7 @@ namespace Presentacion.Patentes
                             contieneRegistrada = false;
                         }
 
-                        
+
                         if (contieneRegistrada)
                         {
 
@@ -586,6 +587,33 @@ namespace Presentacion.Patentes
             btnEditarH.Enabled = false;
         }
 
+        private async void loadRenovacionesById()
+        {
+            try
+            {
+                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdPatente(SeleccionarPatente.id));
+
+                Invoke(new Action(() =>
+                {
+                    dtgRenovaciones.AutoGenerateColumns = true;
+                    dtgRenovaciones.DataSource = renovaciones;
+                    dtgRenovaciones.Refresh();
+
+                    if (dtgRenovaciones.Columns["id"] != null)
+                    {
+                        dtgRenovaciones.Columns["id"].Visible = false;
+                        dtgRenovaciones.Columns["IdPatente"].Visible = false;
+                    }
+
+                    dtgRenovaciones.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las renovaciones de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async Task refrescarMarca()
         {
             if (SeleccionarPatente.id > 0)
@@ -608,7 +636,7 @@ namespace Presentacion.Patentes
                         {
                             contieneRegistrada = false;
                         }
-                        
+
 
                         if (contieneRegistrada)
                         {
@@ -935,7 +963,7 @@ namespace Presentacion.Patentes
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
-                    if (AgregarEtapaPatente.etapa == "Registro/concesión" || AgregarEtapaPatente.etapa=="Trámite de renovación"|| AgregarEtapaPatente.etapa=="Trámite de traspaso")
+                    if (AgregarEtapaPatente.etapa == "Registro/concesión" || AgregarEtapaPatente.etapa == "Trámite de renovación" || AgregarEtapaPatente.etapa == "Trámite de traspaso")
                     {
                         checkBox1.Checked = true;
                         mostrarPanelRegistro("si");
@@ -973,6 +1001,107 @@ namespace Presentacion.Patentes
                 }
 
             }
+        }
+
+        private void roundedButton10_Click(object sender, EventArgs e)
+        {
+            loadRenovacionesById();
+            AnadirTabPage(tabPageRenovacionesList);
+        }
+
+        private void iconButton8_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        {
+            if (dtgRenovaciones.SelectedRows.Count > 0)
+            {
+                //Habilitar();
+                var filaSeleccionada = dtgRenovaciones.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarRenovacionPatente.idRenovacion = id;
+
+                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+
+                    if (renovacion.Rows.Count > 0)
+                    {
+                        DataRow fila = renovacion.Rows[0];
+
+                        SeleccionarRenovacionPatente.idRenovacion = Convert.ToInt32(fila["Id"]);
+                        //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
+                        //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
+                        SeleccionarRenovacionPatente.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
+                        SeleccionarRenovacionPatente.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacionPatente.NumExpediente = fila["NumExpediente"].ToString();
+                        SeleccionarRenovacionPatente.IdPatente = Convert.ToInt32(fila["IdPatente"]);
+                        //Asignar valores a controles
+                        txtNoExpediente.Text = SeleccionarRenovacionPatente.NumExpediente;
+
+                        dateFechVencAnt.Value = SeleccionarRenovacionPatente.Venc_antiguo;
+                        dateFechVencNueva.Value = SeleccionarRenovacionPatente.Venc_nuevo;
+
+                        AnadirTabPage(tabPageRenovacionDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la renovacion", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            string numExpediente = txtNoExpediente.Text;
+
+
+            DateTime fechaVencimientoA = dateFechVencAnt.Value;
+            DateTime fechaVencimientoN = dateFechVencNueva.Value;
+            int id = SeleccionarRenovacionPatente.idRenovacion;
+            int idPatente = SeleccionarRenovacionPatente.IdPatente;
+
+            if (!string.IsNullOrEmpty(numExpediente))
+            {
+                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idPatente, fechaVencimientoA, fechaVencimientoN);
+
+                if (actualizado)
+                {
+                    loadRenovacionesById();
+                    FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.Show();
+                    //MessageBox.Show("Registro de renovación actualizado exitosamente.");
+                    tabControl1.SelectedTab = tabPageRenovacionesList;
+
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.Show();
+                    //MessageBox.Show("No se pudo actualizar el registro de renovación.");
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.Show();
+                //MessageBox.Show("El número de expediente no puede estar vacío.");
+            }
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageRenovacionesList;
         }
     }
 }

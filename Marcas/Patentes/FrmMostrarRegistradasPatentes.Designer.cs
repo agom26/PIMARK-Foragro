@@ -638,6 +638,7 @@
             roundedButton10.Text = "VER RENOVACIONES";
             roundedButton10.TextColor = Color.Black;
             roundedButton10.UseVisualStyleBackColor = false;
+            roundedButton10.Click += roundedButton10_Click;
             // 
             // btnCancelarM
             // 
@@ -1447,6 +1448,7 @@
             iconButton8.Size = new Size(62, 49);
             iconButton8.TabIndex = 66;
             iconButton8.UseVisualStyleBackColor = false;
+            iconButton8.Click += iconButton8_Click;
             // 
             // btnEditarRenovacion
             // 
@@ -1466,6 +1468,7 @@
             btnEditarRenovacion.Text = "EDITAR/ VER";
             btnEditarRenovacion.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarRenovacion.UseVisualStyleBackColor = false;
+            btnEditarRenovacion.Click += btnEditarRenovacion_Click;
             // 
             // dtgRenovaciones
             // 
@@ -1590,6 +1593,7 @@
             iconButton1.Text = "ACTUALIZAR";
             iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click;
             // 
             // Fechas
             // 
@@ -1680,6 +1684,7 @@
             iconButton2.Text = "CANCELAR";
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
+            iconButton2.Click += iconButton2_Click;
             // 
             // tabPageTraspasosList
             // 
