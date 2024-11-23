@@ -55,5 +55,10 @@ namespace Presentacion
         {
 
         }
+
+        private void iconPictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

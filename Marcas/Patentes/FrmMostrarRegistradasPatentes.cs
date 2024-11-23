@@ -836,10 +836,8 @@ namespace Presentacion.Patentes
         {
             tabControl1.SelectedTab = tabPageHistorialMarca;
         }
-
-        private void btnEditarH_Click(object sender, EventArgs e)
+        public void EditarHistorial()
         {
-
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
             DateTime fecha = dateTimePickerFechaH.Value;
             string anotaciones = richTextBoxAnotacionesH.Text;
@@ -884,6 +882,12 @@ namespace Presentacion.Patentes
                 alerta.ShowDialog();
                 //MessageBox.Show("No ha seleccionado ningun estado");
             }
+        }
+
+        private void btnEditarH_Click(object sender, EventArgs e)
+        {
+
+           
         }
 
         private void btnEditarEstadoHistorial_Click(object sender, EventArgs e)

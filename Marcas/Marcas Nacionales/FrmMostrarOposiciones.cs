@@ -126,10 +126,10 @@ namespace Presentacion.Marcas_Nacionales
 
             tabControl1.SelectedTab = nombre;
         }
-        
+
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
-            if (logo != null && logo.Length > 0) 
+            if (logo != null && logo.Length > 0)
             {
                 using (var ms = new MemoryStream(logo))
                 {
@@ -549,7 +549,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
@@ -558,6 +558,10 @@ namespace Presentacion.Marcas_Nacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private async void FrmMostrarOposiciones_Load(object sender, EventArgs e)
@@ -761,8 +765,7 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
-
-        private void iconButton5_Click_1(object sender, EventArgs e)
+        public void EditarHistorial()
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
@@ -807,6 +810,10 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click_1(object sender, EventArgs e)
+        {
+            EditarHistorial();
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
@@ -865,9 +872,13 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnCancelarH_Click(object sender, EventArgs e)
+        public void CancelarEdicionHistorial()
         {
             tabControl1.SelectedTab = tabPageHistorialMarca;
+        }
+        private void btnCancelarH_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1119,6 +1130,41 @@ namespace Presentacion.Marcas_Nacionales
                 txtDireccionTAO.Text = SeleccionarPersona.direccion;
                 txtEntidadTAO.Text = SeleccionarPersona.pais;
             }
+        }
+
+        private void dtgMarcasO_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
+        }
+
+        private void dtgHistorialOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarHistorial();
+        }
+
+        private void btnEditarH_Click_1(object sender, EventArgs e)
+        {
+            EditarHistorial();
+        }
+
+        private void btnCancelarH_Click_1(object sender, EventArgs e)
+        {
+            CancelarEdicionHistorial();
+        }
+
+        private void dateTimePickerFechaH_ValueChanged_1(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void comboBoxEstatusH_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+        }
+
+        private void btnCancelarU_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageListaMarcas;
         }
     }
 }
