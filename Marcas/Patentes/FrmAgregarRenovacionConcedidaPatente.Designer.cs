@@ -212,7 +212,7 @@
             txtEstado.ReadOnly = true;
             txtEstado.Size = new Size(197, 26);
             txtEstado.TabIndex = 11;
-            txtEstado.Text = "Registrada";
+            txtEstado.Text = "Registro/concesión";
             // 
             // dateFechVencAnt
             // 
@@ -302,7 +302,7 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Historial";
             // 
-            // FrmAgregarRenovacionConcedida
+            // FrmAgregarRenovacionConcedidaPatente
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
