@@ -143,7 +143,8 @@ namespace Presentacion.Patentes
             string nombre = txtNombre.Text;
             string tipo = comboBoxTipo.SelectedItem?.ToString();
             string anualidad = comboBoxAnualidades.SelectedItem?.ToString();
-            int anualidades = int.Parse(anualidad);
+            
+            
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             int idTitular = SeleccionarPersonaPatente.idPersonaT;
@@ -238,7 +239,7 @@ namespace Presentacion.Patentes
                     try
                     {
                         int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
+                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, int.Parse(anualidad), pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
                         GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
@@ -258,7 +259,7 @@ namespace Presentacion.Patentes
                     try
                     {
                         int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            null, null, null, null, null, erenov, etrasp, anualidades, pct,
+                            null, null, null, null, null, erenov, etrasp, int.Parse(anualidad), pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
                         GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones

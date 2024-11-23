@@ -88,8 +88,8 @@ namespace Presentacion.Patentes
                 ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
-                checkBox1.Checked = true;
-                checkBox1.Enabled = false;
+                checkBox2.Checked = true;
+                checkBox2.Enabled = false;
                 panel2I.Visible = true;
                 btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
                 btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
@@ -98,8 +98,8 @@ namespace Presentacion.Patentes
             {
                 lblVencimiento.Visible = false;
                 dateTimePFecha_vencimiento.Visible = false;
-                checkBox1.Enabled = false;
-                checkBox1.Checked = false;
+                checkBox2.Enabled = false;
+                checkBox2.Checked = false;
                 panel2I.Visible = false;
                 btnGuardarM.Location = new Point(150, 1050);
                 btnCancelarM.Location = new Point(478, 1050);
@@ -226,29 +226,40 @@ namespace Presentacion.Patentes
                             }
                         }
 
+                        bool contieneRegistrada = false;
 
-                        bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
-
-                        if (contieneRegistrada)
+                        if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
                         {
-
-                            checkBox1.Checked = true;
-                            mostrarPanelRegistro("si");
-                            SeleccionarPatente.registro = row["registro"].ToString();
-                            SeleccionarPatente.folio = row["folio"].ToString();
-                            SeleccionarPatente.libro = row["libro"].ToString();
-                            SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fechaRegistro"]);
-                            SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
-
-                            txtRegistro.Text = SeleccionarPatente.registro;
-                            txtFolio.Text = SeleccionarPatente.folio;
-                            txtLibro.Text = SeleccionarPatente.libro;
-                            dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
-                            dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
+                            contieneRegistrada = true;
                         }
                         else
                         {
-                            checkBox1.Checked = false;
+                            contieneRegistrada = false;
+                        }
+
+                        if (contieneRegistrada)
+                        {
+                            if (SeleccionarPatente.registro != null)
+                            {
+                                SeleccionarPatente.registro = row["registro"].ToString();
+                                SeleccionarPatente.folio = row["folio"].ToString();
+                                SeleccionarPatente.libro = row["libro"].ToString();
+                                SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
+                                SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+
+                                txtRegistro.Text = SeleccionarPatente.registro;
+                                txtFolio.Text = SeleccionarPatente.folio;
+                                txtLibro.Text = SeleccionarPatente.libro;
+                                dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
+                                dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
+                            }
+                            checkBox2.Checked = true;
+                            mostrarPanelRegistro("si");
+                           
+                        }
+                        else
+                        {
+                            checkBox2.Checked = false;
                             mostrarPanelRegistro("no");
                         }
                     }
@@ -374,7 +385,7 @@ namespace Presentacion.Patentes
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string pct = "no";
             string estado = textBoxEstatus.Text;
-            bool registroChek = checkBox1.Checked;
+            bool registroChek = checkBox2.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
@@ -571,7 +582,6 @@ namespace Presentacion.Patentes
 
                         if (row["estado"] != DBNull.Value)
                         {
-
                             SeleccionarPatente.estado = row["estado"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
                         }
@@ -597,7 +607,7 @@ namespace Presentacion.Patentes
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al refrescar los datos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al refrescar los datos de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -878,12 +888,14 @@ namespace Presentacion.Patentes
                     //MessageBox.Show("Etapa agregada con éxito");
                     if (AgregarEtapaPatente.etapa == "Registro/concesión")
                     {
-                        checkBox1.Checked = true;
+                        checkBox2.Checked = true;
+                        checkBox2.Checked = true;
                         mostrarPanelRegistro("si");
                     }
                     else
                     {
-                        checkBox1.Checked = false;
+                        checkBox2.Checked = false;
+                        checkBox2.Checked = false;
                         mostrarPanelRegistro("no");
                     }
 
