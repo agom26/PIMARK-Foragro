@@ -93,7 +93,8 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
                 btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
-                btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
+                btnTraspasar.Location = new Point(365, panel2I.Location.Y + panel2I.Height + 10);
+                btnCancelarM.Location = new Point(582, panel2I.Location.Y + panel2I.Height + 10);
             }
             else
             {
@@ -103,7 +104,8 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
                 btnGuardarM.Location = new Point(150, 1050);
-                btnCancelarM.Location = new Point(478, 1050);
+                btnTraspasar.Location = new Point(365, 1050);
+                btnCancelarM.Location = new Point(582, 1050);
             }
         }
         private async Task CargarDatosPatente()
@@ -228,7 +230,7 @@ namespace Presentacion.Patentes
                         }
                         bool contieneRegistrada = false;
 
-                        if(SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase)|| SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase)|| SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
+                        if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
                         {
                             contieneRegistrada = true;
                         }
@@ -237,7 +239,7 @@ namespace Presentacion.Patentes
                             contieneRegistrada = false;
                         }
 
-                        
+
                         if (contieneRegistrada)
                         {
 
@@ -248,6 +250,7 @@ namespace Presentacion.Patentes
                             SeleccionarPatente.libro = row["libro"].ToString();
                             SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
                             SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+                            AgregarRenovacionPatente.fechaVencimientoAntigua = (DateTime)SeleccionarPatente.fecha_vencimiento;
 
                             txtRegistro.Text = SeleccionarPatente.registro;
                             txtFolio.Text = SeleccionarPatente.folio;
@@ -534,6 +537,32 @@ namespace Presentacion.Patentes
                 //LimpiarFormulario();
             }
         }
+
+        public void LimpiarFormulario()
+        {
+            txtCaso.Text = "";
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            txtFolio.Text = "";
+            comboBoxTipo.SelectedIndex = -1;
+            comboBoxAnualidades.SelectedIndex = -1;
+            txtLibro.Text = "";
+            txtNombreTitular.Text = "";
+            txtDireccionTitular.Text = "";
+            txtNombreAgente.Text = "";
+            txtETraspaso.Text = "";
+            txtERenovacion.Text = "";
+            datePickerFechaSolicitud.Value = DateTime.Now;
+            dateTimePFecha_Registro.Value = DateTime.Now;
+            textBoxEstatus.Text = "";
+            checkBox1.Checked = false;
+            ActualizarFechaVencimiento();
+            txtRegistro.Text = "";
+            AgregarEtapaPatente.LimpiarEtapa();
+            SeleccionarPersonaPatente.LimpiarPersona();
+            checkedListBoxDocumentos.ClearSelected();
+        }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -608,7 +637,7 @@ namespace Presentacion.Patentes
                         {
                             contieneRegistrada = false;
                         }
-                        
+
 
                         if (contieneRegistrada)
                         {
@@ -935,7 +964,7 @@ namespace Presentacion.Patentes
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
-                    if (AgregarEtapaPatente.etapa == "Registro/concesión" || AgregarEtapaPatente.etapa=="Trámite de renovación"|| AgregarEtapaPatente.etapa=="Trámite de traspaso")
+                    if (AgregarEtapaPatente.etapa == "Registro/concesión" || AgregarEtapaPatente.etapa == "Trámite de renovación" || AgregarEtapaPatente.etapa == "Trámite de traspaso")
                     {
                         checkBox1.Checked = true;
                         mostrarPanelRegistro("si");
@@ -971,6 +1000,27 @@ namespace Presentacion.Patentes
                 {
                     MessageBox.Show(ex.Message);
                 }
+
+            }
+        }
+
+        private void datePickerFechaSolicitud_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
+        }
+
+        private void btnTraspasar_Click(object sender, EventArgs e)
+        {
+            FrmAgregarRenovacionConcedidaPatente frmAgregarConcesion = new FrmAgregarRenovacionConcedidaPatente();
+            frmAgregarConcesion.ShowDialog();
+
+            if (AgregarRenovacionPatente.renovacionTerminada == true)
+            {
+                LimpiarFormulario();
+                AgregarRenovacionPatente.renovacionTerminada = false;
+                tabControl1.SelectedTab = tabPageIngresadasList;
+                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.Show();
 
             }
         }

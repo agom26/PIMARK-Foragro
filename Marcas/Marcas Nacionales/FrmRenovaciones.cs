@@ -911,9 +911,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro. No es posible salir sin ingresar datos de registro, a menos que elimine esa etapa")
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado")
                     )
                 {
 

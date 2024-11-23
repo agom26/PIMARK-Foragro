@@ -55,6 +55,7 @@
             dtgPatentes = new DataGridView();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            btnTraspasar = new FontAwesome.Sharp.IconButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label1 = new Label();
@@ -510,6 +511,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnTraspasar);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(roundedButton10);
@@ -550,6 +552,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 1;
+            // 
+            // btnTraspasar
+            // 
+            btnTraspasar.BackColor = Color.FromArgb(0, 137, 123);
+            btnTraspasar.FlatAppearance.BorderSize = 0;
+            btnTraspasar.FlatStyle = FlatStyle.Flat;
+            btnTraspasar.Font = new Font("Century Gothic", 10F);
+            btnTraspasar.ForeColor = Color.White;
+            btnTraspasar.IconChar = FontAwesome.Sharp.IconChar.FileCircleCheck;
+            btnTraspasar.IconColor = Color.White;
+            btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnTraspasar.IconSize = 30;
+            btnTraspasar.Location = new Point(365, 1230);
+            btnTraspasar.Name = "btnTraspasar";
+            btnTraspasar.Size = new Size(191, 56);
+            btnTraspasar.TabIndex = 210;
+            btnTraspasar.Text = "RENOVACIÓN CONCEDIDA";
+            btnTraspasar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnTraspasar.UseVisualStyleBackColor = false;
+            btnTraspasar.Click += btnTraspasar_Click;
             // 
             // Renovacion
             // 
@@ -649,9 +671,9 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(478, 1230);
+            btnCancelarM.Location = new Point(582, 1230);
             btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(259, 40);
+            btnCancelarM.Size = new Size(191, 56);
             btnCancelarM.TabIndex = 17;
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -671,7 +693,7 @@
             btnGuardarM.IconSize = 30;
             btnGuardarM.Location = new Point(150, 1230);
             btnGuardarM.Name = "btnGuardarM";
-            btnGuardarM.Size = new Size(259, 40);
+            btnGuardarM.Size = new Size(191, 56);
             btnGuardarM.TabIndex = 15;
             btnGuardarM.Text = "ACTUALIZAR";
             btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -1049,6 +1071,7 @@
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(280, 26);
             datePickerFechaSolicitud.TabIndex = 7;
+            datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
             // txtExpediente
             // 
@@ -2183,5 +2206,6 @@
         private Label label35;
         private Label label37;
         private Label label38;
+        private FontAwesome.Sharp.IconButton btnTraspasar;
     }
 }
