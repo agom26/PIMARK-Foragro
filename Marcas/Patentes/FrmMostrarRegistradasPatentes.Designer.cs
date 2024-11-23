@@ -619,6 +619,7 @@
             roundedButton9.Text = "VER TRASPASOS";
             roundedButton9.TextColor = Color.Black;
             roundedButton9.UseVisualStyleBackColor = false;
+            roundedButton9.Click += roundedButton9_Click;
             // 
             // roundedButton10
             // 
@@ -1050,6 +1051,7 @@
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(280, 26);
             datePickerFechaSolicitud.TabIndex = 7;
+            datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
             // txtExpediente
             // 
@@ -1712,6 +1714,7 @@
             iconButton9.Size = new Size(62, 49);
             iconButton9.TabIndex = 66;
             iconButton9.UseVisualStyleBackColor = false;
+            iconButton9.Click += iconButton9_Click;
             // 
             // btnEditarTraspaso
             // 
@@ -1731,6 +1734,7 @@
             btnEditarTraspaso.Text = "EDITAR/ VER";
             btnEditarTraspaso.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarTraspaso.UseVisualStyleBackColor = false;
+            btnEditarTraspaso.Click += btnEditarTraspaso_Click;
             // 
             // dtgTraspasos
             // 
@@ -1855,6 +1859,7 @@
             iconButton4.Text = "ACTUALIZAR";
             iconButton4.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton4.UseVisualStyleBackColor = false;
+            iconButton4.Click += iconButton4_Click;
             // 
             // iconButton5
             // 
@@ -1874,6 +1879,7 @@
             iconButton5.Text = "CANCELAR";
             iconButton5.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton5.UseVisualStyleBackColor = false;
+            iconButton5.Click += iconButton5_Click;
             // 
             // groupBox1
             // 
@@ -1912,6 +1918,7 @@
             btnAgregarTitularA.Text = "Antiguo titular";
             btnAgregarTitularA.TextColor = Color.Black;
             btnAgregarTitularA.UseVisualStyleBackColor = false;
+            btnAgregarTitularA.Click += btnAgregarTitularA_Click;
             // 
             // txtNombreMarcaN
             // 
@@ -1952,6 +1959,7 @@
             btnAgregarTitularN.Text = "Nuevo titular";
             btnAgregarTitularN.TextColor = Color.Black;
             btnAgregarTitularN.UseVisualStyleBackColor = false;
+            btnAgregarTitularN.Click += btnAgregarTitularN_Click;
             // 
             // txtNombreTitularA
             // 

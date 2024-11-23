@@ -102,6 +102,9 @@
     <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmMostrarTitularesEdicionTraspasoPatente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Patentes\FrmMostrarTramiteRenovacionPatente.cs">
       <SubType>Form</SubType>
     </Compile>

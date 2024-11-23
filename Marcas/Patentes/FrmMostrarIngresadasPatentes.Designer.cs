@@ -892,6 +892,7 @@
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(280, 26);
             datePickerFechaSolicitud.TabIndex = 7;
+            datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
             // txtExpediente
             // 

@@ -562,7 +562,7 @@ namespace Presentacion.Patentes
 
         private async Task refrescarPatente()
         {
-            if (SeleccionarPatente.id> 0)
+            if (SeleccionarPatente.id > 0)
             {
                 try
                 {
@@ -572,9 +572,9 @@ namespace Presentacion.Patentes
                     {
                         DataRow row = detallesPatente.Rows[0];
 
-                        if (row["estado"] != DBNull.Value )
+                        if (row["estado"] != DBNull.Value)
                         {
-                          
+
                             SeleccionarPatente.estado = row["estado"].ToString();
                             textBoxEstatus.Text = row["estado"].ToString();
                         }
@@ -905,7 +905,7 @@ namespace Presentacion.Patentes
 
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-            FrmMostrarTitularesPatentes frmMostrarTitulares= new FrmMostrarTitularesPatentes();
+            FrmMostrarTitularesPatentes frmMostrarTitulares = new FrmMostrarTitularesPatentes();
             frmMostrarTitulares.ShowDialog();
 
             if (SeleccionarPersonaPatente.idPersonaT != 0)
@@ -925,6 +925,11 @@ namespace Presentacion.Patentes
                 txtNombreAgente.Text = SeleccionarPersonaPatente.nombre;
 
             }
+        }
+
+        private void datePickerFechaSolicitud_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }

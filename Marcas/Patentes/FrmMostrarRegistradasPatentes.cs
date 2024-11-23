@@ -22,6 +22,7 @@ namespace Presentacion.Patentes
         PersonaModel personaModel = new PersonaModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         RenovacionesPatenteModel renovacionesModel = new RenovacionesPatenteModel();
+        TraspasosPatenteModel traspasosModel = new TraspasosPatenteModel();
         public FrmMostrarRegistradasPatentes()
         {
             InitializeComponent();
@@ -77,6 +78,7 @@ namespace Presentacion.Patentes
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        
         private void ActualizarFechaVencimiento()
         {
             DateTime fecha_solicitud = datePickerFechaSolicitud.Value;
@@ -659,6 +661,37 @@ namespace Presentacion.Patentes
             }
         }
 
+
+        private async void loadTraspasosById()
+        {
+            try
+            {
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosPatentePorIdPatente(SeleccionarPatente.id));
+
+
+                Invoke(new Action(() =>
+                {
+                    dtgTraspasos.AutoGenerateColumns = true;
+                    dtgTraspasos.DataSource = traspasos;
+                    dtgTraspasos.Refresh();
+
+                    if (dtgTraspasos.Columns["id"] != null)
+                    {
+                        dtgTraspasos.Columns["id"].Visible = false;
+                        dtgTraspasos.Columns["IdPatente"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
+                    }
+
+                    dtgTraspasos.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los traspasos de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void FrmMostrarRegistradasPatentes_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadPatentes());
@@ -1102,6 +1135,153 @@ namespace Presentacion.Patentes
         private void iconButton2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageRenovacionesList;
+        }
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            loadTraspasosById();
+            AnadirTabPage(tabPageTraspasosList);
+        }
+
+        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        {
+            if (dtgTraspasos.SelectedRows.Count > 0)
+            {
+                //Habilitar();
+                var filaSeleccionada = dtgTraspasos.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarTraspasoPatente.id = id;
+
+                    DataTable traspaso = traspasosModel.ObtenerTraspasoPorId(id);
+
+                    if (traspaso.Rows.Count > 0)
+                    {
+                        DataRow fila = traspaso.Rows[0];
+
+                        SeleccionarTraspasoPatente.id = Convert.ToInt32(fila["Id"]);
+                        SeleccionarTraspasoPatente.IdPatente = Convert.ToInt32(fila["IdPatente"]);
+                        SeleccionarTraspasoPatente.numExpediente = fila["NumExpediente"].ToString();
+                        SeleccionarTraspasoPatente.idTitularA = Convert.ToInt32(fila["IdTitularAnterior"]);
+                        SeleccionarTraspasoPatente.nombreTitularA = fila["TitularAnterior"].ToString();
+                        SeleccionarTraspasoPatente.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
+                        SeleccionarTraspasoPatente.nombreTitularN = fila["TitularNuevo"].ToString();
+                        SeleccionarTraspasoPatente.nombreA = fila["AntiguoNombre"].ToString();
+                        SeleccionarTraspasoPatente.nombreN = fila["NuevoNombre"].ToString();
+                        //Asignar valores a controles
+                        txtNumExpedienteTraspaso.Text = SeleccionarTraspasoPatente.numExpediente;
+                        txtNombreMarcaA.Text = SeleccionarTraspasoPatente.nombreA;
+                        txtNombreMarcaN.Text = SeleccionarTraspasoPatente.nombreN;
+                        txtNombreTitularA.Text = SeleccionarTraspasoPatente.nombreTitularA;
+                        txtNombreTitularN.Text = SeleccionarTraspasoPatente.nombreTitularN;
+
+                        AnadirTabPage(tabPageTraspasoDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del traspaso", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            string nombreMarcaAntigua = txtNombreMarcaA.Text.Trim();
+            string nombreMarcaNueva = txtNombreMarcaN.Text.Trim();
+            string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
+            string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
+            string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
+
+
+            int idTraspaso = SeleccionarTraspasoPatente.id;
+            int idMarca = SeleccionarTraspasoPatente.IdPatente;
+            int idTitularAntiguo = SeleccionarTraspasoPatente.idTitularA;
+            int idTitularNuevo = SeleccionarTraspasoPatente.idTitularN;
+
+
+            if (!string.IsNullOrEmpty(numeroExpediente) &&
+                !string.IsNullOrEmpty(nombreMarcaAntigua) &&
+                !string.IsNullOrEmpty(nombreMarcaNueva) &&
+                !string.IsNullOrEmpty(nombreTitularAntiguo) &&
+                !string.IsNullOrEmpty(nombreTitularNuevo))
+            {
+
+                traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo, nombreMarcaAntigua, nombreMarcaNueva);
+                FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+                //MessageBox.Show("Traspaso actualizado correctamente");
+                tabControl1.SelectedTab = tabPageTraspasosList;
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Debe llenar todos los campos para poder actualizar el traspaso", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageTraspasosList;
+        }
+
+        private void btnAgregarTitularA_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesEdicionTraspasoPatente frmCrearTraspaso = new FrmMostrarTitularesEdicionTraspasoPatente();
+            frmCrearTraspaso.ShowDialog();
+
+            if (SeleccionarTraspasoPatente.idComodin != 0)
+            {
+                SeleccionarTraspasoPatente.idTitularA = SeleccionarTraspasoPatente.idComodin;
+                SeleccionarTraspasoPatente.nombreTitularA = SeleccionarTraspasoPatente.nombreComodin;
+                txtNombreTitularA.Text = SeleccionarTraspasoPatente.nombreTitularA;
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ UN TITULAR ANTIGUO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No selecciono un titular antiguo");
+            }
+        }
+
+        private void btnAgregarTitularN_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesEdicionTraspasoPatente frmCrearTraspaso = new FrmMostrarTitularesEdicionTraspasoPatente();
+            frmCrearTraspaso.ShowDialog();
+
+            if (SeleccionarTraspasoPatente.idComodin != 0)
+            {
+                SeleccionarTraspasoPatente.idTitularN = SeleccionarTraspasoPatente.idComodin;
+                SeleccionarTraspasoPatente.nombreTitularN = SeleccionarTraspasoPatente.nombreComodin;
+                txtNombreTitularN.Text = SeleccionarTraspasoPatente.nombreTitularN;
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ UN TITULAR NUEVO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No selecciono un titular nuevo");
+            }
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void datePickerFechaSolicitud_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }
