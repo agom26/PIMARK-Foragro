@@ -909,6 +909,7 @@ namespace Presentacion.Patentes
         {
             if (textBoxEstatus.Text != "Registrada")
             {
+                LimpiarFomulario();
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 tabControl1.SelectedTab = tabPageIngresadasList;
