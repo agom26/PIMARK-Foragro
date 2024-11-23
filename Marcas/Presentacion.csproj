@@ -99,10 +99,10 @@
     <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Patentes\FrmMostrarTitularesPatente.cs">
+    <Compile Update="Patentes\FrmMostrarRegistradasPatentes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Patentes\FrmMostrarRegistradasPatente.cs">
+    <Compile Update="Patentes\FrmMostrarTitularesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -119,7 +119,6 @@ namespace Presentacion
             btnTramiteRenovacion.Enabled = false;
             btnRegistradas.Enabled = false;
             btnAbandonadas.Enabled = false;
-            iconButtonVencimientos.Enabled = false;
             //internacionales
             btnClientes.Enabled = false;
             btnTramiteInicialInter.Enabled = false;
@@ -130,12 +129,20 @@ namespace Presentacion
             //patentes
             btnIngresarPatente.Enabled = false;
             btnTramiteInicialPatente.Enabled = false;
+            btnPatentesRegistradas.Enabled = false;
+            btnTramiteRenovPatentes.Enabled = false;
+            btnTramiteTraspPatentes.Enabled = false;
+            btnAbandonadasPatentes.Enabled = false;
+            //otros
+            btnReportes.Enabled = false;
+            iconButtonLogout.Enabled = false;
+            iconButtonVencimientos.Enabled = false;
         }
 
         public void EnableButtons()
         {
             //home
-            btnHome.Enabled =true;
+            btnHome.Enabled = true;
             iconButtonUsuarios.Enabled = true;
             iconButtonAgentes.Enabled = true;
             iconButtonTitulares.Enabled = true;
@@ -146,7 +153,6 @@ namespace Presentacion
             btnAbandonadas.Enabled = true;
             btnTramiteRenovacion.Enabled = true;
             btnTramiteTraspaso.Enabled = true;
-            iconButtonVencimientos.Enabled = true;
             //internacionales
             btnClientes.Enabled = true;
             btnTramiteInicialInter.Enabled = true;
@@ -157,6 +163,14 @@ namespace Presentacion
             //patentes
             btnIngresarPatente.Enabled = true;
             btnTramiteInicialPatente.Enabled = true;
+            btnPatentesRegistradas.Enabled = true;
+            btnTramiteRenovPatentes.Enabled = true;
+            btnTramiteTraspPatentes.Enabled = true;
+            btnAbandonadasPatentes.Enabled = true;
+            //otros
+            btnReportes.Enabled = true;
+            iconButtonLogout.Enabled = true;
+            iconButtonVencimientos.Enabled = true;
         }
 
 
@@ -579,14 +593,23 @@ namespace Presentacion
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = url,
-                    UseShellExecute = true 
+                    UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
-                
+
                 MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        private async void button33_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmMostrarRegistradasPatentes());
+            await Task.Delay(1000);
+            EnableButtons();
         }
     }
 }
