@@ -232,7 +232,7 @@ namespace Presentacion.Patentes
                         }
                         bool contieneRegistrada = false;
 
-                        if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
+                        if (SeleccionarPatente.registro!="")
                         {
                             contieneRegistrada = true;
                         }
