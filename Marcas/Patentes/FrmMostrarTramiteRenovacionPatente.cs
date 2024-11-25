@@ -307,8 +307,7 @@ namespace Presentacion.Patentes
                 mensajesError.Add("SELECCIONE UN ESTADO\n");
 
             // Validación de valores numéricos 
-            if (!int.TryParse(expediente, out _))
-                mensajesError.Add("EL EXPEDIENTE DEBE SER UN VALOR NUMÉRICO\n");
+           
             if (!int.TryParse(anualidad, out _))
                 mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
 
