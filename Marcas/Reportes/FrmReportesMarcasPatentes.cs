@@ -20,6 +20,9 @@ namespace Presentacion.Reportes
         {
             InitializeComponent();
             this.Load += FrmReportesMarcasPatentes_Load;
+            SeleccionarPersonaReportes.LimpiarCliente();
+            SeleccionarPersonaReportes.LimpiarTitular();
+            SeleccionarPersonaReportes.LimpiarAgente();
 
         }
 
@@ -260,6 +263,9 @@ namespace Presentacion.Reportes
         {
             dtgReportes.DataSource = null;
             dtgReportes.ClearSelection();
+            SeleccionarPersonaReportes.LimpiarCliente();
+            SeleccionarPersonaReportes.LimpiarTitular();
+            SeleccionarPersonaReportes.LimpiarAgente();
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
