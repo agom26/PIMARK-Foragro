@@ -42,7 +42,7 @@ namespace Presentacion.Reportes
             string? titular = null;
             string? agente = null;
             string? cliente = null;
-            
+
 
             switch (comboBoxObjeto.SelectedIndex)
             {
@@ -147,7 +147,7 @@ namespace Presentacion.Reportes
             }
             else
             {
-                cliente= null;
+                cliente = null;
             }
 
             if (checkBoxSolicitud.Checked)
@@ -189,7 +189,7 @@ namespace Presentacion.Reportes
                 titular, agente, cliente
                 );
             dtgReportes.ClearSelection();
-           
+
         }
         private void tabPage1_Click(object sender, EventArgs e)
         {
@@ -252,7 +252,13 @@ namespace Presentacion.Reportes
 
         private void FrmReportesMarcasPatentes_Load(object sender, EventArgs e)
         {
-            comboBoxObjeto.SelectedIndex = 0 ;
+            comboBoxObjeto.SelectedIndex = 0;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            dtgReportes.DataSource = null;
+            dtgReportes.ClearSelection();
         }
     }
 }
