@@ -1,6 +1,8 @@
-﻿using Comun.Cache;
+﻿using ClosedXML.Excel;
+using Comun.Cache;
 using Dominio;
 using Microsoft.Win32;
+using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +26,47 @@ namespace Presentacion.Reportes
             SeleccionarPersonaReportes.LimpiarTitular();
             SeleccionarPersonaReportes.LimpiarAgente();
 
+        }
+
+        public void ExportarDataTableAExcel(DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.");
+                return;
+            }
+
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            {
+                Title = "Guardar archivo Excel",
+                Filter = "Archivos Excel (*.xlsx)|*.xlsx",
+                FileName = "Reporte.xlsx",
+                DefaultExt = "xlsx",
+                AddExtension = true
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    
+                    using (var workbook = new XLWorkbook())
+                    { 
+                        var worksheet = workbook.Worksheets.Add("Reporte");
+                        worksheet.Cell(1, 1).InsertTable(dataTable);
+
+                        worksheet.Columns().AdjustToContents(); 
+                        workbook.SaveAs(saveFileDialog.FileName);
+                    }
+                    FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show($"Archivo Excel generado exitosamente en: {saveFileDialog.FileName}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
+                }
+            }
         }
 
 
@@ -310,6 +353,22 @@ namespace Presentacion.Reportes
             else
             {
                 richTextBoxCliente.Text = "";
+            }
+        }
+
+        private void roundedButton2_Click(object sender, EventArgs e)
+        {
+            DataTable datos = dtgReportes.DataSource as DataTable;
+
+            if (datos != null)
+            {
+                ExportarDataTableAExcel(datos);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("No hay datos para exportar.");
             }
         }
     }
