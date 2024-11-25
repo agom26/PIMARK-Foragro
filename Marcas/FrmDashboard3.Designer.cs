@@ -285,6 +285,7 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(213, 37);
             panel6.TabIndex = 7;
+            panel6.Click += panel6_Click;
             // 
             // label2
             // 
@@ -297,6 +298,7 @@
             label2.Size = new Size(87, 19);
             label2.TabIndex = 1;
             label2.Text = "REPORTES";
+            label2.Click += label2_Click;
             // 
             // iconPictureBox2
             // 
@@ -331,6 +333,7 @@
             roundedButton5.TabIndex = 1;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
+            roundedButton5.Click += roundedButton5_Click;
             // 
             // panel4
             // 
@@ -352,6 +355,7 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(214, 37);
             panel5.TabIndex = 7;
+            panel5.Click += panel5_Click;
             // 
             // label1
             // 
@@ -364,6 +368,7 @@
             label1.Size = new Size(200, 18);
             label1.TabIndex = 1;
             label1.Text = "INGRESAR TRÁMITE INICIAL";
+            label1.Click += label1_Click;
             // 
             // iconPictureBox1
             // 
@@ -378,6 +383,7 @@
             iconPictureBox1.Size = new Size(165, 163);
             iconPictureBox1.TabIndex = 4;
             iconPictureBox1.TabStop = false;
+            iconPictureBox1.Click += iconPictureBox1_Click;
             // 
             // roundedButton4
             // 
@@ -396,6 +402,7 @@
             roundedButton4.TabIndex = 1;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
+            roundedButton4.Click += roundedButton4_Click;
             // 
             // panel7
             // 
@@ -417,6 +424,7 @@
             panel8.Name = "panel8";
             panel8.Size = new Size(214, 37);
             panel8.TabIndex = 7;
+            panel8.Click += panel8_Click;
             // 
             // label3
             // 
@@ -429,6 +437,7 @@
             label3.Size = new Size(203, 17);
             label3.TabIndex = 1;
             label3.Text = "BUSCAR MARCA REGISTRADA";
+            label3.Click += label3_Click;
             // 
             // iconPictureBox3
             // 
@@ -443,6 +452,7 @@
             iconPictureBox3.Size = new Size(165, 163);
             iconPictureBox3.TabIndex = 4;
             iconPictureBox3.TabStop = false;
+            iconPictureBox3.Click += iconPictureBox3_Click;
             // 
             // roundedButton6
             // 
@@ -461,6 +471,7 @@
             roundedButton6.TabIndex = 1;
             roundedButton6.TextColor = Color.White;
             roundedButton6.UseVisualStyleBackColor = false;
+            roundedButton6.Click += roundedButton6_Click;
             // 
             // FrmDashboard3
             // 

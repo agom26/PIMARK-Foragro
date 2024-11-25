@@ -1,4 +1,7 @@
 ﻿using Dominio;
+using Presentacion.Marcas_Nacionales;
+using Presentacion.Reportes;
+using Presentacion.Vencimientos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,9 +49,12 @@ namespace Presentacion
             Ejecutar();
         }
 
-        private void roundedButton3_Click(object sender, EventArgs e)
+        private async void roundedButton3_Click(object sender, EventArgs e)
         {
-
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmVencimientos());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
         }
 
         private void FrmDashboard3_Load(object sender, EventArgs e)
@@ -56,9 +62,100 @@ namespace Presentacion
 
         }
 
-        private void iconPictureBox2_Click(object sender, EventArgs e)
+        private async void iconPictureBox2_Click(object sender, EventArgs e)
         {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportesMarcasPatentes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
 
+        private async void roundedButton4_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void label1_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel5_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmTramiteIn());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void roundedButton5_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportesMarcasPatentes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel6_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportesMarcasPatentes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void label2_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmReportesMarcasPatentes());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void roundedButton6_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void iconPictureBox3_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void label3_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
+        }
+
+        private async void panel8_Click(object sender, EventArgs e)
+        {
+            mainForm.DisableButtons();
+            mainForm.openChildForm(new FrmRegistradas());
+            await Task.Delay(1000);
+            mainForm.EnableButtons();
         }
     }
 }
