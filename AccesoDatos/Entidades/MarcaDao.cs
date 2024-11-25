@@ -322,7 +322,9 @@ namespace AccesoDatos.Entidades
                         Personas AS P2 ON M.IdAgente = P2.id 
                     WHERE 
                         M.tipo = 'nacional' AND 
-                        (estado='Abandono');", conexion))
+                        (estado='Abandono')
+                    ORDER BY 
+                        M.id DESC;", conexion))
                     {
                         conexion.Open(); 
                         using (MySqlDataReader leer = comando.ExecuteReader())
