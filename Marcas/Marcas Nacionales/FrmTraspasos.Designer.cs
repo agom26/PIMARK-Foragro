@@ -48,9 +48,6 @@
             roundedButton3 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
-            btnTraspasar = new FontAwesome.Sharp.IconButton();
-            btnActualizarM = new FontAwesome.Sharp.IconButton();
-            btnCancelarM = new FontAwesome.Sharp.IconButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label26 = new Label();
@@ -100,6 +97,9 @@
             label6 = new Label();
             txtExpediente = new TextBox();
             label7 = new Label();
+            btnTraspasar = new FontAwesome.Sharp.IconButton();
+            btnActualizarM = new FontAwesome.Sharp.IconButton();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
             iconButton2 = new FontAwesome.Sharp.IconButton();
@@ -462,65 +462,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1241);
             panel1.TabIndex = 0;
-            // 
-            // btnTraspasar
-            // 
-            btnTraspasar.BackColor = Color.FromArgb(0, 137, 123);
-            btnTraspasar.FlatAppearance.BorderSize = 0;
-            btnTraspasar.FlatStyle = FlatStyle.Flat;
-            btnTraspasar.Font = new Font("Century Gothic", 12F);
-            btnTraspasar.ForeColor = Color.White;
-            btnTraspasar.IconChar = FontAwesome.Sharp.IconChar.HandHoldingHand;
-            btnTraspasar.IconColor = Color.White;
-            btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnTraspasar.IconSize = 30;
-            btnTraspasar.Location = new Point(281, 1171);
-            btnTraspasar.Name = "btnTraspasar";
-            btnTraspasar.Size = new Size(191, 34);
-            btnTraspasar.TabIndex = 150;
-            btnTraspasar.Text = "TRASPASAR";
-            btnTraspasar.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnTraspasar.UseVisualStyleBackColor = false;
-            btnTraspasar.Click += iconButton1_Click_1;
-            // 
-            // btnActualizarM
-            // 
-            btnActualizarM.BackColor = Color.FromArgb(1, 87, 155);
-            btnActualizarM.FlatAppearance.BorderSize = 0;
-            btnActualizarM.FlatStyle = FlatStyle.Flat;
-            btnActualizarM.Font = new Font("Century Gothic", 12F);
-            btnActualizarM.ForeColor = Color.White;
-            btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Check;
-            btnActualizarM.IconColor = Color.White;
-            btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnActualizarM.IconSize = 30;
-            btnActualizarM.Location = new Point(55, 1171);
-            btnActualizarM.Name = "btnActualizarM";
-            btnActualizarM.Size = new Size(191, 34);
-            btnActualizarM.TabIndex = 149;
-            btnActualizarM.Text = "ACTUALIZAR";
-            btnActualizarM.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnActualizarM.UseVisualStyleBackColor = false;
-            btnActualizarM.Click += btnActualizarM_Click;
-            // 
-            // btnCancelarM
-            // 
-            btnCancelarM.BackColor = Color.Gainsboro;
-            btnCancelarM.FlatAppearance.BorderSize = 0;
-            btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 12F);
-            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            btnCancelarM.IconColor = Color.Black;
-            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(512, 1171);
-            btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(179, 34);
-            btnCancelarM.TabIndex = 148;
-            btnCancelarM.Text = "CANCELAR";
-            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnCancelarM.UseVisualStyleBackColor = false;
-            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // Renovacion
             // 
@@ -1060,6 +1001,65 @@
             label7.Size = new Size(104, 21);
             label7.TabIndex = 109;
             label7.Text = "Expediente";
+            // 
+            // btnTraspasar
+            // 
+            btnTraspasar.BackColor = Color.FromArgb(0, 137, 123);
+            btnTraspasar.FlatAppearance.BorderSize = 0;
+            btnTraspasar.FlatStyle = FlatStyle.Flat;
+            btnTraspasar.Font = new Font("Century Gothic", 12F);
+            btnTraspasar.ForeColor = Color.White;
+            btnTraspasar.IconChar = FontAwesome.Sharp.IconChar.HandHoldingHand;
+            btnTraspasar.IconColor = Color.White;
+            btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnTraspasar.IconSize = 30;
+            btnTraspasar.Location = new Point(281, 1171);
+            btnTraspasar.Name = "btnTraspasar";
+            btnTraspasar.Size = new Size(191, 58);
+            btnTraspasar.TabIndex = 150;
+            btnTraspasar.Text = "TRASPASAR";
+            btnTraspasar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnTraspasar.UseVisualStyleBackColor = false;
+            btnTraspasar.Click += iconButton1_Click_1;
+            // 
+            // btnActualizarM
+            // 
+            btnActualizarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnActualizarM.FlatAppearance.BorderSize = 0;
+            btnActualizarM.FlatStyle = FlatStyle.Flat;
+            btnActualizarM.Font = new Font("Century Gothic", 12F);
+            btnActualizarM.ForeColor = Color.White;
+            btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnActualizarM.IconColor = Color.White;
+            btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnActualizarM.IconSize = 30;
+            btnActualizarM.Location = new Point(55, 1171);
+            btnActualizarM.Name = "btnActualizarM";
+            btnActualizarM.Size = new Size(191, 58);
+            btnActualizarM.TabIndex = 149;
+            btnActualizarM.Text = "ACTUALIZAR";
+            btnActualizarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnActualizarM.UseVisualStyleBackColor = false;
+            btnActualizarM.Click += btnActualizarM_Click;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(512, 1171);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(191, 58);
+            btnCancelarM.TabIndex = 148;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
             // 
             // tabPageHistorialMarca
             // 

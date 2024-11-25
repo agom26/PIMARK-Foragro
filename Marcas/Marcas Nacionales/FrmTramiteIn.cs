@@ -234,23 +234,37 @@ namespace Presentacion.Marcas_Nacionales
 
         public void mostrarPanelRegistro()
         {
+          
+            int espaciadoBotones = 20;  
+
             if (textBoxEstatus.Text == "Registrada")
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(105, panel2I.Location.Y + panel2I.Height + 5);
-                btnCancelarM.Location = new Point(413, panel2I.Location.Y + panel2I.Height + 5);
+
+                
+               
+
+               
+                btnGuardarM.Location = new Point(121, panel2I.Location.Y + panel2I.Height + 5);
+                btnCancelarM.Location = new Point(396, panel2I.Location.Y + panel2I.Height + 5);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(105, panel2I.Location.Y);
-                btnCancelarM.Location = new Point(413, panel2I.Location.Y);
+
+               
+               
+
+                
+                btnGuardarM.Location = new Point(121, 950); 
+                btnCancelarM.Location = new Point(396, 950);
             }
         }
+
 
 
 
