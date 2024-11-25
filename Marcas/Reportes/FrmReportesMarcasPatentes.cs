@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Comun.Cache;
 using Dominio;
-using Microsoft.Win32;
+using PdfSharp.Drawing;
 using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PuppeteerSharp;
+using System.Diagnostics;
+using PuppeteerSharp.Media;
 
 namespace Presentacion.Reportes
 {
@@ -20,6 +23,7 @@ namespace Presentacion.Reportes
         MarcaModel marcamodel = new MarcaModel();
         public FrmReportesMarcasPatentes()
         {
+
             InitializeComponent();
             this.Load += FrmReportesMarcasPatentes_Load;
             SeleccionarPersonaReportes.LimpiarCliente();
@@ -27,6 +31,96 @@ namespace Presentacion.Reportes
             SeleccionarPersonaReportes.LimpiarAgente();
 
         }
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt)
+        {
+            // Ruta al ejecutable de Chrome en tu sistema
+            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
+
+            // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF Files|*.pdf",
+                FileName = "ReporteMarcasYPatentes.pdf"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Lanza el navegador Chrome
+                var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+                {
+                    Headless = true,  // Ejecutar en modo headless (sin interfaz gráfica)
+                    ExecutablePath = chromePath // Usa Google Chrome en lugar de Chromium
+                });
+
+                // Crea una nueva página
+                var page = await browser.NewPageAsync();
+
+                // Obtener el contenido de la tabla desde el DataTable
+                string tableContent = "";
+                foreach (DataColumn column in dt.Columns)
+                {
+                    tableContent += $"<th>{column.ColumnName}</th>"; // Cabecera de la tabla
+                }
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    tableContent += "<tr>";
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        tableContent += $"<td>{row[column]}</td>"; // Datos de la fila
+                    }
+                    tableContent += "</tr>";
+                }
+
+                // HTML que deseas convertir a PDF con el logo y DataTable
+                string html = $@"
+        <html>
+            <head>
+                <style>
+                    table {{ border-collapse: collapse; width: 100%; }}
+                    th, td {{ border: 1px solid black; padding: 8px; text-align: left; }}
+                    th {{ background-color: #f2f2f2; }}
+                    img {{ width: 100px; height: 50px; }}
+                </style>
+            </head>
+            <body>
+                <h1>Reporte de Marcas y Patentes</h1>
+                <img src='cid:logo' /> <!-- Aquí el logo -->
+                <table>
+                    <thead>
+                        <tr>
+                            {tableContent} <!-- Agregar las filas generadas dinámicamente -->
+                        </tr>
+                    </thead>
+                </table>
+            </body>
+        </html>";
+
+                // Establecer el contenido HTML
+                await page.SetContentAsync(html);
+
+                // Generar el PDF en la ruta seleccionada por el usuario
+                string pdfFilePath = saveFileDialog.FileName;
+
+                // Generar el PDF
+                await page.PdfAsync(pdfFilePath, new PdfOptions
+                {
+                    Format = PaperFormat.A4,  // Tamaño A4
+                    PrintBackground = true    // Incluir el fondo en la impresión
+                });
+
+                // Cerrar el navegador
+                await browser.CloseAsync();
+
+                // Confirmar que el PDF se ha generado
+                MessageBox.Show($"PDF generado: {pdfFilePath}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
 
         public void ExportarDataTableAExcel(DataTable dataTable)
         {
@@ -49,13 +143,13 @@ namespace Presentacion.Reportes
             {
                 try
                 {
-                    
+
                     using (var workbook = new XLWorkbook())
-                    { 
+                    {
                         var worksheet = workbook.Worksheets.Add("Reporte");
                         worksheet.Cell(1, 1).InsertTable(dataTable);
 
-                        worksheet.Columns().AdjustToContents(); 
+                        worksheet.Columns().AdjustToContents();
                         workbook.SaveAs(saveFileDialog.FileName);
                     }
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -68,6 +162,10 @@ namespace Presentacion.Reportes
                 }
             }
         }
+
+        
+
+
 
 
         public void Filtrar()
@@ -188,7 +286,7 @@ namespace Presentacion.Reportes
                 agente = null;
             }
 
-            if (checkBoxClase.Checked)
+            if (checkBoxCliente.Checked)
             {
                 cliente = richTextBoxCliente.Text;
             }
@@ -369,6 +467,23 @@ namespace Presentacion.Reportes
                 FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("No hay datos para exportar.");
+            }
+        }
+
+       
+
+        private void roundedButton3_Click(object sender, EventArgs e)
+        {
+            DataTable datos = dtgReportes.DataSource as DataTable;
+
+            if (datos != null)
+            {
+                CrearPdfDesdeHtmlConLogoYDataTable(datos);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
             }
         }
     }
