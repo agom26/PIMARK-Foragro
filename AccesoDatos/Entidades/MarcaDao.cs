@@ -55,7 +55,7 @@ namespace AccesoDatos.Entidades
 
             return dataTable; 
         }
-
+        
         public DataTable FiltrarMarcasNacionalesEnTramite(string filtro)
         {
             DataTable tabla = new DataTable();
@@ -64,6 +64,34 @@ namespace AccesoDatos.Entidades
                 using (MySqlConnection conexion = GetConnection())
                 {
                     using (MySqlCommand comando = new MySqlCommand("filtrarMarcasSinRegistro", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
+
+        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasEnOposicion", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
@@ -165,7 +193,9 @@ namespace AccesoDatos.Entidades
                         Personas AS P2 ON M.IdAgente = P2.id 
                     WHERE 
                         M.tipo = 'nacional' AND 
-                        (estado='Oposición');", conexion))
+                        (estado='Oposición')
+                    ORDER BY 
+                        M.id DESC;", conexion))
                     {
                         conexion.Open(); 
                         using (MySqlDataReader leer = comando.ExecuteReader()) 

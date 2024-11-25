@@ -1166,5 +1166,34 @@ namespace Presentacion.Marcas_Nacionales
         {
             tabControl1.SelectedTab = tabPageListaMarcas;
         }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtBuscar.Text != "")
+            {
+                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
+                if (marcas.Rows.Count > 0)
+                {
+                    dtgMarcasO.DataSource = marcas;
+
+                    if (dtgMarcasO.Columns["id"] != null)
+                    {
+                        dtgMarcasO.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasO.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    LoadMarcas();
+                }
+
+            }
+            else
+            {
+                LoadMarcas();
+            }
+        }
     }
 }

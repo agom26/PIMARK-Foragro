@@ -26,15 +26,18 @@ namespace Presentacion.Reportes
         MarcaModel marcamodel = new MarcaModel();
         public FrmReportesMarcasPatentes()
         {
-
+           
             InitializeComponent();
+          
+            
             this.Load += FrmReportesMarcasPatentes_Load;
             SeleccionarPersonaReportes.LimpiarCliente();
             SeleccionarPersonaReportes.LimpiarTitular();
             SeleccionarPersonaReportes.LimpiarAgente();
+          
 
         }
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt,int registrosPagina,float escalas)
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
         {
             // Ruta al ejecutable de Chrome en tu sistema
             string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
@@ -228,7 +231,7 @@ namespace Presentacion.Reportes
             }
         }
 
-        
+
 
 
 
@@ -468,9 +471,12 @@ namespace Presentacion.Reportes
             }
         }
 
-        private void FrmReportesMarcasPatentes_Load(object sender, EventArgs e)
+        private async void FrmReportesMarcasPatentes_Load(object sender, EventArgs e)
         {
+            tabControl1.Visible = false;
             comboBoxObjeto.SelectedIndex = 0;
+            await Task.Delay(800);
+            tabControl1.Visible = true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -543,7 +549,7 @@ namespace Presentacion.Reportes
             }
         }
 
-       
+
 
         private void roundedButton3_Click(object sender, EventArgs e)
         {
@@ -551,13 +557,18 @@ namespace Presentacion.Reportes
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos,numRegistros,escala);
+                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala);
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
             }
+        }
+
+        private void FrmReportesMarcasPatentes_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
