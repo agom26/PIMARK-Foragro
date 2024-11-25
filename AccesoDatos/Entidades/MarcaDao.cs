@@ -337,9 +337,8 @@ namespace AccesoDatos.Entidades
                         M.expediente As Expediente,
                         M.clase AS Clase,  
                         P1.nombre AS Titular, 
-                        P2.nombre AS Agente,
-                        M.Erenov,
-                        M.Etrasp
+                        P2.nombre AS Agente
+                        
                     FROM 
                         `Marcas` M
                     JOIN 
