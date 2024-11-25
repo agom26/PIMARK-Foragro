@@ -38,7 +38,6 @@
             label3 = new Label();
             roundedButton3 = new Clases.RoundedButton();
             roundedButton5 = new Clases.RoundedButton();
-            ibtnEditar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -50,7 +49,7 @@
             dtgVencimientos.AllowUserToDeleteRows = false;
             dtgVencimientos.AllowUserToOrderColumns = true;
             dtgVencimientos.AllowUserToResizeRows = false;
-            dtgVencimientos.Anchor = AnchorStyles.Top;
+            dtgVencimientos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgVencimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgVencimientos.BackgroundColor = Color.White;
             dtgVencimientos.BorderStyle = BorderStyle.None;
@@ -68,23 +67,23 @@
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
             dtgVencimientos.GridColor = Color.LightGray;
-            dtgVencimientos.Location = new Point(27, 14);
+            dtgVencimientos.Location = new Point(16, 14);
             dtgVencimientos.Name = "dtgVencimientos";
             dtgVencimientos.ReadOnly = true;
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVencimientos.Size = new Size(895, 504);
+            dtgVencimientos.Size = new Size(1072, 504);
             dtgVencimientos.TabIndex = 4;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(192, 202, 212);
             panel1.Controls.Add(dtgVencimientos);
             panel1.Location = new Point(14, 231);
             panel1.Name = "panel1";
-            panel1.Size = new Size(952, 539);
+            panel1.Size = new Size(1106, 539);
             panel1.TabIndex = 6;
             // 
             // iconPictureBox1
@@ -193,35 +192,12 @@
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
             // 
-            // ibtnEditar
-            // 
-            ibtnEditar.Anchor = AnchorStyles.Top;
-            ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
-            ibtnEditar.FlatAppearance.BorderSize = 0;
-            ibtnEditar.FlatStyle = FlatStyle.Flat;
-            ibtnEditar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            ibtnEditar.ForeColor = Color.White;
-            ibtnEditar.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            ibtnEditar.IconColor = Color.White;
-            ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnEditar.IconSize = 25;
-            ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(972, 231);
-            ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(157, 37);
-            ibtnEditar.TabIndex = 41;
-            ibtnEditar.Text = "VER";
-            ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtnEditar.UseVisualStyleBackColor = false;
-            ibtnEditar.Click += ibtnEditar_Click;
-            // 
             // FrmVencimientos
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1132, 796);
-            Controls.Add(ibtnEditar);
             Controls.Add(iconPictureBox1);
             Controls.Add(label2);
             Controls.Add(ibtnBuscar);
@@ -252,6 +228,5 @@
         private Label label3;
         private Clases.RoundedButton roundedButton3;
         private Clases.RoundedButton roundedButton5;
-        private FontAwesome.Sharp.IconButton ibtnEditar;
     }
 }
