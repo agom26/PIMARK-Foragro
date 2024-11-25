@@ -182,6 +182,7 @@
             tabPageRegistradasList.Size = new Size(1161, 794);
             tabPageRegistradasList.TabIndex = 0;
             tabPageRegistradasList.UseVisualStyleBackColor = true;
+            tabPageRegistradasList.Click += tabPageRegistradasList_Click;
             // 
             // label28
             // 
