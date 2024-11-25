@@ -452,7 +452,7 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
                             SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
-                            AgregarRenovacion.fechaVencimientoAntigua=(DateTime)SeleccionarMarca.fechaVencimiento;
+                            AgregarRenovacion.fechaVencimientoAntigua = (DateTime)SeleccionarMarca.fechaVencimiento;
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
@@ -516,7 +516,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
 
-                
+
                 Invoke(new Action(() =>
                 {
                     dtgHistorialR.AutoGenerateColumns = true;
@@ -581,7 +581,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        
+
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
@@ -938,6 +938,35 @@ namespace Presentacion.Marcas_Nacionales
 
                 }
 
+            }
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtBuscar.Text != "")
+            {
+                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnTramiteDeRenovacion(txtBuscar.Text);
+                if (marcas.Rows.Count > 0)
+                {
+                    dtgMarcasRenov.DataSource = marcas;
+
+                    if (dtgMarcasRenov.Columns["id"] != null)
+                    {
+                        dtgMarcasRenov.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasRenov.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    LoadMarcas();
+                }
+
+            }
+            else
+            {
+                LoadMarcas();
             }
         }
     }

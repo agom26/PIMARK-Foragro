@@ -111,6 +111,7 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
+
         
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {
@@ -139,8 +140,35 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
+        
 
+            public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasEnRenovacion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
 
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
         public DataTable GetAllMarcasNacionalesEnTramite()
         {
             DataTable tabla = new DataTable();
