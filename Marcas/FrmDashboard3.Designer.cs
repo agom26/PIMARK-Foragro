@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel2 = new Panel();
             roundedButton3 = new Clases.RoundedButton();
@@ -128,14 +128,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -267,33 +267,35 @@
             // 
             // panel3
             // 
-            panel3.Anchor = AnchorStyles.Top;
+            panel3.Anchor = AnchorStyles.None;
             panel3.Controls.Add(panel6);
             panel3.Controls.Add(iconPictureBox2);
             panel3.Controls.Add(roundedButton5);
-            panel3.Location = new Point(368, 3);
+            panel3.Location = new Point(368, 13);
             panel3.Name = "panel3";
             panel3.Size = new Size(221, 248);
             panel3.TabIndex = 13;
             // 
             // panel6
             // 
+            panel6.Anchor = AnchorStyles.None;
             panel6.BackColor = Color.FromArgb(38, 166, 154);
             panel6.Controls.Add(label2);
-            panel6.Location = new Point(3, 188);
+            panel6.Location = new Point(0, 188);
             panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Size = new Size(213, 37);
+            panel6.Size = new Size(221, 37);
             panel6.TabIndex = 7;
             panel6.Click += panel6_Click;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(38, 166, 154);
             label2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(64, 9);
+            label2.Location = new Point(68, 9);
             label2.Name = "label2";
             label2.Size = new Size(87, 19);
             label2.TabIndex = 1;
@@ -302,34 +304,36 @@
             // 
             // iconPictureBox2
             // 
+            iconPictureBox2.Anchor = AnchorStyles.None;
             iconPictureBox2.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox2.ForeColor = Color.FromArgb(38, 166, 154);
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
             iconPictureBox2.IconColor = Color.FromArgb(38, 166, 154);
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 163;
-            iconPictureBox2.Location = new Point(25, 31);
+            iconPictureBox2.IconSize = 169;
+            iconPictureBox2.Location = new Point(26, 39);
             iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(165, 163);
+            iconPictureBox2.Size = new Size(169, 170);
             iconPictureBox2.TabIndex = 4;
             iconPictureBox2.TabStop = false;
+            iconPictureBox2.UseGdi = true;
             iconPictureBox2.Click += iconPictureBox2_Click;
             // 
             // roundedButton5
             // 
-            roundedButton5.Anchor = AnchorStyles.Top;
             roundedButton5.AutoSize = true;
             roundedButton5.BackColor = Color.FromArgb(222, 227, 234);
             roundedButton5.BackgroundColor = Color.FromArgb(222, 227, 234);
             roundedButton5.BorderColor = Color.Empty;
             roundedButton5.BorderRadius = 40;
             roundedButton5.BorderSize = 0;
+            roundedButton5.Dock = DockStyle.Fill;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(2, 3);
+            roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(214, 242);
+            roundedButton5.Size = new Size(221, 248);
             roundedButton5.TabIndex = 1;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -337,33 +341,35 @@
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Top;
+            panel4.Anchor = AnchorStyles.None;
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(iconPictureBox1);
             panel4.Controls.Add(roundedButton4);
-            panel4.Location = new Point(49, 3);
+            panel4.Location = new Point(49, 13);
             panel4.Name = "panel4";
             panel4.Size = new Size(221, 248);
             panel4.TabIndex = 12;
             // 
             // panel5
             // 
+            panel5.Anchor = AnchorStyles.None;
             panel5.BackColor = Color.FromArgb(60, 120, 172);
             panel5.Controls.Add(label1);
-            panel5.Location = new Point(4, 188);
+            panel5.Location = new Point(0, 188);
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
-            panel5.Size = new Size(214, 37);
+            panel5.Size = new Size(221, 37);
             panel5.TabIndex = 7;
             panel5.Click += panel5_Click;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(60, 120, 172);
             label1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 9);
+            label1.Location = new Point(10, 9);
             label1.Name = "label1";
             label1.Size = new Size(200, 18);
             label1.TabIndex = 1;
@@ -372,17 +378,19 @@
             // 
             // iconPictureBox1
             // 
+            iconPictureBox1.Anchor = AnchorStyles.None;
             iconPictureBox1.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox1.ForeColor = Color.FromArgb(60, 120, 172);
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FileContract;
             iconPictureBox1.IconColor = Color.FromArgb(60, 120, 172);
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 163;
-            iconPictureBox1.Location = new Point(26, 31);
+            iconPictureBox1.IconSize = 169;
+            iconPictureBox1.Location = new Point(26, 39);
             iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(165, 163);
+            iconPictureBox1.Size = new Size(169, 170);
             iconPictureBox1.TabIndex = 4;
             iconPictureBox1.TabStop = false;
+            iconPictureBox1.UseGdi = true;
             iconPictureBox1.Click += iconPictureBox1_Click;
             // 
             // roundedButton4
@@ -393,12 +401,13 @@
             roundedButton4.BorderColor = Color.Empty;
             roundedButton4.BorderRadius = 40;
             roundedButton4.BorderSize = 0;
+            roundedButton4.Dock = DockStyle.Fill;
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(4, 3);
+            roundedButton4.Location = new Point(0, 0);
             roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(214, 242);
+            roundedButton4.Size = new Size(221, 248);
             roundedButton4.TabIndex = 1;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
@@ -406,33 +415,35 @@
             // 
             // panel7
             // 
-            panel7.Anchor = AnchorStyles.Top;
+            panel7.Anchor = AnchorStyles.None;
             panel7.Controls.Add(panel8);
             panel7.Controls.Add(iconPictureBox3);
             panel7.Controls.Add(roundedButton6);
-            panel7.Location = new Point(687, 3);
+            panel7.Location = new Point(687, 13);
             panel7.Name = "panel7";
             panel7.Size = new Size(221, 248);
             panel7.TabIndex = 14;
             // 
             // panel8
             // 
+            panel8.Anchor = AnchorStyles.None;
             panel8.BackColor = Color.FromArgb(255, 183, 77);
             panel8.Controls.Add(label3);
-            panel8.Location = new Point(3, 188);
+            panel8.Location = new Point(0, 188);
             panel8.Margin = new Padding(3, 4, 3, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(214, 37);
+            panel8.Size = new Size(221, 37);
             panel8.TabIndex = 7;
             panel8.Click += panel8_Click;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(255, 183, 77);
             label3.Font = new Font("Century Gothic", 8F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 12);
+            label3.Location = new Point(10, 10);
             label3.Name = "label3";
             label3.Size = new Size(203, 17);
             label3.TabIndex = 1;
@@ -441,17 +452,19 @@
             // 
             // iconPictureBox3
             // 
+            iconPictureBox3.Anchor = AnchorStyles.None;
             iconPictureBox3.BackColor = Color.FromArgb(201, 211, 221);
             iconPictureBox3.ForeColor = Color.FromArgb(255, 183, 77);
             iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconPictureBox3.IconColor = Color.FromArgb(255, 183, 77);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 163;
-            iconPictureBox3.Location = new Point(25, 31);
+            iconPictureBox3.IconSize = 169;
+            iconPictureBox3.Location = new Point(26, 39);
             iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(165, 163);
+            iconPictureBox3.Size = new Size(169, 170);
             iconPictureBox3.TabIndex = 4;
             iconPictureBox3.TabStop = false;
+            iconPictureBox3.UseGdi = true;
             iconPictureBox3.Click += iconPictureBox3_Click;
             // 
             // roundedButton6
@@ -462,12 +475,13 @@
             roundedButton6.BorderColor = Color.Empty;
             roundedButton6.BorderRadius = 40;
             roundedButton6.BorderSize = 0;
+            roundedButton6.Dock = DockStyle.Fill;
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.ForeColor = Color.White;
-            roundedButton6.Location = new Point(3, 3);
+            roundedButton6.Location = new Point(0, 0);
             roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(214, 242);
+            roundedButton6.Size = new Size(221, 248);
             roundedButton6.TabIndex = 1;
             roundedButton6.TextColor = Color.White;
             roundedButton6.UseVisualStyleBackColor = false;
