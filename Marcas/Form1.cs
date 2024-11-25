@@ -332,7 +332,7 @@ namespace Presentacion
         private async void iconButton1_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmReportes());
+            openChildForm(new FrmReportesMarcasPatentes());
             await Task.Delay(1000);
             EnableButtons();
         }

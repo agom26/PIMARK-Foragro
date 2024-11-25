@@ -14,6 +14,7 @@
     <PackageOutputPath>D:\</PackageOutputPath>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <PackageIcon>WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg</PackageIcon>
+    <ReferencePath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win64_x64\dotnet\</ReferencePath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -182,6 +183,10 @@
     <Reference Include="Bunifu.Licensing">
       <HintPath>Libs\Bunifu.Licensing.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{c0c07587-41a7-46c8-8fbd-3f9c8ebe2ddc}" />
   </ItemGroup>
 
 </Project>
