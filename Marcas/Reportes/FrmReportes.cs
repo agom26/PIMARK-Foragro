@@ -166,7 +166,7 @@ namespace Presentacion.Reportes
             }
 
             if (algunValor == true)
-            {
+            {/*
                 // Llamada al método FiltrarMarcas con los parámetros procesados
                 DataTable resultados = marcaModel.FiltrarMarcas(
                     estado, nombre, pais, folio, tomo, numRegistro, clase, titular, agente,
@@ -177,7 +177,7 @@ namespace Presentacion.Reportes
                 {
                     dtgReportes.Columns["id"].Visible = false;
                 }
-                dtgReportes.ClearSelection();
+                dtgReportes.ClearSelection();*/
                 
             }
             else

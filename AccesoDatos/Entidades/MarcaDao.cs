@@ -11,38 +11,40 @@ namespace AccesoDatos.Entidades
     public class MarcaDao:ConnectionSQL
     {
 
-        public DataTable FiltrarMarcas(
-        string estado, string nombre, string pais, string folio, string libro,
-        string registro, string clase, string titular, string agente,
+        public DataTable Filtrar(string tipo_filtro,
+        string? estado, string? nombre, string? pais, string? folio, string? libro,
+        string? registro, string? clase, 
         string? fechaSolicitudInicio, string? fechaSolicitudFin,
         string? fechaRegistroInicio, string? fechaRegistroFin,
-        string? fechaVencimientoInicio, string? fechaVencimientoFin)
+        string? fechaVencimientoInicio, string? fechaVencimientoFin,
+        string? titular, string? agente,string? cliente)
         {
             DataTable dataTable = new DataTable();
 
             using (MySqlConnection conexion = GetConnection())
             {
                 conexion.Open();
-                using (MySqlCommand cmd = new MySqlCommand("FiltrarMarcas", conexion))
+                using (MySqlCommand cmd = new MySqlCommand("Filtrar", conexion))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                   
-                    cmd.Parameters.AddWithValue("p_estado", estado ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("tipo_filtro", tipo_filtro);
+                    cmd.Parameters.AddWithValue("estado_filtro", estado ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_nombre", nombre ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_pais", pais ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_folio", folio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_libro", libro ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_tomo", libro ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_registro", registro ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("P_solicitud_inicio", fechaSolicitudInicio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_solicitud_fin", fechaSolicitudFin ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_registro_inicio", fechaRegistroInicio?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_registro_fin", fechaRegistroFin?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_vencimiento_inicio", fechaVencimientoInicio ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_vencimiento_fin", fechaVencimientoFin ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_agente", agente ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaSolicitudInicio", fechaSolicitudInicio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaSolicitudFin", fechaSolicitudFin ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaRegistroInicio", fechaRegistroInicio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaRegistroFin", fechaRegistroFin ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaVencimientoInicio", fechaVencimientoInicio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_fechaVencimientoFin", fechaVencimientoFin ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_cliente", titular ?? (object)DBNull.Value);
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                     {

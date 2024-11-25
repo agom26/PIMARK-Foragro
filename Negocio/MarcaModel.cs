@@ -142,18 +142,21 @@ namespace Dominio
             return marcaDao.EditarMarcaInternacionalRegistrada(id, expediente, nombre, signoDistintivo, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fechaRegistro, fechaVencimiento, erenov, etrasp);
         }
 
-        public DataTable FiltrarMarcas(
-        string estado, string nombre, string pais, string folio, string libro,
-        string registro, string clase, string titular, string agente,
+        public DataTable Filtrar(
+        string tipo_filtro,
+        string? estado, string? nombre, string? pais, string? folio, string? libro,
+        string? registro, string? clase,
         string? fechaSolicitudInicio, string? fechaSolicitudFin,
         string? fechaRegistroInicio, string? fechaRegistroFin,
-        string? fechaVencimientoInicio, string? fechaVencimientoFin)
+        string? fechaVencimientoInicio, string? fechaVencimientoFin,
+        string? titular, string? agente, string? cliente)
         {
-            return marcaDao.FiltrarMarcas(
-                estado, nombre, pais, folio, libro, registro, clase, titular, agente,
+            return marcaDao.Filtrar(
+                tipo_filtro, estado, nombre, pais, folio, libro, registro, clase,
                 fechaSolicitudInicio, fechaSolicitudFin,
                 fechaRegistroInicio, fechaRegistroFin,
-                fechaVencimientoInicio, fechaVencimientoFin);
+                fechaVencimientoInicio, fechaVencimientoFin,
+                 titular, agente,cliente);
         }
 
 
