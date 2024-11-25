@@ -15,11 +15,14 @@ using System.Windows.Forms;
 using PuppeteerSharp;
 using System.Diagnostics;
 using PuppeteerSharp.Media;
+using System.Security.RightsManagement;
 
 namespace Presentacion.Reportes
 {
     public partial class FrmReportesMarcasPatentes : Form
     {
+        public int numRegistros = 0;
+        public float escala = 0;
         MarcaModel marcamodel = new MarcaModel();
         public FrmReportesMarcasPatentes()
         {
@@ -31,7 +34,7 @@ namespace Presentacion.Reportes
             SeleccionarPersonaReportes.LimpiarAgente();
 
         }
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt)
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt,int registrosPagina,float escalas)
         {
             // Ruta al ejecutable de Chrome en tu sistema
             string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
@@ -55,71 +58,133 @@ namespace Presentacion.Reportes
                 // Crea una nueva página
                 var page = await browser.NewPageAsync();
 
-                // Obtener el contenido de la tabla desde el DataTable
-                string tableContent = "";
-                foreach (DataColumn column in dt.Columns)
-                {
-                    tableContent += $"<th>{column.ColumnName}</th>"; // Cabecera de la tabla
-                }
+                // Límite de registros por página (12 registros por página)
+                int registrosPorPagina = registrosPagina;
+                int totalPaginas = (int)Math.Ceiling((double)dt.Rows.Count / registrosPorPagina);
 
-                foreach (DataRow row in dt.Rows)
+                // Crear el contenido HTML completo para todo el PDF
+                string fullHtmlContent = "";
+
+                // Recorrer las páginas y generar el contenido HTML para cada una
+                for (int pagina = 0; pagina < totalPaginas; pagina++)
                 {
-                    tableContent += "<tr>";
+                    // Crear el contenido de la tabla para la página actual
+                    string tableContent = "";
+                    int startRecord = pagina * registrosPorPagina;
+                    int endRecord = Math.Min((pagina + 1) * registrosPorPagina, dt.Rows.Count);
+
+                    // Crear las filas para la tabla
+                    for (int i = startRecord; i < endRecord; i++)
+                    {
+                        DataRow row = dt.Rows[i];
+                        tableContent += "<tr>";
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            tableContent += $"<td style='padding: 8px; text-align: left; border: 1px solid #ddd;'>{row[column]}</td>";
+                        }
+                        tableContent += "</tr>";
+                    }
+
+                    // Generar los encabezados de la tabla dinámicamente basados en las columnas del DataTable
+                    string headers = "";
                     foreach (DataColumn column in dt.Columns)
                     {
-                        tableContent += $"<td>{row[column]}</td>"; // Datos de la fila
+                        headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
                     }
-                    tableContent += "</tr>";
+
+                    // HTML con el logo y el título "Reportes" en el header
+                    fullHtmlContent += $@"
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                        }}
+                        table {{ border-collapse: collapse; width: 100%; }}
+                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                        th {{ background-color: #f2f2f2; font-weight: bold; }}
+                        img {{
+                            width: 200px; /* Tamaño del logo */
+                            height: auto; /* Altura automática */
+                        }}
+                        @page {{
+                            size: legal landscape; /* Configura tamaño legal y orientación horizontal */
+                            margin: 20mm;
+                        }}
+                        table {{
+                            page-break-inside: auto;
+                        }}
+                        tr {{
+                            page-break-inside: avoid;
+                        }}
+                        td {{
+                            page-break-before: auto;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            position: fixed;
+                            bottom: 10mm;
+                            left: 0;
+                            right: 0;
+                            font-size: 10px;
+                        }}
+                        .header {{
+                            text-align: center;
+                            font-size: 20px;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class='header'>
+                        Reportes
+                    </div>
+                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
+                    <table>
+                        <thead>
+                            <tr>
+                                {headers} <!-- Encabezados generados dinámicamente -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableContent} <!-- Las filas generadas dinámicamente -->
+                        </tbody>
+                    </table>
+                    <div style='page-break-before: always;'></div> <!-- Salto de página para separar los contenidos -->
+                </body>
+            </html>";
                 }
 
-                // HTML que deseas convertir a PDF con el logo y DataTable
-                string html = $@"
-        <html>
-            <head>
-                <style>
-                    table {{ border-collapse: collapse; width: 100%; }}
-                    th, td {{ border: 1px solid black; padding: 8px; text-align: left; }}
-                    th {{ background-color: #f2f2f2; }}
-                    img {{ width: 100px; height: 50px; }}
-                </style>
-            </head>
-            <body>
-                <h1>Reporte de Marcas y Patentes</h1>
-                <img src='cid:logo' /> <!-- Aquí el logo -->
-                <table>
-                    <thead>
-                        <tr>
-                            {tableContent} <!-- Agregar las filas generadas dinámicamente -->
-                        </tr>
-                    </thead>
-                </table>
-            </body>
-        </html>";
+                // Establecer el contenido HTML completo para el PDF
+                await page.SetContentAsync(fullHtmlContent);
 
-                // Establecer el contenido HTML
-                await page.SetContentAsync(html);
-
-                // Generar el PDF en la ruta seleccionada por el usuario
+                // Ruta para guardar el PDF
                 string pdfFilePath = saveFileDialog.FileName;
 
-                // Generar el PDF
+                // Generar el PDF para todo el contenido
                 await page.PdfAsync(pdfFilePath, new PdfOptions
                 {
-                    Format = PaperFormat.A4,  // Tamaño A4
-                    PrintBackground = true    // Incluir el fondo en la impresión
+                    Format = PaperFormat.Legal,      // Tamaño oficio
+                    PrintBackground = true,         // Incluir fondo
+                    Landscape = true,               // Orientación horizontal
+                    Scale = (Decimal)escalas           // Reducir la escala para ajustar mejor
                 });
 
                 // Cerrar el navegador
                 await browser.CloseAsync();
 
                 // Confirmar que el PDF se ha generado
-                MessageBox.Show($"PDF generado: {pdfFilePath}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+
 
 
         public void ExportarDataTableAExcel(DataTable dataTable)
@@ -193,15 +258,23 @@ namespace Presentacion.Reportes
             {
                 case 0:
                     objeto = "nacional";
+                    numRegistros = 11;
+                    escala = 0.85f;
                     break;
                 case 1:
                     objeto = "internacional";
+                    numRegistros = 15;
+                    escala = 0.75f;
                     break;
                 case 2:
                     objeto = "marca";
+                    numRegistros = 15;
+                    escala = 0.75f;
                     break;
                 case 3:
                     objeto = "patentes";
+                    numRegistros = 15;
+                    escala = 0.7f;
                     break;
             }
 
@@ -478,7 +551,7 @@ namespace Presentacion.Reportes
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos);
+                CrearPdfDesdeHtmlConLogoYDataTable(datos,numRegistros,escala);
             }
             else
             {
