@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
@@ -138,7 +139,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 using (var ms = new MemoryStream(logo))
                 {
-                    pictureBox1.Image = Image.FromStream(ms);
+                    pictureBox1.Image = System.Drawing.Image.FromStream(ms);
                 }
             }
             else
@@ -162,8 +163,8 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(83, 960);
-                btnCancelarM.Location = new Point(399, 960);
+                btnActualizarM.Location = new Point(83, panel3.Location.Y);
+                btnCancelarM.Location = new Point(399, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()

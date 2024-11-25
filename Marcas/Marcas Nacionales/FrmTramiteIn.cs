@@ -247,8 +247,8 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(105, 950);
-                btnCancelarM.Location = new Point(413, 950);
+                btnGuardarM.Location = new Point(105, panel2I.Location.Y);
+                btnCancelarM.Location = new Point(413, panel2I.Location.Y);
             }
         }
 

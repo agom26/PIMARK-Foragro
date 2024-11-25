@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
@@ -166,9 +167,9 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(55, 960);
-                btnTraspasar.Location = new Point(288, 960);
-                btnCancelarM.Location = new Point(520, 960);
+                btnActualizarM.Location = new Point(55, panel3.Location.Y);
+                btnTraspasar.Location = new Point(288, panel3.Location.Y);
+                btnCancelarM.Location = new Point(520, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()

@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Nacionales
@@ -176,8 +177,8 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(176, 960);
-                btnCancelarM.Location = new Point(389, 960);
+                btnActualizarM.Location = new Point(176, panel3.Location.Y);
+                btnCancelarM.Location = new Point(389, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -186,8 +187,8 @@ namespace Presentacion.Marcas_Nacionales
             DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
             dateTimePFecha_vencimiento.Value = fecha_vencimiento;
         }
-        
-       
+
+
         private bool ValidarCampo(string campo, string mensaje)
         {
 
@@ -321,10 +322,10 @@ namespace Presentacion.Marcas_Nacionales
             {
                 FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE TRASPASO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                
+
                 return;
             }
-            
+
             try
             {
 
@@ -343,7 +344,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
-                if (esActualizado==true)
+                if (esActualizado == true)
                 {
                     // Verificar si la actualización fue exitosa
                     if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
@@ -840,9 +841,9 @@ namespace Presentacion.Marcas_Nacionales
                     await CargarDatosMarca();
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente>0)
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente > 0)
                     {
-                        txtERenovacion.Text=AgregarEtapa.numExpediente.ToString();  
+                        txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente > 0)
@@ -855,7 +856,7 @@ namespace Presentacion.Marcas_Nacionales
                         txtERenovacion.Enabled = false;
                         txtETraspaso.Enabled = false;
                     }
-                    
+
 
                 }
                 catch (Exception ex)
@@ -1230,7 +1231,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
                         //Asignar valores a controles
                         txtNoExpediente.Text = SeleccionarRenovacion.NumExpediente;
-                        
+
                         dateFechVencAnt.Value = SeleccionarRenovacion.Venc_antiguo;
                         dateFechVencNueva.Value = SeleccionarRenovacion.Venc_nuevo;
 
@@ -1253,8 +1254,8 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
             string numExpediente = txtNoExpediente.Text;
-           
-            
+
+
             DateTime fechaVencimientoA = dateFechVencAnt.Value;
             DateTime fechaVencimientoN = dateFechVencNueva.Value;
             int id = SeleccionarRenovacion.idRenovacion;
@@ -1277,7 +1278,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.Show();
-                   //MessageBox.Show("No se pudo actualizar el registro de renovación.");
+                    //MessageBox.Show("No se pudo actualizar el registro de renovación.");
                 }
             }
             else
@@ -1502,6 +1503,35 @@ namespace Presentacion.Marcas_Nacionales
 
                 }
 
+            }
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtBuscar.Text != "")
+            {
+                DataTable marcas = marcaModel.FiltrarMarcasNacionalesRegistradas(txtBuscar.Text);
+                if (marcas.Rows.Count > 0)
+                {
+                    dtgMarcasR.DataSource = marcas;
+
+                    if (dtgMarcasR.Columns["id"] != null)
+                    {
+                        dtgMarcasR.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasR.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    LoadMarcas();
+                }
+
+            }
+            else
+            {
+                LoadMarcas();
             }
         }
     }

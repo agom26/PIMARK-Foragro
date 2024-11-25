@@ -106,7 +106,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = false;
                 panel3.Visible = false;
                 //btnActualizar.Location = new Point(47, 960);
-                btnCancelarM.Location = new Point(254, 960);
+                btnCancelarM.Location = new Point(254, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -495,6 +495,11 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
