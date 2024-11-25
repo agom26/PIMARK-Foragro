@@ -44,7 +44,7 @@ namespace AccesoDatos.Entidades
                     cmd.Parameters.AddWithValue("p_vencimiento_fin", fechaVencimientoFin ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("p_agente", agente ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_cliente", titular ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_cliente", cliente ?? (object)DBNull.Value);
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                     {

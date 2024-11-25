@@ -1,0 +1,147 @@
+﻿using Comun.Cache;
+using Dominio;
+using Presentacion.Alertas;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Presentacion.Reportes
+{
+    public partial class FrmMostrarAgentesReportes : Form
+    {
+        PersonaModel personaModel = new PersonaModel();
+        public FrmMostrarAgentesReportes()
+        {
+            InitializeComponent();
+            this.Load += FrmMostrarAgentesReportes_Load; 
+        }
+
+        private void MostrarTitulares()
+        {
+            dtgAgentes.DataSource = personaModel.GetAllAgentes();
+            
+            if (dtgAgentes.Columns["id"] != null)
+            {
+                dtgAgentes.Columns["id"].Visible = false;
+                dtgAgentes.ClearSelection();
+            }
+        }
+
+        private void LoadAgentes()
+        {
+
+
+            // Obtiene los agentes
+            var titulares = personaModel.GetAllAgentes();
+
+            Invoke(new Action(() =>
+            {
+                dtgAgentes.DataSource = titulares;
+
+                if (dtgAgentes.Columns["id"] != null)
+                {
+                    dtgAgentes.Columns["id"].Visible = false;
+                }
+
+
+            }));
+        }
+
+
+
+
+        private async void FrmMostrarAgentesReportes_Load(object sender, EventArgs e)
+        {
+            // Cargar usuarios en segundo plano
+            await Task.Run(() => LoadAgentes());
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            SeleccionarPersonaReportes.LimpiarAgente();
+           
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SeleccionarPersonaReportes.LimpiarAgente();
+            this.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            string valor = "%" + txtBuscar.Text + "%";
+            var agentes = personaModel.GetAgenteByValue(valor);
+
+            if (agentes != null)
+            {
+                dtgAgentes.DataSource = agentes;
+                if (dtgAgentes.Columns["id"] != null)
+                {
+                    dtgAgentes.Columns["id"].Visible = false;
+                    dtgAgentes.Columns["tipo"].Visible = false;
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRARON RESULTADOS PARA LA BÚSQUEDA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No se encontraron resultados para la búsqueda.");
+            }
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            if (dtgAgentes.RowCount <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (dtgAgentes.SelectedRows.Count > 0) 
+            {
+                
+                var filaSeleccionada = dtgAgentes.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                  
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarPersonaReportes.idAgente= id;
+
+                  
+                    var detallesAgente = personaModel.GetPersonaById(id);
+                    if (detallesAgente.Count > 0)
+                    {
+                       SeleccionarPersonaReportes.nombreAgente=detallesAgente[0].nombre;
+                        //MessageBox.Show("ID seleccionado: " + SeleccionarPersona.idPersona);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del agente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    this.Close(); 
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+    }
+}

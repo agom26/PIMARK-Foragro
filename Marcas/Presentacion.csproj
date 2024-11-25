@@ -140,6 +140,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Reportes\FrmMostrarAgentesReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmMostrarClientesReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmMostrarTitularesReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Resource1.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

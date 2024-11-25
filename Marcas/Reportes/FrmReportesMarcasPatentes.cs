@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using Comun.Cache;
+using Dominio;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -259,6 +260,51 @@ namespace Presentacion.Reportes
         {
             dtgReportes.DataSource = null;
             dtgReportes.ClearSelection();
+        }
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesReportes frmMostrarTitulares = new FrmMostrarTitularesReportes();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreTitular != "")
+            {
+                richTextBoxTitular.Text = SeleccionarPersonaReportes.nombreTitular;
+            }
+            else
+            {
+                richTextBoxTitular.Text = "";
+            }
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentesReportes frmMostrarAgentes = new FrmMostrarAgentesReportes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreAgente != "")
+            {
+                richTextBoxAgente.Text = SeleccionarPersonaReportes.nombreAgente;
+            }
+            else
+            {
+                richTextBoxAgente.Text = "";
+            }
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+            FrmMostrarClientesReportes frmMostrarClientes = new FrmMostrarClientesReportes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreCliente != "")
+            {
+                richTextBoxCliente.Text = SeleccionarPersonaReportes.nombreCliente;
+            }
+            else
+            {
+                richTextBoxCliente.Text = "";
+            }
         }
     }
 }
