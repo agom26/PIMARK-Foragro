@@ -203,13 +203,14 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Validar que el expediente, clase, folio, registro y libro sean enteros
-            if (!int.TryParse(expediente, out _) ||
+            if (
                 !int.TryParse(clase, out _) ||
                 (registroChek && !int.TryParse(registro, out _)) ||
                 (registroChek && !int.TryParse(folio, out _)) ||
                 (registroChek && !int.TryParse(libro, out _)))
             {
-                MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("LA CLASE, FOLIO, REGISTRO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
                 return false;
             }
 
@@ -234,7 +235,7 @@ namespace Presentacion.Marcas_Nacionales
                 // Validar campos adicionales para marcas registradas
                 if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
                     !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de libro.")
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
                     )
                 {
                     return false;

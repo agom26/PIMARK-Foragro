@@ -365,8 +365,8 @@ namespace Presentacion.Personas
                 string.IsNullOrWhiteSpace(txtNitTitular.Text) ||
                 string.IsNullOrWhiteSpace(pais) ||
                 string.IsNullOrWhiteSpace(txtCorreoContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
-                string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
+                string.IsNullOrWhiteSpace(txtNombreContacto.Text)
+                )
             {
                 MessageBox.Show("Los campos no pueden estar vacíos.");
             }
@@ -394,7 +394,7 @@ namespace Presentacion.Personas
                             txtNitTitular.Text,
                             pais,
                             txtCorreoContacto.Text,
-                            txtTelefonoContacto.Text,
+                            telefono,
                             txtNombreContacto.Text));
 
                         if (update)
