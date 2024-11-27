@@ -158,18 +158,18 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizarM.Location = new Point(55, panel3.Location.Y + panel3.Height + 10);
-                btnTraspasar.Location = new Point(288, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(520, panel3.Location.Y + panel3.Height + 10);
+                //btnActualizarM.Location = new Point(55, panel3.Location.Y + panel3.Height + 10);
+                //btnTraspasar.Location = new Point(288, panel3.Location.Y + panel3.Height + 10);
+                //btnCancelarM.Location = new Point(520, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(55, panel3.Location.Y);
-                btnTraspasar.Location = new Point(288, panel3.Location.Y);
-                btnCancelarM.Location = new Point(520, panel3.Location.Y);
+                //btnActualizarM.Location = new Point(55, panel3.Location.Y);
+                //btnTraspasar.Location = new Point(288, panel3.Location.Y);
+                //btnCancelarM.Location = new Point(520, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -570,8 +570,7 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
-
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
@@ -580,6 +579,10 @@ namespace Presentacion.Marcas_Nacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
 
@@ -969,6 +972,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 LoadMarcas();
             }
+        }
+
+        private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }

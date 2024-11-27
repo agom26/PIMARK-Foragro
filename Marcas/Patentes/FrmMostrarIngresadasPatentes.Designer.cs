@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
             label28 = new Label();
@@ -53,6 +53,7 @@
             dtgPatentes = new DataGridView();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            checkBox2 = new CheckBox();
             btnCancelarM = new FontAwesome.Sharp.IconButton();
             btnGuardarM = new FontAwesome.Sharp.IconButton();
             roundedButton8 = new Clases.RoundedButton();
@@ -117,7 +118,6 @@
             label23 = new Label();
             richTextBoxAnotacionesH = new RichTextBox();
             label25 = new Label();
-            checkBox2 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPageIngresadasList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -383,32 +383,32 @@
             dtgPatentes.AllowUserToAddRows = false;
             dtgPatentes.AllowUserToDeleteRows = false;
             dtgPatentes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 10F);
-            dtgPatentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 10F);
+            dtgPatentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dtgPatentes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgPatentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgPatentes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgPatentes.BorderStyle = BorderStyle.None;
             dtgPatentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgPatentes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Control;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dtgPatentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgPatentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgPatentes.ColumnHeadersHeight = 40;
             dtgPatentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Window;
-            dataGridViewCellStyle9.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dtgPatentes.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dtgPatentes.DefaultCellStyle = dataGridViewCellStyle3;
             dtgPatentes.EnableHeadersVisualStyles = false;
             dtgPatentes.GridColor = Color.LightGray;
             dtgPatentes.Location = new Point(25, 15);
@@ -416,20 +416,21 @@
             dtgPatentes.Name = "dtgPatentes";
             dtgPatentes.ReadOnly = true;
             dtgPatentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = SystemColors.Control;
-            dataGridViewCellStyle10.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
-            dtgPatentes.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgPatentes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgPatentes.RowHeadersWidth = 51;
-            dataGridViewCellStyle11.Font = new Font("Century Gothic", 10F);
-            dtgPatentes.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 10F);
+            dtgPatentes.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgPatentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgPatentes.Size = new Size(910, 513);
             dtgPatentes.TabIndex = 190;
+            dtgPatentes.CellDoubleClick += dtgPatentes_CellDoubleClick;
             // 
             // tabPageMarcaDetail
             // 
@@ -483,6 +484,17 @@
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 1;
             // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Century Gothic", 10F);
+            checkBox2.Location = new Point(137, 978);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(136, 25);
+            checkBox2.TabIndex = 207;
+            checkBox2.Text = "REGISTRADA";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
             // btnCancelarM
             // 
             btnCancelarM.BackColor = Color.Gainsboro;
@@ -493,9 +505,9 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(478, 1230);
+            btnCancelarM.Location = new Point(834, 1108);
             btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(259, 40);
+            btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 17;
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -513,9 +525,9 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(150, 1230);
+            btnGuardarM.Location = new Point(831, 1029);
             btnGuardarM.Name = "btnGuardarM";
-            btnGuardarM.Size = new Size(259, 40);
+            btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 15;
             btnGuardarM.Text = "ACTUALIZAR";
             btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -1028,14 +1040,14 @@
             dtgHistorial.BorderStyle = BorderStyle.None;
             dtgHistorial.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorial.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = SystemColors.Control;
-            dataGridViewCellStyle12.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle12.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            dtgHistorial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dtgHistorial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dtgHistorial.ColumnHeadersHeight = 40;
             dtgHistorial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorial.EnableHeadersVisualStyles = false;
@@ -1267,17 +1279,6 @@
             label25.Size = new Size(102, 20);
             label25.TabIndex = 13;
             label25.Text = "Anotaciones";
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Century Gothic", 10F);
-            checkBox2.Location = new Point(137, 978);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(136, 25);
-            checkBox2.TabIndex = 207;
-            checkBox2.Text = "REGISTRADA";
-            checkBox2.UseVisualStyleBackColor = true;
             // 
             // FrmMostrarIngresadasPatentes
             // 

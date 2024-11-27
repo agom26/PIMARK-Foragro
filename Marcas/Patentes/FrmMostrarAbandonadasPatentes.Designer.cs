@@ -38,17 +38,17 @@
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
-            panel9 = new Panel();
-            label2 = new Label();
-            textBox1 = new TextBox();
-            ibtnBuscar = new FontAwesome.Sharp.IconButton();
-            roundedButton3 = new Clases.RoundedButton();
             label28 = new Label();
             roundedButton2 = new Clases.RoundedButton();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             label29 = new Label();
             roundedButton4 = new Clases.RoundedButton();
+            panel9 = new Panel();
+            label2 = new Label();
+            textBox1 = new TextBox();
+            ibtnBuscar = new FontAwesome.Sharp.IconButton();
+            roundedButton3 = new Clases.RoundedButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
             dtgPatentes = new DataGridView();
@@ -62,7 +62,6 @@
             roundedButton9 = new Clases.RoundedButton();
             roundedButton10 = new Clases.RoundedButton();
             btnCancelarM = new FontAwesome.Sharp.IconButton();
-            btnGuardarM = new FontAwesome.Sharp.IconButton();
             roundedButton8 = new Clases.RoundedButton();
             dateTimePFecha_vencimiento = new DateTimePicker();
             lblVencimiento = new Label();
@@ -166,9 +165,9 @@
             label38 = new Label();
             tabControl1.SuspendLayout();
             tabPageIngresadasList.SuspendLayout();
-            panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
+            panel9.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgPatentes).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
@@ -217,13 +216,13 @@
             // tabPageIngresadasList
             // 
             tabPageIngresadasList.AutoScroll = true;
-            tabPageIngresadasList.Controls.Add(panel9);
             tabPageIngresadasList.Controls.Add(label28);
             tabPageIngresadasList.Controls.Add(roundedButton2);
             tabPageIngresadasList.Controls.Add(iconPictureBox3);
             tabPageIngresadasList.Controls.Add(iconPictureBox2);
             tabPageIngresadasList.Controls.Add(label29);
             tabPageIngresadasList.Controls.Add(roundedButton4);
+            tabPageIngresadasList.Controls.Add(panel9);
             tabPageIngresadasList.Controls.Add(ibtnEditar);
             tabPageIngresadasList.Controls.Add(panel4);
             tabPageIngresadasList.Location = new Point(4, 29);
@@ -232,77 +231,6 @@
             tabPageIngresadasList.Size = new Size(1161, 794);
             tabPageIngresadasList.TabIndex = 0;
             tabPageIngresadasList.UseVisualStyleBackColor = true;
-            // 
-            // panel9
-            // 
-            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel9.Controls.Add(label2);
-            panel9.Controls.Add(textBox1);
-            panel9.Controls.Add(ibtnBuscar);
-            panel9.Controls.Add(roundedButton3);
-            panel9.Location = new Point(23, 60);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(1130, 101);
-            panel9.TabIndex = 195;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(236, 236, 238);
-            label2.Font = new Font("Century Gothic", 10F);
-            label2.Location = new Point(289, 27);
-            label2.Name = "label2";
-            label2.Size = new Size(284, 21);
-            label2.TabIndex = 0;
-            label2.Text = "Buscar por nombre o expediente";
-            // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(289, 51);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 26);
-            textBox1.TabIndex = 1;
-            // 
-            // ibtnBuscar
-            // 
-            ibtnBuscar.Anchor = AnchorStyles.Top;
-            ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
-            ibtnBuscar.FlatAppearance.BorderSize = 0;
-            ibtnBuscar.FlatStyle = FlatStyle.Flat;
-            ibtnBuscar.Font = new Font("Century Gothic", 10F);
-            ibtnBuscar.ForeColor = Color.White;
-            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
-            ibtnBuscar.IconColor = Color.White;
-            ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(623, 37);
-            ibtnBuscar.Name = "ibtnBuscar";
-            ibtnBuscar.Size = new Size(144, 36);
-            ibtnBuscar.TabIndex = 16;
-            ibtnBuscar.Text = "BUSCAR";
-            ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtnBuscar.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton3
-            // 
-            roundedButton3.Anchor = AnchorStyles.Top;
-            roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderRadius = 60;
-            roundedButton3.BorderSize = 0;
-            roundedButton3.Enabled = false;
-            roundedButton3.FlatAppearance.BorderSize = 0;
-            roundedButton3.FlatStyle = FlatStyle.Flat;
-            roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(236, 25);
-            roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(560, 61);
-            roundedButton3.TabIndex = 22;
-            roundedButton3.TextColor = Color.White;
-            roundedButton3.UseVisualStyleBackColor = false;
             // 
             // label28
             // 
@@ -390,6 +318,77 @@
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
             // 
+            // panel9
+            // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel9.Controls.Add(label2);
+            panel9.Controls.Add(textBox1);
+            panel9.Controls.Add(ibtnBuscar);
+            panel9.Controls.Add(roundedButton3);
+            panel9.Location = new Point(23, 60);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(1130, 101);
+            panel9.TabIndex = 195;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.BackColor = Color.FromArgb(236, 236, 238);
+            label2.Font = new Font("Century Gothic", 10F);
+            label2.Location = new Point(289, 27);
+            label2.Name = "label2";
+            label2.Size = new Size(284, 21);
+            label2.TabIndex = 0;
+            label2.Text = "Buscar por nombre o expediente";
+            // 
+            // textBox1
+            // 
+            textBox1.Anchor = AnchorStyles.Top;
+            textBox1.Location = new Point(289, 51);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(301, 26);
+            textBox1.TabIndex = 1;
+            // 
+            // ibtnBuscar
+            // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
+            ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
+            ibtnBuscar.FlatAppearance.BorderSize = 0;
+            ibtnBuscar.FlatStyle = FlatStyle.Flat;
+            ibtnBuscar.Font = new Font("Century Gothic", 10F);
+            ibtnBuscar.ForeColor = Color.White;
+            ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            ibtnBuscar.IconColor = Color.White;
+            ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtnBuscar.IconSize = 30;
+            ibtnBuscar.Location = new Point(623, 37);
+            ibtnBuscar.Name = "ibtnBuscar";
+            ibtnBuscar.Size = new Size(144, 36);
+            ibtnBuscar.TabIndex = 16;
+            ibtnBuscar.Text = "BUSCAR";
+            ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtnBuscar.UseVisualStyleBackColor = false;
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.Anchor = AnchorStyles.Top;
+            roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
+            roundedButton3.BorderRadius = 60;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.Enabled = false;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.ForeColor = Color.White;
+            roundedButton3.Location = new Point(236, 25);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(560, 61);
+            roundedButton3.TabIndex = 22;
+            roundedButton3.TextColor = Color.White;
+            roundedButton3.UseVisualStyleBackColor = false;
+            // 
             // ibtnEditar
             // 
             ibtnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -472,6 +471,7 @@
             dtgPatentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgPatentes.Size = new Size(910, 513);
             dtgPatentes.TabIndex = 190;
+            dtgPatentes.CellDoubleClick += dtgPatentes_CellDoubleClick;
             // 
             // tabPageMarcaDetail
             // 
@@ -490,7 +490,6 @@
             panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(roundedButton10);
             panel1.Controls.Add(btnCancelarM);
-            panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(roundedButton8);
             panel1.Controls.Add(dateTimePFecha_vencimiento);
             panel1.Controls.Add(lblVencimiento);
@@ -629,34 +628,14 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(478, 1230);
+            btnCancelarM.Location = new Point(818, 1111);
             btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(259, 40);
+            btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 17;
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarM.UseVisualStyleBackColor = false;
             btnCancelarM.Click += btnCancelarM_Click;
-            // 
-            // btnGuardarM
-            // 
-            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardarM.FlatAppearance.BorderSize = 0;
-            btnGuardarM.FlatStyle = FlatStyle.Flat;
-            btnGuardarM.Font = new Font("Century Gothic", 12F);
-            btnGuardarM.ForeColor = Color.White;
-            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
-            btnGuardarM.IconColor = Color.White;
-            btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(150, 1230);
-            btnGuardarM.Name = "btnGuardarM";
-            btnGuardarM.Size = new Size(259, 40);
-            btnGuardarM.TabIndex = 15;
-            btnGuardarM.Text = "ACTUALIZAR";
-            btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnGuardarM.UseVisualStyleBackColor = false;
-            btnGuardarM.Click += btnGuardarM_Click;
             // 
             // roundedButton8
             // 
@@ -1953,10 +1932,10 @@
             tabControl1.ResumeLayout(false);
             tabPageIngresadasList.ResumeLayout(false);
             tabPageIngresadasList.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgPatentes).EndInit();
             tabPageMarcaDetail.ResumeLayout(false);
@@ -2012,7 +1991,6 @@
         private Panel panel4;
         private Panel panel1;
         private FontAwesome.Sharp.IconButton btnCancelarM;
-        private FontAwesome.Sharp.IconButton btnGuardarM;
         private DateTimePicker dateTimePFecha_vencimiento;
         private Label lblVencimiento;
         private CheckBox checkBox1;

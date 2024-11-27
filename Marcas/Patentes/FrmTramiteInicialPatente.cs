@@ -23,8 +23,6 @@ namespace Presentacion.Patentes
         {
             InitializeComponent();
             panel2I.Visible = false;
-            btnGuardarM.Location = new Point(197, 1050);
-            btnCancelarM.Location = new Point(525, 1050);
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
             ActualizarFechaVencimiento();
@@ -300,8 +298,8 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
-                btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
+                //btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
+                //btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
             }
             else
             {
@@ -310,8 +308,8 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(197, 1050);
-                btnCancelarM.Location = new Point(525, 1050);
+                //btnGuardarM.Location = new Point(197, 1050);
+                //btnCancelarM.Location = new Point(525, 1050);
             }
         }
 

@@ -95,8 +95,7 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
-                btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
-                btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
+               
             }
             else
             {
@@ -105,8 +104,7 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(150, 1050);
-                btnCancelarM.Location = new Point(478, 1050);
+               
             }
         }
         private async Task CargarDatosPatente()
@@ -232,7 +230,7 @@ namespace Presentacion.Patentes
                         }
                         bool contieneRegistrada = false;
 
-                        if (SeleccionarPatente.registro!="")
+                        if (SeleccionarPatente.registro != "")
                         {
                             contieneRegistrada = true;
                         }
@@ -308,7 +306,7 @@ namespace Presentacion.Patentes
                 mensajesError.Add("SELECCIONE UN ESTADO\n");
 
             // Validación de valores numéricos 
-           
+
             if (!int.TryParse(anualidad, out _))
                 mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
 
@@ -702,8 +700,7 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageTraspasoDetail);
 
         }
-
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        public async void Ver()
         {
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
@@ -711,6 +708,10 @@ namespace Presentacion.Patentes
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
             }
+        }
+        private async void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Ver();
         }
 
         private void btnGuardarM_Click(object sender, EventArgs e)
@@ -1304,6 +1305,11 @@ namespace Presentacion.Patentes
                 txtNombreAgente.Text = SeleccionarPersonaPatente.nombre;
 
             }
+        }
+
+        private void dtgPatentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Ver();
         }
     }
 }
