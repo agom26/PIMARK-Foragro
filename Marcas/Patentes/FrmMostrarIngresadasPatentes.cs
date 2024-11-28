@@ -91,12 +91,6 @@ namespace Presentacion.Patentes
                 checkBox2.Checked = true;
                 checkBox2.Enabled = false;
                 panel2I.Visible = true;
-<<<<<<< HEAD
-                //btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
-                //btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
-=======
-              
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
@@ -105,12 +99,6 @@ namespace Presentacion.Patentes
                 checkBox2.Enabled = false;
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
-<<<<<<< HEAD
-                //btnGuardarM.Location = new Point(150, 1050);
-                //btnCancelarM.Location = new Point(478, 1050);
-=======
-               
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private async Task CargarDatosPatente()

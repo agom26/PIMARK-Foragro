@@ -23,11 +23,6 @@ namespace Presentacion.Patentes
         {
             InitializeComponent();
             panel2I.Visible = false;
-<<<<<<< HEAD
-            //btnGuardarM.Location = new Point(197, 1050);
-            //btnCancelarM.Location = new Point(525, 1050);
-=======
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
             ActualizarFechaVencimiento();

@@ -36,12 +36,6 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
             SeleccionarMarca.idN = 0;
             panelRegistroI.Visible = false;
-<<<<<<< HEAD
-            //btnGuardarM.Location = new Point(59, 1050);
-            //btnCancelarM.Location = new Point(339, 1050);
-=======
-          
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
@@ -268,29 +262,13 @@ namespace Presentacion.Marcas_Internacionales
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
-<<<<<<< HEAD
                 panelRegistroI.Visible = true;
-                //btnGuardarM.Location = new Point(59, panelRegistroI.Location.Y + panelRegistroI.Height + 10); // Mueve btnGuardar debajo de panel2
-                //btnCancelarM.Location = new Point(339, panelRegistroI.Location.Y + panelRegistroI.Height + 10);
-=======
-                panelRegistroI.Visible = true;/*
-                btnGuardarM.Location = new Point(59, panelRegistroI.Location.Y + panelRegistroI.Height + 10); // Mueve btnGuardar debajo de panel2
-                btnCancelarM.Location = new Point(339, panelRegistroI.Location.Y + panelRegistroI.Height + 10);*/
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
-<<<<<<< HEAD
                 panelRegistroI.Visible = false;
-                //btnGuardarM.Location = new Point(59, 1050);
-                //btnCancelarM.Location = new Point(339, 1050);
-=======
-                panelRegistroI.Visible = false;/*
-                btnGuardarM.Location = new Point(59, 1050);
-                btnCancelarM.Location = new Point(339, 1050);*/
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
 

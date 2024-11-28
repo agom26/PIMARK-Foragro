@@ -169,24 +169,12 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-<<<<<<< HEAD
-                //btnActualizarM.Location = new Point(121, panel3.Location.Y + panel3.Height + 10);
-                //btnCancelarM.Location = new Point(396, panel3.Location.Y + panel3.Height + 10);
-=======
-               
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-<<<<<<< HEAD
-                //btnActualizarM.Location = new Point(121, panel3.Location.Y);
-                //btnCancelarM.Location = new Point(396, panel3.Location.Y);
-=======
-               
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private void ActualizarFechaVencimiento()

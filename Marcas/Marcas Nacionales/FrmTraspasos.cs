@@ -167,13 +167,6 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-<<<<<<< HEAD
-                //btnActualizarM.Location = new Point(55, panel3.Location.Y);
-=======
-               // btnActualizarM.Location = new Point(55, panel3.Location.Y);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
-                //btnTraspasar.Location = new Point(281, panel3.Location.Y);
-                //btnCancelarM.Location = new Point(512, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -971,15 +964,12 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-<<<<<<< HEAD
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
-=======
+        }
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
         }
     }
 }

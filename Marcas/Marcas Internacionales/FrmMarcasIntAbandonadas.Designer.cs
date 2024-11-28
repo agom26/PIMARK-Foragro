@@ -1131,11 +1131,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(783, 1132);
-=======
             btnCancelarM.Location = new Point(783, 1146);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 232;

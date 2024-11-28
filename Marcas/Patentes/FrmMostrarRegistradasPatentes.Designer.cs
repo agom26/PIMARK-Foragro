@@ -238,7 +238,6 @@
             tabPageIngresadasList.TabIndex = 0;
             tabPageIngresadasList.UseVisualStyleBackColor = true;
             // 
-<<<<<<< HEAD
             // panel9
             // 
             panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -310,8 +309,6 @@
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
             // 
-=======
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             // label28
             // 
             label28.AutoSize = true;
@@ -727,11 +724,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(845, 1094);
-=======
             btnCancelarM.Location = new Point(818, 1094);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 17;
@@ -751,11 +744,7 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-<<<<<<< HEAD
-            btnGuardarM.Location = new Point(845, 1014);
-=======
             btnGuardarM.Location = new Point(818, 1015);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 15;

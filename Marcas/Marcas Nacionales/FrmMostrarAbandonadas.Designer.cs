@@ -201,11 +201,7 @@
             iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 49;
-<<<<<<< HEAD
-            iconPictureBox3.Location = new Point(291, 3);
-=======
             iconPictureBox3.Location = new Point(304, 2);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Size = new Size(55, 49);
             iconPictureBox3.TabIndex = 166;
@@ -216,11 +212,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(175, 192, 218);
             label1.Font = new Font("Century Gothic", 12F);
-<<<<<<< HEAD
-            label1.Location = new Point(366, 15);
-=======
             label1.Location = new Point(376, 14);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             label1.Name = "label1";
             label1.Size = new Size(168, 23);
             label1.TabIndex = 168;
@@ -237,11 +229,7 @@
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.ForeColor = Color.White;
-<<<<<<< HEAD
-            roundedButton5.Location = new Point(348, 3);
-=======
             roundedButton5.Location = new Point(358, 2);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(195, 49);
             roundedButton5.TabIndex = 167;
@@ -267,11 +255,7 @@
             label36.AutoSize = true;
             label36.BackColor = Color.FromArgb(175, 192, 218);
             label36.Font = new Font("Century Gothic", 12F);
-<<<<<<< HEAD
-            label36.Location = new Point(44, 14);
-=======
             label36.Location = new Point(58, 13);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             label36.Name = "label36";
             label36.Size = new Size(229, 23);
             label36.TabIndex = 163;
@@ -290,11 +274,7 @@
             roundedButton10.ForeColor = Color.White;
             roundedButton10.Location = new Point(5, 3);
             roundedButton10.Name = "roundedButton10";
-<<<<<<< HEAD
-            roundedButton10.Size = new Size(280, 49);
-=======
             roundedButton10.Size = new Size(293, 49);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             roundedButton10.TabIndex = 164;
             roundedButton10.TextColor = Color.White;
             roundedButton10.UseVisualStyleBackColor = false;
@@ -1122,11 +1102,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(823, 971);
-=======
             btnCancelarM.Location = new Point(834, 971);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 153;

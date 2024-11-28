@@ -1046,11 +1046,7 @@
             btnTraspasar.IconColor = Color.White;
             btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnTraspasar.IconSize = 30;
-<<<<<<< HEAD
-            btnTraspasar.Location = new Point(823, 994);
-=======
             btnTraspasar.Location = new Point(823, 1010);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnTraspasar.Name = "btnTraspasar";
             btnTraspasar.Size = new Size(191, 58);
             btnTraspasar.TabIndex = 153;
@@ -1070,11 +1066,7 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
-<<<<<<< HEAD
-            btnActualizarM.Location = new Point(823, 917);
-=======
             btnActualizarM.Location = new Point(823, 937);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 152;
@@ -1093,11 +1085,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(823, 1067);
-=======
             btnCancelarM.Location = new Point(823, 1092);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 151;

@@ -151,26 +151,12 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-<<<<<<< HEAD
-                //btnActualizarM.Location = new Point(42, panel3.Location.Y + panel3.Height + 10);
-                //btnTraspasar.Location = new Point(266, panel3.Location.Y + panel3.Height + 10);
-                //btnCancelarM.Location = new Point(499, panel3.Location.Y + panel3.Height + 10);
-=======
-              
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-<<<<<<< HEAD
-                //btnActualizarM.Location = new Point(42, 960);
-                //btnTraspasar.Location = new Point(266, 960);
-                //btnCancelarM.Location = new Point(499, 960);
-=======
-               
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private void ActualizarFechaVencimiento()

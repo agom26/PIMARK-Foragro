@@ -230,11 +230,7 @@
             roundedButton5.ForeColor = Color.White;
             roundedButton5.Location = new Point(354, 3);
             roundedButton5.Name = "roundedButton5";
-<<<<<<< HEAD
-            roundedButton5.Size = new Size(248, 49);
-=======
             roundedButton5.Size = new Size(249, 49);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             roundedButton5.TabIndex = 167;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -1050,11 +1046,7 @@
             btnTraspasar.IconColor = Color.White;
             btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnTraspasar.IconSize = 30;
-<<<<<<< HEAD
-            btnTraspasar.Location = new Point(823, 983);
-=======
             btnTraspasar.Location = new Point(797, 1030);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnTraspasar.Name = "btnTraspasar";
             btnTraspasar.Size = new Size(191, 58);
             btnTraspasar.TabIndex = 150;
@@ -1074,11 +1066,7 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
-<<<<<<< HEAD
-            btnActualizarM.Location = new Point(823, 911);
-=======
             btnActualizarM.Location = new Point(797, 947);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 149;
@@ -1097,11 +1085,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(823, 1055);
-=======
             btnCancelarM.Location = new Point(797, 1106);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 148;

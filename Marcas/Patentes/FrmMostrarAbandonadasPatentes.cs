@@ -104,7 +104,6 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
-                btnGuardarM.Location = new Point(150, 1050);
                 btnCancelarM.Location = new Point(478, 1050);
             }
         }

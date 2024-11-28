@@ -303,11 +303,7 @@
             roundedButton5.ForeColor = Color.White;
             roundedButton5.Location = new Point(373, 3);
             roundedButton5.Name = "roundedButton5";
-<<<<<<< HEAD
-            roundedButton5.Size = new Size(174, 49);
-=======
             roundedButton5.Size = new Size(170, 49);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             roundedButton5.TabIndex = 167;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -1185,11 +1181,7 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
-<<<<<<< HEAD
-            btnActualizarM.Location = new Point(823, 949);
-=======
             btnActualizarM.Location = new Point(797, 966);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 151;
@@ -1208,11 +1200,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-<<<<<<< HEAD
-            btnCancelarM.Location = new Point(823, 1030);
-=======
             btnCancelarM.Location = new Point(797, 1047);
->>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 150;
