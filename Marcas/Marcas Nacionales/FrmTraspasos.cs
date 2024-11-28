@@ -158,18 +158,18 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizarM.Location = new Point(55, panel3.Location.Y + panel3.Height + 10);
-                btnTraspasar.Location = new Point(281, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(512, panel3.Location.Y + panel3.Height + 10);
+                //btnActualizarM.Location = new Point(55, panel3.Location.Y + panel3.Height + 10);
+                //btnTraspasar.Location = new Point(281, panel3.Location.Y + panel3.Height + 10);
+                //btnCancelarM.Location = new Point(512, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(55, panel3.Location.Y);
-                btnTraspasar.Location = new Point(281, panel3.Location.Y);
-                btnCancelarM.Location = new Point(512, panel3.Location.Y);
+                //btnActualizarM.Location = new Point(55, panel3.Location.Y);
+                //btnTraspasar.Location = new Point(281, panel3.Location.Y);
+                //btnCancelarM.Location = new Point(512, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -960,6 +960,11 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void tabPageRegistradasList_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

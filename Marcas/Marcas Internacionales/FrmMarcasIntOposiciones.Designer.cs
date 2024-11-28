@@ -293,6 +293,7 @@
             dtgMarcasOp.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasOp.Size = new Size(934, 492);
             dtgMarcasOp.TabIndex = 41;
+            dtgMarcasOp.CellDoubleClick += dtgMarcasOp_CellDoubleClick;
             // 
             // ibtnBuscar
             // 
@@ -1048,9 +1049,9 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
-            btnActualizarM.Location = new Point(147, 1163);
+            btnActualizarM.Location = new Point(784, 969);
             btnActualizarM.Name = "btnActualizarM";
-            btnActualizarM.Size = new Size(191, 42);
+            btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 194;
             btnActualizarM.Text = "ACTUALIZAR";
             btnActualizarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -1067,9 +1068,9 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(382, 1163);
+            btnCancelarM.Location = new Point(785, 1043);
             btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(179, 43);
+            btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 193;
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;

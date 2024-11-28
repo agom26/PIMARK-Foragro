@@ -152,7 +152,7 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(121, 1142);
+            btnGuardarM.Location = new Point(800, 951);
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 163;
@@ -171,7 +171,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(396, 1142);
+            btnCancelarM.Location = new Point(800, 1041);
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 164;
@@ -586,7 +586,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1050, 2368);
+            label5.Location = new Point(1050, 2656);
             label5.Name = "label5";
             label5.Size = new Size(132, 21);
             label5.TabIndex = 6;

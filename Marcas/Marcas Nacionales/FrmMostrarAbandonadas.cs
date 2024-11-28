@@ -98,7 +98,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
                 //btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(254, panel3.Location.Y + panel3.Height + 10);
+                //btnCancelarM.Location = new Point(254, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
@@ -106,7 +106,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = false;
                 panel3.Visible = false;
                 //btnActualizar.Location = new Point(47, 960);
-                btnCancelarM.Location = new Point(254, panel3.Location.Y);
+                //btnCancelarM.Location = new Point(254, panel3.Location.Y);
             }
         }
         private void ActualizarFechaVencimiento()

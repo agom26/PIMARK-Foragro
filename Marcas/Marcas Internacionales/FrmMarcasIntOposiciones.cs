@@ -92,16 +92,16 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizarM.Location = new Point(147, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(382, panel3.Location.Y + panel3.Height + 10);
+                //btnActualizarM.Location = new Point(147, panel3.Location.Y + panel3.Height + 10);
+                //btnCancelarM.Location = new Point(382, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(147, 960);
-                btnCancelarM.Location = new Point(382, 960);
+                //btnActualizarM.Location = new Point(147, 960);
+                //btnCancelarM.Location = new Point(382, 960);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -571,7 +571,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idInt > 0)
@@ -580,6 +580,10 @@ namespace Presentacion.Marcas_Internacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -958,6 +962,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void dtgMarcasOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }

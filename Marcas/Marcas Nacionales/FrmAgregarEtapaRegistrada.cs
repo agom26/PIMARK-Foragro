@@ -14,15 +14,15 @@ namespace Presentacion.Marcas_Nacionales
         public bool validarTramites()
         {
             bool tramiteValidado = false;
-
+            string tramite=txtNoExpedienteRT.Text;
             
             if (comboBox1.SelectedItem?.ToString() == "Trámite de renovación" ||
                 comboBox1.SelectedItem?.ToString() == "Trámite de traspaso")
             {
                 
-                if (string.IsNullOrWhiteSpace(txtNoExpedienteRT.Text) ||
-                    !int.TryParse(txtNoExpedienteRT.Text, out int tramite) ||
-                    tramite <= 0)
+                if (string.IsNullOrWhiteSpace(txtNoExpedienteRT.Text)
+                    ) 
+                    
                 {
                     
                     return false;

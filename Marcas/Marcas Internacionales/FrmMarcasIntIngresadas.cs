@@ -141,16 +141,16 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                btnActualizarM.Location = new Point(147, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(382, panel3.Location.Y + panel3.Height + 10);
+                //btnActualizarM.Location = new Point(147, panel3.Location.Y + panel3.Height + 10);
+                //btnCancelarM.Location = new Point(382, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                btnActualizarM.Location = new Point(147, 960);
-                btnCancelarM.Location = new Point(382, 960);
+                //btnActualizarM.Location = new Point(147, 960);
+                //btnCancelarM.Location = new Point(382, 960);
             }
 
         }
