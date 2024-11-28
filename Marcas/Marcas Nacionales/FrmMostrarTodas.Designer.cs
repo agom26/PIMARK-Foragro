@@ -351,9 +351,9 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(999, 219);
+            iconButton3.Location = new Point(986, 219);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(152, 37);
+            iconButton3.Size = new Size(165, 37);
             iconButton3.TabIndex = 25;
             iconButton3.Text = "ABANDONAR";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -372,9 +372,9 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(999, 165);
+            ibtnEditar.Location = new Point(986, 165);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(152, 37);
+            ibtnEditar.Size = new Size(165, 37);
             ibtnEditar.TabIndex = 20;
             ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -511,7 +511,11 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
+<<<<<<< HEAD
             btnActualizarM.Location = new Point(768, 968);
+=======
+            btnActualizarM.Location = new Point(751, 968);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 153;
@@ -530,7 +534,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(768, 1053);
+=======
+            btnCancelarM.Location = new Point(751, 1053);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 152;

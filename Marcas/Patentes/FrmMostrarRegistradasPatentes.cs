@@ -95,8 +95,12 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
                 //btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
+=======
+
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
@@ -105,8 +109,12 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(150, 1050);
                 //btnCancelarM.Location = new Point(478, 1050);
+=======
+
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private async Task CargarDatosPatente()
@@ -312,7 +320,7 @@ namespace Presentacion.Patentes
                 mensajesError.Add("SELECCIONE UN ESTADO\n");
 
             // Validación de valores numéricos 
-           
+
             if (!int.TryParse(anualidad, out _))
                 mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
 
@@ -706,8 +714,7 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageTraspasoDetail);
 
         }
-
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        public async void Editar()
         {
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
@@ -715,6 +722,10 @@ namespace Presentacion.Patentes
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
             }
+        }
+        private async void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private void btnGuardarM_Click(object sender, EventArgs e)
@@ -886,7 +897,7 @@ namespace Presentacion.Patentes
         private void btnEditarH_Click(object sender, EventArgs e)
         {
 
-           
+
         }
 
         private void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
@@ -1367,6 +1378,11 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA PATENTE PARA ABANDONAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
             }
+        }
+
+        private void dtgPatentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }

@@ -156,19 +156,33 @@ namespace Presentacion.Marcas_Internacionales
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
+<<<<<<< HEAD
                 panel3.Visible = true;
                 //btnActualizarM.Location = new Point(42, panel3.Location.Y + panel3.Height + 10);
                 //btnTraspasar.Location = new Point(268, panel3.Location.Y + panel3.Height + 10);
                 //btnCancelarM.Location = new Point(499, panel3.Location.Y + panel3.Height + 10);
+=======
+                panel3.Visible = true;/*
+                btnActualizarM.Location = new Point(42, panel3.Location.Y + panel3.Height + 10);
+                btnTraspasar.Location = new Point(268, panel3.Location.Y + panel3.Height + 10);
+                btnCancelarM.Location = new Point(499, panel3.Location.Y + panel3.Height + 10);*/
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
+<<<<<<< HEAD
                 panel3.Visible = false;
                 //btnActualizarM.Location = new Point(42, 960);
                 //btnTraspasar.Location = new Point(268, 960);
                 //btnCancelarM.Location = new Point(499, 960);
+=======
+                panel3.Visible = false;/*
+                btnActualizarM.Location = new Point(42, 960);
+                btnTraspasar.Location = new Point(268, 960);
+                btnCancelarM.Location = new Point(499, 960);*/
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private void ActualizarFechaVencimiento()
@@ -378,7 +392,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") +"\n"+ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + "\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 ///MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LimpiarFormulario();
@@ -614,8 +628,7 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
-
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idInt > 0)
@@ -624,6 +637,11 @@ namespace Presentacion.Marcas_Internacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
+
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -712,7 +730,7 @@ namespace Presentacion.Marcas_Internacionales
                 AgregarTraspaso.idTitularAnterior = SeleccionarPersona.idPersonaT;
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
                 AgregarTraspaso.nombreTitulara = SeleccionarPersona.nombre;
-              
+
             }
         }
 
@@ -995,6 +1013,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }

@@ -430,6 +430,7 @@
             dtgPatentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgPatentes.Size = new Size(910, 513);
             dtgPatentes.TabIndex = 190;
+            dtgPatentes.CellDoubleClick += dtgPatentes_CellDoubleClick;
             // 
             // tabPageMarcaDetail
             // 
@@ -504,7 +505,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(819, 1108);
+=======
+            btnCancelarM.Location = new Point(834, 1108);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 17;
@@ -524,7 +529,11 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
+<<<<<<< HEAD
             btnGuardarM.Location = new Point(819, 1029);
+=======
+            btnGuardarM.Location = new Point(831, 1029);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 15;

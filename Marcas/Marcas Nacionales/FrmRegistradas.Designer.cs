@@ -284,7 +284,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(175, 192, 218);
             label1.Font = new Font("Century Gothic", 12F);
-            label1.Location = new Point(391, 15);
+            label1.Location = new Point(386, 15);
             label1.Name = "label1";
             label1.Size = new Size(140, 23);
             label1.TabIndex = 168;
@@ -303,7 +303,11 @@
             roundedButton5.ForeColor = Color.White;
             roundedButton5.Location = new Point(373, 3);
             roundedButton5.Name = "roundedButton5";
+<<<<<<< HEAD
             roundedButton5.Size = new Size(174, 49);
+=======
+            roundedButton5.Size = new Size(170, 49);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             roundedButton5.TabIndex = 167;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -418,7 +422,7 @@
             panel4.Controls.Add(dtgMarcasR);
             panel4.Location = new Point(22, 165);
             panel4.Name = "panel4";
-            panel4.Size = new Size(972, 542);
+            panel4.Size = new Size(961, 542);
             panel4.TabIndex = 45;
             // 
             // dtgMarcasR
@@ -467,8 +471,9 @@
             dtgMarcasR.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dtgMarcasR.RowHeadersWidth = 51;
             dtgMarcasR.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgMarcasR.Size = new Size(951, 518);
+            dtgMarcasR.Size = new Size(940, 518);
             dtgMarcasR.TabIndex = 29;
+            dtgMarcasR.CellDoubleClick += dtgMarcasR_CellDoubleClick;
             // 
             // iconButton3
             // 
@@ -482,9 +487,9 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(1000, 220);
+            iconButton3.Location = new Point(989, 220);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(152, 37);
+            iconButton3.Size = new Size(163, 37);
             iconButton3.TabIndex = 48;
             iconButton3.Text = "ABANDONAR";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -503,9 +508,9 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(1000, 165);
+            ibtnEditar.Location = new Point(989, 165);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(152, 37);
+            ibtnEditar.Size = new Size(163, 37);
             ibtnEditar.TabIndex = 46;
             ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -1180,7 +1185,11 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
+<<<<<<< HEAD
             btnActualizarM.Location = new Point(823, 949);
+=======
+            btnActualizarM.Location = new Point(797, 966);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 151;
@@ -1199,7 +1208,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(823, 1030);
+=======
+            btnCancelarM.Location = new Point(797, 1047);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 150;

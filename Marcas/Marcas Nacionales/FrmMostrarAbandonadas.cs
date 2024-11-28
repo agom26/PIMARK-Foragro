@@ -409,10 +409,8 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
-
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Ver()
         {
-
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
@@ -420,6 +418,11 @@ namespace Presentacion.Marcas_Nacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Ver();
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -500,6 +503,11 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtgMarcasAban_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Ver();
         }
     }
 }

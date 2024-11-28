@@ -411,6 +411,7 @@
             dtgMarcasIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasIn.Size = new Size(934, 492);
             dtgMarcasIn.TabIndex = 41;
+            dtgMarcasIn.CellDoubleClick += dtgMarcasIn_CellDoubleClick;
             // 
             // panel4
             // 
@@ -568,7 +569,11 @@
             Renovacion.Controls.Add(txtERenovacion);
             Renovacion.Controls.Add(label11);
             Renovacion.Font = new Font("Century Gothic", 9F);
+<<<<<<< HEAD
             Renovacion.Location = new Point(748, 874);
+=======
+            Renovacion.Location = new Point(748, 878);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             Renovacion.Name = "Renovacion";
             Renovacion.Size = new Size(276, 188);
             Renovacion.TabIndex = 194;
@@ -1218,7 +1223,11 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
+<<<<<<< HEAD
             btnActualizarM.Location = new Point(795, 1086);
+=======
+            btnActualizarM.Location = new Point(782, 1086);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 197;
@@ -1237,7 +1246,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(795, 1157);
+=======
+            btnCancelarM.Location = new Point(782, 1157);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 196;

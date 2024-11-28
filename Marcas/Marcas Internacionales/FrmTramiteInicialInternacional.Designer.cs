@@ -581,14 +581,14 @@
             // panel1
             // 
             panel1.Controls.Add(label28);
-            panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(roundedButton2);
-            panel1.Controls.Add(comboBoxSignoDistintivo);
             panel1.Controls.Add(iconPictureBox3);
-            panel1.Controls.Add(label26);
             panel1.Controls.Add(iconPictureBox2);
             panel1.Controls.Add(label29);
             panel1.Controls.Add(roundedButton4);
+            panel1.Controls.Add(comboBoxTipoSigno);
+            panel1.Controls.Add(comboBoxSignoDistintivo);
+            panel1.Controls.Add(label26);
             panel1.Controls.Add(panelRegistroI);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label15);
@@ -761,7 +761,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(776, 1127);
+=======
+            btnCancelarM.Location = new Point(759, 1134);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 176;
@@ -781,7 +785,11 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
+<<<<<<< HEAD
             btnGuardarM.Location = new Point(776, 1045);
+=======
+            btnGuardarM.Location = new Point(759, 1061);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 175;

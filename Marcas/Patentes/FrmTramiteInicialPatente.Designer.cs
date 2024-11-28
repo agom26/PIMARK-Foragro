@@ -222,7 +222,7 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(853, 1087);
+            btnCancelarM.Location = new Point(850, 1124);
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 17;
@@ -242,7 +242,7 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(853, 1008);
+            btnGuardarM.Location = new Point(852, 1044);
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 15;

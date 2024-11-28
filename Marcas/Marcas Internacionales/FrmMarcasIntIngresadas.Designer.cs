@@ -334,6 +334,7 @@
             dtgMarcasIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasIn.Size = new Size(934, 492);
             dtgMarcasIn.TabIndex = 34;
+            dtgMarcasIn.CellDoubleClick += dtgMarcasIn_CellDoubleClick;
             // 
             // panel4
             // 
@@ -472,7 +473,11 @@
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
+<<<<<<< HEAD
             btnActualizarM.Location = new Point(813, 963);
+=======
+            btnActualizarM.Location = new Point(776, 963);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 155;
@@ -491,7 +496,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(813, 1046);
+=======
+            btnCancelarM.Location = new Point(776, 1047);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 154;

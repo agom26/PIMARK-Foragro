@@ -92,20 +92,20 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(label28);
+            panel1.Controls.Add(roundedButton4);
+            panel1.Controls.Add(iconPictureBox3);
+            panel1.Controls.Add(label21);
+            panel1.Controls.Add(iconPictureBox1);
+            panel1.Controls.Add(roundedButton5);
             panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(btnCancelarM);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(label28);
             panel1.Controls.Add(label20);
-            panel1.Controls.Add(roundedButton4);
             panel1.Controls.Add(comboBoxTipoSigno);
-            panel1.Controls.Add(iconPictureBox3);
             panel1.Controls.Add(label15);
-            panel1.Controls.Add(label21);
             panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(iconPictureBox1);
             panel1.Controls.Add(comboBoxSignoDistintivo);
-            panel1.Controls.Add(roundedButton5);
             panel1.Controls.Add(roundedButton3);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
@@ -152,7 +152,11 @@
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
+<<<<<<< HEAD
             btnGuardarM.Location = new Point(800, 951);
+=======
+            btnGuardarM.Location = new Point(760, 951);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 163;
@@ -171,7 +175,11 @@
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+<<<<<<< HEAD
             btnCancelarM.Location = new Point(800, 1041);
+=======
+            btnCancelarM.Location = new Point(760, 1040);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 164;

@@ -248,7 +248,11 @@ namespace Presentacion.Marcas_Nacionales
                
 
                
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(121, panel2I.Location.Y + panel2I.Height + 5);
+=======
+               // btnGuardarM.Location = new Point(121, panel2I.Location.Y + panel2I.Height + 5);
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
                 //btnCancelarM.Location = new Point(396, panel2I.Location.Y + panel2I.Height + 5);
             }
             else
@@ -261,7 +265,11 @@ namespace Presentacion.Marcas_Nacionales
                
 
                 
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(121, 950); 
+=======
+               // btnGuardarM.Location = new Point(121, 950); 
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
                 //btnCancelarM.Location = new Point(396, 950);
             }
         }

@@ -91,8 +91,12 @@ namespace Presentacion.Patentes
                 checkBox2.Checked = true;
                 checkBox2.Enabled = false;
                 panel2I.Visible = true;
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(150, panel2I.Location.Y + panel2I.Height + 10);
                 //btnCancelarM.Location = new Point(478, panel2I.Location.Y + panel2I.Height + 10);
+=======
+              
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
@@ -101,8 +105,12 @@ namespace Presentacion.Patentes
                 checkBox2.Enabled = false;
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
+<<<<<<< HEAD
                 //btnGuardarM.Location = new Point(150, 1050);
                 //btnCancelarM.Location = new Point(478, 1050);
+=======
+               
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private async Task CargarDatosPatente()
@@ -255,7 +263,7 @@ namespace Presentacion.Patentes
                             }
                             checkBox2.Checked = true;
                             mostrarPanelRegistro("si");
-                           
+
                         }
                         else
                         {
@@ -306,7 +314,7 @@ namespace Presentacion.Patentes
                 mensajesError.Add("SELECCIONE UN ESTADO\n");
 
             // Validación de valores numéricos 
-          
+
             if (!int.TryParse(anualidad, out _))
                 mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
 
@@ -619,8 +627,7 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
         }
-
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        public async void Editar()
         {
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
@@ -628,6 +635,10 @@ namespace Presentacion.Patentes
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
             }
+        }
+        private async void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private void btnGuardarM_Click(object sender, EventArgs e)
@@ -945,10 +956,10 @@ namespace Presentacion.Patentes
         {
             if (dtgPatentes.SelectedRows.Count > 0)
             {
-             
+
                 using (FrmJustificacion justificacionForm = new FrmJustificacion())
                 {
-                 
+
                     if (justificacionForm.ShowDialog() == DialogResult.OK)
                     {
                         string justificacion = justificacionForm.Justificacion;
@@ -957,17 +968,17 @@ namespace Presentacion.Patentes
 
                         try
                         {
-                           
+
                             var filaSeleccionada = dtgPatentes.SelectedRows[0];
 
-                            
+
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
-                               
+
                                 int idPatente = Convert.ToInt32(dataRowView["id"]);
 
                                 historialPatenteModel.CrearHistorialPatente(
-                                   
+
                                     fechaAbandono,
                                     "Abandono",
                                     fechaAbandono.ToShortDateString() + " Abandono " + justificacion,
@@ -995,6 +1006,11 @@ namespace Presentacion.Patentes
                 alerta.ShowDialog();
             }
 
+        }
+
+        private void dtgPatentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }

@@ -169,16 +169,24 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
+<<<<<<< HEAD
                 //btnActualizarM.Location = new Point(121, panel3.Location.Y + panel3.Height + 10);
                 //btnCancelarM.Location = new Point(396, panel3.Location.Y + panel3.Height + 10);
+=======
+               
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
+<<<<<<< HEAD
                 //btnActualizarM.Location = new Point(121, panel3.Location.Y);
                 //btnCancelarM.Location = new Point(396, panel3.Location.Y);
+=======
+               
+>>>>>>> b1935520853743f186600f7a3d6d80fbed8e86e0
             }
         }
         private void ActualizarFechaVencimiento()
@@ -760,8 +768,7 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageTraspasoDetail);
             }
         }
-
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
@@ -770,6 +777,10 @@ namespace Presentacion.Marcas_Nacionales
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
+        }
+        private void ibtnEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -1533,6 +1544,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 LoadMarcas();
             }
+        }
+
+        private void dtgMarcasR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
         }
     }
 }
