@@ -649,7 +649,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1050, 6688);
+            label5.Location = new Point(1050, 6976);
             label5.Name = "label5";
             label5.Size = new Size(110, 19);
             label5.TabIndex = 6;
