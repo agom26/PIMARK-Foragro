@@ -24,6 +24,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idInt = 0;
             ActualizarFechaVencimiento();

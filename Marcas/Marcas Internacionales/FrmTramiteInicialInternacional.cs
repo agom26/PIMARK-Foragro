@@ -34,6 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmTramiteInicialInternacional()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
             SeleccionarMarca.idN = 0;
             panelRegistroI.Visible = false;
             ActualizarFechaVencimiento();

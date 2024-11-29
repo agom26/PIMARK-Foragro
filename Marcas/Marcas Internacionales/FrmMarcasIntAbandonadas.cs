@@ -24,6 +24,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntAbandonadas()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmMarcasIntAbandonadas_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;

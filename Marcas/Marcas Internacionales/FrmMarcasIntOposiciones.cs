@@ -22,6 +22,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntOposiciones()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmMarcasIntOposiciones_Load;
             SeleccionarMarca.idInt = 0;
             //ActualizarFechaVencimiento();

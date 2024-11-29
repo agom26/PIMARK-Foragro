@@ -34,6 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntIngresadas()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idInt = 0;
             ActualizarFechaVencimiento();
@@ -1019,6 +1020,11 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
