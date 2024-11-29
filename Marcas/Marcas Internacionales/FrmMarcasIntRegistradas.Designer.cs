@@ -284,12 +284,13 @@
             // 
             // panel26
             // 
+            panel26.AutoSize = true;
             panel26.BackColor = Color.FromArgb(175, 192, 218);
             panel26.Controls.Add(label29);
             panel26.Location = new Point(29, 14);
             panel26.Margin = new Padding(0);
             panel26.Name = "panel26";
-            panel26.Size = new Size(141, 24);
+            panel26.Size = new Size(140, 24);
             panel26.TabIndex = 175;
             // 
             // label29
@@ -353,12 +354,13 @@
             // 
             // panel28
             // 
+            panel28.AutoSize = true;
             panel28.BackColor = Color.FromArgb(175, 192, 218);
             panel28.Controls.Add(label28);
             panel28.Controls.Add(iconPictureBox3);
             panel28.Location = new Point(35, 14);
             panel28.Name = "panel28";
-            panel28.Size = new Size(305, 21);
+            panel28.Size = new Size(301, 21);
             panel28.TabIndex = 174;
             // 
             // label28

@@ -193,7 +193,7 @@
             panel9.Controls.Add(txtBuscar);
             panel9.Controls.Add(ibtnBuscar);
             panel9.Controls.Add(roundedButton3);
-            panel9.Location = new Point(8, 6);
+            panel9.Location = new Point(7, 6);
             panel9.Name = "panel9";
             panel9.Size = new Size(1003, 153);
             panel9.TabIndex = 169;
