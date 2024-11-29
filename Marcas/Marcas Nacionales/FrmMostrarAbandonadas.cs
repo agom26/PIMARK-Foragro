@@ -25,6 +25,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarAbandonadas()
         {
             InitializeComponent();
+            iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarAbandonadas_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -508,6 +509,11 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgMarcasAban_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Ver();
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
