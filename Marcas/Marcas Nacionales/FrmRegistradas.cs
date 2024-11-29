@@ -840,7 +840,7 @@ namespace Presentacion.Marcas_Nacionales
                     await CargarDatosMarca();
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente !="0")
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "0")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
@@ -922,8 +922,7 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
-
-        private void iconButton5_Click(object sender, EventArgs e)
+        public void EditarHistorial()
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -968,6 +967,10 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1102,8 +1105,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             ActualizarFechaVencimiento();
         }
-
-        private void iconButton7_Click(object sender, EventArgs e)
+        public void VerHistorial()
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -1148,6 +1150,10 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, seleccione una fila del historial.");
             }
+        }
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            VerHistorial();
         }
 
         private async void roundedButton8_Click(object sender, EventArgs e)
@@ -1202,8 +1208,7 @@ namespace Presentacion.Marcas_Nacionales
                 //MessageBox.Show("Por favor, seleccione una fila de renovación.");
             }
         }
-
-        private void iconButton4_Click_1(object sender, EventArgs e)
+        public void EditarRenovaciones()
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)
             {
@@ -1248,6 +1253,10 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            EditarRenovaciones();
         }
 
         private void iconButton1_Click_1(object sender, EventArgs e)
@@ -1305,7 +1314,7 @@ namespace Presentacion.Marcas_Nacionales
             AnadirTabPage(tabPageTraspasosList);
         }
 
-        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
+        public void EditarTraspaso()
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
             {
@@ -1353,6 +1362,11 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
+        {
+            EditarTraspaso();
         }
 
         private void btnAgregarTitularA_Click(object sender, EventArgs e)
@@ -1537,6 +1551,21 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgMarcasR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarHistorial();
+        }
+
+        private void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarRenovaciones();
+        }
+
+        private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarTraspaso();
         }
     }
 }
