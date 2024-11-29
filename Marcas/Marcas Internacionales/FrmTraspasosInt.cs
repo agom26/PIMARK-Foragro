@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Presentacion.Marcas_Nacionales;
 using Presentacion.Alertas;
+using System.Windows.Controls;
 namespace Presentacion.Marcas_Internacionales
 {
     public partial class FrmTraspasosInt : Form
@@ -31,7 +32,15 @@ namespace Presentacion.Marcas_Internacionales
         public FrmTraspasosInt()
         {
             InitializeComponent();
-            iconPictureBox3.IconSize = 25;
+            int x = (panel17.Size.Width - label31.Size.Width - iconPictureBox4.Size.Width) / 2;
+            int y = (panel17.Size.Height - label31.Size.Height) / 2;
+            panel18.Location = new Point(x, y);
+
+            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
+            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
+            panel16.Location = new Point(x2, y2);
+
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmTraspasosInt_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
