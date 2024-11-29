@@ -146,7 +146,6 @@ namespace Marcas
                     dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
 
                     this.Hide();
-                    MessageBox.Show("Hola");
                     
                 }
                 else
