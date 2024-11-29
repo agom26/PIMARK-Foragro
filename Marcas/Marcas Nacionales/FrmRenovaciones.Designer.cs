@@ -291,7 +291,7 @@
             panel18.Controls.Add(iconPictureBox3);
             panel18.Location = new Point(35, 14);
             panel18.Name = "panel18";
-            panel18.Size = new Size(220, 29);
+            panel18.Size = new Size(220, 21);
             panel18.TabIndex = 174;
             // 
             // label30
@@ -299,7 +299,7 @@
             label30.AutoSize = true;
             label30.Dock = DockStyle.Left;
             label30.Font = new Font("Century Gothic", 12F);
-            label30.Location = new Point(30, 0);
+            label30.Location = new Point(21, 0);
             label30.Name = "label30";
             label30.Size = new Size(192, 21);
             label30.TabIndex = 166;
@@ -314,13 +314,13 @@
             iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Flag;
             iconPictureBox3.IconColor = SystemColors.ControlText;
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 29;
+            iconPictureBox3.IconSize = 21;
             iconPictureBox3.Location = new Point(0, 0);
             iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(30, 29);
+            iconPictureBox3.Size = new Size(21, 21);
+            iconPictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
             iconPictureBox3.TabIndex = 165;
             iconPictureBox3.TabStop = false;
-            iconPictureBox3.UseGdi = true;
             // 
             // roundedButton5
             // 

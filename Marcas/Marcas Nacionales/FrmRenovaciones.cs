@@ -32,6 +32,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmRenovaciones()
         {
             InitializeComponent();
+            iconPictureBox3.IconSize = 25;
             this.Load += FrmRenovaciones_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;

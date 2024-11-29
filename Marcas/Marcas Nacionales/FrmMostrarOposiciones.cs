@@ -34,6 +34,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarOposiciones()
         {
             InitializeComponent();
+            iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;

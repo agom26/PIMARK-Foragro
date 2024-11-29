@@ -36,6 +36,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmTramiteIn()
         {
             InitializeComponent();
+            iconPictureBox3.IconSize = 25;
             panel2I.Visible = false;
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
