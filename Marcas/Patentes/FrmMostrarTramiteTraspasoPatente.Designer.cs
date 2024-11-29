@@ -38,12 +38,17 @@
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
-            label28 = new Label();
-            roundedButton2 = new Clases.RoundedButton();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            panel3 = new Panel();
+            panel15 = new Panel();
+            panel16 = new Panel();
             label29 = new Label();
             roundedButton4 = new Clases.RoundedButton();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            panel11 = new Panel();
+            panel19 = new Panel();
+            label16 = new Label();
+            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton2 = new Clases.RoundedButton();
             panel9 = new Panel();
             label2 = new Label();
             textBox1 = new TextBox();
@@ -171,8 +176,13 @@
             label38 = new Label();
             tabControl1.SuspendLayout();
             tabPageIngresadasList.SuspendLayout();
+            panel3.SuspendLayout();
+            panel15.SuspendLayout();
+            panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panel11.SuspendLayout();
+            panel19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgPatentes).BeginInit();
@@ -222,12 +232,7 @@
             // tabPageIngresadasList
             // 
             tabPageIngresadasList.AutoScroll = true;
-            tabPageIngresadasList.Controls.Add(label28);
-            tabPageIngresadasList.Controls.Add(roundedButton2);
-            tabPageIngresadasList.Controls.Add(iconPictureBox3);
-            tabPageIngresadasList.Controls.Add(iconPictureBox2);
-            tabPageIngresadasList.Controls.Add(label29);
-            tabPageIngresadasList.Controls.Add(roundedButton4);
+            tabPageIngresadasList.Controls.Add(panel3);
             tabPageIngresadasList.Controls.Add(panel9);
             tabPageIngresadasList.Controls.Add(iconButton3);
             tabPageIngresadasList.Controls.Add(ibtnEditar);
@@ -239,91 +244,156 @@
             tabPageIngresadasList.TabIndex = 0;
             tabPageIngresadasList.UseVisualStyleBackColor = true;
             // 
-            // label28
+            // panel3
             // 
-            label28.AutoSize = true;
-            label28.BackColor = Color.FromArgb(175, 192, 218);
-            label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(291, 17);
-            label28.Name = "label28";
-            label28.Size = new Size(223, 23);
-            label28.TabIndex = 186;
-            label28.Text = "TRÁMITE DE TRASPASO";
+            panel3.AutoSize = true;
+            panel3.Controls.Add(panel15);
+            panel3.Controls.Add(iconPictureBox1);
+            panel3.Controls.Add(panel11);
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(498, 49);
+            panel3.TabIndex = 207;
             // 
-            // roundedButton2
+            // panel15
             // 
-            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton2.BorderRadius = 50;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Enabled = false;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(258, 5);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(307, 49);
-            roundedButton2.TabIndex = 185;
-            roundedButton2.TextColor = Color.White;
-            roundedButton2.UseVisualStyleBackColor = false;
+            panel15.AutoSize = true;
+            panel15.Controls.Add(panel16);
+            panel15.Controls.Add(roundedButton4);
+            panel15.Dock = DockStyle.Left;
+            panel15.Location = new Point(222, 0);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(276, 49);
+            panel15.TabIndex = 170;
             // 
-            // iconPictureBox3
+            // panel16
             // 
-            iconPictureBox3.BackColor = Color.Transparent;
-            iconPictureBox3.ForeColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
-            iconPictureBox3.IconColor = Color.FromArgb(1, 87, 155);
-            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 49;
-            iconPictureBox3.Location = new Point(206, 6);
-            iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(55, 49);
-            iconPictureBox3.TabIndex = 184;
-            iconPictureBox3.TabStop = false;
-            // 
-            // iconPictureBox2
-            // 
-            iconPictureBox2.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox2.ForeColor = SystemColors.ControlText;
-            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Certificate;
-            iconPictureBox2.IconColor = SystemColors.ControlText;
-            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 28;
-            iconPictureBox2.Location = new Point(35, 17);
-            iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(40, 28);
-            iconPictureBox2.TabIndex = 183;
-            iconPictureBox2.TabStop = false;
+            panel16.AutoSize = true;
+            panel16.BackColor = Color.FromArgb(175, 192, 218);
+            panel16.Controls.Add(label29);
+            panel16.Location = new Point(53, 14);
+            panel16.Margin = new Padding(0);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(223, 24);
+            panel16.TabIndex = 175;
             // 
             // label29
             // 
             label29.AutoSize = true;
-            label29.BackColor = Color.FromArgb(175, 192, 218);
+            label29.Dock = DockStyle.Fill;
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(81, 17);
+            label29.Location = new Point(0, 0);
             label29.Name = "label29";
-            label29.Size = new Size(100, 23);
-            label29.TabIndex = 181;
-            label29.Text = "PATENTES";
+            label29.Size = new Size(223, 23);
+            label29.TabIndex = 166;
+            label29.Text = "TRÁMITE DE TRASPASO";
+            label29.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton4
             // 
+            roundedButton4.AutoSize = true;
             roundedButton4.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BorderRadius = 50;
             roundedButton4.BorderSize = 0;
+            roundedButton4.Dock = DockStyle.Fill;
             roundedButton4.Enabled = false;
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(8, 6);
+            roundedButton4.Location = new Point(0, 0);
             roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(192, 49);
-            roundedButton4.TabIndex = 182;
+            roundedButton4.Size = new Size(276, 49);
+            roundedButton4.TabIndex = 167;
             roundedButton4.TextColor = Color.White;
             roundedButton4.UseVisualStyleBackColor = false;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.Transparent;
+            iconPictureBox1.Dock = DockStyle.Left;
+            iconPictureBox1.ForeColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.CircleArrowRight;
+            iconPictureBox1.IconColor = Color.FromArgb(1, 87, 155);
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 49;
+            iconPictureBox1.Location = new Point(173, 0);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(49, 49);
+            iconPictureBox1.TabIndex = 166;
+            iconPictureBox1.TabStop = false;
+            iconPictureBox1.UseGdi = true;
+            // 
+            // panel11
+            // 
+            panel11.AutoSize = true;
+            panel11.Controls.Add(panel19);
+            panel11.Controls.Add(roundedButton2);
+            panel11.Dock = DockStyle.Left;
+            panel11.Location = new Point(0, 0);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(173, 49);
+            panel11.TabIndex = 169;
+            // 
+            // panel19
+            // 
+            panel19.AutoSize = true;
+            panel19.BackColor = Color.FromArgb(175, 192, 218);
+            panel19.Controls.Add(label16);
+            panel19.Controls.Add(iconPictureBox3);
+            panel19.Location = new Point(31, 14);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(125, 21);
+            panel19.TabIndex = 174;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Dock = DockStyle.Left;
+            label16.Font = new Font("Century Gothic", 12F);
+            label16.Location = new Point(25, 0);
+            label16.Name = "label16";
+            label16.Size = new Size(100, 23);
+            label16.TabIndex = 166;
+            label16.Text = "PATENTES";
+            label16.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // iconPictureBox3
+            // 
+            iconPictureBox3.BackColor = Color.FromArgb(175, 192, 218);
+            iconPictureBox3.Dock = DockStyle.Left;
+            iconPictureBox3.ForeColor = SystemColors.ControlText;
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Certificate;
+            iconPictureBox3.IconColor = SystemColors.ControlText;
+            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox3.IconSize = 21;
+            iconPictureBox3.Location = new Point(0, 0);
+            iconPictureBox3.Name = "iconPictureBox3";
+            iconPictureBox3.Size = new Size(25, 21);
+            iconPictureBox3.TabIndex = 165;
+            iconPictureBox3.TabStop = false;
+            iconPictureBox3.UseGdi = true;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.AutoSize = true;
+            roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Dock = DockStyle.Fill;
+            roundedButton2.Enabled = false;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(0, 0);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(173, 49);
+            roundedButton2.TabIndex = 164;
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.UseVisualStyleBackColor = false;
             // 
             // panel9
             // 
@@ -2036,8 +2106,18 @@
             tabControl1.ResumeLayout(false);
             tabPageIngresadasList.ResumeLayout(false);
             tabPageIngresadasList.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel15.ResumeLayout(false);
+            panel15.PerformLayout();
+            panel16.ResumeLayout(false);
+            panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            panel11.ResumeLayout(false);
+            panel11.PerformLayout();
+            panel19.ResumeLayout(false);
+            panel19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel4.ResumeLayout(false);
@@ -2084,12 +2164,6 @@
         private TabPage tabPageMarcaDetail;
         private TabPage tabPageHistorialMarca;
         private TabPage tabPageHistorialDetail;
-        private Label label28;
-        private Clases.RoundedButton roundedButton2;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
-        private Label label29;
-        private Clases.RoundedButton roundedButton4;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private DataGridView dtgPatentes;
@@ -2212,5 +2286,16 @@
         private Label label37;
         private Label label38;
         private FontAwesome.Sharp.IconButton btnTraspasar;
+        private Panel panel3;
+        private Panel panel15;
+        private Panel panel16;
+        private Label label29;
+        private Clases.RoundedButton roundedButton4;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Panel panel11;
+        private Panel panel19;
+        private Label label16;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
+        private Clases.RoundedButton roundedButton2;
     }
 }

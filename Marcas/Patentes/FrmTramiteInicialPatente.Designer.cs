@@ -133,6 +133,7 @@
             // 
             // panel3
             // 
+            panel3.AutoSize = true;
             panel3.Controls.Add(panel15);
             panel3.Controls.Add(iconPictureBox1);
             panel3.Controls.Add(panel17);
@@ -143,6 +144,7 @@
             // 
             // panel15
             // 
+            panel15.AutoSize = true;
             panel15.Controls.Add(panel16);
             panel15.Controls.Add(roundedButton4);
             panel15.Dock = DockStyle.Left;
@@ -212,6 +214,7 @@
             // 
             // panel17
             // 
+            panel17.AutoSize = true;
             panel17.Controls.Add(panel18);
             panel17.Controls.Add(roundedButton2);
             panel17.Dock = DockStyle.Left;
@@ -257,6 +260,7 @@
             iconPictureBox3.Size = new Size(25, 21);
             iconPictureBox3.TabIndex = 165;
             iconPictureBox3.TabStop = false;
+            iconPictureBox3.UseGdi = true;
             // 
             // roundedButton2
             // 
@@ -729,6 +733,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
             panel16.ResumeLayout(false);

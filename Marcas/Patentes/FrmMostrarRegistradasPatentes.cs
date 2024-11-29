@@ -26,6 +26,15 @@ namespace Presentacion.Patentes
         public FrmMostrarRegistradasPatentes()
         {
             InitializeComponent();
+            this.Load += FrmMostrarRegistradasPatentes_Load;
+            int x = (panel11.Size.Width - label16.Size.Width - iconPictureBox3.Size.Width) / 2;
+            int y = (panel11.Size.Height - label16.Size.Height) / 2;
+            panel19.Location = new Point(x, y);
+
+            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
+            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
+            panel16.Location = new Point(x2, y2);
+            iconPictureBox3.IconSize = 25;
         }
         private async Task LoadPatentes()
         {
@@ -691,6 +700,7 @@ namespace Presentacion.Patentes
 
         private async void FrmMostrarRegistradasPatentes_Load(object sender, EventArgs e)
         {
+            tabControl1.Visible = false;
             await Task.Run(() => LoadPatentes());
             tabControl1.SelectedTab = tabPageIngresadasList;
             EliminarTabPage(tabPageMarcaDetail);
@@ -700,6 +710,7 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageRenovacionDetail);
             EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageTraspasoDetail);
+            tabControl1.Visible = true;
 
         }
         public async void Editar()
