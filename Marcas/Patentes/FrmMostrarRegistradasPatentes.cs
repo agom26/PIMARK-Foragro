@@ -251,7 +251,7 @@ namespace Presentacion.Patentes
                         if (contieneRegistrada)
                         {
 
-                            if (SeleccionarPatente.registro != null)
+                            if (row["registro"].ToString() != null)
                             {
                                 SeleccionarPatente.registro = row["registro"].ToString();
                                 SeleccionarPatente.folio = row["folio"].ToString();

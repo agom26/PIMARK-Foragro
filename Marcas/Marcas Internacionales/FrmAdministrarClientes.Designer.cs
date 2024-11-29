@@ -125,10 +125,10 @@
             tabClientesList.Controls.Add(ibtnEditar);
             tabClientesList.Controls.Add(ibtnAgregar);
             tabClientesList.Controls.Add(panel1);
-            tabClientesList.Location = new Point(4, 32);
+            tabClientesList.Location = new Point(4, 30);
             tabClientesList.Name = "tabClientesList";
             tabClientesList.Padding = new Padding(3);
-            tabClientesList.Size = new Size(1161, 791);
+            tabClientesList.Size = new Size(1161, 793);
             tabClientesList.TabIndex = 0;
             // 
             // panel9
@@ -149,30 +149,31 @@
             panel11.Controls.Add(panel12);
             panel11.Controls.Add(roundedButton5);
             panel11.Dock = DockStyle.Left;
-            panel11.Location = new Point(392, 0);
+            panel11.Location = new Point(352, 0);
             panel11.Name = "panel11";
-            panel11.Size = new Size(153, 49);
+            panel11.Size = new Size(87, 49);
             panel11.TabIndex = 170;
             // 
             // panel12
             // 
             panel12.AutoSize = true;
+            panel12.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel12.BackColor = Color.FromArgb(175, 192, 218);
             panel12.Controls.Add(label29);
-            panel12.Location = new Point(29, 14);
+            panel12.Location = new Point(3, 14);
             panel12.Margin = new Padding(0);
             panel12.Name = "panel12";
-            panel12.Size = new Size(95, 24);
+            panel12.Size = new Size(84, 21);
             panel12.TabIndex = 175;
             // 
             // label29
             // 
+            label29.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label29.AutoSize = true;
-            label29.Dock = DockStyle.Fill;
             label29.Font = new Font("Century Gothic", 12F);
             label29.Location = new Point(0, 0);
             label29.Name = "label29";
-            label29.Size = new Size(95, 23);
+            label29.Size = new Size(81, 21);
             label29.TabIndex = 166;
             label29.Text = "CLIENTES";
             label29.TextAlign = ContentAlignment.MiddleCenter;
@@ -180,6 +181,7 @@
             // roundedButton5
             // 
             roundedButton5.AutoSize = true;
+            roundedButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
@@ -192,7 +194,7 @@
             roundedButton5.ForeColor = Color.White;
             roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(153, 49);
+            roundedButton5.Size = new Size(87, 49);
             roundedButton5.TabIndex = 167;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -206,7 +208,7 @@
             iconPictureBox2.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 49;
-            iconPictureBox2.Location = new Point(343, 0);
+            iconPictureBox2.Location = new Point(303, 0);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(49, 49);
             iconPictureBox2.TabIndex = 166;
@@ -221,7 +223,7 @@
             panel13.Dock = DockStyle.Left;
             panel13.Location = new Point(0, 0);
             panel13.Name = "panel13";
-            panel13.Size = new Size(343, 49);
+            panel13.Size = new Size(303, 49);
             panel13.TabIndex = 169;
             // 
             // panel14
@@ -232,7 +234,7 @@
             panel14.Controls.Add(iconPictureBox4);
             panel14.Location = new Point(35, 14);
             panel14.Name = "panel14";
-            panel14.Size = new Size(301, 21);
+            panel14.Size = new Size(265, 21);
             panel14.TabIndex = 174;
             // 
             // label28
@@ -242,7 +244,7 @@
             label28.Font = new Font("Century Gothic", 12F);
             label28.Location = new Point(21, 0);
             label28.Name = "label28";
-            label28.Size = new Size(280, 23);
+            label28.Size = new Size(236, 21);
             label28.TabIndex = 166;
             label28.Text = "MARCAS INTERNACIONALES";
             label28.TextAlign = ContentAlignment.MiddleCenter;
@@ -266,6 +268,7 @@
             // roundedButton6
             // 
             roundedButton6.AutoSize = true;
+            roundedButton6.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             roundedButton6.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton6.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton6.BorderColor = Color.FromArgb(175, 192, 218);
@@ -278,7 +281,7 @@
             roundedButton6.ForeColor = Color.White;
             roundedButton6.Location = new Point(0, 0);
             roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(343, 49);
+            roundedButton6.Size = new Size(303, 49);
             roundedButton6.TabIndex = 164;
             roundedButton6.TextColor = Color.White;
             roundedButton6.UseVisualStyleBackColor = false;
@@ -331,7 +334,7 @@
             textBox1.Font = new Font("Century Gothic", 10F);
             textBox1.Location = new Point(262, 130);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 28);
+            textBox1.Size = new Size(301, 24);
             textBox1.TabIndex = 50;
             // 
             // label1
@@ -342,7 +345,7 @@
             label1.Font = new Font("Century Gothic", 9F);
             label1.Location = new Point(262, 107);
             label1.Name = "label1";
-            label1.Size = new Size(195, 20);
+            label1.Size = new Size(157, 17);
             label1.TabIndex = 49;
             label1.Text = "Buscar por nombre o pais\r\n";
             // 
@@ -460,10 +463,10 @@
             // 
             tabClienteDetail.BackColor = Color.White;
             tabClienteDetail.Controls.Add(panel3);
-            tabClienteDetail.Location = new Point(4, 29);
+            tabClienteDetail.Location = new Point(4, 24);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(1161, 794);
+            tabClienteDetail.Size = new Size(1161, 799);
             tabClienteDetail.TabIndex = 1;
             // 
             // panel3
@@ -481,7 +484,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1155, 788);
+            panel3.Size = new Size(1155, 793);
             panel3.TabIndex = 194;
             // 
             // iconPictureBox3
@@ -531,7 +534,7 @@
             label3.Font = new Font("Century Gothic", 9F);
             label3.Location = new Point(92, 36);
             label3.Name = "label3";
-            label3.Size = new Size(68, 20);
+            label3.Size = new Size(56, 17);
             label3.TabIndex = 41;
             label3.Text = "Nombre";
             // 
@@ -540,7 +543,7 @@
             txtNombreCliente.Font = new Font("Century Gothic", 9F);
             txtNombreCliente.Location = new Point(92, 62);
             txtNombreCliente.Name = "txtNombreCliente";
-            txtNombreCliente.Size = new Size(389, 26);
+            txtNombreCliente.Size = new Size(389, 22);
             txtNombreCliente.TabIndex = 32;
             // 
             // label4
@@ -550,7 +553,7 @@
             label4.Font = new Font("Century Gothic", 9F);
             label4.Location = new Point(92, 105);
             label4.Name = "label4";
-            label4.Size = new Size(30, 20);
+            label4.Size = new Size(25, 17);
             label4.TabIndex = 42;
             label4.Text = "NIT";
             // 
@@ -559,7 +562,7 @@
             txtNitCliente.Font = new Font("Century Gothic", 9F);
             txtNitCliente.Location = new Point(92, 131);
             txtNitCliente.Name = "txtNitCliente";
-            txtNitCliente.Size = new Size(389, 26);
+            txtNitCliente.Size = new Size(389, 22);
             txtNitCliente.TabIndex = 34;
             // 
             // label5
@@ -569,7 +572,7 @@
             label5.Font = new Font("Century Gothic", 9F);
             label5.Location = new Point(529, 105);
             label5.Name = "label5";
-            label5.Size = new Size(37, 20);
+            label5.Size = new Size(31, 17);
             label5.TabIndex = 43;
             label5.Text = "Pais";
             // 
@@ -580,7 +583,7 @@
             label6.Font = new Font("Century Gothic", 9F);
             label6.Location = new Point(529, 36);
             label6.Name = "label6";
-            label6.Size = new Size(80, 20);
+            label6.Size = new Size(66, 17);
             label6.TabIndex = 44;
             label6.Text = "Dirección";
             // 
@@ -589,7 +592,7 @@
             txtDireccionCliente.Font = new Font("Century Gothic", 9F);
             txtDireccionCliente.Location = new Point(529, 62);
             txtDireccionCliente.Name = "txtDireccionCliente";
-            txtDireccionCliente.Size = new Size(389, 26);
+            txtDireccionCliente.Size = new Size(389, 22);
             txtDireccionCliente.TabIndex = 33;
             // 
             // label7
@@ -599,7 +602,7 @@
             label7.Font = new Font("Century Gothic", 9F);
             label7.Location = new Point(92, 183);
             label7.Name = "label7";
-            label7.Size = new Size(61, 20);
+            label7.Size = new Size(49, 17);
             label7.TabIndex = 45;
             label7.Text = "Correo";
             // 
@@ -608,7 +611,7 @@
             txtCorreoContacto.Font = new Font("Century Gothic", 9F);
             txtCorreoContacto.Location = new Point(92, 209);
             txtCorreoContacto.Name = "txtCorreoContacto";
-            txtCorreoContacto.Size = new Size(389, 26);
+            txtCorreoContacto.Size = new Size(389, 22);
             txtCorreoContacto.TabIndex = 36;
             // 
             // btnGuardarU
@@ -638,7 +641,7 @@
             label8.Font = new Font("Century Gothic", 9F);
             label8.Location = new Point(529, 183);
             label8.Name = "label8";
-            label8.Size = new Size(71, 20);
+            label8.Size = new Size(59, 17);
             label8.TabIndex = 46;
             label8.Text = "Teléfono";
             // 
@@ -666,7 +669,7 @@
             txtTelefonoContacto.Font = new Font("Century Gothic", 9F);
             txtTelefonoContacto.Location = new Point(529, 209);
             txtTelefonoContacto.Name = "txtTelefonoContacto";
-            txtTelefonoContacto.Size = new Size(389, 26);
+            txtTelefonoContacto.Size = new Size(389, 22);
             txtTelefonoContacto.TabIndex = 37;
             // 
             // comboBox1
@@ -679,7 +682,7 @@
             comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
             comboBox1.Location = new Point(529, 131);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(389, 28);
+            comboBox1.Size = new Size(389, 25);
             comboBox1.TabIndex = 88;
             // 
             // label9
@@ -689,7 +692,7 @@
             label9.Font = new Font("Century Gothic", 9F);
             label9.Location = new Point(92, 258);
             label9.Name = "label9";
-            label9.Size = new Size(80, 20);
+            label9.Size = new Size(66, 17);
             label9.TabIndex = 47;
             label9.Text = "Contacto";
             // 
@@ -698,7 +701,7 @@
             txtNombreContacto.Font = new Font("Century Gothic", 9F);
             txtNombreContacto.Location = new Point(92, 284);
             txtNombreContacto.Name = "txtNombreContacto";
-            txtNombreContacto.Size = new Size(389, 26);
+            txtNombreContacto.Size = new Size(389, 22);
             txtNombreContacto.TabIndex = 38;
             // 
             // roundedButton4
@@ -726,7 +729,7 @@
             label2.Font = new Font("Century Gothic", 12F);
             label2.Location = new Point(488, 13);
             label2.Name = "label2";
-            label2.Size = new Size(95, 23);
+            label2.Size = new Size(81, 21);
             label2.TabIndex = 192;
             label2.Text = "CLIENTES";
             // 
@@ -783,7 +786,7 @@
             label10.Font = new Font("Century Gothic", 12F);
             label10.Location = new Point(95, 15);
             label10.Name = "label10";
-            label10.Size = new Size(280, 23);
+            label10.Size = new Size(236, 21);
             label10.TabIndex = 187;
             label10.Text = "MARCAS INTERNACIONALES";
             // 
@@ -839,7 +842,7 @@
             // 
             // FrmAdministrarClientes
             // 
-            AutoScaleDimensions = new SizeF(12F, 23F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1169, 827);

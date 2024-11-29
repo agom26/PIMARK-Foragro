@@ -20,7 +20,13 @@ namespace Presentacion.Clases
        
         public int BorderSize { get => borderSize; set { borderSize = value; this.Invalidate(); } }
        
-        public int BorderRadius { get => borderRadius; set { borderRadius = value; this.Invalidate(); } }
+        public int BorderRadius { get => borderRadius; set 
+            {
+                if (value <= this.Height)
+                    borderRadius = value;
+                else BorderRadius = this.Height;
+                    this.Invalidate(); 
+            } }
         
         public Color BorderColor { get => borderColor; set { borderColor = value; this.Invalidate(); } }
         
@@ -35,7 +41,7 @@ namespace Presentacion.Clases
                 this.BackColor = value;
             }
         }
-
+       
         
         public Color TextColor
         {
@@ -57,8 +63,11 @@ namespace Presentacion.Clases
             this.Size = new Size(150,40);
             this.BackColor = Color.MediumSlateBlue;
             this.ForeColor = Color.White;
+            this.Resize += new EventHandler(Button_Resize);
 
         }
+
+        
 
         //metodos
         private GraphicsPath GetFigurePath(RectangleF rect, float radius)
@@ -133,6 +142,11 @@ namespace Presentacion.Clases
             {
                 this.Invalidate();
             }
+        }
+        private void Button_Resize(object? sender, EventArgs e)
+        {
+            if (borderRadius > this.Height)
+                borderRadius = this.Height;
         }
     }
 }

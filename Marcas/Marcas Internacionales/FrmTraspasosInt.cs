@@ -32,15 +32,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmTraspasosInt()
         {
             InitializeComponent();
-            int x = (panel17.Size.Width - label31.Size.Width - iconPictureBox4.Size.Width) / 2;
-            int y = (panel17.Size.Height - label31.Size.Height) / 2;
-            panel18.Location = new Point(x, y);
 
-            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
-
-            iconPictureBox4.IconSize = 25;
             this.Load += FrmTraspasosInt_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -167,7 +159,7 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-               
+
             }
             else
             {
@@ -1009,6 +1001,27 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedButton5_MouseEnter(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void roundedButton5_MouseHover(object sender, EventArgs e)
+        {
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+        }
+
+        private void roundedButton5_MouseUp(object sender, MouseEventArgs e)
+        {
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
         }
     }
 }
