@@ -143,7 +143,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1035, 664);
+            panel1.Size = new Size(1028, 664);
             panel1.TabIndex = 0;
             // 
             // panel3
@@ -649,7 +649,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1050, 8416);
+            label5.Location = new Point(1046, 9856);
             label5.Name = "label5";
             label5.Size = new Size(110, 19);
             label5.TabIndex = 6;
@@ -821,7 +821,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1035, 664);
+            ClientSize = new Size(1028, 664);
             ControlBox = false;
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
