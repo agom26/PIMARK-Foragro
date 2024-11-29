@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using FontAwesome.Sharp;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System;
@@ -23,6 +24,14 @@ namespace Presentacion.Patentes
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
+            this.Load += FrmMostrarIngresadasPatentes_Load;
+            int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox4.Size.Width) / 2;
+            int y = (panel17.Size.Height - label30.Size.Height) / 2;
+            panel18.Location = new Point(x, y);
+
+            int x2 = (panel15.Size.Width - label1.Size.Width) / 2;
+            int y2 = (panel15.Size.Height - label1.Size.Height) / 2;
+            panel16.Location = new Point(x2, y2);
             iconPictureBox4.IconSize = 25;
         }
         private async Task LoadPatentes()
@@ -610,11 +619,13 @@ namespace Presentacion.Patentes
 
         private async void FrmMostrarIngresadasPatentes_Load(object sender, EventArgs e)
         {
+            tabControl1.Visible = false;
             await Task.Run(() => LoadPatentes());
             tabControl1.SelectedTab = tabPageIngresadasList;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.Visible = true;
         }
         public async void Editar()
         {
