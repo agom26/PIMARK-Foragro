@@ -43,15 +43,9 @@
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="MailKit" Version="4.8.0" />
-    <PackageReference Include="MaterialSkin" Version="0.2.1" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1652.0" />
-    <PackageReference Include="PDFsharp" Version="6.1.1" />
     <PackageReference Include="PuppeteerSharp" Version="20.0.5" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
-    <PackageReference Include="System.Text.Json" Version="9.0.0" />
-    <PackageReference Include="VisualBasic.PowerPacks.Vs" Version="1.0.0" />
-    <PackageReference Include="WkHtmlToPdf" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

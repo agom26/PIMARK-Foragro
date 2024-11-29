@@ -1,7 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Comun.Cache;
 using Dominio;
-using PdfSharp.Drawing;
 using Presentacion.Alertas;
 using System;
 using System.Collections.Generic;

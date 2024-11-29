@@ -144,7 +144,9 @@ namespace Marcas
                     Form1 dashboard = new Form1(isAdmin);
                     dashboard.Show();
                     dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
+
                     this.Hide();
+                    MessageBox.Show("Hola");
                     
                 }
                 else
