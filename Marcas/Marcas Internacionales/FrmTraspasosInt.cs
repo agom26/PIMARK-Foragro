@@ -31,7 +31,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmTraspasosInt()
         {
             InitializeComponent();
-            iconPictureBox4.IconSize = 25;
+            iconPictureBox3.IconSize = 25;
             this.Load += FrmTraspasosInt_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;

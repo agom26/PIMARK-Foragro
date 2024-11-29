@@ -32,6 +32,14 @@ namespace Presentacion.Marcas_Nacionales
         public FrmRenovaciones()
         {
             InitializeComponent();
+            int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
+            int y = (panel17.Size.Height - label30.Size.Height) / 2;
+            panel18.Location = new Point(x, y);
+
+            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
+            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
+            panel16.Location = new Point(x2, y2);
+
             iconPictureBox3.IconSize = 25;
             this.Load += FrmRenovaciones_Load;
             SeleccionarMarca.idN = 0;

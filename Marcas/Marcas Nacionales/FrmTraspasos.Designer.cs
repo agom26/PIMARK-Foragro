@@ -165,7 +165,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1169, 827);
+            tabControl1.Size = new Size(1028, 749);
             tabControl1.TabIndex = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -180,39 +180,43 @@
             tabPageRegistradasList.Location = new Point(4, 26);
             tabPageRegistradasList.Name = "tabPageRegistradasList";
             tabPageRegistradasList.Padding = new Padding(3);
-            tabPageRegistradasList.Size = new Size(1161, 797);
+            tabPageRegistradasList.Size = new Size(1020, 719);
             tabPageRegistradasList.TabIndex = 0;
             tabPageRegistradasList.UseVisualStyleBackColor = true;
             tabPageRegistradasList.Click += tabPageRegistradasList_Click;
             // 
             // panel12
             // 
+            panel12.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel12.AutoSize = true;
             panel12.Controls.Add(panel13);
             panel12.Controls.Add(iconPictureBox1);
             panel12.Controls.Add(panel14);
             panel12.Location = new Point(8, 6);
             panel12.Name = "panel12";
-            panel12.Size = new Size(595, 49);
+            panel12.Size = new Size(1009, 49);
             panel12.TabIndex = 173;
             // 
             // panel13
             // 
+            panel13.AutoSize = true;
             panel13.Controls.Add(panel10);
             panel13.Controls.Add(roundedButton1);
             panel13.Dock = DockStyle.Left;
-            panel13.Location = new Point(340, 0);
+            panel13.Location = new Point(371, 0);
             panel13.Name = "panel13";
-            panel13.Size = new Size(249, 49);
+            panel13.Size = new Size(280, 49);
             panel13.TabIndex = 170;
             // 
             // panel10
             // 
+            panel10.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel10.BackColor = Color.FromArgb(175, 192, 218);
             panel10.Controls.Add(label28);
             panel10.Location = new Point(29, 14);
             panel10.Margin = new Padding(0);
             panel10.Name = "panel10";
-            panel10.Size = new Size(188, 24);
+            panel10.Size = new Size(216, 24);
             panel10.TabIndex = 175;
             // 
             // label28
@@ -235,13 +239,14 @@
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderRadius = 50;
             roundedButton1.BorderSize = 0;
+            roundedButton1.Dock = DockStyle.Fill;
             roundedButton1.Enabled = false;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.ForeColor = Color.White;
             roundedButton1.Location = new Point(0, 0);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(249, 49);
+            roundedButton1.Size = new Size(280, 49);
             roundedButton1.TabIndex = 167;
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
@@ -255,7 +260,7 @@
             iconPictureBox1.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 49;
-            iconPictureBox1.Location = new Point(291, 0);
+            iconPictureBox1.Location = new Point(322, 0);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(49, 49);
             iconPictureBox1.TabIndex = 166;
@@ -264,22 +269,24 @@
             // 
             // panel14
             // 
+            panel14.AutoSize = true;
             panel14.Controls.Add(panel9);
             panel14.Controls.Add(roundedButton2);
             panel14.Dock = DockStyle.Left;
             panel14.Location = new Point(0, 0);
             panel14.Name = "panel14";
-            panel14.Size = new Size(291, 49);
+            panel14.Size = new Size(322, 49);
             panel14.TabIndex = 169;
             // 
             // panel9
             // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel9.BackColor = Color.FromArgb(175, 192, 218);
             panel9.Controls.Add(label1);
             panel9.Controls.Add(iconPictureBox4);
             panel9.Location = new Point(35, 14);
             panel9.Name = "panel9";
-            panel9.Size = new Size(220, 21);
+            panel9.Size = new Size(248, 21);
             panel9.TabIndex = 174;
             // 
             // label1
@@ -324,7 +331,7 @@
             roundedButton2.ForeColor = Color.White;
             roundedButton2.Location = new Point(0, 0);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(291, 49);
+            roundedButton2.Size = new Size(319, 49);
             roundedButton2.TabIndex = 164;
             roundedButton2.TextColor = Color.White;
             roundedButton2.UseVisualStyleBackColor = false;
@@ -338,7 +345,7 @@
             panel20.Controls.Add(roundedButton3);
             panel20.Location = new Point(22, 86);
             panel20.Name = "panel20";
-            panel20.Size = new Size(1130, 73);
+            panel20.Size = new Size(989, 73);
             panel20.TabIndex = 172;
             // 
             // label2
@@ -347,7 +354,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(236, 236, 238);
             label2.Font = new Font("Century Gothic", 10F);
-            label2.Location = new Point(263, 8);
+            label2.Location = new Point(192, 8);
             label2.Name = "label2";
             label2.Size = new Size(236, 19);
             label2.TabIndex = 0;
@@ -356,7 +363,7 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
-            txtBuscar.Location = new Point(279, 32);
+            txtBuscar.Location = new Point(208, 32);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 22);
             txtBuscar.TabIndex = 1;
@@ -373,7 +380,7 @@
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(613, 18);
+            ibtnBuscar.Location = new Point(542, 18);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 36);
             ibtnBuscar.TabIndex = 16;
@@ -394,7 +401,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(226, 6);
+            roundedButton3.Location = new Point(155, 6);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(560, 61);
             roundedButton3.TabIndex = 22;
@@ -413,7 +420,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(989, 220);
+            iconButton3.Location = new Point(848, 220);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(163, 37);
             iconButton3.TabIndex = 48;
@@ -434,7 +441,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(989, 165);
+            ibtnEditar.Location = new Point(848, 165);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(163, 37);
             ibtnEditar.TabIndex = 46;
@@ -450,7 +457,7 @@
             panel4.Controls.Add(dtgMarcasRenov);
             panel4.Location = new Point(22, 165);
             panel4.Name = "panel4";
-            panel4.Size = new Size(961, 542);
+            panel4.Size = new Size(820, 542);
             panel4.TabIndex = 45;
             // 
             // dtgMarcasRenov
@@ -499,7 +506,7 @@
             dtgMarcasRenov.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgMarcasRenov.RowHeadersWidth = 51;
             dtgMarcasRenov.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgMarcasRenov.Size = new Size(940, 514);
+            dtgMarcasRenov.Size = new Size(799, 514);
             dtgMarcasRenov.TabIndex = 29;
             dtgMarcasRenov.CellDoubleClick += dtgMarcasRenov_CellDoubleClick;
             // 
@@ -510,7 +517,7 @@
             tabPageMarcaDetail.Location = new Point(4, 24);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 799);
+            tabPageMarcaDetail.Size = new Size(1020, 721);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
@@ -1163,7 +1170,7 @@
             tabPageHistorialMarca.Controls.Add(panel2);
             tabPageHistorialMarca.Location = new Point(4, 24);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
-            tabPageHistorialMarca.Size = new Size(1161, 799);
+            tabPageHistorialMarca.Size = new Size(1020, 721);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
@@ -1272,7 +1279,7 @@
             tabPageHistorialDetail.Controls.Add(panel6);
             tabPageHistorialDetail.Location = new Point(4, 24);
             tabPageHistorialDetail.Name = "tabPageHistorialDetail";
-            tabPageHistorialDetail.Size = new Size(1161, 799);
+            tabPageHistorialDetail.Size = new Size(1020, 721);
             tabPageHistorialDetail.TabIndex = 3;
             tabPageHistorialDetail.UseVisualStyleBackColor = true;
             // 
@@ -1459,7 +1466,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
-            ClientSize = new Size(1169, 827);
+            ClientSize = new Size(1028, 749);
             Controls.Add(tabControl1);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.None;
@@ -1468,7 +1475,9 @@
             Load += FrmTraspasos_Load;
             tabControl1.ResumeLayout(false);
             tabPageRegistradasList.ResumeLayout(false);
+            tabPageRegistradasList.PerformLayout();
             panel12.ResumeLayout(false);
+            panel12.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
             panel10.ResumeLayout(false);

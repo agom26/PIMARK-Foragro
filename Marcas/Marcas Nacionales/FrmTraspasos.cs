@@ -33,6 +33,13 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             iconPictureBox4.IconSize = 25;
+            int x = (panel14.Size.Width -label1.Size.Width-iconPictureBox4.Size.Width) / 2;
+            int y= (panel14.Size.Height - label1.Size.Height) / 2;
+            panel9.Location = new Point(x, y);
+
+            int x2 =(panel13.Size.Width-label28.Size.Width)/2;
+            int y2 =(panel13.Size.Height-label28.Size.Height)/2;
+            panel10.Location=new Point(x2, y2);
 
             this.Load += FrmTraspasos_Load;
             SeleccionarMarca.idN = 0;
