@@ -30,7 +30,7 @@ namespace Presentacion.Marcas_Internacionales
 
             int x2 = (panel11.Size.Width - label29.Size.Width) / 2;
             int y2 = (panel11.Size.Height - label29.Size.Height) / 2;
-            panel12.Location = new Point(x2, y2);
+            panel8.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMarcasIntAbandonadas_Load;
             SeleccionarMarca.idInt = 0;
