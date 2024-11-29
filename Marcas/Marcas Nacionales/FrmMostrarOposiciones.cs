@@ -34,6 +34,13 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarOposiciones()
         {
             InitializeComponent();
+            int x = (panel27.Size.Width - label36.Size.Width - iconPictureBox3.Size.Width) / 2;
+            int y = (panel27.Size.Height - label36.Size.Height) / 2;
+            panel28.Location = new Point(x, y);
+
+            int x2 = (panel25.Size.Width - label1.Size.Width) / 2;
+            int y2 = (panel25.Size.Height - label1.Size.Height) / 2;
+            panel26.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idN = 0;

@@ -25,6 +25,13 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarAbandonadas()
         {
             InitializeComponent();
+            int x = (panel27.Size.Width - label5.Size.Width - iconPictureBox3.Size.Width) / 2;
+            int y = (panel27.Size.Height - label5.Size.Height) / 2;
+            panel28.Location = new Point(x, y);
+
+            int x2 = (panel25.Size.Width - label1.Size.Width) / 2;
+            int y2 = (panel25.Size.Height - label1.Size.Height) / 2;
+            panel26.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarAbandonadas_Load;
             SeleccionarMarca.idN = 0;
