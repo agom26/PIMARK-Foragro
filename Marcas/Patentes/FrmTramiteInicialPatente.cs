@@ -22,6 +22,7 @@ namespace Presentacion.Patentes
         public FrmTramiteInicialPatente()
         {
             InitializeComponent();
+            iconPictureBox3.IconSize = 25;
             panel2I.Visible = false;
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;

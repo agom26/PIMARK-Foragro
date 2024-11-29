@@ -23,6 +23,7 @@ namespace Presentacion.Patentes
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
+            iconPictureBox4.IconSize = 25;
         }
         private async Task LoadPatentes()
         {
