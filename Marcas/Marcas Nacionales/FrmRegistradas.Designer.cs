@@ -288,6 +288,7 @@
             // 
             // label31
             // 
+            label31.Anchor = AnchorStyles.None;
             label31.AutoSize = true;
             label31.BackColor = Color.FromArgb(175, 192, 218);
             label31.Font = new Font("Century Gothic", 12F);
@@ -344,6 +345,7 @@
             // 
             // label33
             // 
+            label33.Anchor = AnchorStyles.None;
             label33.AutoSize = true;
             label33.BackColor = Color.FromArgb(175, 192, 218);
             label33.Font = new Font("Century Gothic", 12F);
@@ -355,6 +357,7 @@
             // 
             // iconPictureBox4
             // 
+            iconPictureBox4.Anchor = AnchorStyles.None;
             iconPictureBox4.BackColor = Color.FromArgb(175, 192, 218);
             iconPictureBox4.ForeColor = SystemColors.ControlText;
             iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.Flag;

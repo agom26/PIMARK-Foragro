@@ -1112,7 +1112,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 tabControl1.TabPages.Add(tabPageAgregarOposicion);
             }
-            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            //iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             tabControl1.SelectedTab = tabPageAgregarOposicion;
         }
 
