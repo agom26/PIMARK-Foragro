@@ -278,6 +278,26 @@ namespace Presentacion.Reportes
                     numRegistros = 15;
                     escala = 0.7f;
                     break;
+                case 4:
+                    objeto = "v_internacionales";
+                    numRegistros = 15;
+                    escala = 0.7f;
+                    break;
+                case 5:
+                    objeto = "vencimientos marcas nacionales";
+                    numRegistros = 11;
+                    escala = 0.85f;
+                    break;
+                case 6:
+                    objeto = "vencimientos marcas";
+                    numRegistros = 15;
+                    escala = 0.75f;
+                    break;
+                case 7:
+                    objeto = "vencimientos patentes";
+                    numRegistros = 15;
+                    escala = 0.7f;
+                    break;
             }
 
             if (checkBoxEstado.Checked)
@@ -300,7 +320,7 @@ namespace Presentacion.Reportes
 
             if (checkBoxPais.Checked)
             {
-                pais = comboBoxPais.SelectedIndex.ToString();
+                pais = comboBoxPais.SelectedItem.ToString();
             }
             else
             {
