@@ -25,15 +25,15 @@ namespace Presentacion.Reportes
         MarcaModel marcamodel = new MarcaModel();
         public FrmReportesMarcasPatentes()
         {
-           
+
             InitializeComponent();
-          
-            
+
+
             this.Load += FrmReportesMarcasPatentes_Load;
             SeleccionarPersonaReportes.LimpiarCliente();
             SeleccionarPersonaReportes.LimpiarTitular();
             SeleccionarPersonaReportes.LimpiarAgente();
-          
+
 
         }
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
@@ -566,6 +566,71 @@ namespace Presentacion.Reportes
         }
 
         private void FrmReportesMarcasPatentes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFRegistroInicial_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpVencimientoFinal_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBoxTitular_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedButton7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFechaRegistroFinal_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpVencimientoInicial_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void richTextBoxCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpSolicitudInicial_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
         {
 
         }

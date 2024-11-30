@@ -185,7 +185,7 @@
             roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 50;
+            roundedButton5.BorderRadius = 40;
             roundedButton5.BorderSize = 0;
             roundedButton5.Dock = DockStyle.Fill;
             roundedButton5.Enabled = false;
@@ -272,7 +272,7 @@
             roundedButton6.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton6.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton6.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton6.BorderRadius = 50;
+            roundedButton6.BorderRadius = 40;
             roundedButton6.BorderSize = 0;
             roundedButton6.Dock = DockStyle.Fill;
             roundedButton6.Enabled = false;
@@ -355,7 +355,7 @@
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderRadius = 80;
+            roundedButton3.BorderRadius = 40;
             roundedButton3.BorderSize = 0;
             roundedButton3.Enabled = false;
             roundedButton3.FlatAppearance.BorderSize = 0;
@@ -463,10 +463,10 @@
             // 
             tabClienteDetail.BackColor = Color.White;
             tabClienteDetail.Controls.Add(panel3);
-            tabClienteDetail.Location = new Point(4, 24);
+            tabClienteDetail.Location = new Point(4, 30);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(1161, 799);
+            tabClienteDetail.Size = new Size(1161, 793);
             tabClienteDetail.TabIndex = 1;
             // 
             // panel3
@@ -484,7 +484,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1155, 793);
+            panel3.Size = new Size(1155, 787);
             panel3.TabIndex = 194;
             // 
             // iconPictureBox3
@@ -545,6 +545,7 @@
             txtNombreCliente.Name = "txtNombreCliente";
             txtNombreCliente.Size = new Size(389, 22);
             txtNombreCliente.TabIndex = 32;
+            txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
             // 
             // label4
             // 
@@ -738,7 +739,7 @@
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderRadius = 40;
             roundedButton1.BorderSize = 0;
             roundedButton1.Enabled = false;
             roundedButton1.FlatAppearance.BorderSize = 0;
@@ -809,7 +810,7 @@
             roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderRadius = 40;
             roundedButton7.BorderSize = 0;
             roundedButton7.Enabled = false;
             roundedButton7.FlatAppearance.BorderSize = 0;
@@ -827,7 +828,7 @@
             roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderRadius = 40;
             roundedButton2.BorderSize = 0;
             roundedButton2.Enabled = false;
             roundedButton2.FlatAppearance.BorderSize = 0;

@@ -109,7 +109,7 @@
             label2.Font = new Font("Century Gothic", 15F);
             label2.Location = new Point(328, 22);
             label2.Name = "label2";
-            label2.Size = new Size(336, 31);
+            label2.Size = new Size(263, 23);
             label2.TabIndex = 34;
             label2.Text = "PRÓXIMOS VENCIMIENTOS";
             // 
@@ -138,7 +138,7 @@
             textBox1.Anchor = AnchorStyles.Top;
             textBox1.Location = new Point(309, 146);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 26);
+            textBox1.Size = new Size(301, 22);
             textBox1.TabIndex = 36;
             // 
             // label3
@@ -149,7 +149,7 @@
             label3.Font = new Font("Century Gothic", 9F);
             label3.Location = new Point(144, 146);
             label3.Name = "label3";
-            label3.Size = new Size(148, 20);
+            label3.Size = new Size(119, 17);
             label3.TabIndex = 35;
             label3.Text = "Buscar por nombre";
             // 
@@ -179,7 +179,7 @@
             roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 60;
+            roundedButton5.BorderRadius = 50;
             roundedButton5.BorderSize = 0;
             roundedButton5.Enabled = false;
             roundedButton5.FlatAppearance.BorderSize = 0;
@@ -194,7 +194,7 @@
             // 
             // FrmVencimientos
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1132, 796);

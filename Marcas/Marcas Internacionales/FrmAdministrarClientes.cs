@@ -450,5 +450,10 @@ namespace Presentacion.Marcas_Internacionales
         {
             EditarCliente();
         }
+
+        private void txtNombreCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

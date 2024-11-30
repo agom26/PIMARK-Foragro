@@ -28,59 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel6 = new Panel();
             richTextBoxCliente = new RichTextBox();
+            checkBoxSolicitud = new CheckBox();
             roundedButton5 = new Clases.RoundedButton();
+            dtpFechaRegistroFinal = new DateTimePicker();
             checkBoxCliente = new CheckBox();
-            comboBoxObjeto = new ComboBox();
-            panel1 = new Panel();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton2 = new Clases.RoundedButton();
-            roundedButton3 = new Clases.RoundedButton();
+            dtpFRegistroInicial = new DateTimePicker();
             richTextBoxAgente = new RichTextBox();
-            comboBoxEstado = new ComboBox();
-            btnConsultar = new Clases.RoundedButton();
-            label29 = new Label();
-            btnCancelar = new Clases.RoundedButton();
-            checkBoxEstado = new CheckBox();
+            dtpSolicitudFinal = new DateTimePicker();
             roundedButton1 = new Clases.RoundedButton();
-            checkBoxAgente = new CheckBox();
-            checkBoxNombre = new CheckBox();
-            richTextBoxTitular = new RichTextBox();
-            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
+            dtpVencimientoInicial = new DateTimePicker();
             roundedButton4 = new Clases.RoundedButton();
-            checkBoxRegistro = new CheckBox();
+            dtpSolicitudInicial = new DateTimePicker();
+            richTextBoxTitular = new RichTextBox();
+            dtpVencimientoFinal = new DateTimePicker();
+            checkBoxAgente = new CheckBox();
+            checkBoxReigstro = new CheckBox();
             checkBoxTitular = new CheckBox();
-            checkBoxPais = new CheckBox();
+            checkBoxVencimiento = new CheckBox();
+            panel5 = new Panel();
+            comboBoxObjeto = new ComboBox();
             txtClase = new TextBox();
-            roundedButton6 = new Clases.RoundedButton();
+            checkBoxEstado = new CheckBox();
             checkBoxClase = new CheckBox();
             txtRegistro = new TextBox();
-            checkBoxSolicitud = new CheckBox();
-            checkBoxFolio = new CheckBox();
-            checkBoxReigstro = new CheckBox();
-            checkBoxVencimiento = new CheckBox();
-            dtpSolicitudFinal = new DateTimePicker();
+            comboBoxEstado = new ComboBox();
+            checkBoxRegistro = new CheckBox();
+            txtTomo = new TextBox();
+            txtNombre = new TextBox();
             checkBoxTomo = new CheckBox();
-            dtpSolicitudInicial = new DateTimePicker();
+            checkBoxNombre = new CheckBox();
+            txtFolio = new TextBox();
+            checkBoxFolio = new CheckBox();
+            comboBoxPais = new ComboBox();
+            checkBoxPais = new CheckBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            panel1 = new Panel();
+            roundedButton2 = new Clases.RoundedButton();
+            btnConsultar = new Clases.RoundedButton();
+            roundedButton3 = new Clases.RoundedButton();
+            label29 = new Label();
+            btnCancelar = new Clases.RoundedButton();
+            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
+            roundedButton6 = new Clases.RoundedButton();
             panel2 = new Panel();
             dtgReportes = new DataGridView();
-            dtpVencimientoFinal = new DateTimePicker();
-            comboBoxPais = new ComboBox();
-            dtpFRegistroInicial = new DateTimePicker();
-            txtNombre = new TextBox();
-            dtpFechaRegistroFinal = new DateTimePicker();
-            txtFolio = new TextBox();
-            dtpVencimientoInicial = new DateTimePicker();
-            txtTomo = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel6.SuspendLayout();
+            panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
@@ -103,46 +108,18 @@
             // tabPage1
             // 
             tabPage1.AutoScroll = true;
-            tabPage1.Controls.Add(richTextBoxCliente);
-            tabPage1.Controls.Add(roundedButton5);
-            tabPage1.Controls.Add(checkBoxCliente);
-            tabPage1.Controls.Add(comboBoxObjeto);
+            tabPage1.Controls.Add(tableLayoutPanel1);
+            tabPage1.Controls.Add(iconPictureBox1);
+            tabPage1.Controls.Add(iconPictureBox2);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(richTextBoxAgente);
-            tabPage1.Controls.Add(comboBoxEstado);
+            tabPage1.Controls.Add(roundedButton2);
             tabPage1.Controls.Add(btnConsultar);
+            tabPage1.Controls.Add(roundedButton3);
             tabPage1.Controls.Add(label29);
             tabPage1.Controls.Add(btnCancelar);
-            tabPage1.Controls.Add(checkBoxEstado);
-            tabPage1.Controls.Add(roundedButton1);
-            tabPage1.Controls.Add(checkBoxAgente);
-            tabPage1.Controls.Add(checkBoxNombre);
-            tabPage1.Controls.Add(richTextBoxTitular);
             tabPage1.Controls.Add(iconPictureBox4);
-            tabPage1.Controls.Add(roundedButton4);
-            tabPage1.Controls.Add(checkBoxRegistro);
-            tabPage1.Controls.Add(checkBoxTitular);
-            tabPage1.Controls.Add(checkBoxPais);
-            tabPage1.Controls.Add(txtClase);
             tabPage1.Controls.Add(roundedButton6);
-            tabPage1.Controls.Add(checkBoxClase);
-            tabPage1.Controls.Add(txtRegistro);
-            tabPage1.Controls.Add(checkBoxSolicitud);
-            tabPage1.Controls.Add(checkBoxFolio);
-            tabPage1.Controls.Add(checkBoxReigstro);
-            tabPage1.Controls.Add(checkBoxVencimiento);
-            tabPage1.Controls.Add(dtpSolicitudFinal);
-            tabPage1.Controls.Add(checkBoxTomo);
-            tabPage1.Controls.Add(dtpSolicitudInicial);
             tabPage1.Controls.Add(panel2);
-            tabPage1.Controls.Add(dtpVencimientoFinal);
-            tabPage1.Controls.Add(comboBoxPais);
-            tabPage1.Controls.Add(dtpFRegistroInicial);
-            tabPage1.Controls.Add(txtNombre);
-            tabPage1.Controls.Add(dtpFechaRegistroFinal);
-            tabPage1.Controls.Add(txtFolio);
-            tabPage1.Controls.Add(dtpVencimientoInicial);
-            tabPage1.Controls.Add(txtTomo);
             tabPage1.Location = new Point(4, 26);
             tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
@@ -152,20 +129,79 @@
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.BackColor = Color.FromArgb(222, 227, 234);
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(panel6, 1, 0);
+            tableLayoutPanel1.Controls.Add(panel5, 0, 0);
+            tableLayoutPanel1.Location = new Point(32, 56);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(763, 534);
+            tableLayoutPanel1.TabIndex = 242;
+            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            // 
+            // panel6
+            // 
+            panel6.Anchor = AnchorStyles.Left;
+            panel6.AutoScroll = true;
+            panel6.BackColor = Color.FromArgb(222, 227, 234);
+            panel6.Controls.Add(richTextBoxCliente);
+            panel6.Controls.Add(checkBoxSolicitud);
+            panel6.Controls.Add(roundedButton5);
+            panel6.Controls.Add(dtpFechaRegistroFinal);
+            panel6.Controls.Add(checkBoxCliente);
+            panel6.Controls.Add(dtpFRegistroInicial);
+            panel6.Controls.Add(richTextBoxAgente);
+            panel6.Controls.Add(dtpSolicitudFinal);
+            panel6.Controls.Add(roundedButton1);
+            panel6.Controls.Add(dtpVencimientoInicial);
+            panel6.Controls.Add(roundedButton4);
+            panel6.Controls.Add(dtpSolicitudInicial);
+            panel6.Controls.Add(richTextBoxTitular);
+            panel6.Controls.Add(dtpVencimientoFinal);
+            panel6.Controls.Add(checkBoxAgente);
+            panel6.Controls.Add(checkBoxReigstro);
+            panel6.Controls.Add(checkBoxTitular);
+            panel6.Controls.Add(checkBoxVencimiento);
+            panel6.Location = new Point(384, 3);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(350, 528);
+            panel6.TabIndex = 244;
+            // 
             // richTextBoxCliente
             // 
-            richTextBoxCliente.Anchor = AnchorStyles.Top;
-            richTextBoxCliente.Location = new Point(218, 622);
+            richTextBoxCliente.Location = new Point(76, 434);
             richTextBoxCliente.Margin = new Padding(3, 2, 3, 2);
             richTextBoxCliente.Name = "richTextBoxCliente";
             richTextBoxCliente.ReadOnly = true;
-            richTextBoxCliente.Size = new Size(300, 36);
+            richTextBoxCliente.Size = new Size(245, 36);
             richTextBoxCliente.TabIndex = 240;
             richTextBoxCliente.Text = "";
+            richTextBoxCliente.TextChanged += richTextBoxCliente_TextChanged;
+            // 
+            // checkBoxSolicitud
+            // 
+            checkBoxSolicitud.AutoSize = true;
+            checkBoxSolicitud.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxSolicitud.Location = new Point(3, 81);
+            checkBoxSolicitud.Margin = new Padding(3, 2, 3, 2);
+            checkBoxSolicitud.Name = "checkBoxSolicitud";
+            checkBoxSolicitud.Size = new Size(97, 23);
+            checkBoxSolicitud.TabIndex = 205;
+            checkBoxSolicitud.Text = "F.Solicitud";
+            checkBoxSolicitud.UseVisualStyleBackColor = false;
             // 
             // roundedButton5
             // 
-            roundedButton5.Anchor = AnchorStyles.Top;
             roundedButton5.BackColor = Color.LightSteelBlue;
             roundedButton5.BackgroundColor = Color.LightSteelBlue;
             roundedButton5.BorderColor = Color.LightSteelBlue;
@@ -175,7 +211,7 @@
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.Font = new Font("Century Gothic", 10F);
             roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Location = new Point(227, 587);
+            roundedButton5.Location = new Point(76, 404);
             roundedButton5.Margin = new Padding(3, 2, 3, 2);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(170, 26);
@@ -185,80 +221,430 @@
             roundedButton5.UseVisualStyleBackColor = false;
             roundedButton5.Click += roundedButton5_Click;
             // 
+            // dtpFechaRegistroFinal
+            // 
+            dtpFechaRegistroFinal.Format = DateTimePickerFormat.Short;
+            dtpFechaRegistroFinal.Location = new Point(227, 127);
+            dtpFechaRegistroFinal.Margin = new Padding(3, 2, 3, 2);
+            dtpFechaRegistroFinal.Name = "dtpFechaRegistroFinal";
+            dtpFechaRegistroFinal.Size = new Size(94, 24);
+            dtpFechaRegistroFinal.TabIndex = 222;
+            dtpFechaRegistroFinal.ValueChanged += dtpFechaRegistroFinal_ValueChanged;
+            // 
             // checkBoxCliente
             // 
-            checkBoxCliente.Anchor = AnchorStyles.Top;
             checkBoxCliente.AutoSize = true;
-            checkBoxCliente.Location = new Point(122, 596);
+            checkBoxCliente.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxCliente.Location = new Point(3, 403);
             checkBoxCliente.Margin = new Padding(3, 2, 3, 2);
             checkBoxCliente.Name = "checkBoxCliente";
             checkBoxCliente.Size = new Size(77, 23);
             checkBoxCliente.TabIndex = 238;
             checkBoxCliente.Text = "Cliente";
-            checkBoxCliente.UseVisualStyleBackColor = true;
+            checkBoxCliente.UseVisualStyleBackColor = false;
+            // 
+            // dtpFRegistroInicial
+            // 
+            dtpFRegistroInicial.Format = DateTimePickerFormat.Short;
+            dtpFRegistroInicial.Location = new Point(106, 127);
+            dtpFRegistroInicial.Margin = new Padding(3, 2, 3, 2);
+            dtpFRegistroInicial.Name = "dtpFRegistroInicial";
+            dtpFRegistroInicial.Size = new Size(94, 24);
+            dtpFRegistroInicial.TabIndex = 220;
+            dtpFRegistroInicial.ValueChanged += dtpFRegistroInicial_ValueChanged;
+            // 
+            // richTextBoxAgente
+            // 
+            richTextBoxAgente.Location = new Point(76, 342);
+            richTextBoxAgente.Margin = new Padding(3, 2, 3, 2);
+            richTextBoxAgente.Name = "richTextBoxAgente";
+            richTextBoxAgente.ReadOnly = true;
+            richTextBoxAgente.Size = new Size(245, 36);
+            richTextBoxAgente.TabIndex = 235;
+            richTextBoxAgente.Text = "";
+            // 
+            // dtpSolicitudFinal
+            // 
+            dtpSolicitudFinal.Format = DateTimePickerFormat.Short;
+            dtpSolicitudFinal.Location = new Point(227, 84);
+            dtpSolicitudFinal.Margin = new Padding(3, 2, 3, 2);
+            dtpSolicitudFinal.Name = "dtpSolicitudFinal";
+            dtpSolicitudFinal.Size = new Size(94, 24);
+            dtpSolicitudFinal.TabIndex = 224;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BackColor = Color.LightSteelBlue;
+            roundedButton1.BackgroundColor = Color.LightSteelBlue;
+            roundedButton1.BorderColor = Color.LightSteelBlue;
+            roundedButton1.BorderRadius = 26;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Century Gothic", 10F);
+            roundedButton1.ForeColor = Color.Black;
+            roundedButton1.Location = new Point(76, 312);
+            roundedButton1.Margin = new Padding(3, 2, 3, 2);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(170, 26);
+            roundedButton1.TabIndex = 234;
+            roundedButton1.Text = "+ AGENTE";
+            roundedButton1.TextColor = Color.Black;
+            roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
+            // 
+            // dtpVencimientoInicial
+            // 
+            dtpVencimientoInicial.Format = DateTimePickerFormat.Short;
+            dtpVencimientoInicial.Location = new Point(106, 173);
+            dtpVencimientoInicial.Margin = new Padding(3, 2, 3, 2);
+            dtpVencimientoInicial.Name = "dtpVencimientoInicial";
+            dtpVencimientoInicial.Size = new Size(94, 24);
+            dtpVencimientoInicial.TabIndex = 221;
+            dtpVencimientoInicial.ValueChanged += dtpVencimientoInicial_ValueChanged;
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.BackColor = Color.LightSteelBlue;
+            roundedButton4.BackgroundColor = Color.LightSteelBlue;
+            roundedButton4.BorderColor = Color.LightSteelBlue;
+            roundedButton4.BorderRadius = 26;
+            roundedButton4.BorderSize = 0;
+            roundedButton4.FlatAppearance.BorderSize = 0;
+            roundedButton4.FlatStyle = FlatStyle.Flat;
+            roundedButton4.Font = new Font("Century Gothic", 10F);
+            roundedButton4.ForeColor = Color.Black;
+            roundedButton4.Location = new Point(76, 220);
+            roundedButton4.Margin = new Padding(3, 2, 3, 2);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.Size = new Size(170, 26);
+            roundedButton4.TabIndex = 230;
+            roundedButton4.Text = "+ TITULAR";
+            roundedButton4.TextColor = Color.Black;
+            roundedButton4.UseVisualStyleBackColor = false;
+            roundedButton4.Click += roundedButton4_Click;
+            // 
+            // dtpSolicitudInicial
+            // 
+            dtpSolicitudInicial.Format = DateTimePickerFormat.Short;
+            dtpSolicitudInicial.Location = new Point(106, 84);
+            dtpSolicitudInicial.Margin = new Padding(3, 2, 3, 2);
+            dtpSolicitudInicial.Name = "dtpSolicitudInicial";
+            dtpSolicitudInicial.Size = new Size(94, 24);
+            dtpSolicitudInicial.TabIndex = 219;
+            dtpSolicitudInicial.ValueChanged += dtpSolicitudInicial_ValueChanged;
+            // 
+            // richTextBoxTitular
+            // 
+            richTextBoxTitular.Location = new Point(76, 250);
+            richTextBoxTitular.Margin = new Padding(3, 2, 3, 2);
+            richTextBoxTitular.Name = "richTextBoxTitular";
+            richTextBoxTitular.ReadOnly = true;
+            richTextBoxTitular.Size = new Size(245, 36);
+            richTextBoxTitular.TabIndex = 232;
+            richTextBoxTitular.Text = "";
+            richTextBoxTitular.TextChanged += richTextBoxTitular_TextChanged;
+            // 
+            // dtpVencimientoFinal
+            // 
+            dtpVencimientoFinal.Format = DateTimePickerFormat.Short;
+            dtpVencimientoFinal.Location = new Point(227, 173);
+            dtpVencimientoFinal.Margin = new Padding(3, 2, 3, 2);
+            dtpVencimientoFinal.Name = "dtpVencimientoFinal";
+            dtpVencimientoFinal.Size = new Size(94, 24);
+            dtpVencimientoFinal.TabIndex = 223;
+            dtpVencimientoFinal.ValueChanged += dtpVencimientoFinal_ValueChanged;
+            // 
+            // checkBoxAgente
+            // 
+            checkBoxAgente.AutoSize = true;
+            checkBoxAgente.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxAgente.Location = new Point(3, 311);
+            checkBoxAgente.Margin = new Padding(3, 2, 3, 2);
+            checkBoxAgente.Name = "checkBoxAgente";
+            checkBoxAgente.Size = new Size(78, 23);
+            checkBoxAgente.TabIndex = 233;
+            checkBoxAgente.Text = "Agente";
+            checkBoxAgente.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxReigstro
+            // 
+            checkBoxReigstro.AutoSize = true;
+            checkBoxReigstro.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxReigstro.Location = new Point(3, 127);
+            checkBoxReigstro.Margin = new Padding(3, 2, 3, 2);
+            checkBoxReigstro.Name = "checkBoxReigstro";
+            checkBoxReigstro.Size = new Size(92, 23);
+            checkBoxReigstro.TabIndex = 206;
+            checkBoxReigstro.Text = "F.Registro";
+            checkBoxReigstro.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxTitular
+            // 
+            checkBoxTitular.AutoSize = true;
+            checkBoxTitular.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxTitular.Location = new Point(3, 219);
+            checkBoxTitular.Margin = new Padding(3, 2, 3, 2);
+            checkBoxTitular.Name = "checkBoxTitular";
+            checkBoxTitular.Size = new Size(67, 23);
+            checkBoxTitular.TabIndex = 202;
+            checkBoxTitular.Text = "Titular";
+            checkBoxTitular.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxVencimiento
+            // 
+            checkBoxVencimiento.AutoSize = true;
+            checkBoxVencimiento.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxVencimiento.Location = new Point(3, 174);
+            checkBoxVencimiento.Margin = new Padding(3, 2, 3, 2);
+            checkBoxVencimiento.Name = "checkBoxVencimiento";
+            checkBoxVencimiento.Size = new Size(75, 23);
+            checkBoxVencimiento.TabIndex = 207;
+            checkBoxVencimiento.Text = "F.Venc";
+            checkBoxVencimiento.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Right;
+            panel5.AutoScroll = true;
+            panel5.BackColor = Color.FromArgb(222, 227, 234);
+            panel5.Controls.Add(comboBoxObjeto);
+            panel5.Controls.Add(txtClase);
+            panel5.Controls.Add(checkBoxEstado);
+            panel5.Controls.Add(checkBoxClase);
+            panel5.Controls.Add(txtRegistro);
+            panel5.Controls.Add(comboBoxEstado);
+            panel5.Controls.Add(checkBoxRegistro);
+            panel5.Controls.Add(txtTomo);
+            panel5.Controls.Add(txtNombre);
+            panel5.Controls.Add(checkBoxTomo);
+            panel5.Controls.Add(checkBoxNombre);
+            panel5.Controls.Add(txtFolio);
+            panel5.Controls.Add(checkBoxFolio);
+            panel5.Controls.Add(comboBoxPais);
+            panel5.Controls.Add(checkBoxPais);
+            panel5.Location = new Point(31, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(347, 528);
+            panel5.TabIndex = 243;
+            panel5.Paint += panel5_Paint;
             // 
             // comboBoxObjeto
             // 
-            comboBoxObjeto.Anchor = AnchorStyles.Top;
             comboBoxObjeto.BackColor = Color.FromArgb(241, 240, 245);
             comboBoxObjeto.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxObjeto.FlatStyle = FlatStyle.Flat;
             comboBoxObjeto.Font = new Font("Century Gothic", 9F);
             comboBoxObjeto.FormattingEnabled = true;
             comboBoxObjeto.Items.AddRange(new object[] { "Marcas nacionales", "Marcas internacionales", "Marcas nacionales e internacionales", "Patentes", "Vencimientos" });
-            comboBoxObjeto.Location = new Point(218, 53);
+            comboBoxObjeto.Location = new Point(85, 83);
             comboBoxObjeto.Margin = new Padding(3, 2, 3, 2);
             comboBoxObjeto.Name = "comboBoxObjeto";
-            comboBoxObjeto.Size = new Size(300, 25);
+            comboBoxObjeto.Size = new Size(228, 25);
             comboBoxObjeto.TabIndex = 237;
             comboBoxObjeto.SelectedIndexChanged += comboBoxObjeto_SelectedIndexChanged;
             // 
-            // panel1
+            // txtClase
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.Controls.Add(iconPictureBox1);
-            panel1.Controls.Add(iconPictureBox2);
-            panel1.Controls.Add(roundedButton2);
-            panel1.Controls.Add(roundedButton3);
-            panel1.Location = new Point(7, 1114);
-            panel1.Margin = new Padding(3, 2, 3, 2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(667, 72);
-            panel1.TabIndex = 236;
+            txtClase.Location = new Point(85, 405);
+            txtClase.Margin = new Padding(3, 2, 3, 2);
+            txtClase.Name = "txtClase";
+            txtClase.Size = new Size(243, 24);
+            txtClase.TabIndex = 229;
+            // 
+            // checkBoxEstado
+            // 
+            checkBoxEstado.AutoSize = true;
+            checkBoxEstado.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxEstado.Location = new Point(3, 127);
+            checkBoxEstado.Margin = new Padding(3, 2, 3, 2);
+            checkBoxEstado.Name = "checkBoxEstado";
+            checkBoxEstado.Size = new Size(75, 23);
+            checkBoxEstado.TabIndex = 196;
+            checkBoxEstado.Text = "Estado";
+            checkBoxEstado.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxClase
+            // 
+            checkBoxClase.AutoSize = true;
+            checkBoxClase.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxClase.Location = new Point(3, 406);
+            checkBoxClase.Margin = new Padding(3, 2, 3, 2);
+            checkBoxClase.Name = "checkBoxClase";
+            checkBoxClase.Size = new Size(66, 23);
+            checkBoxClase.TabIndex = 204;
+            checkBoxClase.Text = "Clase";
+            checkBoxClase.UseVisualStyleBackColor = false;
+            // 
+            // txtRegistro
+            // 
+            txtRegistro.Location = new Point(85, 359);
+            txtRegistro.Margin = new Padding(3, 2, 3, 2);
+            txtRegistro.Name = "txtRegistro";
+            txtRegistro.Size = new Size(243, 24);
+            txtRegistro.TabIndex = 228;
+            txtRegistro.TextChanged += txtRegistro_TextChanged;
+            // 
+            // comboBoxEstado
+            // 
+            comboBoxEstado.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxEstado.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstado.FlatStyle = FlatStyle.Flat;
+            comboBoxEstado.Font = new Font("Century Gothic", 9F);
+            comboBoxEstado.FormattingEnabled = true;
+            comboBoxEstado.Items.AddRange(new object[] { "", "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
+            comboBoxEstado.Location = new Point(85, 129);
+            comboBoxEstado.Margin = new Padding(3, 2, 3, 2);
+            comboBoxEstado.Name = "comboBoxEstado";
+            comboBoxEstado.Size = new Size(228, 25);
+            comboBoxEstado.TabIndex = 217;
+            // 
+            // checkBoxRegistro
+            // 
+            checkBoxRegistro.AutoSize = true;
+            checkBoxRegistro.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxRegistro.Location = new Point(3, 360);
+            checkBoxRegistro.Margin = new Padding(3, 2, 3, 2);
+            checkBoxRegistro.Name = "checkBoxRegistro";
+            checkBoxRegistro.Size = new Size(81, 23);
+            checkBoxRegistro.TabIndex = 201;
+            checkBoxRegistro.Text = "Registro";
+            checkBoxRegistro.UseVisualStyleBackColor = false;
+            // 
+            // txtTomo
+            // 
+            txtTomo.Location = new Point(85, 313);
+            txtTomo.Margin = new Padding(3, 2, 3, 2);
+            txtTomo.Name = "txtTomo";
+            txtTomo.Size = new Size(243, 24);
+            txtTomo.TabIndex = 227;
+            // 
+            // txtNombre
+            // 
+            txtNombre.Location = new Point(85, 221);
+            txtNombre.Margin = new Padding(3, 2, 3, 2);
+            txtNombre.Multiline = true;
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(243, 24);
+            txtNombre.TabIndex = 225;
+            // 
+            // checkBoxTomo
+            // 
+            checkBoxTomo.AutoSize = true;
+            checkBoxTomo.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxTomo.Location = new Point(3, 311);
+            checkBoxTomo.Margin = new Padding(3, 2, 3, 2);
+            checkBoxTomo.Name = "checkBoxTomo";
+            checkBoxTomo.Size = new Size(64, 23);
+            checkBoxTomo.TabIndex = 200;
+            checkBoxTomo.Text = "Tomo";
+            checkBoxTomo.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxNombre
+            // 
+            checkBoxNombre.AutoSize = true;
+            checkBoxNombre.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxNombre.Location = new Point(3, 222);
+            checkBoxNombre.Margin = new Padding(3, 2, 3, 2);
+            checkBoxNombre.Name = "checkBoxNombre";
+            checkBoxNombre.Size = new Size(83, 23);
+            checkBoxNombre.TabIndex = 197;
+            checkBoxNombre.Text = "Nombre";
+            checkBoxNombre.UseVisualStyleBackColor = false;
+            // 
+            // txtFolio
+            // 
+            txtFolio.Location = new Point(85, 267);
+            txtFolio.Margin = new Padding(3, 2, 3, 2);
+            txtFolio.Name = "txtFolio";
+            txtFolio.Size = new Size(243, 24);
+            txtFolio.TabIndex = 226;
+            txtFolio.TextChanged += txtFolio_TextChanged;
+            // 
+            // checkBoxFolio
+            // 
+            checkBoxFolio.AutoSize = true;
+            checkBoxFolio.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxFolio.Location = new Point(3, 268);
+            checkBoxFolio.Margin = new Padding(3, 2, 3, 2);
+            checkBoxFolio.Name = "checkBoxFolio";
+            checkBoxFolio.Size = new Size(59, 23);
+            checkBoxFolio.TabIndex = 199;
+            checkBoxFolio.Text = "Folio";
+            checkBoxFolio.UseVisualStyleBackColor = false;
+            // 
+            // comboBoxPais
+            // 
+            comboBoxPais.BackColor = Color.FromArgb(241, 240, 245);
+            comboBoxPais.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPais.FlatStyle = FlatStyle.Flat;
+            comboBoxPais.Font = new Font("Century Gothic", 9F);
+            comboBoxPais.FormattingEnabled = true;
+            comboBoxPais.Items.AddRange(new object[] { "", "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
+            comboBoxPais.Location = new Point(85, 175);
+            comboBoxPais.Margin = new Padding(3, 2, 3, 2);
+            comboBoxPais.Name = "comboBoxPais";
+            comboBoxPais.Size = new Size(228, 25);
+            comboBoxPais.TabIndex = 218;
+            // 
+            // checkBoxPais
+            // 
+            checkBoxPais.AutoSize = true;
+            checkBoxPais.BackColor = Color.FromArgb(222, 227, 234);
+            checkBoxPais.Location = new Point(3, 176);
+            checkBoxPais.Margin = new Padding(3, 2, 3, 2);
+            checkBoxPais.Name = "checkBoxPais";
+            checkBoxPais.Size = new Size(54, 23);
+            checkBoxPais.TabIndex = 198;
+            checkBoxPais.Text = "Pais";
+            checkBoxPais.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox1
             // 
-            iconPictureBox1.Anchor = AnchorStyles.Top;
+            iconPictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             iconPictureBox1.BackColor = Color.FromArgb(229, 115, 115);
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
             iconPictureBox1.IconColor = Color.White;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 30;
-            iconPictureBox1.Location = new Point(299, 17);
+            iconPictureBox1.Location = new Point(563, 1119);
             iconPictureBox1.Margin = new Padding(3, 2, 3, 2);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(35, 30);
             iconPictureBox1.TabIndex = 217;
             iconPictureBox1.TabStop = false;
+            iconPictureBox1.UseGdi = true;
             // 
             // iconPictureBox2
             // 
-            iconPictureBox2.Anchor = AnchorStyles.Top;
+            iconPictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             iconPictureBox2.BackColor = Color.FromArgb(0, 137, 123);
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.FileExcel;
             iconPictureBox2.IconColor = Color.White;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 30;
-            iconPictureBox2.Location = new Point(488, 17);
+            iconPictureBox2.Location = new Point(752, 1119);
             iconPictureBox2.Margin = new Padding(3, 2, 3, 2);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(35, 30);
             iconPictureBox2.TabIndex = 218;
             iconPictureBox2.TabStop = false;
+            iconPictureBox2.UseGdi = true;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoSize = true;
+            panel1.Location = new Point(7, 1158);
+            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(423, 36);
+            panel1.TabIndex = 236;
             // 
             // roundedButton2
             // 
-            roundedButton2.Anchor = AnchorStyles.Top;
+            roundedButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton2.AutoSize = true;
             roundedButton2.BackColor = Color.FromArgb(0, 137, 123);
             roundedButton2.BackgroundColor = Color.FromArgb(0, 137, 123);
             roundedButton2.BorderColor = Color.FromArgb(0, 137, 123);
@@ -268,7 +654,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(360, 13);
+            roundedButton2.Location = new Point(624, 1115);
             roundedButton2.Margin = new Padding(3, 2, 3, 2);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(178, 37);
@@ -279,9 +665,32 @@
             roundedButton2.UseVisualStyleBackColor = false;
             roundedButton2.Click += roundedButton2_Click;
             // 
+            // btnConsultar
+            // 
+            btnConsultar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnConsultar.BackColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BackgroundColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BorderColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BorderRadius = 37;
+            btnConsultar.BorderSize = 0;
+            btnConsultar.FlatAppearance.BorderSize = 0;
+            btnConsultar.FlatStyle = FlatStyle.Flat;
+            btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnConsultar.ForeColor = Color.White;
+            btnConsultar.Location = new Point(435, 596);
+            btnConsultar.Margin = new Padding(3, 2, 3, 2);
+            btnConsultar.Name = "btnConsultar";
+            btnConsultar.Size = new Size(178, 37);
+            btnConsultar.TabIndex = 215;
+            btnConsultar.Text = "CONSULTAR";
+            btnConsultar.TextColor = Color.White;
+            btnConsultar.UseVisualStyleBackColor = false;
+            btnConsultar.Click += btnConsultar_Click;
+            // 
             // roundedButton3
             // 
-            roundedButton3.Anchor = AnchorStyles.Top;
+            roundedButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton3.AutoSize = true;
             roundedButton3.BackColor = Color.FromArgb(229, 115, 115);
             roundedButton3.BackgroundColor = Color.FromArgb(229, 115, 115);
             roundedButton3.BorderColor = Color.FromArgb(229, 115, 115);
@@ -292,7 +701,7 @@
             roundedButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton3.ForeColor = Color.White;
             roundedButton3.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton3.Location = new Point(177, 13);
+            roundedButton3.Location = new Point(441, 1115);
             roundedButton3.Margin = new Padding(3, 2, 3, 2);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(178, 37);
@@ -304,61 +713,13 @@
             roundedButton3.UseVisualStyleBackColor = false;
             roundedButton3.Click += roundedButton3_Click;
             // 
-            // richTextBoxAgente
-            // 
-            richTextBoxAgente.Anchor = AnchorStyles.Top;
-            richTextBoxAgente.Location = new Point(218, 542);
-            richTextBoxAgente.Margin = new Padding(3, 2, 3, 2);
-            richTextBoxAgente.Name = "richTextBoxAgente";
-            richTextBoxAgente.ReadOnly = true;
-            richTextBoxAgente.Size = new Size(300, 36);
-            richTextBoxAgente.TabIndex = 235;
-            richTextBoxAgente.Text = "";
-            // 
-            // comboBoxEstado
-            // 
-            comboBoxEstado.Anchor = AnchorStyles.Top;
-            comboBoxEstado.BackColor = Color.FromArgb(241, 240, 245);
-            comboBoxEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEstado.FlatStyle = FlatStyle.Flat;
-            comboBoxEstado.Font = new Font("Century Gothic", 9F);
-            comboBoxEstado.FormattingEnabled = true;
-            comboBoxEstado.Items.AddRange(new object[] { "", "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
-            comboBoxEstado.Location = new Point(218, 87);
-            comboBoxEstado.Margin = new Padding(3, 2, 3, 2);
-            comboBoxEstado.Name = "comboBoxEstado";
-            comboBoxEstado.Size = new Size(300, 25);
-            comboBoxEstado.TabIndex = 217;
-            // 
-            // btnConsultar
-            // 
-            btnConsultar.Anchor = AnchorStyles.Top;
-            btnConsultar.BackColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BackgroundColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BorderColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BorderRadius = 37;
-            btnConsultar.BorderSize = 0;
-            btnConsultar.FlatAppearance.BorderSize = 0;
-            btnConsultar.FlatStyle = FlatStyle.Flat;
-            btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(218, 673);
-            btnConsultar.Margin = new Padding(3, 2, 3, 2);
-            btnConsultar.Name = "btnConsultar";
-            btnConsultar.Size = new Size(147, 37);
-            btnConsultar.TabIndex = 215;
-            btnConsultar.Text = "CONSULTAR";
-            btnConsultar.TextColor = Color.White;
-            btnConsultar.UseVisualStyleBackColor = false;
-            btnConsultar.Click += btnConsultar_Click;
-            // 
             // label29
             // 
             label29.Anchor = AnchorStyles.Top;
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(308, 11);
+            label29.Location = new Point(211, 11);
             label29.Name = "label29";
             label29.Size = new Size(87, 21);
             label29.TabIndex = 187;
@@ -366,7 +727,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Anchor = AnchorStyles.Top;
+            btnCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCancelar.BackColor = Color.Gainsboro;
             btnCancelar.BackgroundColor = Color.Gainsboro;
             btnCancelar.BorderColor = Color.Gainsboro;
@@ -376,84 +737,15 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(370, 673);
+            btnCancelar.Location = new Point(617, 595);
             btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(147, 37);
+            btnCancelar.Size = new Size(178, 37);
             btnCancelar.TabIndex = 214;
             btnCancelar.Text = "CANCELAR";
             btnCancelar.TextColor = Color.Black;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
-            // 
-            // checkBoxEstado
-            // 
-            checkBoxEstado.Anchor = AnchorStyles.Top;
-            checkBoxEstado.AutoSize = true;
-            checkBoxEstado.Location = new Point(121, 88);
-            checkBoxEstado.Margin = new Padding(3, 2, 3, 2);
-            checkBoxEstado.Name = "checkBoxEstado";
-            checkBoxEstado.Size = new Size(75, 23);
-            checkBoxEstado.TabIndex = 196;
-            checkBoxEstado.Text = "Estado";
-            checkBoxEstado.UseVisualStyleBackColor = true;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.Anchor = AnchorStyles.Top;
-            roundedButton1.BackColor = Color.LightSteelBlue;
-            roundedButton1.BackgroundColor = Color.LightSteelBlue;
-            roundedButton1.BorderColor = Color.LightSteelBlue;
-            roundedButton1.BorderRadius = 26;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 10F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(227, 508);
-            roundedButton1.Margin = new Padding(3, 2, 3, 2);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(170, 26);
-            roundedButton1.TabIndex = 234;
-            roundedButton1.Text = "+ AGENTE";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click;
-            // 
-            // checkBoxAgente
-            // 
-            checkBoxAgente.Anchor = AnchorStyles.Top;
-            checkBoxAgente.AutoSize = true;
-            checkBoxAgente.Location = new Point(122, 516);
-            checkBoxAgente.Margin = new Padding(3, 2, 3, 2);
-            checkBoxAgente.Name = "checkBoxAgente";
-            checkBoxAgente.Size = new Size(78, 23);
-            checkBoxAgente.TabIndex = 233;
-            checkBoxAgente.Text = "Agente";
-            checkBoxAgente.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxNombre
-            // 
-            checkBoxNombre.Anchor = AnchorStyles.Top;
-            checkBoxNombre.AutoSize = true;
-            checkBoxNombre.Location = new Point(121, 121);
-            checkBoxNombre.Margin = new Padding(3, 2, 3, 2);
-            checkBoxNombre.Name = "checkBoxNombre";
-            checkBoxNombre.Size = new Size(83, 23);
-            checkBoxNombre.TabIndex = 197;
-            checkBoxNombre.Text = "Nombre";
-            checkBoxNombre.UseVisualStyleBackColor = true;
-            // 
-            // richTextBoxTitular
-            // 
-            richTextBoxTitular.Anchor = AnchorStyles.Top;
-            richTextBoxTitular.Location = new Point(218, 464);
-            richTextBoxTitular.Margin = new Padding(3, 2, 3, 2);
-            richTextBoxTitular.Name = "richTextBoxTitular";
-            richTextBoxTitular.ReadOnly = true;
-            richTextBoxTitular.Size = new Size(300, 36);
-            richTextBoxTitular.TabIndex = 232;
-            richTextBoxTitular.Text = "";
             // 
             // iconPictureBox4
             // 
@@ -464,79 +756,12 @@
             iconPictureBox4.IconColor = SystemColors.ControlText;
             iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox4.IconSize = 21;
-            iconPictureBox4.Location = new Point(268, 11);
+            iconPictureBox4.Location = new Point(171, 11);
             iconPictureBox4.Margin = new Padding(3, 2, 3, 2);
             iconPictureBox4.Name = "iconPictureBox4";
             iconPictureBox4.Size = new Size(35, 21);
             iconPictureBox4.TabIndex = 189;
             iconPictureBox4.TabStop = false;
-            // 
-            // roundedButton4
-            // 
-            roundedButton4.Anchor = AnchorStyles.Top;
-            roundedButton4.BackColor = Color.LightSteelBlue;
-            roundedButton4.BackgroundColor = Color.LightSteelBlue;
-            roundedButton4.BorderColor = Color.LightSteelBlue;
-            roundedButton4.BorderRadius = 26;
-            roundedButton4.BorderSize = 0;
-            roundedButton4.FlatAppearance.BorderSize = 0;
-            roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.Font = new Font("Century Gothic", 10F);
-            roundedButton4.ForeColor = Color.Black;
-            roundedButton4.Location = new Point(227, 429);
-            roundedButton4.Margin = new Padding(3, 2, 3, 2);
-            roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(170, 26);
-            roundedButton4.TabIndex = 230;
-            roundedButton4.Text = "+ TITULAR";
-            roundedButton4.TextColor = Color.Black;
-            roundedButton4.UseVisualStyleBackColor = false;
-            roundedButton4.Click += roundedButton4_Click;
-            // 
-            // checkBoxRegistro
-            // 
-            checkBoxRegistro.Anchor = AnchorStyles.Top;
-            checkBoxRegistro.AutoSize = true;
-            checkBoxRegistro.Location = new Point(124, 254);
-            checkBoxRegistro.Margin = new Padding(3, 2, 3, 2);
-            checkBoxRegistro.Name = "checkBoxRegistro";
-            checkBoxRegistro.Size = new Size(81, 23);
-            checkBoxRegistro.TabIndex = 201;
-            checkBoxRegistro.Text = "Registro";
-            checkBoxRegistro.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxTitular
-            // 
-            checkBoxTitular.Anchor = AnchorStyles.Top;
-            checkBoxTitular.AutoSize = true;
-            checkBoxTitular.Location = new Point(122, 437);
-            checkBoxTitular.Margin = new Padding(3, 2, 3, 2);
-            checkBoxTitular.Name = "checkBoxTitular";
-            checkBoxTitular.Size = new Size(67, 23);
-            checkBoxTitular.TabIndex = 202;
-            checkBoxTitular.Text = "Titular";
-            checkBoxTitular.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxPais
-            // 
-            checkBoxPais.Anchor = AnchorStyles.Top;
-            checkBoxPais.AutoSize = true;
-            checkBoxPais.Location = new Point(121, 151);
-            checkBoxPais.Margin = new Padding(3, 2, 3, 2);
-            checkBoxPais.Name = "checkBoxPais";
-            checkBoxPais.Size = new Size(54, 23);
-            checkBoxPais.TabIndex = 198;
-            checkBoxPais.Text = "Pais";
-            checkBoxPais.UseVisualStyleBackColor = true;
-            // 
-            // txtClase
-            // 
-            txtClase.Anchor = AnchorStyles.Top;
-            txtClase.Location = new Point(218, 287);
-            txtClase.Margin = new Padding(3, 2, 3, 2);
-            txtClase.Name = "txtClase";
-            txtClase.Size = new Size(300, 24);
-            txtClase.TabIndex = 229;
             // 
             // roundedButton6
             // 
@@ -550,7 +775,7 @@
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.ForeColor = Color.White;
-            roundedButton6.Location = new Point(121, 2);
+            roundedButton6.Location = new Point(24, 2);
             roundedButton6.Margin = new Padding(3, 2, 3, 2);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(416, 37);
@@ -558,117 +783,15 @@
             roundedButton6.TextColor = Color.White;
             roundedButton6.UseVisualStyleBackColor = false;
             // 
-            // checkBoxClase
-            // 
-            checkBoxClase.Anchor = AnchorStyles.Top;
-            checkBoxClase.AutoSize = true;
-            checkBoxClase.Location = new Point(122, 289);
-            checkBoxClase.Margin = new Padding(3, 2, 3, 2);
-            checkBoxClase.Name = "checkBoxClase";
-            checkBoxClase.Size = new Size(66, 23);
-            checkBoxClase.TabIndex = 204;
-            checkBoxClase.Text = "Clase";
-            checkBoxClase.UseVisualStyleBackColor = true;
-            // 
-            // txtRegistro
-            // 
-            txtRegistro.Anchor = AnchorStyles.Top;
-            txtRegistro.Location = new Point(218, 252);
-            txtRegistro.Margin = new Padding(3, 2, 3, 2);
-            txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(300, 24);
-            txtRegistro.TabIndex = 228;
-            txtRegistro.TextChanged += txtRegistro_TextChanged;
-            // 
-            // checkBoxSolicitud
-            // 
-            checkBoxSolicitud.Anchor = AnchorStyles.Top;
-            checkBoxSolicitud.AutoSize = true;
-            checkBoxSolicitud.Location = new Point(122, 326);
-            checkBoxSolicitud.Margin = new Padding(3, 2, 3, 2);
-            checkBoxSolicitud.Name = "checkBoxSolicitud";
-            checkBoxSolicitud.Size = new Size(97, 23);
-            checkBoxSolicitud.TabIndex = 205;
-            checkBoxSolicitud.Text = "F.Solicitud";
-            checkBoxSolicitud.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFolio
-            // 
-            checkBoxFolio.Anchor = AnchorStyles.Top;
-            checkBoxFolio.AutoSize = true;
-            checkBoxFolio.Location = new Point(124, 184);
-            checkBoxFolio.Margin = new Padding(3, 2, 3, 2);
-            checkBoxFolio.Name = "checkBoxFolio";
-            checkBoxFolio.Size = new Size(59, 23);
-            checkBoxFolio.TabIndex = 199;
-            checkBoxFolio.Text = "Folio";
-            checkBoxFolio.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxReigstro
-            // 
-            checkBoxReigstro.Anchor = AnchorStyles.Top;
-            checkBoxReigstro.AutoSize = true;
-            checkBoxReigstro.Location = new Point(122, 362);
-            checkBoxReigstro.Margin = new Padding(3, 2, 3, 2);
-            checkBoxReigstro.Name = "checkBoxReigstro";
-            checkBoxReigstro.Size = new Size(92, 23);
-            checkBoxReigstro.TabIndex = 206;
-            checkBoxReigstro.Text = "F.Registro";
-            checkBoxReigstro.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxVencimiento
-            // 
-            checkBoxVencimiento.Anchor = AnchorStyles.Top;
-            checkBoxVencimiento.AutoSize = true;
-            checkBoxVencimiento.Location = new Point(122, 401);
-            checkBoxVencimiento.Margin = new Padding(3, 2, 3, 2);
-            checkBoxVencimiento.Name = "checkBoxVencimiento";
-            checkBoxVencimiento.Size = new Size(75, 23);
-            checkBoxVencimiento.TabIndex = 207;
-            checkBoxVencimiento.Text = "F.Venc";
-            checkBoxVencimiento.UseVisualStyleBackColor = true;
-            // 
-            // dtpSolicitudFinal
-            // 
-            dtpSolicitudFinal.Anchor = AnchorStyles.Top;
-            dtpSolicitudFinal.Format = DateTimePickerFormat.Short;
-            dtpSolicitudFinal.Location = new Point(356, 322);
-            dtpSolicitudFinal.Margin = new Padding(3, 2, 3, 2);
-            dtpSolicitudFinal.Name = "dtpSolicitudFinal";
-            dtpSolicitudFinal.Size = new Size(116, 24);
-            dtpSolicitudFinal.TabIndex = 224;
-            // 
-            // checkBoxTomo
-            // 
-            checkBoxTomo.Anchor = AnchorStyles.Top;
-            checkBoxTomo.AutoSize = true;
-            checkBoxTomo.Location = new Point(124, 216);
-            checkBoxTomo.Margin = new Padding(3, 2, 3, 2);
-            checkBoxTomo.Name = "checkBoxTomo";
-            checkBoxTomo.Size = new Size(64, 23);
-            checkBoxTomo.TabIndex = 200;
-            checkBoxTomo.Text = "Tomo";
-            checkBoxTomo.UseVisualStyleBackColor = true;
-            // 
-            // dtpSolicitudInicial
-            // 
-            dtpSolicitudInicial.Anchor = AnchorStyles.Top;
-            dtpSolicitudInicial.Format = DateTimePickerFormat.Short;
-            dtpSolicitudInicial.Location = new Point(227, 322);
-            dtpSolicitudInicial.Margin = new Padding(3, 2, 3, 2);
-            dtpSolicitudInicial.Name = "dtpSolicitudInicial";
-            dtpSolicitudInicial.Size = new Size(116, 24);
-            dtpSolicitudInicial.TabIndex = 219;
-            // 
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = Color.FromArgb(192, 202, 212);
             panel2.Controls.Add(dtgReportes);
-            panel2.Location = new Point(7, 724);
+            panel2.Location = new Point(35, 724);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(795, 387);
+            panel2.Size = new Size(767, 387);
             panel2.TabIndex = 216;
             // 
             // dtgReportes
@@ -676,22 +799,22 @@
             dtgReportes.AllowUserToAddRows = false;
             dtgReportes.AllowUserToDeleteRows = false;
             dtgReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgReportes.BorderStyle = BorderStyle.None;
             dtgReportes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgReportes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dtgReportes.ColumnHeadersHeight = 40;
             dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgReportes.EnableHeadersVisualStyles = false;
@@ -702,93 +825,11 @@
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgReportes.RowHeadersWidth = 51;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(780, 371);
+            dtgReportes.Size = new Size(752, 371);
             dtgReportes.TabIndex = 7;
-            // 
-            // dtpVencimientoFinal
-            // 
-            dtpVencimientoFinal.Anchor = AnchorStyles.Top;
-            dtpVencimientoFinal.Format = DateTimePickerFormat.Short;
-            dtpVencimientoFinal.Location = new Point(356, 398);
-            dtpVencimientoFinal.Margin = new Padding(3, 2, 3, 2);
-            dtpVencimientoFinal.Name = "dtpVencimientoFinal";
-            dtpVencimientoFinal.Size = new Size(116, 24);
-            dtpVencimientoFinal.TabIndex = 223;
-            // 
-            // comboBoxPais
-            // 
-            comboBoxPais.Anchor = AnchorStyles.Top;
-            comboBoxPais.BackColor = Color.FromArgb(241, 240, 245);
-            comboBoxPais.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxPais.FlatStyle = FlatStyle.Flat;
-            comboBoxPais.Font = new Font("Century Gothic", 9F);
-            comboBoxPais.FormattingEnabled = true;
-            comboBoxPais.Items.AddRange(new object[] { "", "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBoxPais.Location = new Point(218, 150);
-            comboBoxPais.Margin = new Padding(3, 2, 3, 2);
-            comboBoxPais.Name = "comboBoxPais";
-            comboBoxPais.Size = new Size(300, 25);
-            comboBoxPais.TabIndex = 218;
-            // 
-            // dtpFRegistroInicial
-            // 
-            dtpFRegistroInicial.Anchor = AnchorStyles.Top;
-            dtpFRegistroInicial.Format = DateTimePickerFormat.Short;
-            dtpFRegistroInicial.Location = new Point(227, 362);
-            dtpFRegistroInicial.Margin = new Padding(3, 2, 3, 2);
-            dtpFRegistroInicial.Name = "dtpFRegistroInicial";
-            dtpFRegistroInicial.Size = new Size(116, 24);
-            dtpFRegistroInicial.TabIndex = 220;
-            // 
-            // txtNombre
-            // 
-            txtNombre.Anchor = AnchorStyles.Top;
-            txtNombre.Location = new Point(218, 120);
-            txtNombre.Margin = new Padding(3, 2, 3, 2);
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(300, 24);
-            txtNombre.TabIndex = 225;
-            // 
-            // dtpFechaRegistroFinal
-            // 
-            dtpFechaRegistroFinal.Anchor = AnchorStyles.Top;
-            dtpFechaRegistroFinal.Format = DateTimePickerFormat.Short;
-            dtpFechaRegistroFinal.Location = new Point(356, 360);
-            dtpFechaRegistroFinal.Margin = new Padding(3, 2, 3, 2);
-            dtpFechaRegistroFinal.Name = "dtpFechaRegistroFinal";
-            dtpFechaRegistroFinal.Size = new Size(116, 24);
-            dtpFechaRegistroFinal.TabIndex = 222;
-            // 
-            // txtFolio
-            // 
-            txtFolio.Anchor = AnchorStyles.Top;
-            txtFolio.Location = new Point(218, 182);
-            txtFolio.Margin = new Padding(3, 2, 3, 2);
-            txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(300, 24);
-            txtFolio.TabIndex = 226;
-            // 
-            // dtpVencimientoInicial
-            // 
-            dtpVencimientoInicial.Anchor = AnchorStyles.Top;
-            dtpVencimientoInicial.Format = DateTimePickerFormat.Short;
-            dtpVencimientoInicial.Location = new Point(227, 398);
-            dtpVencimientoInicial.Margin = new Padding(3, 2, 3, 2);
-            dtpVencimientoInicial.Name = "dtpVencimientoInicial";
-            dtpVencimientoInicial.Size = new Size(116, 24);
-            dtpVencimientoInicial.TabIndex = 221;
-            // 
-            // txtTomo
-            // 
-            txtTomo.Anchor = AnchorStyles.Top;
-            txtTomo.Location = new Point(218, 213);
-            txtTomo.Margin = new Padding(3, 2, 3, 2);
-            txtTomo.Name = "txtTomo";
-            txtTomo.Size = new Size(300, 24);
-            txtTomo.TabIndex = 227;
             // 
             // FrmReportesMarcasPatentes
             // 
@@ -806,7 +847,11 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).EndInit();
@@ -864,5 +909,8 @@
         private RichTextBox richTextBoxCliente;
         private Clases.RoundedButton roundedButton5;
         private CheckBox checkBoxCliente;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel5;
+        private Panel panel6;
     }
 }
