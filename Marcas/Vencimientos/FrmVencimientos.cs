@@ -195,7 +195,7 @@ namespace Presentacion.Vencimientos
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

@@ -1169,7 +1169,10 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageListaMarcas;
+
+            tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+            tableLayoutPanel1.RowStyles[0].Height = 62.94f;
+            //tabControl1.SelectedTab = tabPageListaMarcas;
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
@@ -1199,6 +1202,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 LoadMarcas();
             }
+        }
+
+        private void btnGuardarU_Click(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.RowStyles[0].Height = 0;
         }
     }
 }

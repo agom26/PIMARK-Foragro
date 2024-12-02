@@ -38,6 +38,7 @@
             label3 = new Label();
             roundedButton3 = new Clases.RoundedButton();
             roundedButton5 = new Clases.RoundedButton();
+            fontDialog1 = new FontDialog();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
@@ -229,5 +230,6 @@
         private Label label3;
         private Clases.RoundedButton roundedButton3;
         private Clases.RoundedButton roundedButton5;
+        private FontDialog fontDialog1;
     }
 }
