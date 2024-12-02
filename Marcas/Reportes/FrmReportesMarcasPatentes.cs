@@ -284,17 +284,17 @@ namespace Presentacion.Reportes
                     escala = 0.7f;
                     break;
                 case 5:
-                    objeto = "vencimientos marcas nacionales";
+                    objeto = "v_nacionales";
                     numRegistros = 11;
                     escala = 0.85f;
                     break;
                 case 6:
-                    objeto = "vencimientos marcas";
+                    objeto = "v_marcas";
                     numRegistros = 15;
                     escala = 0.75f;
                     break;
                 case 7:
-                    objeto = "vencimientos patentes";
+                    objeto = "v_patentes";
                     numRegistros = 15;
                     escala = 0.7f;
                     break;
@@ -345,7 +345,7 @@ namespace Presentacion.Reportes
                 tomo = null;
             }
 
-            if (checkBoxReigstro.Checked)
+            if (checkBoxRegistro.Checked)
             {
                 numRegistro = txtRegistro.Text;
             }
@@ -392,8 +392,8 @@ namespace Presentacion.Reportes
 
             if (checkBoxSolicitud.Checked)
             {
-                fechaSolicitudInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
-                fechaSolicitudFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
+                fechaSolicitudInicio = dtpSolicitudInicial.Value.ToString("yyyy-MM-dd");
+                fechaSolicitudFin = dtpSolicitudFinal.Value.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -401,7 +401,7 @@ namespace Presentacion.Reportes
                 fechaSolicitudFin = null;
             }
 
-            if (checkBoxRegistro.Checked)
+            if (checkBoxReigstro.Checked)
             {
                 fechaRegistroInicio = dtpFRegistroInicial.Value.ToString("yyyy-MM-dd");
                 fechaRegistroFin = dtpFechaRegistroFinal.Value.ToString("yyyy-MM-dd");
