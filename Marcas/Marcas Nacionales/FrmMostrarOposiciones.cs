@@ -158,12 +158,17 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
+                tableLayoutPanel2.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel2.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel2.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel2.RowStyles[1].Height = 35.31f;
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
+                tableLayoutPanel2.RowStyles[0].Height = 0;
             }
         }
         private void ActualizarFechaVencimiento()
@@ -1105,7 +1110,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-          
+
             FrmAgregarEtapaOposicion frmAgregarEtapa = new FrmAgregarEtapaOposicion();
             frmAgregarEtapa.ShowDialog();
 
@@ -1156,7 +1161,48 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnEditarH_Click_1(object sender, EventArgs e)
         {
-            EditarHistorial();
+            //Editar historial por id
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
+            DateTime fecha = dateTimePickerFechaH.Value;
+            string anotaciones = richTextBoxAnotacionesH.Text;
+            SeleccionarHistorial.anotaciones = anotaciones;
+            string usuario = lblUser.Text;
+            string usuarioEditor = labelUserEditor.Text;
+            bool actualizar;
+
+            if (comboBoxEstatusH.SelectedIndex != -1)
+            {
+                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
+                if (anotaciones.Contains(formato))
+                {
+                    AgregarEtapa.anotaciones = anotaciones;
+                }
+                else
+                {
+                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                }
+                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                if (actualizar == true)
+                {
+                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    SeleccionarHistorial.id = 0;
+                    refrescarMarca();
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("No ha seleccionado ningun estado");
+            }
         }
 
         private void btnCancelarH_Click_1(object sender, EventArgs e)
@@ -1177,7 +1223,7 @@ namespace Presentacion.Marcas_Nacionales
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
 
-            
+
             //tabControl1.SelectedTab = tabPageListaMarcas;
         }
 
@@ -1212,7 +1258,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnGuardarU_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void roundedButton2_Click_1(object sender, EventArgs e)
@@ -1237,6 +1283,11 @@ namespace Presentacion.Marcas_Nacionales
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             MostrarLogos();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -145,7 +145,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1028, 664);
+            panel1.Size = new Size(1028, 824);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -542,7 +542,7 @@
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.Font = new Font("Century Gothic", 9F);
             roundedButton3.ForeColor = Color.Black;
-            roundedButton3.Location = new Point(64, 356);
+            roundedButton3.Location = new Point(62, 333);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(280, 35);
             roundedButton3.TabIndex = 39;
@@ -588,7 +588,7 @@
             // 
             textBoxEstatus.Enabled = false;
             textBoxEstatus.Font = new Font("Century Gothic", 10F);
-            textBoxEstatus.Location = new Point(412, 369);
+            textBoxEstatus.Location = new Point(410, 346);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
             textBoxEstatus.Size = new Size(290, 28);
@@ -598,7 +598,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Century Gothic", 10F);
-            label14.Location = new Point(412, 342);
+            label14.Location = new Point(410, 319);
             label14.Name = "label14";
             label14.Size = new Size(128, 21);
             label14.TabIndex = 28;
@@ -627,7 +627,7 @@
             // 
             txtNombreAgente.Enabled = false;
             txtNombreAgente.Font = new Font("Century Gothic", 10F);
-            txtNombreAgente.Location = new Point(64, 715);
+            txtNombreAgente.Location = new Point(64, 696);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.Size = new Size(280, 28);
             txtNombreAgente.TabIndex = 25;
@@ -636,7 +636,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Century Gothic", 10F);
-            label12.Location = new Point(64, 689);
+            label12.Location = new Point(64, 670);
             label12.Name = "label12";
             label12.Size = new Size(77, 21);
             label12.TabIndex = 24;
@@ -653,7 +653,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Century Gothic", 10F);
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(64, 610);
+            roundedButton2.Location = new Point(64, 600);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(638, 56);
             roundedButton2.TabIndex = 23;
@@ -666,7 +666,7 @@
             // 
             txtEntidadTitular.Enabled = false;
             txtEntidadTitular.Font = new Font("Century Gothic", 10F);
-            txtEntidadTitular.Location = new Point(64, 580);
+            txtEntidadTitular.Location = new Point(64, 554);
             txtEntidadTitular.Name = "txtEntidadTitular";
             txtEntidadTitular.Size = new Size(280, 28);
             txtEntidadTitular.TabIndex = 22;
@@ -675,7 +675,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 10F);
-            label11.Location = new Point(64, 554);
+            label11.Location = new Point(64, 528);
             label11.Name = "label11";
             label11.Size = new Size(75, 21);
             label11.TabIndex = 21;
@@ -685,7 +685,7 @@
             // 
             txtDireccionTitular.Enabled = false;
             txtDireccionTitular.Font = new Font("Century Gothic", 10F);
-            txtDireccionTitular.Location = new Point(416, 513);
+            txtDireccionTitular.Location = new Point(416, 487);
             txtDireccionTitular.Name = "txtDireccionTitular";
             txtDireccionTitular.Size = new Size(286, 28);
             txtDireccionTitular.TabIndex = 20;
@@ -695,7 +695,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 10F);
-            label10.Location = new Point(416, 489);
+            label10.Location = new Point(416, 463);
             label10.Name = "label10";
             label10.Size = new Size(88, 21);
             label10.TabIndex = 19;
@@ -706,7 +706,7 @@
             // 
             txtNombreTitular.Enabled = false;
             txtNombreTitular.Font = new Font("Century Gothic", 10F);
-            txtNombreTitular.Location = new Point(64, 513);
+            txtNombreTitular.Location = new Point(64, 487);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.Size = new Size(280, 28);
             txtNombreTitular.TabIndex = 18;
@@ -715,7 +715,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Century Gothic", 10F);
-            label9.Location = new Point(64, 487);
+            label9.Location = new Point(64, 461);
             label9.Name = "label9";
             label9.Size = new Size(77, 21);
             label9.TabIndex = 17;
@@ -732,7 +732,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 10F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(64, 423);
+            roundedButton1.Location = new Point(64, 397);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(638, 56);
             roundedButton1.TabIndex = 16;
@@ -788,7 +788,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1046, 16258);
+            label5.Location = new Point(1046, 23589);
             label5.Name = "label5";
             label5.Size = new Size(132, 21);
             label5.TabIndex = 6;
@@ -855,7 +855,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1028, 664);
+            ClientSize = new Size(1028, 824);
             ControlBox = false;
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 12F);
@@ -905,10 +905,6 @@
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Clases.RoundedButton roundedButton1;
-        private TextBox txtEntidadTitular;
-        private Label label11;
-        private TextBox txtDireccionTitular;
-        private Label label10;
         private TextBox txtNombreTitular;
         private Label label9;
         private TextBox textBoxEstatus;
@@ -935,7 +931,6 @@
         private ComboBox comboBoxTipoSigno;
         private FontAwesome.Sharp.IconButton btnGuardarM;
         private FontAwesome.Sharp.IconButton btnCancelarM;
-        private Panel panel2;
         private Panel panel3;
         private Panel panel15;
         private Panel panel16;
@@ -949,5 +944,10 @@
         private Clases.RoundedButton roundedButton5;
         private Panel panel4;
         private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel2;
+        private TextBox txtEntidadTitular;
+        private Label label11;
+        private TextBox txtDireccionTitular;
+        private Label label10;
     }
 }
