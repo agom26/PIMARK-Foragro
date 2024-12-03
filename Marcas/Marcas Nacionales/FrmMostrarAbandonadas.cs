@@ -105,16 +105,17 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
-                //btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
-                //btnCancelarM.Location = new Point(254, panel3.Location.Y + panel3.Height + 10);
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
-                //btnActualizar.Location = new Point(47, 960);
-                //btnCancelarM.Location = new Point(254, panel3.Location.Y);
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
         private void ActualizarFechaVencimiento()
@@ -149,7 +150,7 @@ namespace Presentacion.Marcas_Nacionales
             comboBoxTipoSigno.SelectedIndex = -1;
         }
 
-        private async void CargarDatosMarca()
+        private async Task CargarDatosMarca()
         {
             try
             {
@@ -417,14 +418,18 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
-        public void Ver()
+        public async void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
-                CargarDatosMarca();
+                Cursor= Cursors.WaitCursor;
+                tabControl1.Visible = false;
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
+                tabControl1.Visible = true;
+                Cursor= Cursors.Default;
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -519,6 +524,11 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

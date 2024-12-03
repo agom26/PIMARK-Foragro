@@ -240,7 +240,7 @@ namespace Presentacion.Marcas_Nacionales
             //btnGuardarM.Location = new Point(105, 950);
             //btnCancelarM.Location = new Point(413, 950);
         }
-       
+
         public void mostrarPanelRegistro()
         {
 
@@ -417,6 +417,16 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtEntidadTitular_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedButton6_Click(object sender, EventArgs e)
         {
 
         }
