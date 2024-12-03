@@ -606,6 +606,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
             {
+                checkBoxAgregarLogos.Checked = false;
+                MostrarLogos();
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetalle);
@@ -1103,14 +1105,19 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-            richtxtObservacionesAO.Text = "";
+          
             FrmAgregarEtapaOposicion frmAgregarEtapa = new FrmAgregarEtapaOposicion();
             frmAgregarEtapa.ShowDialog();
 
-            if (AgregarEtapa.etapa != "")
+            if (AgregarEtapaOposicion.etapa != "")
             {
-                txtEstadoAO.Text = AgregarEtapa.etapa;
-                richtxtObservacionesAO.Text = AgregarEtapa.anotaciones;
+                txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
+                richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
+            }
+            else
+            {
+                txtEstadoAO.Text = "";
+                richtxtObservacionesAO.Text = "";
             }
         }
 
@@ -1170,8 +1177,7 @@ namespace Presentacion.Marcas_Nacionales
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
 
-            tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
-            tableLayoutPanel1.RowStyles[0].Height = 62.94f;
+            
             //tabControl1.SelectedTab = tabPageListaMarcas;
         }
 
@@ -1206,7 +1212,31 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnGuardarU_Click(object sender, EventArgs e)
         {
-            tableLayoutPanel1.RowStyles[0].Height = 0;
+           
+        }
+
+        private void roundedButton2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        public void MostrarLogos()
+        {
+            if (checkBoxAgregarLogos.Checked)
+            {
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 79.82f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 20.18f;
+            }
+            else
+            {
+                tableLayoutPanel1.RowStyles[0].Height = 0;
+            }
+        }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            MostrarLogos();
         }
     }
 }

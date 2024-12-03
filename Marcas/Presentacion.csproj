@@ -78,6 +78,9 @@
     <Compile Update="Marcas Nacionales\FrmAgregarRenovacionConcedida.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Marcas Nacionales\FrmMostrarMarcas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Nacionales\FrmMostrarTitularesEdicionTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>

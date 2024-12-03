@@ -18,7 +18,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void button2_Click(object sender, EventArgs e)
         {
-            AgregarEtapa.LimpiarEtapa();
+            AgregarEtapaOposicion.LimpiarEtapa();
             this.Close();
         }
 
@@ -26,15 +26,15 @@ namespace Presentacion.Marcas_Nacionales
         {
 
             this.Close();
-            AgregarEtapa.LimpiarEtapa();
+            AgregarEtapaOposicion.LimpiarEtapa();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
             string anotaciones = richTextBox1.Text;
-            AgregarEtapa.etapa = comboBox1.SelectedItem?.ToString();
-            AgregarEtapa.fecha = dateTimePicker1.Value;
-            AgregarEtapa.usuario = UsuarioActivo.usuario;
+            AgregarEtapaOposicion.etapa = comboBox1.SelectedItem?.ToString();
+            AgregarEtapaOposicion.fecha = dateTimePicker1.Value;
+            AgregarEtapaOposicion.usuario = UsuarioActivo.usuario;
 
             if (comboBox1.SelectedIndex != -1)
             {
@@ -42,11 +42,11 @@ namespace Presentacion.Marcas_Nacionales
                 string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {
-                    AgregarEtapa.anotaciones = anotaciones;
+                    AgregarEtapaOposicion.anotaciones = anotaciones;
                 }
                 else
                 {
-                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                    AgregarEtapaOposicion.anotaciones = formato + " " + anotaciones;
                 }
                 this.Close();
             }

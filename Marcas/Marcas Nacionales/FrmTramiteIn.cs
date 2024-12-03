@@ -240,28 +240,31 @@ namespace Presentacion.Marcas_Nacionales
             //btnGuardarM.Location = new Point(105, 950);
             //btnCancelarM.Location = new Point(413, 950);
         }
-
+       
         public void mostrarPanelRegistro()
         {
-          
-            int espaciadoBotones = 20;  
+
+            int espaciadoBotones = 20;
 
             if (textBoxEstatus.Text == "Registrada")
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
 
-                
-               
+
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
 
-               
             }
         }
 
@@ -411,6 +414,11 @@ namespace Presentacion.Marcas_Nacionales
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
