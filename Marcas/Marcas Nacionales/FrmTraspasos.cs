@@ -343,7 +343,7 @@ namespace Presentacion.Marcas_Nacionales
                         }
                         else
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                             MessageBox.Show("Marca nacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageRegistradasList;
@@ -632,7 +632,7 @@ namespace Presentacion.Marcas_Nacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono);
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE");
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 MostrarMarcasRegistradas();
@@ -660,7 +660,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     MessageBox.Show("Etapa agregada con éxito");
                     if (AgregarEtapa.etapa == "Registrada")
                     {

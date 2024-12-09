@@ -213,7 +213,7 @@ namespace Presentacion.Marcas_Internacionales
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
                     FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();

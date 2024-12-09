@@ -17,9 +17,9 @@ namespace Dominio
             traspasoMarcasDao = new TraspasoMarcasDao();
         }
 
-        public void AddTraspaso(string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public void AddTraspaso(string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
-            traspasoMarcasDao.InsertarTraspasoMarca(numExpediente, idMarca, idTitularAnterior, idTitularNuevo, antiguoNombre, nuevoNombre);
+            traspasoMarcasDao.InsertarTraspasoMarca(numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
         }
 
         public DataTable ObtenerTraspasosMarcaPorIdMarca(int idMarca)
@@ -30,9 +30,9 @@ namespace Dominio
         {
             return traspasoMarcasDao.ObtenerTraspasoPorId(id);
         }
-        public bool ActualizarTraspaso(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public bool ActualizarTraspaso(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
-            return traspasoMarcasDao.ActualizarTraspasoMarca(id, numExpediente, idMarca, idTitularAnterior, idTitularNuevo, antiguoNombre, nuevoNombre);
+            return traspasoMarcasDao.ActualizarTraspasoMarca(id, numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
         }
     }
 }

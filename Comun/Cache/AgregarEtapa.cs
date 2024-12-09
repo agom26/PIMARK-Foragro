@@ -14,6 +14,8 @@ namespace Comun.Cache
         public static string usuario;
         public static string anotaciones;
         public static string numExpediente;
+        public static string solicitante;
+       
 
         public static void LimpiarEtapa()
         {
@@ -23,6 +25,7 @@ namespace Comun.Cache
             usuario = "";
             anotaciones = "";
             numExpediente = "";
+            solicitante = "";
         }
     }
 }

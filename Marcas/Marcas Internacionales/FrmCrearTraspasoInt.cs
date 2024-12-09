@@ -75,7 +75,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         AgregarEtapa.anotaciones = formato + " " + anotaciones;
                     }
-                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
 
                     try
                     {
@@ -83,7 +83,7 @@ namespace Presentacion.Marcas_Internacionales
                         int idTitularviejo = AgregarTraspaso.idTitularAnterior;
                         string nombreViejo = txtNombreMarcaA.Text;
                         //Agregar a traspasos
-                        traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo, nombreViejo, nombreNuevoMarca);
+                        traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo);
                         AgregarTraspaso.traspasoFinalizado = true;
                         this.Close();
                     }

@@ -68,11 +68,12 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
+        private bool ValidarCampos(string pais,string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
     ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
-            if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
+            if (!ValidarCampo(expediente, "Por favor, ingrese un pais.") ||
+                !ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
@@ -125,14 +126,15 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-            return true; // Todas las validaciones pasaron
+            return true; 
         }
 
-        public void GuardarMarcaNacional()
+        public void GuardarMarcaInternacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
+            string paisRegistro = comboBox1.SelectedItem?.ToString();
             string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString(); // Suponiendo que esto es un ComboBox
             string tipo = comboBoxTipoSigno.SelectedItem?.ToString(); // Suponiendo que esto es un ComboBox
             string folio = txtFolio.Text;
@@ -142,6 +144,7 @@ namespace Presentacion.Marcas_Nacionales
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
+            string tiene_poder = "no";
 
 
             string estado = textBoxEstatus.Text;
@@ -149,6 +152,15 @@ namespace Presentacion.Marcas_Nacionales
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+
+            if (checkBoxTienePoder.Checked)
+            {
+                tiene_poder = "si";
+            }
+            else
+            {
+                tiene_poder = "no";
+            }
 
             // Validaciones
             if (idTitular <= 0)
@@ -168,29 +180,28 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Validar campos 
-            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(paisRegistro, expediente, nombre, clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
 
 
 
-            // Guardar la marca
+            // Guardar la marca internacional
             try
             {
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud);
+                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud,paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento):
+                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud,paisRegistro, tiene_poder, null);
 
-                // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
                 {
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
-                    FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -198,14 +209,14 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA NACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                     //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA NACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -235,6 +246,8 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.LimpiarEtapa();
             comboBoxSignoDistintivo.SelectedIndex = -1;
             comboBoxTipoSigno.SelectedIndex = -1;
+            comboBox1.SelectedIndex = -1;
+            checkBoxTienePoder.Checked = false;
             SeleccionarPersona.idPersonaT = 0;
             SeleccionarPersona.idPersonaA = 0;
             //btnGuardarM.Location = new Point(105, 950);
@@ -408,7 +421,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
-            GuardarMarcaNacional();
+            GuardarMarcaInternacional();
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)

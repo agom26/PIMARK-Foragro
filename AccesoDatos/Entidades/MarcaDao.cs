@@ -169,6 +169,33 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
+
+        public DataTable GetAllMarcasInternacionales()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionales", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas internacionales: {ex.Message}");
+
+            }
+            return tabla;
+        }
         public DataTable GetAllMarcasNacionalesEnTramite()
         {
             DataTable tabla = new DataTable();
@@ -656,7 +683,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)
+        public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)
         {
             using (var connection = GetConnection())
             {
@@ -669,6 +696,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("p_expediente", expediente);
                     command.Parameters.AddWithValue("p_nombre", nombre);
                     command.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("p_tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("p_clase", clase);
                     command.Parameters.AddWithValue("p_logo", logo);
                     command.Parameters.AddWithValue("p_idPersonaTitular", idPersonaTitular);
@@ -686,6 +714,7 @@ namespace AccesoDatos.Entidades
         }
 
         public bool EditarMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,
+            string tipoSigno,
         string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fechaSolicitud,
         string paisRegistro, string tienePoder, int? idCliente, string registro, string folio,
         string libro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
@@ -704,6 +733,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("p_expediente", expediente);
                     command.Parameters.AddWithValue("p_nombre", nombre);
                     command.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("p_tipoSigno", tipoSigno);
                     command.Parameters.AddWithValue("p_clase", clase);
                     command.Parameters.AddWithValue("p_logo", logo);
                     command.Parameters.AddWithValue("p_idPersonaTitular", idPersonaTitular);

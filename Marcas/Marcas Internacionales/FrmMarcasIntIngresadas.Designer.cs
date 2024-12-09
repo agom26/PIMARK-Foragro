@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
             panel10 = new Panel();
@@ -233,7 +233,7 @@
             roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 50;
+            roundedButton5.BorderRadius = 40;
             roundedButton5.BorderSize = 0;
             roundedButton5.Dock = DockStyle.Fill;
             roundedButton5.Enabled = false;
@@ -318,7 +318,7 @@
             roundedButton8.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton8.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton8.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton8.BorderRadius = 50;
+            roundedButton8.BorderRadius = 40;
             roundedButton8.BorderSize = 0;
             roundedButton8.Dock = DockStyle.Fill;
             roundedButton8.Enabled = false;
@@ -383,14 +383,14 @@
             dtgMarcasIn.BorderStyle = BorderStyle.None;
             dtgMarcasIn.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgMarcasIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgMarcasIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgMarcasIn.ColumnHeadersHeight = 40;
             dtgMarcasIn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasIn.EnableHeadersVisualStyles = false;
@@ -1216,14 +1216,14 @@
             dtgHistorialIn.BorderStyle = BorderStyle.None;
             dtgHistorialIn.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgHistorialIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgHistorialIn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgHistorialIn.ColumnHeadersHeight = 40;
             dtgHistorialIn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialIn.EnableHeadersVisualStyles = false;
@@ -1281,7 +1281,7 @@
             roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderRadius = 40;
             roundedButton7.BorderSize = 0;
             roundedButton7.Enabled = false;
             roundedButton7.FlatAppearance.BorderSize = 0;

@@ -73,13 +73,13 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario)
+        public void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario, string origen)
         {
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                string query = @"INSERT INTO Historial (fecha, etapa, anotaciones, usuario, IdMarca) 
-                         VALUES (@fecha, @etapa, @anotaciones, @usuario, @IdMarca)";
+                string query = @"INSERT INTO Historial (fecha, etapa, anotaciones, usuario, IdMarca, origen) 
+                         VALUES (@fecha, @etapa, @anotaciones, @usuario, @IdMarca,@origen)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@fecha", fecha);
@@ -87,7 +87,7 @@ namespace AccesoDatos.Entidades
                 cmd.Parameters.AddWithValue("@anotaciones", anotaciones);
                 cmd.Parameters.AddWithValue("@usuario", usuario);
                 cmd.Parameters.AddWithValue("@IdMarca", idMarca);
-
+                cmd.Parameters.AddWithValue("@origen", origen);
                 cmd.ExecuteNonQuery();
             }
         }

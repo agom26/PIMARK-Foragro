@@ -271,11 +271,11 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente);
+                    esActualizado = marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente);
                 }
 
                 DataTable marcaActualizada = marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt);
@@ -297,7 +297,7 @@ namespace Presentacion.Marcas_Internacionales
                         else
                         {
                             // Guardar la nueva etapa en el historial
-                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -735,7 +735,7 @@ namespace Presentacion.Marcas_Internacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono);
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -781,7 +781,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     if (AgregarEtapa.etapa == "Registrada")
@@ -1241,8 +1241,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            string nombreMarcaAntigua = txtNombreMarcaA.Text.Trim();
-            string nombreMarcaNueva = txtNombreMarcaN.Text.Trim();
+            
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
             string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
             string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
@@ -1255,13 +1254,11 @@ namespace Presentacion.Marcas_Internacionales
 
 
             if (!string.IsNullOrEmpty(numeroExpediente) &&
-                !string.IsNullOrEmpty(nombreMarcaAntigua) &&
-                !string.IsNullOrEmpty(nombreMarcaNueva) &&
                 !string.IsNullOrEmpty(nombreTitularAntiguo) &&
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {
 
-                traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo, nombreMarcaAntigua, nombreMarcaNueva);
+                traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
                 //MessageBox.Show("Traspaso actualizado correctamente");

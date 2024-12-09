@@ -17,9 +17,9 @@ namespace Dominio
             historialMarcasDao = new HistorialMarcasDao();
         }
 
-        public void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario)
+        public void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario,string origen)
         {
-            historialMarcasDao.GuardarEtapa(idMarca, fecha, etapa, anotaciones, usuario);
+            historialMarcasDao.GuardarEtapa(idMarca, fecha, etapa, anotaciones, usuario, origen);
         }
 
         public DataTable GetHistorialMarcaById(int id)

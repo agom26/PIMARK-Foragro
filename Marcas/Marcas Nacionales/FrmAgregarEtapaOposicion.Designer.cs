@@ -47,7 +47,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(168, 195);
+            label1.Location = new Point(168, 150);
             label1.Name = "label1";
             label1.Size = new Size(55, 20);
             label1.TabIndex = 0;
@@ -56,7 +56,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(349, 197);
+            label2.Location = new Point(168, 211);
             label2.Name = "label2";
             label2.Size = new Size(58, 20);
             label2.TabIndex = 1;
@@ -74,7 +74,7 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(168, 218);
+            dateTimePicker1.Location = new Point(168, 173);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 26);
             dateTimePicker1.TabIndex = 3;
@@ -87,9 +87,9 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Oposición presentada", "Contestación de oposición", "Apertura a prueba", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Desestimiento/Abandono" });
-            comboBox1.Location = new Point(349, 220);
+            comboBox1.Location = new Point(168, 234);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 28);
+            comboBox1.Size = new Size(372, 28);
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -105,7 +105,7 @@
             // lblUser
             // 
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(349, 153);
+            lblUser.Location = new Point(544, 92);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(55, 20);
             lblUser.TabIndex = 6;

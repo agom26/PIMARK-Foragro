@@ -43,7 +43,7 @@ namespace Presentacion.Marcas_Nacionales
             panel16.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarTodas_Load;
-            SeleccionarMarca.idN = 0;
+            SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
             if (UsuarioActivo.isAdmin == false)
@@ -115,7 +115,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         private async void LoadMarcas()
         {
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramite());
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesIngresadas());
 
 
             Invoke(new Action(() =>
@@ -267,12 +267,23 @@ namespace Presentacion.Marcas_Nacionales
             int idAgente = SeleccionarPersona.idPersonaA;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
+            string paisRegistro = comboBox1.SelectedItem?.ToString();
+            string tiene_poder = "no";
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+
+            if (checkBoxTienePoder.Checked)
+            {
+                tiene_poder = "si";
+            }
+            else
+            {
+                tiene_poder = "no";
+            }
 
             // Validaciones
             if (idTitular <= 0)
@@ -301,11 +312,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Actualizar la marca con tipo
                 bool esActualizado = registroChek ?
-                    marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, null, null) :
-                    marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud);
+                    marcaModel.EditMarcaInternacionalRegistrada(
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento, null, null) :
+                    marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, null);
 
-                DataTable MarcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
+                DataTable MarcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
 
                 if (esActualizado)
                 {
@@ -315,33 +326,33 @@ namespace Presentacion.Marcas_Nacionales
                         // Verificar si las observaciones ya contienen el estado actual
                         if (MarcaActualizada.Rows.Count > 0 && MarcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                         {
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
+                            SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                         else
                         {
                             // Guardar la nueva etapa en el historial
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario,"TRÁMITE");
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
-                            SeleccionarMarca.idN = 0;
+                            SeleccionarMarca.idInt = 0;
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                     }
                     else
                     {
-                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA NACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA INTERNACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
                         //MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA NACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA INTERNACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                     //MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -377,13 +388,16 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.LimpiarEtapa();
             comboBoxTipoSigno.SelectedIndex = -1;
             comboBoxSignoDistintivo.SelectedIndex = -1;
+            comboBox1.SelectedIndex = -1;
+            checkBoxTienePoder.Checked = false;
+
         }
 
         private async Task CargarDatosMarca()
         {
             try
             {
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
@@ -402,7 +416,8 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-
+                        SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
+                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -419,13 +434,13 @@ namespace Presentacion.Marcas_Nacionales
                             txtNombreTitular.Text = titular[0].nombre;
                             txtDireccionTitular.Text = titular[0].direccion;
                             txtEntidadTitular.Text = titular[0].pais;
+                            AgregarEtapa.solicitante = titular[0].nombre;
                         }
 
                         if (agente.Count > 0)
                         {
                             txtNombreAgente.Text = agente[0].nombre;
                         }
-
 
 
                         // Actualizar los controles 
@@ -438,6 +453,10 @@ namespace Presentacion.Marcas_Nacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
+                        int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
+                        comboBox1.SelectedIndex = index;
+
+                        checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
 
 
@@ -486,7 +505,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarMarca.idN = id;
+                    SeleccionarMarca.idInt = id;
                     tabControl1.SelectedTab = tabPageMarcaDetail;
                 }
             }
@@ -500,11 +519,11 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void refrescarMarca()
         {
-            if (SeleccionarMarca.idN > 0)
+            if (SeleccionarMarca.idInt > 0)
             {
                 try
                 {
-                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt));
 
                     if (detallesMarcaInt.Rows.Count > 0)
                     {
@@ -551,7 +570,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
 
 
                 Invoke(new Action(() =>
@@ -592,7 +611,7 @@ namespace Presentacion.Marcas_Nacionales
         public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
-            if (SeleccionarMarca.idN > 0)
+            if (SeleccionarMarca.idInt > 0)
             {
                 tabControl1.Visible = false;
                 await CargarDatosMarca();
@@ -626,7 +645,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -656,6 +675,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (SeleccionarPersona.idPersonaT != 0)
             {
+                
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
                 txtDireccionTitular.Text = SeleccionarPersona.direccion;
                 txtEntidadTitular.Text = SeleccionarPersona.pais;
@@ -728,7 +748,7 @@ namespace Presentacion.Marcas_Nacionales
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono);
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE");
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -766,7 +786,7 @@ namespace Presentacion.Marcas_Nacionales
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
                 LoadMarcas();
-                SeleccionarMarca.idN = 0;
+                SeleccionarMarca.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
@@ -1109,7 +1129,7 @@ namespace Presentacion.Marcas_Nacionales
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();                    
+                    alerta.ShowDialog();
                     LoadMarcas();
                 }
 
@@ -1118,6 +1138,15 @@ namespace Presentacion.Marcas_Nacionales
             {
                 LoadMarcas();
             }
+        }
+
+        private void iconButton2_Click_2(object sender, EventArgs e)
+        {
+            //Enviar a oposicion
+            FrmEnviarAOposicion frmEnviarAOposicion = new FrmEnviarAOposicion();
+            frmEnviarAOposicion.ShowDialog();
+
+
         }
     }
 }

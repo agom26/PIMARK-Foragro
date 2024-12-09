@@ -10,25 +10,48 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
+        public DataTable GetAllOposicionesInternacionales()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionales", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las oposiciones internacionales: {ex.Message}");
+
+            }
+            return tabla;
+        }
         public int AddOposicion(
             string expediente,
             string signoPretendido,
             string signoDistintivo,
             string clase,
             string solicitanteSignoPretendido,
-            int idOpositor,
+            int? idSolicitante,
+            int? idOpositor,
+            string opositor,
             string signoOpositor,
-            string observaciones,
-            string estado,
             string situacionActual,
             int? idMarca,
-            byte?[] logoOpositor,
-            byte?[] logoSignoPretendido)
+            byte[] logoOpositor, 
+            byte[] logoSignoPretendido)
         {
-            int rowsAffected = 0;
-
-
-
+            int lastInsertedId = 0;
             using (var connection = GetConnection())
             {
                 try
@@ -44,16 +67,23 @@ namespace AccesoDatos.Entidades
                         cmd.Parameters.AddWithValue("@p_signo_distintivo", signoDistintivo);
                         cmd.Parameters.AddWithValue("@p_clase", clase);
                         cmd.Parameters.AddWithValue("@p_solicitante_signo_pretendido", solicitanteSignoPretendido);
-                        cmd.Parameters.AddWithValue("@p_opositor", idOpositor);
+                        cmd.Parameters.AddWithValue("@p_idSolicitante", idSolicitante ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@p_idopositor", idOpositor ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@p_opositor", opositor);
                         cmd.Parameters.AddWithValue("@p_signo_opositor", signoOpositor);
-                        cmd.Parameters.AddWithValue("@p_observaciones", observaciones ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@p_estado", estado ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_situacion_actual", situacionActual);
                         cmd.Parameters.AddWithValue("@p_idMarca", idMarca ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_logo_opositor", logoOpositor ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_logo_signo_pretendido", logoSignoPretendido ?? (object)DBNull.Value);
 
-                        rowsAffected = cmd.ExecuteNonQuery();
+                        // Leer el ID del último registro insertado
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                lastInsertedId = Convert.ToInt32(reader["idOposicion"]);
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -63,8 +93,40 @@ namespace AccesoDatos.Entidades
                 }
             }
 
-            return rowsAffected;
+            return lastInsertedId;
         }
+
+        public DataTable GetOposicionPorId(int idOposicion)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionPorId", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                       
+                        comando.Parameters.AddWithValue("@oposicion_id", idOposicion);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                          
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener la oposición por ID: {ex.Message}");
+            }
+            return tabla;
+        }
+
 
     }
 }

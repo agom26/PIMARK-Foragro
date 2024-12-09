@@ -73,6 +73,9 @@
     <Compile Update="Marcas Nacionales\FrmAgregarEtapaRegistrada.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Marcas Nacionales\FrmEnviarAOposicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Nacionales\FrmCrearTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>

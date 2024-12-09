@@ -14,9 +14,7 @@ namespace AccesoDatos.Entidades
         string numExpediente,
         int idMarca,
         int idTitularAnterior,
-        int idTitularNuevo,
-        string antiguoNombre,
-        string nuevoNombre)
+        int idTitularNuevo)
         {
             using (MySqlConnection conexion = GetConnection())
             {
@@ -28,8 +26,6 @@ namespace AccesoDatos.Entidades
                     comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
                     comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
                     comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
-                    comando.Parameters.AddWithValue("@p_AntiguoNombre", antiguoNombre);
-                    comando.Parameters.AddWithValue("@p_NuevoNombre", nuevoNombre);
 
                     conexion.Open();
                     comando.ExecuteNonQuery();
@@ -80,7 +76,7 @@ namespace AccesoDatos.Entidades
             return resultado;
         }
 
-        public bool ActualizarTraspasoMarca(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo, string antiguoNombre, string nuevoNombre)
+        public bool ActualizarTraspasoMarca(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
             using (MySqlConnection conexion = GetConnection())
             {
@@ -92,9 +88,6 @@ namespace AccesoDatos.Entidades
                     comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
                     comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
                     comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
-                    comando.Parameters.AddWithValue("@p_AntiguoNombre", antiguoNombre);
-                    comando.Parameters.AddWithValue("@p_NuevoNombre", nuevoNombre);
-
                     conexion.Open();
                     int filasAfectadas = comando.ExecuteNonQuery();
                     return filasAfectadas > 0;

@@ -17,7 +17,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersonaT = 0;
+            SeleccionarMarcaOposicion.LimpiarMarcaOposicion();
             this.Close();
         }
 
@@ -25,7 +25,7 @@ namespace Presentacion.Marcas_Nacionales
         private void LoadMarcas()
         {
             // Obtiene las marcas 
-            var marcas= marcaModel;
+            var marcas= marcaModel.GetAllMarcasInternacionales();
 
             Invoke(new Action(() =>
             {
@@ -33,6 +33,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (dtgTitulares.Columns["id"] != null)
                 {
+                    dtgTitulares.Columns["IdTitular"].Visible = false;
                     dtgTitulares.Columns["id"].Visible = false;
                 }
 
@@ -47,7 +48,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SeleccionarPersona.idPersonaT = 0;
+            SeleccionarMarcaOposicion.LimpiarMarcaOposicion();
             this.Close();
         }
 
@@ -68,7 +69,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (dtgTitulares.Columns["id"] != null)
                 {
                     dtgTitulares.Columns["id"].Visible = false;
-                    dtgTitulares.Columns["tipo"].Visible = false;
+                    dtgTitulares.Columns["IdTitular"].Visible = false;
                 }
             }
             else
@@ -91,10 +92,14 @@ namespace Presentacion.Marcas_Nacionales
                 var filaSeleccionada = dtgTitulares.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    // Obtén el ID de la fila seleccionada
+                   
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarPersona.idPersonaT = id;
-
+                    SeleccionarMarcaOposicion.idMarca=id;
+                    SeleccionarMarcaOposicion.nombreSigno = dataRowView["nombre"].ToString();
+                    SeleccionarMarcaOposicion.idTitularMarca = (int)dataRowView["IdTitular"];
+                    SeleccionarMarcaOposicion.nombreTitular = dataRowView["titular"].ToString();
+                    this.Close();
+                    /*
                     var detallesTitular = personaModel.GetPersonaById(id);
 
                     if (detallesTitular.Count > 0)
@@ -115,7 +120,7 @@ namespace Presentacion.Marcas_Nacionales
                     else
                     {
                         MessageBox.Show("No se encontraron detalles del titular", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    }*/
                 }
             }
             else
