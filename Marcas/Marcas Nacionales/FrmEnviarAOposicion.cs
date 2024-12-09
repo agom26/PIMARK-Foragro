@@ -58,7 +58,7 @@ namespace Presentacion.Marcas_Nacionales
 
 
             //traspaso
-            int idMarca = SeleccionarMarca.idN;
+            int idMarca = SeleccionarMarca.idInt;
             string nuevoTitular = txtSolicitante.Text;
 
             if (txtEstado.Text != "" && txtSolicitante.Text!="")

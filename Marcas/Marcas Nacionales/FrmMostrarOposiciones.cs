@@ -116,7 +116,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         private async void LoadMarcas()
         {
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionales() );
+            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionales());
 
             Invoke(new Action(() =>
             {
@@ -232,7 +232,7 @@ namespace Presentacion.Marcas_Nacionales
         private bool ValidarCampos(string expediente, string signo_pretendido, string signo_distintivo, string clase, string solicitante, string opositor,
       bool logos, ref byte[] logoOpositor, ref byte[] logoSignoPretendido, string signo_opositor)
         {
-           
+
 
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
@@ -263,7 +263,7 @@ namespace Presentacion.Marcas_Nacionales
                     using (var ms2 = new System.IO.MemoryStream())
                     {
                         pictureBoxSignoPretendido.Image.Save(ms2, System.Drawing.Imaging.ImageFormat.Png);
-                        logoSignoPretendido=ms2.ToArray();
+                        logoSignoPretendido = ms2.ToArray();
                     }
 
                 }
@@ -434,12 +434,12 @@ namespace Presentacion.Marcas_Nacionales
                     if (dataRowView["IdMarca"] != DBNull.Value)
                     {
                         int id = Convert.ToInt32(dataRowView["IdMarca"]);
-                        SeleccionarOposicion.idMarca= id;
+                        SeleccionarOposicion.idMarca = id;
                     }
                     else if (dataRowView["id"] != DBNull.Value)
                     {
                         int id = Convert.ToInt32(dataRowView["id"]);
-                        SeleccionarOposicion.idInt= id;
+                        SeleccionarOposicion.idInt = id;
                     }
 
                     AnadirTabPage(tabPageAgregarOposicion);
@@ -556,7 +556,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario   , "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -611,6 +611,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
+                Cursor = Cursors.WaitCursor;
                 tabControl1.Visible = false;
                 DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idInt));
                 if (detallesOposicion.Rows.Count > 0)
@@ -618,7 +619,7 @@ namespace Presentacion.Marcas_Nacionales
                     DataRow row = detallesOposicion.Rows[0];
                     SeleccionarOposicion.expediente = row["expediente"].ToString();
                     SeleccionarOposicion.signo_pretendido = row["signo_pretendido"].ToString();
-                    SeleccionarOposicion.signo_distintivo= row["signo_distintivo"].ToString();
+                    SeleccionarOposicion.signo_distintivo = row["signo_distintivo"].ToString();
                     SeleccionarOposicion.clase = row["clase"].ToString();
                     SeleccionarOposicion.solicitante_signo_pretendido = row["solicitante_signo_pretendido"].ToString();
                     SeleccionarOposicion.opositor = row["opositor"].ToString();
@@ -644,12 +645,12 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         checkBoxAgregarLogos.Checked = true;
                         MostrarLogos();
-                        if(SeleccionarOposicion.logoOpositor!=null && SeleccionarOposicion.logoSignoPretendido != null)
+                        if (SeleccionarOposicion.logoOpositor != null && SeleccionarOposicion.logoSignoPretendido != null)
                         {
                             MostrarLogoEnPictureBoxOpositor((byte[])row["logo_opositor"]);
                             MostrarLogoEnPictureBoxSignoPretendido((byte[])row["logo_signo_pretendido"]);
                         }
-                       
+
                     }
                     else
                     {
@@ -661,9 +662,10 @@ namespace Presentacion.Marcas_Nacionales
 
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
-                    btnGuardarU.BackColor= Color.FromArgb(96, 149, 241);
+                    btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
 
                     tabControl1.Visible = true;
+                    Cursor = Cursors.Default;
 
                 }
 
@@ -679,7 +681,9 @@ namespace Presentacion.Marcas_Nacionales
             VerificarSeleccionEdicion();
             if (SeleccionarOposicion.idInt > 0)
             {
+
                 await CargarDatosOposicion();
+
             }
             else if (SeleccionarOposicion.idMarca > 0)
             {
@@ -1258,12 +1262,12 @@ namespace Presentacion.Marcas_Nacionales
             tabControl1.SelectedTab = tabPageAgregarOposicion;
             btnGuardarU.Text = "AGREGAR";
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115); 
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
         }
 
         private void btnAgregarTitularAO_Click(object sender, EventArgs e)
         {
-            
+
             FrmMostrarMarcas frmMostrarMarcas = new FrmMostrarMarcas();
             frmMostrarMarcas.ShowDialog();
 
@@ -1271,7 +1275,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 txtNombreTitularAO.Enabled = false;
                 txtSignoOpositor.Enabled = false;
-                txtNombreTitularAO.Text=SeleccionarMarcaOposicion.nombreTitular;
+                txtNombreTitularAO.Text = SeleccionarMarcaOposicion.nombreTitular;
                 txtSignoOpositor.Text = SeleccionarMarcaOposicion.nombreSigno;
             }
             else
@@ -1390,55 +1394,55 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-      
+
         public void AgregarOposicion()
         {
             byte[] logoOpositor = null;
             byte[] logoSignoPretendido = null;
             string expediente = txtExpedienteAO.Text;
-            string signo_pretendido=txtSignoAO.Text;
+            string signo_pretendido = txtSignoAO.Text;
             string signoDistintivo = cmbSignoDAO.SelectedItem?.ToString();
             string clase = txtClaseAO.Text;
-            string solicitante_signo_distintivo=txtSolicitanteSignoPretendido.Text;
-           
+            string solicitante_signo_distintivo = txtSolicitanteSignoPretendido.Text;
+
             int? idMarca = null;
             string opositor = txtNombreTitularAO.Text;
             string signoOpositor = txtSignoOpositor.Text;
-           
-           
-         
 
-            bool validacionExitosa=ValidarCampos(expediente, signo_pretendido, signoDistintivo, clase, solicitante_signo_distintivo,
+
+
+
+            bool validacionExitosa = ValidarCampos(expediente, signo_pretendido, signoDistintivo, clase, solicitante_signo_distintivo,
                 opositor, checkBoxAgregarLogos.Checked, ref logoOpositor, ref logoSignoPretendido,
                 signoOpositor);
 
             if (!validacionExitosa)
             {
-                return; 
+                return;
             }
 
             try
             {
                 OposicionModel oposicionModel = new OposicionModel();
-                int idOposicion=oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo,null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
+                int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
+                    solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
                     logoOpositor, logoSignoPretendido);
                 if (idOposicion > 0)
                 {
                     HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa, 
-                        AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario,null,"OPOSICIÓN",idOposicion
+                    historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                        AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
                         );
                 }
                 FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-            
+
         }
         private void btnGuardarU_Click(object sender, EventArgs e)
         {
@@ -1446,11 +1450,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 AgregarOposicion();
             }
-            else if(btnGuardarU.Text == "EDITAR")
+            else if (btnGuardarU.Text == "EDITAR")
             {
                 //editar
             }
-            
+
         }
 
         private void roundedButton2_Click_1(object sender, EventArgs e)
@@ -1517,6 +1521,11 @@ namespace Presentacion.Marcas_Nacionales
         {
             convertirImagen();
             pictureBoxSignoPretendido.Image = documento;
+        }
+
+        private void dtgMarcasO_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

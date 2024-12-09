@@ -529,6 +529,7 @@
             dtgMarcasO.AllowUserToResizeRows = false;
             dtgMarcasO.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgMarcasO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dtgMarcasO.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dtgMarcasO.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgMarcasO.BorderStyle = BorderStyle.None;
             dtgMarcasO.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -572,6 +573,7 @@
             dtgMarcasO.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasO.Size = new Size(936, 447);
             dtgMarcasO.TabIndex = 29;
+            dtgMarcasO.CellContentClick += dtgMarcasO_CellContentClick;
             dtgMarcasO.CellDoubleClick += dtgMarcasO_CellDoubleClick;
             // 
             // iconButton3
