@@ -60,7 +60,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, etapa as Etapa, DATE_FORMAT(fecha, '%Y-%m-%d') as Fecha, anotaciones as Anotaciones, usuario as Usuario_creador, usuarioEdicion As Usuario_editor FROM Historial WHERE IdMarca=@idMarca;", conexion))
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, etapa as Etapa, DATE_FORMAT(fecha, '%Y-%m-%d') as Fecha, anotaciones as Anotaciones,origen as Origen, usuario as Usuario_creador, usuarioEdicion As Usuario_editor FROM Historial WHERE IdMarca=@idMarca;", conexion))
                 {
                     comando.Parameters.AddWithValue("@idMarca", idMarca);
                     conexion.Open();

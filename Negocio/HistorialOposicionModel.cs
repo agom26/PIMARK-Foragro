@@ -1,6 +1,7 @@
 ﻿using AccesoDatos.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,33 @@ namespace Dominio
                 usuarioEdicion,
                 origen,
                 idOposicion);
+        }
+
+        public DataTable ObtenerHistorial(int idOposicion)
+        {
+            return historialOposicionDao.ObtenerHistorialOposicion(idOposicion);
+        }
+
+        public DataTable ObtenerHistorialPorId(int idOposicion)
+        {
+            return historialOposicionDao.ObtenerHistorialOposicionPorId(idOposicion);
+        }
+
+        public bool EditarHistorialOposicion(
+            int historialId,
+            string nuevaEtapa,
+            DateTime nuevaFecha,
+            string nuevasAnotaciones,
+            string nuevoUsuario,
+            string nuevoUsuarioEdicion)
+        {
+            return historialOposicionDao.EditarHistorialOposicion(
+                historialId,
+                nuevaEtapa,
+                nuevaFecha,
+                nuevasAnotaciones,
+                nuevoUsuario,
+                nuevoUsuarioEdicion);
         }
     }
 }

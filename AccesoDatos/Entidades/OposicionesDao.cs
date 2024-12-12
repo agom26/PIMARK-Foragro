@@ -127,6 +127,67 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public bool EditOposicion(
+        int idOposicion,
+        string expediente,
+        string signoPretendido,
+        string signoDistintivo,
+        string clase,
+        string solicitanteSignoPretendido,
+        int? idOpositor,
+        string signoOpositor,
+        string situacionActual,
+        int? idMarca,
+        byte[] logoOpositor,
+        byte[] logoSignoPretendido,
+        string opositor,
+        int? idSolicitante)
+        {
+            try
+            {
+                using (MySqlConnection connection = GetConnection())
+                {
+                    connection.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand("EditarOposicion", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@p_idOposicion", idOposicion);
+                        cmd.Parameters.AddWithValue("@p_expediente", expediente);
+                        cmd.Parameters.AddWithValue("@p_signo_pretendido", signoPretendido);
+                        cmd.Parameters.AddWithValue("@p_signo_distintivo", signoDistintivo);
+                        cmd.Parameters.AddWithValue("@p_clase", clase);
+                        cmd.Parameters.AddWithValue("@p_solicitante_signo_pretendido", solicitanteSignoPretendido);
+                        cmd.Parameters.AddWithValue("@p_idopositor", idOpositor);
+                        cmd.Parameters.AddWithValue("@p_signo_opositor", signoOpositor);
+                        cmd.Parameters.AddWithValue("@p_situacion_actual", situacionActual);
+                        cmd.Parameters.AddWithValue("@p_idMarca", idMarca);
+                        cmd.Parameters.AddWithValue("@p_logo_opositor", logoOpositor ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@p_logo_signo_pretendido", logoSignoPretendido ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@p_opositor", opositor);
+                        cmd.Parameters.AddWithValue("@p_idSolicitante", idSolicitante);
+
+                        var resultParam = new MySqlParameter("@p_result", MySqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(resultParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        return Convert.ToBoolean(resultParam.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al editar la oposición: {ex.Message}");
+                throw;
+            }
+        }
+
+
 
     }
 }

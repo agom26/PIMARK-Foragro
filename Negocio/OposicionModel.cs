@@ -51,5 +51,38 @@ namespace Dominio
             tabla = oposicionDao.GetOposicionPorId(idOposicion);
             return tabla;
         }
+
+        public bool EditarOposicion(
+           int idOposicion,
+           string expediente,
+           string signoPretendido,
+           string signoDistintivo,
+           string clase,
+           string solicitanteSignoPretendido,
+           int? idOpositor,
+           string signoOpositor,
+           string situacionActual,
+           int? idMarca,
+           byte[] logoOpositor,
+           byte[] logoSignoPretendido,
+           string opositor,
+           int? idSolicitante)
+        {
+            return oposicionDao.EditOposicion(
+                idOposicion,
+                expediente,
+                signoPretendido,
+                signoDistintivo,
+                clase,
+                solicitanteSignoPretendido,
+                idOpositor,
+                signoOpositor,
+                situacionActual,
+                idMarca,
+                logoOpositor,
+                logoSignoPretendido,
+                opositor,
+                idSolicitante);
+        }
     }
 }

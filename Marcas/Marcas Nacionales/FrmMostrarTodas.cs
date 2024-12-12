@@ -489,7 +489,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
-        private void VerificarSeleccionIdMarcaEdicion()
+        private void VerificarSeleccionEdicion()
         {
             if (dtgMarcasN.RowCount <= 0)
             {
@@ -610,7 +610,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public async void Editar()
         {
-            VerificarSeleccionIdMarcaEdicion();
+            VerificarSeleccionEdicion();
             if (SeleccionarMarca.idInt > 0)
             {
                 tabControl1.Visible = false;
@@ -675,7 +675,8 @@ namespace Presentacion.Marcas_Nacionales
 
             if (SeleccionarPersona.idPersonaT != 0)
             {
-                
+
+                AgregarEtapa.solicitante = SeleccionarPersona.nombre;
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
                 txtDireccionTitular.Text = SeleccionarPersona.direccion;
                 txtEntidadTitular.Text = SeleccionarPersona.pais;
@@ -1145,6 +1146,8 @@ namespace Presentacion.Marcas_Nacionales
             //Enviar a oposicion
             FrmEnviarAOposicion frmEnviarAOposicion = new FrmEnviarAOposicion();
             frmEnviarAOposicion.ShowDialog();
+
+            AgregarEtapa.solicitante = txtNombreTitular.Text;
 
 
         }

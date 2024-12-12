@@ -10,6 +10,9 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             this.Load += FrmEnviarAOposicion_Load;
+            txtSolicitante.Text = AgregarEtapa.solicitante;
+            lblUser.Text = UsuarioActivo.usuario;
+            lblUser.Visible = false;
         }
 
         private void ActualizarFechaVencimiento()
@@ -76,18 +79,18 @@ namespace Presentacion.Marcas_Nacionales
 
                 try
                 {
+                    oposicionModel.CrearOposicion(SeleccionarMarca.expediente, SeleccionarMarca.nombre,
+                        SeleccionarMarca.signoDistintivo, SeleccionarMarca.clase,
+                        solicitante, SeleccionarMarca.idPersonaTitular, null, opositor, null,
+                        situacion_actual, idMarca, null, SeleccionarMarca.logo);
                     historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
-                    oposicionModel.CrearOposicion(SeleccionarMarca.expediente,SeleccionarMarca.nombre, 
-                        SeleccionarMarca.signoDistintivo, SeleccionarMarca.clase, 
-                        solicitante,SeleccionarMarca.idPersonaTitular,null,opositor,null,
-                        situacion_actual, idMarca,null, SeleccionarMarca.logo);
+                    
                     FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
                 catch (Exception ex){
                     MessageBox.Show("Error: "+ex.Message);
                 }
-
 
 
             }
