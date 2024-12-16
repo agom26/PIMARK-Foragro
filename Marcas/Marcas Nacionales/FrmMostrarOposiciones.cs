@@ -813,7 +813,6 @@ namespace Presentacion.Marcas_Nacionales
                                 txtSolicitanteSignoPretendido.Enabled = true;
                             }
                         }
-
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
@@ -1463,12 +1462,20 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     try
                     {
-                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
-                        AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                        AgregarEtapaOposicion.usuario, "OPOSICIÓN");
-                        FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        await recargarDatosOposicion();
+                        if (AgregarEtapaOposicion.etapa != "")
+                        {
+                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            await recargarDatosOposicion();
+                        }
+                        else
+                        {
+
+                        }
+                        
                     }
                     catch (Exception ex)
                     {

@@ -1712,9 +1712,9 @@
         private TableLayoutPanel tableLayoutPanel1;
         private ComboBox comboBox1;
         private Label label1;
+        private FontAwesome.Sharp.IconButton iconButton2;
         private GroupBox groupBox1;
         private CheckBox checkBoxTienePoder;
         private Label label26;
-        private FontAwesome.Sharp.IconButton iconButton2;
     }
 }
