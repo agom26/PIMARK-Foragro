@@ -770,6 +770,7 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
+                        btnEnviarATramite.Visible = true;
                         btnAgregarOpositorAO.Enabled = false;
                        // btnTitular.Visible = true;
                         txtExpedienteAO.Enabled = false;
@@ -806,6 +807,7 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
+                        btnEnviarATramite.Visible = false;
                         txtSignoAO.Enabled = true;
                         txtClaseAO.Enabled = true;
                         txtExpedienteAO.Enabled = true;
