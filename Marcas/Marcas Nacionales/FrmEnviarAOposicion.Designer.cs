@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
             label3 = new Label();
             dateTimePicker1 = new DateTimePicker();
             richTextBox1 = new RichTextBox();
@@ -40,7 +39,6 @@
             button1 = new Button();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            txtEstado = new TextBox();
             label4 = new Label();
             Fechas = new GroupBox();
             label6 = new Label();
@@ -57,18 +55,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(31, 70);
             label1.Name = "label1";
-            label1.Size = new Size(55, 20);
+            label1.Size = new Size(154, 20);
             label1.TabIndex = 0;
-            label1.Text = "Fecha";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(265, 70);
-            label2.Name = "label2";
-            label2.Size = new Size(58, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Estado";
+            label1.Text = "Fecha de oposición";
             // 
             // label3
             // 
@@ -203,15 +192,6 @@
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
             // 
-            // txtEstado
-            // 
-            txtEstado.Location = new Point(265, 95);
-            txtEstado.Name = "txtEstado";
-            txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(99, 26);
-            txtEstado.TabIndex = 11;
-            txtEstado.Text = "Oposición";
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -239,15 +219,14 @@
             label6.AutoSize = true;
             label6.Location = new Point(87, 172);
             label6.Name = "label6";
-            label6.Size = new Size(239, 20);
+            label6.Size = new Size(111, 20);
             label6.TabIndex = 24;
-            label6.Text = "Solicitante del signo pretendido";
+            label6.Text = "Signo opositor";
             // 
             // txtSolicitante
             // 
             txtSolicitante.Location = new Point(87, 195);
             txtSolicitante.Name = "txtSolicitante";
-            txtSolicitante.ReadOnly = true;
             txtSolicitante.Size = new Size(323, 26);
             txtSolicitante.TabIndex = 21;
             // 
@@ -261,9 +240,7 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(dateTimePicker1);
-            groupBox1.Controls.Add(txtEstado);
             groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(richTextBox1);
             groupBox1.Controls.Add(lblUser);
@@ -302,7 +279,6 @@
         #endregion
 
         private Label label1;
-        private Label label2;
         private Label label3;
         private DateTimePicker dateTimePicker1;
         private RichTextBox richTextBox1;
@@ -313,7 +289,6 @@
         private Button button2;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private TextBox txtEstado;
         private Label label4;
         private GroupBox Fechas;
         private GroupBox groupBox1;

@@ -17,10 +17,10 @@ namespace Dominio
         {
             oposicionDao = new OposicionesDao();
         }
-        public DataTable GetAllOposicionesInternacionales()
+        public DataTable GetAllOposicionesInternacionales(string situacionActual)
         {
             DataTable tabla = new DataTable();
-            tabla = oposicionDao.GetAllOposicionesInternacionales();
+            tabla = oposicionDao.GetAllOposicionesInternacionales(situacionActual);
             return tabla;
         }
 

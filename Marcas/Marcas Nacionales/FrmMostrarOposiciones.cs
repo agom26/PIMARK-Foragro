@@ -114,9 +114,9 @@ namespace Presentacion.Marcas_Nacionales
                 dtgMarcasO.ClearSelection();
             }
         }
-        private async void LoadMarcas()
+        private async Task LoadMarcas(string situacionActual)
         {
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionales());
+            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionales(situacionActual));
 
             Invoke(new Action(() =>
             {
@@ -704,7 +704,7 @@ namespace Presentacion.Marcas_Nacionales
             txtClaseAO.Text = "";
             txtSignoOpositor.Text = "";
             txtSolicitanteSignoPretendido.Text = "";
-            txtEstadoAO.Text = "";
+            //txtEstadoAO.Text = "";
             txtExpedienteAO.Text = "";
 
             pictureBoxOpositor.Image = documento;
@@ -737,9 +737,6 @@ namespace Presentacion.Marcas_Nacionales
                     SeleccionarOposicion.idMarca = row["idMarca"] is DBNull ? 0 : int.Parse(row["idMarca"].ToString());
                     SeleccionarOposicion.idSolicitante = 0;
                     //idSolicitante 
-                   
-                    
-
 
                     txtExpedienteAO.Text = SeleccionarOposicion.expediente;
                     txtSignoAO.Text = SeleccionarOposicion.signo_pretendido;
@@ -749,7 +746,7 @@ namespace Presentacion.Marcas_Nacionales
                     txtNombreTitularAO.Text = SeleccionarOposicion.opositor;
                     txtSignoOpositor.Text = SeleccionarOposicion.signo_opositor;
                     richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
-                    txtEstadoAO.Text = SeleccionarOposicion.estado;
+                    //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
                     if (SeleccionarOposicion.logoSignoPretendido != null || SeleccionarOposicion.logoOpositor != null)
                     {
@@ -774,8 +771,12 @@ namespace Presentacion.Marcas_Nacionales
                     if (SeleccionarOposicion.idMarca > 0)
                     {
                         btnAgregarOpositorAO.Enabled = false;
-                        btnTitular.Visible = true;
-
+                       // btnTitular.Visible = true;
+                        txtExpedienteAO.Enabled = false;
+                        txtClaseAO.Enabled = false;
+                        cmbSignoDAO.Enabled = false;
+                        txtClaseAO.Enabled = false;
+                        txtSignoAO.Enabled = false;
                         var marca = marcaModel.GetMarcaInternacionalById(SeleccionarOposicion.idMarca);
                         if (marca.Rows.Count > 0)
                         {
@@ -805,12 +806,18 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
+                        txtSignoAO.Enabled = true;
+                        txtClaseAO.Enabled = true;
+                        txtExpedienteAO.Enabled = true;
+                        txtClaseAO.Enabled = true;
+                        cmbSignoDAO.Enabled = true;
+                        txtClaseAO.Enabled = true;
                         txtSolicitanteSignoPretendido.Enabled = true;
                         btnAgregarOpositorAO.Enabled = true;
-                        btnTitular.Visible = false;
+                        //btnTitular.Visible = false;
                     }
 
-                    btnVerHistorial.Visible = true;
+                    //btnVerHistorial.Visible = true;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
                     btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
@@ -842,7 +849,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void FrmMostrarOposiciones_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => LoadMarcas());
+            cmbSituacionActual.SelectedIndex = 0;
+            FiltrarPorSituacionActual();
             tabControl1.SelectedTab = tabPageListaMarcas;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
@@ -860,7 +868,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
-                LoadMarcas();
+                FiltrarPorSituacionActual();
                 SeleccionarOposicion.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -1436,8 +1444,8 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        txtEstadoAO.Text = "";
-                        richtxtObservacionesAO.Text = "";
+                        //txtEstadoAO.Text = "";
+                        //richtxtObservacionesAO.Text = "";
                     }
                 }
                 else
@@ -1463,13 +1471,13 @@ namespace Presentacion.Marcas_Nacionales
             {
                 if (AgregarEtapaOposicion.etapa != "")
                 {
-                    txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
+                    //txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
                     richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
 
                 }
                 else
                 {
-                    txtEstadoAO.Text = "";
+                    //txtEstadoAO.Text = "";
                     richtxtObservacionesAO.Text = "";
                 }
             }
@@ -1479,9 +1487,9 @@ namespace Presentacion.Marcas_Nacionales
         {
             AnadirTabPage(tabPageAgregarOposicion);
 
-            btnVerHistorial.Visible = false;
+            //btnVerHistorial.Visible = false;
             SeleccionarOposicion.idInt = 0;
-            btnTitular.Visible = false;
+            //btnTitular.Visible = false;
             btnAgregarOpositorAO.Enabled = true;
             convertirImagen();
             pictureBoxOpositor.Image = documento;
@@ -1638,13 +1646,15 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    LoadMarcas();
+                    FiltrarPorSituacionActual();
+                    //LoadMarcas();
                 }
 
             }
             else
             {
-                LoadMarcas();
+                FiltrarPorSituacionActual();
+                //LoadMarcas();
             }
         }
 
@@ -1659,7 +1669,7 @@ namespace Presentacion.Marcas_Nacionales
                 SeleccionarOposicion.estado = row["estado"] is DBNull ? null : row["estado"].ToString();
 
                 richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
-                txtEstadoAO.Text = SeleccionarOposicion.estado;
+                //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
 
             }
@@ -1702,18 +1712,24 @@ namespace Presentacion.Marcas_Nacionales
 
             try
             {
-                bool actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor, null);
-                if (actualizado && SeleccionarOposicion.idMarca > 0)
-                {
+                bool actualizado = false;
 
-                    FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
+                if (SeleccionarOposicion.idSolicitante != 0)
+                {
+                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
+                    SeleccionarOposicion.idSolicitante);
                 }
-                else if (actualizado && SeleccionarOposicion.idMarca == 0)
+                else
                 {
+                    actualizado = actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
+                    null);
+                }
 
 
+                if (actualizado)
+                {
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
@@ -1882,13 +1898,32 @@ namespace Presentacion.Marcas_Nacionales
             if (SeleccionarPersona.idPersonaT != 0)
             {
                 SeleccionarOposicion.idSolicitante = SeleccionarPersona.idPersonaT;
+                SeleccionarOposicion.solicitante_signo_pretendido = SeleccionarPersona.nombre;
                 txtSolicitanteSignoPretendido.Text = SeleccionarPersona.nombre;
+                txtSolicitanteSignoPretendido.Enabled = false;
+            }
+        }
+
+        public async void FiltrarPorSituacionActual()
+        {
+            if (cmbSituacionActual.SelectedIndex == 0)
+            {
+                await LoadMarcas("EN TRÁMITE");
+            }
+            else if (cmbSituacionActual.SelectedIndex == 1)
+            {
+                await LoadMarcas("TERMINADA");
             }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarPorSituacionActual();
         }
     }
 }

@@ -389,7 +389,7 @@
             panel3.Controls.Add(panel17);
             panel3.Location = new Point(6, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(610, 49);
+            panel3.Size = new Size(666, 49);
             panel3.TabIndex = 176;
             // 
             // panel15
@@ -398,7 +398,7 @@
             panel15.Controls.Add(panel16);
             panel15.Controls.Add(roundedButton4);
             panel15.Dock = DockStyle.Left;
-            panel15.Location = new Point(343, 0);
+            panel15.Location = new Point(399, 0);
             panel15.Name = "panel15";
             panel15.Size = new Size(267, 49);
             panel15.TabIndex = 170;
@@ -455,7 +455,7 @@
             iconPictureBox1.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 49;
-            iconPictureBox1.Location = new Point(294, 0);
+            iconPictureBox1.Location = new Point(350, 0);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(49, 49);
             iconPictureBox1.TabIndex = 166;
@@ -470,7 +470,7 @@
             panel17.Dock = DockStyle.Left;
             panel17.Location = new Point(0, 0);
             panel17.Name = "panel17";
-            panel17.Size = new Size(294, 49);
+            panel17.Size = new Size(350, 49);
             panel17.TabIndex = 169;
             // 
             // panel18
@@ -481,7 +481,7 @@
             panel18.Controls.Add(iconPictureBox3);
             panel18.Location = new Point(35, 14);
             panel18.Name = "panel18";
-            panel18.Size = new Size(254, 21);
+            panel18.Size = new Size(305, 21);
             panel18.TabIndex = 174;
             // 
             // label30
@@ -491,9 +491,9 @@
             label30.Font = new Font("Century Gothic", 12F);
             label30.Location = new Point(25, 0);
             label30.Name = "label30";
-            label30.Size = new Size(229, 23);
+            label30.Size = new Size(280, 23);
             label30.TabIndex = 166;
-            label30.Text = "MARCAS NACIONALES";
+            label30.Text = "MARCAS INTERNACIONALES";
             label30.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // iconPictureBox3
@@ -501,7 +501,7 @@
             iconPictureBox3.BackColor = Color.FromArgb(175, 192, 218);
             iconPictureBox3.Dock = DockStyle.Left;
             iconPictureBox3.ForeColor = SystemColors.ControlText;
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Flag;
+            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.Globe;
             iconPictureBox3.IconColor = SystemColors.ControlText;
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 21;
@@ -525,7 +525,7 @@
             roundedButton5.ForeColor = Color.White;
             roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(291, 49);
+            roundedButton5.Size = new Size(347, 49);
             roundedButton5.TabIndex = 164;
             roundedButton5.TextColor = Color.White;
             roundedButton5.UseVisualStyleBackColor = false;
@@ -850,7 +850,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1046, 27636);
+            label5.Location = new Point(1046, 29860);
             label5.Name = "label5";
             label5.Size = new Size(132, 21);
             label5.TabIndex = 6;

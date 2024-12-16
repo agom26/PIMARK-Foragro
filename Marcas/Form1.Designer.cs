@@ -512,8 +512,8 @@
             iconButton12.FlatStyle = FlatStyle.Flat;
             iconButton12.Font = new Font("Century Gothic", 9F);
             iconButton12.ForeColor = Color.Gainsboro;
-            iconButton12.IconChar = FontAwesome.Sharp.IconChar.Globe;
-            iconButton12.IconColor = Color.FromArgb(129, 199, 132);
+            iconButton12.IconChar = FontAwesome.Sharp.IconChar.Flag;
+            iconButton12.IconColor = Color.FromArgb(2, 136, 209);
             iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton12.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton12.Location = new Point(0, 705);
@@ -521,7 +521,7 @@
             iconButton12.Padding = new Padding(9, 0, 0, 0);
             iconButton12.Size = new Size(259, 61);
             iconButton12.TabIndex = 9;
-            iconButton12.Text = "M. INTERNACIONALES";
+            iconButton12.Text = "MARCAS NACIONALES";
             iconButton12.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton12.UseVisualStyleBackColor = false;
             iconButton12.Click += iconButton12_Click;
@@ -690,8 +690,8 @@
             iconButton10.FlatStyle = FlatStyle.Flat;
             iconButton10.Font = new Font("Century Gothic", 9F);
             iconButton10.ForeColor = Color.Gainsboro;
-            iconButton10.IconChar = FontAwesome.Sharp.IconChar.Flag;
-            iconButton10.IconColor = Color.FromArgb(2, 136, 209);
+            iconButton10.IconChar = FontAwesome.Sharp.IconChar.Globe;
+            iconButton10.IconColor = Color.FromArgb(129, 199, 132);
             iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton10.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton10.Location = new Point(0, 305);
@@ -699,7 +699,7 @@
             iconButton10.Padding = new Padding(9, 0, 0, 0);
             iconButton10.Size = new Size(259, 54);
             iconButton10.TabIndex = 6;
-            iconButton10.Text = "MARCAS NACIONALES";
+            iconButton10.Text = "M. INTERNACIONALES";
             iconButton10.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton10.UseVisualStyleBackColor = false;
             iconButton10.Click += iconButton10_Click;

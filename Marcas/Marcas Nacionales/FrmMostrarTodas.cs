@@ -18,6 +18,7 @@ namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmMostrarTodas : Form
     {
+        public bool enviadaOposicion = false;
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
@@ -1148,8 +1149,14 @@ namespace Presentacion.Marcas_Nacionales
             frmEnviarAOposicion.ShowDialog();
 
             AgregarEtapa.solicitante = txtNombreTitular.Text;
-
-
+            if (AgregarEtapa.enviadoAOposicion == true)
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageListaMarcas;
+                FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+            }
         }
     }
 }

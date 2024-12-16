@@ -10,7 +10,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             this.Load += FrmEnviarAOposicion_Load;
-            txtSolicitante.Text = AgregarEtapa.solicitante;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
         }
@@ -28,7 +27,6 @@ namespace Presentacion.Marcas_Nacionales
 
         private void FrmEnviarAOposicion_Load(object sender, EventArgs e)
         {
-            txtSolicitante.Text = AgregarEtapa.solicitante;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
         }
@@ -37,6 +35,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             AgregarEtapa.LimpiarEtapa();
             this.Close();
+            AgregarEtapa.enviadoAOposicion = false;
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -44,6 +43,7 @@ namespace Presentacion.Marcas_Nacionales
 
             this.Close();
             AgregarEtapa.LimpiarEtapa();
+            AgregarEtapa.enviadoAOposicion = false;
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -52,22 +52,22 @@ namespace Presentacion.Marcas_Nacionales
             OposicionModel oposicionModel = new OposicionModel();
             string anotaciones = richTextBox1.Text;
             string opositor=txtNombreOpositor.Text;
-            string solicitante = txtSolicitante.Text;
+            string solicitante = AgregarEtapa.solicitante;
             string situacion_actual = "EN TRÁMITE";
-            AgregarEtapa.etapa = txtEstado.Text;
+            AgregarEtapa.etapa = "Oposición";
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
             int idSolicitante = SeleccionarMarca.idPersonaTitular;
-
+            string signoOpositor=txtSolicitante.Text;
 
             //traspaso
             int idMarca = SeleccionarMarca.idInt;
             string nuevoTitular = txtSolicitante.Text;
 
-            if (txtEstado.Text != "" && txtSolicitante.Text!="")
+            if (txtSolicitante.Text!="" && txtNombreOpositor.Text!="")
             {
                 string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                string formato = fechaSinHora + " " +txtEstado.Text;
+                string formato = fechaSinHora + " " + "Oposición";
                 if (anotaciones.Contains(formato))
                 {
                     AgregarEtapa.anotaciones = anotaciones;
@@ -81,22 +81,26 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     oposicionModel.CrearOposicion(SeleccionarMarca.expediente, SeleccionarMarca.nombre,
                         SeleccionarMarca.signoDistintivo, SeleccionarMarca.clase,
-                        solicitante, SeleccionarMarca.idPersonaTitular, null, opositor, null,
-                        situacion_actual, idMarca, null, SeleccionarMarca.logo);
+                        solicitante, SeleccionarMarca.idPersonaTitular,null, opositor,signoOpositor,
+                        situacion_actual, idMarca,null, SeleccionarMarca.logo);
                     historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                    string nuevaAnotacion = fechaSinHora+ " Oposición presentada";
+                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, "Oposición presentada", nuevaAnotacion, AgregarEtapa.usuario, "OPOSICIÓN");
+                   
+                    AgregarEtapa.enviadoAOposicion = true;
+                    this.Close();
                     
-                    FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
                 }
                 catch (Exception ex){
                     MessageBox.Show("Error: "+ex.Message);
+                    AgregarEtapa.enviadoAOposicion = false;
                 }
 
 
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR EL SOLICITANTE DEL SIGNO PRETENDIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR AL OPOSITOR Y EL SIGNO OPOSITOR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("No ha seleccionado ningun estado");
             }
@@ -109,7 +113,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + "Oposición";
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

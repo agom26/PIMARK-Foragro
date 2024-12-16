@@ -10,7 +10,7 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
-        public DataTable GetAllOposicionesInternacionales()
+        public DataTable GetAllOposicionesInternacionales(string situacionActual)
         {
             DataTable tabla = new DataTable();
             try
@@ -20,6 +20,8 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionales", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -32,10 +34,10 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las oposiciones internacionales: {ex.Message}");
-
             }
             return tabla;
         }
+
         public int AddOposicion(
             string expediente,
             string signoPretendido,
