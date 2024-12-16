@@ -780,7 +780,8 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                    
+                        txtSignoOpositor.Enabled = true;
+                        txtNombreTitularAO.Enabled = true;
                         btnAgregarOpositorAO.Enabled = false;
                         // btnTitular.Visible = true;
                         txtExpedienteAO.Enabled = false;
@@ -819,9 +820,9 @@ namespace Presentacion.Marcas_Nacionales
                         txtSignoAO.Enabled = true;
                         txtClaseAO.Enabled = true;
                         txtExpedienteAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
                         cmbSignoDAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
+                        txtSignoOpositor.Enabled = true;
+                        txtNombreTitularAO.Enabled = true;
                         txtSolicitanteSignoPretendido.Enabled = true;
                         btnAgregarOpositorAO.Enabled = true;
                         //btnTitular.Visible = false;
@@ -1750,6 +1751,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    tabControl1.SelectedTab = tabPageListaMarcas;
                 }
 
             }
@@ -1790,7 +1792,7 @@ namespace Presentacion.Marcas_Nacionales
                 OposicionModel oposicionModel = new OposicionModel();
                 int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
-                    logoOpositor, logoSignoPretendido);
+                    logoOpositor, logoSignoPretendido,"internacional");
                 if (idOposicion > 0)
                 {
                     HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();

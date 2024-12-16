@@ -1937,7 +1937,6 @@
             // 
             // panel11
             // 
-            panel11.Anchor = AnchorStyles.None;
             panel11.Controls.Add(btnQuitarLogoOpositor);
             panel11.Controls.Add(btnAgregarLogoOpositor);
             panel11.Controls.Add(pictureBoxOpositor);
@@ -2001,7 +2000,6 @@
             // 
             // panel12
             // 
-            panel12.Anchor = AnchorStyles.None;
             panel12.Controls.Add(btnQuitarLogoSignoPretendido);
             panel12.Controls.Add(btnAgregarSignoPretendido);
             panel12.Controls.Add(pictureBoxSignoPretendido);

@@ -38,6 +38,34 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public DataTable GetAllOposicionesNacionales(string situacionActual)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesNacionales", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las oposiciones nacionales: {ex.Message}");
+            }
+            return tabla;
+        }
+
         public int AddOposicion(
             string expediente,
             string signoPretendido,
@@ -51,7 +79,8 @@ namespace AccesoDatos.Entidades
             string situacionActual,
             int? idMarca,
             byte[] logoOpositor, 
-            byte[] logoSignoPretendido)
+            byte[] logoSignoPretendido,
+            string tipo)
         {
             int lastInsertedId = 0;
             using (var connection = GetConnection())
@@ -77,6 +106,7 @@ namespace AccesoDatos.Entidades
                         cmd.Parameters.AddWithValue("@p_idMarca", idMarca ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_logo_opositor", logoOpositor ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_logo_signo_pretendido", logoSignoPretendido ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@p_tipo", tipo);
 
                         // Leer el ID del último registro insertado
                         using (var reader = cmd.ExecuteReader())
