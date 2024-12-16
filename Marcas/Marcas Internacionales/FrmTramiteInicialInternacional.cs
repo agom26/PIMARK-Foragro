@@ -43,10 +43,11 @@ namespace Presentacion.Marcas_Internacionales
             panel16.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             SeleccionarMarca.idN = 0;
-            panelRegistroI.Visible = false;
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
+            checkBox1.Checked = false;
+            mostrarPanelRegistro();
         }
 
         private void ActualizarFechaVencimiento()
@@ -68,14 +69,13 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string paisRegistro, string clase, string signoDistintivo, string tipo, string estado,
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
    ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
-                !ValidarCampo(paisRegistro, "Por favor, ingrese un pais.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
                 !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
                 !ValidarCampo(estado, "Por favor, seleccione un estado."))
@@ -135,7 +135,6 @@ namespace Presentacion.Marcas_Internacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string paisRegistro = comboBox1.SelectedItem?.ToString();
             string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
             string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
@@ -147,22 +146,13 @@ namespace Presentacion.Marcas_Internacionales
             bool tieneCliente = false;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
-            string tiene_poder = "no";
-
+           
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
 
-            if (checkBoxTienePoder.Checked)
-            {
-                tiene_poder = "si";
-            }
-            else
-            {
-                tiene_poder = "no";
-            }
 
 
             // Validaciones
@@ -195,7 +185,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Validar campos 
-            if (!ValidarCampos(expediente, nombre, paisRegistro, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -204,8 +194,8 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                    marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
+                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,idCliente);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -215,14 +205,14 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
-                    FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Marca internacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 else
                 {
-                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -248,7 +238,6 @@ namespace Presentacion.Marcas_Internacionales
             txtNombreCliente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
-            comboBox1.SelectedIndex = -1;
             comboBoxTipoSigno.SelectedIndex = -1;
             comboBoxSignoDistintivo.SelectedIndex = -1;
             checkBox1.Checked = false;
@@ -270,13 +259,16 @@ namespace Presentacion.Marcas_Internacionales
             {
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
-                panelRegistroI.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
-                panelRegistroI.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
 
@@ -415,6 +407,21 @@ namespace Presentacion.Marcas_Internacionales
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            GuardarMarcaInter();
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

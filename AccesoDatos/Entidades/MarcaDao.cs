@@ -449,15 +449,15 @@ namespace AccesoDatos.Entidades
 
 
 
-
-        public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
+                          
+        public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
         {
             using (var connection = GetConnection()) 
             {
                 connection.Open();
 
-                using (var command = new MySqlCommand(@"INSERT INTO Marcas (expediente, nombre, signo_distintivo,tipoSigno, clase, logo, idTitular, idAgente, fecha_solicitud, tipo) 
-                                                  VALUES (@expediente, @nombre, @signoDistintivo,@tipoSigno, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, 'nacional'); 
+                using (var command = new MySqlCommand(@"INSERT INTO Marcas (expediente, nombre, signo_distintivo,tipoSigno, clase, logo, idTitular, idAgente, fecha_solicitud, tipo, idCliente) 
+                                                  VALUES (@expediente, @nombre, @signoDistintivo,@tipoSigno, @clase, @logo, @idPersonaTitular, @idPersonaAgente, @fecha_solicitud, 'nacional',@idCliente); 
                                                   SELECT LAST_INSERT_ID();", connection))
                 {
                     command.Parameters.AddWithValue("@expediente", expediente);
@@ -469,7 +469,8 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
-                    
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
+
                     int idMarca = Convert.ToInt32(command.ExecuteScalar());
                     return idMarca; 
                 }
@@ -508,11 +509,11 @@ namespace AccesoDatos.Entidades
         }
 
 
-
+        
         public int AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio,
                                       string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente,
                                       DateTime fecha_solicitud, string registro,
-                                      DateTime fechaRegistro, DateTime fechaVencimiento)
+                                      DateTime fechaRegistro, DateTime fechaVencimiento, int? idCliente)
         {
             int idMarca = 0;
             using (var connection = GetConnection()) 
@@ -520,9 +521,9 @@ namespace AccesoDatos.Entidades
                 connection.Open();
                 using (var command = new MySqlCommand(@"
                     INSERT INTO Marcas (expediente, nombre, signo_distintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, 
-                                        fecha_solicitud, tipo, registro, fecha_registro, fecha_vencimiento) 
+                                        fecha_solicitud, tipo, registro, fecha_registro, fecha_vencimiento, idCliente) 
                     VALUES (@expediente, @nombre, @signoDistintivo, @tipoSigno, @clase, @folio, @libro, @logo, @idPersonaTitular, 
-                            @idPersonaAgente, @fecha_solicitud, 'nacional', @registro, @fecha_registro, @fecha_vencimiento);
+                            @idPersonaAgente, @fecha_solicitud, 'nacional', @registro, @fecha_registro, @fecha_vencimiento, @idCliente);
                     SELECT LAST_INSERT_ID();", connection))
                 {
                     command.Parameters.AddWithValue("@expediente", expediente);
@@ -539,6 +540,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@registro", registro);
                     command.Parameters.AddWithValue("@fecha_registro", fechaRegistro);
                     command.Parameters.AddWithValue("@fecha_vencimiento", fechaVencimiento);
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
 
                     idMarca = Convert.ToInt32(command.ExecuteScalar());
                 }
@@ -612,7 +614,7 @@ namespace AccesoDatos.Entidades
 
 
 
-        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud)
+        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
         {
             using (var connection = GetConnection())
             {
@@ -627,7 +629,8 @@ namespace AccesoDatos.Entidades
                 logo = @logo, 
                 idTitular = @idPersonaTitular, 
                 idAgente = @idPersonaAgente, 
-                fecha_solicitud = @fecha_solicitud
+                fecha_solicitud = @fecha_solicitud,
+                idCliente=@idCliente
             WHERE (id = @id) AND (tipo = 'nacional');", connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -640,7 +643,7 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
-
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0; 
                 }
@@ -648,7 +651,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
+        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp, int? idCliente)
         {
             using (var connection = GetConnection())
             {
@@ -675,6 +678,8 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@p_fechaVencimiento", fechaVencimiento);
                     command.Parameters.AddWithValue("@p_erenov", erenov);
                     command.Parameters.AddWithValue("@p_etrasp", etrasp);
+                    command.Parameters.AddWithValue("@p_idCliente", idCliente);
+
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0;  

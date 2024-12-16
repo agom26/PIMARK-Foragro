@@ -49,6 +49,8 @@ namespace Presentacion.Marcas_Nacionales
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
             this.Load += FrmTramiteIn_Load;
+            checkBox1.Checked = false;
+            mostrarPanelRegistro();
         }
         private void ActualizarFechaVencimiento()
         {

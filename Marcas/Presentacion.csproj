@@ -61,6 +61,9 @@
     <Compile Update="Marcas Internacionales\FrmCrearTraspasoInt.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Marcas Internacionales\FrmEnviarAOposicionI.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Internacionales\FrmRenovacionesInt.cs">
       <SubType>Form</SubType>
     </Compile>
