@@ -1868,6 +1868,7 @@
             btnQuitarLogoOpositor.Size = new Size(74, 33);
             btnQuitarLogoOpositor.TabIndex = 89;
             btnQuitarLogoOpositor.UseVisualStyleBackColor = false;
+            btnQuitarLogoOpositor.Click += btnQuitarLogoOpositor_Click;
             // 
             // btnAgregarLogoOpositor
             // 
@@ -1883,6 +1884,7 @@
             btnAgregarLogoOpositor.Size = new Size(74, 33);
             btnAgregarLogoOpositor.TabIndex = 88;
             btnAgregarLogoOpositor.UseVisualStyleBackColor = false;
+            btnAgregarLogoOpositor.Click += btnAgregarLogoOpositor_Click;
             // 
             // pictureBoxOpositor
             // 
@@ -1929,6 +1931,7 @@
             btnQuitarLogoSignoPretendido.Size = new Size(74, 33);
             btnQuitarLogoSignoPretendido.TabIndex = 89;
             btnQuitarLogoSignoPretendido.UseVisualStyleBackColor = false;
+            btnQuitarLogoSignoPretendido.Click += btnQuitarLogoSignoPretendido_Click;
             // 
             // btnAgregarSignoPretendido
             // 
@@ -1944,6 +1947,7 @@
             btnAgregarSignoPretendido.Size = new Size(74, 33);
             btnAgregarSignoPretendido.TabIndex = 88;
             btnAgregarSignoPretendido.UseVisualStyleBackColor = false;
+            btnAgregarSignoPretendido.Click += btnAgregarSignoPretendido_Click;
             // 
             // pictureBoxSignoPretendido
             // 
@@ -2071,6 +2075,7 @@
             btnAgregarEstadoAO.Text = "+ ESTADO";
             btnAgregarEstadoAO.TextColor = Color.Black;
             btnAgregarEstadoAO.UseVisualStyleBackColor = false;
+            btnAgregarEstadoAO.Click += btnAgregarEstadoAO_Click;
             // 
             // txtNombreTitularAO
             // 
@@ -2109,6 +2114,7 @@
             btnAgregarOpositorAO.Text = "+ DATOS OPOSITOR";
             btnAgregarOpositorAO.TextColor = Color.Black;
             btnAgregarOpositorAO.UseVisualStyleBackColor = false;
+            btnAgregarOpositorAO.Click += btnAgregarOpositorAO_Click;
             // 
             // label34
             // 

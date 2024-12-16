@@ -763,11 +763,11 @@
             // txtNombreCliente
             // 
             txtNombreCliente.Enabled = false;
-            txtNombreCliente.Font = new Font("Microsoft Sans Serif", 9F);
+            txtNombreCliente.Font = new Font("Century Gothic", 9F);
             txtNombreCliente.Location = new Point(45, 719);
             txtNombreCliente.Name = "txtNombreCliente";
             txtNombreCliente.ReadOnly = true;
-            txtNombreCliente.Size = new Size(369, 24);
+            txtNombreCliente.Size = new Size(369, 26);
             txtNombreCliente.TabIndex = 115;
             // 
             // label10
@@ -815,7 +815,6 @@
             // 
             richTextBox1.Anchor = AnchorStyles.None;
             richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Enabled = false;
             richTextBox1.Font = new Font("Century Gothic", 9F);
             richTextBox1.Location = new Point(41, 786);
             richTextBox1.Name = "richTextBox1";
@@ -909,11 +908,11 @@
             // 
             textBoxEstatus.Anchor = AnchorStyles.None;
             textBoxEstatus.Enabled = false;
-            textBoxEstatus.Font = new Font("Microsoft Sans Serif", 9F);
+            textBoxEstatus.Font = new Font("Century Gothic", 9F);
             textBoxEstatus.Location = new Point(391, 325);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
-            textBoxEstatus.Size = new Size(292, 24);
+            textBoxEstatus.Size = new Size(292, 26);
             textBoxEstatus.TabIndex = 99;
             // 
             // label14
@@ -930,11 +929,11 @@
             // txtNombreAgente
             // 
             txtNombreAgente.Enabled = false;
-            txtNombreAgente.Font = new Font("Microsoft Sans Serif", 9F);
+            txtNombreAgente.Font = new Font("Century Gothic", 9F);
             txtNombreAgente.Location = new Point(43, 588);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.ReadOnly = true;
-            txtNombreAgente.Size = new Size(371, 24);
+            txtNombreAgente.Size = new Size(371, 26);
             txtNombreAgente.TabIndex = 97;
             // 
             // label12
@@ -970,11 +969,11 @@
             // txtNombreTitular
             // 
             txtNombreTitular.Enabled = false;
-            txtNombreTitular.Font = new Font("Microsoft Sans Serif", 9F);
+            txtNombreTitular.Font = new Font("Century Gothic", 9F);
             txtNombreTitular.Location = new Point(45, 453);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.ReadOnly = true;
-            txtNombreTitular.Size = new Size(369, 24);
+            txtNombreTitular.Size = new Size(369, 26);
             txtNombreTitular.TabIndex = 90;
             // 
             // label9
@@ -1066,10 +1065,10 @@
             // txtClase
             // 
             txtClase.Anchor = AnchorStyles.None;
-            txtClase.Font = new Font("Microsoft Sans Serif", 9F);
+            txtClase.Font = new Font("Century Gothic", 9F);
             txtClase.Location = new Point(49, 195);
             txtClase.Name = "txtClase";
-            txtClase.Size = new Size(278, 24);
+            txtClase.Size = new Size(278, 26);
             txtClase.TabIndex = 81;
             // 
             // label4
@@ -1086,10 +1085,10 @@
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.None;
-            txtNombre.Font = new Font("Microsoft Sans Serif", 9F);
+            txtNombre.Font = new Font("Century Gothic", 9F);
             txtNombre.Location = new Point(391, 125);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(292, 24);
+            txtNombre.Size = new Size(292, 26);
             txtNombre.TabIndex = 79;
             // 
             // label6
@@ -1106,10 +1105,10 @@
             // txtExpediente
             // 
             txtExpediente.Anchor = AnchorStyles.None;
-            txtExpediente.Font = new Font("Microsoft Sans Serif", 9F);
+            txtExpediente.Font = new Font("Century Gothic", 9F);
             txtExpediente.Location = new Point(45, 125);
             txtExpediente.Name = "txtExpediente";
-            txtExpediente.Size = new Size(280, 24);
+            txtExpediente.Size = new Size(280, 26);
             txtExpediente.TabIndex = 77;
             // 
             // label7

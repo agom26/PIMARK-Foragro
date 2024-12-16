@@ -36,7 +36,7 @@ namespace Presentacion.Marcas_Internacionales
 
             iconPictureBox3.IconSize = 25;
             this.Load += FrmRenovacionesInt_Load;
-            SeleccionarMarca.idInt = 0;
+            SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             if (UsuarioActivo.isAdmin == false)
             {
@@ -107,7 +107,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void MostrarMarcasRegistradas()
         {
-            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
+            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasNacionalesEnTramiteDeRenovacion();
 
             if (dtgMarcasRenov.Columns["id"] != null)
             {
@@ -117,7 +117,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         private async void LoadMarcas()
         {
-            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeRenovacion());
+            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramiteDeRenovacion());
 
             Invoke(new Action(() =>
             {
@@ -161,12 +161,18 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
+
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
         private void ActualizarFechaVencimiento()
@@ -187,14 +193,13 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string paisRegistro, string clase, string signoDistintivo, string tipo, string estado,
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
    ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
-                !ValidarCampo(paisRegistro, "Por favor, ingrese un pais.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
                 !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
                 !ValidarCampo(estado, "Por favor, seleccione un estado."))
@@ -253,7 +258,6 @@ namespace Presentacion.Marcas_Internacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string paisRegistro = comboBox1.SelectedItem?.ToString();
             string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
             string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
@@ -298,7 +302,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             // Validar campos 
-            if (!ValidarCampos(expediente, nombre, paisRegistro, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -321,21 +325,20 @@ namespace Presentacion.Marcas_Internacionales
             // Editar la marca
             try
             {
-                string tienePoder = checkBoxTienePoder.Checked ? "si" : "no";
-
                 bool esActualizado;
 
                 if (registroChek)
                 {
-                    esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                    esActualizado = marcaModel.EditMarcaNacionalRegistrada(
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, 
+                        solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tienePoder, idCliente);
+                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
                 }
 
-                DataTable marcaActualizada = marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt);
+                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                 if (esActualizado)
                 {
@@ -348,28 +351,28 @@ namespace Presentacion.Marcas_Internacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idInt = 0;
+                            SeleccionarMarca.idN = 0;
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                         else
                         {
                             // Guardar la nueva etapa en el historial
-                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idInt = 0;
+                            SeleccionarMarca.idN = 0;
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 LimpiarFormulario();
@@ -408,7 +411,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
@@ -427,9 +430,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -463,10 +464,7 @@ namespace Presentacion.Marcas_Internacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                        int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
-                        comboBox1.SelectedIndex = index;
-                        checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
-
+                       
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -527,7 +525,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarMarca.idInt = id;
+                    SeleccionarMarca.idN = id;
                     tabControl1.SelectedTab = tabPageMarcaDetail;
                 }
             }
@@ -544,7 +542,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
 
 
                 Invoke(new Action(() =>
@@ -587,7 +585,7 @@ namespace Presentacion.Marcas_Internacionales
             else if (tabControl1.SelectedTab == tabPageRegistradasList)
             {
                 LoadMarcas();
-                SeleccionarMarca.idInt = 0;
+                SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
@@ -602,7 +600,7 @@ namespace Presentacion.Marcas_Internacionales
         public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
-            if (SeleccionarMarca.idInt > 0)
+            if (SeleccionarMarca.idN > 0)
             {
                 CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
@@ -668,7 +666,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -925,24 +923,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnActualizarM_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
+
         }
 
         private void btnTraspasar_Click(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
-            frmAgregarConcesion.ShowDialog();
 
-            if (AgregarRenovacion.renovacionTerminada == true)
-            {
-                LimpiarFormulario();
-                AgregarRenovacion.renovacionTerminada = false;
-                tabControl1.SelectedTab = tabPageRegistradasList;
-                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.Show();
-
-            }
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
@@ -999,6 +985,69 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            ActualizarMarcaInternacional();
+            EliminarTabPage(tabPageHistorialMarca);
+        }
+
+        private void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
+            frmAgregarConcesion.ShowDialog();
+
+            if (AgregarRenovacion.renovacionTerminada == true)
+            {
+                LimpiarFormulario();
+                AgregarRenovacion.renovacionTerminada = false;
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.Show();
+
+            }
+        }
+
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageRegistradasList;
+            }
+            else
+            {
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de libro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado")
+                    )
+                {
+
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS ENTEROS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageRegistradasList;
+                    }
+
+                }
+
+            }
         }
     }
 }

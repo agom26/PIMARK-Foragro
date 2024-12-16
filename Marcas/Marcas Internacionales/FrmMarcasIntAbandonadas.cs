@@ -33,7 +33,7 @@ namespace Presentacion.Marcas_Internacionales
             panel8.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMarcasIntAbandonadas_Load;
-            SeleccionarMarca.idInt = 0;
+            SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
         private void EliminarTabPage(TabPage nombre)
@@ -58,7 +58,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void LoadMarcas()
         {
             // Obtiene las marcas en oposicion
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnAbandono());
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnAbandono());
 
             Invoke(new Action(() =>
             {
@@ -103,16 +103,19 @@ namespace Presentacion.Marcas_Internacionales
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
                 //btnActualizar.Location = new Point(47, panel3.Location.Y + panel3.Height + 10);
-                btnCancelarM.Location = new Point(254, panel3.Location.Y + panel3.Height + 10);
             }
             else
             {
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
                 //btnActualizar.Location = new Point(47, 960);
-                btnCancelarM.Location = new Point(254, 960);
             }
         }
         private void ActualizarFechaVencimiento()
@@ -217,7 +220,6 @@ namespace Presentacion.Marcas_Internacionales
             txtRegistro.Text = "";
             richTextBox1.Text = "";
             AgregarEtapa.LimpiarEtapa();
-            comboBox1.SelectedIndex = -1;
             comboBoxSignoDistintivo.SelectedIndex = -1;
             comboBoxTipoSigno.SelectedIndex = -1;
         }
@@ -226,10 +228,9 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                SeleccionarMarca.idInt = SeleccionarMarca.idInt;
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
-                if (detallesMarcaInter.Rows.Count > 0) // Usa Rows.Count en lugar de Count
+                if (detallesMarcaInter.Rows.Count > 0) 
                 {
                     DataRow row = detallesMarcaInter.Rows[0]; // Accede a la primera fila del DataTable
 
@@ -244,11 +245,9 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
                         SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
-                        SeleccionarMarca.idPersonaCliente = Convert.ToInt32(row["idCliente"]);
+                        SeleccionarMarca.idPersonaCliente = row["idCliente"] is DBNull ? 0 : Convert.ToInt32(row["idCliente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
 
@@ -256,11 +255,11 @@ namespace Presentacion.Marcas_Internacionales
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
 
-                        var clienteTask = SeleccionarMarca.idPersonaCliente != null
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != 0
                             ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
                             : null;
 
-                        await Task.WhenAll(titularTask, agenteTask, clienteTask);
+                        await Task.WhenAll(titularTask, agenteTask);
 
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
@@ -296,12 +295,9 @@ namespace Presentacion.Marcas_Internacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                        int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
-                        comboBox1.SelectedIndex = index;
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
-                        checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
@@ -361,7 +357,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarMarca.idInt = id;
+                    SeleccionarMarca.idN = id;
                     tabControl1.SelectedTab = tabPageMarcaDetail;
                 }
             }
@@ -378,7 +374,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -404,7 +400,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt));
+                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -431,7 +427,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idInt));
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -459,7 +455,7 @@ namespace Presentacion.Marcas_Internacionales
         public void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
-            if (SeleccionarMarca.idInt > 0)
+            if (SeleccionarMarca.idN > 0)
             {
                 CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
@@ -493,7 +489,7 @@ namespace Presentacion.Marcas_Internacionales
             else if (tabControl1.SelectedTab == tabPageAbandonadasList)
             {
                 LoadMarcas();
-                SeleccionarMarca.idInt = 0;
+                SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
@@ -543,9 +539,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageAbandonadasList;
+           
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -573,6 +567,13 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgMarcasAban_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Ver();
+        }
+
+        private void iconButton8_Click(object sender, EventArgs e)
+        {
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageAbandonadasList;
         }
     }
 }

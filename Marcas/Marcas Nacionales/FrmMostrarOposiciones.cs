@@ -751,10 +751,14 @@ namespace Presentacion.Marcas_Nacionales
                     if (SeleccionarOposicion.situacion_actual == "TERMINADA")
                     {
                         btnEnviarATramite.Visible = false;
+                        btnAgregarEstadoAO.Enabled = false;
+                        btnAgregarOpositorAO.Enabled = false;
                     }
                     else
                     {
                         btnEnviarATramite.Visible = true;
+                        btnAgregarEstadoAO.Enabled = false;
+                        btnAgregarOpositorAO.Enabled = true;
                     }
 
 
@@ -1505,6 +1509,13 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageAgregarOposicion);
+            txtSignoOpositor.Enabled = true;
+            txtNombreTitularAO.Enabled = true;
+            txtSolicitanteSignoPretendido.Enabled = true;
+            txtSignoAO.Enabled = true;
+            txtExpedienteAO.Enabled = true;
+            txtClaseAO.Enabled = true;
+            cmbSignoDAO.Enabled = true;
 
             //btnVerHistorial.Visible = false;
             SeleccionarOposicion.idInt = 0;
@@ -1789,19 +1800,29 @@ namespace Presentacion.Marcas_Nacionales
 
             try
             {
-                OposicionModel oposicionModel = new OposicionModel();
-                int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
-                    logoOpositor, logoSignoPretendido,"internacional");
-                if (idOposicion > 0)
+                if (AgregarEtapaOposicion.etapa != "")
                 {
-                    HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                        AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
-                        );
+                    OposicionModel oposicionModel = new OposicionModel();
+                    int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
+                        solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
+                        logoOpositor, logoSignoPretendido, "internacional");
+                    if (idOposicion > 0)
+                    {
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                            AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
+                            );
+                    }
+                    FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
                 }
-                FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE AGREGAR UN ESTADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+
+                
             }
             catch (Exception ex)
             {

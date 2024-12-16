@@ -833,13 +833,12 @@
             // 
             // btnActualizarM
             // 
-            btnActualizarM.Anchor = AnchorStyles.Top;
-            btnActualizarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnActualizarM.BackColor = Color.FromArgb(96, 149, 241);
             btnActualizarM.FlatAppearance.BorderSize = 0;
             btnActualizarM.FlatStyle = FlatStyle.Flat;
-            btnActualizarM.Font = new Font("Century Gothic", 12F);
+            btnActualizarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnActualizarM.ForeColor = Color.White;
-            btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Pen;
             btnActualizarM.IconColor = Color.White;
             btnActualizarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnActualizarM.IconSize = 30;
@@ -847,18 +846,17 @@
             btnActualizarM.Name = "btnActualizarM";
             btnActualizarM.Size = new Size(191, 58);
             btnActualizarM.TabIndex = 151;
-            btnActualizarM.Text = "ACTUALIZAR";
+            btnActualizarM.Text = "EDITAR";
             btnActualizarM.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnActualizarM.UseVisualStyleBackColor = false;
             btnActualizarM.Click += btnActualizarM_Click;
             // 
             // btnCancelarM
             // 
-            btnCancelarM.Anchor = AnchorStyles.Top;
             btnCancelarM.BackColor = Color.Gainsboro;
             btnCancelarM.FlatAppearance.BorderSize = 0;
             btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;

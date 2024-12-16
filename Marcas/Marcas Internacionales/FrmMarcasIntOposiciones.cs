@@ -568,7 +568,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 Cursor = Cursors.WaitCursor;
                 tabControl1.Visible = false;
-                DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idInt));
+                DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idN));
                 if (detallesOposicion.Rows.Count > 0)
                 {
                     DataRow row = detallesOposicion.Rows[0];
@@ -601,10 +601,14 @@ namespace Presentacion.Marcas_Internacionales
                     if (SeleccionarOposicion.situacion_actual == "TERMINADA")
                     {
                         btnEnviarATramite.Visible = false;
+                        btnAgregarEstadoAO.Enabled = false;
+                        btnAgregarOpositorAO.Enabled = false;
                     }
                     else
                     {
                         btnEnviarATramite.Visible = true;
+                        btnAgregarEstadoAO.Enabled = true;
+                        btnAgregarOpositorAO.Enabled = true;
                     }
 
 
@@ -715,7 +719,7 @@ namespace Presentacion.Marcas_Internacionales
                     if (dataRowView["id"] != DBNull.Value)
                     {
                         int id = Convert.ToInt32(dataRowView["id"]);
-                        SeleccionarOposicion.idInt = id;
+                        SeleccionarOposicion.idN = id;
                     }
 
                     AnadirTabPage(tabPageAgregarOposicion);
@@ -733,8 +737,9 @@ namespace Presentacion.Marcas_Internacionales
 
         public async void Editar()
         {
+            btnEnviarATramite.Visible = true;
             VerificarSeleccionEdicion();
-            if (SeleccionarOposicion.idInt > 0)
+            if (SeleccionarOposicion.idN > 0)
             {
                 await CargarDatosOposicion();
             }
@@ -1157,10 +1162,12 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void iconButton6_Click(object sender, EventArgs e)
         {
+            btnEnviarATramite.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
-
+            txtNombreTitularAO.Enabled = true;
+            txtSignoOpositor.Enabled = true;
             //btnVerHistorial.Visible = false;
-            SeleccionarOposicion.idInt = 0;
+            SeleccionarOposicion.idN = 0;
             //btnTitular.Visible = false;
             btnAgregarOpositorAO.Enabled = true;
             convertirImagen();
@@ -1221,13 +1228,13 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (SeleccionarOposicion.idSolicitante != 0)
                 {
-                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idN, expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     SeleccionarOposicion.idSolicitante);
                 }
                 else
                 {
-                    actualizado = actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    actualizado = actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idN, expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     null);
                 }
@@ -1275,19 +1282,30 @@ namespace Presentacion.Marcas_Internacionales
 
             try
             {
-                OposicionModel oposicionModel = new OposicionModel();
-                int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
-                    logoOpositor, logoSignoPretendido, "nacional");
-                if (idOposicion > 0)
+                if (AgregarEtapaOposicion.etapa != "")
                 {
-                    HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                        AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
-                        );
+                    OposicionModel oposicionModel = new OposicionModel();
+                    int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
+                        solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
+                        logoOpositor, logoSignoPretendido, "nacional");
+                    if (idOposicion > 0)
+                    {
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                            AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
+                            );
+                    }
+                    FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    LimpiarFormularioOposicion();
+                    tabControl1.SelectedTab = tabPageOposicionesList;
                 }
-                FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE AGREGAR UN ESTADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+
             }
             catch (Exception ex)
             {
@@ -1312,7 +1330,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public void TerminarOposicion()
         {
-            var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idInt);
+            var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idN);
             if (cambio == true)
             {
                 tabControl1.SelectedTab = tabPageOposicionesList;
@@ -1383,6 +1401,156 @@ namespace Presentacion.Marcas_Internacionales
         {
             tabControl1.SelectedTab = tabPageOposicionesList;
             LimpiarFormularioOposicion();
+        }
+        public async Task recargarDatosOposicion()
+        {
+            DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idN));
+            if (detallesOposicion.Rows.Count > 0)
+            {
+                DataRow row = detallesOposicion.Rows[0];
+
+                SeleccionarOposicion.observaciones = row["observaciones"] is DBNull ? null : row["observaciones"].ToString();
+                SeleccionarOposicion.estado = row["estado"] is DBNull ? null : row["estado"].ToString();
+
+                richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
+                //txtEstadoAO.Text = SeleccionarOposicion.estado;
+
+
+            }
+        }
+
+        private async void btnAgregarEstadoAO_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaOposicion frmAgregarEtapa = new FrmAgregarEtapaOposicion();
+            frmAgregarEtapa.ShowDialog();
+
+
+            if (btnGuardarU.Text == "EDITAR")
+            {
+                if (SeleccionarOposicion.idMarca == 0)
+                {
+                    if (AgregarEtapaOposicion.etapa != "")
+                    {
+                        try
+                        {
+                            HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                            historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
+                                );
+
+                            FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+
+                            await recargarDatosOposicion();
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+
+                    }
+                    else
+                    {
+                        //txtEstadoAO.Text = "";
+                        //richtxtObservacionesAO.Text = "";
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (AgregarEtapaOposicion.etapa != "")
+                        {
+                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            await recargarDatosOposicion();
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+
+                }
+            }
+            else if (btnGuardarU.Text == "AGREGAR")
+            {
+                if (AgregarEtapaOposicion.etapa != "")
+                {
+                    //txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
+                    richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
+
+                }
+                else
+                {
+                    //txtEstadoAO.Text = "";
+                    richtxtObservacionesAO.Text = "";
+                }
+            }
+        }
+
+        private void btnAgregarLogoOpositor_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                pictureBoxOpositor.Image = new Bitmap(openFile.FileName);
+            }
+        }
+
+        private void btnQuitarLogoOpositor_Click(object sender, EventArgs e)
+        {
+            convertirImagen();
+            pictureBoxOpositor.Image = documento;
+        }
+
+        private void btnAgregarSignoPretendido_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                pictureBoxSignoPretendido.Image = new Bitmap(openFile.FileName);
+            }
+        }
+
+        private void btnQuitarLogoSignoPretendido_Click(object sender, EventArgs e)
+        {
+            convertirImagen();
+            pictureBoxSignoPretendido.Image = documento;
+        }
+
+        private void btnAgregarOpositorAO_Click(object sender, EventArgs e)
+        {
+
+            FrmMostrarMarcas frmMostrarMarcas = new FrmMostrarMarcas();
+            frmMostrarMarcas.ShowDialog();
+
+            if (SeleccionarMarcaOposicion.idMarca != 0)
+            {
+                txtNombreTitularAO.Enabled = false;
+                txtSignoOpositor.Enabled = false;
+                txtNombreTitularAO.Text = SeleccionarMarcaOposicion.nombreTitular;
+                txtSignoOpositor.Text = SeleccionarMarcaOposicion.nombreSigno;
+            }
+            else
+            {
+                txtNombreTitularAO.Enabled = true;
+                txtSignoOpositor.Enabled = true;
+                txtNombreTitularAO.Text = "";
+                txtSignoOpositor.Text = "";
+            }
         }
     }
 }
