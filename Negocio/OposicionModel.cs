@@ -84,5 +84,11 @@ namespace Dominio
                 opositor,
                 idSolicitante);
         }
+
+        public bool CambiarSituacionActualATerminada(int id)
+        {
+            return oposicionDao.CambiarSituacionActualATerminada(id);
+        }
+
     }
 }

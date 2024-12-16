@@ -748,6 +748,16 @@ namespace Presentacion.Marcas_Nacionales
                     richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                     //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
+                    if (SeleccionarOposicion.situacion_actual == "TERMINADA")
+                    {
+                        btnEnviarATramite.Visible = false;
+                    }
+                    else
+                    {
+                        btnEnviarATramite.Visible = true;
+                    }
+
+
                     if (SeleccionarOposicion.logoSignoPretendido != null || SeleccionarOposicion.logoOpositor != null)
                     {
                         checkBoxAgregarLogos.Checked = true;
@@ -770,9 +780,9 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                        btnEnviarATramite.Visible = true;
+                    
                         btnAgregarOpositorAO.Enabled = false;
-                       // btnTitular.Visible = true;
+                        // btnTitular.Visible = true;
                         txtExpedienteAO.Enabled = false;
                         txtClaseAO.Enabled = false;
                         cmbSignoDAO.Enabled = false;
@@ -807,7 +817,6 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
-                        btnEnviarATramite.Visible = false;
                         txtSignoAO.Enabled = true;
                         txtClaseAO.Enabled = true;
                         txtExpedienteAO.Enabled = true;
@@ -1926,6 +1935,67 @@ namespace Presentacion.Marcas_Nacionales
         private void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarPorSituacionActual();
+        }
+
+        public void TerminarOposicion()
+        {
+            var cambio=oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idInt);
+            if (cambio == true)
+            {
+                tabControl1.SelectedTab = tabPageListaMarcas;
+                FrmAlerta alerta = new FrmAlerta("OPOSICIÓN TERMINADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+            }
+        }
+
+        public void EnviarATramite()
+        {
+
+        }
+
+        private void btnEnviarATramite_Click(object sender, EventArgs e)
+        {
+            if (btnEnviarATramite.Text == "TERMINAR")
+            {
+                if (SeleccionarOposicion.idMarca == 0)
+                {
+                    TerminarOposicion();
+                }
+                else
+                {
+                    FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+                    frmAgregarEtapa.ShowDialog();
+
+
+                    if (AgregarEtapa.etapa != "")
+                    {
+                        try
+                        {
+                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones,
+                            AgregarEtapa.usuario, "TRÁMITE");
+                            TerminarOposicion();
+                            
+                            //MessageBox.Show("Etapa agregada con éxito");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("NO SE ENVIÓ A TERMINADA PORQUE NO SELECCIONÓ UN ESTADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+                
+            }
+            else if(btnEnviarATramite.Text=="ENVIAR A TRÁMITE")
+            {
+                EnviarATramite();
+            }
         }
     }
 }

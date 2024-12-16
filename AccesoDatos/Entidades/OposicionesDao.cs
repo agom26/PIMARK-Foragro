@@ -189,6 +189,44 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public bool CambiarSituacionActualATerminada(int id)
+        {
+            bool resultado = false;
+
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("CambiarSituacionActualATerminada", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("p_id", id);
+
+                        var resultadoParam = new MySqlParameter("p_resultado", MySqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        comando.Parameters.Add(resultadoParam);
+
+                      
+                        conexion.Open();
+                        comando.ExecuteNonQuery();
+
+                       
+                        resultado = Convert.ToBoolean(resultadoParam.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cambiar la situación actual: {ex.Message}");
+            }
+
+            return resultado;
+        }
+
+
 
 
     }
