@@ -34,7 +34,7 @@ namespace Presentacion.Marcas_Nacionales
             panel26.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarAbandonadas_Load;
-            SeleccionarMarca.idN = 0;
+            SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
         }
@@ -60,7 +60,7 @@ namespace Presentacion.Marcas_Nacionales
         private async void LoadMarcas()
         {
             // Obtiene las marcas en oposicion
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnAbandono());
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnAbandono());
 
             Invoke(new Action(() =>
             {
@@ -148,13 +148,15 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.LimpiarEtapa();
             comboBoxSignoDistintivo.SelectedIndex = -1;
             comboBoxTipoSigno.SelectedIndex = -1;
+            comboBox1.SelectedIndex = -1;
+            checkBoxTienePoder.Checked = false;
         }
 
         private async Task CargarDatosMarca()
         {
             try
             {
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
@@ -175,6 +177,8 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
+                        SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
+                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
 
@@ -195,6 +199,11 @@ namespace Presentacion.Marcas_Nacionales
                         {
                             txtNombreAgente.Text = agente[0].nombre;
                         }
+
+                        int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
+                        comboBox1.SelectedIndex = index;
+
+                        checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
 
 
@@ -272,7 +281,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarMarca.idN = id;
+                    SeleccionarMarca.idInt = id;
                     tabControl1.SelectedTab = tabPageMarcaDetail;
                 }
             }
@@ -290,7 +299,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idN));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -316,7 +325,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
+                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -343,7 +352,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN));
+                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idInt));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -392,7 +401,7 @@ namespace Presentacion.Marcas_Nacionales
             else if (tabControl1.SelectedTab == tabPageAbandonadasList)
             {
                 LoadMarcas();
-                SeleccionarMarca.idN = 0;
+                SeleccionarMarca.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
@@ -421,7 +430,7 @@ namespace Presentacion.Marcas_Nacionales
         public async void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
-            if (SeleccionarMarca.idN > 0)
+            if (SeleccionarMarca.idInt > 0)
             {
                 Cursor= Cursors.WaitCursor;
                 tabControl1.Visible = false;

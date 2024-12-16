@@ -57,6 +57,11 @@
             dtgMarcasAban = new DataGridView();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            comboBox1 = new ComboBox();
+            label25 = new Label();
+            groupBox1 = new GroupBox();
+            checkBoxTienePoder = new CheckBox();
+            label24 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
             dateTimePFecha_vencimiento = new DateTimePicker();
@@ -146,6 +151,7 @@
             ((System.ComponentModel.ISupportInitialize)dtgMarcasAban).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
             panel1.SuspendLayout();
+            groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -210,7 +216,7 @@
             panel24.Controls.Add(panel27);
             panel24.Location = new Point(3, 3);
             panel24.Name = "panel24";
-            panel24.Size = new Size(574, 49);
+            panel24.Size = new Size(625, 49);
             panel24.TabIndex = 179;
             // 
             // panel25
@@ -219,7 +225,7 @@
             panel25.Controls.Add(panel26);
             panel25.Controls.Add(roundedButton5);
             panel25.Dock = DockStyle.Left;
-            panel25.Location = new Point(341, 0);
+            panel25.Location = new Point(392, 0);
             panel25.Name = "panel25";
             panel25.Size = new Size(233, 49);
             panel25.TabIndex = 170;
@@ -275,7 +281,7 @@
             iconPictureBox2.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 49;
-            iconPictureBox2.Location = new Point(292, 0);
+            iconPictureBox2.Location = new Point(343, 0);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(49, 49);
             iconPictureBox2.TabIndex = 166;
@@ -290,7 +296,7 @@
             panel27.Dock = DockStyle.Left;
             panel27.Location = new Point(0, 0);
             panel27.Name = "panel27";
-            panel27.Size = new Size(292, 49);
+            panel27.Size = new Size(343, 49);
             panel27.TabIndex = 169;
             // 
             // panel28
@@ -301,7 +307,7 @@
             panel28.Controls.Add(iconPictureBox3);
             panel28.Location = new Point(35, 14);
             panel28.Name = "panel28";
-            panel28.Size = new Size(254, 21);
+            panel28.Size = new Size(305, 21);
             panel28.TabIndex = 174;
             // 
             // label5
@@ -311,9 +317,9 @@
             label5.Font = new Font("Century Gothic", 12F);
             label5.Location = new Point(25, 0);
             label5.Name = "label5";
-            label5.Size = new Size(229, 23);
+            label5.Size = new Size(280, 23);
             label5.TabIndex = 166;
-            label5.Text = "MARCAS NACIONALES";
+            label5.Text = "MARCAS INTERNACIONALES";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // iconPictureBox3
@@ -346,7 +352,7 @@
             roundedButton10.ForeColor = Color.White;
             roundedButton10.Location = new Point(0, 0);
             roundedButton10.Name = "roundedButton10";
-            roundedButton10.Size = new Size(292, 49);
+            roundedButton10.Size = new Size(343, 49);
             roundedButton10.TabIndex = 164;
             roundedButton10.TextColor = Color.White;
             roundedButton10.UseVisualStyleBackColor = false;
@@ -377,7 +383,7 @@
             ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
-            ibtnBuscar.Font = new Font("Century Gothic", 10F);
+            ibtnBuscar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             ibtnBuscar.ForeColor = Color.White;
             ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.White;
@@ -423,7 +429,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(1006, 213);
+            ibtnEditar.Location = new Point(1006, 165);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(152, 37);
             ibtnEditar.TabIndex = 46;
@@ -504,6 +510,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(label25);
+            panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(roundedButton9);
@@ -546,6 +555,61 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1279);
             panel1.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            comboBox1.BackColor = Color.FromArgb(241, 240, 245);
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Enabled = false;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.Font = new Font("Century Gothic", 10F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
+            comboBox1.Location = new Point(66, 144);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(280, 29);
+            comboBox1.TabIndex = 160;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Century Gothic", 10F);
+            label25.Location = new Point(66, 121);
+            label25.Name = "label25";
+            label25.Size = new Size(135, 21);
+            label25.TabIndex = 159;
+            label25.Text = "Pais de registro";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(checkBoxTienePoder);
+            groupBox1.Controls.Add(label24);
+            groupBox1.Font = new Font("Century Gothic", 9F);
+            groupBox1.Location = new Point(776, 960);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(276, 125);
+            groupBox1.TabIndex = 158;
+            groupBox1.TabStop = false;
+            groupBox1.Text = ".";
+            // 
+            // checkBoxTienePoder
+            // 
+            checkBoxTienePoder.AutoSize = true;
+            checkBoxTienePoder.Enabled = false;
+            checkBoxTienePoder.Location = new Point(201, 56);
+            checkBoxTienePoder.Name = "checkBoxTienePoder";
+            checkBoxTienePoder.Size = new Size(18, 17);
+            checkBoxTienePoder.TabIndex = 50;
+            checkBoxTienePoder.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(41, 50);
+            label24.Name = "label24";
+            label24.Size = new Size(95, 20);
+            label24.TabIndex = 50;
+            label24.Text = "Tiene poder";
             // 
             // tableLayoutPanel1
             // 
@@ -681,7 +745,7 @@
             btnCancelarM.BackColor = Color.Gainsboro;
             btnCancelarM.FlatAppearance.BorderSize = 0;
             btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -791,7 +855,7 @@
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Century Gothic", 10F);
-            label21.Location = new Point(412, 219);
+            label21.Location = new Point(412, 243);
             label21.Name = "label21";
             label21.Size = new Size(44, 21);
             label21.TabIndex = 146;
@@ -806,7 +870,7 @@
             comboBoxTipoSigno.Font = new Font("Century Gothic", 9F);
             comboBoxTipoSigno.FormattingEnabled = true;
             comboBoxTipoSigno.Items.AddRange(new object[] { "Denominativa", "Mixta", "Gráfica/Figurativa", "Sonora", "Olfativa" });
-            comboBoxTipoSigno.Location = new Point(412, 243);
+            comboBoxTipoSigno.Location = new Point(412, 267);
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
             comboBoxTipoSigno.TabIndex = 145;
@@ -815,7 +879,7 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Century Gothic", 10F);
-            label23.Location = new Point(66, 219);
+            label23.Location = new Point(66, 243);
             label23.Name = "label23";
             label23.Size = new Size(132, 21);
             label23.TabIndex = 144;
@@ -830,7 +894,7 @@
             comboBoxSignoDistintivo.Font = new Font("Century Gothic", 9F);
             comboBoxSignoDistintivo.FormattingEnabled = true;
             comboBoxSignoDistintivo.Items.AddRange(new object[] { "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            comboBoxSignoDistintivo.Location = new Point(66, 243);
+            comboBoxSignoDistintivo.Location = new Point(66, 267);
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
             comboBoxSignoDistintivo.TabIndex = 143;
@@ -1129,7 +1193,7 @@
             // 
             txtClase.Enabled = false;
             txtClase.Font = new Font("Century Gothic", 10F);
-            txtClase.Location = new Point(68, 145);
+            txtClase.Location = new Point(66, 212);
             txtClase.Name = "txtClase";
             txtClase.ReadOnly = true;
             txtClase.Size = new Size(280, 28);
@@ -1139,7 +1203,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 10F);
-            label4.Location = new Point(68, 121);
+            label4.Location = new Point(66, 188);
             label4.Name = "label4";
             label4.Size = new Size(57, 21);
             label4.TabIndex = 113;
@@ -1520,6 +1584,8 @@
             tabPageMarcaDetail.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -1642,5 +1708,10 @@
         private Clases.RoundedButton roundedButton10;
         private Panel panel6;
         private TableLayoutPanel tableLayoutPanel1;
+        private GroupBox groupBox1;
+        private CheckBox checkBoxTienePoder;
+        private Label label24;
+        private ComboBox comboBox1;
+        private Label label25;
     }
 }
