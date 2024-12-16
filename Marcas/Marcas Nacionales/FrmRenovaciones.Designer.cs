@@ -762,7 +762,7 @@
             btnActualizarM.BackColor = Color.FromArgb(96, 149, 241);
             btnActualizarM.FlatAppearance.BorderSize = 0;
             btnActualizarM.FlatStyle = FlatStyle.Flat;
-            btnActualizarM.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnActualizarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnActualizarM.ForeColor = Color.White;
             btnActualizarM.IconChar = FontAwesome.Sharp.IconChar.Pen;
             btnActualizarM.IconColor = Color.White;
@@ -782,7 +782,7 @@
             btnTraspasar.BackColor = Color.FromArgb(0, 137, 123);
             btnTraspasar.FlatAppearance.BorderSize = 0;
             btnTraspasar.FlatStyle = FlatStyle.Flat;
-            btnTraspasar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnTraspasar.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnTraspasar.ForeColor = Color.White;
             btnTraspasar.IconChar = FontAwesome.Sharp.IconChar.FileCircleCheck;
             btnTraspasar.IconColor = Color.White;
@@ -802,7 +802,7 @@
             btnCancelarM.BackColor = Color.Gainsboro;
             btnCancelarM.FlatAppearance.BorderSize = 0;
             btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnCancelarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;

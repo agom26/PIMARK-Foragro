@@ -56,7 +56,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(188, 130);
             label1.Name = "label1";
-            label1.Size = new Size(45, 17);
+            label1.Size = new Size(55, 20);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -66,7 +66,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(369, 132);
             label2.Name = "label2";
-            label2.Size = new Size(48, 17);
+            label2.Size = new Size(58, 20);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -76,7 +76,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(188, 209);
             label3.Name = "label3";
-            label3.Size = new Size(84, 17);
+            label3.Size = new Size(102, 20);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -86,7 +86,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(188, 153);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 22);
+            dateTimePicker1.Size = new Size(154, 26);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -100,7 +100,7 @@
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
             comboBox1.Location = new Point(369, 155);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 25);
+            comboBox1.Size = new Size(250, 28);
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -120,7 +120,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(369, 88);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(45, 17);
+            lblUser.Size = new Size(55, 20);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -130,7 +130,7 @@
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderRadius = 40;
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
@@ -228,7 +228,7 @@
             // 
             txtNoExpedienteRT.Location = new Point(138, 43);
             txtNoExpedienteRT.Name = "txtNoExpedienteRT";
-            txtNoExpedienteRT.Size = new Size(154, 22);
+            txtNoExpedienteRT.Size = new Size(154, 26);
             txtNoExpedienteRT.TabIndex = 11;
             // 
             // lblNoExpediente
@@ -236,7 +236,7 @@
             lblNoExpediente.AutoSize = true;
             lblNoExpediente.Location = new Point(138, 20);
             lblNoExpediente.Name = "lblNoExpediente";
-            lblNoExpediente.Size = new Size(59, 17);
+            lblNoExpediente.Size = new Size(71, 20);
             lblNoExpediente.TabIndex = 12;
             lblNoExpediente.Text = "Traspaso";
             // 
@@ -256,8 +256,6 @@
             // 
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(btnCancelar);
-            panel1.Controls.Add(btnSeleccionar);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(lblUser);
@@ -265,6 +263,8 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(dateTimePicker1);
+            panel1.Controls.Add(btnCancelar);
+            panel1.Controls.Add(btnSeleccionar);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
@@ -273,7 +273,7 @@
             // 
             // FrmAgregarEtapaRegistrada
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(779, 576);
