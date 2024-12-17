@@ -421,6 +421,8 @@ namespace AccesoDatos.Entidades
             }
             return tabla; 
         }
+
+       
         public DataTable GetAllMarcasInternacionalesEnAbandono()
         {
             DataTable tabla = new DataTable();
@@ -868,6 +870,30 @@ namespace AccesoDatos.Entidades
                     }
                 }
             }
+        }
+
+        public DataTable ObtenerTipoMarca(int id)
+        {
+            var dataTable = new DataTable();
+
+            using (var conexion = GetConnection())
+            {
+                using (var comando = new MySqlCommand("ObtenerTipoMarca", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("p_id", id);
+
+                    conexion.Open();
+
+                    using (var adapter = new MySqlDataAdapter(comando))
+                    {
+
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
         }
 
 

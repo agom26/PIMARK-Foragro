@@ -60,20 +60,7 @@
             dtgPatentes = new DataGridView();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
-            btnTraspasar = new FontAwesome.Sharp.IconButton();
-            Renovacion = new GroupBox();
-            txtETraspaso = new TextBox();
-            label1 = new Label();
-            txtERenovacion = new TextBox();
-            label27 = new Label();
-            btnVerTraspasos = new Clases.RoundedButton();
-            btnVerRenovaciones = new Clases.RoundedButton();
-            btnCancelarM = new FontAwesome.Sharp.IconButton();
-            btnGuardarM = new FontAwesome.Sharp.IconButton();
-            roundedButton8 = new Clases.RoundedButton();
-            dateTimePFecha_vencimiento = new DateTimePicker();
-            lblVencimiento = new Label();
-            checkBox1 = new CheckBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
             panel2I = new Panel();
             dateTimePFecha_Registro = new DateTimePicker();
             label18 = new Label();
@@ -83,6 +70,22 @@
             label7 = new Label();
             txtLibro = new TextBox();
             label6 = new Label();
+            panel20 = new Panel();
+            btnGuardarM = new FontAwesome.Sharp.IconButton();
+            btnTraspasar = new FontAwesome.Sharp.IconButton();
+            btnCancelarM = new FontAwesome.Sharp.IconButton();
+            checkBox2 = new CheckBox();
+            Renovacion = new GroupBox();
+            txtETraspaso = new TextBox();
+            label1 = new Label();
+            txtERenovacion = new TextBox();
+            label27 = new Label();
+            btnVerTraspasos = new Clases.RoundedButton();
+            btnVerRenovaciones = new Clases.RoundedButton();
+            roundedButton8 = new Clases.RoundedButton();
+            dateTimePFecha_vencimiento = new DateTimePicker();
+            lblVencimiento = new Label();
+            checkBox1 = new CheckBox();
             comboBoxAnualidades = new ComboBox();
             label5 = new Label();
             checkedListBoxDocumentos = new CheckedListBox();
@@ -188,8 +191,10 @@
             ((System.ComponentModel.ISupportInitialize)dtgPatentes).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
             panel1.SuspendLayout();
-            Renovacion.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             panel2I.SuspendLayout();
+            panel20.SuspendLayout();
+            Renovacion.SuspendLayout();
             tabPageHistorialMarca.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorial).BeginInit();
@@ -295,7 +300,7 @@
             roundedButton4.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton4.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton4.BorderRadius = 50;
+            roundedButton4.BorderRadius = 40;
             roundedButton4.BorderSize = 0;
             roundedButton4.Dock = DockStyle.Fill;
             roundedButton4.Enabled = false;
@@ -381,7 +386,7 @@
             roundedButton2.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton2.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton2.BorderRadius = 50;
+            roundedButton2.BorderRadius = 40;
             roundedButton2.BorderSize = 0;
             roundedButton2.Dock = DockStyle.Fill;
             roundedButton2.Enabled = false;
@@ -453,7 +458,7 @@
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderRadius = 60;
+            roundedButton3.BorderRadius = 40;
             roundedButton3.BorderSize = 0;
             roundedButton3.Enabled = false;
             roundedButton3.FlatAppearance.BorderSize = 0;
@@ -472,6 +477,7 @@
             iconButton3.BackColor = Color.FromArgb(255, 112, 67);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
             iconButton3.IconColor = Color.White;
@@ -492,6 +498,7 @@
             ibtnEditar.BackColor = Color.FromArgb(96, 149, 241);
             ibtnEditar.FlatAppearance.BorderSize = 0;
             ibtnEditar.FlatStyle = FlatStyle.Flat;
+            ibtnEditar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             ibtnEditar.ForeColor = Color.White;
             ibtnEditar.IconChar = FontAwesome.Sharp.IconChar.Pen;
             ibtnEditar.IconColor = Color.White;
@@ -583,17 +590,15 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnTraspasar);
+            panel1.Controls.Add(tableLayoutPanel1);
+            panel1.Controls.Add(checkBox2);
             panel1.Controls.Add(Renovacion);
             panel1.Controls.Add(btnVerTraspasos);
             panel1.Controls.Add(btnVerRenovaciones);
-            panel1.Controls.Add(btnCancelarM);
-            panel1.Controls.Add(btnGuardarM);
             panel1.Controls.Add(roundedButton8);
             panel1.Controls.Add(dateTimePFecha_vencimiento);
             panel1.Controls.Add(lblVencimiento);
             panel1.Controls.Add(checkBox1);
-            panel1.Controls.Add(panel2I);
             panel1.Controls.Add(comboBoxAnualidades);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(checkedListBoxDocumentos);
@@ -625,18 +630,143 @@
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 1;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(panel2I, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel20, 0, 1);
+            tableLayoutPanel1.Location = new Point(137, 1007);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 62.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 37.5F));
+            tableLayoutPanel1.Size = new Size(636, 298);
+            tableLayoutPanel1.TabIndex = 213;
+            // 
+            // panel2I
+            // 
+            panel2I.Controls.Add(dateTimePFecha_Registro);
+            panel2I.Controls.Add(label18);
+            panel2I.Controls.Add(txtRegistro);
+            panel2I.Controls.Add(label17);
+            panel2I.Controls.Add(txtFolio);
+            panel2I.Controls.Add(label7);
+            panel2I.Controls.Add(txtLibro);
+            panel2I.Controls.Add(label6);
+            panel2I.Font = new Font("Century Gothic", 10F);
+            panel2I.Location = new Point(3, 3);
+            panel2I.Name = "panel2I";
+            panel2I.Size = new Size(630, 180);
+            panel2I.TabIndex = 204;
+            // 
+            // dateTimePFecha_Registro
+            // 
+            dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
+            dateTimePFecha_Registro.Location = new Point(343, 132);
+            dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
+            dateTimePFecha_Registro.Size = new Size(275, 28);
+            dateTimePFecha_Registro.TabIndex = 15;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(343, 108);
+            label18.Name = "label18";
+            label18.Size = new Size(155, 21);
+            label18.TabIndex = 38;
+            label18.Text = "Fecha de registro";
+            // 
+            // txtRegistro
+            // 
+            txtRegistro.Location = new Point(13, 53);
+            txtRegistro.Name = "txtRegistro";
+            txtRegistro.Size = new Size(259, 28);
+            txtRegistro.TabIndex = 12;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(11, 28);
+            label17.Name = "label17";
+            label17.Size = new Size(75, 21);
+            label17.TabIndex = 38;
+            label17.Text = "Registro";
+            // 
+            // txtFolio
+            // 
+            txtFolio.Location = new Point(343, 53);
+            txtFolio.Name = "txtFolio";
+            txtFolio.Size = new Size(275, 28);
+            txtFolio.TabIndex = 13;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(343, 29);
+            label7.Name = "label7";
+            label7.Size = new Size(46, 21);
+            label7.TabIndex = 8;
+            label7.Text = "Folio";
+            // 
+            // txtLibro
+            // 
+            txtLibro.Location = new Point(13, 135);
+            txtLibro.Name = "txtLibro";
+            txtLibro.Size = new Size(259, 28);
+            txtLibro.TabIndex = 14;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(13, 111);
+            label6.Name = "label6";
+            label6.Size = new Size(55, 21);
+            label6.TabIndex = 10;
+            label6.Text = "Tomo";
+            // 
+            // panel20
+            // 
+            panel20.Controls.Add(btnGuardarM);
+            panel20.Controls.Add(btnTraspasar);
+            panel20.Controls.Add(btnCancelarM);
+            panel20.Location = new Point(3, 189);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(630, 106);
+            panel20.TabIndex = 208;
+            // 
+            // btnGuardarM
+            // 
+            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarM.FlatAppearance.BorderSize = 0;
+            btnGuardarM.FlatStyle = FlatStyle.Flat;
+            btnGuardarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnGuardarM.ForeColor = Color.White;
+            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarM.IconColor = Color.White;
+            btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarM.IconSize = 30;
+            btnGuardarM.Location = new Point(13, 29);
+            btnGuardarM.Name = "btnGuardarM";
+            btnGuardarM.Size = new Size(191, 58);
+            btnGuardarM.TabIndex = 15;
+            btnGuardarM.Text = "ACTUALIZAR";
+            btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGuardarM.UseVisualStyleBackColor = false;
+            btnGuardarM.Click += btnGuardarM_Click;
+            // 
             // btnTraspasar
             // 
             btnTraspasar.BackColor = Color.FromArgb(0, 137, 123);
             btnTraspasar.FlatAppearance.BorderSize = 0;
             btnTraspasar.FlatStyle = FlatStyle.Flat;
-            btnTraspasar.Font = new Font("Century Gothic", 12F);
+            btnTraspasar.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnTraspasar.ForeColor = Color.White;
             btnTraspasar.IconChar = FontAwesome.Sharp.IconChar.HandHoldingHand;
             btnTraspasar.IconColor = Color.White;
             btnTraspasar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnTraspasar.IconSize = 30;
-            btnTraspasar.Location = new Point(818, 1095);
+            btnTraspasar.Location = new Point(220, 29);
             btnTraspasar.Name = "btnTraspasar";
             btnTraspasar.Size = new Size(191, 58);
             btnTraspasar.TabIndex = 211;
@@ -644,6 +774,38 @@
             btnTraspasar.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnTraspasar.UseVisualStyleBackColor = false;
             btnTraspasar.Click += btnTraspasar_Click_1;
+            // 
+            // btnCancelarM
+            // 
+            btnCancelarM.BackColor = Color.Gainsboro;
+            btnCancelarM.FlatAppearance.BorderSize = 0;
+            btnCancelarM.FlatStyle = FlatStyle.Flat;
+            btnCancelarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelarM.IconColor = Color.Black;
+            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelarM.IconSize = 30;
+            btnCancelarM.Location = new Point(426, 29);
+            btnCancelarM.Name = "btnCancelarM";
+            btnCancelarM.Size = new Size(191, 58);
+            btnCancelarM.TabIndex = 17;
+            btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelarM.UseVisualStyleBackColor = false;
+            btnCancelarM.Click += btnCancelarM_Click;
+            // 
+            // checkBox2
+            // 
+            checkBox2.Anchor = AnchorStyles.None;
+            checkBox2.AutoSize = true;
+            checkBox2.Enabled = false;
+            checkBox2.Font = new Font("Century Gothic", 10F);
+            checkBox2.Location = new Point(137, 975);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(103, 25);
+            checkBox2.TabIndex = 212;
+            checkBox2.Text = "Registrar";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // Renovacion
             // 
@@ -734,45 +896,6 @@
             btnVerRenovaciones.UseVisualStyleBackColor = false;
             btnVerRenovaciones.Click += roundedButton10_Click;
             // 
-            // btnCancelarM
-            // 
-            btnCancelarM.BackColor = Color.Gainsboro;
-            btnCancelarM.FlatAppearance.BorderSize = 0;
-            btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 12F);
-            btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            btnCancelarM.IconColor = Color.Black;
-            btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelarM.IconSize = 30;
-            btnCancelarM.Location = new Point(818, 1169);
-            btnCancelarM.Name = "btnCancelarM";
-            btnCancelarM.Size = new Size(191, 58);
-            btnCancelarM.TabIndex = 17;
-            btnCancelarM.Text = "CANCELAR";
-            btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnCancelarM.UseVisualStyleBackColor = false;
-            btnCancelarM.Click += btnCancelarM_Click;
-            // 
-            // btnGuardarM
-            // 
-            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
-            btnGuardarM.FlatAppearance.BorderSize = 0;
-            btnGuardarM.FlatStyle = FlatStyle.Flat;
-            btnGuardarM.Font = new Font("Century Gothic", 12F);
-            btnGuardarM.ForeColor = Color.White;
-            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
-            btnGuardarM.IconColor = Color.White;
-            btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardarM.IconSize = 30;
-            btnGuardarM.Location = new Point(818, 1015);
-            btnGuardarM.Name = "btnGuardarM";
-            btnGuardarM.Size = new Size(191, 58);
-            btnGuardarM.TabIndex = 15;
-            btnGuardarM.Text = "ACTUALIZAR";
-            btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
-            btnGuardarM.UseVisualStyleBackColor = false;
-            btnGuardarM.Click += btnGuardarM_Click;
-            // 
             // roundedButton8
             // 
             roundedButton8.BackColor = Color.LightSteelBlue;
@@ -825,87 +948,6 @@
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // panel2I
-            // 
-            panel2I.Controls.Add(dateTimePFecha_Registro);
-            panel2I.Controls.Add(label18);
-            panel2I.Controls.Add(txtRegistro);
-            panel2I.Controls.Add(label17);
-            panel2I.Controls.Add(txtFolio);
-            panel2I.Controls.Add(label7);
-            panel2I.Controls.Add(txtLibro);
-            panel2I.Controls.Add(label6);
-            panel2I.Font = new Font("Century Gothic", 10F);
-            panel2I.Location = new Point(137, 1006);
-            panel2I.Name = "panel2I";
-            panel2I.Size = new Size(636, 185);
-            panel2I.TabIndex = 204;
-            // 
-            // dateTimePFecha_Registro
-            // 
-            dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(343, 132);
-            dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(275, 28);
-            dateTimePFecha_Registro.TabIndex = 15;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Location = new Point(343, 108);
-            label18.Name = "label18";
-            label18.Size = new Size(155, 21);
-            label18.TabIndex = 38;
-            label18.Text = "Fecha de registro";
-            // 
-            // txtRegistro
-            // 
-            txtRegistro.Location = new Point(13, 53);
-            txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(259, 28);
-            txtRegistro.TabIndex = 12;
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.Location = new Point(11, 28);
-            label17.Name = "label17";
-            label17.Size = new Size(75, 21);
-            label17.TabIndex = 38;
-            label17.Text = "Registro";
-            // 
-            // txtFolio
-            // 
-            txtFolio.Location = new Point(343, 53);
-            txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(275, 28);
-            txtFolio.TabIndex = 13;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(343, 29);
-            label7.Name = "label7";
-            label7.Size = new Size(46, 21);
-            label7.TabIndex = 8;
-            label7.Text = "Folio";
-            // 
-            // txtLibro
-            // 
-            txtLibro.Location = new Point(13, 135);
-            txtLibro.Name = "txtLibro";
-            txtLibro.Size = new Size(259, 28);
-            txtLibro.TabIndex = 14;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(13, 111);
-            label6.Name = "label6";
-            label6.Size = new Size(55, 21);
-            label6.TabIndex = 10;
-            label6.Text = "Tomo";
-            // 
             // comboBoxAnualidades
             // 
             comboBoxAnualidades.BackColor = Color.FromArgb(241, 240, 245);
@@ -938,7 +980,7 @@
             checkedListBoxDocumentos.Items.AddRange(new object[] { "Comprobante de pagos", "Descripción (original y 1 copia)", "Reivindicaciones (original y 1 copia)", "Dibujo(s) o fórmula (original y 1 copia)", "Resumen (original y 1 copia)", "Documento de cesión", "Poder o nombramiento" });
             checkedListBoxDocumentos.Location = new Point(137, 796);
             checkedListBoxDocumentos.Name = "checkedListBoxDocumentos";
-            checkedListBoxDocumentos.Size = new Size(374, 132);
+            checkedListBoxDocumentos.Size = new Size(374, 176);
             checkedListBoxDocumentos.TabIndex = 11;
             // 
             // txtNombreAgente
@@ -1344,7 +1386,7 @@
             roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderColor = Color.FromArgb(196, 195, 209);
-            roundedButton7.BorderRadius = 50;
+            roundedButton7.BorderRadius = 40;
             roundedButton7.BorderSize = 0;
             roundedButton7.Enabled = false;
             roundedButton7.FlatAppearance.BorderSize = 0;
@@ -1632,7 +1674,7 @@
             roundedButton11.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton11.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton11.BorderColor = Color.FromArgb(196, 195, 209);
-            roundedButton11.BorderRadius = 50;
+            roundedButton11.BorderRadius = 40;
             roundedButton11.BorderSize = 0;
             roundedButton11.Enabled = false;
             roundedButton11.FlatAppearance.BorderSize = 0;
@@ -1892,7 +1934,7 @@
             roundedButton12.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton12.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton12.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton12.BorderRadius = 50;
+            roundedButton12.BorderRadius = 40;
             roundedButton12.BorderSize = 0;
             roundedButton12.Enabled = false;
             roundedButton12.FlatAppearance.BorderSize = 0;
@@ -2125,10 +2167,12 @@
             tabPageMarcaDetail.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            Renovacion.ResumeLayout(false);
-            Renovacion.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
             panel2I.ResumeLayout(false);
             panel2I.PerformLayout();
+            panel20.ResumeLayout(false);
+            Renovacion.ResumeLayout(false);
+            Renovacion.PerformLayout();
             tabPageHistorialMarca.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -2174,15 +2218,6 @@
         private DateTimePicker dateTimePFecha_vencimiento;
         private Label lblVencimiento;
         private CheckBox checkBox1;
-        private Panel panel2I;
-        private DateTimePicker dateTimePFecha_Registro;
-        private Label label18;
-        private TextBox txtRegistro;
-        private Label label17;
-        private TextBox txtFolio;
-        private Label label7;
-        private TextBox txtLibro;
-        private Label label6;
         private ComboBox comboBoxAnualidades;
         private Label label5;
         private CheckedListBox checkedListBoxDocumentos;
@@ -2297,5 +2332,17 @@
         private Label label16;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private Clases.RoundedButton roundedButton2;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel2I;
+        private DateTimePicker dateTimePFecha_Registro;
+        private Label label18;
+        private TextBox txtRegistro;
+        private Label label17;
+        private TextBox txtFolio;
+        private Label label7;
+        private TextBox txtLibro;
+        private Label label6;
+        private Panel panel20;
+        private CheckBox checkBox2;
     }
 }

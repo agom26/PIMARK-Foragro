@@ -101,6 +101,10 @@ namespace Presentacion.Patentes
                 checkBox2.Checked = true;
                 checkBox2.Enabled = false;
                 panel2I.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 62.5f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 37.5f;
             }
             else
             {
@@ -109,6 +113,7 @@ namespace Presentacion.Patentes
                 checkBox2.Enabled = false;
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
         private async Task CargarDatosPatente()
@@ -643,7 +648,7 @@ namespace Presentacion.Patentes
 
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
-            EditarPatente();
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1011,6 +1016,54 @@ namespace Presentacion.Patentes
         private void dtgPatentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            EditarPatente();
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            if (textBoxEstatus.Text != "Registrada")
+            {
+                LimpiarFomulario();
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+            }
+            else
+            {/*
+                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
+                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
+                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa")
+                    )
+                {
+
+                }
+                else
+                {
+                    if (
+                        (!int.TryParse(txtRegistro.Text, out _)) ||
+                        (!int.TryParse(txtFolio.Text, out _)) ||
+                        (!int.TryParse(txtLibro.Text, out _)))
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("El registro, folio y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
+                    else
+                    {
+                        //ActualizarMarcaNacional();
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                    }
+
+                }
+                */
+            }
         }
     }
 }

@@ -39,9 +39,9 @@
             // 
             // picIcon
             // 
-            picIcon.Location = new Point(241, 26);
+            picIcon.Location = new Point(262, 49);
             picIcon.Name = "picIcon";
-            picIcon.Size = new Size(159, 141);
+            picIcon.Size = new Size(118, 141);
             picIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             picIcon.TabIndex = 0;
             picIcon.TabStop = false;

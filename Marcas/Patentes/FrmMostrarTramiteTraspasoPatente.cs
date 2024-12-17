@@ -98,17 +98,22 @@ namespace Presentacion.Patentes
                 ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
-                checkBox1.Checked = true;
-                checkBox1.Enabled = false;
+                checkBox2.Checked = true;
+                checkBox2.Enabled = false;
                 panel2I.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 62.5f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 37.5f;
             }
             else
             {
                 lblVencimiento.Visible = false;
                 dateTimePFecha_vencimiento.Visible = false;
-                checkBox1.Enabled = false;
-                checkBox1.Checked = false;
+                checkBox2.Enabled = false;
+                checkBox2.Checked = false;
                 panel2I.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
         private async Task CargarDatosPatente()

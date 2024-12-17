@@ -1714,7 +1714,7 @@ namespace Presentacion.Marcas_Nacionales
             string signoDistintivo = cmbSignoDAO.SelectedItem?.ToString();
             string clase = txtClaseAO.Text;
             string solicitante_signo_distintivo = txtSolicitanteSignoPretendido.Text;
-
+            string situacion_actual = SeleccionarOposicion.situacion_actual;
             int idMarca = SeleccionarOposicion.idMarca;
             int? IdMarca = null;
             string opositor = txtNombreTitularAO.Text;
@@ -1747,13 +1747,13 @@ namespace Presentacion.Marcas_Nacionales
                 if (SeleccionarOposicion.idSolicitante != 0)
                 {
                     actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
+                    solicitante_signo_distintivo, null, signoOpositor, situacion_actual, IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     SeleccionarOposicion.idSolicitante);
                 }
                 else
                 {
                     actualizado = actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
-                    solicitante_signo_distintivo, null, signoOpositor, "EN TRÁMITE", IdMarca, logoOpositor, logoSignoPretendido, opositor,
+                    solicitante_signo_distintivo, null, signoOpositor, situacion_actual, IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     null);
                 }
 

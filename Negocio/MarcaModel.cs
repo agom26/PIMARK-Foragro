@@ -122,7 +122,14 @@ namespace Dominio
             tabla = marcaDao.GetMarcaInternacionalById(id);
             return tabla;
         }
-        
+
+        public DataTable ObtenerTipoMarca(int id)
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.ObtenerTipoMarca(id);
+            return tabla;
+        }
+
         public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
         {
             return marcaDao.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud,idCliente);

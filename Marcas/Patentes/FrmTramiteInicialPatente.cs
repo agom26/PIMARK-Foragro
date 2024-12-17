@@ -34,6 +34,7 @@ namespace Presentacion.Patentes
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
             ActualizarFechaVencimiento();
+            mostrarPanelRegistro("no");
         }
 
         private bool ValidarCampo(string campo)
@@ -306,6 +307,10 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 62.5f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 37.5f;
                 //btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
                 //btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
             }
@@ -316,6 +321,7 @@ namespace Presentacion.Patentes
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
+                tableLayoutPanel1.RowStyles[0].Height = 0;
                 //btnGuardarM.Location = new Point(197, 1050);
                 //btnCancelarM.Location = new Point(525, 1050);
             }
