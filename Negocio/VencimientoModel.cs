@@ -55,10 +55,21 @@ namespace Dominio
 
         }
 
-        public void ActualizarNotificado(int marcaId)
+        public void ActualizarNotificado(int id, string tipo)
         {
-            vencimientoDao.ActualizarNotificado(marcaId);
+            vencimientoDao.ActualizarNotificado(id, tipo);
 
         }
+
+        public void EditarTextoRtf(string tipo, string mensaje)
+        {
+            vencimientoDao.EditarTextoRtf(tipo, mensaje);
+        }
+        public string ObtenerTextoRtfPorTipo(string tipo)
+        {
+            return vencimientoDao.ObtenerTextoRtfPorTipo(tipo);
+        }
+
+
     }
 }

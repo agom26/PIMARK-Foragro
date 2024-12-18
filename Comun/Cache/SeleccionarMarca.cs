@@ -41,5 +41,7 @@ namespace Comun.Cache
         //
         public static string tipo;
 
+        public static string correoAgente;
+
     }
 }

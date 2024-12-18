@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comun.Cache;
 using Presentacion.Alertas;
+using System.Text;
+using System.Windows.Controls;
 
 namespace Presentacion.Vencimientos
 {
@@ -30,7 +32,7 @@ namespace Presentacion.Vencimientos
         {
             await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
             await Task.Run(() => LoadVencimientos());
-            AgregarBotonEnviarCorreo();
+
             foreach (FontFamily font in FontFamily.Families)
             {
                 fontComboBox.Items.Add(font.Name);
@@ -64,94 +66,76 @@ namespace Presentacion.Vencimientos
             }));
         }
 
-        private void AgregarBotonEnviarCorreo()
+        public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox)
         {
-            if (!dtgVencimientos.Columns.Contains("EnviarCorreo"))
-            {
-                var botonColumna = new DataGridViewButtonColumn
-                {
-                    Name = "EnviarCorreo",
-                    HeaderText = "Acciones",
-                    Text = "Notificar",
-                    UseColumnTextForButtonValue = true
-                };
 
-                dtgVencimientos.Columns.Add(botonColumna);
-            }
-
-            dtgVencimientos.CellClick += DtgVencimientos_CellClick;
+            string logoUrl = "https://www.blita.com/hubfs/uXsa_Xqw-1.jpeg";
+            string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' width='400' height='200' />";
+            string rtfContent = richTextBox.Rtf;
 
 
-            dtgVencimientos.CellPainting += DtgVencimientos_CellPainting;
+            string htmlContent = "<html><body>";
+
+            htmlContent += RtfToHtml(rtfContent, richTextBox);
+            htmlContent += $"<br/><br/>{logoHtml}";
+            htmlContent += "</body></html>";
+
+            return htmlContent;
         }
 
-
-        private void DtgVencimientos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        public string RtfToHtml(string rtf, System.Windows.Forms.RichTextBox richTextBox)
         {
-            if (e.ColumnIndex == dtgVencimientos.Columns["EnviarCorreo"].Index && e.RowIndex >= 0)
+            // Inicializamos el HTML que contendrá el texto convertido
+            StringBuilder htmlContent = new StringBuilder("<html><body>");
+
+            // Recorremos cada fragmento del texto con estilos diferentes
+            for (int i = 0; i < richTextBox.TextLength; i++)
             {
-                e.Handled = true;
+                // Obtener el estilo actual de la posición
+                richTextBox.Select(i, 1);
 
-                using (Brush brush = new SolidBrush(ColorTranslator.FromHtml("#34918a")))
-                {
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
-                }
+                // Obtener el color, fuente y tamaño de la letra de la selección
+                Color selectionColor = richTextBox.SelectionColor;
+                string hexColor = ColorTranslator.ToHtml(selectionColor);
 
-                TextRenderer.DrawText(e.Graphics, e.Value?.ToString(), e.CellStyle.Font, e.CellBounds, Color.White, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                string selectedFont = richTextBox.SelectionFont.FontFamily.Name;
+                float selectedSize = richTextBox.SelectionFont.Size;
 
-                e.Graphics.DrawRectangle(Pens.Black, e.CellBounds);
+                // Verificar si la selección está en negrita, cursiva o subrayado
+                bool isBold = richTextBox.SelectionFont.Bold;
+                bool isItalic = richTextBox.SelectionFont.Italic;
+                bool isUnderline = richTextBox.SelectionFont.Underline;
+
+                // Agregar las etiquetas HTML correspondientes para aplicar el estilo
+                htmlContent.Append("<span style='");
+
+                // Establecer el color, fuente y tamaño
+                htmlContent.Append($"color:{hexColor}; font-family:{selectedFont}; font-size:{selectedSize}px;");
+
+                // Agregar las etiquetas de negrita, cursiva o subrayado si están activadas
+                if (isBold) htmlContent.Append(" font-weight: bold;");
+                if (isItalic) htmlContent.Append(" font-style: italic;");
+                if (isUnderline) htmlContent.Append(" text-decoration: underline;");
+
+                // Cerrar el tag <span> y agregar el texto
+                htmlContent.Append("'>");
+                htmlContent.Append(richTextBox.SelectedText);
+                htmlContent.Append("</span>");
             }
-        }
 
+            // Finalizar el HTML
+            htmlContent.Append("</body></html>");
 
-
-
-        private async void DtgVencimientos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == dtgVencimientos.Columns["EnviarCorreo"].Index && e.RowIndex >= 0)
-            {
-                if (isSendingEmail) return;
-
-                isSendingEmail = true;
-                var filaSeleccionada = dtgVencimientos.Rows[e.RowIndex];
-
-                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
-                {
-                    int marcaId = Convert.ToInt32(dataRowView["marcaID"]);
-                    var user = vencimientoModel.GetCorreosPorMarcaId(marcaId);
-                    string tipo = dataRowView["tipo"].ToString();  // Obtener el tipo
-                    DateTime fechaVencimiento = Convert.ToDateTime(dataRowView["Vencimiento"]);
-                    string nombre = dataRowView["Nombre"].ToString();
-
-                    if (!string.IsNullOrEmpty(user.CorreoAgente))
-                    {
-                        try
-                        {
-                            dtgVencimientos.Enabled = false;
-                            await Task.Run(() => EnviarCorreo("Aasunto",user.CorreoAgente, marcaId, nombre, tipo, fechaVencimiento));
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error al enviar el correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        finally
-                        {
-                            dtgVencimientos.Enabled = true;
-                            LoadVencimientos();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No hay un correo registrado para este agente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                isSendingEmail = false;
-            }
+            return htmlContent.ToString();
         }
 
 
 
-        public async void EnviarCorreo(string subject, string receptor, int marcaId, string nombre, string tipo, DateTime fechaVencimiento)
+
+
+
+
+        public async void EnviarCorreo(string subject, string receptor, string tipo, int id)
         {
             try
             {
@@ -159,26 +143,43 @@ namespace Presentacion.Vencimientos
                 message.From.Add(new MailboxAddress("Berger Pemueller y Asociados", "avisos@bpa.com.es"));
                 message.To.Add(new MailboxAddress("Destinatario", receptor));
                 message.Subject = subject;
+                string htmlMessage = null;
 
-                string mensajeCuerpo;
-                string logoUrl = "https://www.blita.com/hubfs/uXsa_Xqw-1.jpeg";
-                string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' width='400' height='200' />";
+                string mensajeCuerpo = htmlMessage;
+
 
                 if (tipo.Equals("patente", StringComparison.OrdinalIgnoreCase))
                 {
-                    mensajeCuerpo = $"<p>La patente <strong>{nombre}</strong> está próxima a vencer, la fecha de vencimiento es: <strong>{fechaVencimiento.ToShortDateString()}</strong>.</p>" +
-                                    $"<p>{logoHtml}</p>";
+                    if (richTextBoxMensajeP.InvokeRequired)
+                    {
+                        richTextBoxMensajeP.Invoke((MethodInvoker)(() =>
+                        {
+                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP);
+                        }));
+                    }
+                    else
+                    {
+                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP);
+                    }
+                    mensajeCuerpo = htmlMessage
+                                    ;
                 }
                 else if (tipo.Equals("marca", StringComparison.OrdinalIgnoreCase))
                 {
-                    mensajeCuerpo = $"<p>La marca <strong>{nombre}</strong> está próxima a vencer, la fecha de vencimiento es: <strong>{fechaVencimiento.ToShortDateString()}</strong>.</p>" +
-                        $"<p>{logoHtml}</p>";
+                    if (richTextBoxMensajeM.InvokeRequired)
+                    {
+                        richTextBoxMensajeM.Invoke((MethodInvoker)(() =>
+                        {
+                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM);
+                        }));
+                    }
+                    else
+                    {
+                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM);
+                    }
+                    mensajeCuerpo = htmlMessage;
                 }
-                else
-                {
-                    mensajeCuerpo = "<p>Su marca o patente está próxima a vencer.</p>" +
-                        $"<p>{logoHtml}</p>";
-                }
+
 
                 message.Body = new TextPart("html") { Text = mensajeCuerpo };
 
@@ -188,13 +189,13 @@ namespace Presentacion.Vencimientos
                     client.Authenticate("avisos@bpa.com.es", "Berger*Pemueller*2024");
                     await client.SendAsync(message);
                     client.Disconnect(true);
-                    MessageBox.Show("Correo enviado con éxito.");
-
 
                     try
                     {
-                        vencimientoModel.ActualizarNotificado(marcaId);
+                        vencimientoModel.ActualizarNotificado(id, tipo);
                         LoadVencimientos();
+                        FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
                     }
                     catch (Exception updateEx)
                     {
@@ -217,7 +218,7 @@ namespace Presentacion.Vencimientos
         {
 
         }
-        private async void VerificarSeleccionId()
+        private async Task VerificarSeleccionId()
         {
             if (dtgVencimientos.RowCount <= 0)
             {
@@ -280,7 +281,7 @@ namespace Presentacion.Vencimientos
         }
         public async void Ver()
         {
-            VerificarSeleccionId();
+            await VerificarSeleccionId();
             if (SeleccionarPatente.id > 0)
             {
                 Cursor = Cursors.WaitCursor;
@@ -289,11 +290,15 @@ namespace Presentacion.Vencimientos
             }
             else if (SeleccionarMarca.idN > 0)
             {
+                Cursor = Cursors.WaitCursor;
                 await CargarDatosMarcaN();
+                Cursor = Cursors.Default;
             }
             else if (SeleccionarMarca.idInt > 0)
             {
+                Cursor = Cursors.WaitCursor;
                 await CargarDatosMarcaInt();
+                Cursor = Cursors.Default;
             }
         }
         private void ibtnEditar_Click_1(object sender, EventArgs e)
@@ -314,7 +319,7 @@ namespace Presentacion.Vencimientos
             if (isRegistrada == "si")
             {
                 lblVencimiento.Visible = true;
-                dateTimePFecha_vencimiento.Visible = true;
+                dateTimePFecha_vencimientoM.Visible = true;
                 checkBox2.Checked = true;
                 checkBox2.Enabled = false;
                 panel2I.Visible = true;
@@ -326,7 +331,7 @@ namespace Presentacion.Vencimientos
             else
             {
                 lblVencimiento.Visible = false;
-                dateTimePFecha_vencimiento.Visible = false;
+                dateTimePFecha_vencimientoM.Visible = false;
                 checkBox2.Enabled = false;
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
@@ -402,6 +407,7 @@ namespace Presentacion.Vencimientos
                         if (agente.Count > 0)
                         {
                             txtNombreAgenteP.Text = agente[0].nombre;
+                            SeleccionarPatente.correoAgente = agente[0].correo;
                         }
 
 
@@ -490,18 +496,21 @@ namespace Presentacion.Vencimientos
                             }
                             checkBox1.Checked = true;
                             mostrarPanelRegistroPatente("si");
+                            tabControl1.Visible = true;
                         }
                         else
                         {
                             checkBox1.Checked = false;
                             mostrarPanelRegistroPatente("no");
+                            tabControl1.Visible = true;
                         }
                     }
                     else
                     {
+                        tabControl1.Visible = true;
                         MessageBox.Show("No se encontró la patente seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    tabControl1.Visible = true;
+
                 }
                 else
                 {
@@ -515,14 +524,302 @@ namespace Presentacion.Vencimientos
             }
         }
 
+        public void MostrarLogoEnPictureBox(byte[] logo)
+        {
+            if (logo != null && logo.Length > 0)
+            {
+                using (var ms = new MemoryStream(logo))
+                {
+                    pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                }
+            }
+            else
+            {
+                pictureBox1.Image = null;
+            }
+        }
+
+        public void mostrarPanelRegistro(string isRegistrada)
+        {
+            if (isRegistrada == "si")
+            {
+                checkBox1.Checked = true;
+                checkBox1.Enabled = false;
+                panel3.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 64.69f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 35.31f;
+            }
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox1.Checked = false;
+                panel3.Visible = false;
+
+                tableLayoutPanel1.RowStyles[0].Height = 0;
+            }
+
+        }
+
         public async Task CargarDatosMarcaN()
         {
 
+            try
+            {
+                tabControl1.Visible = false;
+                AnadirTabPage(tabPageMarcaDetail);
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+
+                if (detallesMarcaInter.Rows.Count > 0)
+                {
+                    DataRow row = detallesMarcaInter.Rows[0];
+
+                    if (row["expediente"] != DBNull.Value)
+                    {
+                        SeleccionarMarca.expediente = row["expediente"].ToString();
+                        SeleccionarMarca.nombre = row["nombre"].ToString();
+                        SeleccionarMarca.clase = row["clase"].ToString();
+                        SeleccionarMarca.estado = row["estado"].ToString();
+                        SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
+                        SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
+                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
+                        SeleccionarMarca.idPersonaAgente = row["idAgente"] != DBNull.Value ? Convert.ToInt32(row["idAgente"]) : 0;
+                        SeleccionarMarca.idPersonaCliente = row["idCliente"] != DBNull.Value ? Convert.ToInt32(row["idCliente"]) : 0;
+                        SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
+                        SeleccionarMarca.observaciones = row["observaciones"].ToString();
+                        SeleccionarMarca.erenov = row["Erenov"].ToString();
+                        SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
+                        // Cargar datos del titular y agente 
+                        var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
+                        var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
+
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != 0
+                            ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
+                            : null;
+
+                        await Task.WhenAll(titularTask, agenteTask);
+
+                        var titular = titularTask.Result;
+                        var agente = agenteTask.Result;
+                        var cliente = clienteTask?.Result;
+
+
+                        SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
+                        SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
+                        SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;
+
+                        if (titular.Count > 0)
+                        {
+                            txtNombreTitularM.Text = titular[0].nombre;
+                        }
+
+                        if (agente.Count > 0)
+                        {
+                            txtNombreAgenteM.Text = agente[0].nombre;
+                            SeleccionarMarca.correoAgente = agente[0].correo;
+                        }
+
+                        if (cliente != null && cliente.Count > 0)
+                        {
+                            txtNombreClienteM.Text = cliente[0].nombre;
+                        }
+
+                        // Actualizar los controles 
+                        txtExpedienteM.Text = SeleccionarMarca.expediente;
+                        txtNombreM.Text = SeleccionarMarca.nombre;
+                        txtClaseM.Text = SeleccionarMarca.clase;
+                        textBoxEstatusM.Text = SeleccionarMarca.estado;
+                        comboBoxSignoDistintivoM.SelectedItem = SeleccionarMarca.signoDistintivo;
+                        comboBoxTipoSignoM.SelectedItem = SeleccionarMarca.tipoSigno;
+                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        datePickerFechaSolicitudM.Value = SeleccionarMarca.fecha_solicitud;
+                        richTextBox1M.Text = SeleccionarMarca.observaciones;
+
+                        txtERenovacionM.Text = SeleccionarMarca.erenov;
+                        txtETraspasoM.Text = SeleccionarMarca.etraspaso;
+
+
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                            SeleccionarMarca.registro = row["registro"].ToString();
+                            SeleccionarMarca.folio = row["folio"].ToString();
+                            SeleccionarMarca.libro = row["libro"].ToString();
+                            SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
+                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+
+                            txtRegistroM.Text = SeleccionarMarca.registro;
+                            txtFolioM.Text = SeleccionarMarca.folio;
+                            txtLibroM.Text = SeleccionarMarca.libro;
+                            dateTimePFecha_RegistroM.Value = SeleccionarMarca.fechaRegistro.Value;
+                            dateTimePFecha_vencimientoM.Value = SeleccionarMarca.fechaVencimiento.Value;
+                        }
+                        else
+                        {
+
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                        }
+
+                        tabControl1.Visible = true;
+                    }
+                    else
+                    {
+                        tabControl1.Visible = true;
+                        MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    tabControl1.Visible = true;
+
+                }
+                else
+                {
+                    tabControl1.Visible = true;
+                    MessageBox.Show("No se encontraron detalles de la marca", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                tabControl1.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los detalles de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            tabControl1.Visible = true;
         }
 
         public async Task CargarDatosMarcaInt()
         {
+            try
+            {
+                tabControl1.Visible = false;
+                AnadirTabPage(tabPageMarcaDetail);
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
+                if (detallesMarcaInter.Rows.Count > 0)
+                {
+                    DataRow row = detallesMarcaInter.Rows[0];
+
+                    if (row["expediente"] != DBNull.Value)
+                    {
+                        SeleccionarMarca.expediente = row["expediente"].ToString();
+                        SeleccionarMarca.nombre = row["nombre"].ToString();
+                        SeleccionarMarca.clase = row["clase"].ToString();
+                        SeleccionarMarca.estado = row["estado"].ToString();
+                        SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
+                        SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
+                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
+                        SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
+                        SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
+                        SeleccionarMarca.observaciones = row["observaciones"].ToString();
+                        SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
+                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
+
+                        if (row["Erenov"] != DBNull.Value)
+                        {
+                            SeleccionarMarca.erenov = row["Erenov"].ToString();
+                            txtERenovacionM.Text = SeleccionarMarca.erenov;
+                        }
+
+                        if (row["Etrasp"] != DBNull.Value)
+                        {
+                            SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
+                            txtETraspasoM.Text = SeleccionarMarca.etraspaso;
+                        }
+
+                        checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
+                        int index = comboBox1.FindString(SeleccionarMarca.pais_de_registro);
+                        comboBox1.SelectedIndex = index;
+
+                        var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
+                        var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
+
+                        await Task.WhenAll(titularTask, agenteTask);
+
+                        var titular = titularTask.Result;
+                        var agente = agenteTask.Result;
+
+                        SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
+                        SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
+
+                        if (titular.Count > 0)
+                        {
+                            txtNombreTitularM.Text = titular[0].nombre;
+                        }
+
+                        if (agente.Count > 0)
+                        {
+                            txtNombreAgenteM.Text = agente[0].nombre;
+                            SeleccionarMarca.correoAgente = agente[0].correo;
+                        }
+
+
+                        // Actualizar los controles 
+                        txtExpedienteM.Text = SeleccionarMarca.expediente;
+                        txtNombreM.Text = SeleccionarMarca.nombre;
+                        txtClaseM.Text = SeleccionarMarca.clase;
+                        textBoxEstatusM.Text = SeleccionarMarca.estado;
+                        comboBoxSignoDistintivoM.SelectedItem = SeleccionarMarca.signoDistintivo;
+                        comboBoxTipoSignoM.SelectedItem = SeleccionarMarca.tipoSigno;
+                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        datePickerFechaSolicitudM.Value = SeleccionarMarca.fecha_solicitud;
+                        richTextBox1M.Text = SeleccionarMarca.observaciones;
+
+
+                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                            SeleccionarMarca.registro = row["registro"].ToString();
+                            SeleccionarMarca.folio = row["folio"].ToString();
+                            SeleccionarMarca.libro = row["libro"].ToString();
+                            SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
+                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+
+                            txtRegistroM.Text = SeleccionarMarca.registro;
+                            txtFolioM.Text = SeleccionarMarca.folio;
+                            txtLibroM.Text = SeleccionarMarca.libro;
+                            dateTimePFecha_RegistroM.Value = SeleccionarMarca.fechaRegistro.Value;
+                            dateTimePFecha_vencimientoM.Value = SeleccionarMarca.fechaVencimiento.Value;
+                        }
+                        else
+                        {
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                        }
+                        tabControl1.Visible = true;
+                    }
+                    else
+                    {
+                        tabControl1.Visible = true;
+                        MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    tabControl1.Visible = true;
+
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron detalles de la marca", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                tabControl1.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los detalles de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            tabControl1.Visible = true;
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -553,20 +850,27 @@ namespace Presentacion.Vencimientos
             {
                 EliminarTabPage(tabPagePatenteDetail);
                 EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageMensajePatente);
+                EliminarTabPage(tabPageMensajeMarca);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
                 EliminarTabPage(tabPagePatenteDetail);
+                EliminarTabPage(tabPageMensajePatente);
+                EliminarTabPage(tabPageMensajeMarca);
             }
             else if (tabControl1.SelectedTab == tabPagePatenteDetail)
             {
                 EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageMensajeMarca);
+                EliminarTabPage(tabPageMensajePatente);
             }
         }
 
-        private void iconButton10_Click(object sender, EventArgs e)
+        private async void iconButton10_Click(object sender, EventArgs e)
         {
-
+            AnadirTabPage(tabPageMensajePatente);
+            CargarCorreoPatente();
         }
 
         private void checkBoxPCT_CheckedChanged(object sender, EventArgs e)
@@ -581,31 +885,31 @@ namespace Presentacion.Vencimientos
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (richTextBoxMensaje.SelectionFont != null)
+            if (richTextBoxMensajeP.SelectionFont != null)
             {
-                Font currentFont = richTextBoxMensaje.SelectionFont;
+                Font currentFont = richTextBoxMensajeP.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Italic;
-                richTextBoxMensaje.SelectionFont = new Font(currentFont, newFontStyle);
+                richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
             }
         }
 
         private void boldButton_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.SelectionFont != null)
+            if (richTextBoxMensajeP.SelectionFont != null)
             {
-                Font currentFont = richTextBoxMensaje.SelectionFont;
+                Font currentFont = richTextBoxMensajeP.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Bold;
-                richTextBoxMensaje.SelectionFont = new Font(currentFont, newFontStyle);
+                richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
             }
         }
 
         private void underlineButton_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.SelectionFont != null)
+            if (richTextBoxMensajeP.SelectionFont != null)
             {
-                Font currentFont = richTextBoxMensaje.SelectionFont;
+                Font currentFont = richTextBoxMensajeP.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Underline;
-                richTextBoxMensaje.SelectionFont = new Font(currentFont, newFontStyle);
+                richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
             }
         }
 
@@ -615,20 +919,307 @@ namespace Presentacion.Vencimientos
             ColorDialog colorDialog = new ColorDialog();
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                richTextBoxMensaje.SelectionColor = colorDialog.Color;
+                richTextBoxMensajeP.SelectionColor = colorDialog.Color;
             }
         }
 
         private void fontComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedFont = fontComboBox.SelectedItem.ToString();
-            richTextBoxMensaje.SelectionFont = new Font(selectedFont, richTextBoxMensaje.SelectionFont.Size);
+            richTextBoxMensajeP.SelectionFont = new Font(selectedFont, richTextBoxMensajeP.SelectionFont.Size);
         }
 
         private void fontSizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             float selectedSize = float.Parse(fontSizeComboBox.SelectedItem.ToString());
-            richTextBoxMensaje.SelectionFont = new Font(richTextBoxMensaje.SelectionFont.FontFamily, selectedSize);
+            richTextBoxMensajeP.SelectionFont = new Font(richTextBoxMensajeP.SelectionFont.FontFamily, selectedSize);
+        }
+
+        public async Task EditarTexto(string tipo, string mensaje)
+        {
+            vencimientoModel.EditarTextoRtf(tipo, mensaje);
+        }
+
+
+
+
+        public void CargarCorreoPatente()
+        {
+            string mensajeMarca = vencimientoModel.ObtenerTextoRtfPorTipo("patente");
+            richTextBoxMensajeP.Rtf = mensajeMarca;
+        }
+
+        public void CargarCorreoMarca()
+        {
+            string mensajeMarca = vencimientoModel.ObtenerTextoRtfPorTipo("marca");
+            richTextBoxMensajeM.Rtf = mensajeMarca;
+        }
+
+        private void iconButton12_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageMensajeMarca);
+            CargarCorreoMarca();
+        }
+
+        private async void iconButton1_Click(object sender, EventArgs e)
+        {
+            string asunto = txtAsuntoP.Text;
+            string mensaje = richTextBoxMensajeP.Rtf;
+            string receptor = SeleccionarPatente.correoAgente;
+            int patenteId = SeleccionarPatente.id;
+            string nombre = SeleccionarPatente.nombre;
+            DateTime fechaV = SeleccionarPatente.fecha_vencimiento.Value;
+
+            Convertir(nombre, fechaV);
+
+            if (richTextBoxMensajeP.Text != "" && receptor != "" && txtAsuntoP.Text != "")
+            {
+                try
+                {
+                    if (isSendingEmail) return;
+
+                    isSendingEmail = true;
+
+                    try
+                    {
+                        iconButton1.Enabled = false;
+                        await Task.Run(() => EnviarCorreo(asunto, receptor, "patente", patenteId));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al enviar el correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        iconButton1.Enabled = true;
+                        LoadVencimientos();
+                    }
+                    isSendingEmail = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE REDACTAR EL ASUNTO Y UN MENSAJE PARA PODER NOTIFICAR",
+                    "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
+
+        }
+        public void Convertir(string nombre, DateTime fechaV)
+        {
+            string mensaje = richTextBoxMensajeP.Rtf;
+
+            if (richTextBoxMensajeP.Text.Contains("SIGNO") || richTextBoxMensajeP.Text.Contains("F_VENCIMIENTO"))
+            {
+                mensaje = mensaje.Replace("SIGNO", nombre);
+                mensaje = mensaje.Replace("F_VENCIMIENTO", fechaV.ToString("dd/MM/yyyy")); // Si quieres un formato específico para la fecha
+                richTextBoxMensajeP.Rtf = mensaje;
+            }
+        }
+
+        public void ConvertirMarca(string nombre, DateTime fechaV)
+        {
+            string mensaje = richTextBoxMensajeM.Rtf;
+
+            if (richTextBoxMensajeM.Text.Contains("SIGNO") || richTextBoxMensajeM.Text.Contains("F_VENCIMIENTO"))
+            {
+                mensaje = mensaje.Replace("SIGNO", nombre);
+                mensaje = mensaje.Replace("F_VENCIMIENTO", fechaV.ToString("dd/MM/yyyy")); // Si quieres un formato específico para la fecha
+                richTextBoxMensajeM.Rtf = mensaje;
+            }
+        }
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+
+            Convertir(SeleccionarPatente.nombre, (DateTime)SeleccionarPatente.fecha_vencimiento);
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            string mensaje = richTextBoxMensajeP.Rtf;
+            if (mensaje != "" && richTextBoxMensajeP.Text.Contains("SIGNO") && richTextBoxMensajeP.Text.Contains("F_VENCIMIENTO"))
+            {
+                try
+                {
+                    vencimientoModel.EditarTextoRtf("patente", mensaje);
+                    FrmAlerta alerta = new FrmAlerta("MENSAJE MODIFICADO PARA PATENTE", "ÉXITO", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(),
+                  "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("EL MENSAJE DEBE CONTENER LAS PALABRAS CLAVE",
+                  "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
+        }
+
+        private async void iconButton6_Click(object sender, EventArgs e)
+        {
+            string asunto = txtAsuntoP.Text;
+            string mensaje = richTextBoxMensajeM.Rtf;
+            string receptor = SeleccionarMarca.correoAgente;
+            int marcaId = 0;
+            if (SeleccionarMarca.idN > 0)
+            {
+                marcaId = SeleccionarMarca.idN;
+            }
+            else if (SeleccionarMarca.idInt > 0)
+            {
+                marcaId = SeleccionarMarca.idInt;
+            }
+
+            string nombre = SeleccionarMarca.nombre;
+            DateTime fechaV = SeleccionarMarca.fechaVencimiento.Value;
+
+            ConvertirMarca(nombre, fechaV);
+
+            if (richTextBoxMensajeM.Text != "" && receptor != "" && txtAsuntoM.Text != "" && marcaId > 0)
+            {
+                try
+                {
+                    if (isSendingEmail) return;
+
+                    isSendingEmail = true;
+
+                    try
+                    {
+                        iconButton1.Enabled = false;
+                        await Task.Run(() => EnviarCorreo(asunto, receptor, "marca", marcaId));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al enviar el correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        iconButton1.Enabled = true;
+                        LoadVencimientos();
+                    }
+                    isSendingEmail = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE REDACTAR EL ASUNTO Y UN MENSAJE PARA PODER NOTIFICAR",
+                    "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void iconButton3_Click_1(object sender, EventArgs e)
+        {
+            string mensaje = richTextBoxMensajeM.Rtf;
+            if (mensaje != "" && richTextBoxMensajeM.Text.Contains("SIGNO") && richTextBoxMensajeM.Text.Contains("F_VENCIMIENTO"))
+            {
+                try
+                {
+                    vencimientoModel.EditarTextoRtf("marca", mensaje);
+                    FrmAlerta alerta = new FrmAlerta("MENSAJE MODIFICADO PARA MARCA", "ÉXITO", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(),
+                  "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("EL MENSAJE DEBE CONTENER LAS PALABRAS CLAVE",
+                  "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPagePatenteDetail;
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                Font currentFont = richTextBoxMensajeM.SelectionFont;
+                FontStyle newFontStyle = currentFont.Style ^ FontStyle.Bold;
+                richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                Font currentFont = richTextBoxMensajeM.SelectionFont;
+                FontStyle newFontStyle = currentFont.Style ^ FontStyle.Italic;
+                richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                Font currentFont = richTextBoxMensajeM.SelectionFont;
+                FontStyle newFontStyle = currentFont.Style ^ FontStyle.Underline;
+                richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedFont = fontComboBox.SelectedItem.ToString();
+            richTextBoxMensajeM.SelectionFont = new Font(selectedFont, richTextBoxMensajeM.SelectionFont.Size);
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            float selectedSize = float.Parse(fontSizeComboBox.SelectedItem.ToString());
+            richTextBoxMensajeM.SelectionFont = new Font(richTextBoxMensajeM.SelectionFont.FontFamily, selectedSize);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Abrir un cuadro de diálogo para elegir el color
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                richTextBoxMensajeM.SelectionColor = colorDialog.Color;
+            }
         }
     }
 }

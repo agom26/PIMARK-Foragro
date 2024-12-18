@@ -121,15 +121,15 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
-        public void ActualizarNotificado(int marcaId)
+        public void ActualizarNotificado(int id, string tipo)
         {
             using (MySqlConnection conexion = GetConnection())
             {
                 using (var command = new MySqlCommand("ActualizarNotificado", conexion))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@p_marcaID", marcaId);
-
+                    command.Parameters.AddWithValue("@p_id", id);
+                    command.Parameters.AddWithValue("@p_tipo", tipo);
                     try
                     {
                         conexion.Open();
@@ -143,6 +143,68 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+
+        public void EditarTextoRtf(string tipo, string mensaje)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (var command = new MySqlCommand("EditarTextoRtf", conexion))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@p_tipo", tipo);
+                    command.Parameters.AddWithValue("@p_mensaje", mensaje);
+
+                    try
+                    {
+                        conexion.Open();
+                        command.ExecuteNonQuery(); 
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error al ejecutar el procedimiento EditarTextoRtf: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        public string ObtenerTextoRtfPorTipo(string tipo)
+        {
+            string mensajeRtf = null;
+
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    conexion.Open();
+
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerTextoRtfPorTipo", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_tipo", tipo);
+
+                        MySqlParameter mensajeParam = new MySqlParameter("@p_mensaje", MySqlDbType.Text)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        comando.Parameters.Add(mensajeParam);
+
+                        comando.ExecuteNonQuery();
+
+                        mensajeRtf = mensajeParam.Value.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener el texto RTF: {ex.Message}");
+            }
+
+            return mensajeRtf;
+        }
+
+
 
     }
 }

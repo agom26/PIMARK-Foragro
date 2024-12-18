@@ -34,6 +34,8 @@ namespace Comun.Cache
         public static string libro;
         public static DateTime? fecha_registro;
         public static DateTime? fecha_vencimiento;
+
+        public static string correoAgente;
             
     }
 }
