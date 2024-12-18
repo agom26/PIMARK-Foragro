@@ -177,7 +177,8 @@ namespace Presentacion.Reportes
                 await browser.CloseAsync();
 
                 // Confirmar que el PDF se ha generado
-                MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
             }
             else
             {

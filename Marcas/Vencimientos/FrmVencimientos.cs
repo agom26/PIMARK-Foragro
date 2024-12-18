@@ -202,6 +202,7 @@ namespace Presentacion.Vencimientos
                         LoadVencimientos();
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
+                        tabControl1.SelectedTab = tabPageVencimientosList;
                     }
                     catch (Exception updateEx)
                     {
@@ -1432,7 +1433,9 @@ namespace Presentacion.Vencimientos
                 await browser.CloseAsync();
 
                 // Confirmar que el PDF se ha generado
-                MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+                //MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
