@@ -442,8 +442,6 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.tiene_poder = row["tiene_poder"].ToString();
-                        SeleccionarMarca.pais_de_registro = row["pais_de_registro"].ToString();
 
                         if (row["Erenov"] != DBNull.Value)
                         {
@@ -465,9 +463,17 @@ namespace Presentacion.Marcas_Internacionales
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
 
+                        var clienteTask = SeleccionarMarca.idPersonaCliente != 0
+                           ? Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaCliente))
+                           : null;
+
+                        var cliente = clienteTask?.Result;
+
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
                         AgregarTraspaso.idTitularAnterior = SeleccionarMarca.idPersonaTitular;
+                        SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;
+
                         if (titular.Count > 0)
                         {
                             txtNombreTitular.Text = titular[0].nombre;
@@ -477,6 +483,11 @@ namespace Presentacion.Marcas_Internacionales
                         if (agente.Count > 0)
                         {
                             txtNombreAgente.Text = agente[0].nombre;
+                        }
+
+                        if (cliente != null && cliente.Count > 0)
+                        {
+                            txtNombreCliente.Text = cliente[0].nombre;
                         }
 
 
