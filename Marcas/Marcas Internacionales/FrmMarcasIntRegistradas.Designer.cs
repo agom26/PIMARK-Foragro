@@ -38,13 +38,11 @@
             panel25 = new Panel();
             panel26 = new Panel();
             label29 = new Label();
-            roundedButton5 = new Clases.RoundedButton();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             panel27 = new Panel();
             panel28 = new Panel();
             label28 = new Label();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton8 = new Clases.RoundedButton();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             dtgMarcasIn = new DataGridView();
@@ -52,7 +50,6 @@
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
             textBox1 = new TextBox();
             label2 = new Label();
-            roundedButton3 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -70,13 +67,11 @@
             panel21 = new Panel();
             iconButton12 = new FontAwesome.Sharp.IconButton();
             iconButton13 = new FontAwesome.Sharp.IconButton();
-            roundedButton9 = new Clases.RoundedButton();
             Renovacion = new GroupBox();
             txtETraspaso = new TextBox();
             label1 = new Label();
             txtERenovacion = new TextBox();
             label11 = new Label();
-            roundedButton10 = new Clases.RoundedButton();
             checkBox1 = new CheckBox();
             richTextBox1 = new RichTextBox();
             label16 = new Label();
@@ -86,20 +81,15 @@
             label27 = new Label();
             txtNombreCliente = new TextBox();
             label10 = new Label();
-            btnAgregarCliente = new Clases.RoundedButton();
             datePickerFechaSolicitud = new DateTimePicker();
             label13 = new Label();
-            roundedButton6 = new Clases.RoundedButton();
-            roundedButton1 = new Clases.RoundedButton();
             label3 = new Label();
             textBoxEstatus = new TextBox();
             label14 = new Label();
             txtNombreAgente = new TextBox();
             label12 = new Label();
-            roundedButton2 = new Clases.RoundedButton();
             txtNombreTitular = new TextBox();
             label9 = new Label();
-            roundedButton4 = new Clases.RoundedButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
@@ -119,7 +109,6 @@
             panel5 = new Panel();
             tabPageHistorialDetail = new TabPage();
             panel6 = new Panel();
-            roundedButton7 = new Clases.RoundedButton();
             panel7 = new Panel();
             panel8 = new Panel();
             btnEditarH = new FontAwesome.Sharp.IconButton();
@@ -152,7 +141,6 @@
             label32 = new Label();
             label34 = new Label();
             iconButton6 = new FontAwesome.Sharp.IconButton();
-            roundedButton11 = new Clases.RoundedButton();
             tabPageTraspasosList = new TabPage();
             panel12 = new Panel();
             iconButton9 = new FontAwesome.Sharp.IconButton();
@@ -162,17 +150,14 @@
             label33 = new Label();
             tabPageTraspasoDetail = new TabPage();
             panel16 = new Panel();
-            roundedButton12 = new Clases.RoundedButton();
             panel17 = new Panel();
             panel18 = new Panel();
             iconButton10 = new FontAwesome.Sharp.IconButton();
             iconButton11 = new FontAwesome.Sharp.IconButton();
             groupBox2 = new GroupBox();
-            btnAgregarTitularA = new Clases.RoundedButton();
             txtNombreMarcaN = new TextBox();
             txtNombreMarcaA = new TextBox();
             txtNombreTitularN = new TextBox();
-            btnAgregarTitularN = new Clases.RoundedButton();
             txtNombreTitularA = new TextBox();
             txtNumExpedienteTraspaso = new TextBox();
             label35 = new Label();
@@ -248,7 +233,6 @@
             tabPageRegistradasList.Controls.Add(ibtnBuscar);
             tabPageRegistradasList.Controls.Add(textBox1);
             tabPageRegistradasList.Controls.Add(label2);
-            tabPageRegistradasList.Controls.Add(roundedButton3);
             tabPageRegistradasList.Location = new Point(4, 29);
             tabPageRegistradasList.Name = "tabPageRegistradasList";
             tabPageRegistradasList.Padding = new Padding(3);
@@ -273,11 +257,10 @@
             // 
             panel25.AutoSize = true;
             panel25.Controls.Add(panel26);
-            panel25.Controls.Add(roundedButton5);
             panel25.Dock = DockStyle.Left;
-            panel25.Location = new Point(395, 0);
+            panel25.Location = new Point(388, 0);
             panel25.Name = "panel25";
-            panel25.Size = new Size(194, 49);
+            panel25.Size = new Size(169, 49);
             panel25.TabIndex = 170;
             // 
             // panel26
@@ -303,26 +286,6 @@
             label29.Text = "REGISTRADAS";
             label29.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // roundedButton5
-            // 
-            roundedButton5.AutoSize = true;
-            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 40;
-            roundedButton5.BorderSize = 0;
-            roundedButton5.Dock = DockStyle.Fill;
-            roundedButton5.Enabled = false;
-            roundedButton5.FlatAppearance.BorderSize = 0;
-            roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.ForeColor = Color.White;
-            roundedButton5.Location = new Point(0, 0);
-            roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(194, 49);
-            roundedButton5.TabIndex = 167;
-            roundedButton5.TextColor = Color.White;
-            roundedButton5.UseVisualStyleBackColor = false;
-            // 
             // iconPictureBox2
             // 
             iconPictureBox2.BackColor = Color.Transparent;
@@ -332,7 +295,7 @@
             iconPictureBox2.IconColor = Color.FromArgb(1, 87, 155);
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 49;
-            iconPictureBox2.Location = new Point(346, 0);
+            iconPictureBox2.Location = new Point(339, 0);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(49, 49);
             iconPictureBox2.TabIndex = 166;
@@ -343,11 +306,10 @@
             // 
             panel27.AutoSize = true;
             panel27.Controls.Add(panel28);
-            panel27.Controls.Add(roundedButton8);
             panel27.Dock = DockStyle.Left;
             panel27.Location = new Point(0, 0);
             panel27.Name = "panel27";
-            panel27.Size = new Size(346, 49);
+            panel27.Size = new Size(339, 49);
             panel27.TabIndex = 169;
             // 
             // panel28
@@ -388,26 +350,6 @@
             iconPictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
             iconPictureBox3.TabIndex = 165;
             iconPictureBox3.TabStop = false;
-            // 
-            // roundedButton8
-            // 
-            roundedButton8.AutoSize = true;
-            roundedButton8.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton8.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton8.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton8.BorderRadius = 40;
-            roundedButton8.BorderSize = 0;
-            roundedButton8.Dock = DockStyle.Fill;
-            roundedButton8.Enabled = false;
-            roundedButton8.FlatAppearance.BorderSize = 0;
-            roundedButton8.FlatStyle = FlatStyle.Flat;
-            roundedButton8.ForeColor = Color.White;
-            roundedButton8.Location = new Point(0, 0);
-            roundedButton8.Name = "roundedButton8";
-            roundedButton8.Size = new Size(346, 49);
-            roundedButton8.TabIndex = 164;
-            roundedButton8.TextColor = Color.White;
-            roundedButton8.UseVisualStyleBackColor = false;
             // 
             // iconButton3
             // 
@@ -533,26 +475,6 @@
             label2.TabIndex = 35;
             label2.Text = "Buscar marca";
             // 
-            // roundedButton3
-            // 
-            roundedButton3.Anchor = AnchorStyles.Top;
-            roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
-            roundedButton3.BorderRadius = 20;
-            roundedButton3.BorderSize = 0;
-            roundedButton3.Enabled = false;
-            roundedButton3.FlatAppearance.BorderSize = 0;
-            roundedButton3.FlatStyle = FlatStyle.Flat;
-            roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(168, 129);
-            roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(683, 61);
-            roundedButton3.TabIndex = 38;
-            roundedButton3.Text = "roundedButton3";
-            roundedButton3.TextColor = Color.White;
-            roundedButton3.UseVisualStyleBackColor = false;
-            // 
             // tabPageMarcaDetail
             // 
             tabPageMarcaDetail.AutoScroll = true;
@@ -567,9 +489,7 @@
             // panel1
             // 
             panel1.Controls.Add(tableLayoutPanel1);
-            panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(Renovacion);
-            panel1.Controls.Add(roundedButton10);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(label16);
@@ -579,20 +499,15 @@
             panel1.Controls.Add(label27);
             panel1.Controls.Add(txtNombreCliente);
             panel1.Controls.Add(label10);
-            panel1.Controls.Add(btnAgregarCliente);
             panel1.Controls.Add(datePickerFechaSolicitud);
             panel1.Controls.Add(label13);
-            panel1.Controls.Add(roundedButton6);
-            panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(textBoxEstatus);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(txtNombreAgente);
             panel1.Controls.Add(label12);
-            panel1.Controls.Add(roundedButton2);
             panel1.Controls.Add(txtNombreTitular);
             panel1.Controls.Add(label9);
-            panel1.Controls.Add(roundedButton4);
             panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(iconButton1);
             panel1.Controls.Add(pictureBox1);
@@ -773,26 +688,6 @@
             iconButton13.UseVisualStyleBackColor = false;
             iconButton13.Click += iconButton13_Click;
             // 
-            // roundedButton9
-            // 
-            roundedButton9.BackColor = Color.LightSteelBlue;
-            roundedButton9.BackgroundColor = Color.LightSteelBlue;
-            roundedButton9.BorderColor = Color.LightSteelBlue;
-            roundedButton9.BorderRadius = 40;
-            roundedButton9.BorderSize = 0;
-            roundedButton9.FlatAppearance.BorderSize = 0;
-            roundedButton9.FlatStyle = FlatStyle.Flat;
-            roundedButton9.Font = new Font("Century Gothic", 9F);
-            roundedButton9.ForeColor = Color.Black;
-            roundedButton9.Location = new Point(748, 797);
-            roundedButton9.Name = "roundedButton9";
-            roundedButton9.Size = new Size(276, 56);
-            roundedButton9.TabIndex = 195;
-            roundedButton9.Text = "VER TRASPASOS";
-            roundedButton9.TextColor = Color.Black;
-            roundedButton9.UseVisualStyleBackColor = false;
-            roundedButton9.Click += roundedButton9_Click;
-            // 
             // Renovacion
             // 
             Renovacion.Controls.Add(txtETraspaso);
@@ -842,26 +737,6 @@
             label11.Size = new Size(110, 21);
             label11.TabIndex = 45;
             label11.Text = "Renovación";
-            // 
-            // roundedButton10
-            // 
-            roundedButton10.BackColor = Color.LightSteelBlue;
-            roundedButton10.BackgroundColor = Color.LightSteelBlue;
-            roundedButton10.BorderColor = Color.LightSteelBlue;
-            roundedButton10.BorderRadius = 40;
-            roundedButton10.BorderSize = 0;
-            roundedButton10.FlatAppearance.BorderSize = 0;
-            roundedButton10.FlatStyle = FlatStyle.Flat;
-            roundedButton10.Font = new Font("Century Gothic", 9F);
-            roundedButton10.ForeColor = Color.Black;
-            roundedButton10.Location = new Point(748, 716);
-            roundedButton10.Name = "roundedButton10";
-            roundedButton10.Size = new Size(276, 56);
-            roundedButton10.TabIndex = 193;
-            roundedButton10.Text = "VER RENOVACIONES";
-            roundedButton10.TextColor = Color.Black;
-            roundedButton10.UseVisualStyleBackColor = false;
-            roundedButton10.Click += roundedButton10_Click;
             // 
             // checkBox1
             // 
@@ -961,25 +836,6 @@
             label10.TabIndex = 178;
             label10.Text = "Nombre";
             // 
-            // btnAgregarCliente
-            // 
-            btnAgregarCliente.BackColor = Color.LightSteelBlue;
-            btnAgregarCliente.BackgroundColor = Color.LightSteelBlue;
-            btnAgregarCliente.BorderColor = Color.LightSteelBlue;
-            btnAgregarCliente.BorderRadius = 40;
-            btnAgregarCliente.BorderSize = 0;
-            btnAgregarCliente.FlatAppearance.BorderSize = 0;
-            btnAgregarCliente.FlatStyle = FlatStyle.Flat;
-            btnAgregarCliente.ForeColor = Color.Black;
-            btnAgregarCliente.Location = new Point(40, 638);
-            btnAgregarCliente.Name = "btnAgregarCliente";
-            btnAgregarCliente.Size = new Size(638, 56);
-            btnAgregarCliente.TabIndex = 177;
-            btnAgregarCliente.Text = "+ CLIENTE";
-            btnAgregarCliente.TextColor = Color.Black;
-            btnAgregarCliente.UseVisualStyleBackColor = false;
-            btnAgregarCliente.Click += btnAgregarCliente_Click;
-            // 
             // datePickerFechaSolicitud
             // 
             datePickerFechaSolicitud.Font = new Font("Century Gothic", 9F);
@@ -998,46 +854,6 @@
             label13.Size = new Size(69, 20);
             label13.TabIndex = 175;
             label13.Text = "Solicitud";
-            // 
-            // roundedButton6
-            // 
-            roundedButton6.BackColor = Color.LightSteelBlue;
-            roundedButton6.BackgroundColor = Color.LightSteelBlue;
-            roundedButton6.BorderColor = Color.LightSteelBlue;
-            roundedButton6.BorderRadius = 40;
-            roundedButton6.BorderSize = 0;
-            roundedButton6.FlatAppearance.BorderSize = 0;
-            roundedButton6.FlatStyle = FlatStyle.Flat;
-            roundedButton6.Font = new Font("Century Gothic", 9F);
-            roundedButton6.ForeColor = Color.Black;
-            roundedButton6.Location = new Point(748, 638);
-            roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(276, 56);
-            roundedButton6.TabIndex = 174;
-            roundedButton6.Text = "VER HISTORIAL";
-            roundedButton6.TextColor = Color.Black;
-            roundedButton6.UseVisualStyleBackColor = false;
-            roundedButton6.Click += roundedButton6_Click;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.LightSteelBlue;
-            roundedButton1.BackgroundColor = Color.LightSteelBlue;
-            roundedButton1.BorderColor = Color.LightSteelBlue;
-            roundedButton1.BorderRadius = 10;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 9F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(40, 327);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(280, 35);
-            roundedButton1.TabIndex = 173;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click;
             // 
             // label3
             // 
@@ -1088,26 +904,6 @@
             label12.TabIndex = 169;
             label12.Text = "Nombre";
             // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.LightSteelBlue;
-            roundedButton2.BackgroundColor = Color.LightSteelBlue;
-            roundedButton2.BorderColor = Color.LightSteelBlue;
-            roundedButton2.BorderRadius = 40;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Century Gothic", 10F);
-            roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(40, 509);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(638, 56);
-            roundedButton2.TabIndex = 168;
-            roundedButton2.Text = "+ AGENTE";
-            roundedButton2.TextColor = Color.Black;
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
-            // 
             // txtNombreTitular
             // 
             txtNombreTitular.Enabled = false;
@@ -1127,26 +923,6 @@
             label9.Size = new Size(68, 20);
             label9.TabIndex = 166;
             label9.Text = "Nombre";
-            // 
-            // roundedButton4
-            // 
-            roundedButton4.BackColor = Color.LightSteelBlue;
-            roundedButton4.BackgroundColor = Color.LightSteelBlue;
-            roundedButton4.BorderColor = Color.LightSteelBlue;
-            roundedButton4.BorderRadius = 40;
-            roundedButton4.BorderSize = 0;
-            roundedButton4.FlatAppearance.BorderSize = 0;
-            roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.Font = new Font("Century Gothic", 10F);
-            roundedButton4.ForeColor = Color.Black;
-            roundedButton4.Location = new Point(38, 380);
-            roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(638, 56);
-            roundedButton4.TabIndex = 165;
-            roundedButton4.Text = "+ TITULAR";
-            roundedButton4.TextColor = Color.Black;
-            roundedButton4.UseVisualStyleBackColor = false;
-            roundedButton4.Click += roundedButton4_Click;
             // 
             // iconButton2
             // 
@@ -1373,34 +1149,12 @@
             // 
             // panel6
             // 
-            panel6.Controls.Add(roundedButton7);
             panel6.Controls.Add(panel7);
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
             panel6.Size = new Size(1161, 794);
             panel6.TabIndex = 2;
-            // 
-            // roundedButton7
-            // 
-            roundedButton7.Anchor = AnchorStyles.Top;
-            roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton7.BorderRadius = 40;
-            roundedButton7.BorderSize = 0;
-            roundedButton7.Enabled = false;
-            roundedButton7.FlatAppearance.BorderSize = 0;
-            roundedButton7.FlatStyle = FlatStyle.Flat;
-            roundedButton7.Font = new Font("Century Gothic", 13F);
-            roundedButton7.ForeColor = Color.Black;
-            roundedButton7.Location = new Point(414, 43);
-            roundedButton7.Name = "roundedButton7";
-            roundedButton7.Size = new Size(270, 50);
-            roundedButton7.TabIndex = 18;
-            roundedButton7.Text = "ESTADO";
-            roundedButton7.TextColor = Color.Black;
-            roundedButton7.UseVisualStyleBackColor = false;
             // 
             // panel7
             // 
@@ -1683,7 +1437,6 @@
             // panel11
             // 
             panel11.Controls.Add(panel13);
-            panel11.Controls.Add(roundedButton11);
             panel11.Dock = DockStyle.Fill;
             panel11.Location = new Point(0, 0);
             panel11.Name = "panel11";
@@ -1825,27 +1578,6 @@
             iconButton6.UseVisualStyleBackColor = false;
             iconButton6.Click += iconButton6_Click;
             // 
-            // roundedButton11
-            // 
-            roundedButton11.Anchor = AnchorStyles.Top;
-            roundedButton11.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton11.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton11.BorderColor = Color.FromArgb(196, 195, 209);
-            roundedButton11.BorderRadius = 40;
-            roundedButton11.BorderSize = 0;
-            roundedButton11.Enabled = false;
-            roundedButton11.FlatAppearance.BorderSize = 0;
-            roundedButton11.FlatStyle = FlatStyle.Flat;
-            roundedButton11.Font = new Font("Century Gothic", 13F);
-            roundedButton11.ForeColor = Color.Black;
-            roundedButton11.Location = new Point(413, 39);
-            roundedButton11.Name = "roundedButton11";
-            roundedButton11.Size = new Size(270, 50);
-            roundedButton11.TabIndex = 22;
-            roundedButton11.Text = "RENOVACIÓN";
-            roundedButton11.TextColor = Color.Black;
-            roundedButton11.UseVisualStyleBackColor = false;
-            // 
             // tabPageTraspasosList
             // 
             tabPageTraspasosList.Controls.Add(panel12);
@@ -1966,34 +1698,12 @@
             // panel16
             // 
             panel16.AutoScroll = true;
-            panel16.Controls.Add(roundedButton12);
             panel16.Controls.Add(panel17);
             panel16.Dock = DockStyle.Fill;
             panel16.Location = new Point(0, 0);
             panel16.Name = "panel16";
             panel16.Size = new Size(1161, 794);
             panel16.TabIndex = 0;
-            // 
-            // roundedButton12
-            // 
-            roundedButton12.Anchor = AnchorStyles.Top;
-            roundedButton12.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton12.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton12.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton12.BorderRadius = 40;
-            roundedButton12.BorderSize = 0;
-            roundedButton12.Enabled = false;
-            roundedButton12.FlatAppearance.BorderSize = 0;
-            roundedButton12.FlatStyle = FlatStyle.Flat;
-            roundedButton12.Font = new Font("Century Gothic", 13F);
-            roundedButton12.ForeColor = Color.Black;
-            roundedButton12.Location = new Point(409, 40);
-            roundedButton12.Name = "roundedButton12";
-            roundedButton12.Size = new Size(270, 50);
-            roundedButton12.TabIndex = 22;
-            roundedButton12.Text = "TRASPASO";
-            roundedButton12.TextColor = Color.Black;
-            roundedButton12.UseVisualStyleBackColor = false;
             // 
             // panel17
             // 
@@ -2061,11 +1771,9 @@
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top;
-            groupBox2.Controls.Add(btnAgregarTitularA);
             groupBox2.Controls.Add(txtNombreMarcaN);
             groupBox2.Controls.Add(txtNombreMarcaA);
             groupBox2.Controls.Add(txtNombreTitularN);
-            groupBox2.Controls.Add(btnAgregarTitularN);
             groupBox2.Controls.Add(txtNombreTitularA);
             groupBox2.Controls.Add(txtNumExpedienteTraspaso);
             groupBox2.Controls.Add(label35);
@@ -2077,24 +1785,6 @@
             groupBox2.TabIndex = 21;
             groupBox2.TabStop = false;
             groupBox2.Text = "Traspaso";
-            // 
-            // btnAgregarTitularA
-            // 
-            btnAgregarTitularA.BackColor = Color.LightSteelBlue;
-            btnAgregarTitularA.BackgroundColor = Color.LightSteelBlue;
-            btnAgregarTitularA.BorderColor = Color.Empty;
-            btnAgregarTitularA.BorderRadius = 30;
-            btnAgregarTitularA.BorderSize = 0;
-            btnAgregarTitularA.FlatAppearance.BorderSize = 0;
-            btnAgregarTitularA.FlatStyle = FlatStyle.Flat;
-            btnAgregarTitularA.ForeColor = Color.Black;
-            btnAgregarTitularA.Location = new Point(86, 90);
-            btnAgregarTitularA.Name = "btnAgregarTitularA";
-            btnAgregarTitularA.Size = new Size(156, 30);
-            btnAgregarTitularA.TabIndex = 24;
-            btnAgregarTitularA.Text = "Antiguo titular";
-            btnAgregarTitularA.TextColor = Color.Black;
-            btnAgregarTitularA.UseVisualStyleBackColor = false;
             // 
             // txtNombreMarcaN
             // 
@@ -2117,24 +1807,6 @@
             txtNombreTitularN.ReadOnly = true;
             txtNombreTitularN.Size = new Size(323, 26);
             txtNombreTitularN.TabIndex = 21;
-            // 
-            // btnAgregarTitularN
-            // 
-            btnAgregarTitularN.BackColor = Color.LightSteelBlue;
-            btnAgregarTitularN.BackgroundColor = Color.LightSteelBlue;
-            btnAgregarTitularN.BorderColor = Color.Empty;
-            btnAgregarTitularN.BorderRadius = 30;
-            btnAgregarTitularN.BorderSize = 0;
-            btnAgregarTitularN.FlatAppearance.BorderSize = 0;
-            btnAgregarTitularN.FlatStyle = FlatStyle.Flat;
-            btnAgregarTitularN.ForeColor = Color.Black;
-            btnAgregarTitularN.Location = new Point(86, 176);
-            btnAgregarTitularN.Name = "btnAgregarTitularN";
-            btnAgregarTitularN.Size = new Size(156, 30);
-            btnAgregarTitularN.TabIndex = 20;
-            btnAgregarTitularN.Text = "Nuevo titular";
-            btnAgregarTitularN.TextColor = Color.Black;
-            btnAgregarTitularN.UseVisualStyleBackColor = false;
             // 
             // txtNombreTitularA
             // 

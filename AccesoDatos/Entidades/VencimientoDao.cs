@@ -204,6 +204,33 @@ namespace AccesoDatos.Entidades
             return mensajeRtf;
         }
 
+        public DataTable ObtenerVencimientos()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerVencimientos", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los vencimientos: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
 
 
     }

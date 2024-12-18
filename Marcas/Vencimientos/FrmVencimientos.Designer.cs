@@ -39,6 +39,8 @@
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             tabControl1 = new TabControl();
             tabPageVencimientosList = new TabPage();
+            roundedButton11 = new Clases.RoundedButton();
+            roundedButton19 = new Clases.RoundedButton();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             label2 = new Label();
             roundedButton5 = new Clases.RoundedButton();
@@ -310,7 +312,7 @@
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVencimientos.Size = new Size(931, 504);
+            dtgVencimientos.Size = new Size(847, 504);
             dtgVencimientos.TabIndex = 4;
             dtgVencimientos.CellDoubleClick += dtgVencimientos_CellDoubleClick;
             // 
@@ -321,7 +323,7 @@
             panel1.Controls.Add(dtgVencimientos);
             panel1.Location = new Point(21, 198);
             panel1.Name = "panel1";
-            panel1.Size = new Size(965, 539);
+            panel1.Size = new Size(881, 539);
             panel1.TabIndex = 6;
             // 
             // ibtnBuscar
@@ -397,9 +399,10 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(992, 198);
+            ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
+            ibtnEditar.Location = new Point(913, 198);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(124, 37);
+            ibtnEditar.Size = new Size(203, 40);
             ibtnEditar.TabIndex = 44;
             ibtnEditar.Text = "VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -423,6 +426,8 @@
             // 
             // tabPageVencimientosList
             // 
+            tabPageVencimientosList.Controls.Add(roundedButton11);
+            tabPageVencimientosList.Controls.Add(roundedButton19);
             tabPageVencimientosList.Controls.Add(panel1);
             tabPageVencimientosList.Controls.Add(ibtnBuscar);
             tabPageVencimientosList.Controls.Add(ibtnEditar);
@@ -439,6 +444,56 @@
             tabPageVencimientosList.TabIndex = 0;
             tabPageVencimientosList.UseVisualStyleBackColor = true;
             tabPageVencimientosList.Click += tabPageVencimientosList_Click;
+            // 
+            // roundedButton11
+            // 
+            roundedButton11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton11.AutoSize = true;
+            roundedButton11.BackColor = Color.FromArgb(0, 137, 123);
+            roundedButton11.BackgroundColor = Color.FromArgb(0, 137, 123);
+            roundedButton11.BorderColor = Color.FromArgb(0, 137, 123);
+            roundedButton11.BorderRadius = 10;
+            roundedButton11.BorderSize = 0;
+            roundedButton11.FlatAppearance.BorderSize = 0;
+            roundedButton11.FlatStyle = FlatStyle.Flat;
+            roundedButton11.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton11.ForeColor = Color.White;
+            roundedButton11.Image = Properties.Resources.excel;
+            roundedButton11.ImageAlign = ContentAlignment.MiddleLeft;
+            roundedButton11.Location = new Point(913, 299);
+            roundedButton11.Name = "roundedButton11";
+            roundedButton11.Size = new Size(203, 49);
+            roundedButton11.TabIndex = 219;
+            roundedButton11.Text = "EXPORTAR A EXCEL";
+            roundedButton11.TextColor = Color.White;
+            roundedButton11.TextImageRelation = TextImageRelation.TextBeforeImage;
+            roundedButton11.UseVisualStyleBackColor = false;
+            roundedButton11.Click += roundedButton11_Click;
+            // 
+            // roundedButton19
+            // 
+            roundedButton19.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton19.AutoSize = true;
+            roundedButton19.BackColor = Color.FromArgb(229, 115, 115);
+            roundedButton19.BackgroundColor = Color.FromArgb(229, 115, 115);
+            roundedButton19.BorderColor = Color.FromArgb(229, 115, 115);
+            roundedButton19.BorderRadius = 10;
+            roundedButton19.BorderSize = 0;
+            roundedButton19.FlatAppearance.BorderSize = 0;
+            roundedButton19.FlatStyle = FlatStyle.Flat;
+            roundedButton19.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton19.ForeColor = Color.White;
+            roundedButton19.Image = Properties.Resources.pdf_1_;
+            roundedButton19.ImageAlign = ContentAlignment.MiddleLeft;
+            roundedButton19.Location = new Point(913, 244);
+            roundedButton19.Name = "roundedButton19";
+            roundedButton19.Size = new Size(203, 49);
+            roundedButton19.TabIndex = 220;
+            roundedButton19.Text = "EXPORTAR A PDF";
+            roundedButton19.TextColor = Color.White;
+            roundedButton19.TextImageRelation = TextImageRelation.TextBeforeImage;
+            roundedButton19.UseVisualStyleBackColor = false;
+            roundedButton19.Click += roundedButton19_Click;
             // 
             // iconPictureBox1
             // 
@@ -3107,5 +3162,7 @@
         private Button button2;
         private Button button3;
         private Button button4;
+        private Clases.RoundedButton roundedButton11;
+        private Clases.RoundedButton roundedButton19;
     }
 }

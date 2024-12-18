@@ -11,6 +11,10 @@ using Comun.Cache;
 using Presentacion.Alertas;
 using System.Text;
 using System.Windows.Controls;
+using Mysqlx.Datatypes;
+using ClosedXML.Excel;
+using PuppeteerSharp.Media;
+using PuppeteerSharp;
 
 namespace Presentacion.Vencimientos
 {
@@ -21,6 +25,8 @@ namespace Presentacion.Vencimientos
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
         private bool isSendingEmail = false;
+        public int numRegistros = 11;
+        public float escala = 0.85f;
         public FrmVencimientos()
         {
             InitializeComponent();
@@ -1219,6 +1225,249 @@ namespace Presentacion.Vencimientos
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 richTextBoxMensajeM.SelectionColor = colorDialog.Color;
+            }
+        }
+
+        public void ExportarDataTableAExcel(DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.");
+                return;
+            }
+
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            {
+                Title = "Guardar archivo Excel",
+                Filter = "Archivos Excel (*.xlsx)|*.xlsx",
+                FileName = "Vencimientos.xlsx",
+                DefaultExt = "xlsx",
+                AddExtension = true
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
+
+                    // Guardar el recurso de imagen en un archivo temporal
+                    Properties.Resources.logoBPA.Save(tempLogoPath);
+
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Vencimientos");
+
+                        // Agregar logo antes de la tabla
+                        if (System.IO.File.Exists(tempLogoPath))
+                        {
+                            var image = worksheet.AddPicture(tempLogoPath)
+                                .MoveTo(worksheet.Cell(1, 1)) // Posición del logo
+                                .Scale(0.5); // Ajustar tamaño
+                        }
+
+                        // Insertar tabla después del logo
+                        int startRow = 10; // Ajustar según el espacio requerido
+                        worksheet.Cell(startRow, 1).InsertTable(dataTable);
+
+                        // Ajustar ancho de las columnas
+                        worksheet.Columns().AdjustToContents();
+
+                        // Guardar archivo
+                        workbook.SaveAs(saveFileDialog.FileName);
+                    }
+
+                    // Eliminar archivo temporal
+                    if (System.IO.File.Exists(tempLogoPath))
+                        System.IO.File.Delete(tempLogoPath);
+
+                    FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
+                }
+            }
+        }
+
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
+        {
+            // Ruta al ejecutable de Chrome en tu sistema
+            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
+
+            // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF Files|*.pdf",
+                FileName = "Vencimientos.pdf"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Lanza el navegador Chrome
+                var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+                {
+                    Headless = true,  // Ejecutar en modo headless (sin interfaz gráfica)
+                    ExecutablePath = chromePath // Usa Google Chrome en lugar de Chromium
+                });
+
+                // Crea una nueva página
+                var page = await browser.NewPageAsync();
+
+                // Límite de registros por página (12 registros por página)
+                int registrosPorPagina = registrosPagina;
+                int totalPaginas = (int)Math.Ceiling((double)dt.Rows.Count / registrosPorPagina);
+
+                // Crear el contenido HTML completo para todo el PDF
+                string fullHtmlContent = "";
+
+                // Recorrer las páginas y generar el contenido HTML para cada una
+                for (int pagina = 0; pagina < totalPaginas; pagina++)
+                {
+                    // Crear el contenido de la tabla para la página actual
+                    string tableContent = "";
+                    int startRecord = pagina * registrosPorPagina;
+                    int endRecord = Math.Min((pagina + 1) * registrosPorPagina, dt.Rows.Count);
+
+                    // Crear las filas para la tabla
+                    for (int i = startRecord; i < endRecord; i++)
+                    {
+                        DataRow row = dt.Rows[i];
+                        tableContent += "<tr>";
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            tableContent += $"<td style='padding: 8px; text-align: left; border: 1px solid #ddd;'>{row[column]}</td>";
+                        }
+                        tableContent += "</tr>";
+                    }
+
+                    // Generar los encabezados de la tabla dinámicamente basados en las columnas del DataTable
+                    string headers = "";
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
+                    }
+
+                    // HTML con el logo y el título "Reportes" en el header
+                    fullHtmlContent += $@"
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                        }}
+                        table {{ border-collapse: collapse; width: 100%; }}
+                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                        th {{ background-color: #f2f2f2; font-weight: bold; }}
+                        img {{
+                            width: 200px; /* Tamaño del logo */
+                            height: auto; /* Altura automática */
+                        }}
+                        @page {{
+                            size: legal landscape; /* Configura tamaño legal y orientación horizontal */
+                            margin: 20mm;
+                        }}
+                        table {{
+                            page-break-inside: auto;
+                        }}
+                        tr {{
+                            page-break-inside: avoid;
+                        }}
+                        td {{
+                            page-break-before: auto;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            position: fixed;
+                            bottom: 10mm;
+                            left: 0;
+                            right: 0;
+                            font-size: 10px;
+                        }}
+                        .header {{
+                            text-align: center;
+                            font-size: 20px;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class='header'>
+                        Vencimientos
+                    </div>
+                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
+                    <table>
+                        <thead>
+                            <tr>
+                                {headers} <!-- Encabezados generados dinámicamente -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableContent} <!-- Las filas generadas dinámicamente -->
+                        </tbody>
+                    </table>
+                    <div style='page-break-before: always;'></div> <!-- Salto de página para separar los contenidos -->
+                </body>
+            </html>";
+                }
+
+                // Establecer el contenido HTML completo para el PDF
+                await page.SetContentAsync(fullHtmlContent);
+
+                // Ruta para guardar el PDF
+                string pdfFilePath = saveFileDialog.FileName;
+
+                // Generar el PDF para todo el contenido
+                await page.PdfAsync(pdfFilePath, new PdfOptions
+                {
+                    Format = PaperFormat.Legal,      // Tamaño oficio
+                    PrintBackground = true,         // Incluir fondo
+                    Landscape = true,               // Orientación horizontal
+                    Scale = (Decimal)escalas           // Reducir la escala para ajustar mejor
+                });
+
+                // Cerrar el navegador
+                await browser.CloseAsync();
+
+                // Confirmar que el PDF se ha generado
+                MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void roundedButton19_Click(object sender, EventArgs e)
+        {
+            DataTable datos = vencimientoModel.ObtenerVencimientos();
+
+            if (datos != null)
+            {
+                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void roundedButton11_Click(object sender, EventArgs e)
+        {
+            DataTable datos = vencimientoModel.ObtenerVencimientos();
+
+            if (datos != null)
+            {
+                ExportarDataTableAExcel(datos);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("No hay datos para exportar.");
             }
         }
     }

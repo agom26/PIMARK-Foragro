@@ -17,7 +17,12 @@ namespace Dominio
         {
             vencimientoDao = new VencimientoDao();
         }
-
+        public DataTable ObtenerVencimientos()
+        {
+            DataTable vencimientos= new DataTable();
+            vencimientos= vencimientoDao.ObtenerVencimientos();
+            return vencimientos;
+        }
         public DataTable GetAllVencimientos()
         {
             DataTable tabla = new DataTable();
