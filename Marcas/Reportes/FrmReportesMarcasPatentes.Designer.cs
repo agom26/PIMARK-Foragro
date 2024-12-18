@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -144,7 +144,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(743, 712);
+            tableLayoutPanel1.Size = new Size(801, 712);
             tableLayoutPanel1.TabIndex = 242;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
@@ -171,7 +171,7 @@
             panel6.Controls.Add(checkBoxReigstro);
             panel6.Controls.Add(checkBoxTitular);
             panel6.Controls.Add(checkBoxVencimiento);
-            panel6.Location = new Point(374, 4);
+            panel6.Location = new Point(403, 4);
             panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
             panel6.Size = new Size(366, 704);
@@ -405,7 +405,7 @@
             panel5.Controls.Add(checkBoxFolio);
             panel5.Controls.Add(comboBoxPais);
             panel5.Controls.Add(checkBoxPais);
-            panel5.Location = new Point(3, 4);
+            panel5.Location = new Point(32, 4);
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
             panel5.Size = new Size(365, 704);
@@ -575,7 +575,7 @@
             iconPictureBox1.IconColor = Color.White;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(514, 1492);
+            iconPictureBox1.Location = new Point(493, 1492);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Size = new Size(40, 40);
             iconPictureBox1.TabIndex = 217;
@@ -590,7 +590,7 @@
             iconPictureBox2.IconColor = Color.White;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(730, 1492);
+            iconPictureBox2.Location = new Point(709, 1492);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Size = new Size(40, 40);
             iconPictureBox2.TabIndex = 218;
@@ -603,7 +603,7 @@
             panel1.AutoSize = true;
             panel1.Location = new Point(8, 1544);
             panel1.Name = "panel1";
-            panel1.Size = new Size(354, 48);
+            panel1.Size = new Size(333, 48);
             panel1.TabIndex = 236;
             // 
             // roundedButton2
@@ -619,7 +619,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(584, 1487);
+            roundedButton2.Location = new Point(563, 1487);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(203, 49);
             roundedButton2.TabIndex = 214;
@@ -641,7 +641,7 @@
             btnConsultar.FlatStyle = FlatStyle.Flat;
             btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(368, 795);
+            btnConsultar.Location = new Point(347, 795);
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(203, 49);
             btnConsultar.TabIndex = 215;
@@ -664,7 +664,7 @@
             roundedButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton3.ForeColor = Color.White;
             roundedButton3.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton3.Location = new Point(375, 1487);
+            roundedButton3.Location = new Point(354, 1487);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(203, 49);
             roundedButton3.TabIndex = 215;
@@ -681,7 +681,7 @@
             label29.AutoSize = true;
             label29.BackColor = Color.FromArgb(175, 192, 218);
             label29.Font = new Font("Century Gothic", 12F);
-            label29.Location = new Point(399, 18);
+            label29.Location = new Point(389, 18);
             label29.Name = "label29";
             label29.Size = new Size(103, 23);
             label29.TabIndex = 187;
@@ -699,7 +699,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(576, 793);
+            btnCancelar.Location = new Point(555, 793);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(203, 49);
             btnCancelar.TabIndex = 214;
@@ -717,7 +717,7 @@
             iconPictureBox4.IconColor = SystemColors.ControlText;
             iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox4.IconSize = 28;
-            iconPictureBox4.Location = new Point(359, 18);
+            iconPictureBox4.Location = new Point(349, 18);
             iconPictureBox4.Name = "iconPictureBox4";
             iconPictureBox4.Size = new Size(40, 28);
             iconPictureBox4.TabIndex = 189;
@@ -735,7 +735,7 @@
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.ForeColor = Color.White;
-            roundedButton6.Location = new Point(193, 6);
+            roundedButton6.Location = new Point(183, 6);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(475, 49);
             roundedButton6.TabIndex = 188;
@@ -749,7 +749,7 @@
             panel2.Controls.Add(dtgReportes);
             panel2.Location = new Point(40, 965);
             panel2.Name = "panel2";
-            panel2.Size = new Size(748, 516);
+            panel2.Size = new Size(727, 516);
             panel2.TabIndex = 216;
             // 
             // dtgReportes
@@ -757,22 +757,22 @@
             dtgReportes.AllowUserToAddRows = false;
             dtgReportes.AllowUserToDeleteRows = false;
             dtgReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgReportes.BorderStyle = BorderStyle.None;
             dtgReportes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgReportes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = SystemColors.Control;
-            dataGridViewCellStyle11.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgReportes.ColumnHeadersHeight = 40;
             dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgReportes.EnableHeadersVisualStyles = false;
@@ -782,10 +782,10 @@
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgReportes.RowHeadersWidth = 51;
-            dataGridViewCellStyle12.Font = new Font("Century Gothic", 9F);
-            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(730, 495);
+            dtgReportes.Size = new Size(709, 495);
             dtgReportes.TabIndex = 7;
             // 
             // FrmReportesMarcasPatentes
