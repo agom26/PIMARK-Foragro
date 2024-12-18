@@ -20,7 +20,7 @@ namespace Presentacion.Marcas_Nacionales
     {
         MarcaModel marcaModel = new MarcaModel();
         HistorialModel historialModel = new HistorialModel();
-
+        private Form1 _form1;
         //valores
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
@@ -33,9 +33,10 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public FrmTramiteIn()
+        public FrmTramiteIn(Form1 form1)
         {
             InitializeComponent();
+            _form1 = form1;
             int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
             int y = (panel17.Size.Height - label30.Size.Height) / 2;
             panel18.Location = new Point(x, y);
@@ -439,6 +440,7 @@ namespace Presentacion.Marcas_Nacionales
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+            _form1.cargarDashboard();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

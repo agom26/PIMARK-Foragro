@@ -73,7 +73,7 @@ namespace Presentacion
         private async void roundedButton4_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn());
+            mainForm.openChildForm(new FrmTramiteIn(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -81,7 +81,7 @@ namespace Presentacion
         private async void iconPictureBox1_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn());
+            mainForm.openChildForm(new FrmTramiteIn(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -89,7 +89,7 @@ namespace Presentacion
         private async void label1_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn());
+            mainForm.openChildForm(new FrmTramiteIn(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -97,7 +97,7 @@ namespace Presentacion
         private async void panel5_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn());
+            mainForm.openChildForm(new FrmTramiteIn(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }

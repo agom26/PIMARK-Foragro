@@ -310,7 +310,7 @@ namespace Presentacion
         private async void button29_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmTramiteInicialInternacional());
+            openChildForm(new FrmTramiteInicialInternacional(this));
             await Task.Delay(1000);
             EnableButtons();
         }
@@ -434,7 +434,7 @@ namespace Presentacion
         private async void button26_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmTramiteIn());
+            openChildForm(new FrmTramiteIn(this));
             await Task.Delay(1000);
             EnableButtons();
         }
@@ -541,6 +541,14 @@ namespace Presentacion
 
         }
 
+        public async void cargarDashboard()
+        {
+            DisableButtons();
+            openChildForm(new FrmDashboard3(this));
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
         private async void btnHome_Click(object sender, EventArgs e)
         {
             DisableButtons();
@@ -568,7 +576,7 @@ namespace Presentacion
         private async void button36_Click(object sender, EventArgs e)
         {
             DisableButtons();
-            openChildForm(new FrmTramiteInicialPatente());
+            openChildForm(new FrmTramiteInicialPatente(this));
             await Task.Delay(1000);
             EnableButtons();
         }
@@ -625,6 +633,11 @@ namespace Presentacion
             openChildForm(new FrmMostrarAbandonadasPatentes());
             await Task.Delay(1000);
             EnableButtons();
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -210,18 +210,40 @@ namespace Presentacion.Reportes
             {
                 try
                 {
+                    string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
+
+                    // Guardar el recurso de imagen en un archivo temporal
+                    Properties.Resources.logoBPA.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
                         var worksheet = workbook.Worksheets.Add("Reporte");
-                        worksheet.Cell(1, 1).InsertTable(dataTable);
 
+                        // Agregar logo antes de la tabla
+                        if (System.IO.File.Exists(tempLogoPath))
+                        {
+                            var image = worksheet.AddPicture(tempLogoPath)
+                                .MoveTo(worksheet.Cell(1, 1)) // Posición del logo
+                                .Scale(0.5); // Ajustar tamaño
+                        }
+
+                        // Insertar tabla después del logo
+                        int startRow = 10; // Ajustar según el espacio requerido
+                        worksheet.Cell(startRow, 1).InsertTable(dataTable);
+
+                        // Ajustar ancho de las columnas
                         worksheet.Columns().AdjustToContents();
+
+                        // Guardar archivo
                         workbook.SaveAs(saveFileDialog.FileName);
                     }
+
+                    // Eliminar archivo temporal
+                    if (System.IO.File.Exists(tempLogoPath))
+                        System.IO.File.Delete(tempLogoPath);
+
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    //MessageBox.Show($"Archivo Excel generado exitosamente en: {saveFileDialog.FileName}");
                 }
                 catch (Exception ex)
                 {
@@ -229,6 +251,7 @@ namespace Presentacion.Reportes
                 }
             }
         }
+
 
 
 

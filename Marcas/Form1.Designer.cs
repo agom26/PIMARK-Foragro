@@ -822,6 +822,7 @@
             iconButton1.TabIndex = 16;
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click_1;
             // 
             // panel3
             // 

@@ -22,6 +22,7 @@ namespace Presentacion.Marcas_Internacionales
         HistorialModel historialModel = new HistorialModel();
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
+        private Form1 _form1;
         public void convertirImagen()
         {
 
@@ -31,9 +32,10 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public FrmTramiteInicialInternacional()
+        public FrmTramiteInicialInternacional(Form1 form1)
         {
             InitializeComponent();
+            _form1 = form1; 
             int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
             int y = (panel17.Size.Height - label30.Size.Height) / 2;
             panel18.Location = new Point(x, y);
@@ -427,6 +429,8 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton4_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+            //llamar a DashboardPrincipal
+            _form1.cargarDashboard();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

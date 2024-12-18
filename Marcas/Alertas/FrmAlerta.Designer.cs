@@ -39,7 +39,7 @@
             // 
             // picIcon
             // 
-            picIcon.Image = Properties.Resources.info;
+            picIcon.Image = Properties.Resources.logoBPA;
             picIcon.Location = new Point(259, 31);
             picIcon.Name = "picIcon";
             picIcon.Size = new Size(118, 108);
