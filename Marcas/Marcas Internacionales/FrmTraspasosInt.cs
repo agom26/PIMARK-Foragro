@@ -422,7 +422,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idN));
+                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
