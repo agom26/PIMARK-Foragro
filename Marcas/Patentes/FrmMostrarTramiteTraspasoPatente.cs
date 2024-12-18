@@ -993,12 +993,12 @@ namespace Presentacion.Patentes
                     await CargarDatosPatente();
 
 
-                    if (AgregarEtapaPatente.etapa == "Trámite de renovación" && AgregarEtapaPatente.numExpediente > 0)
+                    if (AgregarEtapaPatente.etapa == "Trámite de renovación" && AgregarEtapaPatente.numExpediente != "0")
                     {
                         txtERenovacion.Text = AgregarEtapaPatente.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
                     }
-                    else if (AgregarEtapaPatente.etapa == "Trámite de traspaso" && AgregarEtapaPatente.numExpediente > 0)
+                    else if (AgregarEtapaPatente.etapa == "Trámite de traspaso" && AgregarEtapaPatente.numExpediente != "0")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;

@@ -12,6 +12,7 @@ namespace Presentacion.Alertas
 {
     public partial class FrmAlerta : Form
     {
+        private int conteo;
         private Image ConvertByteArrayToImage(byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream(byteArray))
@@ -35,19 +36,19 @@ namespace Presentacion.Alertas
             switch (icon)
             {
                 case MessageBoxIcon.Information:
-                    picIcon.Image = ConvertByteArrayToImage(Properties.Resources.SucessIcon);
+                    picIcon.Image = Properties.Resources.suc;
                     break;
                 case MessageBoxIcon.Warning:
-                    picIcon.Image = ConvertByteArrayToImage(Properties.Resources.WarningIcon);
+                    picIcon.Image = Properties.Resources.warning;
                     break;
                 case MessageBoxIcon.Error:
-                    picIcon.Image = ConvertByteArrayToImage(Properties.Resources.ErrorIcon);
+                    picIcon.Image = Properties.Resources.error;
                     break;
                 case MessageBoxIcon.Question:
-                    picIcon.Image = ConvertByteArrayToImage(Properties.Resources.QuestionIcon);
+                    picIcon.Image = Properties.Resources.question;
                     break;
                 default:
-                    picIcon.Image = ConvertByteArrayToImage(Properties.Resources.InfoIcon);
+                    picIcon.Image = Properties.Resources.info;
                     break;
             }
 
@@ -75,6 +76,7 @@ namespace Presentacion.Alertas
 
 
             this.Resize += FrmAlerta_Resize;
+            this.Load += FrmAlerta_Load;
             FrmAlerta_Resize(this, EventArgs.Empty);
         }
         private void FrmAlerta_Resize(object sender, EventArgs e)
@@ -98,6 +100,26 @@ namespace Presentacion.Alertas
         {
             DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.Close();
+        }
+
+        private void FrmAlerta_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            conteo++;
+            if (conteo == 60)
+                this.Close();
+        }
+
+        private void FrmAlerta_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }
