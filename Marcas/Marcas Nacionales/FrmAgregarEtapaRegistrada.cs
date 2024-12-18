@@ -27,10 +27,13 @@ namespace Presentacion.Marcas_Nacionales
 
                     return false;
                 }
+                else
+                {
+                    AgregarEtapa.numExpediente = tramite;
+                    tramiteValidado = true;
+                }
 
-
-                AgregarEtapa.numExpediente = tramite;
-                tramiteValidado = true;
+                
             }
             else
             {

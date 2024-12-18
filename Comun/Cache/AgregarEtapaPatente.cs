@@ -13,7 +13,7 @@ namespace Comun.Cache
         public static DateTime? fecha;
         public static string usuario;
         public static string anotaciones;
-        public static int numExpediente;
+        public static string numExpediente;
 
         public static void LimpiarEtapa()
         {
@@ -22,7 +22,7 @@ namespace Comun.Cache
             fecha = null;
             usuario = "";
             anotaciones = "";
-            numExpediente = 0;
+            numExpediente = null;
         }
     }
 }

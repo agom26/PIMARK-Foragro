@@ -20,17 +20,18 @@ namespace Presentacion.Patentes
                 comboBox1.SelectedItem?.ToString() == "Trámite de traspaso")
             {
                 
-                if (string.IsNullOrWhiteSpace(txtNoExpedienteRT.Text) ||
-                    !int.TryParse(txtNoExpedienteRT.Text, out int tramite) ||
-                    tramite <= 0)
+                if (string.IsNullOrWhiteSpace(txtNoExpedienteRT.Text) 
+                    )
                 {
                     
                     return false;
                 }
+                else
+                {
+                    AgregarEtapaPatente.numExpediente = txtNoExpedienteRT.Text;
+                    tramiteValidado = true;
+                }
 
-                
-                AgregarEtapaPatente.numExpediente = tramite;
-                tramiteValidado = true;
             }
             else
             {
@@ -45,13 +46,10 @@ namespace Presentacion.Patentes
 
         private void FrmAgregarEtapaRegistradaPatente_Load(object sender, EventArgs e)
         {
-            groupBox1.Visible = false;
+            tableLayoutPanel1.RowStyles[0].Height = 0;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
-            btnSeleccionar.Location = new Point(206, 400);
-            btnCancelar.Location = new Point(411, 400);
-            btnSeleccionar.BringToFront();
-            btnCancelar.BringToFront();
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -126,28 +124,23 @@ namespace Presentacion.Patentes
             if(comboBox1.SelectedItem.ToString()=="Trámite de renovación")
             {
                 lblNoExpediente.Text = "Renovación";
-                btnSeleccionar.Location = new Point(206, 466);
-                btnCancelar.Location = new Point(411, 466);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
-                groupBox1.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 53.16f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 46.84f;
+
             }
             else if(comboBox1.SelectedItem.ToString()=="Trámite de traspaso")
             {
                 lblNoExpediente.Text = "Traspaso";
-                btnSeleccionar.Location = new Point(206, 466);
-                btnCancelar.Location = new Point(411, 466);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
-                groupBox1.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 53.16f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 46.84f;
             }
             else
             {
-                groupBox1.Visible = false;
-                btnSeleccionar.Location = new Point(206, 400);
-                btnCancelar.Location = new Point(411, 400);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
                 
         }

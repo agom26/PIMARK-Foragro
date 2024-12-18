@@ -25,7 +25,7 @@ namespace Comun.Cache
             fecha = null;
             usuario = "";
             anotaciones = "";
-            numExpediente = "";
+            numExpediente = null;
             solicitante = "";
         }
     }
