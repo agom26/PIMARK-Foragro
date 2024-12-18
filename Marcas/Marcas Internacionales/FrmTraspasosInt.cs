@@ -196,7 +196,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
-                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
                 !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
@@ -323,7 +323,7 @@ namespace Presentacion.Marcas_Internacionales
             // Editar la marca
             try
             {
-              
+
 
                 bool esActualizado;
 
@@ -482,7 +482,7 @@ namespace Presentacion.Marcas_Internacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                     
+
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -1002,7 +1002,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton5_MouseHover(object sender, EventArgs e)
         {
-           
+
         }
 
         private void roundedButton5_MouseUp(object sender, MouseEventArgs e)
@@ -1074,6 +1074,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1039,6 +1039,7 @@
             roundedButton4.Text = "+ TITULAR";
             roundedButton4.TextColor = Color.Black;
             roundedButton4.UseVisualStyleBackColor = false;
+            roundedButton4.Click += roundedButton4_Click;
             // 
             // iconButton2
             // 
@@ -1134,9 +1135,9 @@
             label6.Font = new Font("Century Gothic", 9F);
             label6.Location = new Point(382, 93);
             label6.Name = "label6";
-            label6.Size = new Size(68, 20);
+            label6.Size = new Size(48, 20);
             label6.TabIndex = 196;
-            label6.Text = "Nombre";
+            label6.Text = "Signo";
             // 
             // txtExpediente
             // 

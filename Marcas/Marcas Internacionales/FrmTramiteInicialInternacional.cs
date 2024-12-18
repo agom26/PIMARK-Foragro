@@ -74,7 +74,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
-                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
                 !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||

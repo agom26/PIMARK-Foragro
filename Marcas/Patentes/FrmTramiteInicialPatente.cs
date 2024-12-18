@@ -55,7 +55,7 @@ namespace Presentacion.Patentes
             if (!ValidarCampo(expediente))
                 mensajesError.Add("INGRESE EL EXPEDIENTE\n");
             if (!ValidarCampo(nombre))
-                mensajesError.Add("INGRESE EL NOMBRE\n");
+                mensajesError.Add("INGRESE EL SIGNO\n");
             if (!ValidarCampo(tipo))
                 mensajesError.Add("SELECCIONE UN TIPO\n");
             if (!ValidarCampo(anualidad))

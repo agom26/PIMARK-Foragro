@@ -406,9 +406,9 @@
             label15.Font = new Font("Century Gothic", 9F);
             label15.Location = new Point(364, 112);
             label15.Name = "label15";
-            label15.Size = new Size(68, 20);
+            label15.Size = new Size(48, 20);
             label15.TabIndex = 84;
-            label15.Text = "Nombre";
+            label15.Text = "Signo";
             // 
             // roundedButton1
             // 

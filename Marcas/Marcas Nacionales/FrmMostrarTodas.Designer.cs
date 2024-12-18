@@ -1184,9 +1184,9 @@
             label6.Font = new Font("Century Gothic", 10F);
             label6.Location = new Point(393, 93);
             label6.Name = "label6";
-            label6.Size = new Size(77, 21);
+            label6.Size = new Size(53, 21);
             label6.TabIndex = 43;
-            label6.Text = "Nombre";
+            label6.Text = "Signo";
             // 
             // txtExpediente
             // 

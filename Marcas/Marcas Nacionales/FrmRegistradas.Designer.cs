@@ -180,15 +180,11 @@
             iconButton5 = new FontAwesome.Sharp.IconButton();
             groupBox1 = new GroupBox();
             btnAgregarTitularA = new Clases.RoundedButton();
-            txtNombreMarcaN = new TextBox();
-            txtNombreMarcaA = new TextBox();
             txtNombreTitularN = new TextBox();
             btnAgregarTitularN = new Clases.RoundedButton();
             txtNombreTitularA = new TextBox();
             txtNumExpedienteTraspaso = new TextBox();
             label35 = new Label();
-            label37 = new Label();
-            label38 = new Label();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             panel20.SuspendLayout();
@@ -1324,9 +1320,9 @@
             label6.Font = new Font("Century Gothic", 10F);
             label6.Location = new Point(399, 73);
             label6.Name = "label6";
-            label6.Size = new Size(77, 21);
+            label6.Size = new Size(53, 21);
             label6.TabIndex = 111;
-            label6.Text = "Nombre";
+            label6.Text = "Signo";
             // 
             // txtExpediente
             // 
@@ -2154,7 +2150,7 @@
             iconButton4.IconColor = Color.White;
             iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(286, 487);
+            iconButton4.Location = new Point(286, 439);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(179, 34);
             iconButton4.TabIndex = 20;
@@ -2174,7 +2170,7 @@
             iconButton5.IconColor = Color.Black;
             iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton5.IconSize = 30;
-            iconButton5.Location = new Point(491, 487);
+            iconButton5.Location = new Point(491, 439);
             iconButton5.Name = "iconButton5";
             iconButton5.Size = new Size(179, 34);
             iconButton5.TabIndex = 19;
@@ -2187,18 +2183,14 @@
             // 
             groupBox1.Anchor = AnchorStyles.Top;
             groupBox1.Controls.Add(btnAgregarTitularA);
-            groupBox1.Controls.Add(txtNombreMarcaN);
-            groupBox1.Controls.Add(txtNombreMarcaA);
             groupBox1.Controls.Add(txtNombreTitularN);
             groupBox1.Controls.Add(btnAgregarTitularN);
             groupBox1.Controls.Add(txtNombreTitularA);
             groupBox1.Controls.Add(txtNumExpedienteTraspaso);
             groupBox1.Controls.Add(label35);
-            groupBox1.Controls.Add(label37);
-            groupBox1.Controls.Add(label38);
-            groupBox1.Location = new Point(223, 34);
+            groupBox1.Location = new Point(223, 117);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(503, 432);
+            groupBox1.Size = new Size(503, 285);
             groupBox1.TabIndex = 21;
             groupBox1.TabStop = false;
             groupBox1.Text = "Traspaso";
@@ -2221,20 +2213,6 @@
             btnAgregarTitularA.TextColor = Color.Black;
             btnAgregarTitularA.UseVisualStyleBackColor = false;
             btnAgregarTitularA.Click += btnAgregarTitularA_Click;
-            // 
-            // txtNombreMarcaN
-            // 
-            txtNombreMarcaN.Location = new Point(86, 366);
-            txtNombreMarcaN.Name = "txtNombreMarcaN";
-            txtNombreMarcaN.Size = new Size(323, 26);
-            txtNombreMarcaN.TabIndex = 23;
-            // 
-            // txtNombreMarcaA
-            // 
-            txtNombreMarcaA.Location = new Point(86, 289);
-            txtNombreMarcaA.Name = "txtNombreMarcaA";
-            txtNombreMarcaA.Size = new Size(323, 26);
-            txtNombreMarcaA.TabIndex = 22;
             // 
             // txtNombreTitularN
             // 
@@ -2289,24 +2267,6 @@
             label35.Size = new Size(120, 20);
             label35.TabIndex = 12;
             label35.Text = "No. Expediente";
-            // 
-            // label37
-            // 
-            label37.AutoSize = true;
-            label37.Location = new Point(86, 343);
-            label37.Name = "label37";
-            label37.Size = new Size(120, 20);
-            label37.TabIndex = 18;
-            label37.Text = "Nuevo nombre";
-            // 
-            // label38
-            // 
-            label38.AutoSize = true;
-            label38.Location = new Point(86, 266);
-            label38.Name = "label38";
-            label38.Size = new Size(128, 20);
-            label38.TabIndex = 16;
-            label38.Text = "Nombre antiguo";
             // 
             // FrmRegistradas
             // 
@@ -2508,15 +2468,11 @@
         private FontAwesome.Sharp.IconButton iconButton5;
         private GroupBox groupBox1;
         private Clases.RoundedButton btnAgregarTitularA;
-        private TextBox txtNombreMarcaN;
-        private TextBox txtNombreMarcaA;
         private TextBox txtNombreTitularN;
         private Clases.RoundedButton btnAgregarTitularN;
         private TextBox txtNombreTitularA;
         private TextBox txtNumExpedienteTraspaso;
         private Label label35;
-        private Label label37;
-        private Label label38;
         private Panel panel20;
         private Label label2;
         private TextBox txtBuscar;

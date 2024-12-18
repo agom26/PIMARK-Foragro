@@ -42,11 +42,7 @@
             iconButton2 = new FontAwesome.Sharp.IconButton();
             txtEstado = new TextBox();
             label4 = new Label();
-            label6 = new Label();
-            label7 = new Label();
             Fechas = new GroupBox();
-            txtNombreMarcaN = new TextBox();
-            txtNombreMarcaA = new TextBox();
             txtNombreTitularN = new TextBox();
             roundedButton2 = new Clases.RoundedButton();
             txtNombreTitularA = new TextBox();
@@ -117,7 +113,7 @@
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 50;
+            roundedButton1.BorderRadius = 40;
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
@@ -181,7 +177,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(319, 610);
+            iconButton3.Location = new Point(319, 548);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(179, 34);
             iconButton3.TabIndex = 10;
@@ -200,7 +196,7 @@
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
-            iconButton2.Location = new Point(522, 610);
+            iconButton2.Location = new Point(522, 548);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 9;
@@ -227,57 +223,20 @@
             label4.TabIndex = 12;
             label4.Text = "Antiguo titular";
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(76, 254);
-            label6.Name = "label6";
-            label6.Size = new Size(128, 20);
-            label6.TabIndex = 16;
-            label6.Text = "Nombre antiguo";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(76, 331);
-            label7.Name = "label7";
-            label7.Size = new Size(120, 20);
-            label7.TabIndex = 18;
-            label7.Text = "Nuevo nombre";
-            // 
             // Fechas
             // 
-            Fechas.Controls.Add(txtNombreMarcaN);
-            Fechas.Controls.Add(txtNombreMarcaA);
             Fechas.Controls.Add(txtNombreTitularN);
             Fechas.Controls.Add(roundedButton2);
             Fechas.Controls.Add(txtNombreTitularA);
             Fechas.Controls.Add(txtNoExpediente);
             Fechas.Controls.Add(label8);
             Fechas.Controls.Add(label4);
-            Fechas.Controls.Add(label7);
-            Fechas.Controls.Add(label6);
-            Fechas.Location = new Point(522, 154);
+            Fechas.Location = new Point(522, 234);
             Fechas.Name = "Fechas";
-            Fechas.Size = new Size(503, 432);
+            Fechas.Size = new Size(503, 272);
             Fechas.TabIndex = 20;
             Fechas.TabStop = false;
             Fechas.Text = "Traspaso";
-            // 
-            // txtNombreMarcaN
-            // 
-            txtNombreMarcaN.Location = new Point(76, 354);
-            txtNombreMarcaN.Name = "txtNombreMarcaN";
-            txtNombreMarcaN.Size = new Size(323, 26);
-            txtNombreMarcaN.TabIndex = 23;
-            // 
-            // txtNombreMarcaA
-            // 
-            txtNombreMarcaA.Location = new Point(76, 277);
-            txtNombreMarcaA.Name = "txtNombreMarcaA";
-            txtNombreMarcaA.ReadOnly = true;
-            txtNombreMarcaA.Size = new Size(323, 26);
-            txtNombreMarcaA.TabIndex = 22;
             // 
             // txtNombreTitularN
             // 
@@ -350,7 +309,7 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Historial";
             // 
-            // FrmCrearTraspaso
+            // FrmCrearTraspasoInt
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -391,8 +350,6 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private TextBox txtEstado;
         private Label label4;
-        private Label label6;
-        private Label label7;
         private GroupBox Fechas;
         private GroupBox groupBox1;
         private TextBox txtNoExpediente;
@@ -400,7 +357,5 @@
         private Clases.RoundedButton roundedButton2;
         private TextBox txtNombreTitularA;
         private TextBox txtNombreTitularN;
-        private TextBox txtNombreMarcaN;
-        private TextBox txtNombreMarcaA;
     }
 }

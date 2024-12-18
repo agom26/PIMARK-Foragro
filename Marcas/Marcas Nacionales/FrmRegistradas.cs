@@ -1369,12 +1369,10 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarTraspaso.nombreTitularA = fila["TitularAnterior"].ToString();
                         SeleccionarTraspaso.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
                         SeleccionarTraspaso.nombreTitularN = fila["TitularNuevo"].ToString();
-                        SeleccionarTraspaso.nombreA = fila["AntiguoNombre"].ToString();
-                        SeleccionarTraspaso.nombreN = fila["NuevoNombre"].ToString();
+                        
                         //Asignar valores a controles
                         txtNumExpedienteTraspaso.Text = SeleccionarTraspaso.numExpediente;
-                        txtNombreMarcaA.Text = SeleccionarTraspaso.nombreA;
-                        txtNombreMarcaN.Text = SeleccionarTraspaso.nombreN;
+                        
                         txtNombreTitularA.Text = SeleccionarTraspaso.nombreTitularA;
                         txtNombreTitularN.Text = SeleccionarTraspaso.nombreTitularN;
 

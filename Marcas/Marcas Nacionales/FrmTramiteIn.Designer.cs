@@ -850,7 +850,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1046, 32640);
+            label5.Location = new Point(1046, 32701);
             label5.Name = "label5";
             label5.Size = new Size(132, 21);
             label5.TabIndex = 6;
@@ -888,9 +888,9 @@
             label3.Font = new Font("Century Gothic", 10F);
             label3.Location = new Point(410, 99);
             label3.Name = "label3";
-            label3.Size = new Size(77, 21);
+            label3.Size = new Size(53, 21);
             label3.TabIndex = 2;
-            label3.Text = "Nombre";
+            label3.Text = "Signo";
             // 
             // txtExpediente
             // 

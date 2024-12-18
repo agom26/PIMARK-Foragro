@@ -142,7 +142,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
-                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(paisRegistro, "Por favor, ingrese un pais.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
@@ -230,7 +230,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
-                if (detallesMarcaInter.Rows.Count > 0) 
+                if (detallesMarcaInter.Rows.Count > 0)
                 {
                     DataRow row = detallesMarcaInter.Rows[0]; // Accede a la primera fila del DataTable
 
@@ -539,7 +539,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -574,6 +574,11 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+        }
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -311,7 +311,7 @@ namespace Presentacion.Patentes
             if (!ValidarCampo(expediente))
                 mensajesError.Add("INGRESE EL EXPEDIENTE\n");
             if (!ValidarCampo(nombre))
-                mensajesError.Add("INGRESE EL NOMBRE\n");
+                mensajesError.Add("INGRESE EL SIGNO\n");
             if (!ValidarCampo(tipo))
                 mensajesError.Add("SELECCIONE UN TIPO\n");
             if (!ValidarCampo(anualidad))
@@ -1187,8 +1187,7 @@ namespace Presentacion.Patentes
                         SeleccionarTraspasoPatente.nombreN = fila["NuevoNombre"].ToString();
                         //Asignar valores a controles
                         txtNumExpedienteTraspaso.Text = SeleccionarTraspasoPatente.numExpediente;
-                        txtNombreMarcaA.Text = SeleccionarTraspasoPatente.nombreA;
-                        txtNombreMarcaN.Text = SeleccionarTraspasoPatente.nombreN;
+                    
                         txtNombreTitularA.Text = SeleccionarTraspasoPatente.nombreTitularA;
                         txtNombreTitularN.Text = SeleccionarTraspasoPatente.nombreTitularN;
 
@@ -1210,8 +1209,7 @@ namespace Presentacion.Patentes
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            string nombreMarcaAntigua = txtNombreMarcaA.Text.Trim();
-            string nombreMarcaNueva = txtNombreMarcaN.Text.Trim();
+          
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
             string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
             string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
@@ -1224,8 +1222,6 @@ namespace Presentacion.Patentes
 
 
             if (!string.IsNullOrEmpty(numeroExpediente) &&
-                !string.IsNullOrEmpty(nombreMarcaAntigua) &&
-                !string.IsNullOrEmpty(nombreMarcaNueva) &&
                 !string.IsNullOrEmpty(nombreTitularAntiguo) &&
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {

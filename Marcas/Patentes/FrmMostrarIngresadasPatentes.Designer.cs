@@ -970,9 +970,9 @@
             label4.AutoSize = true;
             label4.Location = new Point(137, 160);
             label4.Name = "label4";
-            label4.Size = new Size(68, 20);
+            label4.Size = new Size(48, 20);
             label4.TabIndex = 184;
-            label4.Text = "Nombre";
+            label4.Text = "Signo";
             // 
             // datePickerFechaSolicitud
             // 
