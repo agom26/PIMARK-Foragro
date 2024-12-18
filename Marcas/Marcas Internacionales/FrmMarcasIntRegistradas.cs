@@ -21,6 +21,16 @@ namespace Presentacion.Marcas_Internacionales
         HistorialModel historialModel = new HistorialModel();
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
@@ -162,22 +172,31 @@ namespace Presentacion.Marcas_Internacionales
                 return false;
             }
 
-            // Verificar que hay una imagen
-            if (pictureBox1.Image != null)
+            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
+               comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
             {
-                using (var ms = new System.IO.MemoryStream())
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
                 {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
                 }
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                logo = null;
             }
+
+              
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)

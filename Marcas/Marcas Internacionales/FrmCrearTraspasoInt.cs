@@ -28,7 +28,7 @@ namespace Presentacion.Marcas_Internacionales
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
            txtNombreTitularA.Text=AgregarTraspaso.nombreTitulara;
-            txtNombreMarcaA.Text = AgregarTraspaso.antiguoNombre;
+          
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -57,12 +57,12 @@ namespace Presentacion.Marcas_Internacionales
             //traspaso
             string noExpediente = txtNoExpediente.Text;
             int idMarca = SeleccionarMarca.idInt;
-            string nombreNuevoMarca = txtNombreMarcaN.Text;
+          
             string nuevoTitular = txtNombreTitularN.Text;
 
             if (txtEstado.Text != "")
             {
-                if (nombreNuevoMarca != "" || nuevoTitular !="")
+                if (nuevoTitular !="")
                 {
                     //Historial
                     string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
@@ -81,7 +81,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         int idTitularNuevo = AgregarTraspaso.idNuevoTitular;
                         int idTitularviejo = AgregarTraspaso.idTitularAnterior;
-                        string nombreViejo = txtNombreMarcaA.Text;
+                       
                         //Agregar a traspasos
                         traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo);
                         AgregarTraspaso.traspasoFinalizado = true;

@@ -98,22 +98,32 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
 
-            // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image != documento)
+            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
+              comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
             {
-                using (var ms = new System.IO.MemoryStream())
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
                 {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
                 }
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                logo = null;
             }
+
+              
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)

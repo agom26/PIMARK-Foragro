@@ -97,7 +97,8 @@ namespace Presentacion.Marcas_Internacionales
             }
 
 
-            if(comboBoxTipoSigno.SelectedItem.ToString() =="Gráfica/Figurativa"|| comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            if( comboBoxSignoDistintivo.SelectedItem.ToString()=="Marca" &&  
+                comboBoxTipoSigno.SelectedItem.ToString() =="Gráfica/Figurativa"|| comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
             {
                 // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
