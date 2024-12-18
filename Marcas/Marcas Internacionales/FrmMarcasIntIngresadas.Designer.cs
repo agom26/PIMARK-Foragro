@@ -567,7 +567,7 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(191, 58);
             iconButton2.TabIndex = 154;
-            iconButton2.Text = "ENVIAR A OPOSICIÓN";
+            iconButton2.Text = "OPOSICIÓN";
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click_1;

@@ -168,7 +168,7 @@
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(168, 58);
             iconButton3.TabIndex = 10;
-            iconButton3.Text = "ENVIAR A OPOSICIÓN";
+            iconButton3.Text = "OPOSICIÓN";
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;

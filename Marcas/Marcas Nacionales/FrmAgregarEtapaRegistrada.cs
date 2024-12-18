@@ -8,33 +8,33 @@ namespace Presentacion.Marcas_Nacionales
         public FrmAgregarEtapaRegistrada()
         {
             InitializeComponent();
-            this.Load+=FrmAgregarEtapaRegistrada_Load;
+            this.Load += FrmAgregarEtapaRegistrada_Load;
         }
 
         public bool validarTramites()
         {
             bool tramiteValidado = false;
-            string tramite=txtNoExpedienteRT.Text;
-            
+            string tramite = txtNoExpedienteRT.Text;
+
             if (comboBox1.SelectedItem?.ToString() == "Trámite de renovación" ||
                 comboBox1.SelectedItem?.ToString() == "Trámite de traspaso")
             {
-                
+
                 if (string.IsNullOrWhiteSpace(txtNoExpedienteRT.Text)
-                    ) 
-                    
+                    )
+
                 {
-                    
+
                     return false;
                 }
 
-                
+
                 AgregarEtapa.numExpediente = tramite;
                 tramiteValidado = true;
             }
             else
             {
-                
+
                 tramiteValidado = true;
             }
 
@@ -45,13 +45,10 @@ namespace Presentacion.Marcas_Nacionales
 
         private void FrmAgregarEtapaRegistrada_Load(object sender, EventArgs e)
         {
-            groupBox1.Visible = false;
+            tableLayoutPanel1.RowStyles[0].Height = 0;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
-            btnSeleccionar.Location = new Point(206, 400);
-            btnCancelar.Location = new Point(411, 400);
-            btnSeleccionar.BringToFront();
-            btnCancelar.BringToFront();
+          
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -74,7 +71,7 @@ namespace Presentacion.Marcas_Nacionales
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 
-            
+
             bool tramite = validarTramites();
             bool estadoSeleccionado = comboBox1.SelectedIndex != -1;
 
@@ -123,38 +120,39 @@ namespace Presentacion.Marcas_Nacionales
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
-            if(comboBox1.SelectedItem.ToString()=="Trámite de renovación")
+            if (comboBox1.SelectedItem.ToString() == "Trámite de renovación")
             {
                 lblNoExpediente.Text = "Renovación";
-                btnSeleccionar.Location = new Point(206, 466);
-                btnCancelar.Location = new Point(411, 466);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
-                groupBox1.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 63.33f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 36.67f;
+
             }
-            else if(comboBox1.SelectedItem.ToString()=="Trámite de traspaso")
+            else if (comboBox1.SelectedItem.ToString() == "Trámite de traspaso")
             {
                 lblNoExpediente.Text = "Traspaso";
-                btnSeleccionar.Location = new Point(206, 466);
-                btnCancelar.Location = new Point(411, 466);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
-                groupBox1.Visible = true;
+                tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[0].Height = 63.33f;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 36.67f;
+
             }
             else
             {
-                groupBox1.Visible = false;
-                btnSeleccionar.Location = new Point(206, 400);
-                btnCancelar.Location = new Point(411, 400);
-                btnSeleccionar.BringToFront();
-                btnCancelar.BringToFront();
+                tableLayoutPanel1.RowStyles[0].Height = 0;
             }
-                
+
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
