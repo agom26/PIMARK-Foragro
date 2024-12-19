@@ -34,13 +34,13 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
-            int x = (panel27.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel27.Size.Height - label28.Size.Height) / 2;
-            panel28.Location = new Point(x, y);
+            int x = (panel23.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
+            int y = (panel23.Size.Height - label28.Size.Height) / 2;
+            panel24.Location = new Point(x, y);
 
-            int x2 = (panel25.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel25.Size.Height - label29.Size.Height) / 2;
-            panel26.Location = new Point(x2, y2);
+            int x2 = (panel20.Size.Width - label29.Size.Width) / 2;
+            int y2 = (panel20.Size.Height - label29.Size.Height) / 2;
+            panel22.Location = new Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idN = 0;
@@ -196,7 +196,7 @@ namespace Presentacion.Marcas_Internacionales
                 logo = null;
             }
 
-              
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -287,21 +287,21 @@ namespace Presentacion.Marcas_Internacionales
             // Editar la marca
             try
             {
-               
+
 
                 bool esActualizado;
 
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, 
-                        libro , logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio,
+                        libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,
                         erenov, etrasp, idCliente);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, 
-                        signoDistintivo,tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre,
+                        signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
                 }
 
                 DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
@@ -446,7 +446,7 @@ namespace Presentacion.Marcas_Internacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                      
+
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
@@ -1234,12 +1234,8 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarTraspaso.nombreTitularA = fila["TitularAnterior"].ToString();
                         SeleccionarTraspaso.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
                         SeleccionarTraspaso.nombreTitularN = fila["TitularNuevo"].ToString();
-                        SeleccionarTraspaso.nombreA = fila["AntiguoNombre"].ToString();
-                        SeleccionarTraspaso.nombreN = fila["NuevoNombre"].ToString();
                         //Asignar valores a controles
                         txtNumExpedienteTraspaso.Text = SeleccionarTraspaso.numExpediente;
-                        txtNombreMarcaA.Text = SeleccionarTraspaso.nombreA;
-                        txtNombreMarcaN.Text = SeleccionarTraspaso.nombreN;
                         txtNombreTitularA.Text = SeleccionarTraspaso.nombreTitularA;
                         txtNombreTitularN.Text = SeleccionarTraspaso.nombreTitularN;
 
@@ -1281,7 +1277,6 @@ namespace Presentacion.Marcas_Internacionales
                 traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-                //MessageBox.Show("Traspaso actualizado correctamente");
                 tabControl1.SelectedTab = tabPageTraspasosList;
             }
             else
@@ -1364,6 +1359,159 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void roundedButton5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void roundedButton1_Click_1(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
+            frmAgregarEtapa.ShowDialog();
+
+            if (AgregarEtapa.etapa != "")
+            {
+                try
+                {
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+
+                    if (AgregarEtapa.etapa == "Registrada")
+                    {
+                        checkBox1.Checked = true;
+                        mostrarPanelRegistro("si");
+                    }
+                    else
+                    {
+                        checkBox1.Checked = false;
+                        mostrarPanelRegistro("no");
+                    }
+                    await refrescarMarca();
+                    await CargarDatosMarca();
+
+
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "0")
+                    {
+                        txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
+                        txtERenovacion.Enabled = true;
+                    }
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "0")
+                    {
+                        txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
+                        txtETraspaso.Enabled = true;
+                    }
+                    else
+                    {
+                        txtERenovacion.Enabled = false;
+                        txtETraspaso.Enabled = false;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        private void btnAgregarTitularA_Click(object sender, EventArgs e)
+        {
+
+            FrmMostrarTitularesEdicionTraspaso frmCrearTraspaso = new FrmMostrarTitularesEdicionTraspaso();
+            frmCrearTraspaso.ShowDialog();
+
+            if (SeleccionarTraspaso.idComodin != 0)
+            {
+                SeleccionarTraspaso.idTitularA = SeleccionarTraspaso.idComodin;
+                SeleccionarTraspaso.nombreTitularA = SeleccionarTraspaso.nombreComodin;
+                txtNombreTitularA.Text = SeleccionarTraspaso.nombreTitularA;
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ UN TITULAR ANTIGUO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No selecciono un titular antiguo");
+            }
+        }
+
+        private void btnAgregarTitularN_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesEdicionTraspaso frmCrearTraspaso = new FrmMostrarTitularesEdicionTraspaso();
+            frmCrearTraspaso.ShowDialog();
+
+            if (SeleccionarTraspaso.idComodin != 0)
+            {
+                SeleccionarTraspaso.idTitularN = SeleccionarTraspaso.idComodin;
+                SeleccionarTraspaso.nombreTitularN = SeleccionarTraspaso.nombreComodin;
+                txtNombreTitularN.Text = SeleccionarTraspaso.nombreTitularN;
+
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ UN TITULAR NUEVO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                //MessageBox.Show("No selecciono un titular nuevo");
+            }
+        }
+
+        private void btnAgregarTitular_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersona.nombre;
+            }
+        }
+
+        private void btnAgregarAgente_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersona.nombre;
+
+            }
+
+        }
+
+        private void btnAgregarCliente_Click_1(object sender, EventArgs e)
+        {
+            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaC != 0)
+            {
+                txtNombreCliente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private async void roundedButton2_Click_1(object sender, EventArgs e)
+        {
+            await Task.Run(() => loadHistorialById());
+            AnadirTabPage(tabPageHistorialMarca);
+        }
+
+        private void roundedButton6_Click_1(object sender, EventArgs e)
+        {
+            loadRenovacionesById();
+            AnadirTabPage(tabPageRenovacionesList);
+        }
+
+        private void roundedButton9_Click_1(object sender, EventArgs e)
+        {
+            loadTraspasosById();
+            AnadirTabPage(tabPageTraspasosList);
         }
     }
 }

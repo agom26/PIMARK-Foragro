@@ -1471,7 +1471,6 @@ namespace Presentacion.Marcas_Nacionales
                 traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-                MessageBox.Show("Traspaso actualizado correctamente");
                 tabControl1.SelectedTab = tabPageTraspasosList;
             }
             else

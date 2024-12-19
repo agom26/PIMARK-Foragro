@@ -1151,8 +1151,6 @@ namespace Presentacion.Patentes
                         SeleccionarTraspasoPatente.nombreTitularA = fila["TitularAnterior"].ToString();
                         SeleccionarTraspasoPatente.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
                         SeleccionarTraspasoPatente.nombreTitularN = fila["TitularNuevo"].ToString();
-                        SeleccionarTraspasoPatente.nombreA = fila["AntiguoNombre"].ToString();
-                        SeleccionarTraspasoPatente.nombreN = fila["NuevoNombre"].ToString();
                         //Asignar valores a controles
                         txtNumExpedienteTraspaso.Text = SeleccionarTraspasoPatente.numExpediente;
                        
@@ -1198,6 +1196,7 @@ namespace Presentacion.Patentes
                 traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                loadTraspasosById();
                 //MessageBox.Show("Traspaso actualizado correctamente");
                 tabControl1.SelectedTab = tabPageTraspasosList;
             }
