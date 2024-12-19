@@ -781,8 +781,7 @@ namespace Presentacion.Marcas_Internacionales
         {
 
         }
-
-        private void iconButton5_Click(object sender, EventArgs e)
+        public void EditarHistorial()
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -826,6 +825,10 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1152,6 +1155,16 @@ namespace Presentacion.Marcas_Internacionales
         {
             loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
+        }
+
+        private void dtgHistorialR_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarHistorial();
         }
     }
 }

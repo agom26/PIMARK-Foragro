@@ -1310,6 +1310,7 @@
             iconButton5.BackColor = Color.FromArgb(96, 149, 241);
             iconButton5.FlatAppearance.BorderSize = 0;
             iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             iconButton5.ForeColor = Color.White;
             iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
             iconButton5.IconColor = Color.White;
@@ -1355,6 +1356,7 @@
             dtgHistorialIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorialIn.Size = new Size(934, 492);
             dtgHistorialIn.TabIndex = 50;
+            dtgHistorialIn.CellDoubleClick += dtgHistorialIn_CellDoubleClick;
             // 
             // panel5
             // 
@@ -1609,6 +1611,7 @@
             btnEditarRenovacion.BackColor = Color.FromArgb(96, 149, 241);
             btnEditarRenovacion.FlatAppearance.BorderSize = 0;
             btnEditarRenovacion.FlatStyle = FlatStyle.Flat;
+            btnEditarRenovacion.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnEditarRenovacion.ForeColor = Color.White;
             btnEditarRenovacion.IconChar = FontAwesome.Sharp.IconChar.Pen;
             btnEditarRenovacion.IconColor = Color.White;
@@ -1654,6 +1657,7 @@
             dtgRenovaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgRenovaciones.Size = new Size(934, 492);
             dtgRenovaciones.TabIndex = 63;
+            dtgRenovaciones.CellDoubleClick += dtgRenovaciones_CellDoubleClick;
             // 
             // panel10
             // 
@@ -1892,6 +1896,7 @@
             btnEditarTraspaso.BackColor = Color.FromArgb(96, 149, 241);
             btnEditarTraspaso.FlatAppearance.BorderSize = 0;
             btnEditarTraspaso.FlatStyle = FlatStyle.Flat;
+            btnEditarTraspaso.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnEditarTraspaso.ForeColor = Color.White;
             btnEditarTraspaso.IconChar = FontAwesome.Sharp.IconChar.Pen;
             btnEditarTraspaso.IconColor = Color.White;
@@ -1937,6 +1942,7 @@
             dtgTraspasos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgTraspasos.Size = new Size(934, 492);
             dtgTraspasos.TabIndex = 63;
+            dtgTraspasos.CellDoubleClick += dtgTraspasos_CellDoubleClick;
             // 
             // panel15
             // 

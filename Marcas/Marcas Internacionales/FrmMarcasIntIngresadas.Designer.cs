@@ -1165,6 +1165,7 @@
             btnEditarEstadoHistorial.BackColor = Color.FromArgb(96, 149, 241);
             btnEditarEstadoHistorial.FlatAppearance.BorderSize = 0;
             btnEditarEstadoHistorial.FlatStyle = FlatStyle.Flat;
+            btnEditarEstadoHistorial.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnEditarEstadoHistorial.ForeColor = Color.White;
             btnEditarEstadoHistorial.IconChar = FontAwesome.Sharp.IconChar.Pen;
             btnEditarEstadoHistorial.IconColor = Color.White;
@@ -1210,6 +1211,7 @@
             dtgHistorialIn.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorialIn.Size = new Size(934, 492);
             dtgHistorialIn.TabIndex = 45;
+            dtgHistorialIn.CellDoubleClick += dtgHistorialIn_CellDoubleClick;
             // 
             // panel5
             // 

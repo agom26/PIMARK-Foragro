@@ -229,7 +229,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 logo = null;
             }
-               
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -303,7 +303,7 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
 
-               
+
 
                 bool esActualizado;
 
@@ -315,7 +315,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,idCliente);
+                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
                 }
 
                 DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
@@ -418,7 +418,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.idPersonaCliente = row["idCliente"] != DBNull.Value ? Convert.ToInt32(row["idCliente"]) : 0;
                         SeleccionarMarca.fecha_solicitud = row["fechaSolicitud"] != DBNull.Value ? Convert.ToDateTime(row["fechaSolicitud"]) : DateTime.MinValue;
                         SeleccionarMarca.observaciones = row["observaciones"] != DBNull.Value ? row["observaciones"].ToString() : string.Empty;
-                       
+
 
                         // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
@@ -785,7 +785,7 @@ namespace Presentacion.Marcas_Internacionales
             ActualizarFechaVencimiento();
         }
 
-        private void iconButton5_Click(object sender, EventArgs e)
+        public void EditarVerHistorial()
         {
             if (dtgHistorialIn.SelectedRows.Count > 0)
             {
@@ -829,6 +829,10 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarVerHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -985,7 +989,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1063,6 +1067,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarVerHistorial();
         }
     }
 }

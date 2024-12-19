@@ -886,7 +886,8 @@ namespace Presentacion.Marcas_Internacionales
             ActualizarFechaVencimiento();
         }
 
-        private void iconButton5_Click(object sender, EventArgs e)
+
+        public void EditarVerHistorial()
         {
             if (dtgHistorialIn.SelectedRows.Count > 0)
             {
@@ -930,6 +931,10 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarVerHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1118,8 +1123,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
-
-        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        public void EditarVerRenovacion()
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)
             {
@@ -1165,6 +1169,10 @@ namespace Presentacion.Marcas_Internacionales
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        {
+            EditarVerRenovacion();
+        }
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
@@ -1208,8 +1216,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             tabControl1.SelectedTab = tabPageRenovacionesList;
         }
-
-        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        public void EditarVerTraspaso()
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
             {
@@ -1253,6 +1260,10 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        {
+            EditarVerTraspaso();
         }
 
         private void iconButton10_Click(object sender, EventArgs e)
@@ -1512,6 +1523,21 @@ namespace Presentacion.Marcas_Internacionales
         {
             loadTraspasosById();
             AnadirTabPage(tabPageTraspasosList);
+        }
+
+        private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarVerHistorial();
+        }
+
+        private void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarVerRenovacion();
+        }
+
+        private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarVerTraspaso();
         }
     }
 }

@@ -199,6 +199,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(236, 236, 238);
             label2.Font = new Font("Century Gothic", 10F);
@@ -210,6 +211,7 @@
             // 
             // txtBuscar
             // 
+            txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Location = new Point(208, 32);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 26);
@@ -217,6 +219,7 @@
             // 
             // ibtnBuscar
             // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
             ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
@@ -236,6 +239,7 @@
             // 
             // roundedButton3
             // 
+            roundedButton3.Anchor = AnchorStyles.Top;
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
@@ -1258,6 +1262,8 @@
             dtgHistorialR.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgHistorialR.Size = new Size(793, 492);
             dtgHistorialR.TabIndex = 50;
+            dtgHistorialR.CellContentClick += dtgHistorialR_CellContentClick;
+            dtgHistorialR.CellDoubleClick += dtgHistorialR_CellDoubleClick;
             // 
             // panel5
             // 

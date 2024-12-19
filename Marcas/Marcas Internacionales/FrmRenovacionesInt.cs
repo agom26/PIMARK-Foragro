@@ -244,7 +244,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 logo = null;
             }
-                
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -339,7 +339,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, 
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente,
                         solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
                 }
                 else
@@ -473,7 +473,7 @@ namespace Presentacion.Marcas_Internacionales
                         MostrarLogoEnPictureBox(SeleccionarMarca.logo);
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
-                       
+
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -754,8 +754,7 @@ namespace Presentacion.Marcas_Internacionales
         {
 
         }
-
-        private void iconButton5_Click(object sender, EventArgs e)
+        public void VerEditarHistorial()
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -799,6 +798,10 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            VerEditarHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1064,6 +1067,11 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
             }
+        }
+
+        private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            VerEditarHistorial();
         }
     }
 }
