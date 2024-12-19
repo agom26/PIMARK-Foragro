@@ -242,7 +242,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 logo = null;
             }
-                
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -1099,6 +1099,59 @@ namespace Presentacion.Marcas_Internacionales
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAgregarAgente_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void btnAgregarTitular_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersona.nombre;
+            }
+        }
+
+        private void roundedButton4_Click_1(object sender, EventArgs e)
+        {
+            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaC != 0)
+            {
+                txtNombreCliente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaC != 0)
+            {
+                txtNombreCliente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void roundedButton6_Click_1(object sender, EventArgs e)
+        {
+            loadHistorialById();
+            AnadirTabPage(tabPageHistorialMarca);
         }
     }
 }

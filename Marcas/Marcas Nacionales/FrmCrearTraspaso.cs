@@ -55,7 +55,7 @@ namespace Presentacion.Marcas_Nacionales
 
             //traspaso
             string noExpediente = txtNoExpediente.Text;
-            int idMarca = SeleccionarMarca.idN;
+            int idMarca = SeleccionarMarca.idInt;
             string nuevoTitular = txtNombreTitularN.Text;
 
             if (txtEstado.Text != "")
@@ -73,7 +73,7 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         AgregarEtapa.anotaciones = formato + " " + anotaciones;
                     }
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
 
                     try
                     {

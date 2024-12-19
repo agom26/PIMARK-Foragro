@@ -56,7 +56,7 @@ namespace Presentacion.Marcas_Internacionales
 
             //traspaso
             string noExpediente = txtNoExpediente.Text;
-            int idMarca = SeleccionarMarca.idInt;
+            int idMarca = SeleccionarMarca.idN;
           
             string nuevoTitular = txtNombreTitularN.Text;
 

@@ -31,7 +31,7 @@ namespace Presentacion.Marcas_Internacionales
 
             //renovacion
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacion.idMarca = SeleccionarMarca.idInt;
+            AgregarRenovacion.idMarca = SeleccionarMarca.idN;
             AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
             AgregarRenovacion.fechaVencimientoNueva = dateFechVencNueva.Value;
 

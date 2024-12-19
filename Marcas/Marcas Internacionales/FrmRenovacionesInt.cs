@@ -983,7 +983,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
+            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
+            frmMostrarClientes.ShowDialog();
 
+            if (SeleccionarPersona.idPersonaC != 0)
+            {
+                txtNombreCliente.Text = SeleccionarPersona.nombre;
+
+            }
         }
 
         private void tabPageRegistradasList_Click(object sender, EventArgs e)

@@ -31,7 +31,7 @@ namespace Presentacion.Marcas_Nacionales
 
             //renovacion
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacion.idMarca = SeleccionarMarca.idN;
+            AgregarRenovacion.idMarca = SeleccionarMarca.idInt;
             AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
             AgregarRenovacion.fechaVencimientoNueva = dateFechVencNueva.Value;
 
@@ -48,7 +48,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
 
                 try
                 {
