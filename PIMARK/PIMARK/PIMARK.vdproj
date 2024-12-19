@@ -15,43 +15,31 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0A2F84F0CA4D4736A5EE5A15B2DD791F"
+        "MsmKey" = "8:_1582A9FBE805446D9E83E155CD0AF20A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0CAFE2F95B70429388E001ADB084EEC8"
+        "MsmKey" = "8:_30FE03FA82C84597B916D8503EE9DFB9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_16134C14AF284D21A2BBEC8DDAF82026"
+        "MsmKey" = "8:_595CCE9D6311435E8A42B866DC355118"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_25BEADA2162E472EBE850BE313A05247"
+        "MsmKey" = "8:_5B56A91228B04ED1982E195EBA4EFDBA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3DA6D5A395E44111B21E04FC5E5C16DD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_40C229A349384EDEADB2EF6F84C91607"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_674EE277462B4247985B7EEC9B09FED0"
+        "MsmKey" = "8:_6BB156BF9B22469E94A38E35054DF36F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,25 +51,37 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B7742E695366475A9F6707EC53305DF8"
+        "MsmKey" = "8:_873844AD70BF455E9151DDEC01F417E2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D5A689CD9E79451797729F315CA4FC84"
+        "MsmKey" = "8:_A3FDE5E656B64E91894B1B128DDF7FEC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E6CC75F400D944B2B00496CA5EE9B4D5"
+        "MsmKey" = "8:_B52EC623BD1F4BBB89EA50A9743018F2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F99ABF45EBF24BCBA358628757BCEBF5"
+        "MsmKey" = "8:_BDE1C6B007E647BEA0DE5E702A8F7D97"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D146AB6B99A54C8B8704961A1630B35C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F4598BD567C3455F91DDBA2850251897"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -103,6 +103,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -119,6 +127,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -140,9 +156,29 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0A2F84F0CA4D4736A5EE5A15B2DD791F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1582A9FBE805446D9E83E155CD0AF20A"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\D3DCompiler_47_cor3.dll"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\PIMARK.pdb"
+            "TargetName" = "8:PIMARK.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_30FE03FA82C84597B916D8503EE9DFB9"
+            {
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\D3DCompiler_47_cor3.dll"
             "TargetName" = "8:D3DCompiler_47_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
@@ -160,29 +196,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0CAFE2F95B70429388E001ADB084EEC8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_595CCE9D6311435E8A42B866DC355118"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\PenImc_cor3.dll"
-            "TargetName" = "8:PenImc_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_16134C14AF284D21A2BBEC8DDAF82026"
-            {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\vcruntime140_cor3.dll"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\vcruntime140_cor3.dll"
             "TargetName" = "8:vcruntime140_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
@@ -200,29 +216,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_25BEADA2162E472EBE850BE313A05247"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B56A91228B04ED1982E195EBA4EFDBA"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\PresentationNative_cor3.dll"
-            "TargetName" = "8:PresentationNative_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3DA6D5A395E44111B21E04FC5E5C16DD"
-            {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\Dominio.pdb"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\Dominio.pdb"
             "TargetName" = "8:Dominio.pdb"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
@@ -240,30 +236,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40C229A349384EDEADB2EF6F84C91607"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6BB156BF9B22469E94A38E35054DF36F"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\Comun.pdb"
-            "TargetName" = "8:Comun.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_674EE277462B4247985B7EEC9B09FED0"
-            {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\AccesoDatos.pdb"
-            "TargetName" = "8:AccesoDatos.pdb"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\PIMARK.exe"
+            "TargetName" = "8:PIMARK.exe"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
             "Condition" = "8:"
@@ -300,49 +276,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7742E695366475A9F6707EC53305DF8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_873844AD70BF455E9151DDEC01F417E2"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\PIMARK.pdb"
-            "TargetName" = "8:PIMARK.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5A689CD9E79451797729F315CA4FC84"
-            {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\PIMARK.exe"
-            "TargetName" = "8:PIMARK.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E6CC75F400D944B2B00496CA5EE9B4D5"
-            {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\wpfgfx_cor3.dll"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\wpfgfx_cor3.dll"
             "TargetName" = "8:wpfgfx_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
@@ -360,10 +296,90 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F99ABF45EBF24BCBA358628757BCEBF5"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A3FDE5E656B64E91894B1B128DDF7FEC"
             {
-            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.7\\PIMARK.dll.config"
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\AccesoDatos.pdb"
+            "TargetName" = "8:AccesoDatos.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B52EC623BD1F4BBB89EA50A9743018F2"
+            {
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\PenImc_cor3.dll"
+            "TargetName" = "8:PenImc_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BDE1C6B007E647BEA0DE5E702A8F7D97"
+            {
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\PresentationNative_cor3.dll"
+            "TargetName" = "8:PresentationNative_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D146AB6B99A54C8B8704961A1630B35C"
+            {
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\PIMARK.dll.config"
             "TargetName" = "8:PIMARK.dll.config"
+            "Tag" = "8:"
+            "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4598BD567C3455F91DDBA2850251897"
+            {
+            "SourcePath" = "8:C:\\Users\\gabri\\OneDrive\\Escritorio\\Programa v1.9\\Comun.pdb"
+            "TargetName" = "8:Comun.pdb"
             "Tag" = "8:"
             "Folder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
             "Condition" = "8:"
@@ -557,7 +573,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4F49B63091324C3BA348D929A84EFB66"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2B0377AAE7684C40A2418301913843E8"
             {
             "Name" = "8:PIMARK"
             "Arguments" = "8:"
@@ -565,7 +581,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_D5A689CD9E79451797729F315CA4FC84"
+            "Target" = "8:_6BB156BF9B22469E94A38E35054DF36F"
             "Folder" = "8:_23289E9EAAAE4D98A54F63F1D5DE71DA"
             "WorkingFolder" = "8:_6C22CA2C52174E5D9F175F7E7C3A1C8E"
             "Icon" = "8:_8229256EDD94426D8759CC9FAA011F10"

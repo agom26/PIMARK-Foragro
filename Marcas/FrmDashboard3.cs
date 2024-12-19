@@ -24,9 +24,9 @@ namespace Presentacion
             await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
             await Task.Run(() => LoadVencimientos());
         }
+
         private async void LoadVencimientos()
         {
-
             var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
             Invoke(new Action(() =>
             {
@@ -36,6 +36,7 @@ namespace Presentacion
                 {
                     dtgVencimientos.Columns["id"].Visible = false;
                     dtgVencimientos.Columns["marcaID"].Visible = false;
+                    dtgVencimientos.Columns["patenteID"].Visible = false;
 
                 }
                 dtgVencimientos.Refresh();

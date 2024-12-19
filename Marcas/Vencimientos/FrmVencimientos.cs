@@ -30,6 +30,10 @@ namespace Presentacion.Vencimientos
         public FrmVencimientos()
         {
             InitializeComponent();
+            EliminarTabPage(tabPageMensajeMarca);
+            EliminarTabPage(tabPageMensajePatente);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPagePatenteDetail);
             this.Load += FrmVencimientos_Load;
 
         }
@@ -202,12 +206,14 @@ namespace Presentacion.Vencimientos
                         LoadVencimientos();
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        
                     }
                     catch (Exception updateEx)
                     {
                         MessageBox.Show($"Error al actualizar el estado de notificado: {updateEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+                    
                 }
             }
             catch (Exception ex)
@@ -876,8 +882,22 @@ namespace Presentacion.Vencimientos
 
         private async void iconButton10_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
+
+            tabControl1.Visible = false;
+
+            await Task.Yield();
+
             AnadirTabPage(tabPageMensajePatente);
-            CargarCorreoPatente();
+            
+            await CargarCorreoPatente(); 
+
+            tabControl1.Visible = true;
+
+            Cursor = Cursors.Default;
+        
+
+      
         }
 
         private void checkBoxPCT_CheckedChanged(object sender, EventArgs e)
@@ -950,22 +970,35 @@ namespace Presentacion.Vencimientos
 
 
 
-        public void CargarCorreoPatente()
+        public async Task CargarCorreoPatente()
         {
-            string mensajeMarca = vencimientoModel.ObtenerTextoRtfPorTipo("patente");
+            string mensajeMarca = await Task.Run(() => vencimientoModel.ObtenerTextoRtfPorTipo("patente"));
             richTextBoxMensajeP.Rtf = mensajeMarca;
         }
 
-        public void CargarCorreoMarca()
+        public async Task CargarCorreoMarca()
         {
-            string mensajeMarca = vencimientoModel.ObtenerTextoRtfPorTipo("marca");
+            string mensajeMarca = await Task.Run(() => vencimientoModel.ObtenerTextoRtfPorTipo("marca"));
             richTextBoxMensajeM.Rtf = mensajeMarca;
         }
 
-        private void iconButton12_Click(object sender, EventArgs e)
+
+        private async void iconButton12_Click(object sender, EventArgs e)
         {
+
+            Cursor = Cursors.WaitCursor;
+
+            tabControl1.Visible = false;
+
+            await Task.Yield(); 
+
             AnadirTabPage(tabPageMensajeMarca);
-            CargarCorreoMarca();
+
+            await CargarCorreoMarca();
+
+            tabControl1.Visible = true;
+
+            Cursor = Cursors.Default;
         }
 
         private async void iconButton1_Click(object sender, EventArgs e)
@@ -1000,6 +1033,7 @@ namespace Presentacion.Vencimientos
                     {
                         iconButton1.Enabled = true;
                         LoadVencimientos();
+                        tabControl1.SelectedTab = tabPageVencimientosList;
                     }
                     isSendingEmail = false;
                 }
@@ -1080,7 +1114,7 @@ namespace Presentacion.Vencimientos
 
         private async void iconButton6_Click(object sender, EventArgs e)
         {
-            string asunto = txtAsuntoP.Text;
+            string asunto = txtAsuntoM.Text;
             string mensaje = richTextBoxMensajeM.Rtf;
             string receptor = SeleccionarMarca.correoAgente;
             int marcaId = 0;
@@ -1119,6 +1153,7 @@ namespace Presentacion.Vencimientos
                     {
                         iconButton1.Enabled = true;
                         LoadVencimientos();
+                        tabControl1.SelectedTab = tabPageVencimientosList;
                     }
                     isSendingEmail = false;
                 }
@@ -1443,9 +1478,9 @@ namespace Presentacion.Vencimientos
             }
         }
 
-        private void roundedButton19_Click(object sender, EventArgs e)
+        private async void roundedButton19_Click(object sender, EventArgs e)
         {
-            DataTable datos = vencimientoModel.ObtenerVencimientos();
+            DataTable datos = await Task.Run(()=> vencimientoModel.ObtenerVencimientos()) ;
 
             if (datos != null)
             {
@@ -1458,9 +1493,9 @@ namespace Presentacion.Vencimientos
             }
         }
 
-        private void roundedButton11_Click(object sender, EventArgs e)
+        private async void roundedButton11_Click(object sender, EventArgs e)
         {
-            DataTable datos = vencimientoModel.ObtenerVencimientos();
+            DataTable datos =await Task.Run(()=> vencimientoModel.ObtenerVencimientos());
 
             if (datos != null)
             {
