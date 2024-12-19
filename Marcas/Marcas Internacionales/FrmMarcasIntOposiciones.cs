@@ -33,13 +33,13 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntOposiciones()
         {
             InitializeComponent();
-            int x = (panel13.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel13.Size.Height - label28.Size.Height) / 2;
-            panel14.Location = new Point(x, y);
+            //int x = (panel13.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
+            //int y = (panel13.Size.Height - label28.Size.Height) / 2;
+            //panel14.Location = new Point(x, y);
 
-            int x2 = (panel11.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel11.Size.Height - label29.Size.Height) / 2;
-            panel12.Location = new Point(x2, y2);
+            //int x2 = (panel11.Size.Width - label29.Size.Width) / 2;
+            //int y2 = (panel11.Size.Height - label29.Size.Height) / 2;
+            //panel12.Location = new Point(x2, y2);
 
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMarcasIntOposiciones_Load;
@@ -1550,6 +1550,146 @@ namespace Presentacion.Marcas_Internacionales
                 txtSignoOpositor.Enabled = true;
                 txtNombreTitularAO.Text = "";
                 txtSignoOpositor.Text = "";
+            }
+        }
+
+        private async void filtrarMarcas()
+        {
+            string valor = txtBuscar.Text;
+            string situacion = cmbSituacionActual.SelectedItem.ToString();
+            if (valor != "" && situacion != null)
+            {
+                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasNacionalesEnOposicion(valor, situacion));
+
+                Invoke(new Action(() =>
+                {
+                    dtgMarcasOp.DataSource = marcasR;
+                    dtgMarcasOp.Refresh();
+
+                    if (dtgMarcasOp.Columns["id"] != null)
+                    {
+                        dtgMarcasOp.Columns["id"].Visible = false;
+                        dtgMarcasOp.ClearSelection();
+                    }
+                }));
+            }
+            else
+            {
+                await LoadMarcas(cmbSituacionActual.SelectedItem.ToString());
+            }
+
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrarMarcas();
+        }
+
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrarMarcas();
+
+        }
+
+        private void btnAgregarOpositorAO_Click_1(object sender, EventArgs e)
+        {
+            FrmMostrarMarcasN frmMostrarMarcas = new FrmMostrarMarcasN();
+            frmMostrarMarcas.ShowDialog();
+
+            if (SeleccionarMarcaOposicion.idMarca != 0)
+            {
+                txtNombreTitularAO.Enabled = false;
+                txtSignoOpositor.Enabled = false;
+                txtNombreTitularAO.Text = SeleccionarMarcaOposicion.nombreTitular;
+                txtSignoOpositor.Text = SeleccionarMarcaOposicion.nombreSigno;
+            }
+            else
+            {
+                txtNombreTitularAO.Enabled = true;
+                txtSignoOpositor.Enabled = true;
+                txtNombreTitularAO.Text = "";
+                txtSignoOpositor.Text = "";
+            }
+        }
+
+        private async void btnAgregarEstadoAO_Click_1(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaOposicionI frmAgregarEtapa = new FrmAgregarEtapaOposicionI();
+            frmAgregarEtapa.ShowDialog();
+
+
+            if (btnGuardarU.Text == "EDITAR")
+            {
+                if (SeleccionarOposicion.idMarca == 0)
+                {
+                    if (AgregarEtapaOposicion.etapa != "")
+                    {
+                        try
+                        {
+                            HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                            historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
+                                );
+
+                            FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+
+                            await recargarDatosOposicion();
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+
+                    }
+                    else
+                    {
+                        //txtEstadoAO.Text = "";
+                        //richtxtObservacionesAO.Text = "";
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (AgregarEtapaOposicion.etapa != "")
+                        {
+                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            await recargarDatosOposicion();
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+
+                }
+            }
+            else if (btnGuardarU.Text == "AGREGAR")
+            {
+                if (AgregarEtapaOposicion.etapa != "")
+                {
+                    //txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
+                    richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
+
+                }
+                else
+                {
+                    //txtEstadoAO.Text = "";
+                    richtxtObservacionesAO.Text = "";
+                }
             }
         }
     }

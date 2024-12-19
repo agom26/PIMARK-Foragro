@@ -26,15 +26,15 @@ namespace Presentacion.Marcas_Internacionales
         public FrmRenovacionesInt()
         {
             InitializeComponent();
-            int x = (panel13.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel13.Size.Height - label28.Size.Height) / 2;
-            panel14.Location = new Point(x, y);
+            int x = (panel14.Size.Width - label1.Size.Width - iconPictureBox4.Size.Width) / 2;
+            int y = (panel14.Size.Height - label1.Size.Height) / 2;
+            panel11.Location = new Point(x, y);
 
-            int x2 = (panel11.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel11.Size.Height - label29.Size.Height) / 2;
-            panel12.Location = new Point(x2, y2);
+            int x2 = (panel13.Size.Width - label28.Size.Width) / 2;
+            int y2 = (panel13.Size.Height - label28.Size.Height) / 2;
+            panel9.Location = new Point(x2, y2);
 
-            iconPictureBox3.IconSize = 25;
+            iconPictureBox4.IconSize = 25;
             this.Load += FrmRenovacionesInt_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -1109,6 +1109,47 @@ namespace Presentacion.Marcas_Internacionales
         {
             txtBuscar.Text = "";
             filtrarMarcas();
+        }
+
+        private void btnAgregarTitular_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaT != 0)
+            {
+                txtNombreTitular.Text = SeleccionarPersona.nombre;
+            }
+        }
+
+        private void btnAgregarAgente_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaA != 0)
+            {
+                txtNombreAgente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void btnAgregarCliente_Click_1(object sender, EventArgs e)
+        {
+            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersona.idPersonaC != 0)
+            {
+                txtNombreCliente.Text = SeleccionarPersona.nombre;
+
+            }
+        }
+
+        private void roundedButton6_Click_1(object sender, EventArgs e)
+        {
+            loadHistorialById();
+            AnadirTabPage(tabPageHistorialMarca);
         }
     }
 }

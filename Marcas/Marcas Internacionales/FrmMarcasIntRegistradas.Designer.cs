@@ -35,6 +35,7 @@
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
             panel25 = new Panel();
+            iconButton14 = new FontAwesome.Sharp.IconButton();
             label2 = new Label();
             txtBuscar = new TextBox();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -255,21 +256,40 @@
             // panel25
             // 
             panel25.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel25.Controls.Add(iconButton14);
             panel25.Controls.Add(label2);
             panel25.Controls.Add(txtBuscar);
             panel25.Controls.Add(ibtnBuscar);
             panel25.Controls.Add(roundedButton3);
-            panel25.Location = new Point(8, 134);
+            panel25.Location = new Point(8, 143);
             panel25.Name = "panel25";
-            panel25.Size = new Size(1147, 73);
+            panel25.Size = new Size(1145, 73);
             panel25.TabIndex = 191;
+            // 
+            // iconButton14
+            // 
+            iconButton14.Anchor = AnchorStyles.Top;
+            iconButton14.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton14.FlatAppearance.BorderSize = 0;
+            iconButton14.FlatStyle = FlatStyle.Flat;
+            iconButton14.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton14.IconColor = Color.Black;
+            iconButton14.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton14.IconSize = 25;
+            iconButton14.Location = new Point(621, 35);
+            iconButton14.Name = "iconButton14";
+            iconButton14.Size = new Size(26, 26);
+            iconButton14.TabIndex = 23;
+            iconButton14.UseVisualStyleBackColor = false;
+            iconButton14.Click += iconButton14_Click_1;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(236, 236, 238);
             label2.Font = new Font("Century Gothic", 10F);
-            label2.Location = new Point(292, 5);
+            label2.Location = new Point(319, 11);
             label2.Name = "label2";
             label2.Size = new Size(284, 21);
             label2.TabIndex = 0;
@@ -277,13 +297,15 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(308, 29);
+            txtBuscar.Anchor = AnchorStyles.Top;
+            txtBuscar.Location = new Point(319, 35);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 26);
             txtBuscar.TabIndex = 1;
             // 
             // ibtnBuscar
             // 
+            ibtnBuscar.Anchor = AnchorStyles.Top;
             ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
@@ -293,16 +315,18 @@
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(642, 15);
+            ibtnBuscar.Location = new Point(663, 20);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 36);
             ibtnBuscar.TabIndex = 16;
             ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnBuscar.UseVisualStyleBackColor = false;
+            ibtnBuscar.Click += ibtnBuscar_Click_1;
             // 
             // roundedButton3
             // 
+            roundedButton3.Anchor = AnchorStyles.Top;
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
@@ -312,7 +336,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(255, 3);
+            roundedButton3.Location = new Point(266, 9);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(560, 61);
             roundedButton3.TabIndex = 22;
@@ -527,7 +551,7 @@
             dtgMarcasIn.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -2237,7 +2261,6 @@
         private TabPage tabPageHistorialDetail;
         private DataGridView dtgMarcasIn;
         private Panel panel4;
-        private Clases.RoundedButton roundedButton3;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private Panel panel1;
@@ -2368,12 +2391,14 @@
         private Panel panel24;
         private Label label28;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
-        private Panel panel25;
-        private Label label2;
-        private TextBox txtBuscar;
-        private FontAwesome.Sharp.IconButton ibtnBuscar;
         private Clases.RoundedButton btnAgregarTitular;
         private Clases.RoundedButton btnAgregarAgente;
         private Clases.RoundedButton btnAgregarCliente;
+        private Panel panel25;
+        private FontAwesome.Sharp.IconButton iconButton14;
+        private Label label2;
+        private TextBox txtBuscar;
+        private FontAwesome.Sharp.IconButton ibtnBuscar;
+        private Clases.RoundedButton roundedButton3;
     }
 }

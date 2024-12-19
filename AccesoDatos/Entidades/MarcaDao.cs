@@ -84,7 +84,7 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
+        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro,string situacion)
         {
             DataTable tabla = new DataTable();
             try
@@ -96,6 +96,8 @@ namespace AccesoDatos.Entidades
                         comando.CommandType = CommandType.StoredProcedure;
 
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        comando.Parameters.AddWithValue("@p_situacion_actual", situacion);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -205,6 +207,33 @@ namespace AccesoDatos.Entidades
                 using (MySqlConnection conexion = GetConnection())
                 {
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionales", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas internacionales: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
+        public DataTable GetAllMarcasNacionales()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasNacionales", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

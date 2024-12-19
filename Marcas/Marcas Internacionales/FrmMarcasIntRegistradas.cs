@@ -1539,5 +1539,51 @@ namespace Presentacion.Marcas_Internacionales
         {
             EditarVerTraspaso();
         }
+        private async void filtrarMarcas()
+        {
+            string valor = txtBuscar.Text;
+            if (valor != "")
+            {
+                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasNacionalesRegistradas(valor));
+
+                Invoke(new Action(() =>
+                {
+                    dtgMarcasIn.DataSource = marcasR;
+                    dtgMarcasIn.Refresh();
+
+                    if (dtgMarcasIn.Columns["id"] != null)
+                    {
+                        dtgMarcasIn.Columns["id"].Visible = false;
+                        dtgMarcasIn.ClearSelection();
+                    }
+                }));
+            }
+            else
+            {
+                LoadMarcas();
+            }
+
+        }
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrarMarcas();
+        }
+
+        private void iconButton14_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrarMarcas();
+        }
+
+        private void ibtnBuscar_Click_1(object sender, EventArgs e)
+        {
+            filtrarMarcas();
+        }
+
+        private void iconButton14_Click_1(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrarMarcas();
+        }
     }
 }

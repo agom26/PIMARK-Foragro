@@ -1661,7 +1661,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (txtBuscar.Text != "")
             {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
+                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text, cmbSituacionActual.SelectedItem.ToString());
                 if (marcas.Rows.Count > 0)
                 {
                     dtgMarcasO.DataSource = marcas;

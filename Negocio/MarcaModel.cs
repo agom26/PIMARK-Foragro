@@ -21,6 +21,13 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasInternacionales();
             return tabla;
         }
+
+        public DataTable GetAllMarcasNacionales()
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.GetAllMarcasNacionales();
+            return tabla;
+        }
         public DataTable GetAllMarcasNacionalesEnTramite()
         {
             DataTable tabla = new DataTable();
@@ -31,9 +38,9 @@ namespace Dominio
         {
             return marcaDao.FiltrarMarcasNacionalesEnTramite(filtro);
         }
-        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
+        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro,string situacion)
         {
-            return marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro);
+            return marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro,situacion);
         }
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {
