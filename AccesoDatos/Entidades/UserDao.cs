@@ -143,14 +143,14 @@ namespace AccesoDatos.Usuarios
             }
 
            
-            tabla.Columns.Add("Es Administrador", typeof(string));
+            tabla.Columns.Add("Administrador", typeof(string));
 
            
             foreach (DataRow row in tabla.Rows)
             {
                 var isAdminValue = row["EsAdministrador"];
                 bool isAdmin = Convert.ToBoolean(isAdminValue); 
-                row["Es Administrador"] = isAdmin ? "sí" : "no";
+                row["Administrador"] = isAdmin ? "SI" : "NO";
             }
 
             tabla.Columns.Remove("EsAdministrador");

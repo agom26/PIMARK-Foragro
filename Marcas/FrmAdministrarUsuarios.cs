@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using Comun.Cache;
 using Dominio;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using Presentacion.Alertas;
 
 namespace Presentacion
@@ -25,8 +26,9 @@ namespace Presentacion
             InitializeComponent();
             AssociateAndRaiseViewEvents();
             dtgUsuarios.CellDoubleClick += dtgUsuarios_CellDoubleClick;
+
             this.Load += FrmAdministrarUsuarios_Load; // Mueve la lógica de carga aquí
-           
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -103,7 +105,7 @@ namespace Presentacion
         {
             if (EditarUsuario.idUser > 0)
             {
-                btnCambios.Text="EDITAR";
+                btnCambios.Text = "EDITAR";
                 btnCambios.Image = Properties.Resources.lapiz;
                 int idUser = EditarUsuario.idUser;
 
@@ -130,7 +132,8 @@ namespace Presentacion
                     txtCont.Text = EditarUsuario.contrasena;
                     txtConfirmarCont.Text = EditarUsuario.contrasena;
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
-                    btnGuardarU.Text = "ACTUALIZAR";
+                    btnGuardarU.Text = "EDITAR";
+                    btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
                     AnadirTabPage(tabPageUserDetail);
                 }
                 else
@@ -148,7 +151,7 @@ namespace Presentacion
         {
             if (EditarUsuario.idUser > 0)
             {
-                
+
                 int idUser = EditarUsuario.idUser;
 
 
@@ -186,8 +189,8 @@ namespace Presentacion
 
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadUsers());
-             // Asegúrate de que el DataGridView esté configurado correctamente
-            
+            // Asegúrate de que el DataGridView esté configurado correctamente
+
 
 
             // Eliminar la tabPage de detalle
@@ -216,6 +219,7 @@ namespace Presentacion
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
             btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnCambios.Text = "AGREGAR";
             btnCambios.Image = Properties.Resources.agregar;
 
@@ -240,7 +244,7 @@ namespace Presentacion
                 await CargarDatos();
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
-            
+
 
         }
 
@@ -280,12 +284,14 @@ namespace Presentacion
                     {
                         int id = Convert.ToInt32(dataRowView["id"]);
                         EditarUsuario.idUser = id;
-                        
+
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    FrmAlerta alerta = new FrmAlerta("POR FAVOR SELECCIONE UN USUARIO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     EditarUsuario.idUser = 0;
                 }
             }
@@ -293,7 +299,7 @@ namespace Presentacion
 
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        public void FiltrarUsuarios()
         {
             if (txtBuscar.Text != "")
             {
@@ -321,6 +327,11 @@ namespace Presentacion
             {
                 LoadUsers();
             }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
         }
 
         private void dtgUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -387,7 +398,7 @@ namespace Presentacion
                             FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
-                        else if (btnGuardarU.Text == "ACTUALIZAR")
+                        else if (btnGuardarU.Text == "EDITAR")
                         {
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
 
@@ -470,7 +481,7 @@ namespace Presentacion
                             FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
-                        else if (btnGuardarU.Text == "ACTUALIZAR")
+                        else if (btnGuardarU.Text == "EDITAR")
                         {
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
 
@@ -515,9 +526,9 @@ namespace Presentacion
             {
                 await CargarDatosEliminar();
                 FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE ELIMINAR AL USUARIO " + EditarUsuario.usuario + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                var resultado=alerta.ShowDialog();
+                var resultado = alerta.ShowDialog();
 
-                if(resultado== DialogResult.Yes)
+                if (resultado == DialogResult.Yes)
                 {
                     try
                     {
@@ -530,14 +541,14 @@ namespace Presentacion
                         FrmAlerta alertae = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alertae.ShowDialog();
                     }
-                    
+
                 }
                 else
                 {
-                    
+
                 }
             }
-           
+
         }
 
         private void dtgUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -553,7 +564,41 @@ namespace Presentacion
                 await CargarDatos();
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
-            
+
+        }
+
+        private void iconButton6_Click_1(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            FiltrarUsuarios();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                FiltrarUsuarios();
+            }
+
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
+        }
+
+        private void iconButton6_Click_2(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            FiltrarUsuarios();
+        }
+
+        private void txtBuscar_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.Enter)
+            {
+                FiltrarUsuarios();
+            }
         }
     }
 }
