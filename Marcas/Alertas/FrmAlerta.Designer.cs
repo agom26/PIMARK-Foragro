@@ -28,21 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAlerta));
             picIcon = new PictureBox();
             lblTitulo = new Label();
             btnYes = new FontAwesome.Sharp.IconButton();
             btnNo = new FontAwesome.Sharp.IconButton();
-            lblMessage = new Label();
             richTextBoxMensaje = new RichTextBox();
+            panel1 = new Panel();
+            panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // picIcon
             // 
             picIcon.Image = Properties.Resources.logoBPA;
-            picIcon.Location = new Point(259, 31);
+            picIcon.Location = new Point(3, 3);
             picIcon.Name = "picIcon";
-            picIcon.Size = new Size(118, 108);
+            picIcon.Size = new Size(50, 50);
             picIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             picIcon.TabIndex = 0;
             picIcon.TabStop = false;
@@ -50,11 +54,11 @@
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.Black;
-            lblTitulo.Location = new Point(259, 160);
+            lblTitulo.Location = new Point(59, 3);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(118, 40);
+            lblTitulo.Size = new Size(54, 18);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "label1";
             // 
@@ -67,11 +71,11 @@
             btnYes.IconChar = FontAwesome.Sharp.IconChar.None;
             btnYes.IconColor = Color.Black;
             btnYes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnYes.Location = new Point(152, 335);
+            btnYes.Location = new Point(106, 15);
             btnYes.Name = "btnYes";
-            btnYes.Size = new Size(147, 54);
+            btnYes.Size = new Size(102, 37);
             btnYes.TabIndex = 2;
-            btnYes.Text = "iconButton1";
+            btnYes.Text = "SI";
             btnYes.UseVisualStyleBackColor = false;
             btnYes.Click += btnYes_Click;
             // 
@@ -84,58 +88,70 @@
             btnNo.IconChar = FontAwesome.Sharp.IconChar.None;
             btnNo.IconColor = Color.Black;
             btnNo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnNo.Location = new Point(336, 335);
+            btnNo.Location = new Point(214, 15);
             btnNo.Name = "btnNo";
-            btnNo.Size = new Size(147, 54);
+            btnNo.Size = new Size(102, 37);
             btnNo.TabIndex = 3;
-            btnNo.Text = "iconButton2";
+            btnNo.Text = "NO";
             btnNo.UseVisualStyleBackColor = false;
             btnNo.Click += btnNo_Click;
-            // 
-            // lblMessage
-            // 
-            lblMessage.AutoSize = true;
-            lblMessage.Font = new Font("Century Gothic", 12F);
-            lblMessage.Location = new Point(197, 269);
-            lblMessage.Name = "lblMessage";
-            lblMessage.Size = new Size(72, 23);
-            lblMessage.TabIndex = 4;
-            lblMessage.Text = "label1";
             // 
             // richTextBoxMensaje
             // 
             richTextBoxMensaje.BackColor = Color.White;
             richTextBoxMensaje.BorderStyle = BorderStyle.None;
+            richTextBoxMensaje.Font = new Font("Century Gothic", 7F);
             richTextBoxMensaje.ForeColor = Color.Black;
-            richTextBoxMensaje.Location = new Point(103, 220);
+            richTextBoxMensaje.Location = new Point(59, 24);
             richTextBoxMensaje.Name = "richTextBoxMensaje";
             richTextBoxMensaje.ReadOnly = true;
-            richTextBoxMensaje.Size = new Size(435, 95);
+            richTextBoxMensaje.Size = new Size(233, 52);
             richTextBoxMensaje.TabIndex = 5;
             richTextBoxMensaje.Text = "";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ButtonFace;
+            panel1.Controls.Add(btnYes);
+            panel1.Controls.Add(btnNo);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 151);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(350, 64);
+            panel1.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(richTextBoxMensaje);
+            panel2.Controls.Add(picIcon);
+            panel2.Controls.Add(lblTitulo);
+            panel2.Location = new Point(28, 58);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(295, 81);
+            panel2.TabIndex = 7;
             // 
             // FrmAlerta
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(666, 423);
-            Controls.Add(richTextBoxMensaje);
-            Controls.Add(lblMessage);
-            Controls.Add(btnNo);
-            Controls.Add(btnYes);
-            Controls.Add(lblTitulo);
-            Controls.Add(picIcon);
+            ClientSize = new Size(350, 215);
+            Controls.Add(panel1);
+            Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "FrmAlerta";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmAlerta";
+            Text = "Alerta";
             FormClosing += FrmAlerta_FormClosing;
             Load += FrmAlerta_Load;
             ((System.ComponentModel.ISupportInitialize)picIcon).EndInit();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -144,7 +160,8 @@
         private Label lblTitulo;
         private FontAwesome.Sharp.IconButton btnYes;
         private FontAwesome.Sharp.IconButton btnNo;
-        private Label lblMessage;
         private RichTextBox richTextBoxMensaje;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

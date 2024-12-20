@@ -395,14 +395,14 @@ namespace Presentacion
                         if (btnGuardarU.Text == "GUARDAR")
                         {
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
-                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
                         else if (btnGuardarU.Text == "EDITAR")
                         {
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
 
-                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
 
@@ -478,14 +478,14 @@ namespace Presentacion
                         if (btnGuardarU.Text == "GUARDAR")
                         {
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
-                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
                         else if (btnGuardarU.Text == "EDITAR")
                         {
                             await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
 
-                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
 

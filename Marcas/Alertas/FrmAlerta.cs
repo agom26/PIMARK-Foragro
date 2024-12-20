@@ -27,7 +27,7 @@ namespace Presentacion.Alertas
             richTextBoxMensaje.Text = message;
             richTextBoxMensaje.SelectAll();
             richTextBoxMensaje.SelectionAlignment = HorizontalAlignment.Center;
-
+            richTextBoxMensaje.DeselectAll();
             lblTitulo.Text = title;
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -73,20 +73,18 @@ namespace Presentacion.Alertas
                 btnYes.Left = (this.ClientSize.Width / 2) - btnYes.Width - 10;
                 btnNo.Left = (this.ClientSize.Width / 2) + 10;
             }
+            lblTitulo.Left = (this.ClientSize.Width - lblTitulo.Width) / 2;
 
-
-            this.Resize += FrmAlerta_Resize;
             this.Load += FrmAlerta_Load;
             FrmAlerta_Resize(this, EventArgs.Empty);
         }
         private void FrmAlerta_Resize(object sender, EventArgs e)
         {
-            richTextBoxMensaje.Left = (this.ClientSize.Width - richTextBoxMensaje.Width) / 2;
-            lblMessage.Left = (this.ClientSize.Width - lblMessage.Width) / 2;
-            lblTitulo.Left = (this.ClientSize.Width - lblTitulo.Width) / 2;
+            //richTextBoxMensaje.Left = (this.ClientSize.Width - richTextBoxMensaje.Width) / 2;
+            //lblTitulo.Left = (this.ClientSize.Width - lblTitulo.Width) / 2;
 
 
-            picIcon.Left = (this.ClientSize.Width - picIcon.Width) / 2;
+            //picIcon.Left = (this.ClientSize.Width - picIcon.Width) / 2;
         }
 
 
