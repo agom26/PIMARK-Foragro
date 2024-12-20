@@ -1271,12 +1271,12 @@ namespace Presentacion.Vencimientos
                 MessageBox.Show("No hay datos para exportar.");
                 return;
             }
-
+            string nombre = "Próximos vencimientos-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
             {
                 Title = "Guardar archivo Excel",
                 Filter = "Archivos Excel (*.xlsx)|*.xlsx",
-                FileName = "Vencimientos.xlsx",
+                FileName = nombre+".xlsx",
                 DefaultExt = "xlsx",
                 AddExtension = true
             };
@@ -1292,21 +1292,39 @@ namespace Presentacion.Vencimientos
 
                     using (var workbook = new XLWorkbook())
                     {
-                        var worksheet = workbook.Worksheets.Add("Vencimientos");
+                        // Crear la hoja de trabajo
+                        var worksheet = workbook.Worksheets.Add("Próximos vencimientos");
 
-                        // Agregar logo antes de la tabla
+                        // Fecha actual en el formato deseado
+                        string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+
+                        // Insertar el título "Próximos vencimientos" en la celda A1
+                        worksheet.Cell(3, 5).Value = "Próximos vencimientos";
+                        worksheet.Cell(3, 5).Style.Font.Bold = true;
+                        worksheet.Cell(3, 5).Style.Font.Underline = XLFontUnderlineValues.Single;
+                        worksheet.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar el título
+
+                        // Insertar la fecha debajo del título (en la celda A2)
+                        worksheet.Cell(4, 5).Value = "Fecha: " + fecha;
+                        worksheet.Cell(4, 5).Style.Font.Italic = true;
+                        worksheet.Cell(4, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar la fecha
+
+                        // Ajustar el ancho de la columna A (para que todo el texto se vea bien centrado)
+                        worksheet.Column(1).AdjustToContents();
+
+                        // Agregar logo después del título y la fecha (en la celda A3)
                         if (System.IO.File.Exists(tempLogoPath))
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
-                                .MoveTo(worksheet.Cell(1, 1)) // Posición del logo
+                                .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
                                 .Scale(0.5); // Ajustar tamaño
                         }
 
-                        // Insertar tabla después del logo
+                        // Insertar tabla después del logo (a partir de la fila 10)
                         int startRow = 10; // Ajustar según el espacio requerido
                         worksheet.Cell(startRow, 1).InsertTable(dataTable);
 
-                        // Ajustar ancho de las columnas
+                        // Ajustar el ancho de las columnas
                         worksheet.Columns().AdjustToContents();
 
                         // Guardar archivo
@@ -1317,6 +1335,7 @@ namespace Presentacion.Vencimientos
                     if (System.IO.File.Exists(tempLogoPath))
                         System.IO.File.Delete(tempLogoPath);
 
+                    // Mostrar mensaje de éxito
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
@@ -1332,11 +1351,13 @@ namespace Presentacion.Vencimientos
             // Ruta al ejecutable de Chrome en tu sistema
             string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
 
+            string nombre = "Próximos vencimientos-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+            
             // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF Files|*.pdf",
-                FileName = "Vencimientos.pdf"
+                FileName = nombre+".pdf"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
