@@ -23,6 +23,7 @@ namespace Presentacion.Reportes
         public int numRegistros = 0;
         public float escala = 0;
         MarcaModel marcamodel = new MarcaModel();
+        string titulo;
         public FrmReportesMarcasPatentes()
         {
 
@@ -36,16 +37,17 @@ namespace Presentacion.Reportes
 
 
         }
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
             // Ruta al ejecutable de Chrome en tu sistema
             string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
 
+            string nombre = titulo+"-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
             // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF Files|*.pdf",
-                FileName = "ReporteMarcasYPatentes.pdf"
+                FileName = nombre+".pdf"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -82,7 +84,16 @@ namespace Presentacion.Reportes
                         tableContent += "<tr>";
                         foreach (DataColumn column in dt.Columns)
                         {
-                            tableContent += $"<td style='padding: 8px; text-align: left; border: 1px solid #ddd;'>{row[column]}</td>";
+                            // Verificar si la columna debe alinearse a la derecha
+                            string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
+                                ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
+                                : (column.ColumnName == "NOTIFICADO"
+                                    ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
+                                    : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
+
+
+                            // Agregar la celda con el estilo correspondiente
+                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
                         }
                         tableContent += "</tr>";
                     }
@@ -140,7 +151,12 @@ namespace Presentacion.Reportes
                 </head>
                 <body>
                     <div class='header'>
-                        Reportes
+                         {titulo}
+                    </div>
+                    <div class='fecha'>
+                         <center>
+                             Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
+                         </center>
                     </div>
                     <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
                     <table>
@@ -197,12 +213,13 @@ namespace Presentacion.Reportes
                 MessageBox.Show("No hay datos para exportar.");
                 return;
             }
+            string nombre = titulo+"-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
 
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
             {
                 Title = "Guardar archivo Excel",
                 Filter = "Archivos Excel (*.xlsx)|*.xlsx",
-                FileName = "Reporte.xlsx",
+                FileName = nombre+".xlsx",
                 DefaultExt = "xlsx",
                 AddExtension = true
             };
@@ -218,13 +235,27 @@ namespace Presentacion.Reportes
 
                     using (var workbook = new XLWorkbook())
                     {
-                        var worksheet = workbook.Worksheets.Add("Reporte");
+                        var worksheet = workbook.Worksheets.Add(titulo);
+                        // Fecha actual en el formato deseado
+                        string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
 
+                        // Insertar el título "Próximos vencimientos" en la celda A1
+                        worksheet.Cell(3, 5).Value = titulo;
+                        worksheet.Cell(3, 5).Style.Font.Bold = true;
+                        worksheet.Cell(3, 5).Style.Font.Underline = XLFontUnderlineValues.Single;
+                        worksheet.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar el título
+
+                        // Insertar la fecha debajo del título (en la celda A2)
+                        worksheet.Cell(4, 5).Value = "Fecha: " + fecha;
+                        worksheet.Cell(4, 5).Style.Font.Italic = true;
+                        worksheet.Cell(4, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar la fecha
+
+                        worksheet.Column(1).AdjustToContents();
                         // Agregar logo antes de la tabla
                         if (System.IO.File.Exists(tempLogoPath))
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
-                                .MoveTo(worksheet.Cell(1, 1)) // Posición del logo
+                                .MoveTo(worksheet.Cell(3, 1)) // Posición del logo
                                 .Scale(0.5); // Ajustar tamaño
                         }
 
@@ -284,42 +315,42 @@ namespace Presentacion.Reportes
             {
                 case 0:
                     objeto = "nacional";
-                    numRegistros = 11;
+                    numRegistros = 9;
                     escala = 0.85f;
                     break;
                 case 1:
                     objeto = "internacional";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.75f;
                     break;
                 case 2:
                     objeto = "marca";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.75f;
                     break;
                 case 3:
                     objeto = "patentes";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.7f;
                     break;
                 case 4:
                     objeto = "v_internacionales";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.7f;
                     break;
                 case 5:
                     objeto = "v_nacionales";
-                    numRegistros = 11;
+                    numRegistros = 9;
                     escala = 0.85f;
                     break;
                 case 6:
                     objeto = "v_marcas";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.75f;
                     break;
                 case 7:
                     objeto = "v_patentes";
-                    numRegistros = 15;
+                    numRegistros = 13;
                     escala = 0.7f;
                     break;
             }
@@ -473,6 +504,7 @@ namespace Presentacion.Reportes
         private void comboBoxObjeto_SelectedIndexChanged(object sender, EventArgs e)
         {
             string seleccion = comboBoxObjeto.SelectedItem.ToString();
+            titulo = "REPORTE DE " + seleccion.ToUpper();
             if (seleccion == "Marcas nacionales" || seleccion == "Marcas internacionales" || seleccion == "Marcas nacionales e internacionales")
             {
                 comboBoxEstado.Items.Clear();
@@ -600,7 +632,7 @@ namespace Presentacion.Reportes
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala);
+                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
             }
             else
             {

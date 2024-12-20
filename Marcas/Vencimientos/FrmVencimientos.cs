@@ -72,6 +72,19 @@ namespace Presentacion.Vencimientos
                     dtgVencimientos.Columns["marcaID"].Visible = false;
                     dtgVencimientos.Columns["patenteID"].Visible = false;
                 }
+
+                
+                    //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dtgVencimientos.Columns["REGISTRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Centrar el texto
+                    dtgVencimientos.Columns["FOLIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dtgVencimientos.Columns["LIBRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                
+
+                
+                    //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    //dtgVencimientos.Columns["CLASE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
+                
+
                 dtgVencimientos.Refresh();
             }));
         }
@@ -1293,13 +1306,13 @@ namespace Presentacion.Vencimientos
                     using (var workbook = new XLWorkbook())
                     {
                         // Crear la hoja de trabajo
-                        var worksheet = workbook.Worksheets.Add("Próximos vencimientos");
+                        var worksheet = workbook.Worksheets.Add("PRÓXIMOS VENCIMIENTOS");
 
                         // Fecha actual en el formato deseado
                         string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
 
                         // Insertar el título "Próximos vencimientos" en la celda A1
-                        worksheet.Cell(3, 5).Value = "Próximos vencimientos";
+                        worksheet.Cell(3, 5).Value = "PRÓXIMOS VENCIMIENTOS";
                         worksheet.Cell(3, 5).Style.Font.Bold = true;
                         worksheet.Cell(3, 5).Style.Font.Underline = XLFontUnderlineValues.Single;
                         worksheet.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar el título
@@ -1392,10 +1405,21 @@ namespace Presentacion.Vencimientos
                     {
                         DataRow row = dt.Rows[i];
                         tableContent += "<tr>";
+
                         foreach (DataColumn column in dt.Columns)
                         {
-                            tableContent += $"<td style='padding: 8px; text-align: left; border: 1px solid #ddd;'>{row[column]}</td>";
+                            // Verificar si la columna debe alinearse a la derecha
+                            string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
+                                ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
+                                : (column.ColumnName == "NOTIFICADO"
+                                    ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
+                                    : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
+
+
+                            // Agregar la celda con el estilo correspondiente
+                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
                         }
+
                         tableContent += "</tr>";
                     }
 
@@ -1408,72 +1432,73 @@ namespace Presentacion.Vencimientos
 
                     // HTML con el logo y el título "Reportes" en el header
                     fullHtmlContent += $@"
-            <html>
-                <head>
-                    <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                        }}
-                        table {{ border-collapse: collapse; width: 100%; }}
-                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                        th {{ background-color: #f2f2f2; font-weight: bold; }}
-                        img {{
-                            width: 200px; /* Tamaño del logo */
-                            height: auto; /* Altura automática */
-                        }}
-                        @page {{
-                            size: legal landscape; /* Configura tamaño legal y orientación horizontal */
-                            margin: 20mm;
-                        }}
-                        table {{
-                            page-break-inside: auto;
-                        }}
-                        tr {{
-                            page-break-inside: avoid;
-                        }}
-                        td {{
-                            page-break-before: auto;
-                        }}
-                        .footer {{
-                            text-align: center;
-                            position: fixed;
-                            bottom: 10mm;
-                            left: 0;
-                            right: 0;
-                            font-size: 10px;
-                        }}
-                        .header {{
-                            text-align: center;
-                            font-size: 20px;
-                            font-weight: bold;
-                            margin-bottom: 10px;
-                        }}
-                    </style>
-                </head>
-                <body>
-                    <div class='header'>
-                        Próximos vencimientos
-                    </div>
-                    <div class='fecha'>
-                        <center>
-                        Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
-                        </center>
-                    </div>
-                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
-                    <table>
-                        <thead>
-                            <tr>
-                                {headers} <!-- Encabezados generados dinámicamente -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tableContent} <!-- Las filas generadas dinámicamente -->
-                        </tbody>
-                    </table>
-                    <div style='page-break-before: always;'></div> <!-- Salto de página para separar los contenidos -->
-                </body>
-            </html>";
+                            <html>
+                                <head>
+                                    <style>
+                                        body {{
+                                            font-family: Arial, sans-serif;
+                                        }}
+                                        table {{ border-collapse: collapse; width: 100%; }}
+                                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                                        th {{ background-color: #f2f2f2; font-weight: bold; }}
+                                        img {{
+                                            width: 200px; /* Tamaño del logo */
+                                            height: auto; /* Altura automática */
+                                        }}
+                                        @page {{
+                                            size: legal landscape; /* Configura tamaño legal y orientación horizontal */
+                                            margin: 20mm;
+                                        }}
+                                        table {{
+                                            page-break-inside: auto;
+                                        }}
+                                        tr {{
+                                            page-break-inside: avoid;
+                                        }}
+                                        td {{
+                                            page-break-before: auto;
+                                        }}
+                                        .footer {{
+                                            text-align: center;
+                                            position: fixed;
+                                            bottom: 10mm;
+                                            left: 0;
+                                            right: 0;
+                                            font-size: 10px;
+                                        }}
+                                        .header {{
+                                            text-align: center;
+                                            font-size: 20px;
+                                            font-weight: bold;
+                                            margin-bottom: 10px;
+                                        }}
+                                    </style>
+                                </head>
+                                <body>
+                                    <div class='header'>
+                                        PRÓXIMOS VENCIMIENTOS
+                                    </div>
+                                    <div class='fecha'>
+                                        <center>
+                                        Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
+                                        </center>
+                                    </div>
+                                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                {headers} <!-- Encabezados generados dinámicamente -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {tableContent} <!-- Las filas generadas dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                    <div style='page-break-before: always;'></div> <!-- Salto de página para separar los contenidos -->
+                                </body>
+                            </html>";
                 }
+
 
                 // Establecer el contenido HTML completo para el PDF
                 await page.SetContentAsync(fullHtmlContent);
@@ -1500,13 +1525,17 @@ namespace Presentacion.Vencimientos
             }
             else
             {
-                MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ NINGUNA RUTA PARA GUARDAR EL PDF", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private async void roundedButton19_Click(object sender, EventArgs e)
         {
             DataTable datos = await Task.Run(()=> vencimientoModel.ObtenerVencimientos()) ;
+            
+
 
             if (datos != null)
             {
