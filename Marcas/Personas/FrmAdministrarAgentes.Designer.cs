@@ -40,7 +40,8 @@
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             ibtnAgregar = new FontAwesome.Sharp.IconButton();
             panel3 = new Panel();
-            textBox1 = new TextBox();
+            iconButton6 = new FontAwesome.Sharp.IconButton();
+            txtBuscar = new TextBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             roundedButton5 = new Clases.RoundedButton();
             roundedButton3 = new Clases.RoundedButton();
@@ -213,7 +214,8 @@
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel3.Controls.Add(textBox1);
+            panel3.Controls.Add(iconButton6);
+            panel3.Controls.Add(txtBuscar);
             panel3.Controls.Add(iconButton1);
             panel3.Controls.Add(roundedButton5);
             panel3.Controls.Add(roundedButton3);
@@ -223,13 +225,31 @@
             panel3.TabIndex = 55;
             panel3.Paint += panel3_Paint;
             // 
-            // textBox1
+            // iconButton6
             // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(120, 93);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(264, 32);
-            textBox1.TabIndex = 50;
+            iconButton6.Anchor = AnchorStyles.Top;
+            iconButton6.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton6.FlatAppearance.BorderSize = 0;
+            iconButton6.FlatStyle = FlatStyle.Flat;
+            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton6.IconColor = Color.Black;
+            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton6.IconSize = 25;
+            iconButton6.Location = new Point(390, 93);
+            iconButton6.Name = "iconButton6";
+            iconButton6.Size = new Size(26, 32);
+            iconButton6.TabIndex = 57;
+            iconButton6.UseVisualStyleBackColor = false;
+            iconButton6.Click += iconButton6_Click;
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Anchor = AnchorStyles.None;
+            txtBuscar.Location = new Point(120, 93);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(264, 32);
+            txtBuscar.TabIndex = 50;
+            txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
             // iconButton1
             // 
@@ -337,10 +357,10 @@
             // btnGuardarU
             // 
             btnGuardarU.Anchor = AnchorStyles.Top;
-            btnGuardarU.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
             btnGuardarU.FlatAppearance.BorderSize = 0;
             btnGuardarU.FlatStyle = FlatStyle.Flat;
-            btnGuardarU.Font = new Font("Century Gothic", 12F);
+            btnGuardarU.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnGuardarU.ForeColor = Color.White;
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
             btnGuardarU.IconColor = Color.White;
@@ -361,7 +381,7 @@
             btnCancelarU.BackColor = Color.White;
             btnCancelarU.FlatAppearance.BorderSize = 0;
             btnCancelarU.FlatStyle = FlatStyle.Flat;
-            btnCancelarU.Font = new Font("Century Gothic", 12F);
+            btnCancelarU.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -662,9 +682,10 @@
         private FontAwesome.Sharp.IconButton btnCancelarU;
         private Panel panel4;
         private Panel panel3;
-        private TextBox textBox1;
+        private TextBox txtBuscar;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton roundedButton3;
+        private FontAwesome.Sharp.IconButton iconButton6;
     }
 }

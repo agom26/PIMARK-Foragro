@@ -131,7 +131,7 @@ namespace Presentacion.Personas
             {
                 tabControl1.Visible = false;
                 int idPersona = EditarPersona.idPersona;
-                btnCambios.Image=Properties.Resources.lapiz;
+                btnCambios.Image = Properties.Resources.lapiz;
                 btnCambios.Text = "EDITAR";
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
@@ -153,7 +153,8 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    btnGuardarU.Text = "ACTUALIZAR";
+                    btnGuardarU.Text = "EDITAR";
+                    btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
                     AnadirTabPage(tabPageAgenteDetail);
                     tabControl1.Visible = true;
                 }
@@ -164,7 +165,7 @@ namespace Presentacion.Personas
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
@@ -262,10 +263,9 @@ namespace Presentacion.Personas
         {
 
         }
-
-        private void iconButton1_Click(object sender, EventArgs e)
+        public async void filtrar()
         {
-            string buscar = textBox1.Text;
+            string buscar = txtBuscar.Text;
             if (buscar != "")
             {
                 DataTable agentes = personaModel.GetAgenteByValue(buscar);
@@ -289,8 +289,12 @@ namespace Presentacion.Personas
             }
             else
             {
-                LoadAgentes();
+                await LoadAgentes();
             }
+        }
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            filtrar();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -382,7 +386,7 @@ namespace Presentacion.Personas
                         alerta.ShowDialog();
                         //MessageBox.Show("Agente agregado exitosamente");
                     }
-                    else if (btnGuardarU.Text == "ACTUALIZAR")
+                    else if (btnGuardarU.Text == "EDITAR")
                     {
                         try
                         {
@@ -457,6 +461,21 @@ namespace Presentacion.Personas
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
         }
     }
 }
