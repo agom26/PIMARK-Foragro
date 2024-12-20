@@ -118,7 +118,8 @@ namespace Presentacion.Personas
             {
                 tabControl1.Visible = false;
                 int idPersona = EditarPersona.idPersona;
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                btnCambios.Image=Properties.Resources.lapiz;
+                btnCambios.Text = "EDITAR";
 
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
@@ -165,7 +166,8 @@ namespace Presentacion.Personas
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
-            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnCambios.Image=Properties.Resources.agregar;
+            btnCambios.Text = "AGREGAR";
             btnGuardarU.Text = "GUARDAR";
         }
 

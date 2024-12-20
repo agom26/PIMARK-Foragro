@@ -715,7 +715,7 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             button5.ForeColor = Color.White;
-            button5.Image = Properties.Resources.usuario_del_hospital_1_;
+            button5.Image = Properties.Resources.legal;
             button5.ImageAlign = ContentAlignment.MiddleLeft;
             button5.Location = new Point(0, 272);
             button5.Name = "button5";
