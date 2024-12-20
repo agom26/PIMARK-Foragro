@@ -134,6 +134,8 @@ namespace Presentacion
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                    
+                    btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
                     AnadirTabPage(tabPageUserDetail);
                 }
                 else
@@ -218,7 +220,8 @@ namespace Presentacion
 
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
-            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115); 
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnCambios.Text = "AGREGAR";
             btnCambios.Image = Properties.Resources.agregar;
@@ -380,7 +383,8 @@ namespace Presentacion
                 string.IsNullOrWhiteSpace(txtNombres.Text) ||
                 string.IsNullOrWhiteSpace(txtApellidos.Text))
             {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
             else
             {
@@ -392,7 +396,7 @@ namespace Presentacion
                         contrasena = txtConfirmarCont.Text;
                         btnGuardarU.Enabled = false;
 
-                        if (btnGuardarU.Text == "GUARDAR")
+                        if (btnGuardarU.Text == "AGREGAR")
                         {
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
                             FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);

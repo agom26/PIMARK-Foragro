@@ -117,10 +117,44 @@ namespace Presentacion.Personas
             LimpiarCampos();
             await AnadirTabPage(tabPageAgenteDetail);
 
-            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnCambios.Image = Properties.Resources.agregar;
             btnCambios.Text = "AGREGAR";
             tabControl1.Visible = true;
+        }
+
+        private void VerificarSeleccion()
+        {
+            if (dtgAgentes.RowCount <= 0)
+            {
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                EditarPersona.idPersona= 0;
+                return;
+            }
+            else
+            {
+                if (dtgAgentes.SelectedRows.Count > 0)
+                {
+                    var filaSeleccionada = dtgAgentes.SelectedRows[0];
+                    if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                    {
+                        int id = Convert.ToInt32(dataRowView["id"]);
+                        EditarPersona.idPersona = id;
+
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("POR FAVOR SELECCIONE UN AGENTE", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    EditarUsuario.idUser = 0;
+                }
+            }
+
+
         }
 
         public async Task Editar()
@@ -155,6 +189,7 @@ namespace Presentacion.Personas
                     txtNombreContacto.Text = EditarPersona.contacto;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                    btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
                     AnadirTabPage(tabPageAgenteDetail);
                     tabControl1.Visible = true;
                 }
@@ -165,8 +200,7 @@ namespace Presentacion.Personas
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
+                
                 //MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
 
@@ -188,20 +222,15 @@ namespace Presentacion.Personas
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
+            VerificarSeleccion();
             await Editar();
-            if (EditarPersona.idPersona > 0)
-            {
-                //await AnadirTabPage(tabPageAgenteDetail);
-            }
+            
 
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                EditarPersona.idPersona = Convert.ToInt32(dtgAgentes.Rows[e.RowIndex].Cells["id"].Value);
-            }
+           
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)
@@ -370,7 +399,9 @@ namespace Presentacion.Personas
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text) ||
                 string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
             {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR LOS CAMPOS OBLIGATORIOS:\nNOMBRE\nDIRECCION\n" +
+                    "NIT\nPA", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
             else
             {
@@ -378,7 +409,7 @@ namespace Presentacion.Personas
                 {
                     btnGuardarU.Enabled = false; // Deshabilitar el botón para evitar múltiples clics
 
-                    if (btnGuardarU.Text == "GUARDAR")
+                    if (btnGuardarU.Text == "AGREGAR")
                     {
                         // Ejecutar la operación de adición de manera asíncrona
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
@@ -444,13 +475,18 @@ namespace Presentacion.Personas
 
         }
 
-        private void dtgAgentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgAgentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            await Editar();
+            if (EditarPersona.idPersona > 0)
+            {
+                //await AnadirTabPage(tabPageAgenteDetail);
+            }
         }
 
         private async void dtgAgentes_DoubleClick(object sender, EventArgs e)
         {
+            VerificarSeleccion();
             await Editar();
             if (EditarPersona.idPersona > 0)
             {

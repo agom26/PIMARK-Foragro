@@ -366,9 +366,9 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
-            btnGuardarU.Location = new Point(109, 438);
+            btnGuardarU.Location = new Point(131, 438);
             btnGuardarU.Name = "btnGuardarU";
-            btnGuardarU.Size = new Size(218, 34);
+            btnGuardarU.Size = new Size(174, 49);
             btnGuardarU.TabIndex = 152;
             btnGuardarU.Text = "GUARDAR";
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -386,9 +386,9 @@
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 30;
-            btnCancelarU.Location = new Point(378, 438);
+            btnCancelarU.Location = new Point(400, 438);
             btnCancelarU.Name = "btnCancelarU";
-            btnCancelarU.Size = new Size(205, 34);
+            btnCancelarU.Size = new Size(174, 49);
             btnCancelarU.TabIndex = 151;
             btnCancelarU.Text = "CANCELAR";
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;

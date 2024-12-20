@@ -111,6 +111,38 @@ namespace Presentacion.Personas
             btnGuardarU.Visible = false;
         }
 
+        private void VerificarSeleccion()
+        {
+            if (dtgTitulares.RowCount <= 0)
+            {
+                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                EditarPersona.idPersona = 0;
+                return;
+            }
+            else
+            {
+                if (dtgTitulares.SelectedRows.Count > 0)
+                {
+                    var filaSeleccionada = dtgTitulares.SelectedRows[0];
+                    if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                    {
+                        int id = Convert.ToInt32(dataRowView["id"]);
+                        EditarPersona.idPersona = id;
+
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("POR FAVOR SELECCIONE UN TITULAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    EditarUsuario.idUser = 0;
+                }
+            }
+
+
+        }
+
         public async Task Editar()
         {
             Habilitar();
@@ -144,7 +176,9 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     AnadirTabPage(tabTitularDetail);
-                    btnGuardarU.Text = "ACTUALIZAR";
+                    btnGuardarU.Text = "EDITAR";
+                    btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
+                    btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
                     tabControl1.Visible = true;
                 }
                 else
@@ -154,8 +188,7 @@ namespace Presentacion.Personas
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
+               
                 //MessageBox.Show("Por favor, seleccione una fila de titular.");
             }
         }
@@ -168,7 +201,9 @@ namespace Presentacion.Personas
             AnadirTabPage(tabTitularDetail);
             btnCambios.Image=Properties.Resources.agregar;
             btnCambios.Text = "AGREGAR";
-            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
+            btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
         }
 
         private void btnCancelarTit_Click(object sender, EventArgs e)
@@ -185,6 +220,7 @@ namespace Presentacion.Personas
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
+            VerificarSeleccion();
             await Editar();
         }
 
@@ -355,7 +391,7 @@ namespace Presentacion.Personas
             string nombre = txtNombreTitular.Text;
             string direccion = txtDireccionTitular.Text;
             string nit = txtNitTitular.Text;
-            string pais = comboBox1.SelectedItem.ToString();
+            string pais = comboBox1.SelectedItem?.ToString();
             string correo = txtCorreoContacto.Text;
             string telefono = txtTelefonoContacto.Text;
             string contacto = txtNombreContacto.Text;
@@ -370,7 +406,9 @@ namespace Presentacion.Personas
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text)
                 )
             {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                //MessageBox.Show("Los campos no pueden estar vacíos.");
             }
             else
             {
@@ -379,7 +417,7 @@ namespace Presentacion.Personas
 
                     btnGuardarU.Enabled = false;
 
-                    if (btnGuardarU.Text == "GUARDAR")
+                    if (btnGuardarU.Text == "AGREGAR")
                     {
 
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
@@ -388,7 +426,7 @@ namespace Presentacion.Personas
                         //MessageBox.Show("Titular agregado exitosamente");
                         dtgTitulares.ClearSelection();
                     }
-                    else if (btnGuardarU.Text == "ACTUALIZAR")
+                    else if (btnGuardarU.Text == "EDITAR")
                     {
                         bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreTitular.Text,
@@ -438,6 +476,7 @@ namespace Presentacion.Personas
 
         private async void dtgTitulares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            VerificarSeleccion();
             await Editar();
         }
     }

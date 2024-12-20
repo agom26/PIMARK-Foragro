@@ -56,7 +56,7 @@
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.Black;
-            lblTitulo.Location = new Point(59, 3);
+            lblTitulo.Location = new Point(136, 24);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(54, 18);
             lblTitulo.TabIndex = 1;
@@ -102,10 +102,10 @@
             richTextBoxMensaje.BorderStyle = BorderStyle.None;
             richTextBoxMensaje.Font = new Font("Century Gothic", 7F);
             richTextBoxMensaje.ForeColor = Color.Black;
-            richTextBoxMensaje.Location = new Point(59, 24);
+            richTextBoxMensaje.Location = new Point(59, 3);
             richTextBoxMensaje.Name = "richTextBoxMensaje";
             richTextBoxMensaje.ReadOnly = true;
-            richTextBoxMensaje.Size = new Size(233, 52);
+            richTextBoxMensaje.Size = new Size(233, 94);
             richTextBoxMensaje.TabIndex = 5;
             richTextBoxMensaje.Text = "";
             // 
@@ -124,10 +124,9 @@
             // 
             panel2.Controls.Add(richTextBoxMensaje);
             panel2.Controls.Add(picIcon);
-            panel2.Controls.Add(lblTitulo);
-            panel2.Location = new Point(28, 58);
+            panel2.Location = new Point(28, 45);
             panel2.Name = "panel2";
-            panel2.Size = new Size(295, 81);
+            panel2.Size = new Size(295, 100);
             panel2.TabIndex = 7;
             // 
             // FrmAlerta
@@ -138,6 +137,7 @@
             ClientSize = new Size(350, 215);
             Controls.Add(panel1);
             Controls.Add(panel2);
+            Controls.Add(lblTitulo);
             Font = new Font("Century Gothic", 9F);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -150,8 +150,8 @@
             ((System.ComponentModel.ISupportInitialize)picIcon).EndInit();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

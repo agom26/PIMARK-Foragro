@@ -73,7 +73,7 @@ namespace Presentacion.Alertas
                 btnYes.Left = (this.ClientSize.Width / 2) - btnYes.Width - 10;
                 btnNo.Left = (this.ClientSize.Width / 2) + 10;
             }
-            lblTitulo.Left = (this.ClientSize.Width - lblTitulo.Width) / 2;
+            lblTitulo.Left = ((this.ClientSize.Width - lblTitulo.Width) / 2);
 
             this.Load += FrmAlerta_Load;
             FrmAlerta_Resize(this, EventArgs.Empty);
