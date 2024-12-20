@@ -63,6 +63,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregar {
+            get {
+                object obj = ResourceManager.GetObject("agregar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bahai {
             get {
                 object obj = ResourceManager.GetObject("bahai", resourceCulture);
@@ -213,6 +223,26 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap editar {
+            get {
+                object obj = ResourceManager.GetObject("editar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editar_1_ {
+            get {
+                object obj = ResourceManager.GetObject("editar(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap empresario {
             get {
                 object obj = ResourceManager.GetObject("empresario", resourceCulture);
@@ -236,6 +266,16 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap empresarios_1_ {
             get {
                 object obj = ResourceManager.GetObject("empresarios(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap empresarios_2_ {
+            get {
+                object obj = ResourceManager.GetObject("empresarios(2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -407,6 +447,16 @@ namespace Presentacion.Properties {
             get {
                 object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap lapiz {
+            get {
+                object obj = ResourceManager.GetObject("lapiz", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -57,19 +57,19 @@ namespace Presentacion.Personas
         }
         private async Task LoadAgentes()
         {
-           
+
             var agentes = personaModel.GetAllAgentes();
 
-           
+
             Invoke(new Action(() =>
             {
                 dtgAgentes.DataSource = agentes;
 
-               
+
                 if (dtgAgentes.Columns["id"] != null)
                 {
                     dtgAgentes.Columns["id"].Visible = false;
-                   
+
                     dtgAgentes.ClearSelection();
                 }
             }));
@@ -116,21 +116,23 @@ namespace Presentacion.Personas
             tabControl1.Visible = false;
             LimpiarCampos();
             await AnadirTabPage(tabPageAgenteDetail);
-            
+
             btnGuardarU.Text = "GUARDAR";
-            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnCambios.Image = Properties.Resources.agregar;
+            btnCambios.Text = "AGREGAR";
             tabControl1.Visible = true;
         }
 
         public async Task Editar()
         {
-            
+
             Habilitar();
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 tabControl1.Visible = false;
                 int idPersona = EditarPersona.idPersona;
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                btnCambios.Image=Properties.Resources.lapiz;
+                btnCambios.Text = "EDITAR";
                 var titularDetails = personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)
@@ -166,7 +168,7 @@ namespace Presentacion.Personas
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
-            
+
         }
 
         private async void btnGuardarTit_Click(object sender, EventArgs e)
@@ -190,7 +192,7 @@ namespace Presentacion.Personas
             {
                 //await AnadirTabPage(tabPageAgenteDetail);
             }
-            
+
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -321,7 +323,7 @@ namespace Presentacion.Personas
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
                     Deshabilitar();
-                   
+
                 }
                 else
                 {
@@ -414,7 +416,7 @@ namespace Presentacion.Personas
                         }
                     }
 
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -448,8 +450,13 @@ namespace Presentacion.Personas
             await Editar();
             if (EditarPersona.idPersona > 0)
             {
-                 //await AnadirTabPage(tabPageAgenteDetail);
+                //await AnadirTabPage(tabPageAgenteDetail);
             }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
