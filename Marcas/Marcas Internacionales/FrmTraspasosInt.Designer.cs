@@ -40,14 +40,9 @@
             roundedButton3 = new Clases.RoundedButton();
             panel12 = new Panel();
             panel13 = new Panel();
-            panel10 = new Panel();
-            label28 = new Label();
             roundedButton1 = new Clases.RoundedButton();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             panel14 = new Panel();
-            panel9 = new Panel();
-            label1 = new Label();
-            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -135,11 +130,8 @@
             panel20.SuspendLayout();
             panel12.SuspendLayout();
             panel13.SuspendLayout();
-            panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             panel14.SuspendLayout();
-            panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgMarcasRenov).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
@@ -291,37 +283,12 @@
             // panel13
             // 
             panel13.AutoSize = true;
-            panel13.Controls.Add(panel10);
             panel13.Controls.Add(roundedButton1);
             panel13.Dock = DockStyle.Left;
             panel13.Location = new Point(388, 0);
             panel13.Name = "panel13";
             panel13.Size = new Size(287, 49);
             panel13.TabIndex = 170;
-            // 
-            // panel10
-            // 
-            panel10.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel10.AutoSize = true;
-            panel10.BackColor = Color.FromArgb(175, 192, 218);
-            panel10.Controls.Add(label28);
-            panel10.Location = new Point(29, 14);
-            panel10.Margin = new Padding(0);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(310, 24);
-            panel10.TabIndex = 175;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Dock = DockStyle.Fill;
-            label28.Font = new Font("Century Gothic", 12F);
-            label28.Location = new Point(0, 0);
-            label28.Name = "label28";
-            label28.Size = new Size(223, 23);
-            label28.TabIndex = 166;
-            label28.Text = "TRÁMITE DE TRASPASO";
-            label28.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton1
             // 
@@ -332,15 +299,16 @@
             roundedButton1.BorderRadius = 40;
             roundedButton1.BorderSize = 0;
             roundedButton1.Dock = DockStyle.Fill;
-            roundedButton1.Enabled = false;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.Black;
             roundedButton1.Location = new Point(0, 0);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(287, 49);
             roundedButton1.TabIndex = 167;
-            roundedButton1.TextColor = Color.White;
+            roundedButton1.Text = "TRÁMITE DE TRASPASO";
+            roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox1
@@ -362,52 +330,12 @@
             // panel14
             // 
             panel14.AutoSize = true;
-            panel14.Controls.Add(panel9);
             panel14.Controls.Add(roundedButton2);
             panel14.Dock = DockStyle.Left;
             panel14.Location = new Point(0, 0);
             panel14.Name = "panel14";
             panel14.Size = new Size(339, 49);
             panel14.TabIndex = 169;
-            // 
-            // panel9
-            // 
-            panel9.AutoSize = true;
-            panel9.BackColor = Color.FromArgb(175, 192, 218);
-            panel9.Controls.Add(label1);
-            panel9.Controls.Add(iconPictureBox4);
-            panel9.Location = new Point(35, 14);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(301, 21);
-            panel9.TabIndex = 174;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Left;
-            label1.Font = new Font("Century Gothic", 12F);
-            label1.Location = new Point(21, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(229, 23);
-            label1.TabIndex = 166;
-            label1.Text = "MARCAS NACIONALES";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox4
-            // 
-            iconPictureBox4.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox4.Dock = DockStyle.Left;
-            iconPictureBox4.ForeColor = SystemColors.ControlText;
-            iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.Flag;
-            iconPictureBox4.IconColor = SystemColors.ControlText;
-            iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox4.IconSize = 21;
-            iconPictureBox4.Location = new Point(0, 0);
-            iconPictureBox4.Name = "iconPictureBox4";
-            iconPictureBox4.Size = new Size(21, 21);
-            iconPictureBox4.SizeMode = PictureBoxSizeMode.AutoSize;
-            iconPictureBox4.TabIndex = 165;
-            iconPictureBox4.TabStop = false;
             // 
             // roundedButton2
             // 
@@ -418,15 +346,19 @@
             roundedButton2.BorderRadius = 40;
             roundedButton2.BorderSize = 0;
             roundedButton2.Dock = DockStyle.Fill;
-            roundedButton2.Enabled = false;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.Black;
+            roundedButton2.Image = Properties.Resources.guatemala;
+            roundedButton2.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton2.Location = new Point(0, 0);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(339, 49);
             roundedButton2.TabIndex = 164;
-            roundedButton2.TextColor = Color.White;
+            roundedButton2.Text = "MARCAS NACIONALES";
+            roundedButton2.TextColor = Color.Black;
+            roundedButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton2.UseVisualStyleBackColor = false;
             // 
             // iconButton3
@@ -1524,14 +1456,9 @@
             panel12.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox4).EndInit();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgMarcasRenov).EndInit();
             tabPageMarcaDetail.ResumeLayout(false);
@@ -1645,13 +1572,8 @@
         private FontAwesome.Sharp.IconButton iconButton5;
         private Panel panel12;
         private Panel panel13;
-        private Panel panel10;
-        private Label label28;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Panel panel14;
-        private Panel panel9;
-        private Label label1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
         private Panel panel20;
         private Label label2;
         private TextBox txtBuscar;

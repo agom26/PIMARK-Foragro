@@ -34,14 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
-            int x = (panel23.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel23.Size.Height - label28.Size.Height) / 2;
-            panel24.Location = new Point(x, y);
-
-            int x2 = (panel20.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel20.Size.Height - label29.Size.Height) / 2;
-            panel22.Location = new Point(x2, y2);
-            iconPictureBox3.IconSize = 25;
+          
             this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idN = 0;
             ActualizarFechaVencimiento();

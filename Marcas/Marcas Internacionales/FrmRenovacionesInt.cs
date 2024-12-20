@@ -26,15 +26,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmRenovacionesInt()
         {
             InitializeComponent();
-            int x = (panel14.Size.Width - label1.Size.Width - iconPictureBox4.Size.Width) / 2;
-            int y = (panel14.Size.Height - label1.Size.Height) / 2;
-            panel11.Location = new Point(x, y);
-
-            int x2 = (panel13.Size.Width - label28.Size.Width) / 2;
-            int y2 = (panel13.Size.Height - label28.Size.Height) / 2;
-            panel9.Location = new Point(x2, y2);
-
-            iconPictureBox4.IconSize = 25;
+           
             this.Load += FrmRenovacionesInt_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;

@@ -33,15 +33,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntOposiciones()
         {
             InitializeComponent();
-            //int x = (panel13.Size.Width - label28.Size.Width - iconPictureBox3.Size.Width) / 2;
-            //int y = (panel13.Size.Height - label28.Size.Height) / 2;
-            //panel14.Location = new Point(x, y);
-
-            //int x2 = (panel11.Size.Width - label29.Size.Width) / 2;
-            //int y2 = (panel11.Size.Height - label29.Size.Height) / 2;
-            //panel12.Location = new Point(x2, y2);
-
-            iconPictureBox3.IconSize = 25;
+            
             this.Load += FrmMarcasIntOposiciones_Load;
             SeleccionarMarca.idInt = 0;
             //ActualizarFechaVencimiento();
