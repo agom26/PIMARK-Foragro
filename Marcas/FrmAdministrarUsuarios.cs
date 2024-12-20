@@ -90,6 +90,12 @@ namespace Presentacion
                     dtgUsuarios.Columns["id"].Visible = false;
                 }
                 dtgUsuarios.ClearSelection();
+
+                if (dtgUsuarios.Columns["Administrador"] != null)
+                {
+                    dtgUsuarios.Columns["Administrador"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Centrar el texto
+                }
             }));
         }
 
@@ -97,7 +103,8 @@ namespace Presentacion
         {
             if (EditarUsuario.idUser > 0)
             {
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                btnCambios.Text="EDITAR";
+                btnCambios.Image = Properties.Resources.lapiz;
                 int idUser = EditarUsuario.idUser;
 
 
@@ -141,7 +148,7 @@ namespace Presentacion
         {
             if (EditarUsuario.idUser > 0)
             {
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                
                 int idUser = EditarUsuario.idUser;
 
 
@@ -179,7 +186,8 @@ namespace Presentacion
 
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadUsers());
-
+             // Asegúrate de que el DataGridView esté configurado correctamente
+            
 
 
             // Eliminar la tabPage de detalle
@@ -208,7 +216,8 @@ namespace Presentacion
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
             btnGuardarU.Text = "GUARDAR";
-            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnCambios.Text = "AGREGAR";
+            btnCambios.Image = Properties.Resources.agregar;
 
         }
 

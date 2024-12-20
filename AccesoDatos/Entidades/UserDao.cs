@@ -62,26 +62,28 @@ namespace AccesoDatos.Usuarios
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo, isAdmin as Administrador FROM USERS", conexion))
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, usuario as Usuario, nombres as Nombre, apellidos as Apellido, correo as Correo, isAdmin FROM USERS", conexion))
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())
                     {
                        
                         tabla.Load(leer);
-                        tabla.Columns.Add("Es Administrador", typeof(string));
+                        tabla.Columns.Add("Administrador", typeof(string));
 
                         foreach (DataRow row in tabla.Rows)
                         {
-                            var isAdminValue = row["Administrador"];
+                            var isAdminValue = row["isAdmin"];
                             bool isAdmin = Convert.ToUInt64(isAdminValue) == 1; 
-                            row["Es Administrador"] = isAdmin ? "sí" : "no";
+                            row["Administrador"] = isAdmin ? "SI" : "NO";
                         }
 
-                        tabla.Columns.Remove("Administrador");
+                        tabla.Columns.Remove("isAdmin");
                     }
                 }
             }
+
+           
             return tabla;
         }
 

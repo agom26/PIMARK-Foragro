@@ -42,7 +42,6 @@
             panel3 = new Panel();
             textBox1 = new TextBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            label1 = new Label();
             roundedButton5 = new Clases.RoundedButton();
             roundedButton3 = new Clases.RoundedButton();
             tabPageAgenteDetail = new TabPage();
@@ -110,7 +109,7 @@
             panel1.Controls.Add(dtgAgentes);
             panel1.Location = new Point(8, 157);
             panel1.Name = "panel1";
-            panel1.Size = new Size(543, 404);
+            panel1.Size = new Size(521, 404);
             panel1.TabIndex = 55;
             // 
             // dtgAgentes
@@ -162,7 +161,7 @@
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 10F);
             dtgAgentes.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgAgentes.Size = new Size(502, 364);
+            dtgAgentes.Size = new Size(480, 364);
             dtgAgentes.TabIndex = 14;
             dtgAgentes.CellClick += dtgAgentes_CellClick;
             dtgAgentes.CellContentClick += dtgAgentes_CellContentClick;
@@ -181,9 +180,9 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
-            ibtnEditar.Location = new Point(557, 212);
+            ibtnEditar.Location = new Point(535, 222);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(152, 37);
+            ibtnEditar.Size = new Size(174, 49);
             ibtnEditar.TabIndex = 17;
             ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -202,9 +201,9 @@
             ibtnAgregar.IconColor = Color.White;
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnAgregar.IconSize = 25;
-            ibtnAgregar.Location = new Point(557, 157);
+            ibtnAgregar.Location = new Point(535, 157);
             ibtnAgregar.Name = "ibtnAgregar";
-            ibtnAgregar.Size = new Size(152, 37);
+            ibtnAgregar.Size = new Size(174, 49);
             ibtnAgregar.TabIndex = 16;
             ibtnAgregar.Text = "AGREGAR";
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -216,7 +215,6 @@
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel3.Controls.Add(textBox1);
             panel3.Controls.Add(iconButton1);
-            panel3.Controls.Add(label1);
             panel3.Controls.Add(roundedButton5);
             panel3.Controls.Add(roundedButton3);
             panel3.Location = new Point(5, 6);
@@ -228,7 +226,7 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(151, 98);
+            textBox1.Location = new Point(120, 93);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(264, 32);
             textBox1.TabIndex = 50;
@@ -246,26 +244,14 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 28;
             iconButton1.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton1.Location = new Point(440, 90);
+            iconButton1.Location = new Point(426, 88);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(126, 30);
+            iconButton1.Size = new Size(144, 40);
             iconButton1.TabIndex = 51;
             iconButton1.Text = "BUSCAR";
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(236, 236, 238);
-            label1.Font = new Font("Century Gothic", 10F);
-            label1.Location = new Point(152, 78);
-            label1.Name = "label1";
-            label1.Size = new Size(222, 21);
-            label1.TabIndex = 49;
-            label1.Text = "Buscar por nombre o pais";
             // 
             // roundedButton5
             // 
@@ -292,7 +278,7 @@
             // 
             // roundedButton3
             // 
-            roundedButton3.Anchor = AnchorStyles.None;
+            roundedButton3.Anchor = AnchorStyles.Top;
             roundedButton3.BackColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BackgroundColor = Color.FromArgb(236, 236, 238);
             roundedButton3.BorderColor = Color.FromArgb(236, 236, 238);
@@ -302,9 +288,9 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(109, 75);
+            roundedButton3.Location = new Point(101, 73);
             roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(486, 56);
+            roundedButton3.Size = new Size(494, 68);
             roundedButton3.TabIndex = 52;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
@@ -678,7 +664,6 @@
         private Panel panel3;
         private TextBox textBox1;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private Label label1;
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton roundedButton3;
     }

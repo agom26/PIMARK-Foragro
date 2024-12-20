@@ -121,8 +121,8 @@
   <data name="reloj-y-calendario(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reloj-y-calendario(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Globe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Globe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logoBPA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logoBPA.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="legal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\legal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,11 +148,14 @@
   <data name="usuario-del-hospital(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-del-hospital(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="usuario-final(3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuario-final(3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="grafico-ascendente(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-ascendente(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SucessIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\done_16019803.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="bahai" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bahai.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="editar(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\editar(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,9 +232,6 @@
   <data name="usuario-final(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-final(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logoBPA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logoBPA.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cerrar-sesion(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cerrar-sesion(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -247,6 +247,9 @@
   <data name="pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pdf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="legal(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\legal(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="grafico-simple-horizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-simple-horizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -256,11 +259,11 @@
   <data name="color" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Globe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Globe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="question" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bahai" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bahai.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="casa(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\casa(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -313,7 +316,10 @@
   <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ok.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="legal(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\legal(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SucessIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\done_16019803.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="usuario-final(4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuario-final(4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -683,6 +683,26 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap usuario_final_3_ {
+            get {
+                object obj = ResourceManager.GetObject("usuario-final(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap usuario_final_4_ {
+            get {
+                object obj = ResourceManager.GetObject("usuario-final(4)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap usuario_hospitalario {
             get {
                 object obj = ResourceManager.GetObject("usuario-hospitalario", resourceCulture);
