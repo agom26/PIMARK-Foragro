@@ -1452,7 +1452,12 @@ namespace Presentacion.Vencimientos
                 </head>
                 <body>
                     <div class='header'>
-                        Vencimientos
+                        Próximos vencimientos
+                    </div>
+                    <div class='fecha'>
+                        <center>
+                        Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
+                        </center>
                     </div>
                     <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
                     <table>
