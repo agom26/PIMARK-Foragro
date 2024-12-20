@@ -1415,7 +1415,6 @@ namespace Presentacion.Vencimientos
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
-
                             // Agregar la celda con el estilo correspondiente
                             tableContent += $"<td {alignStyle}>{row[column]}</td>";
                         }
@@ -1432,71 +1431,71 @@ namespace Presentacion.Vencimientos
 
                     // HTML con el logo y el título "Reportes" en el header
                     fullHtmlContent += $@"
-                            <html>
-                                <head>
-                                    <style>
-                                        body {{
-                                            font-family: Arial, sans-serif;
-                                        }}
-                                        table {{ border-collapse: collapse; width: 100%; }}
-                                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                                        th {{ background-color: #f2f2f2; font-weight: bold; }}
-                                        img {{
-                                            width: 200px; /* Tamaño del logo */
-                                            height: auto; /* Altura automática */
-                                        }}
-                                        @page {{
-                                            size: legal landscape; /* Configura tamaño legal y orientación horizontal */
-                                            margin: 20mm;
-                                        }}
-                                        table {{
-                                            page-break-inside: auto;
-                                        }}
-                                        tr {{
-                                            page-break-inside: avoid;
-                                        }}
-                                        td {{
-                                            page-break-before: auto;
-                                        }}
-                                        .footer {{
-                                            text-align: center;
-                                            position: fixed;
-                                            bottom: 10mm;
-                                            left: 0;
-                                            right: 0;
-                                            font-size: 10px;
-                                        }}
-                                        .header {{
-                                            text-align: center;
-                                            font-size: 20px;
-                                            font-weight: bold;
-                                            margin-bottom: 10px;
-                                        }}
-                                    </style>
-                                </head>
-                                <body>
-                                    <div class='header'>
-                                        PRÓXIMOS VENCIMIENTOS
-                                    </div>
-                                    <div class='fecha'>
-                                        <center>
-                                        Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
-                                        </center>
-                                    </div>
-                                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                {headers} <!-- Encabezados generados dinámicamente -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {tableContent} <!-- Las filas generadas dinámicamente -->
-                                        </tbody>
-                                    </table>
-                                    <div style='page-break-before: always;'></div> <!-- Salto de página para separar los contenidos -->
-                                </body>
-                            </html>";
+                     <html>
+                         <head>
+                             <style>
+                                 body {{
+                                     font-family: Arial, sans-serif;
+                                 }}
+                                 table {{ border-collapse: collapse; width: 100%; }}
+                                 th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                                 th {{ background-color: #f2f2f2; font-weight: bold; }}
+                                 img {{
+                                     width: 200px; /* Tamaño del logo */
+                                     height: auto; /* Altura automática */
+                                 }}
+                                 @page {{
+                                     size: legal landscape; /* Configura tamaño legal y orientación horizontal */
+                                     margin: 20mm;
+                                 }}
+                                 table {{
+                                     page-break-inside: auto;
+                                 }}
+                                 tr {{
+                                     page-break-inside: avoid;
+                                 }}
+                                 td {{
+                                     page-break-before: auto;
+                                 }}
+                                 .footer {{
+                                     text-align: center;
+                                     position: fixed;
+                                     bottom: 10mm;
+                                     left: 0;
+                                     right: 0;
+                                     font-size: 10px;
+                                 }}
+                                 .header {{
+                                     text-align: center;
+                                     font-size: 20px;
+                                     font-weight: bold;
+                                     margin-bottom: 10px;
+                                 }}
+                             </style>
+                         </head>
+                         <body>
+                             <div class='header'>
+                                 PRÓXIMOS VENCIMIENTOS
+                             </div>
+                             <div class='fecha'>
+                                 <center>
+                                 Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
+                                 </center>
+                             </div>
+                             <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
+                             <table>
+                                 <thead>
+                                     <tr>
+                                         {headers} <!-- Encabezados generados dinámicamente -->
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     {tableContent} <!-- Las filas generadas dinámicamente -->
+                                 </tbody>
+                             </table>
+                             {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")} <!-- No agregar salto de página al final -->
+                         </body>
+                     </html>";
                 }
 
 
