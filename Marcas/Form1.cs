@@ -34,11 +34,11 @@ namespace Presentacion
 
             if (isAdmin)
             {
-                iconButtonUsuarios.Visible = true;
+                btnUsers.Visible = true;
             }
             else
             {
-                iconButtonUsuarios.Visible = false;
+                btnUsers.Visible = false;
             }
             VencimientoModel.EjecutarProcedimiento();
 
@@ -108,10 +108,10 @@ namespace Presentacion
         public void DisableButtons()
         {
             //home
-            btnHome.Enabled = false;
-            iconButtonUsuarios.Enabled = false;
-            iconButtonAgentes.Enabled = false;
-            iconButtonTitulares.Enabled = false;
+            //btnHome.Enabled = false;
+            btnUsers.Enabled = false;
+            //iconButtonAgentes.Enabled = false;
+            //iconButtonTitulares.Enabled = false;
             btnTramiteInicial.Enabled = false;
             btnEnTramite.Enabled = false;
             btnOposiciones.Enabled = false;
@@ -134,18 +134,18 @@ namespace Presentacion
             btnTramiteTraspPatentes.Enabled = false;
             btnAbandonadasPatentes.Enabled = false;
             //otros
-            btnReportes.Enabled = false;
-            iconButtonLogout.Enabled = false;
-            iconButtonVencimientos.Enabled = false;
+            //btnReportes.Enabled = false;
+            //iconButtonLogout.Enabled = false;
+            //iconButtonVencimientos.Enabled = false;
         }
 
         public void EnableButtons()
         {
             //home
-            btnHome.Enabled = true;
-            iconButtonUsuarios.Enabled = true;
-            iconButtonAgentes.Enabled = true;
-            iconButtonTitulares.Enabled = true;
+            //btnHome.Enabled = true;
+            btnUsers.Enabled = true;
+            //iconButtonAgentes.Enabled = true;
+            //iconButtonTitulares.Enabled = true;
             btnTramiteInicial.Enabled = true;
             btnEnTramite.Enabled = true;
             btnOposiciones.Enabled = true;
@@ -168,9 +168,9 @@ namespace Presentacion
             btnTramiteTraspPatentes.Enabled = true;
             btnAbandonadasPatentes.Enabled = true;
             //otros
-            btnReportes.Enabled = true;
-            iconButtonLogout.Enabled = true;
-            iconButtonVencimientos.Enabled = true;
+            //btnReportes.Enabled = true;
+            //iconButtonLogout.Enabled = true;
+            //iconButtonVencimientos.Enabled = true;
         }
 
 
@@ -250,9 +250,10 @@ namespace Presentacion
             ShowSubMenu(panelSubMenuMarcasNacionales);
         }
 
+        // ShowSubMenu(panelSubMenuMarcasInter); marcas nacionales
         private void iconButton12_Click(object sender, EventArgs e)
         {
-            ShowSubMenu(panelSubMenuMarcasInter);
+
         }
 
         private void iconButton13_Click(object sender, EventArgs e)
@@ -638,6 +639,77 @@ namespace Presentacion
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            ShowSubMenu(panelSubMenuMarcasInter);
+        }
+
+        private async void button3_Click_1(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmDashboard3(this));
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button4_Click_1(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmAdministrarUsuarios());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button4_Click_2(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmAdministrarAgentes());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button5_Click_2(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmAdministrarTitulares());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private void button6_Click_2(object sender, EventArgs e)
+        {
+            ShowSubMenu(panelSubMenuMarcasNacionales);
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            ShowSubMenu(panelSubMenuPatentes);
+        }
+
+        private async void button8_Click_1(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmReportesMarcasPatentes());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private async void button9_Click(object sender, EventArgs e)
+        {
+            DisableButtons();
+            openChildForm(new FrmVencimientos());
+            await Task.Delay(1000);
+            EnableButtons();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }

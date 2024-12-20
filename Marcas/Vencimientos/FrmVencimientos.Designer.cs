@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dtgVencimientos = new DataGridView();
             panel1 = new Panel();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -41,8 +41,6 @@
             tabPageVencimientosList = new TabPage();
             roundedButton11 = new Clases.RoundedButton();
             roundedButton19 = new Clases.RoundedButton();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            label2 = new Label();
             roundedButton5 = new Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel2 = new Panel();
@@ -233,7 +231,6 @@
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageVencimientosList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             tabPageMarcaDetail.SuspendLayout();
             panel2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -294,14 +291,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -432,9 +429,7 @@
             tabPageVencimientosList.Controls.Add(ibtnBuscar);
             tabPageVencimientosList.Controls.Add(ibtnEditar);
             tabPageVencimientosList.Controls.Add(textBox1);
-            tabPageVencimientosList.Controls.Add(iconPictureBox1);
             tabPageVencimientosList.Controls.Add(label3);
-            tabPageVencimientosList.Controls.Add(label2);
             tabPageVencimientosList.Controls.Add(roundedButton3);
             tabPageVencimientosList.Controls.Add(roundedButton5);
             tabPageVencimientosList.Location = new Point(4, 29);
@@ -495,33 +490,6 @@
             roundedButton19.UseVisualStyleBackColor = false;
             roundedButton19.Click += roundedButton19_Click;
             // 
-            // iconPictureBox1
-            // 
-            iconPictureBox1.Anchor = AnchorStyles.Top;
-            iconPictureBox1.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox1.ForeColor = SystemColors.ControlText;
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconPictureBox1.IconColor = SystemColors.ControlText;
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(273, 27);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(40, 40);
-            iconPictureBox1.TabIndex = 40;
-            iconPictureBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(175, 192, 218);
-            label2.Font = new Font("Century Gothic", 15F);
-            label2.Location = new Point(324, 27);
-            label2.Name = "label2";
-            label2.Size = new Size(336, 31);
-            label2.TabIndex = 34;
-            label2.Text = "PRÓXIMOS VENCIMIENTOS";
-            // 
             // roundedButton5
             // 
             roundedButton5.Anchor = AnchorStyles.Top;
@@ -530,15 +498,19 @@
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderRadius = 40;
             roundedButton5.BorderSize = 0;
-            roundedButton5.Enabled = false;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.ForeColor = Color.White;
+            roundedButton5.Font = new Font("Century Gothic", 15F, FontStyle.Bold);
+            roundedButton5.ForeColor = Color.Black;
+            roundedButton5.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton5.Location = new Point(128, 17);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(683, 61);
             roundedButton5.TabIndex = 39;
-            roundedButton5.TextColor = Color.White;
+            roundedButton5.Text = "PRÓXIMOS VENCIMIENTOS";
+            roundedButton5.TextColor = Color.Black;
+            roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton5.UseVisualStyleBackColor = false;
             // 
             // tabPageMarcaDetail
@@ -2882,7 +2854,6 @@
             tabControl1.ResumeLayout(false);
             tabPageVencimientosList.ResumeLayout(false);
             tabPageVencimientosList.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             tabPageMarcaDetail.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -2972,8 +2943,6 @@
         private FontAwesome.Sharp.IconButton ibtnEditar;
         private TabControl tabControl1;
         private TabPage tabPageVencimientosList;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Label label2;
         private Clases.RoundedButton roundedButton5;
         private TabPage tabPageMarcaDetail;
         private TabPage tabPagePatenteDetail;
