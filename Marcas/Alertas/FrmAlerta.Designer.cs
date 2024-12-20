@@ -44,9 +44,9 @@
             // picIcon
             // 
             picIcon.Image = Properties.Resources.logoBPA;
-            picIcon.Location = new Point(3, 3);
+            picIcon.Location = new Point(3, 16);
             picIcon.Name = "picIcon";
-            picIcon.Size = new Size(50, 50);
+            picIcon.Size = new Size(61, 61);
             picIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             picIcon.TabIndex = 0;
             picIcon.TabStop = false;
@@ -61,6 +61,7 @@
             lblTitulo.Size = new Size(54, 18);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "label1";
+            lblTitulo.Visible = false;
             // 
             // btnYes
             // 
@@ -102,10 +103,10 @@
             richTextBoxMensaje.BorderStyle = BorderStyle.None;
             richTextBoxMensaje.Font = new Font("Century Gothic", 7F);
             richTextBoxMensaje.ForeColor = Color.Black;
-            richTextBoxMensaje.Location = new Point(59, 3);
+            richTextBoxMensaje.Location = new Point(70, 16);
             richTextBoxMensaje.Name = "richTextBoxMensaje";
             richTextBoxMensaje.ReadOnly = true;
-            richTextBoxMensaje.Size = new Size(233, 94);
+            richTextBoxMensaje.Size = new Size(222, 61);
             richTextBoxMensaje.TabIndex = 5;
             richTextBoxMensaje.Text = "";
             // 

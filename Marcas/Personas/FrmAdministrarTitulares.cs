@@ -150,7 +150,7 @@ namespace Presentacion.Personas
             {
                 tabControl1.Visible = false;
                 int idPersona = EditarPersona.idPersona;
-                btnCambios.Image=Properties.Resources.lapiz;
+                btnCambios.Image = Properties.Resources.lapiz;
                 btnCambios.Text = "EDITAR";
 
                 var titularDetails = personaModel.GetPersonaById(idPersona);
@@ -188,7 +188,7 @@ namespace Presentacion.Personas
             }
             else
             {
-               
+
                 //MessageBox.Show("Por favor, seleccione una fila de titular.");
             }
         }
@@ -199,7 +199,7 @@ namespace Presentacion.Personas
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
-            btnCambios.Image=Properties.Resources.agregar;
+            btnCambios.Image = Properties.Resources.agregar;
             btnCambios.Text = "AGREGAR";
             btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
             btnGuardarU.Text = "AGREGAR";
@@ -297,10 +297,9 @@ namespace Presentacion.Personas
         {
 
         }
-
-        private void iconButton1_Click(object sender, EventArgs e)
+        public void filtrar()
         {
-            string buscar = textBox1.Text;
+            string buscar = txtBuscar.Text;
             if (buscar != "")
             {
                 DataTable titulares = personaModel.GetTitularByValue(buscar);
@@ -326,6 +325,10 @@ namespace Presentacion.Personas
             {
                 LoadTitulares();
             }
+        }
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            filtrar();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -406,7 +409,8 @@ namespace Presentacion.Personas
                 string.IsNullOrWhiteSpace(txtNombreContacto.Text)
                 )
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR LOS CAMPOS OBLIGATORIOS:\n" +
+                    "TITULAR\nDIRECCIÓN\nNIT\nPAÍS\nCORREO\nCONTACTO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Los campos no pueden estar vacíos.");
             }
@@ -478,6 +482,20 @@ namespace Presentacion.Personas
         {
             VerificarSeleccion();
             await Editar();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
         }
     }
 }

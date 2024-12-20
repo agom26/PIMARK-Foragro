@@ -400,7 +400,7 @@ namespace Presentacion.Personas
                 string.IsNullOrWhiteSpace(txtTelefonoContacto.Text))
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE LLENAR LOS CAMPOS OBLIGATORIOS:\nNOMBRE\nDIRECCION\n" +
-                    "NIT\nPA", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "NIT\nPAIS\nCORREO\nCONTACTO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
             else

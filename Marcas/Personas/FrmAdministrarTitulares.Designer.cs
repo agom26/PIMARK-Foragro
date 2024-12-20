@@ -36,8 +36,9 @@
             tabControl1 = new TabControl();
             tabListTitulares = new TabPage();
             panel2 = new Panel();
+            iconButton6 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            textBox1 = new TextBox();
+            txtBuscar = new TextBox();
             roundedButton5 = new Clases.RoundedButton();
             roundedButton3 = new Clases.RoundedButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -104,8 +105,9 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(iconButton6);
             panel2.Controls.Add(iconButton1);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(txtBuscar);
             panel2.Controls.Add(roundedButton5);
             panel2.Controls.Add(roundedButton3);
             panel2.Location = new Point(0, 0);
@@ -113,6 +115,23 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(813, 193);
             panel2.TabIndex = 63;
+            // 
+            // iconButton6
+            // 
+            iconButton6.Anchor = AnchorStyles.Top;
+            iconButton6.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton6.FlatAppearance.BorderSize = 0;
+            iconButton6.FlatStyle = FlatStyle.Flat;
+            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton6.IconColor = Color.Black;
+            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton6.IconSize = 25;
+            iconButton6.Location = new Point(371, 120);
+            iconButton6.Name = "iconButton6";
+            iconButton6.Size = new Size(26, 32);
+            iconButton6.TabIndex = 61;
+            iconButton6.UseVisualStyleBackColor = false;
+            iconButton6.Click += iconButton6_Click;
             // 
             // iconButton1
             // 
@@ -135,13 +154,14 @@
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
             // 
-            // textBox1
+            // txtBuscar
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(64, 122);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 32);
-            textBox1.TabIndex = 57;
+            txtBuscar.Anchor = AnchorStyles.Top;
+            txtBuscar.Location = new Point(64, 122);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(301, 32);
+            txtBuscar.TabIndex = 57;
+            txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
             // roundedButton5
             // 
@@ -651,7 +671,7 @@
         private TextBox txtNombreContacto;
         private Label label9;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private TextBox textBox1;
+        private TextBox txtBuscar;
         private Clases.RoundedButton roundedButton5;
         private Clases.RoundedButton roundedButton3;
         private ComboBox comboBox1;
@@ -664,5 +684,6 @@
         private Clases.RoundedButton btnCambios;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private Clases.RoundedButton roundedButton1;
+        private FontAwesome.Sharp.IconButton iconButton6;
     }
 }
