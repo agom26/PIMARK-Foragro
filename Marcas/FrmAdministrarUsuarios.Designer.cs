@@ -122,6 +122,7 @@
             btnEliminar.IconColor = Color.White;
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEliminar.IconSize = 25;
+            btnEliminar.ImageAlign = ContentAlignment.MiddleRight;
             btnEliminar.Location = new Point(639, 333);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(174, 49);
@@ -144,6 +145,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
+            iconButton3.ImageAlign = ContentAlignment.MiddleRight;
             iconButton3.Location = new Point(639, 267);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(174, 49);
@@ -166,6 +168,7 @@
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
+            iconButton2.ImageAlign = ContentAlignment.MiddleRight;
             iconButton2.Location = new Point(639, 200);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(174, 49);
@@ -267,13 +270,13 @@
             btnTitulo.BorderSize = 0;
             btnTitulo.FlatAppearance.BorderSize = 0;
             btnTitulo.FlatStyle = FlatStyle.Flat;
-            btnTitulo.Font = new Font("Century Gothic", 15F, FontStyle.Bold);
+            btnTitulo.Font = new Font("Century Gothic", 15F);
             btnTitulo.ForeColor = Color.Black;
             btnTitulo.Image = Properties.Resources.usuario_final_4_;
             btnTitulo.ImageAlign = ContentAlignment.MiddleRight;
             btnTitulo.Location = new Point(67, 6);
             btnTitulo.Name = "btnTitulo";
-            btnTitulo.Size = new Size(472, 61);
+            btnTitulo.Size = new Size(495, 61);
             btnTitulo.TabIndex = 46;
             btnTitulo.Text = "USUARIOS";
             btnTitulo.TextColor = Color.Black;
@@ -395,7 +398,7 @@
             btnCambios.BorderSize = 0;
             btnCambios.FlatAppearance.BorderSize = 0;
             btnCambios.FlatStyle = FlatStyle.Flat;
-            btnCambios.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnCambios.Font = new Font("Century Gothic", 12F);
             btnCambios.ForeColor = Color.Black;
             btnCambios.Image = Properties.Resources.agregar;
             btnCambios.ImageAlign = ContentAlignment.MiddleRight;
@@ -417,7 +420,7 @@
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            roundedButton1.Font = new Font("Century Gothic", 12F);
             roundedButton1.ForeColor = Color.Black;
             roundedButton1.Image = Properties.Resources.usuario_final_4_;
             roundedButton1.ImageAlign = ContentAlignment.MiddleRight;
@@ -530,6 +533,7 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
+            btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarU.Location = new Point(146, 332);
             btnGuardarU.Name = "btnGuardarU";
             btnGuardarU.Size = new Size(174, 48);
@@ -562,6 +566,7 @@
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 30;
+            btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarU.Location = new Point(416, 332);
             btnCancelarU.Name = "btnCancelarU";
             btnCancelarU.Size = new Size(174, 48);

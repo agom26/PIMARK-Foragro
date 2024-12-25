@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
+using Presentacion.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -144,10 +145,14 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.TabPages.Add(tabClienteDetail);
             }
-            iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabClienteDetail;
-            btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus ;
+
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
+            btnCambios.Image = Properties.Resources.agregar;
+            btnCambios.Text = "AGREGAR";
         }
 
         private void dtgClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -173,7 +178,6 @@ namespace Presentacion.Marcas_Internacionales
             {
 
                 ibtnEditar.Enabled = false;
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Pen;
                 try
                 {
                     tabControl1.Visible = false;
@@ -202,7 +206,12 @@ namespace Presentacion.Marcas_Internacionales
                         txtCorreoContacto.Text = EditarPersona.correo;
                         txtTelefonoContacto.Text = EditarPersona.telefono;
                         txtNombreContacto.Text = EditarPersona.contacto;
-                        btnGuardarU.Text = "ACTUALIZAR";
+                        btnGuardarU.Text = "EDITAR";
+
+                        btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
+                        btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
+                        btnCambios.Image = Properties.Resources.lapiz;
+                        btnCambios.Text = "EDITAR";
                         AnadirTabPage(tabClienteDetail);
                     }
                     else
@@ -293,7 +302,9 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    MessageBox.Show("No existen clientes con esos datos");
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen clientes con esos datos");
                     MostrarClientes();
                 }
             }
@@ -310,7 +321,6 @@ namespace Presentacion.Marcas_Internacionales
                 int idPersona = EditarPersona.idPersona;
 
                 var clienteDetails = personaModel.GetPersonaById(idPersona);
-                iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.Eye;
                 if (clienteDetails.Count > 0)
                 {
 
@@ -394,7 +404,7 @@ namespace Presentacion.Marcas_Internacionales
                         //MessageBox.Show("Cliente agregado exitosamente");
                         dtgClientes.ClearSelection();
                     }
-                    else if (btnGuardarU.Text == "ACTUALIZAR")
+                    else if (btnGuardarU.Text == "EDITAR")
                     {
                         bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreCliente.Text,

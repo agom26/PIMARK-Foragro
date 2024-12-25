@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
             dtgVencimientos = new DataGridView();
             panel1 = new Panel();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
             textBox1 = new TextBox();
-            label3 = new Label();
             roundedButton3 = new Clases.RoundedButton();
             fontDialog1 = new FontDialog();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -227,6 +226,7 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
+            iconButton7 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -291,14 +291,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = SystemColors.Control;
+            dataGridViewCellStyle13.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle13.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -309,7 +309,7 @@
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVencimientos.Size = new Size(847, 504);
+            dtgVencimientos.Size = new Size(881, 504);
             dtgVencimientos.TabIndex = 4;
             dtgVencimientos.CellDoubleClick += dtgVencimientos_CellDoubleClick;
             // 
@@ -320,7 +320,7 @@
             panel1.Controls.Add(dtgVencimientos);
             panel1.Location = new Point(21, 198);
             panel1.Name = "panel1";
-            panel1.Size = new Size(881, 539);
+            panel1.Size = new Size(915, 539);
             panel1.TabIndex = 6;
             // 
             // ibtnBuscar
@@ -335,9 +335,10 @@
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(635, 122);
+            ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
+            ibtnBuscar.Location = new Point(574, 116);
             ibtnBuscar.Name = "ibtnBuscar";
-            ibtnBuscar.Size = new Size(144, 32);
+            ibtnBuscar.Size = new Size(144, 40);
             ibtnBuscar.TabIndex = 37;
             ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -347,22 +348,11 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Location = new Point(305, 126);
+            textBox1.Font = new Font("Century Gothic", 12F);
+            textBox1.Location = new Point(210, 120);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 26);
+            textBox1.Size = new Size(301, 32);
             textBox1.TabIndex = 36;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top;
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(236, 236, 238);
-            label3.Font = new Font("Century Gothic", 9F);
-            label3.Location = new Point(140, 126);
-            label3.Name = "label3";
-            label3.Size = new Size(148, 20);
-            label3.TabIndex = 35;
-            label3.Text = "Buscar por nombre";
             // 
             // roundedButton3
             // 
@@ -380,7 +370,6 @@
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(683, 61);
             roundedButton3.TabIndex = 38;
-            roundedButton3.Text = "roundedButton3";
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
             // 
@@ -397,9 +386,9 @@
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
             ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(913, 198);
+            ibtnEditar.Location = new Point(942, 198);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(203, 40);
+            ibtnEditar.Size = new Size(174, 49);
             ibtnEditar.TabIndex = 44;
             ibtnEditar.Text = "VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -424,13 +413,13 @@
             // tabPageVencimientosList
             // 
             tabPageVencimientosList.AutoScroll = true;
+            tabPageVencimientosList.Controls.Add(iconButton7);
             tabPageVencimientosList.Controls.Add(roundedButton11);
             tabPageVencimientosList.Controls.Add(roundedButton19);
             tabPageVencimientosList.Controls.Add(panel1);
             tabPageVencimientosList.Controls.Add(ibtnBuscar);
             tabPageVencimientosList.Controls.Add(ibtnEditar);
             tabPageVencimientosList.Controls.Add(textBox1);
-            tabPageVencimientosList.Controls.Add(label3);
             tabPageVencimientosList.Controls.Add(roundedButton3);
             tabPageVencimientosList.Controls.Add(roundedButton5);
             tabPageVencimientosList.Location = new Point(4, 29);
@@ -501,7 +490,7 @@
             roundedButton5.BorderSize = 0;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 15F, FontStyle.Bold);
+            roundedButton5.Font = new Font("Century Gothic", 15F);
             roundedButton5.ForeColor = Color.Black;
             roundedButton5.Image = Properties.Resources.reloj_y_calendario_1_;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
@@ -2840,6 +2829,22 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // iconButton7
+            // 
+            iconButton7.Anchor = AnchorStyles.Top;
+            iconButton7.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton7.FlatAppearance.BorderSize = 0;
+            iconButton7.FlatStyle = FlatStyle.Flat;
+            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton7.IconColor = Color.Black;
+            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton7.IconSize = 25;
+            iconButton7.Location = new Point(517, 120);
+            iconButton7.Name = "iconButton7";
+            iconButton7.Size = new Size(26, 32);
+            iconButton7.TabIndex = 221;
+            iconButton7.UseVisualStyleBackColor = false;
+            // 
             // FrmVencimientos
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -2940,7 +2945,6 @@
         private Panel panel1;
         private FontAwesome.Sharp.IconButton ibtnBuscar;
         private TextBox textBox1;
-        private Label label3;
         private Clases.RoundedButton roundedButton3;
         private FontDialog fontDialog1;
         private FontAwesome.Sharp.IconButton ibtnEditar;
@@ -3136,5 +3140,6 @@
         private Button button4;
         private Clases.RoundedButton roundedButton11;
         private Clases.RoundedButton roundedButton19;
+        private FontAwesome.Sharp.IconButton iconButton7;
     }
 }

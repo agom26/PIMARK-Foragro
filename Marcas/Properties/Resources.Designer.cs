@@ -83,6 +83,66 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bandera {
+            get {
+                object obj = ResourceManager.GetObject("bandera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bandera_2_ {
+            get {
+                object obj = ResourceManager.GetObject("bandera(2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bandera_3_ {
+            get {
+                object obj = ResourceManager.GetObject("bandera(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bandera_4_ {
+            get {
+                object obj = ResourceManager.GetObject("bandera(4)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bandera_5_ {
+            get {
+                object obj = ResourceManager.GetObject("bandera(5)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bandera_6_ {
+            get {
+                object obj = ResourceManager.GetObject("bandera(6)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap boton_de_inicio {
             get {
                 object obj = ResourceManager.GetObject("boton-de-inicio", resourceCulture);
@@ -396,6 +456,26 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap guatemala {
             get {
                 object obj = ResourceManager.GetObject("guatemala", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guatemala_1_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guatemala_2_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala(2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

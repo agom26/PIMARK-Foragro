@@ -155,7 +155,7 @@
             roundedButton2.Dock = DockStyle.Top;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Century Gothic", 15F, FontStyle.Bold);
+            roundedButton2.Font = new Font("Century Gothic", 15F);
             roundedButton2.ForeColor = Color.Black;
             roundedButton2.Image = Properties.Resources.reloj_y_calendario_1_;
             roundedButton2.ImageAlign = ContentAlignment.MiddleRight;

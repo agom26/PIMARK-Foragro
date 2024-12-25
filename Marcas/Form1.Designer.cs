@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelChildForm = new Panel();
-            button2 = new Button();
+            btnMarcasNacionales = new Button();
             panelSubMenuPatentes = new Panel();
             btnAbandonadasPatentes = new Button();
             btnTramiteTraspPatentes = new Button();
@@ -39,10 +39,10 @@
             btnTramiteInicialPatente = new Button();
             btnIngresarPatente = new Button();
             panel2 = new Panel();
-            button10 = new Button();
-            button9 = new Button();
-            button8 = new Button();
-            button7 = new Button();
+            btnCerrarSesion = new Button();
+            btnVencimientos = new Button();
+            btnReportes = new Button();
+            btnPatentes = new Button();
             panelSubMenuMarcasNacionales = new Panel();
             btnAbandonadas = new Button();
             btnTramiteTraspaso = new Button();
@@ -53,7 +53,7 @@
             btnTramiteInicial = new Button();
             panel3 = new Panel();
             button1 = new Button();
-            button6 = new Button();
+            btnMInternacionales = new Button();
             panelSubMenuMarcasInter = new Panel();
             btnAbandonadasInter = new Button();
             btnTraspasoInter = new Button();
@@ -63,10 +63,10 @@
             btnIngresadasInt = new Button();
             btnTramiteInicialInter = new Button();
             btnClientes = new Button();
-            button5 = new Button();
-            button4 = new Button();
+            btnTitulares = new Button();
+            btnAgentes = new Button();
             btnUsers = new Button();
-            button3 = new Button();
+            btnInicio = new Button();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
@@ -98,25 +98,25 @@
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
             // 
-            // button2
+            // btnMarcasNacionales
             // 
-            button2.BackColor = Color.FromArgb(34, 77, 112);
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Image = Properties.Resources.guatemala;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(0, 333);
-            button2.Name = "button2";
-            button2.Size = new Size(259, 61);
-            button2.TabIndex = 0;
-            button2.Text = "      MARCAS NACIONALES";
-            button2.TextAlign = ContentAlignment.MiddleRight;
-            button2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click_2;
+            btnMarcasNacionales.BackColor = Color.FromArgb(34, 77, 112);
+            btnMarcasNacionales.Dock = DockStyle.Top;
+            btnMarcasNacionales.FlatAppearance.BorderSize = 0;
+            btnMarcasNacionales.FlatStyle = FlatStyle.Flat;
+            btnMarcasNacionales.Font = new Font("Century Gothic", 9F);
+            btnMarcasNacionales.ForeColor = Color.White;
+            btnMarcasNacionales.Image = Properties.Resources.bandera_4_;
+            btnMarcasNacionales.ImageAlign = ContentAlignment.MiddleLeft;
+            btnMarcasNacionales.Location = new Point(0, 333);
+            btnMarcasNacionales.Name = "btnMarcasNacionales";
+            btnMarcasNacionales.Size = new Size(259, 61);
+            btnMarcasNacionales.TabIndex = 0;
+            btnMarcasNacionales.Text = "     MARCAS NACIONALES";
+            btnMarcasNacionales.TextAlign = ContentAlignment.MiddleRight;
+            btnMarcasNacionales.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnMarcasNacionales.UseVisualStyleBackColor = false;
+            btnMarcasNacionales.Click += button2_Click_2;
             // 
             // panelSubMenuPatentes
             // 
@@ -141,7 +141,7 @@
             btnAbandonadasPatentes.Dock = DockStyle.Top;
             btnAbandonadasPatentes.FlatAppearance.BorderSize = 0;
             btnAbandonadasPatentes.FlatStyle = FlatStyle.Flat;
-            btnAbandonadasPatentes.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnAbandonadasPatentes.Font = new Font("Century Gothic", 9F);
             btnAbandonadasPatentes.ForeColor = Color.Black;
             btnAbandonadasPatentes.Location = new Point(0, 235);
             btnAbandonadasPatentes.Name = "btnAbandonadasPatentes";
@@ -159,7 +159,7 @@
             btnTramiteTraspPatentes.Dock = DockStyle.Top;
             btnTramiteTraspPatentes.FlatAppearance.BorderSize = 0;
             btnTramiteTraspPatentes.FlatStyle = FlatStyle.Flat;
-            btnTramiteTraspPatentes.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteTraspPatentes.Font = new Font("Century Gothic", 9F);
             btnTramiteTraspPatentes.ForeColor = Color.Black;
             btnTramiteTraspPatentes.Location = new Point(0, 188);
             btnTramiteTraspPatentes.Name = "btnTramiteTraspPatentes";
@@ -177,7 +177,7 @@
             btnTramiteRenovPatentes.Dock = DockStyle.Top;
             btnTramiteRenovPatentes.FlatAppearance.BorderSize = 0;
             btnTramiteRenovPatentes.FlatStyle = FlatStyle.Flat;
-            btnTramiteRenovPatentes.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteRenovPatentes.Font = new Font("Century Gothic", 9F);
             btnTramiteRenovPatentes.ForeColor = Color.Black;
             btnTramiteRenovPatentes.Location = new Point(0, 141);
             btnTramiteRenovPatentes.Name = "btnTramiteRenovPatentes";
@@ -195,7 +195,7 @@
             btnPatentesRegistradas.Dock = DockStyle.Top;
             btnPatentesRegistradas.FlatAppearance.BorderSize = 0;
             btnPatentesRegistradas.FlatStyle = FlatStyle.Flat;
-            btnPatentesRegistradas.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnPatentesRegistradas.Font = new Font("Century Gothic", 9F);
             btnPatentesRegistradas.ForeColor = Color.Black;
             btnPatentesRegistradas.Location = new Point(0, 94);
             btnPatentesRegistradas.Name = "btnPatentesRegistradas";
@@ -213,7 +213,7 @@
             btnTramiteInicialPatente.Dock = DockStyle.Top;
             btnTramiteInicialPatente.FlatAppearance.BorderSize = 0;
             btnTramiteInicialPatente.FlatStyle = FlatStyle.Flat;
-            btnTramiteInicialPatente.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteInicialPatente.Font = new Font("Century Gothic", 9F);
             btnTramiteInicialPatente.ForeColor = Color.Black;
             btnTramiteInicialPatente.Location = new Point(0, 47);
             btnTramiteInicialPatente.Name = "btnTramiteInicialPatente";
@@ -231,7 +231,7 @@
             btnIngresarPatente.Dock = DockStyle.Top;
             btnIngresarPatente.FlatAppearance.BorderSize = 0;
             btnIngresarPatente.FlatStyle = FlatStyle.Flat;
-            btnIngresarPatente.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnIngresarPatente.Font = new Font("Century Gothic", 9F);
             btnIngresarPatente.ForeColor = Color.Black;
             btnIngresarPatente.Location = new Point(0, 0);
             btnIngresarPatente.Name = "btnIngresarPatente";
@@ -248,20 +248,20 @@
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(34, 77, 112);
-            panel2.Controls.Add(button10);
-            panel2.Controls.Add(button9);
-            panel2.Controls.Add(button8);
+            panel2.Controls.Add(btnCerrarSesion);
+            panel2.Controls.Add(btnVencimientos);
+            panel2.Controls.Add(btnReportes);
             panel2.Controls.Add(panelSubMenuPatentes);
-            panel2.Controls.Add(button7);
+            panel2.Controls.Add(btnPatentes);
             panel2.Controls.Add(panelSubMenuMarcasNacionales);
             panel2.Controls.Add(panel3);
-            panel2.Controls.Add(button6);
+            panel2.Controls.Add(btnMInternacionales);
             panel2.Controls.Add(panelSubMenuMarcasInter);
-            panel2.Controls.Add(button2);
-            panel2.Controls.Add(button5);
-            panel2.Controls.Add(button4);
+            panel2.Controls.Add(btnMarcasNacionales);
+            panel2.Controls.Add(btnTitulares);
+            panel2.Controls.Add(btnAgentes);
             panel2.Controls.Add(btnUsers);
-            panel2.Controls.Add(button3);
+            panel2.Controls.Add(btnInicio);
             panel2.Controls.Add(iconButton1);
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -269,81 +269,81 @@
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
-            // button10
+            // btnCerrarSesion
             // 
-            button10.BackColor = Color.FromArgb(34, 77, 112);
-            button10.Dock = DockStyle.Bottom;
-            button10.FlatAppearance.BorderSize = 0;
-            button10.FlatStyle = FlatStyle.Flat;
-            button10.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button10.ForeColor = Color.White;
-            button10.Image = Properties.Resources.cerrar_sesion_4_;
-            button10.ImageAlign = ContentAlignment.MiddleLeft;
-            button10.Location = new Point(0, 1723);
-            button10.Name = "button10";
-            button10.Size = new Size(259, 61);
-            button10.TabIndex = 26;
-            button10.Text = "    CERRAR SESIÓN";
-            button10.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button10.UseVisualStyleBackColor = false;
-            button10.Click += button10_Click;
+            btnCerrarSesion.BackColor = Color.FromArgb(34, 77, 112);
+            btnCerrarSesion.Dock = DockStyle.Bottom;
+            btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
+            btnCerrarSesion.Font = new Font("Century Gothic", 9F);
+            btnCerrarSesion.ForeColor = Color.White;
+            btnCerrarSesion.Image = Properties.Resources.cerrar_sesion_4_;
+            btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCerrarSesion.Location = new Point(0, 1723);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(259, 61);
+            btnCerrarSesion.TabIndex = 26;
+            btnCerrarSesion.Text = "    CERRAR SESIÓN";
+            btnCerrarSesion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCerrarSesion.UseVisualStyleBackColor = false;
+            btnCerrarSesion.Click += button10_Click;
             // 
-            // button9
+            // btnVencimientos
             // 
-            button9.BackColor = Color.FromArgb(34, 77, 112);
-            button9.Dock = DockStyle.Top;
-            button9.FlatAppearance.BorderSize = 0;
-            button9.FlatStyle = FlatStyle.Flat;
-            button9.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button9.ForeColor = Color.White;
-            button9.Image = Properties.Resources.reloj_y_calendario;
-            button9.ImageAlign = ContentAlignment.MiddleLeft;
-            button9.Location = new Point(0, 1662);
-            button9.Name = "button9";
-            button9.Size = new Size(259, 61);
-            button9.TabIndex = 25;
-            button9.Text = "    VENCIMIENTOS";
-            button9.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button9.UseVisualStyleBackColor = false;
-            button9.Click += button9_Click;
+            btnVencimientos.BackColor = Color.FromArgb(34, 77, 112);
+            btnVencimientos.Dock = DockStyle.Top;
+            btnVencimientos.FlatAppearance.BorderSize = 0;
+            btnVencimientos.FlatStyle = FlatStyle.Flat;
+            btnVencimientos.Font = new Font("Century Gothic", 9F);
+            btnVencimientos.ForeColor = Color.White;
+            btnVencimientos.Image = Properties.Resources.reloj_y_calendario;
+            btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnVencimientos.Location = new Point(0, 1662);
+            btnVencimientos.Name = "btnVencimientos";
+            btnVencimientos.Size = new Size(259, 61);
+            btnVencimientos.TabIndex = 25;
+            btnVencimientos.Text = "    VENCIMIENTOS";
+            btnVencimientos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnVencimientos.UseVisualStyleBackColor = false;
+            btnVencimientos.Click += button9_Click;
             // 
-            // button8
+            // btnReportes
             // 
-            button8.BackColor = Color.FromArgb(34, 77, 112);
-            button8.Dock = DockStyle.Top;
-            button8.FlatAppearance.BorderSize = 0;
-            button8.FlatStyle = FlatStyle.Flat;
-            button8.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button8.ForeColor = Color.White;
-            button8.Image = Properties.Resources.grafico_simple_horizontal_1_;
-            button8.ImageAlign = ContentAlignment.MiddleLeft;
-            button8.Location = new Point(0, 1601);
-            button8.Name = "button8";
-            button8.Size = new Size(259, 61);
-            button8.TabIndex = 24;
-            button8.Text = "     REPORTES";
-            button8.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button8.UseVisualStyleBackColor = false;
-            button8.Click += button8_Click_1;
+            btnReportes.BackColor = Color.FromArgb(34, 77, 112);
+            btnReportes.Dock = DockStyle.Top;
+            btnReportes.FlatAppearance.BorderSize = 0;
+            btnReportes.FlatStyle = FlatStyle.Flat;
+            btnReportes.Font = new Font("Century Gothic", 9F);
+            btnReportes.ForeColor = Color.White;
+            btnReportes.Image = Properties.Resources.grafico_simple_horizontal_1_;
+            btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnReportes.Location = new Point(0, 1601);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(259, 61);
+            btnReportes.TabIndex = 24;
+            btnReportes.Text = "     REPORTES";
+            btnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnReportes.UseVisualStyleBackColor = false;
+            btnReportes.Click += button8_Click_1;
             // 
-            // button7
+            // btnPatentes
             // 
-            button7.BackColor = Color.FromArgb(34, 77, 112);
-            button7.Dock = DockStyle.Top;
-            button7.FlatAppearance.BorderSize = 0;
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button7.ForeColor = Color.White;
-            button7.Image = Properties.Resources.bahai;
-            button7.ImageAlign = ContentAlignment.MiddleLeft;
-            button7.Location = new Point(0, 1230);
-            button7.Name = "button7";
-            button7.Size = new Size(259, 61);
-            button7.TabIndex = 23;
-            button7.Text = "     PATENTES";
-            button7.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button7.UseVisualStyleBackColor = false;
-            button7.Click += button7_Click_1;
+            btnPatentes.BackColor = Color.FromArgb(34, 77, 112);
+            btnPatentes.Dock = DockStyle.Top;
+            btnPatentes.FlatAppearance.BorderSize = 0;
+            btnPatentes.FlatStyle = FlatStyle.Flat;
+            btnPatentes.Font = new Font("Century Gothic", 9F);
+            btnPatentes.ForeColor = Color.White;
+            btnPatentes.Image = Properties.Resources.bahai;
+            btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPatentes.Location = new Point(0, 1230);
+            btnPatentes.Name = "btnPatentes";
+            btnPatentes.Size = new Size(259, 61);
+            btnPatentes.TabIndex = 23;
+            btnPatentes.Text = "     PATENTES";
+            btnPatentes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPatentes.UseVisualStyleBackColor = false;
+            btnPatentes.Click += button7_Click_1;
             // 
             // panelSubMenuMarcasNacionales
             // 
@@ -369,7 +369,7 @@
             btnAbandonadas.Dock = DockStyle.Top;
             btnAbandonadas.FlatAppearance.BorderSize = 0;
             btnAbandonadas.FlatStyle = FlatStyle.Flat;
-            btnAbandonadas.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnAbandonadas.Font = new Font("Century Gothic", 9F);
             btnAbandonadas.ForeColor = Color.Black;
             btnAbandonadas.Location = new Point(0, 282);
             btnAbandonadas.Margin = new Padding(0);
@@ -389,7 +389,7 @@
             btnTramiteTraspaso.Dock = DockStyle.Top;
             btnTramiteTraspaso.FlatAppearance.BorderSize = 0;
             btnTramiteTraspaso.FlatStyle = FlatStyle.Flat;
-            btnTramiteTraspaso.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteTraspaso.Font = new Font("Century Gothic", 9F);
             btnTramiteTraspaso.ForeColor = Color.Black;
             btnTramiteTraspaso.Location = new Point(0, 235);
             btnTramiteTraspaso.Name = "btnTramiteTraspaso";
@@ -408,7 +408,7 @@
             btnTramiteRenovacion.Dock = DockStyle.Top;
             btnTramiteRenovacion.FlatAppearance.BorderSize = 0;
             btnTramiteRenovacion.FlatStyle = FlatStyle.Flat;
-            btnTramiteRenovacion.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteRenovacion.Font = new Font("Century Gothic", 9F);
             btnTramiteRenovacion.ForeColor = Color.Black;
             btnTramiteRenovacion.Location = new Point(0, 188);
             btnTramiteRenovacion.Margin = new Padding(0);
@@ -428,7 +428,7 @@
             btnRegistradas.Dock = DockStyle.Top;
             btnRegistradas.FlatAppearance.BorderSize = 0;
             btnRegistradas.FlatStyle = FlatStyle.Flat;
-            btnRegistradas.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnRegistradas.Font = new Font("Century Gothic", 9F);
             btnRegistradas.ForeColor = Color.Black;
             btnRegistradas.Location = new Point(0, 141);
             btnRegistradas.Name = "btnRegistradas";
@@ -447,7 +447,7 @@
             btnOposiciones.Dock = DockStyle.Top;
             btnOposiciones.FlatAppearance.BorderSize = 0;
             btnOposiciones.FlatStyle = FlatStyle.Flat;
-            btnOposiciones.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnOposiciones.Font = new Font("Century Gothic", 9F);
             btnOposiciones.ForeColor = Color.Black;
             btnOposiciones.Location = new Point(0, 94);
             btnOposiciones.Margin = new Padding(0);
@@ -467,7 +467,7 @@
             btnEnTramite.Dock = DockStyle.Top;
             btnEnTramite.FlatAppearance.BorderSize = 0;
             btnEnTramite.FlatStyle = FlatStyle.Flat;
-            btnEnTramite.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnEnTramite.Font = new Font("Century Gothic", 9F);
             btnEnTramite.ForeColor = Color.Black;
             btnEnTramite.Location = new Point(0, 47);
             btnEnTramite.Margin = new Padding(0);
@@ -487,7 +487,7 @@
             btnTramiteInicial.Dock = DockStyle.Top;
             btnTramiteInicial.FlatAppearance.BorderSize = 0;
             btnTramiteInicial.FlatStyle = FlatStyle.Flat;
-            btnTramiteInicial.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteInicial.Font = new Font("Century Gothic", 9F);
             btnTramiteInicial.ForeColor = Color.Black;
             btnTramiteInicial.Location = new Point(0, 0);
             btnTramiteInicial.Margin = new Padding(0);
@@ -525,25 +525,25 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_2;
             // 
-            // button6
+            // btnMInternacionales
             // 
-            button6.BackColor = Color.FromArgb(34, 77, 112);
-            button6.Dock = DockStyle.Top;
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button6.ForeColor = Color.White;
-            button6.Image = (Image)resources.GetObject("button6.Image");
-            button6.ImageAlign = ContentAlignment.MiddleLeft;
-            button6.Location = new Point(0, 823);
-            button6.Name = "button6";
-            button6.Size = new Size(259, 61);
-            button6.TabIndex = 22;
-            button6.Text = "     M. INTERNACIONALES";
-            button6.TextAlign = ContentAlignment.MiddleRight;
-            button6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button6.UseVisualStyleBackColor = false;
-            button6.Click += button6_Click_2;
+            btnMInternacionales.BackColor = Color.FromArgb(34, 77, 112);
+            btnMInternacionales.Dock = DockStyle.Top;
+            btnMInternacionales.FlatAppearance.BorderSize = 0;
+            btnMInternacionales.FlatStyle = FlatStyle.Flat;
+            btnMInternacionales.Font = new Font("Century Gothic", 9F);
+            btnMInternacionales.ForeColor = Color.White;
+            btnMInternacionales.Image = (Image)resources.GetObject("btnMInternacionales.Image");
+            btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
+            btnMInternacionales.Location = new Point(0, 823);
+            btnMInternacionales.Name = "btnMInternacionales";
+            btnMInternacionales.Size = new Size(259, 61);
+            btnMInternacionales.TabIndex = 22;
+            btnMInternacionales.Text = "     M. INTERNACIONALES";
+            btnMInternacionales.TextAlign = ContentAlignment.MiddleRight;
+            btnMInternacionales.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnMInternacionales.UseVisualStyleBackColor = false;
+            btnMInternacionales.Click += button6_Click_2;
             // 
             // panelSubMenuMarcasInter
             // 
@@ -569,7 +569,7 @@
             btnAbandonadasInter.Dock = DockStyle.Top;
             btnAbandonadasInter.FlatAppearance.BorderSize = 0;
             btnAbandonadasInter.FlatStyle = FlatStyle.Flat;
-            btnAbandonadasInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnAbandonadasInter.Font = new Font("Century Gothic", 9F);
             btnAbandonadasInter.ForeColor = Color.Black;
             btnAbandonadasInter.Location = new Point(0, 355);
             btnAbandonadasInter.Name = "btnAbandonadasInter";
@@ -587,7 +587,7 @@
             btnTraspasoInter.Dock = DockStyle.Top;
             btnTraspasoInter.FlatAppearance.BorderSize = 0;
             btnTraspasoInter.FlatStyle = FlatStyle.Flat;
-            btnTraspasoInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTraspasoInter.Font = new Font("Century Gothic", 9F);
             btnTraspasoInter.ForeColor = Color.Black;
             btnTraspasoInter.Location = new Point(0, 308);
             btnTraspasoInter.Name = "btnTraspasoInter";
@@ -605,7 +605,7 @@
             btnRenovInter.Dock = DockStyle.Top;
             btnRenovInter.FlatAppearance.BorderSize = 0;
             btnRenovInter.FlatStyle = FlatStyle.Flat;
-            btnRenovInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnRenovInter.Font = new Font("Century Gothic", 9F);
             btnRenovInter.ForeColor = Color.Black;
             btnRenovInter.Location = new Point(0, 248);
             btnRenovInter.Name = "btnRenovInter";
@@ -623,7 +623,7 @@
             btnRegInter.Dock = DockStyle.Top;
             btnRegInter.FlatAppearance.BorderSize = 0;
             btnRegInter.FlatStyle = FlatStyle.Flat;
-            btnRegInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnRegInter.Font = new Font("Century Gothic", 9F);
             btnRegInter.ForeColor = Color.Black;
             btnRegInter.Location = new Point(0, 201);
             btnRegInter.Name = "btnRegInter";
@@ -641,7 +641,7 @@
             btnOpoInter.Dock = DockStyle.Top;
             btnOpoInter.FlatAppearance.BorderSize = 0;
             btnOpoInter.FlatStyle = FlatStyle.Flat;
-            btnOpoInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnOpoInter.Font = new Font("Century Gothic", 9F);
             btnOpoInter.ForeColor = Color.Black;
             btnOpoInter.Location = new Point(0, 141);
             btnOpoInter.Name = "btnOpoInter";
@@ -659,7 +659,7 @@
             btnIngresadasInt.Dock = DockStyle.Top;
             btnIngresadasInt.FlatAppearance.BorderSize = 0;
             btnIngresadasInt.FlatStyle = FlatStyle.Flat;
-            btnIngresadasInt.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnIngresadasInt.Font = new Font("Century Gothic", 9F);
             btnIngresadasInt.ForeColor = Color.Black;
             btnIngresadasInt.Location = new Point(0, 94);
             btnIngresadasInt.Name = "btnIngresadasInt";
@@ -677,7 +677,7 @@
             btnTramiteInicialInter.Dock = DockStyle.Top;
             btnTramiteInicialInter.FlatAppearance.BorderSize = 0;
             btnTramiteInicialInter.FlatStyle = FlatStyle.Flat;
-            btnTramiteInicialInter.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnTramiteInicialInter.Font = new Font("Century Gothic", 9F);
             btnTramiteInicialInter.ForeColor = Color.Black;
             btnTramiteInicialInter.Location = new Point(0, 47);
             btnTramiteInicialInter.Name = "btnTramiteInicialInter";
@@ -695,7 +695,7 @@
             btnClientes.Dock = DockStyle.Top;
             btnClientes.FlatAppearance.BorderSize = 0;
             btnClientes.FlatStyle = FlatStyle.Flat;
-            btnClientes.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnClientes.Font = new Font("Century Gothic", 9F);
             btnClientes.ForeColor = Color.Black;
             btnClientes.Location = new Point(0, 0);
             btnClientes.Name = "btnClientes";
@@ -707,43 +707,43 @@
             btnClientes.UseVisualStyleBackColor = true;
             btnClientes.Click += button30_Click;
             // 
-            // button5
+            // btnTitulares
             // 
-            button5.BackColor = Color.FromArgb(34, 77, 112);
-            button5.Dock = DockStyle.Top;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button5.ForeColor = Color.White;
-            button5.Image = Properties.Resources.legal;
-            button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(0, 272);
-            button5.Name = "button5";
-            button5.Size = new Size(259, 61);
-            button5.TabIndex = 21;
-            button5.Text = "     TITULARES";
-            button5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button5.UseVisualStyleBackColor = false;
-            button5.Click += button5_Click_2;
+            btnTitulares.BackColor = Color.FromArgb(34, 77, 112);
+            btnTitulares.Dock = DockStyle.Top;
+            btnTitulares.FlatAppearance.BorderSize = 0;
+            btnTitulares.FlatStyle = FlatStyle.Flat;
+            btnTitulares.Font = new Font("Century Gothic", 9F);
+            btnTitulares.ForeColor = Color.White;
+            btnTitulares.Image = Properties.Resources.legal;
+            btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
+            btnTitulares.Location = new Point(0, 272);
+            btnTitulares.Name = "btnTitulares";
+            btnTitulares.Size = new Size(259, 61);
+            btnTitulares.TabIndex = 21;
+            btnTitulares.Text = "     TITULARES";
+            btnTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnTitulares.UseVisualStyleBackColor = false;
+            btnTitulares.Click += button5_Click_2;
             // 
-            // button4
+            // btnAgentes
             // 
-            button4.BackColor = Color.FromArgb(34, 77, 112);
-            button4.Dock = DockStyle.Top;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button4.ForeColor = Color.White;
-            button4.Image = Properties.Resources.empresarios_1_;
-            button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.Location = new Point(0, 211);
-            button4.Name = "button4";
-            button4.Size = new Size(259, 61);
-            button4.TabIndex = 20;
-            button4.Text = "     AGENTES";
-            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button4.UseVisualStyleBackColor = false;
-            button4.Click += button4_Click_2;
+            btnAgentes.BackColor = Color.FromArgb(34, 77, 112);
+            btnAgentes.Dock = DockStyle.Top;
+            btnAgentes.FlatAppearance.BorderSize = 0;
+            btnAgentes.FlatStyle = FlatStyle.Flat;
+            btnAgentes.Font = new Font("Century Gothic", 9F);
+            btnAgentes.ForeColor = Color.White;
+            btnAgentes.Image = Properties.Resources.empresarios_1_;
+            btnAgentes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAgentes.Location = new Point(0, 211);
+            btnAgentes.Name = "btnAgentes";
+            btnAgentes.Size = new Size(259, 61);
+            btnAgentes.TabIndex = 20;
+            btnAgentes.Text = "     AGENTES";
+            btnAgentes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAgentes.UseVisualStyleBackColor = false;
+            btnAgentes.Click += button4_Click_2;
             // 
             // btnUsers
             // 
@@ -751,7 +751,7 @@
             btnUsers.Dock = DockStyle.Top;
             btnUsers.FlatAppearance.BorderSize = 0;
             btnUsers.FlatStyle = FlatStyle.Flat;
-            btnUsers.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnUsers.Font = new Font("Century Gothic", 9F);
             btnUsers.ForeColor = Color.White;
             btnUsers.Image = Properties.Resources.usuario_final;
             btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
@@ -765,25 +765,25 @@
             btnUsers.UseVisualStyleBackColor = false;
             btnUsers.Click += button4_Click_1;
             // 
-            // button3
+            // btnInicio
             // 
-            button3.BackColor = Color.FromArgb(34, 77, 112);
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            button3.ForeColor = Color.White;
-            button3.Image = Properties.Resources.casa_silueta_negra_sin_puerta;
-            button3.ImageAlign = ContentAlignment.MiddleLeft;
-            button3.Location = new Point(0, 89);
-            button3.Name = "button3";
-            button3.Size = new Size(259, 61);
-            button3.TabIndex = 5;
-            button3.Text = "     INICIO";
-            button3.TextAlign = ContentAlignment.MiddleRight;
-            button3.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click_1;
+            btnInicio.BackColor = Color.FromArgb(34, 77, 112);
+            btnInicio.Dock = DockStyle.Top;
+            btnInicio.FlatAppearance.BorderSize = 0;
+            btnInicio.FlatStyle = FlatStyle.Flat;
+            btnInicio.Font = new Font("Century Gothic", 9F);
+            btnInicio.ForeColor = Color.White;
+            btnInicio.Image = Properties.Resources.casa_silueta_negra_sin_puerta;
+            btnInicio.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInicio.Location = new Point(0, 89);
+            btnInicio.Name = "btnInicio";
+            btnInicio.Size = new Size(259, 61);
+            btnInicio.TabIndex = 5;
+            btnInicio.Text = "     INICIO";
+            btnInicio.TextAlign = ContentAlignment.MiddleRight;
+            btnInicio.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnInicio.UseVisualStyleBackColor = false;
+            btnInicio.Click += button3_Click_1;
             // 
             // iconButton1
             // 
@@ -830,9 +830,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(33, 18);
+            pictureBox1.Location = new Point(42, 18);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(72, 52);
+            pictureBox1.Size = new Size(63, 52);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -987,16 +987,16 @@
         private PictureBox pictureBox1;
         private Panel panel3;
         private Button button1;
-        private Button button2;
-        private Button button3;
+        private Button btnMarcasNacionales;
+        private Button btnInicio;
         private Button btnUsers;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private Button button10;
+        private Button btnAgentes;
+        private Button btnTitulares;
+        private Button btnMInternacionales;
+        private Button btnPatentes;
+        private Button btnReportes;
+        private Button btnVencimientos;
+        private Button btnCerrarSesion;
     }
 }
 

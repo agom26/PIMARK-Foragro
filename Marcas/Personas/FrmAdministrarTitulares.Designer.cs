@@ -91,6 +91,7 @@
             // 
             // tabListTitulares
             // 
+            tabListTitulares.AutoScroll = true;
             tabListTitulares.Controls.Add(panel2);
             tabListTitulares.Controls.Add(ibtnEditar);
             tabListTitulares.Controls.Add(ibtnAgregar);
@@ -173,11 +174,11 @@
             roundedButton5.BorderSize = 0;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 15F, FontStyle.Bold);
+            roundedButton5.Font = new Font("Century Gothic", 15F);
             roundedButton5.ForeColor = Color.Black;
             roundedButton5.Image = Properties.Resources.legal_1_;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton5.Location = new Point(131, 5);
+            roundedButton5.Location = new Point(30, 6);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(555, 61);
             roundedButton5.TabIndex = 60;
@@ -217,6 +218,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
+            ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
             ibtnEditar.Location = new Point(642, 269);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(174, 49);
@@ -238,6 +240,7 @@
             ibtnAgregar.IconColor = Color.White;
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnAgregar.IconSize = 25;
+            ibtnAgregar.ImageAlign = ContentAlignment.MiddleRight;
             ibtnAgregar.Location = new Point(642, 200);
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(174, 49);
@@ -324,6 +327,7 @@
             // 
             // panel3
             // 
+            panel3.AutoScroll = true;
             panel3.Controls.Add(btnCambios);
             panel3.Controls.Add(iconPictureBox3);
             panel3.Controls.Add(roundedButton1);
@@ -360,7 +364,7 @@
             btnCambios.BorderSize = 0;
             btnCambios.FlatAppearance.BorderSize = 0;
             btnCambios.FlatStyle = FlatStyle.Flat;
-            btnCambios.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnCambios.Font = new Font("Century Gothic", 12F);
             btnCambios.ForeColor = Color.Black;
             btnCambios.Image = Properties.Resources.lapiz;
             btnCambios.ImageAlign = ContentAlignment.MiddleRight;
@@ -398,7 +402,7 @@
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            roundedButton1.Font = new Font("Century Gothic", 12F);
             roundedButton1.ForeColor = Color.Black;
             roundedButton1.Image = Properties.Resources.legal_1_;
             roundedButton1.ImageAlign = ContentAlignment.MiddleRight;
@@ -424,6 +428,7 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
+            btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarU.Location = new Point(178, 566);
             btnGuardarU.Name = "btnGuardarU";
             btnGuardarU.Size = new Size(174, 49);
@@ -444,6 +449,7 @@
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 30;
+            btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarU.Location = new Point(435, 566);
             btnCancelarU.Name = "btnCancelarU";
             btnCancelarU.Size = new Size(174, 49);

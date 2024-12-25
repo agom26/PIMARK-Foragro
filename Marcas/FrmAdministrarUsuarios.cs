@@ -467,7 +467,9 @@ namespace Presentacion
                 string.IsNullOrWhiteSpace(txtNombres.Text) ||
                 string.IsNullOrWhiteSpace(txtApellidos.Text))
             {
-                MessageBox.Show("Los campos no pueden estar vacíos.");
+                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Los campos no pueden estar vacíos.");
             }
             else
             {
