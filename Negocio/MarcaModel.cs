@@ -195,5 +195,13 @@ namespace Dominio
         }
 
 
+        public void ActualizarExpedienteMarca(int p_id, string p_expediente, DateTime fecha, string estado, 
+            string anotaciones, string usuario)
+        {
+            marcaDao.ActualizarExpedienteMarca(p_id, p_expediente, fecha, estado, anotaciones, usuario);
+        }
+
+
+
     }
 }

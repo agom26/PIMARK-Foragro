@@ -47,10 +47,15 @@ namespace Presentacion.Vencimientos
 
         private void FrmAgregarEtapaRegistradaV_Load(object sender, EventArgs e)
         {
-            tableLayoutPanel1.RowStyles[0].Height = 0;
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
-          
+            tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
+            tableLayoutPanel1.RowStyles[0].Height = 63.33f;
+            tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+            tableLayoutPanel1.RowStyles[1].Height = 36.67f;
+            AgregarEtapa.etapa = "Trámite de renovación";
+            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + AgregarEtapa.etapa;
+
         }
 
         private void button2_Click(object sender, EventArgs e)

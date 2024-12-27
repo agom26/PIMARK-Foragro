@@ -1586,6 +1586,18 @@ namespace Presentacion.Vencimientos
             historialPatenteModel.CrearHistorialPatente(fechaAbandono, "Abandono", justificacion, usuarioAbandono, null, idPatente);
         }
 
+        private void ActualizarEstadoMarca2(int idMarca, DateTime fechaAbandono, string estado, string anotaciones, string usuario)
+        {
+            // Actualizar el estado y la justificación de la marca
+            historialModel.GuardarEtapa(idMarca, fechaAbandono, estado, anotaciones, usuario, "TRÁMITE");
+        }
+
+        private void ActualizarEstadoPatente2(int idPatente, DateTime fechaAbandono, string estado, string anotaciones, string usuario)
+        {
+            // Actualizar el estado y la justificación de la patente
+            historialPatenteModel.CrearHistorialPatente(fechaAbandono, estado, anotaciones, usuario, null, idPatente);
+        }
+
         private void MostrarAlerta(string mensaje)
         {
             // Mostrar una alerta genérica
@@ -1646,6 +1658,157 @@ namespace Presentacion.Vencimientos
                         MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+
+        private async void EditarPatente()
+        {
+
+        }
+        private async void iconButton8_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaRegistradaV frmAgregarEtapaRegistradaV = new FrmAgregarEtapaRegistradaV();
+            frmAgregarEtapaRegistradaV.ShowDialog();
+
+            if (AgregarEtapa.numExpediente != "" && AgregarEtapa.etapa == "Trámite de renovación")
+            {
+                try
+                {
+                    int idMarca = 0;
+                    int idPatente = 0;
+                    if (SeleccionarMarca.idInt != 0)
+                    {
+                        idMarca = SeleccionarMarca.idInt;
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                    else if (SeleccionarMarca.idN != 0)
+                    {
+                        idMarca = SeleccionarMarca.idN;
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                    else if (SeleccionarPatente.id != 0)
+                    {
+                        idPatente = SeleccionarPatente.id;
+                        ActualizarEstadoPatente2(idPatente, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+            }
+        }
+
+        private void iconButton14_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacion justificacionForm = new FrmJustificacion())
+            {
+                // Mostrar formulario y obtener datos
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+                    string textoJustificado = "";
+
+                    string fechaSinHora = fechaAbandono.ToShortDateString();
+                    string formato = fechaSinHora + " " + "Abandono";
+                    if (justificacion.Contains(formato))
+                    {
+                        textoJustificado = justificacion;
+                    }
+                    else
+                    {
+                        textoJustificado = formato + " " + justificacion;
+                    }
+
+                    try
+                    {
+                        int idMarca = 0;
+                        int idPatente = 0;
+
+                        // Verificar el tipo de entidad seleccionada (marca o patente)
+                        if (SeleccionarMarca.idInt != 0)
+                        {
+                            idMarca = SeleccionarMarca.idInt;
+                            ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                        else if (SeleccionarMarca.idN != 0)
+                        {
+                            idMarca = SeleccionarMarca.idN;
+                            ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                        else if (SeleccionarPatente.id != 0)
+                        {
+                            idPatente = SeleccionarPatente.id;
+                            ActualizarEstadoPatente(idPatente, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+        }
+
+        private void iconButton15_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaRegistradaV frmAgregarEtapaRegistradaV = new FrmAgregarEtapaRegistradaV();
+            frmAgregarEtapaRegistradaV.ShowDialog();
+
+            if (AgregarEtapa.numExpediente != "" && AgregarEtapa.etapa == "Trámite de renovación")
+            {
+                try
+                {
+                    int idMarca = 0;
+                    int idPatente = 0;
+                    if (SeleccionarMarca.idInt != 0)
+                    {
+                        idMarca = SeleccionarMarca.idInt;
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                    else if (SeleccionarMarca.idN != 0)
+                    {
+                        idMarca = SeleccionarMarca.idN;
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                    else if (SeleccionarPatente.id != 0)
+                    {
+                        idPatente = SeleccionarPatente.id;
+                        patenteModel.ActualizarExpedientePatente(idPatente, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
+                        tabControl1.SelectedTab = tabPageVencimientosList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
             }
         }
     }

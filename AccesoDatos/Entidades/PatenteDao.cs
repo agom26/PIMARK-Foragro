@@ -10,6 +10,36 @@ namespace AccesoDatos.Entidades
 {
     public class PatenteDao:ConnectionSQL
     {
+
+        public void ActualizarExpedientePatente(int p_id, string p_expediente, DateTime fecha, string estado,
+            string anotaciones, string usuario)
+        {
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("expedientePatente", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_id", p_id);
+                        comando.Parameters.AddWithValue("@p_expediente", string.IsNullOrEmpty(p_expediente) ? DBNull.Value : (object)p_expediente);
+                        comando.Parameters.AddWithValue("@p_fecha", string.IsNullOrEmpty(fecha.ToString()) ? DBNull.Value : (object)fecha);
+                        comando.Parameters.AddWithValue("@p_estado", string.IsNullOrEmpty(estado) ? DBNull.Value : (object)estado);
+                        comando.Parameters.AddWithValue("@p_anotaciones", string.IsNullOrEmpty(anotaciones) ? DBNull.Value : (object)anotaciones);
+                        comando.Parameters.AddWithValue("@p_usuario", string.IsNullOrEmpty(usuario) ? DBNull.Value : (object)usuario);
+
+                        conexion.Open();
+                        comando.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al actualizar expediente de la patente: {ex.Message}");
+            }
+        }
+
         public int InsertarPatente(
         string caso,
         string expediente,

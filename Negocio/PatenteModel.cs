@@ -128,6 +128,11 @@ namespace Dominio
             );
         }
 
+        public void ActualizarExpedientePatente(int p_id, string p_expediente, DateTime fecha, string estado,
+          string anotaciones, string usuario)
+        {
+            patenteDao.ActualizarExpedientePatente(p_id, p_expediente, fecha, estado, anotaciones, usuario);
+        }
 
 
     }
