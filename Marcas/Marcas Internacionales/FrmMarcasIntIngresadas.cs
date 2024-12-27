@@ -997,9 +997,14 @@ namespace Presentacion.Marcas_Internacionales
             Editar();
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        public void filtrar()
         {
 
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
@@ -1072,6 +1077,21 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditarVerHistorial();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.Enter)
+            {
+                filtrar();
+            }
         }
     }
 }

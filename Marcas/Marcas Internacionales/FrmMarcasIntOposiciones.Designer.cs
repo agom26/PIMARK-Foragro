@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageOposicionesList = new TabPage();
             panel24 = new Panel();
@@ -44,7 +44,6 @@
             dtgMarcasOp = new DataGridView();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
             txtBuscar = new TextBox();
-            label2 = new Label();
             panel4 = new Panel();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
@@ -121,14 +120,9 @@
             panel2 = new Panel();
             panel9 = new Panel();
             panel11 = new Panel();
-            panel12 = new Panel();
-            label1 = new Label();
             roundedButton1 = new Clases.RoundedButton();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             panel13 = new Panel();
-            panel14 = new Panel();
-            label11 = new Label();
-            iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton2 = new Clases.RoundedButton();
             btnAgregarEstadoAO = new Clases.RoundedButton();
             btnAgregarOpositorAO = new Clases.RoundedButton();
@@ -187,11 +181,8 @@
             panel2.SuspendLayout();
             panel9.SuspendLayout();
             panel11.SuspendLayout();
-            panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             panel13.SuspendLayout();
-            panel14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             panel22.SuspendLayout();
             panel21.SuspendLayout();
@@ -219,6 +210,7 @@
             // 
             // tabPageOposicionesList
             // 
+            tabPageOposicionesList.AutoScroll = true;
             tabPageOposicionesList.Controls.Add(panel24);
             tabPageOposicionesList.Controls.Add(iconButton7);
             tabPageOposicionesList.Controls.Add(iconButton6);
@@ -226,7 +218,6 @@
             tabPageOposicionesList.Controls.Add(dtgMarcasOp);
             tabPageOposicionesList.Controls.Add(ibtnBuscar);
             tabPageOposicionesList.Controls.Add(txtBuscar);
-            tabPageOposicionesList.Controls.Add(label2);
             tabPageOposicionesList.Controls.Add(panel4);
             tabPageOposicionesList.Controls.Add(iconButton3);
             tabPageOposicionesList.Controls.Add(ibtnEditar);
@@ -270,7 +261,7 @@
             roundedButton5.Dock = DockStyle.Fill;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton5.Font = new Font("Century Gothic", 9F);
             roundedButton5.ForeColor = Color.Black;
             roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";
@@ -317,9 +308,9 @@
             roundedButton10.Dock = DockStyle.Fill;
             roundedButton10.FlatAppearance.BorderSize = 0;
             roundedButton10.FlatStyle = FlatStyle.Flat;
-            roundedButton10.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton10.Font = new Font("Century Gothic", 9F);
             roundedButton10.ForeColor = Color.Black;
-            roundedButton10.Image = Properties.Resources.guatemala;
+            roundedButton10.Image = Properties.Resources.guatemala_2_;
             roundedButton10.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton10.Location = new Point(0, 0);
             roundedButton10.Name = "roundedButton10";
@@ -340,9 +331,9 @@
             iconButton7.IconColor = Color.Black;
             iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(488, 144);
+            iconButton7.Location = new Point(488, 134);
             iconButton7.Name = "iconButton7";
-            iconButton7.Size = new Size(26, 26);
+            iconButton7.Size = new Size(26, 34);
             iconButton7.TabIndex = 192;
             iconButton7.UseVisualStyleBackColor = false;
             iconButton7.Click += iconButton7_Click;
@@ -361,7 +352,7 @@
             iconButton6.IconSize = 30;
             iconButton6.Location = new Point(972, 208);
             iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(177, 37);
+            iconButton6.Size = new Size(174, 49);
             iconButton6.TabIndex = 191;
             iconButton6.Text = "AGREGAR";
             iconButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -374,7 +365,7 @@
             cmbSituacionActual.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSituacionActual.FormattingEnabled = true;
             cmbSituacionActual.Items.AddRange(new object[] { "EN TRÁMITE", "TERMINADA" });
-            cmbSituacionActual.Location = new Point(672, 142);
+            cmbSituacionActual.Location = new Point(672, 138);
             cmbSituacionActual.Name = "cmbSituacionActual";
             cmbSituacionActual.Size = new Size(173, 28);
             cmbSituacionActual.TabIndex = 190;
@@ -391,14 +382,14 @@
             dtgMarcasOp.BorderStyle = BorderStyle.None;
             dtgMarcasOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgMarcasOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgMarcasOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgMarcasOp.ColumnHeadersHeight = 40;
             dtgMarcasOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgMarcasOp.EnableHeadersVisualStyles = false;
@@ -409,7 +400,7 @@
             dtgMarcasOp.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgMarcasOp.RowHeadersWidth = 51;
             dtgMarcasOp.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgMarcasOp.Size = new Size(927, 492);
+            dtgMarcasOp.Size = new Size(927, 505);
             dtgMarcasOp.TabIndex = 41;
             dtgMarcasOp.CellDoubleClick += dtgMarcasOp_CellDoubleClick;
             // 
@@ -425,9 +416,9 @@
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(522, 138);
+            ibtnBuscar.Location = new Point(522, 128);
             ibtnBuscar.Name = "ibtnBuscar";
-            ibtnBuscar.Size = new Size(144, 32);
+            ibtnBuscar.Size = new Size(144, 44);
             ibtnBuscar.TabIndex = 37;
             ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -437,22 +428,11 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
-            txtBuscar.Location = new Point(181, 144);
+            txtBuscar.Font = new Font("Century Gothic", 12F);
+            txtBuscar.Location = new Point(181, 134);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(301, 26);
+            txtBuscar.Size = new Size(301, 32);
             txtBuscar.TabIndex = 36;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(236, 236, 238);
-            label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(181, 120);
-            label2.Name = "label2";
-            label2.Size = new Size(237, 20);
-            label2.TabIndex = 35;
-            label2.Text = "Buscar por signos o expediente";
             // 
             // panel4
             // 
@@ -475,9 +455,9 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(972, 315);
+            iconButton3.Location = new Point(972, 340);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(177, 37);
+            iconButton3.Size = new Size(174, 49);
             iconButton3.TabIndex = 45;
             iconButton3.Text = "ABANDONAR";
             iconButton3.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -496,9 +476,9 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(972, 260);
+            ibtnEditar.Location = new Point(972, 273);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(177, 37);
+            ibtnEditar.Size = new Size(174, 49);
             ibtnEditar.TabIndex = 43;
             ibtnEditar.Text = "EDITAR/ VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -1152,14 +1132,14 @@
             dtgHistorialOp.BorderStyle = BorderStyle.None;
             dtgHistorialOp.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialOp.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgHistorialOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgHistorialOp.ColumnHeadersHeight = 40;
             dtgHistorialOp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialOp.EnableHeadersVisualStyles = false;
@@ -1423,35 +1403,12 @@
             // panel11
             // 
             panel11.AutoSize = true;
-            panel11.Controls.Add(panel12);
             panel11.Controls.Add(roundedButton1);
             panel11.Dock = DockStyle.Left;
             panel11.Location = new Point(392, 0);
             panel11.Name = "panel11";
             panel11.Size = new Size(287, 49);
             panel11.TabIndex = 170;
-            // 
-            // panel12
-            // 
-            panel12.AutoSize = true;
-            panel12.BackColor = Color.FromArgb(175, 192, 218);
-            panel12.Controls.Add(label1);
-            panel12.Location = new Point(45, 14);
-            panel12.Margin = new Padding(0);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(221, 24);
-            panel12.TabIndex = 175;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 12F);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(218, 23);
-            label1.TabIndex = 166;
-            label1.Text = "DETALLES OPOSICIÓN";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton1
             // 
@@ -1462,15 +1419,15 @@
             roundedButton1.BorderRadius = 40;
             roundedButton1.BorderSize = 0;
             roundedButton1.Dock = DockStyle.Fill;
-            roundedButton1.Enabled = false;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.ForeColor = Color.White;
+            roundedButton1.ForeColor = Color.Black;
             roundedButton1.Location = new Point(0, 0);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(287, 49);
             roundedButton1.TabIndex = 167;
-            roundedButton1.TextColor = Color.White;
+            roundedButton1.Text = "DETALLES DE OPOSICIÓN";
+            roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox1
@@ -1492,51 +1449,12 @@
             // panel13
             // 
             panel13.AutoSize = true;
-            panel13.Controls.Add(panel14);
             panel13.Controls.Add(roundedButton2);
             panel13.Dock = DockStyle.Left;
             panel13.Location = new Point(0, 0);
             panel13.Name = "panel13";
             panel13.Size = new Size(343, 49);
             panel13.TabIndex = 169;
-            // 
-            // panel14
-            // 
-            panel14.AutoSize = true;
-            panel14.BackColor = Color.FromArgb(175, 192, 218);
-            panel14.Controls.Add(label11);
-            panel14.Controls.Add(iconPictureBox4);
-            panel14.Location = new Point(35, 14);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(305, 21);
-            panel14.TabIndex = 174;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Dock = DockStyle.Left;
-            label11.Font = new Font("Century Gothic", 12F);
-            label11.Location = new Point(25, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(229, 23);
-            label11.TabIndex = 166;
-            label11.Text = "MARCAS NACIONALES";
-            label11.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox4
-            // 
-            iconPictureBox4.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox4.Dock = DockStyle.Left;
-            iconPictureBox4.ForeColor = SystemColors.ControlText;
-            iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.Flag;
-            iconPictureBox4.IconColor = SystemColors.ControlText;
-            iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox4.IconSize = 21;
-            iconPictureBox4.Location = new Point(0, 0);
-            iconPictureBox4.Name = "iconPictureBox4";
-            iconPictureBox4.Size = new Size(25, 21);
-            iconPictureBox4.TabIndex = 165;
-            iconPictureBox4.TabStop = false;
             // 
             // roundedButton2
             // 
@@ -1547,15 +1465,20 @@
             roundedButton2.BorderRadius = 40;
             roundedButton2.BorderSize = 0;
             roundedButton2.Dock = DockStyle.Fill;
-            roundedButton2.Enabled = false;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Font = new Font("Century Gothic", 9F);
+            roundedButton2.ForeColor = Color.Black;
+            roundedButton2.Image = Properties.Resources.guatemala_2_;
+            roundedButton2.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton2.Location = new Point(0, 0);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(343, 49);
             roundedButton2.TabIndex = 164;
-            roundedButton2.TextColor = Color.White;
+            roundedButton2.Text = "MARCAS NACIONALES";
+            roundedButton2.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton2.TextColor = Color.Black;
+            roundedButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton2.UseVisualStyleBackColor = false;
             // 
             // btnAgregarEstadoAO
@@ -1646,11 +1569,13 @@
             btnEnviarATramite.IconColor = Color.White;
             btnEnviarATramite.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEnviarATramite.IconSize = 30;
+            btnEnviarATramite.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnviarATramite.Location = new Point(223, 29);
             btnEnviarATramite.Name = "btnEnviarATramite";
             btnEnviarATramite.Size = new Size(191, 58);
             btnEnviarATramite.TabIndex = 175;
             btnEnviarATramite.Text = "TERMINAR";
+            btnEnviarATramite.TextAlign = ContentAlignment.MiddleRight;
             btnEnviarATramite.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnEnviarATramite.UseVisualStyleBackColor = false;
             btnEnviarATramite.Click += btnEnviarATramite_Click;
@@ -1665,11 +1590,13 @@
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 30;
+            btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarU.Location = new Point(434, 29);
             btnCancelarU.Name = "btnCancelarU";
             btnCancelarU.Size = new Size(191, 58);
             btnCancelarU.TabIndex = 173;
             btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarU.UseVisualStyleBackColor = false;
             btnCancelarU.Click += btnCancelarU_Click;
@@ -1685,11 +1612,13 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
+            btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarU.Location = new Point(12, 29);
             btnGuardarU.Name = "btnGuardarU";
             btnGuardarU.Size = new Size(191, 58);
             btnGuardarU.TabIndex = 174;
             btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnGuardarU.UseVisualStyleBackColor = false;
             btnGuardarU.Click += btnGuardarU_Click;
@@ -2028,14 +1957,9 @@
             panel9.PerformLayout();
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
-            panel12.ResumeLayout(false);
-            panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox4).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             panel22.ResumeLayout(false);
             panel21.ResumeLayout(false);
@@ -2057,7 +1981,6 @@
         private TabPage tabPageHistorialDetail;
         private FontAwesome.Sharp.IconButton ibtnBuscar;
         private TextBox txtBuscar;
-        private Label label2;
         private Clases.RoundedButton roundedButton3;
         private DataGridView dtgMarcasOp;
         private Panel panel4;
@@ -2184,12 +2107,7 @@
         private Panel panel27;
         private Panel panel9;
         private Panel panel11;
-        private Panel panel12;
-        private Label label1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Panel panel13;
-        private Panel panel14;
-        private Label label11;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
     }
 }

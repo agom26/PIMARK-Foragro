@@ -481,7 +481,7 @@ namespace Presentacion
                         contrasena = txtConfirmarCont.Text;
                         btnGuardarU.Enabled = false;
 
-                        if (btnGuardarU.Text == "GUARDAR")
+                        if (btnGuardarU.Text == "AGREGAR")
                         {
                             await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
                             FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);

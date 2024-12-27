@@ -21,7 +21,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmAdministrarClientes()
         {
             InitializeComponent();
-            
+
             this.Load += FrmAdministrarClientes_Load;
             if (UsuarioActivo.isAdmin == false)
             {
@@ -148,7 +148,7 @@ namespace Presentacion.Marcas_Internacionales
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabClienteDetail;
             btnGuardarU.Text = "AGREGAR";
-            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus ;
+            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
 
             btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
             btnCambios.Image = Properties.Resources.agregar;
@@ -252,7 +252,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
 
-                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al cliente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿ESTÁ SEGURO DE ELIMINAR AL CLIENTE '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -264,6 +264,7 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (isDeleted)
                         {
+
                             MessageBox.Show("Cliente eliminado correctamente.");
                             MostrarClientes();
                         }
@@ -283,10 +284,9 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
             }
         }
-
-        private void iconButton1_Click(object sender, EventArgs e)
+        public void filtrar()
         {
-            string buscar = textBox1.Text;
+            string buscar = txtBuscar.Text;
             if (buscar != "")
             {
                 DataTable clientes = personaModel.GetClienteByValue(buscar);
@@ -312,6 +312,10 @@ namespace Presentacion.Marcas_Internacionales
             {
                 MostrarClientes();
             }
+        }
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            filtrar();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -456,6 +460,20 @@ namespace Presentacion.Marcas_Internacionales
         private void txtNombreCliente_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
         }
     }
 }

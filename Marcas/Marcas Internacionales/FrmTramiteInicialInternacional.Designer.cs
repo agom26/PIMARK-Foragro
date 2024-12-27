@@ -526,20 +526,22 @@
             // 
             // iconButton3
             // 
-            iconButton3.BackColor = Color.FromArgb(1, 87, 155);
+            iconButton3.BackColor = Color.FromArgb(50, 164, 115);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
             iconButton3.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(64, 17);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(191, 58);
             iconButton3.TabIndex = 163;
-            iconButton3.Text = "GUARDAR";
+            iconButton3.Text = "AGREGAR";
+            iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -554,11 +556,13 @@
             iconButton4.IconColor = Color.Black;
             iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton4.IconSize = 30;
+            iconButton4.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton4.Location = new Point(383, 17);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(191, 58);
             iconButton4.TabIndex = 164;
             iconButton4.Text = "CANCELAR";
+            iconButton4.TextAlign = ContentAlignment.MiddleRight;
             iconButton4.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton4.UseVisualStyleBackColor = false;
             iconButton4.Click += iconButton4_Click;
@@ -698,7 +702,7 @@
             roundedButton4.Dock = DockStyle.Fill;
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton4.Font = new Font("Century Gothic", 9F);
             roundedButton4.ForeColor = Color.Black;
             roundedButton4.Location = new Point(0, 0);
             roundedButton4.Name = "roundedButton4";
@@ -744,9 +748,9 @@
             roundedButton5.BorderSize = 0;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton5.Font = new Font("Century Gothic", 9F);
             roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Image = Properties.Resources.guatemala;
+            roundedButton5.Image = Properties.Resources.guatemala_2_;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";

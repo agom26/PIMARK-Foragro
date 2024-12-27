@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabClientesList = new TabPage();
+            iconButton6 = new FontAwesome.Sharp.IconButton();
             panel9 = new Panel();
             panel11 = new Panel();
             panel12 = new Panel();
@@ -42,7 +43,7 @@
             roundedButton6 = new Clases.RoundedButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            textBox1 = new TextBox();
+            txtBuscar = new TextBox();
             roundedButton3 = new Clases.RoundedButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             ibtnAgregar = new FontAwesome.Sharp.IconButton();
@@ -101,11 +102,13 @@
             // 
             // tabClientesList
             // 
+            tabClientesList.AutoScroll = true;
             tabClientesList.BackColor = Color.White;
+            tabClientesList.Controls.Add(iconButton6);
             tabClientesList.Controls.Add(panel9);
             tabClientesList.Controls.Add(iconButton2);
             tabClientesList.Controls.Add(iconButton1);
-            tabClientesList.Controls.Add(textBox1);
+            tabClientesList.Controls.Add(txtBuscar);
             tabClientesList.Controls.Add(roundedButton3);
             tabClientesList.Controls.Add(ibtnEditar);
             tabClientesList.Controls.Add(ibtnAgregar);
@@ -115,6 +118,23 @@
             tabClientesList.Padding = new Padding(3);
             tabClientesList.Size = new Size(1161, 791);
             tabClientesList.TabIndex = 0;
+            // 
+            // iconButton6
+            // 
+            iconButton6.Anchor = AnchorStyles.Top;
+            iconButton6.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton6.FlatAppearance.BorderSize = 0;
+            iconButton6.FlatStyle = FlatStyle.Flat;
+            iconButton6.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton6.IconColor = Color.Black;
+            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton6.IconSize = 25;
+            iconButton6.Location = new Point(564, 124);
+            iconButton6.Name = "iconButton6";
+            iconButton6.Size = new Size(26, 32);
+            iconButton6.TabIndex = 188;
+            iconButton6.UseVisualStyleBackColor = false;
+            iconButton6.Click += iconButton6_Click;
             // 
             // panel9
             // 
@@ -239,6 +259,7 @@
             iconButton2.Size = new Size(174, 49);
             iconButton2.TabIndex = 57;
             iconButton2.Text = "VER";
+            iconButton2.TextAlign = ContentAlignment.MiddleLeft;
             iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -264,14 +285,15 @@
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
             // 
-            // textBox1
+            // txtBuscar
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Font = new Font("Century Gothic", 10F);
-            textBox1.Location = new Point(257, 126);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(301, 28);
-            textBox1.TabIndex = 50;
+            txtBuscar.Anchor = AnchorStyles.Top;
+            txtBuscar.Font = new Font("Century Gothic", 12F);
+            txtBuscar.Location = new Point(257, 124);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(301, 32);
+            txtBuscar.TabIndex = 50;
+            txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
             // roundedButton3
             // 
@@ -310,6 +332,7 @@
             ibtnEditar.Size = new Size(174, 49);
             ibtnEditar.TabIndex = 16;
             ibtnEditar.Text = "EDITAR/ VER";
+            ibtnEditar.TextAlign = ContentAlignment.MiddleLeft;
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnEditar.UseVisualStyleBackColor = false;
             ibtnEditar.Click += ibtnEditar_Click;
@@ -332,6 +355,7 @@
             ibtnAgregar.Size = new Size(174, 49);
             ibtnAgregar.TabIndex = 15;
             ibtnAgregar.Text = "AGREGAR";
+            ibtnAgregar.TextAlign = ContentAlignment.MiddleLeft;
             ibtnAgregar.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtnAgregar.UseVisualStyleBackColor = false;
             ibtnAgregar.Click += ibtnAgregar_Click;
@@ -397,6 +421,7 @@
             // 
             // panel3
             // 
+            panel3.AutoScroll = true;
             panel3.Controls.Add(iconPictureBox3);
             panel3.Controls.Add(panel2);
             panel3.Controls.Add(roundedButton1);
@@ -548,11 +573,13 @@
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 30;
+            btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarU.Location = new Point(290, 356);
             btnGuardarU.Name = "btnGuardarU";
             btnGuardarU.Size = new Size(191, 58);
             btnGuardarU.TabIndex = 158;
             btnGuardarU.Text = "AGREGAR";
+            btnGuardarU.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnGuardarU.UseVisualStyleBackColor = false;
             btnGuardarU.Click += btnGuardarU_Click;
@@ -578,11 +605,13 @@
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 30;
+            btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarU.Location = new Point(529, 356);
             btnCancelarU.Name = "btnCancelarU";
             btnCancelarU.Size = new Size(191, 58);
             btnCancelarU.TabIndex = 157;
             btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarU.UseVisualStyleBackColor = false;
             btnCancelarU.Click += btnCancelarU_Click;
@@ -773,7 +802,7 @@
         private TextBox txtNombreCliente;
         private Label label3;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private TextBox textBox1;
+        private TextBox txtBuscar;
         private Clases.RoundedButton roundedButton3;
         private Panel panel1;
         private ComboBox comboBox1;
@@ -795,5 +824,6 @@
         private Panel panel13;
         private Clases.RoundedButton roundedButton6;
         private Clases.RoundedButton btnCambios;
+        private FontAwesome.Sharp.IconButton iconButton6;
     }
 }

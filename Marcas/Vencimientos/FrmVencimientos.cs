@@ -15,12 +15,15 @@ using Mysqlx.Datatypes;
 using ClosedXML.Excel;
 using PuppeteerSharp.Media;
 using PuppeteerSharp;
+using Presentacion.Marcas_Nacionales;
 
 namespace Presentacion.Vencimientos
 {
     public partial class FrmVencimientos : Form
     {
         VencimientoModel vencimientoModel = new VencimientoModel();
+        HistorialModel historialModel = new HistorialModel();
+        HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         MarcaModel marcaModel = new MarcaModel();
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
@@ -73,17 +76,17 @@ namespace Presentacion.Vencimientos
                     dtgVencimientos.Columns["patenteID"].Visible = false;
                 }
 
-                
-                    //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dtgVencimientos.Columns["REGISTRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Centrar el texto
-                    dtgVencimientos.Columns["FOLIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    dtgVencimientos.Columns["LIBRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                
 
-                
-                    //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    //dtgVencimientos.Columns["CLASE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
-                
+                //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dtgVencimientos.Columns["REGISTRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Centrar el texto
+                dtgVencimientos.Columns["FOLIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dtgVencimientos.Columns["LIBRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+
+                //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //dtgVencimientos.Columns["CLASE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
+
 
                 dtgVencimientos.Refresh();
             }));
@@ -219,14 +222,14 @@ namespace Presentacion.Vencimientos
                         LoadVencimientos();
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
-                        
+
                     }
                     catch (Exception updateEx)
                     {
                         MessageBox.Show($"Error al actualizar el estado de notificado: {updateEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    
+
                 }
             }
             catch (Exception ex)
@@ -902,15 +905,15 @@ namespace Presentacion.Vencimientos
             await Task.Yield();
 
             AnadirTabPage(tabPageMensajePatente);
-            
-            await CargarCorreoPatente(); 
+
+            await CargarCorreoPatente();
 
             tabControl1.Visible = true;
 
             Cursor = Cursors.Default;
-        
 
-      
+
+
         }
 
         private void checkBoxPCT_CheckedChanged(object sender, EventArgs e)
@@ -1003,7 +1006,7 @@ namespace Presentacion.Vencimientos
 
             tabControl1.Visible = false;
 
-            await Task.Yield(); 
+            await Task.Yield();
 
             AnadirTabPage(tabPageMensajeMarca);
 
@@ -1289,7 +1292,7 @@ namespace Presentacion.Vencimientos
             {
                 Title = "Guardar archivo Excel",
                 Filter = "Archivos Excel (*.xlsx)|*.xlsx",
-                FileName = nombre+".xlsx",
+                FileName = nombre + ".xlsx",
                 DefaultExt = "xlsx",
                 AddExtension = true
             };
@@ -1365,12 +1368,12 @@ namespace Presentacion.Vencimientos
             string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
 
             string nombre = "Próximos vencimientos-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
-            
+
             // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF Files|*.pdf",
-                FileName = nombre+".pdf"
+                FileName = nombre + ".pdf"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1532,8 +1535,8 @@ namespace Presentacion.Vencimientos
 
         private async void roundedButton19_Click(object sender, EventArgs e)
         {
-            DataTable datos = await Task.Run(()=> vencimientoModel.ObtenerVencimientos()) ;
-            
+            DataTable datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
+
 
 
             if (datos != null)
@@ -1549,7 +1552,7 @@ namespace Presentacion.Vencimientos
 
         private async void roundedButton11_Click(object sender, EventArgs e)
         {
-            DataTable datos =await Task.Run(()=> vencimientoModel.ObtenerVencimientos());
+            DataTable datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
 
             if (datos != null)
             {
@@ -1560,6 +1563,89 @@ namespace Presentacion.Vencimientos
                 FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("No hay datos para exportar.");
+            }
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEtapaRegistradaV frmAgregarEtapaRegistradaV = new FrmAgregarEtapaRegistradaV();
+            frmAgregarEtapaRegistradaV.ShowDialog();
+
+
+        }
+
+        private void ActualizarEstadoMarca(int idMarca, DateTime fechaAbandono, string justificacion, string usuarioAbandono)
+        {
+            // Actualizar el estado y la justificación de la marca
+            historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
+        }
+
+        private void ActualizarEstadoPatente(int idPatente, DateTime fechaAbandono, string justificacion, string usuarioAbandono)
+        {
+            // Actualizar el estado y la justificación de la patente
+            historialPatenteModel.CrearHistorialPatente(fechaAbandono, "Abandono", justificacion, usuarioAbandono, null, idPatente);
+        }
+
+        private void MostrarAlerta(string mensaje)
+        {
+            // Mostrar una alerta genérica
+            FrmAlerta alerta = new FrmAlerta(mensaje, "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            alerta.ShowDialog();
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacion justificacionForm = new FrmJustificacion())
+            {
+                // Mostrar formulario y obtener datos
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+                    string textoJustificado = "";
+
+                    string fechaSinHora = fechaAbandono.ToShortDateString();
+                    string formato = fechaSinHora + " " + "Abandono";
+                    if (justificacion.Contains(formato))
+                    {
+                        textoJustificado = justificacion;
+                    }
+                    else
+                    {
+                        textoJustificado = formato + " " + justificacion;
+                    }
+
+                    try
+                    {
+                        int idMarca = 0;
+                        int idPatente = 0;
+
+                        // Verificar el tipo de entidad seleccionada (marca o patente)
+                        if (SeleccionarMarca.idInt != 0)
+                        {
+                            idMarca = SeleccionarMarca.idInt;
+                            ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                        else if (SeleccionarMarca.idN != 0)
+                        {
+                            idMarca = SeleccionarMarca.idN;
+                            ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                        else if (SeleccionarPatente.id != 0)
+                        {
+                            idPatente = SeleccionarPatente.id;
+                            ActualizarEstadoPatente(idPatente, fechaAbandono, textoJustificado, usuarioAbandono);
+                            MostrarAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

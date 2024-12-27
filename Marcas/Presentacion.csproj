@@ -167,6 +167,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Update="Vencimientos\FrmAgregarEtapaRegistradaV.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

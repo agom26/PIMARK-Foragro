@@ -5,6 +5,7 @@ using Presentacion;
 using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms.PropertyGridInternal;
+using Comun.Cache;
 namespace Marcas
 {
     public partial class LoginForm : Form
@@ -156,7 +157,10 @@ namespace Marcas
             catch(Exception ex) 
             {
                 MessageBox.Show(ex.Message);
+                
             }
+
+            
         }
     }
 }

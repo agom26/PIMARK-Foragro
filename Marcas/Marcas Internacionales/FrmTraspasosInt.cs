@@ -1203,5 +1203,13 @@ namespace Presentacion.Marcas_Internacionales
             txtBuscar.Text = "";
             filtrarMarcas();
         }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrarMarcas();
+            }
+        }
     }
 }

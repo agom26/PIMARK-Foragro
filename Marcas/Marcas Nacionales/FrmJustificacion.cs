@@ -21,6 +21,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmJustificacion()
         {
             InitializeComponent();
+            labelUsuarioAbandono.Visible = false;
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -52,6 +53,7 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmJustificacion_Load(object sender, EventArgs e)
         {
             labelUsuarioAbandono.Text=UsuarioActivo.usuario;
+            labelUsuarioAbandono.Visible = false;
             usuarioAbandono = UsuarioActivo.usuario;
         }
     }

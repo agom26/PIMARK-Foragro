@@ -24,7 +24,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntAbandonadas()
         {
             InitializeComponent();
-           
+
             this.Load += FrmMarcasIntAbandonadas_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -572,6 +572,31 @@ namespace Presentacion.Marcas_Internacionales
         private void roundedButton4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+
+        }
+
+        public void filtrar()
+        {
+
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode== Keys.Enter)
+            {
+                filtrar();
+            }
         }
     }
 }

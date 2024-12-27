@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dtgVencimientos = new DataGridView();
             panel1 = new Panel();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -38,6 +38,7 @@
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             tabControl1 = new TabControl();
             tabPageVencimientosList = new TabPage();
+            iconButton7 = new FontAwesome.Sharp.IconButton();
             roundedButton11 = new Clases.RoundedButton();
             roundedButton19 = new Clases.RoundedButton();
             roundedButton5 = new Clases.RoundedButton();
@@ -72,6 +73,8 @@
             txtLibroM = new TextBox();
             label20 = new Label();
             panel21 = new Panel();
+            iconButton9 = new FontAwesome.Sharp.IconButton();
+            iconButton8 = new FontAwesome.Sharp.IconButton();
             iconButton12 = new FontAwesome.Sharp.IconButton();
             iconButton13 = new FontAwesome.Sharp.IconButton();
             Renovacion = new GroupBox();
@@ -91,7 +94,6 @@
             btnAgregarCliente = new Clases.RoundedButton();
             datePickerFechaSolicitudM = new DateTimePicker();
             label13 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
             label4 = new Label();
             textBoxEstatusM = new TextBox();
             label14 = new Label();
@@ -226,7 +228,6 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            iconButton7 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).BeginInit();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -291,14 +292,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = SystemColors.Control;
-            dataGridViewCellStyle13.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle13.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -430,6 +431,22 @@
             tabPageVencimientosList.UseVisualStyleBackColor = true;
             tabPageVencimientosList.Click += tabPageVencimientosList_Click;
             // 
+            // iconButton7
+            // 
+            iconButton7.Anchor = AnchorStyles.Top;
+            iconButton7.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton7.FlatAppearance.BorderSize = 0;
+            iconButton7.FlatStyle = FlatStyle.Flat;
+            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton7.IconColor = Color.Black;
+            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton7.IconSize = 25;
+            iconButton7.Location = new Point(517, 120);
+            iconButton7.Name = "iconButton7";
+            iconButton7.Size = new Size(26, 32);
+            iconButton7.TabIndex = 221;
+            iconButton7.UseVisualStyleBackColor = false;
+            // 
             // roundedButton11
             // 
             roundedButton11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -534,7 +551,6 @@
             panel2.Controls.Add(btnAgregarCliente);
             panel2.Controls.Add(datePickerFechaSolicitudM);
             panel2.Controls.Add(label13);
-            panel2.Controls.Add(roundedButton1);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(textBoxEstatusM);
             panel2.Controls.Add(label14);
@@ -554,7 +570,7 @@
             panel2.Controls.Add(label7);
             panel2.Location = new Point(22, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1081, 1241);
+            panel2.Size = new Size(1081, 1322);
             panel2.TabIndex = 1;
             // 
             // comboBox1
@@ -772,9 +788,9 @@
             tableLayoutPanel1.Location = new Point(38, 969);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 64.69F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 35.31F));
-            tableLayoutPanel1.Size = new Size(638, 303);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 55.942028F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 44.057972F));
+            tableLayoutPanel1.Size = new Size(638, 345);
             tableLayoutPanel1.TabIndex = 198;
             // 
             // panel3
@@ -886,29 +902,76 @@
             // panel21
             // 
             panel21.Anchor = AnchorStyles.Top;
+            panel21.Controls.Add(iconButton9);
+            panel21.Controls.Add(iconButton8);
             panel21.Controls.Add(iconButton12);
             panel21.Controls.Add(iconButton13);
-            panel21.Location = new Point(3, 199);
+            panel21.Location = new Point(3, 196);
             panel21.Name = "panel21";
-            panel21.Size = new Size(632, 94);
+            panel21.Size = new Size(632, 146);
             panel21.TabIndex = 152;
+            // 
+            // iconButton9
+            // 
+            iconButton9.BackColor = Color.FromArgb(255, 112, 67);
+            iconButton9.FlatAppearance.BorderSize = 0;
+            iconButton9.FlatStyle = FlatStyle.Flat;
+            iconButton9.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton9.ForeColor = Color.White;
+            iconButton9.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
+            iconButton9.IconColor = Color.White;
+            iconButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton9.IconSize = 30;
+            iconButton9.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton9.Location = new Point(302, 36);
+            iconButton9.Name = "iconButton9";
+            iconButton9.Size = new Size(160, 58);
+            iconButton9.TabIndex = 153;
+            iconButton9.Text = "ABANDONAR";
+            iconButton9.TextAlign = ContentAlignment.MiddleRight;
+            iconButton9.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton9.UseVisualStyleBackColor = false;
+            iconButton9.Click += iconButton9_Click;
+            // 
+            // iconButton8
+            // 
+            iconButton8.BackColor = Color.FromArgb(255, 193, 7);
+            iconButton8.FlatAppearance.BorderSize = 0;
+            iconButton8.FlatStyle = FlatStyle.Flat;
+            iconButton8.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton8.ForeColor = Color.White;
+            iconButton8.IconChar = FontAwesome.Sharp.IconChar.ArrowRotateLeft;
+            iconButton8.IconColor = Color.White;
+            iconButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton8.IconSize = 30;
+            iconButton8.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton8.Location = new Point(157, 36);
+            iconButton8.Name = "iconButton8";
+            iconButton8.Size = new Size(140, 58);
+            iconButton8.TabIndex = 152;
+            iconButton8.Text = "RENOVAR";
+            iconButton8.TextAlign = ContentAlignment.MiddleRight;
+            iconButton8.TextImageRelation = TextImageRelation.TextBeforeImage;
+            iconButton8.UseVisualStyleBackColor = false;
             // 
             // iconButton12
             // 
             iconButton12.BackColor = Color.FromArgb(1, 87, 155);
             iconButton12.FlatAppearance.BorderSize = 0;
             iconButton12.FlatStyle = FlatStyle.Flat;
-            iconButton12.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton12.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton12.ForeColor = Color.White;
             iconButton12.IconChar = FontAwesome.Sharp.IconChar.Envelope;
             iconButton12.IconColor = Color.White;
             iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton12.IconSize = 30;
-            iconButton12.Location = new Point(64, 17);
+            iconButton12.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton12.Location = new Point(11, 36);
             iconButton12.Name = "iconButton12";
-            iconButton12.Size = new Size(191, 58);
+            iconButton12.Size = new Size(140, 58);
             iconButton12.TabIndex = 151;
             iconButton12.Text = "NOTIFICAR";
+            iconButton12.TextAlign = ContentAlignment.MiddleRight;
             iconButton12.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton12.UseVisualStyleBackColor = false;
             iconButton12.Click += iconButton12_Click;
@@ -918,16 +981,18 @@
             iconButton13.BackColor = Color.Gainsboro;
             iconButton13.FlatAppearance.BorderSize = 0;
             iconButton13.FlatStyle = FlatStyle.Flat;
-            iconButton13.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton13.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton13.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton13.IconColor = Color.Black;
             iconButton13.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton13.IconSize = 30;
-            iconButton13.Location = new Point(383, 17);
+            iconButton13.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton13.Location = new Point(468, 36);
             iconButton13.Name = "iconButton13";
-            iconButton13.Size = new Size(191, 58);
+            iconButton13.Size = new Size(140, 58);
             iconButton13.TabIndex = 150;
             iconButton13.Text = "CANCELAR";
+            iconButton13.TextAlign = ContentAlignment.MiddleRight;
             iconButton13.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton13.UseVisualStyleBackColor = false;
             iconButton13.Click += iconButton13_Click;
@@ -1108,7 +1173,7 @@
             datePickerFechaSolicitudM.Enabled = false;
             datePickerFechaSolicitudM.Font = new Font("Century Gothic", 9F);
             datePickerFechaSolicitudM.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitudM.Location = new Point(386, 202);
+            datePickerFechaSolicitudM.Location = new Point(386, 243);
             datePickerFechaSolicitudM.Name = "datePickerFechaSolicitudM";
             datePickerFechaSolicitudM.Size = new Size(293, 26);
             datePickerFechaSolicitudM.TabIndex = 176;
@@ -1118,30 +1183,11 @@
             label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Century Gothic", 9F);
-            label13.Location = new Point(386, 177);
+            label13.Location = new Point(386, 218);
             label13.Name = "label13";
             label13.Size = new Size(69, 20);
             label13.TabIndex = 175;
             label13.Text = "Solicitud";
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.LightSteelBlue;
-            roundedButton1.BackgroundColor = Color.LightSteelBlue;
-            roundedButton1.BorderColor = Color.LightSteelBlue;
-            roundedButton1.BorderRadius = 10;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 9F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(40, 327);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(280, 35);
-            roundedButton1.TabIndex = 173;
-            roundedButton1.Text = "+ ETAPA ACTUAL";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -2829,22 +2875,6 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
-            // iconButton7
-            // 
-            iconButton7.Anchor = AnchorStyles.Top;
-            iconButton7.BackColor = Color.FromArgb(236, 236, 238);
-            iconButton7.FlatAppearance.BorderSize = 0;
-            iconButton7.FlatStyle = FlatStyle.Flat;
-            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
-            iconButton7.IconColor = Color.Black;
-            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(517, 120);
-            iconButton7.Name = "iconButton7";
-            iconButton7.Size = new Size(26, 32);
-            iconButton7.TabIndex = 221;
-            iconButton7.UseVisualStyleBackColor = false;
-            // 
             // FrmVencimientos
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -2989,7 +3019,6 @@
         private DateTimePicker datePickerFechaSolicitudM;
         private Label label13;
         private Clases.RoundedButton roundedButton6;
-        private Clases.RoundedButton roundedButton1;
         private Label label4;
         private TextBox textBoxEstatusM;
         private Label label14;
@@ -3141,5 +3170,7 @@
         private Clases.RoundedButton roundedButton11;
         private Clases.RoundedButton roundedButton19;
         private FontAwesome.Sharp.IconButton iconButton7;
+        private FontAwesome.Sharp.IconButton iconButton8;
+        private FontAwesome.Sharp.IconButton iconButton9;
     }
 }

@@ -46,7 +46,7 @@
             iconButton1.IconSize = 120;
             iconButton1.Location = new Point(299, 12);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(103, 108);
+            iconButton1.Size = new Size(110, 107);
             iconButton1.TabIndex = 0;
             iconButton1.UseVisualStyleBackColor = true;
             // 
@@ -79,6 +79,7 @@
             roundedButton1.BorderSize = 0;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
             roundedButton1.Location = new Point(175, 415);
             roundedButton1.Name = "roundedButton1";
@@ -98,6 +99,7 @@
             roundedButton2.BorderSize = 0;
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.Black;
             roundedButton2.Location = new Point(385, 415);
             roundedButton2.Name = "roundedButton2";
@@ -140,7 +142,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gainsboro;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(725, 491);
             Controls.Add(labelUsuarioAbandono);
             Controls.Add(label2);
@@ -151,10 +153,10 @@
             Controls.Add(richTextBoxJustificacion);
             Controls.Add(iconButton1);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmJustificacion";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmJustificacion";
+            Text = "ABANDONO";
             Load += FrmJustificacion_Load;
             ResumeLayout(false);
             PerformLayout();
