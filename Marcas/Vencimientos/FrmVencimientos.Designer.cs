@@ -51,14 +51,9 @@
             label48 = new Label();
             panel6 = new Panel();
             panel7 = new Panel();
-            panel8 = new Panel();
-            label42 = new Label();
             roundedButton17 = new Clases.RoundedButton();
             iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
             panel9 = new Panel();
-            panel10 = new Panel();
-            label43 = new Label();
-            iconPictureBox5 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton18 = new Clases.RoundedButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
@@ -115,14 +110,9 @@
             panel4 = new Panel();
             panel5 = new Panel();
             panel15 = new Panel();
-            panel16 = new Panel();
-            label40 = new Label();
             roundedButton15 = new Clases.RoundedButton();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             panel11 = new Panel();
-            panel19 = new Panel();
-            label41 = new Label();
-            iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton16 = new Clases.RoundedButton();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel2I = new Panel();
@@ -185,14 +175,9 @@
             txtAsuntoP = new TextBox();
             panel12 = new Panel();
             panel13 = new Panel();
-            panel14 = new Panel();
-            label44 = new Label();
             roundedButton7 = new Clases.RoundedButton();
             iconPictureBox6 = new FontAwesome.Sharp.IconPictureBox();
             panel17 = new Panel();
-            panel18 = new Panel();
-            label45 = new Label();
-            iconPictureBox7 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton8 = new Clases.RoundedButton();
             groupBox2 = new GroupBox();
             colorButton = new Button();
@@ -213,14 +198,9 @@
             txtAsuntoM = new TextBox();
             panel22 = new Panel();
             panel23 = new Panel();
-            panel24 = new Panel();
-            label54 = new Label();
             roundedButton6 = new Clases.RoundedButton();
             iconPictureBox8 = new FontAwesome.Sharp.IconPictureBox();
             panel25 = new Panel();
-            panel26 = new Panel();
-            label55 = new Label();
-            iconPictureBox9 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton9 = new Clases.RoundedButton();
             groupBox4 = new GroupBox();
             button1 = new Button();
@@ -238,11 +218,8 @@
             groupBox3.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
-            panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
             panel9.SuspendLayout();
-            panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox5).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
             panel21.SuspendLayout();
@@ -252,11 +229,8 @@
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel15.SuspendLayout();
-            panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel11.SuspendLayout();
-            panel19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
             tableLayoutPanel2.SuspendLayout();
             panel2I.SuspendLayout();
             panel20.SuspendLayout();
@@ -264,20 +238,14 @@
             tabPageMensajePatente.SuspendLayout();
             panel12.SuspendLayout();
             panel13.SuspendLayout();
-            panel14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox6).BeginInit();
             panel17.SuspendLayout();
-            panel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox7).BeginInit();
             groupBox2.SuspendLayout();
             tabPageMensajeMarca.SuspendLayout();
             panel22.SuspendLayout();
             panel23.SuspendLayout();
-            panel24.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox8).BeginInit();
             panel25.SuspendLayout();
-            panel26.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox9).BeginInit();
             groupBox4.SuspendLayout();
             SuspendLayout();
             // 
@@ -643,36 +611,12 @@
             // panel7
             // 
             panel7.AutoSize = true;
-            panel7.Controls.Add(panel8);
             panel7.Controls.Add(roundedButton17);
             panel7.Dock = DockStyle.Left;
             panel7.Location = new Point(263, 0);
             panel7.Name = "panel7";
             panel7.Size = new Size(252, 49);
             panel7.TabIndex = 170;
-            // 
-            // panel8
-            // 
-            panel8.AutoSize = true;
-            panel8.BackColor = Color.FromArgb(175, 192, 218);
-            panel8.Controls.Add(label42);
-            panel8.Location = new Point(53, 14);
-            panel8.Margin = new Padding(0);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(184, 24);
-            panel8.TabIndex = 175;
-            // 
-            // label42
-            // 
-            label42.AutoSize = true;
-            label42.Dock = DockStyle.Fill;
-            label42.Font = new Font("Century Gothic", 12F);
-            label42.Location = new Point(0, 0);
-            label42.Name = "label42";
-            label42.Size = new Size(179, 23);
-            label42.TabIndex = 166;
-            label42.Text = "DETALLES MARCA";
-            label42.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton17
             // 
@@ -686,12 +630,13 @@
             roundedButton17.Enabled = false;
             roundedButton17.FlatAppearance.BorderSize = 0;
             roundedButton17.FlatStyle = FlatStyle.Flat;
-            roundedButton17.ForeColor = Color.White;
+            roundedButton17.ForeColor = Color.Black;
             roundedButton17.Location = new Point(0, 0);
             roundedButton17.Name = "roundedButton17";
             roundedButton17.Size = new Size(252, 49);
             roundedButton17.TabIndex = 167;
-            roundedButton17.TextColor = Color.White;
+            roundedButton17.Text = "DETALLES MARCA";
+            roundedButton17.TextColor = Color.Black;
             roundedButton17.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox4
@@ -713,52 +658,12 @@
             // panel9
             // 
             panel9.AutoSize = true;
-            panel9.Controls.Add(panel10);
             panel9.Controls.Add(roundedButton18);
             panel9.Dock = DockStyle.Left;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
             panel9.Size = new Size(214, 49);
             panel9.TabIndex = 169;
-            // 
-            // panel10
-            // 
-            panel10.AutoSize = true;
-            panel10.BackColor = Color.FromArgb(175, 192, 218);
-            panel10.Controls.Add(label43);
-            panel10.Controls.Add(iconPictureBox5);
-            panel10.Location = new Point(31, 14);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(180, 21);
-            panel10.TabIndex = 174;
-            // 
-            // label43
-            // 
-            label43.AutoSize = true;
-            label43.Dock = DockStyle.Left;
-            label43.Font = new Font("Century Gothic", 12F);
-            label43.Location = new Point(25, 0);
-            label43.Name = "label43";
-            label43.Size = new Size(155, 23);
-            label43.TabIndex = 166;
-            label43.Text = "VENCIMIENTOS";
-            label43.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox5
-            // 
-            iconPictureBox5.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox5.Dock = DockStyle.Left;
-            iconPictureBox5.ForeColor = SystemColors.ControlText;
-            iconPictureBox5.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconPictureBox5.IconColor = SystemColors.ControlText;
-            iconPictureBox5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox5.IconSize = 21;
-            iconPictureBox5.Location = new Point(0, 0);
-            iconPictureBox5.Name = "iconPictureBox5";
-            iconPictureBox5.Size = new Size(25, 21);
-            iconPictureBox5.TabIndex = 165;
-            iconPictureBox5.TabStop = false;
-            iconPictureBox5.UseGdi = true;
             // 
             // roundedButton18
             // 
@@ -772,12 +677,17 @@
             roundedButton18.Enabled = false;
             roundedButton18.FlatAppearance.BorderSize = 0;
             roundedButton18.FlatStyle = FlatStyle.Flat;
-            roundedButton18.ForeColor = Color.White;
+            roundedButton18.ForeColor = Color.Black;
+            roundedButton18.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton18.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton18.Location = new Point(0, 0);
             roundedButton18.Name = "roundedButton18";
             roundedButton18.Size = new Size(214, 49);
             roundedButton18.TabIndex = 164;
-            roundedButton18.TextColor = Color.White;
+            roundedButton18.Text = "VENCIMIENTOS";
+            roundedButton18.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton18.TextColor = Color.Black;
+            roundedButton18.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton18.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel1
@@ -1171,21 +1081,19 @@
             // 
             // datePickerFechaSolicitudM
             // 
-            datePickerFechaSolicitudM.Anchor = AnchorStyles.None;
             datePickerFechaSolicitudM.Enabled = false;
             datePickerFechaSolicitudM.Font = new Font("Century Gothic", 9F);
             datePickerFechaSolicitudM.Format = DateTimePickerFormat.Short;
-            datePickerFechaSolicitudM.Location = new Point(386, 243);
+            datePickerFechaSolicitudM.Location = new Point(386, 203);
             datePickerFechaSolicitudM.Name = "datePickerFechaSolicitudM";
             datePickerFechaSolicitudM.Size = new Size(293, 26);
             datePickerFechaSolicitudM.TabIndex = 176;
             // 
             // label13
             // 
-            label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
             label13.Font = new Font("Century Gothic", 9F);
-            label13.Location = new Point(386, 218);
+            label13.Location = new Point(386, 178);
             label13.Name = "label13";
             label13.Size = new Size(69, 20);
             label13.TabIndex = 175;
@@ -1438,36 +1346,12 @@
             // panel15
             // 
             panel15.AutoSize = true;
-            panel15.Controls.Add(panel16);
             panel15.Controls.Add(roundedButton15);
             panel15.Dock = DockStyle.Left;
             panel15.Location = new Point(263, 0);
             panel15.Name = "panel15";
             panel15.Size = new Size(252, 49);
             panel15.TabIndex = 170;
-            // 
-            // panel16
-            // 
-            panel16.AutoSize = true;
-            panel16.BackColor = Color.FromArgb(175, 192, 218);
-            panel16.Controls.Add(label40);
-            panel16.Location = new Point(53, 14);
-            panel16.Margin = new Padding(0);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(184, 24);
-            panel16.TabIndex = 175;
-            // 
-            // label40
-            // 
-            label40.AutoSize = true;
-            label40.Dock = DockStyle.Fill;
-            label40.Font = new Font("Century Gothic", 12F);
-            label40.Location = new Point(0, 0);
-            label40.Name = "label40";
-            label40.Size = new Size(184, 23);
-            label40.TabIndex = 166;
-            label40.Text = "DETALLES PATENTE";
-            label40.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton15
             // 
@@ -1481,12 +1365,13 @@
             roundedButton15.Enabled = false;
             roundedButton15.FlatAppearance.BorderSize = 0;
             roundedButton15.FlatStyle = FlatStyle.Flat;
-            roundedButton15.ForeColor = Color.White;
+            roundedButton15.ForeColor = Color.Black;
             roundedButton15.Location = new Point(0, 0);
             roundedButton15.Name = "roundedButton15";
             roundedButton15.Size = new Size(252, 49);
             roundedButton15.TabIndex = 167;
-            roundedButton15.TextColor = Color.White;
+            roundedButton15.Text = "DETALLES PATENTE";
+            roundedButton15.TextColor = Color.Black;
             roundedButton15.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox2
@@ -1508,52 +1393,12 @@
             // panel11
             // 
             panel11.AutoSize = true;
-            panel11.Controls.Add(panel19);
             panel11.Controls.Add(roundedButton16);
             panel11.Dock = DockStyle.Left;
             panel11.Location = new Point(0, 0);
             panel11.Name = "panel11";
             panel11.Size = new Size(214, 49);
             panel11.TabIndex = 169;
-            // 
-            // panel19
-            // 
-            panel19.AutoSize = true;
-            panel19.BackColor = Color.FromArgb(175, 192, 218);
-            panel19.Controls.Add(label41);
-            panel19.Controls.Add(iconPictureBox3);
-            panel19.Location = new Point(31, 14);
-            panel19.Name = "panel19";
-            panel19.Size = new Size(180, 21);
-            panel19.TabIndex = 174;
-            // 
-            // label41
-            // 
-            label41.AutoSize = true;
-            label41.Dock = DockStyle.Left;
-            label41.Font = new Font("Century Gothic", 12F);
-            label41.Location = new Point(25, 0);
-            label41.Name = "label41";
-            label41.Size = new Size(155, 23);
-            label41.TabIndex = 166;
-            label41.Text = "VENCIMIENTOS";
-            label41.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox3
-            // 
-            iconPictureBox3.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox3.Dock = DockStyle.Left;
-            iconPictureBox3.ForeColor = SystemColors.ControlText;
-            iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconPictureBox3.IconColor = SystemColors.ControlText;
-            iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox3.IconSize = 21;
-            iconPictureBox3.Location = new Point(0, 0);
-            iconPictureBox3.Name = "iconPictureBox3";
-            iconPictureBox3.Size = new Size(25, 21);
-            iconPictureBox3.TabIndex = 165;
-            iconPictureBox3.TabStop = false;
-            iconPictureBox3.UseGdi = true;
             // 
             // roundedButton16
             // 
@@ -1567,12 +1412,17 @@
             roundedButton16.Enabled = false;
             roundedButton16.FlatAppearance.BorderSize = 0;
             roundedButton16.FlatStyle = FlatStyle.Flat;
-            roundedButton16.ForeColor = Color.White;
+            roundedButton16.ForeColor = Color.Black;
+            roundedButton16.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton16.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton16.Location = new Point(0, 0);
             roundedButton16.Name = "roundedButton16";
             roundedButton16.Size = new Size(214, 49);
             roundedButton16.TabIndex = 164;
-            roundedButton16.TextColor = Color.White;
+            roundedButton16.Text = "VENCIMIENTOS";
+            roundedButton16.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton16.TextColor = Color.Black;
+            roundedButton16.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton16.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel2
@@ -2292,36 +2142,12 @@
             // panel13
             // 
             panel13.AutoSize = true;
-            panel13.Controls.Add(panel14);
             panel13.Controls.Add(roundedButton7);
             panel13.Dock = DockStyle.Left;
             panel13.Location = new Point(263, 0);
             panel13.Name = "panel13";
             panel13.Size = new Size(239, 49);
             panel13.TabIndex = 170;
-            // 
-            // panel14
-            // 
-            panel14.AutoSize = true;
-            panel14.BackColor = Color.FromArgb(175, 192, 218);
-            panel14.Controls.Add(label44);
-            panel14.Location = new Point(22, 14);
-            panel14.Margin = new Padding(0);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(181, 24);
-            panel14.TabIndex = 175;
-            // 
-            // label44
-            // 
-            label44.AutoSize = true;
-            label44.Dock = DockStyle.Fill;
-            label44.Font = new Font("Century Gothic", 12F);
-            label44.Location = new Point(0, 0);
-            label44.Name = "label44";
-            label44.Size = new Size(181, 23);
-            label44.TabIndex = 166;
-            label44.Text = "CORREO PATENTE";
-            label44.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton7
             // 
@@ -2335,12 +2161,13 @@
             roundedButton7.Enabled = false;
             roundedButton7.FlatAppearance.BorderSize = 0;
             roundedButton7.FlatStyle = FlatStyle.Flat;
-            roundedButton7.ForeColor = Color.White;
+            roundedButton7.ForeColor = Color.Black;
             roundedButton7.Location = new Point(0, 0);
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(239, 49);
             roundedButton7.TabIndex = 167;
-            roundedButton7.TextColor = Color.White;
+            roundedButton7.Text = "CORREO PATENTE";
+            roundedButton7.TextColor = Color.Black;
             roundedButton7.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox6
@@ -2362,52 +2189,12 @@
             // panel17
             // 
             panel17.AutoSize = true;
-            panel17.Controls.Add(panel18);
             panel17.Controls.Add(roundedButton8);
             panel17.Dock = DockStyle.Left;
             panel17.Location = new Point(0, 0);
             panel17.Name = "panel17";
             panel17.Size = new Size(214, 49);
             panel17.TabIndex = 169;
-            // 
-            // panel18
-            // 
-            panel18.AutoSize = true;
-            panel18.BackColor = Color.FromArgb(175, 192, 218);
-            panel18.Controls.Add(label45);
-            panel18.Controls.Add(iconPictureBox7);
-            panel18.Location = new Point(31, 14);
-            panel18.Name = "panel18";
-            panel18.Size = new Size(180, 21);
-            panel18.TabIndex = 174;
-            // 
-            // label45
-            // 
-            label45.AutoSize = true;
-            label45.Dock = DockStyle.Left;
-            label45.Font = new Font("Century Gothic", 12F);
-            label45.Location = new Point(25, 0);
-            label45.Name = "label45";
-            label45.Size = new Size(155, 23);
-            label45.TabIndex = 166;
-            label45.Text = "VENCIMIENTOS";
-            label45.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox7
-            // 
-            iconPictureBox7.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox7.Dock = DockStyle.Left;
-            iconPictureBox7.ForeColor = SystemColors.ControlText;
-            iconPictureBox7.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconPictureBox7.IconColor = SystemColors.ControlText;
-            iconPictureBox7.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox7.IconSize = 21;
-            iconPictureBox7.Location = new Point(0, 0);
-            iconPictureBox7.Name = "iconPictureBox7";
-            iconPictureBox7.Size = new Size(25, 21);
-            iconPictureBox7.TabIndex = 165;
-            iconPictureBox7.TabStop = false;
-            iconPictureBox7.UseGdi = true;
             // 
             // roundedButton8
             // 
@@ -2421,12 +2208,17 @@
             roundedButton8.Enabled = false;
             roundedButton8.FlatAppearance.BorderSize = 0;
             roundedButton8.FlatStyle = FlatStyle.Flat;
-            roundedButton8.ForeColor = Color.White;
+            roundedButton8.ForeColor = Color.Black;
+            roundedButton8.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton8.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton8.Location = new Point(0, 0);
             roundedButton8.Name = "roundedButton8";
             roundedButton8.Size = new Size(214, 49);
             roundedButton8.TabIndex = 164;
-            roundedButton8.TextColor = Color.White;
+            roundedButton8.Text = "VENCIMIENTOS";
+            roundedButton8.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton8.TextColor = Color.Black;
+            roundedButton8.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton8.UseVisualStyleBackColor = false;
             // 
             // groupBox2
@@ -2677,36 +2469,12 @@
             // panel23
             // 
             panel23.AutoSize = true;
-            panel23.Controls.Add(panel24);
             panel23.Controls.Add(roundedButton6);
             panel23.Dock = DockStyle.Left;
             panel23.Location = new Point(263, 0);
             panel23.Name = "panel23";
             panel23.Size = new Size(239, 49);
             panel23.TabIndex = 170;
-            // 
-            // panel24
-            // 
-            panel24.AutoSize = true;
-            panel24.BackColor = Color.FromArgb(175, 192, 218);
-            panel24.Controls.Add(label54);
-            panel24.Location = new Point(22, 14);
-            panel24.Margin = new Padding(0);
-            panel24.Name = "panel24";
-            panel24.Size = new Size(181, 24);
-            panel24.TabIndex = 175;
-            // 
-            // label54
-            // 
-            label54.AutoSize = true;
-            label54.Dock = DockStyle.Fill;
-            label54.Font = new Font("Century Gothic", 12F);
-            label54.Location = new Point(0, 0);
-            label54.Name = "label54";
-            label54.Size = new Size(176, 23);
-            label54.TabIndex = 166;
-            label54.Text = "CORREO MARCA";
-            label54.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // roundedButton6
             // 
@@ -2720,12 +2488,13 @@
             roundedButton6.Enabled = false;
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
-            roundedButton6.ForeColor = Color.White;
+            roundedButton6.ForeColor = Color.Black;
             roundedButton6.Location = new Point(0, 0);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(239, 49);
             roundedButton6.TabIndex = 167;
-            roundedButton6.TextColor = Color.White;
+            roundedButton6.Text = "CORREO MARCA";
+            roundedButton6.TextColor = Color.Black;
             roundedButton6.UseVisualStyleBackColor = false;
             // 
             // iconPictureBox8
@@ -2747,52 +2516,12 @@
             // panel25
             // 
             panel25.AutoSize = true;
-            panel25.Controls.Add(panel26);
             panel25.Controls.Add(roundedButton9);
             panel25.Dock = DockStyle.Left;
             panel25.Location = new Point(0, 0);
             panel25.Name = "panel25";
             panel25.Size = new Size(214, 49);
             panel25.TabIndex = 169;
-            // 
-            // panel26
-            // 
-            panel26.AutoSize = true;
-            panel26.BackColor = Color.FromArgb(175, 192, 218);
-            panel26.Controls.Add(label55);
-            panel26.Controls.Add(iconPictureBox9);
-            panel26.Location = new Point(31, 14);
-            panel26.Name = "panel26";
-            panel26.Size = new Size(180, 21);
-            panel26.TabIndex = 174;
-            // 
-            // label55
-            // 
-            label55.AutoSize = true;
-            label55.Dock = DockStyle.Left;
-            label55.Font = new Font("Century Gothic", 12F);
-            label55.Location = new Point(25, 0);
-            label55.Name = "label55";
-            label55.Size = new Size(155, 23);
-            label55.TabIndex = 166;
-            label55.Text = "VENCIMIENTOS";
-            label55.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // iconPictureBox9
-            // 
-            iconPictureBox9.BackColor = Color.FromArgb(175, 192, 218);
-            iconPictureBox9.Dock = DockStyle.Left;
-            iconPictureBox9.ForeColor = SystemColors.ControlText;
-            iconPictureBox9.IconChar = FontAwesome.Sharp.IconChar.ClockFour;
-            iconPictureBox9.IconColor = SystemColors.ControlText;
-            iconPictureBox9.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox9.IconSize = 21;
-            iconPictureBox9.Location = new Point(0, 0);
-            iconPictureBox9.Name = "iconPictureBox9";
-            iconPictureBox9.Size = new Size(25, 21);
-            iconPictureBox9.TabIndex = 165;
-            iconPictureBox9.TabStop = false;
-            iconPictureBox9.UseGdi = true;
             // 
             // roundedButton9
             // 
@@ -2806,12 +2535,17 @@
             roundedButton9.Enabled = false;
             roundedButton9.FlatAppearance.BorderSize = 0;
             roundedButton9.FlatStyle = FlatStyle.Flat;
-            roundedButton9.ForeColor = Color.White;
+            roundedButton9.ForeColor = Color.Black;
+            roundedButton9.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton9.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton9.Location = new Point(0, 0);
             roundedButton9.Name = "roundedButton9";
             roundedButton9.Size = new Size(214, 49);
             roundedButton9.TabIndex = 164;
-            roundedButton9.TextColor = Color.White;
+            roundedButton9.Text = "VENCIMIENTOS";
+            roundedButton9.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton9.TextColor = Color.Black;
+            roundedButton9.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton9.UseVisualStyleBackColor = false;
             // 
             // groupBox4
@@ -2933,14 +2667,9 @@
             panel6.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).EndInit();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox5).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -2955,14 +2684,9 @@
             panel5.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
-            panel16.ResumeLayout(false);
-            panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
-            panel19.ResumeLayout(false);
-            panel19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
             panel2I.ResumeLayout(false);
             panel2I.PerformLayout();
@@ -2975,14 +2699,9 @@
             panel12.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox6).EndInit();
             panel17.ResumeLayout(false);
             panel17.PerformLayout();
-            panel18.ResumeLayout(false);
-            panel18.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox7).EndInit();
             groupBox2.ResumeLayout(false);
             tabPageMensajeMarca.ResumeLayout(false);
             tabPageMensajeMarca.PerformLayout();
@@ -2990,14 +2709,9 @@
             panel22.PerformLayout();
             panel23.ResumeLayout(false);
             panel23.PerformLayout();
-            panel24.ResumeLayout(false);
-            panel24.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox8).EndInit();
             panel25.ResumeLayout(false);
             panel25.PerformLayout();
-            panel26.ResumeLayout(false);
-            panel26.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox9).EndInit();
             groupBox4.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -3118,37 +2832,22 @@
         private Label label39;
         private Panel panel5;
         private Panel panel15;
-        private Panel panel16;
-        private Label label40;
         private Clases.RoundedButton roundedButton15;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Panel panel11;
-        private Panel panel19;
-        private Label label41;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private Clases.RoundedButton roundedButton16;
         private Panel panel6;
         private Panel panel7;
-        private Panel panel8;
-        private Label label42;
         private Clases.RoundedButton roundedButton17;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
         private Panel panel9;
-        private Panel panel10;
-        private Label label43;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox5;
         private Clases.RoundedButton roundedButton18;
         private TabPage tabPageMensajePatente;
         private Panel panel12;
         private Panel panel13;
-        private Panel panel14;
-        private Label label44;
         private Clases.RoundedButton roundedButton7;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox6;
         private Panel panel17;
-        private Panel panel18;
-        private Label label45;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox7;
         private Clases.RoundedButton roundedButton8;
         private Label label46;
         private TextBox txtAsuntoP;
@@ -3184,13 +2883,8 @@
         private TextBox txtAsuntoM;
         private Panel panel22;
         private Panel panel23;
-        private Panel panel24;
-        private Label label54;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox8;
         private Panel panel25;
-        private Panel panel26;
-        private Label label55;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox9;
         private GroupBox groupBox4;
         private Button button1;
         private ComboBox comboBox2;
