@@ -54,6 +54,10 @@ namespace Dominio
             return userDao.RemoveUser(userId,deletedUser, deletedBy);
         }
 
-       
+        public int CountAdmins()
+        {
+            return userDao.ContarAdministradores();
+        }
+
     }
 }

@@ -226,6 +226,35 @@ namespace AccesoDatos.Usuarios
             }
         }
 
+        public int ContarAdministradores()
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                // Definir el comando para ejecutar el procedimiento almacenado
+                using (var command = new MySqlCommand("ContarAdministradores", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Ejecutar el procedimiento almacenado y leer el resultado
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Leer el valor devuelto por el procedimiento
+                            return reader.GetInt32("TotalAdministradores");
+                        }
+                        else
+                        {
+                            return 0;  // Si no hay registros, devolver 0
+                        }
+                    }
+                }
+            }
+        }
+
+
 
     }
 }

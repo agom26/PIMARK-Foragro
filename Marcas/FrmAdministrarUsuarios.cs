@@ -530,29 +530,42 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
-                await CargarDatosEliminar();
-                FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE ELIMINAR AL USUARIO " + EditarUsuario.usuario + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                var resultado = alerta.ShowDialog();
+                int numAdmin = UserModel.CountAdmins();
 
-                if (resultado == DialogResult.Yes)
+                if (numAdmin>1)
                 {
-                    try
+                    await CargarDatosEliminar();
+                    FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE ELIMINAR AL USUARIO " + EditarUsuario.usuario + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    var resultado = alerta.ShowDialog();
+
+                    if (resultado == DialogResult.Yes)
                     {
-                        UserModel.RemoveUser(EditarUsuario.idUser, EditarUsuario.usuario, UsuarioActivo.usuario);
-                        FrmAlerta alertae = new FrmAlerta("USUARIO ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alertae.ShowDialog();
+                        try
+                        {
+                            UserModel.RemoveUser(EditarUsuario.idUser, EditarUsuario.usuario, UsuarioActivo.usuario);
+                            FrmAlerta alertae = new FrmAlerta("USUARIO ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alertae.ShowDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alertae = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alertae.ShowDialog();
+                        }
+
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        FrmAlerta alertae = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alertae.ShowDialog();
+
                     }
+                }
+                else if (numAdmin == 1)
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO ES POSIBLE ELIMINAR AL ÚNICO ADMINISTRADOR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
 
                 }
-                else
-                {
 
-                }
+                
             }
 
         }
