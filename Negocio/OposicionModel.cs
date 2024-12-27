@@ -31,6 +31,13 @@ namespace Dominio
             return tabla;
         }
 
+        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual)
+        {
+            DataTable tabla = new DataTable();
+            tabla = oposicionDao.GetAllOposicionesNacionalesInterpuestas(situacionActual);
+            return tabla;
+        }
+
         public int CrearOposicion(
             string expediente,
             string signoPretendido,
@@ -45,11 +52,12 @@ namespace Dominio
             int? idMarca,
             byte[] logoOpositor,
             byte[] logoSignoPretendido,
-            string tipo)
+            string tipo, 
+            string tipoOposicion)
         {
             return oposicionDao.AddOposicion(expediente, signoPretendido, signoDistintivo, 
                 clase, solicitanteSignoPretendido,idSolicitante, idOpositor,opositor, signoOpositor, 
-                situacionActual, idMarca, logoOpositor, logoSignoPretendido, tipo);
+                situacionActual, idMarca, logoOpositor, logoSignoPretendido, tipo, tipoOposicion);
         }
 
         

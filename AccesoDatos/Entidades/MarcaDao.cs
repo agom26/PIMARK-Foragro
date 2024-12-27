@@ -115,20 +115,19 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro,string situacion)
+        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
         {
             DataTable tabla = new DataTable();
             try
             {
                 using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasEnOposicion", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasRecibidasEnOposicion", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
-                        comando.Parameters.AddWithValue("@p_situacion_actual", situacion);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -140,12 +139,41 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+                Console.WriteLine($"Error al obtener las marcas : {ex.Message}");
             }
             return tabla;
         }
 
-        
+        public DataTable FiltrarMarcasNacionalesEnOposicionInterpuestas(string filtro)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInterpuestasEnOposicion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas : {ex.Message}");
+            }
+            return tabla;
+        }
+
+
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {
             DataTable tabla = new DataTable();

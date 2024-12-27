@@ -530,7 +530,7 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
-                int numAdmin = UserModel.CountAdmins();
+                int numAdmin = await Task.Run(()=> UserModel.CountAdmins());
 
                 if (numAdmin>1)
                 {

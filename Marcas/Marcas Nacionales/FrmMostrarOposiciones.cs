@@ -1661,7 +1661,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (txtBuscar.Text != "")
             {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text, cmbSituacionActual.SelectedItem.ToString());
+                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
                 if (marcas.Rows.Count > 0)
                 {
                     dtgMarcasO.DataSource = marcas;
@@ -1674,7 +1674,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     FiltrarPorSituacionActual();
                     //LoadMarcas();
@@ -1683,6 +1683,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
+                FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
                 FiltrarPorSituacionActual();
                 //LoadMarcas();
             }
@@ -1805,7 +1807,7 @@ namespace Presentacion.Marcas_Nacionales
                     OposicionModel oposicionModel = new OposicionModel();
                     int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
                         solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
-                        logoOpositor, logoSignoPretendido, "internacional");
+                        logoOpositor, logoSignoPretendido, "internacional","interpuesta");
                     if (idOposicion > 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();

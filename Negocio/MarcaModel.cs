@@ -38,9 +38,13 @@ namespace Dominio
         {
             return marcaDao.FiltrarMarcasNacionalesEnTramite(filtro);
         }
-        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro,string situacion)
+        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
         {
-            return marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro,situacion);
+            return marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro);
+        }
+        public DataTable FiltrarMarcasNacionalesInterpuestasEnOposicion(string filtro)
+        {
+            return marcaDao.FiltrarMarcasNacionalesEnOposicionInterpuestas(filtro);
         }
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {

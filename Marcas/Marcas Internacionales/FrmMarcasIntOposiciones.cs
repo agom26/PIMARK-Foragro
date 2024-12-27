@@ -33,7 +33,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntOposiciones()
         {
             InitializeComponent();
-            
+
             this.Load += FrmMarcasIntOposiciones_Load;
             SeleccionarMarca.idInt = 0;
             //ActualizarFechaVencimiento();
@@ -73,6 +73,26 @@ namespace Presentacion.Marcas_Internacionales
                     dtgMarcasOp.Columns["id"].Visible = false;
                     // Desactiva la selección automática de la primera fila
                     dtgMarcasOp.ClearSelection();
+                }
+            }));
+        }
+
+        private async Task LoadMarcasInterpuestas(string situacionActual)
+        {
+
+            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionalesInterpuestas(situacionActual));
+
+            Invoke(new Action(() =>
+            {
+                dtgOpI.DataSource = marcasN;
+                dtgOpI.Refresh();
+                // Oculta la columna 'id'
+                if (dtgOpI.Columns["id"] != null)
+                {
+                    dtgOpI.Columns["IdMarca"].Visible = false;
+                    dtgOpI.Columns["id"].Visible = false;
+                    // Desactiva la selección automática de la primera fila
+                    dtgOpI.ClearSelection();
                 }
             }));
         }
@@ -522,7 +542,9 @@ namespace Presentacion.Marcas_Internacionales
         private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
         {
             cmbSituacionActual.SelectedIndex = 0;
+            cmbSituacionActualI.SelectedIndex = 0;
             FiltrarPorSituacionActual();
+            FiltrarPorSituacionActualInterpuestas();
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedTab = tabPageOposicionesList;
             EliminarTabPage(tabPageMarcaDetail);
@@ -540,6 +562,8 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageOposicionesList)
             {
+                dtgMarcasOp.ClearSelection();
+                dtgOpI.ClearSelection();
                 FiltrarPorSituacionActual();
                 SeleccionarOposicion.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
@@ -692,38 +716,54 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void ProcesarSeleccion(DataGridView dataGridView)
+        {
+            var filaSeleccionada = dataGridView.SelectedRows[0];
+
+            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+            {
+                int? id = dataRowView["id"] as int?;
+
+                if (id.HasValue)
+                {
+                    SeleccionarOposicion.idN = id.Value;
+                    AnadirTabPage(tabPageAgregarOposicion);
+                }
+                else
+                {
+                    MostrarAlerta("ID NO VÁLIDO", "ERROR");
+                }
+            }
+        }
+
+        private void MostrarAlerta(string mensaje, string titulo)
+        {
+            FrmAlerta alerta = new FrmAlerta(mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            alerta.ShowDialog();
+        }
+
         private void VerificarSeleccionEdicion()
         {
-            if (dtgMarcasOp.RowCount <= 0)
+            // Comprobar si hay filas seleccionadas
+            if (dtgMarcasOp.RowCount <= 0 && dtgOpI.RowCount <= 0)
             {
-                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
-                //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MostrarAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE");
                 return;
             }
 
+            // Verificar si se seleccionó en alguna de las tablas
             if (dtgMarcasOp.SelectedRows.Count > 0)
             {
-                var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
-                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
-                {
-
-                    if (dataRowView["id"] != DBNull.Value)
-                    {
-                        int id = Convert.ToInt32(dataRowView["id"]);
-                        SeleccionarOposicion.idN = id;
-                    }
-
-                    AnadirTabPage(tabPageAgregarOposicion);
-                    tabControl1.SelectedTab = tabPageAgregarOposicion;
-                    //tabControl1.SelectedTab = tabPageMarcaDetail;
-                }
+                ProcesarSeleccion(dtgMarcasOp);
+            }
+            else if (dtgOpI.SelectedRows.Count > 0)
+            {
+                ProcesarSeleccion(dtgOpI);
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
-                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MostrarAlerta("SELECCIONE UNA FILA", "MENSAJE");
             }
         }
 
@@ -1134,6 +1174,18 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcas("TERMINADA");
             }
         }
+
+        public async void FiltrarPorSituacionActualInterpuestas()
+        {
+            if (cmbSituacionActualI.SelectedIndex == 0)
+            {
+                await LoadMarcasInterpuestas("EN TRÁMITE");
+            }
+            else if (cmbSituacionActualI.SelectedIndex == 1)
+            {
+                await LoadMarcasInterpuestas("TERMINADA");
+            }
+        }
         private void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarPorSituacionActual();
@@ -1156,12 +1208,15 @@ namespace Presentacion.Marcas_Internacionales
         {
             btnEnviarATramite.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
+            txtExpedienteAO.Enabled = true;
+            txtSolicitanteSignoPretendido.Enabled = true;
+            txtSignoAO.Enabled = true;
+            txtClaseAO.Enabled= true;
             txtNombreTitularAO.Enabled = true;
             txtSignoOpositor.Enabled = true;
-            //btnVerHistorial.Visible = false;
-            SeleccionarOposicion.idN = 0;
-            //btnTitular.Visible = false;
             btnAgregarOpositorAO.Enabled = true;
+            cmbSignoDAO.Enabled = true;
+            SeleccionarOposicion.idN = 0;
             convertirImagen();
             pictureBoxOpositor.Image = documento;
             pictureBoxSignoPretendido.Image = documento;
@@ -1279,7 +1334,7 @@ namespace Presentacion.Marcas_Internacionales
                     OposicionModel oposicionModel = new OposicionModel();
                     int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
                         solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
-                        logoOpositor, logoSignoPretendido, "nacional");
+                        logoOpositor, logoSignoPretendido, "nacional", "interpuesta");
                     if (idOposicion > 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
@@ -1549,25 +1604,71 @@ namespace Presentacion.Marcas_Internacionales
         {
             string valor = txtBuscar.Text;
             string situacion = cmbSituacionActual.SelectedItem.ToString();
-            if (valor != "" && situacion != null)
+            if (valor != "")
             {
-                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasNacionalesEnOposicion(valor, situacion));
-
-                Invoke(new Action(() =>
+                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasNacionalesEnOposicion(valor));
+                if (marcasR.Rows.Count > 0)
                 {
-                    dtgMarcasOp.DataSource = marcasR;
-                    dtgMarcasOp.Refresh();
-
-                    if (dtgMarcasOp.Columns["id"] != null)
+                    Invoke(new Action(() =>
                     {
-                        dtgMarcasOp.Columns["id"].Visible = false;
-                        dtgMarcasOp.ClearSelection();
-                    }
-                }));
+                        dtgMarcasOp.DataSource = marcasR;
+                        dtgMarcasOp.Refresh();
+
+                        if (dtgMarcasOp.Columns["id"] != null)
+                        {
+                            dtgMarcasOp.Columns["id"].Visible = false;
+                            dtgMarcasOp.ClearSelection();
+                        }
+                    }));
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    await LoadMarcas(situacion);
+                }
+
             }
             else
             {
+
                 await LoadMarcas(cmbSituacionActual.SelectedItem.ToString());
+            }
+
+        }
+
+        private async void filtrarMarcasInterpuestas()
+        {
+            string valor = txtBuscar2.Text;
+            string situacion = cmbSituacionActualI.SelectedItem.ToString();
+            if (valor != "")
+            {
+                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasNacionalesInterpuestasEnOposicion(valor));
+                if (marcasR.Rows.Count > 0)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        dtgOpI.DataSource = marcasR;
+                        dtgOpI.Refresh();
+
+                        if (dtgOpI.Columns["id"] != null)
+                        {
+                            dtgOpI.Columns["id"].Visible = false;
+                            dtgOpI.ClearSelection();
+                        }
+                    }));
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES INTERPUESTAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    await LoadMarcasInterpuestas(situacion);
+                }
+
+            }
+            else
+            {
+                await LoadMarcasInterpuestas(situacion);
             }
 
         }
@@ -1589,7 +1690,7 @@ namespace Presentacion.Marcas_Internacionales
             FrmMostrarMarcasN frmMostrarMarcas = new FrmMostrarMarcasN();
             frmMostrarMarcas.ShowDialog();
 
-            if (SeleccionarMarcaOposicion.idMarca != 0)
+            if (SeleccionarMarcaOposicion.idMarca > 0)
             {
                 txtNombreTitularAO.Enabled = false;
                 txtSignoOpositor.Enabled = false;
@@ -1613,7 +1714,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (btnGuardarU.Text == "EDITAR")
             {
-                if (SeleccionarOposicion.idMarca == 0)
+                if (SeleccionarOposicion.idMarca > 0)
                 {
                     if (AgregarEtapaOposicion.etapa != "")
                     {
@@ -1683,6 +1784,68 @@ namespace Presentacion.Marcas_Internacionales
                     richtxtObservacionesAO.Text = "";
                 }
             }
+        }
+
+        private void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarPorSituacionActualInterpuestas();
+        }
+
+        private void iconButton8_Click(object sender, EventArgs e)
+        {
+            txtBuscar2.Text = "";
+            filtrarMarcasInterpuestas();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrarMarcas();
+            }
+        }
+
+        private void ibtnBuscar2_Click(object sender, EventArgs e)
+        {
+            filtrarMarcasInterpuestas();
+        }
+
+        private void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrarMarcasInterpuestas();
+            }
+        }
+
+        private void roundedButton6_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtgOpI_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Editar();
+        }
+
+        private void dtgMarcasOp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dtgOpI.ClearSelection();
+        }
+
+        private void dtgOpI_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dtgMarcasOp.ClearSelection();
+        }
+
+        private void dtgMarcasOp_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dtgOpI.ClearSelection();
+        }
+
+        private void dtgOpI_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dtgMarcasOp.ClearSelection();
         }
     }
 }

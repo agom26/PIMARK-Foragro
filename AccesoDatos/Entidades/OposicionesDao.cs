@@ -45,7 +45,35 @@ namespace AccesoDatos.Entidades
             {
                 using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesNacionales", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesNacionalesRecibidas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las oposiciones nacionales: {ex.Message}");
+            }
+            return tabla;
+        }
+
+        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesNacionalesInterpuestas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
@@ -80,7 +108,8 @@ namespace AccesoDatos.Entidades
             int? idMarca,
             byte[] logoOpositor, 
             byte[] logoSignoPretendido,
-            string tipo)
+            string tipo,
+            string tipoOposicion)
         {
             int lastInsertedId = 0;
             using (var connection = GetConnection())
@@ -107,7 +136,7 @@ namespace AccesoDatos.Entidades
                         cmd.Parameters.AddWithValue("@p_logo_opositor", logoOpositor ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_logo_signo_pretendido", logoSignoPretendido ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@p_tipo", tipo);
-
+                        cmd.Parameters.AddWithValue("@p_tipo_oposicion", tipoOposicion);
                         // Leer el ID del último registro insertado
                         using (var reader = cmd.ExecuteReader())
                         {
