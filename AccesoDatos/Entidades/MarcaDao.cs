@@ -173,6 +173,64 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public DataTable FiltrarMarcasInternacionalesEnOposicion(string filtro)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand(" filtrarMarcasInternacionalesRecibidasEnOposicion ", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas : {ex.Message}");
+            }
+            return tabla;
+        }
+
+        public DataTable FiltrarMarcasInternacionalesEnOposicionInterpuestas(string filtro)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesInterpuestasEnOposicion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas : {ex.Message}");
+            }
+            return tabla;
+        }
+
 
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {
@@ -415,7 +473,34 @@ namespace AccesoDatos.Entidades
             {
                 using (MySqlConnection conexion = GetConnection()) 
                 {
-                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesEnOposicion", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionalesRecibidas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
+        public DataTable GetAllMarcasInternacionalesEnOposicionInterpuestas()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionalesInterpuestas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

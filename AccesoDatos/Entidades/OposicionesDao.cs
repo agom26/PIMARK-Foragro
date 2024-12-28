@@ -10,6 +10,34 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
+        public DataTable GetAllOposicionesInternacionalesInterpuestas(string situacionActual)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionalesInterpuestas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las oposiciones internacionales: {ex.Message}");
+            }
+            return tabla;
+        }
+
         public DataTable GetAllOposicionesInternacionales(string situacionActual)
         {
             DataTable tabla = new DataTable();
@@ -17,7 +45,7 @@ namespace AccesoDatos.Entidades
             {
                 using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionales", conexion))
+                    using (MySqlCommand comando = new MySqlCommand(" ObtenerOposicionesInternacionalesRecibidas ", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 

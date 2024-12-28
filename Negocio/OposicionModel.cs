@@ -23,6 +23,12 @@ namespace Dominio
             tabla = oposicionDao.GetAllOposicionesInternacionales(situacionActual);
             return tabla;
         }
+        public DataTable GetAllOposicionesInternacionalesInterpuestas(string situacionActual)
+        {
+            DataTable tabla = new DataTable();
+            tabla = oposicionDao.GetAllOposicionesInternacionalesInterpuestas(situacionActual);
+            return tabla;
+        }
 
         public DataTable GetAllOposicionesNacionales(string situacionActual)
         {

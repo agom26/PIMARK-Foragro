@@ -46,6 +46,15 @@ namespace Dominio
         {
             return marcaDao.FiltrarMarcasNacionalesEnOposicionInterpuestas(filtro);
         }
+
+        public DataTable FiltrarMarcasInternacionalesEnOposicion(string filtro)
+        {
+            return marcaDao.FiltrarMarcasInternacionalesEnOposicion(filtro);
+        }
+        public DataTable FiltrarMarcasInternacionalesInterpuestasEnOposicion(string filtro)
+        {
+            return marcaDao.FiltrarMarcasInternacionalesEnOposicionInterpuestas(filtro);
+        }
         public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
         {
             return marcaDao.FiltrarMarcasNacionalesRegistradas(filtro);
