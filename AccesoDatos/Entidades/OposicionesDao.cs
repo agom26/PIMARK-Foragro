@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Esf;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,44 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
+        public DataTable FiltrarOposiciones(string tipo_filtro,
+            string expediente, string solicitante, string signoPretendido, 
+            string signoDistintivo, string clase, string opositor, string signoOpositor, 
+            string estado, string situacionActual, string tipo, string tipoOposicion
+        )
+        {
+            DataTable dataTable = new DataTable();
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                conexion.Open();
+                using (MySqlCommand cmd = new MySqlCommand("FiltrarOposiciones", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("tipo_filtro", tipo_filtro);
+                    cmd.Parameters.AddWithValue("p_expediente", expediente ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_solicitante_signoP", solicitante ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_signo_pretendido", signoPretendido ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_opositor", opositor ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_signoO", signoOpositor ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_estadoA", estado ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_situacion_actual", situacionActual ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_tipo", tipo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_tipo_op", tipoOposicion ?? (object)DBNull.Value);
+                    
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
         public DataTable GetAllOposicionesInternacionalesInterpuestas(string situacionActual)
         {
             DataTable tabla = new DataTable();

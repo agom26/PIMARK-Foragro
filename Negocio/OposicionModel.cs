@@ -17,6 +17,19 @@ namespace Dominio
         {
             oposicionDao = new OposicionesDao();
         }
+
+        public DataTable FiltrarOposiciones(
+          string tipo_filtro,
+          string expediente, string solicitante, string signoPretendido,
+          string signoDistintivo, string clase, string opositor, string signoOpositor,
+          string estado, string situacionActual, string tipo, string tipoOposicion)
+        {
+            return oposicionDao.FiltrarOposiciones(
+                tipo_filtro, expediente, solicitante, signoPretendido,
+                signoDistintivo, clase, opositor, signoOpositor,
+                estado, situacionActual, tipo, tipoOposicion
+                );
+        }
         public DataTable GetAllOposicionesInternacionales(string situacionActual)
         {
             DataTable tabla = new DataTable();

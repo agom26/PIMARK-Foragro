@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using Mysqlx.Datatypes;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System;
@@ -22,6 +23,9 @@ namespace Presentacion.Marcas_Internacionales
         OposicionModel oposicionModel = new OposicionModel();
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
+        public int numRegistros = 0;
+        public float escala = 0;
+        string titulo;
         public void convertirImagen()
         {
 
@@ -550,6 +554,8 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
+            EliminarTabPage(tabPageReportes);
+            EliminarTabPage(tabPageAgregarOposicion);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -557,25 +563,36 @@ namespace Presentacion.Marcas_Internacionales
 
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
-
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageReportes);
             }
             else if (tabControl1.SelectedTab == tabPageOposicionesList)
             {
                 dtgMarcasOp.ClearSelection();
                 dtgOpI.ClearSelection();
                 FiltrarPorSituacionActual();
+                FiltrarPorSituacionActualInterpuestas();
                 SeleccionarOposicion.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageAgregarOposicion);
+                EliminarTabPage(tabPageReportes);
+
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
             {
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageReportes);
+            }
+            else if (tabControl1.SelectedTab == tabPageReportes)
+            {
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageAgregarOposicion);
             }
         }
         private async Task CargarDatosOposicion()
@@ -1211,7 +1228,7 @@ namespace Presentacion.Marcas_Internacionales
             txtExpedienteAO.Enabled = true;
             txtSolicitanteSignoPretendido.Enabled = true;
             txtSignoAO.Enabled = true;
-            txtClaseAO.Enabled= true;
+            txtClaseAO.Enabled = true;
             txtNombreTitularAO.Enabled = true;
             txtSignoOpositor.Enabled = true;
             btnAgregarOpositorAO.Enabled = true;
@@ -1846,6 +1863,99 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgOpI_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dtgMarcasOp.ClearSelection();
+        }
+
+        private void btnIrAReportes_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageReportes);
+        }
+
+        private void iconButton9_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageOposicionesList);
+        }
+        public void Filtrar()
+        {
+            string objeto = null;
+            string expediente = null;
+            string solicitante = null;
+            string signo_pretendido = null;
+            string signoDistintivo = null;
+            string clase = null;
+            string opositor = null;
+            string signoOpositor = null;
+            string estado = null;
+            string situacionA = null;
+            string tipoOposicion = null;
+
+
+
+            switch (comboBoxTipoOposicion.SelectedIndex)
+            {
+                case 0:
+                    tipoOposicion = "recibida";
+                  
+                    break;
+                case 1:
+                    tipoOposicion = "interpuesta";
+                   
+                    break;
+                case 2:
+                    tipoOposicion = null;
+                    break;
+                
+            }
+
+            if (checkBoxEstadoReporte.Checked)
+            {estado = comboBoxEstadoReporte.SelectedItem.ToString();}
+            else {estado = null;}
+
+            if(chckExpedienteReporte.Checked)
+            {expediente = txtExpedienteReporte.Text;}
+            else
+            {expediente = null;}
+
+            if (chckSolicitanteReporte.Checked) { solicitante = richTextBoxSolicitanteReporte.Text; }
+            else { solicitante = null; }
+
+            if (chckSignoPretendidoRepo.Checked) { signo_pretendido=txtSignoPretendidoReporte.Text;}
+            else { signo_pretendido = null;}
+
+            if (chckSignoDistintivoReporte.Checked) { signoDistintivo = cmbSignoDistintivoReporte.SelectedItem.ToString(); }
+            else { signoDistintivo = null;}
+
+            if (chckClaseReporte.Checked) { clase=txtClaseReporte.Text;}
+            else {  clase = null;}
+
+            if (chckOpositorReporte.Checked) { opositor = richTextBoxOpositorReporte.Text; }
+            else {  opositor = null;}
+
+            if (chckSignoOpositorReporte.Checked) { signoOpositor = txtSignoOpositorReporte.Text; }
+            else {  signoOpositor = null;}
+
+            if (chckSituacionActualReporte.Checked) { situacionA = cmbSituacionActualReporte.SelectedItem.ToString(); }
+            else {  situacionA = null;}
+
+            if (chckTipoOpReporte.Checked) { tipoOposicion = tipoOposicion; }
+            else {  tipoOposicion = null;}
+
+
+            dtgReportesOp.DataSource = oposicionModel.FiltrarOposiciones("op_nacionales", expediente, solicitante, signo_pretendido,
+                signoDistintivo, clase, opositor, signoOpositor, estado, situacionA, "nacional", tipoOposicion);
+            dtgReportesOp.ClearSelection();
+            
+            /*
+            dtgReportes.DataSource = marcamodel.Filtrar(objeto, estado, nombre, pais,
+                folio, tomo, numRegistro, clase, fechaSolicitudInicio, fechaSolicitudFin,
+                fechaRegistroInicio, fechaRegistroFin, fechaVencimientoInicio, fechaVencimientoFinal,
+                titular, agente, cliente
+                );
+            dtgReportes.ClearSelection();*/
+
+        }
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            Filtrar();
         }
     }
 }
