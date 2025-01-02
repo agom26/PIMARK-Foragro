@@ -71,6 +71,12 @@
     <Compile Update="Marcas Internacionales\FrmMostrarMarcasN.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Marcas Internacionales\FrmMostrarSolicitantesReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Marcas Internacionales\FrmMostrarOpositoresReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Internacionales\FrmRenovacionesInt.cs">
       <SubType>Form</SubType>
     </Compile>
