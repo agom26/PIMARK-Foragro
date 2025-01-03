@@ -55,39 +55,76 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-        
+        public int GetTotalUsuarios()
+        {
+            int totalUsuarios = 0;
 
-        public DataTable GetAllUsers()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalUsers", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de salida para el total de usuarios
+                    MySqlParameter paramTotalUsuarios = new MySqlParameter("totalUsuarios", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalUsuarios);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalUsuarios = Convert.ToInt32(paramTotalUsuarios.Value);
+                }
+            }
+
+            return totalUsuarios;
+        }
+
+
+        public DataTable GetAllUsers(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
+
             using (MySqlConnection conexion = GetConnection())
             {
                 using (MySqlCommand comando = new MySqlCommand("GetAllUsers", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    comando.Parameters.AddWithValue("pageNumber", currentPageIndex);
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
                     conexion.Open();
-                    
+
+                    // Ejecutar la consulta y cargar los datos
                     using (MySqlDataReader leer = comando.ExecuteReader())
                     {
-                       
                         tabla.Load(leer);
+
+                        // Procesar la columna "isAdmin"
                         tabla.Columns.Add("ADMINISTRADOR", typeof(string));
 
                         foreach (DataRow row in tabla.Rows)
                         {
                             var isAdminValue = row["isAdmin"];
-                            bool isAdmin = Convert.ToUInt64(isAdminValue) == 1; 
+                            bool isAdmin = Convert.ToUInt64(isAdminValue) == 1;
                             row["ADMINISTRADOR"] = isAdmin ? "SI" : "NO";
                         }
 
                         tabla.Columns.Remove("isAdmin");
                     }
+
                 }
             }
 
-           
             return tabla;
         }
+
 
 
         public bool RemoveUser(int userId,string deletedUser, string deletedBy)
@@ -124,16 +161,54 @@ namespace AccesoDatos.Usuarios
                 }
             }
         }
-       
-        
-        public DataTable GetUserByValue(string value)
+
+        // UserDao.cs
+        public int GetFilteredUserCount(string value)
+        {
+            int totalUsuarios = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredUserCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalUsuariosParam = new MySqlParameter("@totalUsuarios", MySqlDbType.Int32);
+                    totalUsuariosParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalUsuariosParam);
+
+                    conexion.Open();
+
+                    // Ejecutar el procedimiento almacenado
+                    comando.ExecuteNonQuery();
+
+                    // Obtener el valor de totalUsuarios
+                    totalUsuarios = Convert.ToInt32(totalUsuariosParam.Value);
+                }
+            }
+
+            return totalUsuarios;
+        }
+
+
+
+        public DataTable GetUserByValue(string value, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
                 using (MySqlCommand comando = new MySqlCommand("GetUserByValue", conexion)) 
                 {
-                    comando.CommandType = CommandType.StoredProcedure; 
+                    comando.CommandType = CommandType.StoredProcedure;
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    
+                    comando.Parameters.AddWithValue("pageNumber", currentPageIndex);
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     comando.Parameters.AddWithValue("@value", value); 
 
                     conexion.Open();
@@ -150,12 +225,12 @@ namespace AccesoDatos.Usuarios
            
             foreach (DataRow row in tabla.Rows)
             {
-                var isAdminValue = row["EsAdministrador"];
+                var isAdminValue = row["isAdmin"];
                 bool isAdmin = Convert.ToBoolean(isAdminValue); 
                 row["ADMINISTRADOR"] = isAdmin ? "SI" : "NO";
             }
 
-            tabla.Columns.Remove("EsAdministrador");
+            tabla.Columns.Remove("isAdmin");
 
             return tabla;
         }

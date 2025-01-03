@@ -19,7 +19,10 @@ namespace Presentacion
     public partial class FrmAdministrarUsuarios : Form
     {
         UserModel UserModel = new UserModel();
-
+        private const int pageSize = 10;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
 
         public FrmAdministrarUsuarios()
         {
@@ -71,19 +74,23 @@ namespace Presentacion
             chckbIsAdmin.Checked = false;
         }
 
-        private void MostrarUsuarios()
-        {
-            dtgUsuarios.DataSource = UserModel.GetAllUsers();
-        }
 
-        private void LoadUsers()
-        {
-            // Obtiene los usuarios
-            var users = UserModel.GetAllUsers();
 
-            // Invoca el método para actualizar el DataGridView en el hilo principal
+        private async Task LoadUsers()
+        {
+            totalRows = UserModel.GetTotalUsers();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            // Invoca el método para actualizar tanto lblTotalPages como dtgUsuarios en el hilo principal
             Invoke(new Action(() =>
             {
+                // Actualizar el texto de lblTotalPages en el hilo principal
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                // Obtiene los usuarios
+                var users = UserModel.GetAllUsers(currentPageIndex, pageSize);
+
+                // Actualiza el DataGridView
                 dtgUsuarios.DataSource = users;
 
                 // Oculta la columna 'id'
@@ -93,13 +100,15 @@ namespace Presentacion
                 }
                 dtgUsuarios.ClearSelection();
 
+                // Centrar la columna 'Administrador'
                 if (dtgUsuarios.Columns["Administrador"] != null)
                 {
                     dtgUsuarios.Columns["Administrador"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Centrar el texto
+                    dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }));
         }
+
 
         public async Task CargarDatos()
         {
@@ -134,7 +143,7 @@ namespace Presentacion
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
-                    
+
                     btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
                     AnadirTabPage(tabPageUserDetail);
                 }
@@ -189,12 +198,12 @@ namespace Presentacion
         {
 
 
+            currentPageIndex = 1;
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadUsers());
             // Asegúrate de que el DataGridView esté configurado correctamente
 
-
-
+            lblCurrentPage.Text = currentPageIndex.ToString();
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabPageUserDetail);
         }
@@ -221,7 +230,7 @@ namespace Presentacion
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
             btnGuardarU.Text = "AGREGAR";
-            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115); 
+            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnCambios.Text = "AGREGAR";
             btnCambios.Image = Properties.Resources.agregar;
@@ -302,11 +311,16 @@ namespace Presentacion
 
         }
 
-        public void FiltrarUsuarios()
+        public async void FiltrarUsuarios()
         {
             if (txtBuscar.Text != "")
             {
-                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text);
+                totalRows=UserModel.GetFilteredUserCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text,currentPageIndex, pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 if (usuarios.Rows.Count > 0)
                 {
                     dtgUsuarios.DataSource = usuarios;
@@ -322,13 +336,13 @@ namespace Presentacion
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN USUARIOS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     //MessageBox.Show("No existen usuarios con esos datos");
-                    LoadUsers();
+                    await LoadUsers();
                 }
 
             }
             else
             {
-                LoadUsers();
+                await LoadUsers();
             }
         }
 
@@ -412,7 +426,7 @@ namespace Presentacion
 
 
                         tabControl1.SelectedTab = tabPage1;
-                        MostrarUsuarios();
+                        LoadUsers();
                         EliminarTabPage(tabPageUserDetail);
                     }
                     catch (Exception ex)
@@ -497,7 +511,7 @@ namespace Presentacion
 
 
                         tabControl1.SelectedTab = tabPage1;
-                        MostrarUsuarios();
+                        LoadUsers();
                         EliminarTabPage(tabPageUserDetail);
                     }
                     catch (Exception ex)
@@ -530,9 +544,9 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
-                int numAdmin = await Task.Run(()=> UserModel.CountAdmins());
+                int numAdmin = await Task.Run(() => UserModel.CountAdmins());
 
-                if (numAdmin>1)
+                if (numAdmin > 1)
                 {
                     await CargarDatosEliminar();
                     FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE ELIMINAR AL USUARIO " + EditarUsuario.usuario + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -565,7 +579,7 @@ namespace Presentacion
 
                 }
 
-                
+
             }
 
         }
@@ -614,10 +628,76 @@ namespace Presentacion
 
         private void txtBuscar_KeyDown_1(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 FiltrarUsuarios();
             }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                FiltrarUsuarios();
+            }
+            else
+            {
+                await LoadUsers();
+            }
+            
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    FiltrarUsuarios();
+                }
+                else
+                {
+                    await LoadUsers();
+                }
+                
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    FiltrarUsuarios();
+                }
+                else
+                {
+                    await LoadUsers();
+                }
+                
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                FiltrarUsuarios();
+            }
+            else
+            {
+                await LoadUsers();
+            }
+            
+            lblCurrentPage.Text= currentPageIndex.ToString();
         }
     }
 }

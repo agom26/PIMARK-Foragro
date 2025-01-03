@@ -34,7 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasIntRegistradas()
         {
             InitializeComponent();
-          
+
             this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idN = 0;
             ActualizarFechaVencimiento();
@@ -1577,6 +1577,11 @@ namespace Presentacion.Marcas_Internacionales
         {
             txtBuscar.Text = "";
             filtrarMarcas();
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged_1(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }

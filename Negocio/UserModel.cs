@@ -20,16 +20,31 @@ namespace Dominio
             return userDao.Login(user, pass);
         }
 
-        public DataTable GetAllUsers()
+        public int GetTotalUsers()
         {
-            DataTable tabla=new DataTable();
-            tabla=userDao.GetAllUsers();
-            return tabla;
+            return userDao.GetTotalUsuarios();
         }
-        public DataTable GetByValue(string value)
+
+
+        public DataTable GetAllUsers(int pageNumber, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = userDao.GetUserByValue(value);
+            
+            tabla = userDao.GetAllUsers(pageNumber, pageSize);
+
+            return tabla;
+        }
+
+        public int GetFilteredUserCount(string value)
+        {
+            return userDao.GetFilteredUserCount(value);
+        }
+
+
+        public DataTable GetByValue(string value, int pageNumber, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            tabla = userDao.GetUserByValue(value,pageNumber, pageSize);
             return tabla;
         }
         public DataTable GetById(int id)
