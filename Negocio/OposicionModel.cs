@@ -42,11 +42,22 @@ namespace Dominio
             tabla = oposicionDao.GetAllOposicionesInternacionalesInterpuestas(situacionActual);
             return tabla;
         }
-
-        public DataTable GetAllOposicionesNacionales(string situacionActual)
+        public int GetTotalOposicionesNacionalesRecibidas(string situacion)
+        {
+            return oposicionDao.GetTotalOposicionesNacionalesRecibidas(situacion);
+        }
+        public int GetFilteredMarcasSinRegistroCount(string value)
+        {
+            return oposicionDao.GetFilteredOposicionesNacionalesRecibidasCount(value);
+        }
+        public DataTable FiltrarOposicionesNacionalesRecibidas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.FiltrarOposicionesNacionalesRecibidas(filtro, currentPageIndex, pageSize);
+        }
+        public DataTable GetAllOposicionesNacionales(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = oposicionDao.GetAllOposicionesNacionales(situacionActual);
+            tabla = oposicionDao.GetAllOposicionesNacionales(situacionActual, currentPageIndex, pageSize);
             return tabla;
         }
 
