@@ -5,11 +5,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Google.Protobuf.WellKnownTypes;
 
 namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        public int GetTotalMarcasSinRegistro()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasSinRegistro", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasSinRegistroCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasSinRegistroCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
         public void ActualizarExpedienteMarca(int p_id, string p_expediente, DateTime fecha, string estado, 
             string anotaciones, string usuario)
         {
@@ -87,7 +142,7 @@ namespace AccesoDatos.Entidades
 
 
 
-        public DataTable FiltrarMarcasNacionalesEnTramite(string filtro)
+        public DataTable FiltrarMarcasNacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -97,6 +152,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("filtrarMarcasSinRegistro", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
 
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
@@ -369,8 +428,9 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesEnTramite()
+        public DataTable GetAllMarcasNacionalesEnTramite(int currentPageIndex, int pageSize)
         {
+           
             DataTable tabla = new DataTable();
             try
             {
@@ -379,7 +439,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasSinRegistro", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
-
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         conexion.Open(); 
                         using (MySqlDataReader leer = comando.ExecuteReader()) 
                         {

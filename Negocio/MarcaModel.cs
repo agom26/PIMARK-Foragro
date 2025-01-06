@@ -28,15 +28,23 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasNacionales();
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesEnTramite()
+        public int GetTotalMarcasSinRegistro()
+        {
+            return marcaDao.GetTotalMarcasSinRegistro();
+        }
+        public int GetFilteredMarcasSinRegistroCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasSinRegistroCount(value);
+        }
+        public DataTable GetAllMarcasNacionalesEnTramite(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesEnTramite();
+            tabla = marcaDao.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize);
             return tabla;
         }
-        public DataTable FiltrarMarcasNacionalesEnTramite(string filtro)
+        public DataTable FiltrarMarcasNacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
         {
-            return marcaDao.FiltrarMarcasNacionalesEnTramite(filtro);
+            return marcaDao.FiltrarMarcasNacionalesEnTramite(filtro, currentPageIndex, pageSize);
         }
         public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
         {

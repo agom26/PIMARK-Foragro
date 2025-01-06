@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Drawing;
 using Dominio;
 using Presentacion.Alertas;
 using System;
@@ -37,11 +38,11 @@ namespace Presentacion.Marcas_Nacionales
             InitializeComponent();
             int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
             int y = (panel17.Size.Height - label30.Size.Height) / 2;
-            panel18.Location = new Point(x, y);
+            panel18.Location = new System.Drawing.Point(x, y);
 
             int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
             int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
+            panel16.Location = new System.Drawing.Point(x2, y2);
             iconPictureBox3.IconSize = 25;
             this.Load += FrmMostrarTodas_Load;
             SeleccionarMarca.idInt = 0;
@@ -103,17 +104,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void MostrarMarcasTramite()
-        {
-            dtgMarcasN.DataSource = marcaModel.GetAllMarcasNacionalesEnTramite();
-
-            if (dtgMarcasN.Columns["id"] != null)
-            {
-                dtgMarcasN.Columns["id"].Visible = false;
-
-                dtgMarcasN.ClearSelection();
-            }
-        }
+       
         private async void LoadMarcas()
         {
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesIngresadas());
@@ -738,7 +729,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -764,7 +755,7 @@ namespace Presentacion.Marcas_Nacionales
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                MostrarMarcasTramite();
+                                LoadMarcas();
                             }
                         }
                         else
@@ -1125,31 +1116,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtBuscar.Text != "")
-            {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnTramite(txtBuscar.Text);
-                if (marcas.Rows.Count > 0)
-                {
-                    dtgMarcasN.DataSource = marcas;
-
-                    if (dtgMarcasN.Columns["id"] != null)
-                    {
-                        dtgMarcasN.Columns["id"].Visible = false;
-                    }
-                    dtgMarcasN.ClearSelection();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    LoadMarcas();
-                }
-
-            }
-            else
-            {
-                LoadMarcas();
-            }
+            
         }
 
         private void iconButton2_Click_2(object sender, EventArgs e)
