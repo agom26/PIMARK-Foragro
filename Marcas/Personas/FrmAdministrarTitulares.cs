@@ -19,6 +19,10 @@ namespace Presentacion.Personas
     public partial class FrmAdministrarTitulares : Form
     {
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmAdministrarTitulares()
         {
             InitializeComponent();
@@ -47,15 +51,7 @@ namespace Presentacion.Personas
             txtNombreContacto.Text = "";
             comboBox1.SelectedIndex = -1;
         }
-        private void MostrarTitulares()
-        {
-            dtgTitulares.DataSource = personaModel.GetAllTitulares();
-            // Ocultar la columna 'id'
-            if (dtgTitulares.Columns["id"] != null)
-            {
-                dtgTitulares.Columns["id"].Visible = false;
-            }
-        }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -67,13 +63,17 @@ namespace Presentacion.Personas
         }
 
 
-        private async void LoadTitulares()
+        private async Task LoadTitulares()
         {
+            totalRows = personaModel.GetTotalTitulares();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllTitulares());
+            var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 dtgTitulares.DataSource = titulares;
 
                 if (dtgTitulares.Columns["id"] != null)
@@ -238,15 +238,16 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarTitulares_Load(object sender, EventArgs e)
         {
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
             // Cargar titulares en segundo plano
             await Task.Run(() => LoadTitulares());
-
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabTitularDetail);
         }
 
-        private void ibtnEliminar_Click(object sender, EventArgs e)
+        private async void ibtnEliminar_Click(object sender, EventArgs e)
         {
             //Eliminar
 
@@ -269,7 +270,7 @@ namespace Presentacion.Personas
                         if (isDeleted)
                         {
                             MessageBox.Show("Titular eliminado correctamente.");
-                            MostrarTitulares(); // Actualizar la lista de titulares
+                            await LoadTitulares(); // Actualizar la lista de titulares
                         }
                         else
                         {
@@ -297,12 +298,16 @@ namespace Presentacion.Personas
         {
 
         }
-        public void filtrar()
+        public async void filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                DataTable titulares = personaModel.GetTitularByValue(buscar);
+                totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetTitularByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgTitulares.DataSource = titulares;
@@ -318,12 +323,12 @@ namespace Presentacion.Personas
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN TITULARES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     //MessageBox.Show("No existen titulares con esos datos");
-                    LoadTitulares();
+                    await LoadTitulares();
                 }
             }
             else
             {
-                LoadTitulares();
+                await LoadTitulares();
             }
         }
         private void iconButton1_Click(object sender, EventArgs e)
@@ -446,7 +451,7 @@ namespace Presentacion.Personas
                             FrmAlerta alerta = new FrmAlerta("TITULAR ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Titular actualizado exitosamente");
-                            MostrarTitulares(); // Refrescar la lista de titulares
+                            await LoadTitulares(); // Refrescar la lista de titulares
                             EliminarTabPage(tabTitularDetail); // Cerrar el formulario de edición
                             dtgTitulares.ClearSelection();
                         }
@@ -458,7 +463,7 @@ namespace Presentacion.Personas
 
                     // Redirigir a tabPage1
                     tabControl1.SelectedTab = tabListTitulares;
-                    MostrarTitulares();
+                    await LoadTitulares();
                     EliminarTabPage(tabTitularDetail);
                 }
                 catch (Exception ex)
@@ -496,6 +501,82 @@ namespace Presentacion.Personas
             {
                 filtrar();
             }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadTitulares();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadTitulares();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadTitulares();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadTitulares();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void lblTotalPages_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void roundedButton3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

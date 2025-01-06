@@ -187,7 +187,7 @@
             btnLast.IconSize = 25;
             btnLast.Location = new Point(489, 748);
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(104, 49);
+            btnLast.Size = new Size(104, 31);
             btnLast.TabIndex = 56;
             btnLast.Text = "ÚLTIMA";
             btnLast.UseVisualStyleBackColor = false;
@@ -208,7 +208,7 @@
             btnNext.IconSize = 25;
             btnNext.Location = new Point(370, 749);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(104, 49);
+            btnNext.Size = new Size(104, 31);
             btnNext.TabIndex = 55;
             btnNext.Text = ">>";
             btnNext.UseVisualStyleBackColor = false;
@@ -229,7 +229,7 @@
             btnPrev.IconSize = 25;
             btnPrev.Location = new Point(247, 750);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(104, 49);
+            btnPrev.Size = new Size(104, 31);
             btnPrev.TabIndex = 54;
             btnPrev.Text = "<<";
             btnPrev.UseVisualStyleBackColor = false;
@@ -250,7 +250,7 @@
             btnFirst.IconSize = 25;
             btnFirst.Location = new Point(122, 750);
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(104, 49);
+            btnFirst.Size = new Size(104, 31);
             btnFirst.TabIndex = 53;
             btnFirst.Text = "1";
             btnFirst.UseVisualStyleBackColor = false;
@@ -358,7 +358,7 @@
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(773, 193);
+            panel2.Size = new Size(815, 193);
             panel2.TabIndex = 50;
             // 
             // iconButton6
@@ -371,7 +371,7 @@
             iconButton6.IconColor = Color.Black;
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 25;
-            iconButton6.Location = new Point(334, 130);
+            iconButton6.Location = new Point(355, 130);
             iconButton6.Name = "iconButton6";
             iconButton6.Size = new Size(26, 32);
             iconButton6.TabIndex = 56;
@@ -381,7 +381,7 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.None;
-            txtBuscar.Location = new Point(64, 130);
+            txtBuscar.Location = new Point(85, 130);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(264, 32);
             txtBuscar.TabIndex = 53;
@@ -400,7 +400,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 28;
             iconButton1.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton1.Location = new Point(370, 125);
+            iconButton1.Location = new Point(391, 125);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(144, 40);
             iconButton1.TabIndex = 54;
@@ -421,7 +421,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(46, 110);
+            roundedButton3.Location = new Point(67, 110);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(494, 68);
             roundedButton3.TabIndex = 55;
@@ -442,7 +442,7 @@
             btnTitulo.ForeColor = Color.Black;
             btnTitulo.Image = Properties.Resources.usuario_final_4_;
             btnTitulo.ImageAlign = ContentAlignment.MiddleRight;
-            btnTitulo.Location = new Point(45, 6);
+            btnTitulo.Location = new Point(66, 6);
             btnTitulo.Name = "btnTitulo";
             btnTitulo.Size = new Size(495, 61);
             btnTitulo.TabIndex = 46;

@@ -18,6 +18,11 @@ namespace Presentacion.Marcas_Internacionales
     {
 
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
+
         public FrmAdministrarClientes()
         {
             InitializeComponent();
@@ -46,15 +51,7 @@ namespace Presentacion.Marcas_Internacionales
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
         }
-        private void MostrarClientes()
-        {
-            dtgClientes.DataSource = personaModel.GetAllClientes();
 
-            if (dtgClientes.Columns["id"] != null)
-            {
-                dtgClientes.Columns["id"].Visible = false;
-            }
-        }
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -66,16 +63,18 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        private void LoadTitulares()
+        private async Task LoadClientes()
         {
-
-
+            totalRows = personaModel.GetTotalClientes();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var clientes = personaModel.GetAllClientes();
+            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgClientes.DataSource = clientes;
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgClientes.DataSource = titulares;
 
                 if (dtgClientes.Columns["id"] != null)
                 {
@@ -85,6 +84,39 @@ namespace Presentacion.Marcas_Internacionales
 
 
             }));
+        }
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgClientes.DataSource = titulares;
+                    if (dtgClientes.Columns["id"] != null)
+                    {
+                        dtgClientes.Columns["id"].Visible = false;
+                        dtgClientes.Columns["tipo"].Visible = false;
+                    }
+                    dtgClientes.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadClientes();
+                }
+            }
+            else
+            {
+                await LoadClientes();
+            }
         }
         private void btnGuardarTit_Click(object sender, EventArgs e)
         {
@@ -104,8 +136,9 @@ namespace Presentacion.Marcas_Internacionales
         private async void FrmAdministrarClientes_Load(object sender, EventArgs e)
         {
             // Cargar titulares en segundo plano
-            await Task.Run(() => LoadTitulares());
-
+            await Task.Run(() => LoadClientes());
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabClienteDetail);
@@ -245,7 +278,7 @@ namespace Presentacion.Marcas_Internacionales
             EditarCliente();
         }
 
-        private void ibtnEliminar_Click(object sender, EventArgs e)
+        private async void ibtnEliminar_Click(object sender, EventArgs e)
         {
             //Eliminar
             if (dtgClientes.SelectedRows.Count > 0)
@@ -266,7 +299,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
 
                             MessageBox.Show("Cliente eliminado correctamente.");
-                            MostrarClientes();
+                            await LoadClientes();
                         }
                         else
                         {
@@ -284,35 +317,7 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
             }
         }
-        public void filtrar()
-        {
-            string buscar = txtBuscar.Text;
-            if (buscar != "")
-            {
-                DataTable clientes = personaModel.GetClienteByValue(buscar);
-                if (clientes.Rows.Count > 0)
-                {
-                    dtgClientes.DataSource = clientes;
-                    if (dtgClientes.Columns["id"] != null)
-                    {
-                        dtgClientes.Columns["id"].Visible = false;
-                        dtgClientes.Columns["tipo"].Visible = false;
-                    }
-                    dtgClientes.ClearSelection();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("No existen clientes con esos datos");
-                    MostrarClientes();
-                }
-            }
-            else
-            {
-                MostrarClientes();
-            }
-        }
+
         private void iconButton1_Click(object sender, EventArgs e)
         {
             filtrar();
@@ -436,7 +441,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
 
                     tabControl1.SelectedTab = tabClientesList;
-                    MostrarClientes();
+                    LoadClientes();
                     EliminarTabPage(tabClienteDetail);
                 }
                 catch (Exception ex)
@@ -470,10 +475,76 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 filtrar();
             }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadClientes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadClientes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadClientes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadClientes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

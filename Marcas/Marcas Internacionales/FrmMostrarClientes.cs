@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
 using System;
@@ -16,40 +17,70 @@ namespace Presentacion.Marcas_Internacionales
     public partial class FrmMostrarClientes : Form
     {
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarClientes()
         {
             InitializeComponent();
-            this.Load += FrmMostrarClientes_Load; 
+            this.Load += FrmMostrarClientes_Load;
         }
 
-        private void MostrarClientes()
+        private async Task LoadClientes()
         {
-            dtgClientes.DataSource = personaModel.GetAllClientes();
-           
-            if (dtgClientes.Columns["id"] != null)
-            {
-                dtgClientes.Columns["id"].Visible = false;
-               
-                dtgClientes.ClearSelection();
-            }
-        }
-
-        private void LoadClientes()
-        {
-            
-            var clientes = personaModel.GetAllClientes();
+            totalRows = personaModel.GetTotalClientes();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgClientes.DataSource = clientes;
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgClientes.DataSource = titulares;
 
                 if (dtgClientes.Columns["id"] != null)
                 {
                     dtgClientes.Columns["id"].Visible = false;
+                    dtgClientes.ClearSelection();
                 }
 
 
             }));
+        }
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgClientes.DataSource = titulares;
+                    if (dtgClientes.Columns["id"] != null)
+                    {
+                        dtgClientes.Columns["id"].Visible = false;
+                        dtgClientes.Columns["tipo"].Visible = false;
+                    }
+                    dtgClientes.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadClientes();
+                }
+            }
+            else
+            {
+                await LoadClientes();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -66,24 +97,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            string valor = "%" + txtBuscar.Text + "%";
-            var agentes = personaModel.GetClienteByValue(valor);
-
-            if (agentes != null)
-            {
-                dtgClientes.DataSource = agentes;
-                if (dtgClientes.Columns["id"] != null)
-                {
-                    dtgClientes.Columns["id"].Visible = false;
-                    dtgClientes.Columns["tipo"].Visible = false;
-                }
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRARON RESULTADOS PARA LA BÚSQUEDA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
-                //MessageBox.Show("No se encontraron resultados para la búsqueda.");
-            }
+            filtrar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -96,13 +110,13 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            if (dtgClientes.SelectedRows.Count > 0) 
+            if (dtgClientes.SelectedRows.Count > 0)
             {
-               
+
                 var filaSeleccionada = dtgClientes.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                   
+
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarPersona.idPersonaC = id;
                     //MessageBox.Show("id" + SeleccionarPersona.idPersonaC);
@@ -139,6 +153,88 @@ namespace Presentacion.Marcas_Internacionales
         private async void FrmMostrarClientes_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadClientes());
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadClientes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadClientes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadClientes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadClientes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

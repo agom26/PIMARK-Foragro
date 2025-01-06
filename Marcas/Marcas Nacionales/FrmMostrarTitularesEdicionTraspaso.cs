@@ -8,6 +8,10 @@ namespace Presentacion.Marcas_Nacionales
     public partial class FrmMostrarTitularesEdicionTraspaso : Form
     {
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarTitularesEdicionTraspaso()
         {
             InitializeComponent();
@@ -20,41 +24,35 @@ namespace Presentacion.Marcas_Nacionales
             this.Close();
         }
 
-        private void MostrarTitulares()
+        private async Task LoadTitulares()
         {
-            dtgTitulares.DataSource = personaModel.GetAllTitulares();
-            // Ocultar la columna 'id'
-            if (dtgTitulares.Columns["id"] != null)
-            {
-                dtgTitulares.Columns["id"].Visible = false;
-                // Desactiva la selección automática de la primera fila
-                dtgTitulares.ClearSelection();
-            }
-        }
-
-        private void LoadTitulares()
-        {
-
-
+            totalRows = personaModel.GetTotalTitulares();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = personaModel.GetAllTitulares();
+            var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 dtgTitulares.DataSource = titulares;
 
                 if (dtgTitulares.Columns["id"] != null)
                 {
                     dtgTitulares.Columns["id"].Visible = false;
+                    dtgTitulares.ClearSelection();
                 }
 
 
             }));
         }
+
         private async void FrmMostrarTitularesEdicionTraspaso_Load(object sender, EventArgs e)
         {
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -68,25 +66,43 @@ namespace Presentacion.Marcas_Nacionales
 
 
         }
-
-        private void iconButton1_Click(object sender, EventArgs e)
+        public async void filtrar()
         {
-            string valor = "%" + txtBuscar.Text + "%";
-            var titulares = personaModel.GetTitularByValue(valor);
-
-            if (titulares != null)
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
             {
-                dtgTitulares.DataSource = titulares;
-                if (dtgTitulares.Columns["id"] != null)
+                totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetTitularByValue(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
                 {
-                    dtgTitulares.Columns["id"].Visible = false;
-                    dtgTitulares.Columns["tipo"].Visible = false;
+                    dtgTitulares.DataSource = titulares;
+                    if (dtgTitulares.Columns["id"] != null)
+                    {
+                        dtgTitulares.Columns["id"].Visible = false;
+                        dtgTitulares.Columns["tipo"].Visible = false;
+                    }
+                    dtgTitulares.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN TITULARES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadTitulares();
                 }
             }
             else
             {
-                MessageBox.Show("No se encontraron resultados para la búsqueda.");
+                await LoadTitulares();
             }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            filtrar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -126,9 +142,89 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN TITULAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadTitulares();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadTitulares();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadTitulares();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadTitulares();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode== Keys.Enter)
+            {
+                filtrar();
             }
         }
     }

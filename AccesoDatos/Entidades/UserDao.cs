@@ -162,7 +162,6 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-        // UserDao.cs
         public int GetFilteredUserCount(string value)
         {
             int totalUsuarios = 0;

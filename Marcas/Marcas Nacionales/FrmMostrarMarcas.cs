@@ -24,6 +24,7 @@ namespace Presentacion.Marcas_Nacionales
      
         private void LoadMarcas()
         {
+
             // Obtiene las marcas 
             var marcas= marcaModel.GetAllMarcasInternacionales();
 
@@ -59,7 +60,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
-        {
+        {/*
             string valor = "%" + txtBuscar.Text + "%";
             var titulares = personaModel.GetTitularByValue(valor);
 
@@ -75,7 +76,7 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 MessageBox.Show("No se encontraron resultados para la búsqueda.");
-            }
+            }*/
         }
 
         private void iconButton3_Click(object sender, EventArgs e)

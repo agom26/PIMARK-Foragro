@@ -16,6 +16,10 @@ namespace Presentacion.Personas
     public partial class FrmAdministrarAgentes : Form
     {
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmAdministrarAgentes()
         {
             InitializeComponent();
@@ -43,35 +47,27 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
         }
-        private async Task MostrarAgentes()
-        {
-            dtgAgentes.DataSource = personaModel.GetAllAgentes();
-            // Ocultar la columna 'id'
-            if (dtgAgentes.Columns["id"] != null)
-            {
-                dtgAgentes.Columns["id"].Visible = false;
 
-                // Desactiva la selección automática de la primera fila
-                dtgAgentes.ClearSelection();
-            }
-        }
         private async Task LoadAgentes()
         {
-
-            var agentes = personaModel.GetAllAgentes();
-
+            totalRows = personaModel.GetTotalAgentes();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var titulares = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgAgentes.DataSource = agentes;
-
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgAgentes.DataSource = titulares;
 
                 if (dtgAgentes.Columns["id"] != null)
                 {
                     dtgAgentes.Columns["id"].Visible = false;
-
                     dtgAgentes.ClearSelection();
                 }
+
+
             }));
         }
         private async Task AnadirTabPage(TabPage nombre)
@@ -130,7 +126,7 @@ namespace Presentacion.Personas
             if (dtgAgentes.RowCount <= 0)
             {
                 //MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                EditarPersona.idPersona= 0;
+                EditarPersona.idPersona = 0;
                 return;
             }
             else
@@ -200,7 +196,7 @@ namespace Presentacion.Personas
             }
             else
             {
-                
+
                 //MessageBox.Show("Por favor, seleccione una fila de agente.");
             }
 
@@ -214,6 +210,8 @@ namespace Presentacion.Personas
 
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
             tabControl1.Visible = false;
             await LoadAgentes();
             EliminarTabPage(tabPageAgenteDetail);
@@ -224,16 +222,16 @@ namespace Presentacion.Personas
         {
             VerificarSeleccion();
             await Editar();
-            
+
 
         }
 
         private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
-        private void ibtnEliminar_Click(object sender, EventArgs e)
+        private async void ibtnEliminar_Click(object sender, EventArgs e)
         {
             // Verificar si hay un titular seleccionado
             if (dtgAgentes.SelectedRows.Count > 0)
@@ -254,7 +252,7 @@ namespace Presentacion.Personas
                         if (isDeleted)
                         {
                             MessageBox.Show("Agente eliminado correctamente.");
-                            MostrarAgentes();
+                            await LoadAgentes();
                         }
                         else
                         {
@@ -297,10 +295,14 @@ namespace Presentacion.Personas
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                DataTable agentes = personaModel.GetAgenteByValue(buscar);
-                if (agentes.Rows.Count > 0)
+                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
                 {
-                    dtgAgentes.DataSource = agentes;
+                    dtgAgentes.DataSource = titulares;
                     if (dtgAgentes.Columns["id"] != null)
                     {
                         dtgAgentes.Columns["id"].Visible = false;
@@ -312,8 +314,8 @@ namespace Presentacion.Personas
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN AGENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    //MessageBox.Show("No existen agentes con esos datos");
-                    LoadAgentes();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadAgentes();
                 }
             }
             else
@@ -436,7 +438,7 @@ namespace Presentacion.Personas
                                 FrmAlerta alerta = new FrmAlerta("AGENTE ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("Agente actualizado exitosamente");
-                                await MostrarAgentes();
+                                await LoadAgentes();
                                 EliminarTabPage(tabPageAgenteDetail);
                                 dtgAgentes.ClearSelection();
                             }
@@ -512,6 +514,72 @@ namespace Presentacion.Personas
             {
                 filtrar();
             }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadAgentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadAgentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadAgentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadAgentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

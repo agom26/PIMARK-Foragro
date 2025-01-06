@@ -9,6 +9,10 @@ namespace Presentacion.Marcas_Internacionales
     {
         PersonaModel personaModel = new PersonaModel();
         MarcaModel marcaModel = new MarcaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarMarcasN()
         {
             InitializeComponent();
@@ -37,7 +41,6 @@ namespace Presentacion.Marcas_Internacionales
                     dtgTitulares.Columns["id"].Visible = false;
                 }
 
-
             }));
         }
         private async void FrmMostrarMarcasN_Load(object sender, EventArgs e)
@@ -60,6 +63,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            /*
             string valor = "%" + txtBuscar.Text + "%";
             var titulares = personaModel.GetTitularByValue(valor);
 
@@ -75,7 +79,7 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 MessageBox.Show("No se encontraron resultados para la búsqueda.");
-            }
+            }*/
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -125,7 +129,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA MARCA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

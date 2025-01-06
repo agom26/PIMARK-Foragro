@@ -510,9 +510,8 @@ namespace Presentacion
                         }
 
 
-                        tabControl1.SelectedTab = tabPage1;
-                        LoadUsers();
-                        EliminarTabPage(tabPageUserDetail);
+                        await LoadUsers();
+                        AnadirTabPage(tabPage1);
                     }
                     catch (Exception ex)
                     {
@@ -615,9 +614,10 @@ namespace Presentacion
 
         }
 
-        private void iconButton1_Click_1(object sender, EventArgs e)
+        private async void iconButton1_Click_1(object sender, EventArgs e)
         {
             FiltrarUsuarios();
+            
         }
 
         private void iconButton6_Click_2(object sender, EventArgs e)

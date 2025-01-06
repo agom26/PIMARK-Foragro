@@ -58,7 +58,7 @@ namespace AccesoDatos.Entidades
 
 
 
-        public DataTable GetTitularByValue(string value)
+        public DataTable GetTitularByValue(string value, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
@@ -66,6 +66,10 @@ namespace AccesoDatos.Entidades
                 using (MySqlCommand comando = new MySqlCommand("GetTitularByValue", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     comando.Parameters.AddWithValue("@searchValue", value);
 
                     conexion.Open();
@@ -79,7 +83,7 @@ namespace AccesoDatos.Entidades
         }
 
         //agentes
-        public DataTable GetAgenteByValue(string value)
+        public DataTable GetAgenteByValue(string value, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
@@ -87,7 +91,11 @@ namespace AccesoDatos.Entidades
                 using (MySqlCommand comando = new MySqlCommand("GetAgenteByValue", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@value", value);
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                    comando.Parameters.AddWithValue("@searchValue", value);
 
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())
@@ -99,7 +107,7 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
         //clientes
-        public DataTable GetClienteByValue(string value)
+        public DataTable GetClienteByValue(string value, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
@@ -107,7 +115,11 @@ namespace AccesoDatos.Entidades
                 using (MySqlCommand comando = new MySqlCommand("GetClienteByValue", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@value", value);
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                    comando.Parameters.AddWithValue("@searchValue", value);
 
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())
@@ -151,13 +163,177 @@ namespace AccesoDatos.Entidades
             return persona; 
         }
 
-
-        public DataTable GetAllTitulares()
+        public int GetTotalTitulares()
         {
+            int totalTitulares = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalTitulares", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalUsuarios = new MySqlParameter("totalTitulares", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalUsuarios);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalTitulares = Convert.ToInt32(paramTotalUsuarios.Value);
+                }
+            }
+
+            return totalTitulares;
+        }
+
+        public int GetTotalAgentes()
+        {
+            int totalAgentes = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalAgentes", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalAgentes= new MySqlParameter("totalAgentes", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalAgentes);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalAgentes = Convert.ToInt32(paramTotalAgentes.Value);
+                }
+            }
+
+            return totalAgentes;
+        }
+        public int GetTotalClientes()
+        {
+            int totalClientes = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalClientes", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalClientes= new MySqlParameter("totalClientes", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalClientes);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalClientes= Convert.ToInt32(paramTotalClientes.Value);
+                }
+            }
+
+            return totalClientes;
+        }
+
+        public int GetFilteredTitularesCount(string value)
+        {
+            int totalTitulares = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredTitularesCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalTitularesParam = new MySqlParameter("@totalTitulares", MySqlDbType.Int32);
+                    totalTitularesParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalTitularesParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalTitulares = Convert.ToInt32(totalTitularesParam.Value);
+                }
+            }
+
+            return totalTitulares;
+        }
+
+        public int GetFilteredAgentesCount(string value)
+        {
+            int totalAgentes = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredAgentesCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    MySqlParameter totalAgentesParam = new MySqlParameter("@totalAgentes", MySqlDbType.Int32);
+                    totalAgentesParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalAgentesParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalAgentes = Convert.ToInt32(totalAgentesParam.Value);
+                }
+            }
+
+            return totalAgentes;
+        }
+        public int GetFilteredClientesCount(string value)
+        {
+            int totalClientes = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredClientesCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    MySqlParameter totalClientesParam = new MySqlParameter("@totalClientes", MySqlDbType.Int32);
+                    totalClientesParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalClientesParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalClientes = Convert.ToInt32(totalClientesParam.Value);
+                }
+            }
+
+            return totalClientes;
+        }
+        public DataTable GetAllTitulares(int currentPageIndex, int pageSize)
+        {
+            int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='titular'", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='titular'" +
+                    "ORDER BY id DESC " +
+                    $"LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())
@@ -169,12 +345,13 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public DataTable GetAllAgentes()
+        public DataTable GetAllAgentes(int currentPageIndex, int pageSize)
         {
+            int registrosOmitidos = (currentPageIndex - 1) * pageSize;
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='agente'", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='agente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader()) 
@@ -187,15 +364,16 @@ namespace AccesoDatos.Entidades
 
         }
 
-        public DataTable GetAllClientes()
+        public DataTable GetAllClientes(int currentPageIndex, int pageSize)
         {
+            int registrosOmitidos = (currentPageIndex - 1) * pageSize;
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) 
+            using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='cliente'", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='cliente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) 
+                    using (MySqlDataReader leer = comando.ExecuteReader())
                     {
                         tabla.Load(leer);
                     }

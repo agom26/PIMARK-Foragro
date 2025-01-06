@@ -2208,7 +2208,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public async void Filtrar()
         {
-            string objeto = null;
+            
             string expediente = null;
             string solicitante = null;
             string signo_pretendido = null;

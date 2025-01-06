@@ -16,44 +16,71 @@ namespace Presentacion.Marcas_Nacionales
     public partial class FrmMostrarAgentes : Form
     {
         PersonaModel personaModel = new PersonaModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarAgentes()
         {
             InitializeComponent();
             this.Load += FrmMostrarAgentes_Load; // Mueve la lógica de carga aquí
         }
 
-        private void MostrarTitulares()
+        private async Task LoadAgentes()
         {
-            dtgAgentes.DataSource = personaModel.GetAllAgentes();
-            // Ocultar la columna 'id'
-            if (dtgAgentes.Columns["id"] != null)
-            {
-                dtgAgentes.Columns["id"].Visible = false;
-                // Desactiva la selección automática de la primera fila
-                dtgAgentes.ClearSelection();
-            }
-        }
-
-        private void LoadAgentes()
-        {
-
-
-            // Obtiene los agentes
-            var titulares = personaModel.GetAllAgentes();
+            totalRows = personaModel.GetTotalAgentes();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var titulares = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 dtgAgentes.DataSource = titulares;
 
                 if (dtgAgentes.Columns["id"] != null)
                 {
                     dtgAgentes.Columns["id"].Visible = false;
+                    dtgAgentes.ClearSelection();
                 }
 
 
             }));
         }
-
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgAgentes.DataSource = titulares;
+                    if (dtgAgentes.Columns["id"] != null)
+                    {
+                        dtgAgentes.Columns["id"].Visible = false;
+                        dtgAgentes.Columns["tipo"].Visible = false;
+                    }
+                    dtgAgentes.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN AGENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadAgentes();
+                }
+            }
+            else
+            {
+                await LoadAgentes();
+            }
+        }
 
 
 
@@ -61,6 +88,8 @@ namespace Presentacion.Marcas_Nacionales
         {
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadAgentes());
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -77,27 +106,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            string valor = "%" + txtBuscar.Text + "%";
-            var agentes = personaModel.GetAgenteByValue(valor);
-
-            if (agentes != null)
-            {
-                dtgAgentes.DataSource = agentes;
-                if (dtgAgentes.Columns["id"] != null)
-                {
-                    dtgAgentes.Columns["id"].Visible = false;
-                    dtgAgentes.Columns["tipo"].Visible = false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("No se encontraron resultados para la búsqueda.");
-            }
+            filtrar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
@@ -146,6 +160,86 @@ namespace Presentacion.Marcas_Nacionales
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadAgentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadAgentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadAgentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadAgentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

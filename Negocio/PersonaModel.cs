@@ -15,46 +15,69 @@ namespace Dominio
         {
             personaDao = new PersonaDao();
         }
-
+        public int GetFilteredTitularesCount(string value)
+        {
+            return personaDao.GetFilteredTitularesCount(value);
+        }
+        public int GetFilteredAgentesCount(string value)
+        {
+            return personaDao.GetFilteredAgentesCount(value);
+        }
+        public int GetFilteredClientesCount(string value)
+        {
+            return personaDao.GetFilteredClientesCount(value);
+        }
+        public int GetTotalTitulares()
+        {
+            return personaDao.GetTotalTitulares();
+        }
+        public int GetTotalAgentes()
+        {
+            return personaDao.GetTotalAgentes();
+        }
+        public int GetTotalClientes()
+        {
+            return personaDao.GetTotalClientes();
+        }
         public List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)> GetPersonaById(int id)
         {
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
             return personaDao.GetById(id);
         }
-        public DataTable GetTitularByValue(string value)
+        public DataTable GetTitularByValue(string value, int pageNumber, int pageSize)
         {
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
-            return personaDao.GetTitularByValue(value);
+            return personaDao.GetTitularByValue(value,pageNumber, pageSize);
         }
-        public DataTable GetAgenteByValue(string value)
+        public DataTable GetAgenteByValue(string value, int pageNumber, int pageSize)
         {
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
-            return personaDao.GetAgenteByValue(value);
+            return personaDao.GetAgenteByValue(value, pageNumber, pageSize);
         }
-        public DataTable GetClienteByValue(string value)
+        public DataTable GetClienteByValue(string value, int pageNumber, int pageSize)
         {
             // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
-            return personaDao.GetClienteByValue(value);
+            return personaDao.GetClienteByValue(value, pageNumber, pageSize);
         }
 
-        public DataTable GetAllAgentes()
+        public DataTable GetAllAgentes(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = personaDao.GetAllAgentes();
+            tabla = personaDao.GetAllAgentes(currentPageIndex, pageSize);
             return tabla;
         }
 
-        public DataTable GetAllTitulares()
+        public DataTable GetAllTitulares(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = personaDao.GetAllTitulares();
+            tabla = personaDao.GetAllTitulares(currentPageIndex, pageSize);
             return tabla;
         }
 
-        public DataTable GetAllClientes()
+        public DataTable GetAllClientes(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = personaDao.GetAllClientes();
+            tabla = personaDao.GetAllClientes(currentPageIndex, pageSize);
             return tabla;
         }
 
