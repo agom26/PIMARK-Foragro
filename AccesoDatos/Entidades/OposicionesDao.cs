@@ -219,8 +219,92 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
+        public DataTable FiltrarOposicionesNacionalesInterpuestas(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarOposicionesNacionalesInterpuestas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
-        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual)
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las oposiciones interpuestas: {ex.Message}");
+            }
+            return tabla;
+        }
+        public int GetTotalOposicionesNacionalesInterpuestas(string situacion)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalOposicionesNacionalesInterpuestas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("situacion", situacion);
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  
+
+                    
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredOposicionesNacionalesInterpuestasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredOposicionesNacionalesInterpuestasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -230,7 +314,9 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesNacionalesInterpuestas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
-
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
 
                         conexion.Open();

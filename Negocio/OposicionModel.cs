@@ -60,11 +60,22 @@ namespace Dominio
             tabla = oposicionDao.GetAllOposicionesNacionales(situacionActual, currentPageIndex, pageSize);
             return tabla;
         }
-
-        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual)
+        public int GetTotalOposicionesNacionalesInterpuestas(string situacion)
+        {
+            return oposicionDao.GetTotalOposicionesNacionalesInterpuestas(situacion);
+        }
+        public int GetFilteredOposicionesNacionalesInterpuestasCount(string value)
+        {
+            return oposicionDao.GetFilteredOposicionesNacionalesInterpuestasCount(value);
+        }
+        public DataTable FiltrarOposicionesNacionalesInterpuestas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.FiltrarOposicionesNacionalesInterpuestas(filtro, currentPageIndex, pageSize);
+        }
+        public DataTable GetAllOposicionesNacionalesInterpuestas(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = oposicionDao.GetAllOposicionesNacionalesInterpuestas(situacionActual);
+            tabla = oposicionDao.GetAllOposicionesNacionalesInterpuestas(situacionActual, currentPageIndex, pageSize);
             return tabla;
         }
 
