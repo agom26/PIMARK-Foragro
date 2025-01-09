@@ -116,18 +116,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void MostrarMarcasRegistradas()
-        {
-            dtgMarcasR.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
-            // Ocultar la columna 'id'
-            if (dtgMarcasR.Columns["id"] != null)
-            {
-                dtgMarcasR.Columns["id"].Visible = false;
-
-                // Desactiva la selección automática de la primera fila
-                dtgMarcasR.ClearSelection();
-            }
-        }
+      
         private async void LoadMarcas()
         {
             // Obtiene las marcas en oposicion
@@ -834,7 +823,7 @@ namespace Presentacion.Marcas_Nacionales
                                 historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE");
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                MostrarMarcasRegistradas();
+                                LoadMarcas();
                             }
                         }
                         else
@@ -1556,31 +1545,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtBuscar.Text != "")
-            {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesRegistradas(txtBuscar.Text);
-                if (marcas.Rows.Count > 0)
-                {
-                    dtgMarcasR.DataSource = marcas;
-
-                    if (dtgMarcasR.Columns["id"] != null)
-                    {
-                        dtgMarcasR.Columns["id"].Visible = false;
-                    }
-                    dtgMarcasR.ClearSelection();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    LoadMarcas();
-                }
-
-            }
-            else
-            {
-                LoadMarcas();
-            }
+            
         }
 
         private void dtgMarcasR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

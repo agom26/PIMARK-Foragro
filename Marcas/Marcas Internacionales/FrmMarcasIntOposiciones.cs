@@ -52,7 +52,7 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             this.Load += FrmMarcasIntOposiciones_Load;
-            
+
             //ActualizarFechaVencimiento();
         }
         private void EliminarTabPage(TabPage nombre)
@@ -63,14 +63,14 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-      
+
         private async Task LoadMarcas(string situacionActual)
         {
             totalRows = oposicionModel.GetTotalOposicionesNacionalesRecibidas(situacionActual);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
             var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionales(situacionActual, currentPageIndex, pageSize));
-            
+
             Invoke(new Action(() =>
             {
                 lblTotalPages.Text = totalPages.ToString();
@@ -455,14 +455,14 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
+        private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
         {
+            tabControl1.Visible = false;
+            Cursor= Cursors.WaitCursor;
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
-            FiltrarPorSituacionActual();
-            FiltrarPorSituacionActualInterpuestas();
             tabControl1.SelectedTab = tabPageOposicionesList;
-            EliminarTabPage(tabPageMarcaDetail);
+             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageReportes);
@@ -471,9 +471,13 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             currentPageIndex2 = 1;
             lblCurrentPage2.Text = currentPageIndex2.ToString();
+            await FiltrarPorSituacionActual();
+            await FiltrarPorSituacionActualInterpuestas();
+            tabControl1.Visible = true;
+            Cursor = Cursors.Default;
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
@@ -485,8 +489,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 dtgMarcasOp.ClearSelection();
                 dtgOpI.ClearSelection();
-                FiltrarPorSituacionActual();
-                FiltrarPorSituacionActualInterpuestas();
+                await FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActualInterpuestas();
                 SeleccionarOposicion.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -1100,7 +1104,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             Editar();
         }
-        public async void FiltrarPorSituacionActual()
+        public async Task FiltrarPorSituacionActual()
         {
             if (cmbSituacionActual.SelectedIndex == 0)
             {
@@ -1112,7 +1116,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public async void FiltrarPorSituacionActualInterpuestas()
+        public async Task FiltrarPorSituacionActualInterpuestas()
         {
             if (cmbSituacionActualI.SelectedIndex == 0)
             {
@@ -1123,9 +1127,9 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcasInterpuestas("TERMINADA");
             }
         }
-        private void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarPorSituacionActual();
+            await FiltrarPorSituacionActual();
         }
         public void MostrarLogos()
         {
@@ -1252,7 +1256,8 @@ namespace Presentacion.Marcas_Internacionales
             string opositor = txtNombreTitularAO.Text;
             string signoOpositor = txtSignoOpositor.Text;
 
-
+            btnAgregarEstadoAO.Enabled = true;
+            btnEnviarATramite.Visible = false;
 
 
             bool validacionExitosa = ValidarCampos(expediente, signo_pretendido, signoDistintivo, clase, solicitante_signo_distintivo,
@@ -1537,14 +1542,14 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-       
+
 
         private async void filtrarMarcasInterpuestas()
         {
             string valor = txtBuscar2.Text;
             string situacion = cmbSituacionActualI.SelectedItem.ToString();
 
-            
+
 
             if (valor != "")
             {
@@ -2243,6 +2248,72 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void btnFirst2_Click(object sender, EventArgs e)
+        {
+            currentPageIndex2 = 1;
+            if (txtBuscar2.Text != "")
+            {
+                filtrarMarcasInterpuestas();
+            }
+            else
+            {
+                FiltrarPorSituacionActualInterpuestas();
+            }
+
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
+        }
+
+        private void btnPrev2_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex2 > 1)
+            {
+                currentPageIndex2--;
+                if (txtBuscar2.Text != "")
+                {
+                    filtrarMarcasInterpuestas();
+                }
+                else
+                {
+                    FiltrarPorSituacionActualInterpuestas();
+                }
+
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+            }
+        }
+
+        private void btnNext2_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex2 < totalPages2)
+            {
+                currentPageIndex2++;
+                if (txtBuscar2.Text != "")
+                {
+                    filtrarMarcasInterpuestas();
+                }
+                else
+                {
+                    FiltrarPorSituacionActualInterpuestas();
+                }
+
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+            }
+        }
+
+        private void btnLast2_Click(object sender, EventArgs e)
+        {
+            currentPageIndex2 = totalPages2;
+            if (txtBuscar2.Text != "")
+            {
+                filtrarMarcasInterpuestas();
+            }
+            else
+            {
+                FiltrarPorSituacionActualInterpuestas();
+            }
+
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
     }
 }

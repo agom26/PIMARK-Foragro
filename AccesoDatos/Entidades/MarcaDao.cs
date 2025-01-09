@@ -291,7 +291,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
+        public DataTable FiltrarMarcasNacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -301,7 +301,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("filtrarMarcasRegistradas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
@@ -582,7 +585,61 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesRegistradas()
+        public int GetTotalMarcasRegistradas()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasRegistradas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasRegistradasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasRegistradasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasNacionalesRegistradas(int currentPageIndex, int pageSize)
         {
             string estadoFiltro = "Registrada";
             DataTable tabla = new DataTable();
@@ -593,7 +650,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasRegistradas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
-
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("@estadoFiltro", estadoFiltro);
 
                         conexion.Open(); 

@@ -111,16 +111,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void MostrarMarcasRegistradas()
-        {
-            dtgMarcasRenov.DataSource = marcaModel.GetAllMarcasNacionalesRegistradas();
-
-            if (dtgMarcasRenov.Columns["id"] != null)
-            {
-                dtgMarcasRenov.Columns["id"].Visible = false;
-                dtgMarcasRenov.ClearSelection();
-            }
-        }
+       
         private async void LoadMarcas()
         {
             var marcasR = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeRenovacion());

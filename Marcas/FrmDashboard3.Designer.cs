@@ -333,6 +333,7 @@
             panel5.Size = new Size(221, 37);
             panel5.TabIndex = 7;
             panel5.Click += panel5_Click;
+            panel5.Paint += panel5_Paint;
             // 
             // label1
             // 
@@ -407,6 +408,7 @@
             panel8.Size = new Size(221, 37);
             panel8.TabIndex = 7;
             panel8.Click += panel8_Click;
+            panel8.Paint += panel8_Paint;
             // 
             // label3
             // 

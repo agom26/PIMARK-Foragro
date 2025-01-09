@@ -63,9 +63,9 @@ namespace Dominio
         {
             return marcaDao.FiltrarMarcasInternacionalesEnOposicionInterpuestas(filtro);
         }
-        public DataTable FiltrarMarcasNacionalesRegistradas(string filtro)
+        public DataTable FiltrarMarcasNacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
         {
-            return marcaDao.FiltrarMarcasNacionalesRegistradas(filtro);
+            return marcaDao.FiltrarMarcasNacionalesRegistradas(filtro, currentPageIndex, pageSize);
         }
         public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro)
         {
@@ -94,10 +94,18 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasInternacionalesEnOposicion();
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesRegistradas()
+        public int GetTotalMarcasRegistradas()
+        {
+            return marcaDao.GetTotalMarcasRegistradas();
+        }
+        public int GetFilteredMarcasRegistradasCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasRegistradasCount(value);
+        }
+        public DataTable GetAllMarcasNacionalesRegistradas(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesRegistradas();
+            tabla = marcaDao.GetAllMarcasNacionalesRegistradas(currentPage, pageSize);
             return tabla;
         }
         public DataTable GetAllMarcasInternacionalesRegistradas()

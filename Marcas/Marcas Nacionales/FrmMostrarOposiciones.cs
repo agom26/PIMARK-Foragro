@@ -887,10 +887,10 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void FrmMostrarOposiciones_Load(object sender, EventArgs e)
         {
+            tabControl1.Visible = false;
+            Cursor = Cursors.WaitCursor;
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
-            FiltrarPorSituacionActual();
-            FiltrarPorSituacionActualInterpuestas();
             tabControl1.SelectedTab = tabPageListaMarcas;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
@@ -898,9 +898,13 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageAgregarOposicion);
             EliminarTabPage(tabPageReportes);
             ActualizarFechaVencimiento();
+            await FiltrarPorSituacionActual();
+            await FiltrarPorSituacionActualInterpuestas();
+            tabControl1.Visible = true;
+            Cursor = Cursors.Default;
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -910,7 +914,8 @@ namespace Presentacion.Marcas_Nacionales
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
-                FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActualInterpuestas();
                 SeleccionarOposicion.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -1341,7 +1346,7 @@ namespace Presentacion.Marcas_Nacionales
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                await Task.Run(() => FiltrarPorSituacionActual());
+                                await FiltrarPorSituacionActual();
                             }
                         }
                         else
@@ -1546,6 +1551,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
+            btnEnviarATramite.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
             txtSignoOpositor.Enabled = true;
             txtNombreTitularAO.Enabled = true;
@@ -1695,7 +1701,7 @@ namespace Presentacion.Marcas_Nacionales
             LimpiarFormularioOposicion();
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             if (txtBuscar.Text != "")
             {
@@ -1714,7 +1720,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActual();
                     //LoadMarcas();
                 }
 
@@ -1723,7 +1729,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
-                FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActual();
                 //LoadMarcas();
             }
         }
@@ -1826,7 +1832,8 @@ namespace Presentacion.Marcas_Nacionales
             string opositor = txtNombreTitularAO.Text;
             string signoOpositor = txtSignoOpositor.Text;
 
-
+            btnAgregarEstadoAO.Enabled = true;
+            btnEnviarATramite.Visible = false;
 
 
             bool validacionExitosa = ValidarCampos(expediente, signo_pretendido, signoDistintivo, clase, solicitante_signo_distintivo,
@@ -1855,6 +1862,8 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    LimpiarFormularioOposicion();
+                    tabControl1.SelectedTab = tabPageListaMarcas;
                 }
                 else
                 {
@@ -1985,7 +1994,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public async void FiltrarPorSituacionActual()
+        public async Task FiltrarPorSituacionActual()
         {
             if (cmbSituacionActual.SelectedIndex == 0)
             {
@@ -1997,7 +2006,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public async void FiltrarPorSituacionActualInterpuestas()
+        public async Task FiltrarPorSituacionActualInterpuestas()
         {
             if (cmbSituacionActualI.SelectedIndex == 0)
             {
@@ -2014,9 +2023,9 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarPorSituacionActual();
+            await FiltrarPorSituacionActual();
         }
 
         public void TerminarOposicion()

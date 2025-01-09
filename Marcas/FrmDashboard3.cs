@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Presentacion.Marcas_Internacionales;
 using Presentacion.Marcas_Nacionales;
 using Presentacion.Reportes;
 using Presentacion.Vencimientos;
@@ -74,7 +75,7 @@ namespace Presentacion
         private async void roundedButton4_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn(mainForm));
+            mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -82,7 +83,7 @@ namespace Presentacion
         private async void iconPictureBox1_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn(mainForm));
+            mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -90,7 +91,7 @@ namespace Presentacion
         private async void label1_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn(mainForm));
+            mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -98,7 +99,7 @@ namespace Presentacion
         private async void panel5_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmTramiteIn(mainForm));
+            mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -130,7 +131,7 @@ namespace Presentacion
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmRegistradas());
+            mainForm.openChildForm(new FrmMarcasIntRegistradas());
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -138,7 +139,7 @@ namespace Presentacion
         private async void iconPictureBox3_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmRegistradas());
+            mainForm.openChildForm(new FrmMarcasIntRegistradas());
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -146,7 +147,7 @@ namespace Presentacion
         private async void label3_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmRegistradas());
+            mainForm.openChildForm(new FrmMarcasIntRegistradas());
             await Task.Delay(1000);
             mainForm.EnableButtons();
         }
@@ -154,9 +155,19 @@ namespace Presentacion
         private async void panel8_Click(object sender, EventArgs e)
         {
             mainForm.DisableButtons();
-            mainForm.openChildForm(new FrmRegistradas());
+            mainForm.openChildForm(new FrmMarcasIntRegistradas());
             await Task.Delay(1000);
             mainForm.EnableButtons();
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
