@@ -67,13 +67,21 @@ namespace Dominio
         {
             return marcaDao.FiltrarMarcasNacionalesRegistradas(filtro, currentPageIndex, pageSize);
         }
-        public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro)
+        public int GetTotalMarcasEnTramiteDeRenovacion()
         {
-            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeRenovacion(filtro);
+            return marcaDao.GetTotalMarcasEnTramiteDeRenovacion();
         }
-        public DataTable FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro)
+        public int GetFilteredMarcasEnTramiteDeRenovacionCount(string value)
         {
-            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeTraspaso(filtro);
+            return marcaDao.GetFilteredMarcasEnTramiteDeRenovacionCount(value);
+        }
+        public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPage, int pageSize)
+        {
+            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeRenovacion(filtro, currentPage, pageSize);
+        }
+        public DataTable FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro, int currentPage, int pageSize)
+        {
+            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeTraspaso(filtro, currentPage, pageSize);
         }
         public DataTable GetAllMarcasInternacionalesIngresadas()
         {
@@ -114,10 +122,24 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasInternacionalesRegistradas();
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesEnAbandono()
+        public int GetTotalMarcasEnAbandono()
+        {
+            return marcaDao.GetTotalMarcasEnAbandono();
+        }
+        public int GetFilteredMarcasEnAbandonoCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasEnAbandonoCount(value);
+        }
+        public DataTable GetAllMarcasNacionalesEnAbandono(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesEnAbandono();
+            tabla = marcaDao.GetAllMarcasNacionalesEnAbandono(currentPage, pageSize);
+            return tabla;
+        }
+        public DataTable FiltrarMarcasEnAbandono(string filtro, int currentPage, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.FiltrarMarcasNacionalesEnAbandono(filtro, currentPage, pageSize);
             return tabla;
         }
         public DataTable GetAllMarcasInternacionalesEnAbandono()
@@ -126,16 +148,24 @@ namespace Dominio
             tabla = marcaDao.GetAllMarcasInternacionalesEnAbandono();
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesEnTramiteDeRenovacion()
+        public DataTable GetAllMarcasNacionalesEnTramiteDeRenovacion(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeRenovacion();
+            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
             return tabla;
         }
-        public DataTable GetAllMarcasNacionalesEnTramiteDeTraspaso()
+        public int GetTotalMarcasEnTramiteDeTraspaso()
+        {
+            return marcaDao.GetTotalMarcasEnTramiteDeTraspaso();
+        }
+        public int GetFilteredMarcasEnTramiteDeTraspasoCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasEnTramiteDeTraspasoCount(value);
+        }
+        public DataTable GetAllMarcasNacionalesEnTramiteDeTraspaso(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeTraspaso();
+            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
             return tabla;
         }
         public DataTable GetAllMarcasInternacionalesEnTramiteDeRenovacion()

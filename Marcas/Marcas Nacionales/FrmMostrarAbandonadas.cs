@@ -45,18 +45,7 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.TabPages.Remove(nombre);
             }
         }
-        private void MostrarMarcasAbandono()
-        {
-            //Mostrar marcas en abandono
-            dtgMarcasAban.DataSource = marcaModel.GetAllMarcasNacionalesEnAbandono();
-            // Ocultar la columna 'id'
-            if (dtgMarcasAban.Columns["id"] != null)
-            {
-                dtgMarcasAban.Columns["id"].Visible = false;
-
-                dtgMarcasAban.ClearSelection();
-            }
-        }
+       
         private async void LoadMarcas()
         {
             // Obtiene las marcas en oposicion

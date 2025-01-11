@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dtgVencimientos = new DataGridView();
             panel1 = new Panel();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -261,14 +261,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -627,7 +627,6 @@
             roundedButton17.BorderRadius = 40;
             roundedButton17.BorderSize = 0;
             roundedButton17.Dock = DockStyle.Fill;
-            roundedButton17.Enabled = false;
             roundedButton17.FlatAppearance.BorderSize = 0;
             roundedButton17.FlatStyle = FlatStyle.Flat;
             roundedButton17.ForeColor = Color.Black;
@@ -674,7 +673,6 @@
             roundedButton18.BorderRadius = 40;
             roundedButton18.BorderSize = 0;
             roundedButton18.Dock = DockStyle.Fill;
-            roundedButton18.Enabled = false;
             roundedButton18.FlatAppearance.BorderSize = 0;
             roundedButton18.FlatStyle = FlatStyle.Flat;
             roundedButton18.ForeColor = Color.Black;
@@ -827,7 +825,7 @@
             iconButton9.BackColor = Color.FromArgb(255, 112, 67);
             iconButton9.FlatAppearance.BorderSize = 0;
             iconButton9.FlatStyle = FlatStyle.Flat;
-            iconButton9.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton9.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton9.ForeColor = Color.White;
             iconButton9.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
             iconButton9.IconColor = Color.White;
@@ -849,7 +847,7 @@
             iconButton8.BackColor = Color.FromArgb(2, 119, 189);
             iconButton8.FlatAppearance.BorderSize = 0;
             iconButton8.FlatStyle = FlatStyle.Flat;
-            iconButton8.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton8.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton8.ForeColor = Color.White;
             iconButton8.IconChar = FontAwesome.Sharp.IconChar.ArrowRotateLeft;
             iconButton8.IconColor = Color.White;
@@ -871,7 +869,7 @@
             iconButton12.BackColor = Color.FromArgb(1, 87, 155);
             iconButton12.FlatAppearance.BorderSize = 0;
             iconButton12.FlatStyle = FlatStyle.Flat;
-            iconButton12.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton12.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton12.ForeColor = Color.White;
             iconButton12.IconChar = FontAwesome.Sharp.IconChar.Envelope;
             iconButton12.IconColor = Color.White;
@@ -893,7 +891,7 @@
             iconButton13.BackColor = Color.Gainsboro;
             iconButton13.FlatAppearance.BorderSize = 0;
             iconButton13.FlatStyle = FlatStyle.Flat;
-            iconButton13.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton13.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton13.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton13.IconColor = Color.Black;
             iconButton13.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -1362,7 +1360,6 @@
             roundedButton15.BorderRadius = 40;
             roundedButton15.BorderSize = 0;
             roundedButton15.Dock = DockStyle.Fill;
-            roundedButton15.Enabled = false;
             roundedButton15.FlatAppearance.BorderSize = 0;
             roundedButton15.FlatStyle = FlatStyle.Flat;
             roundedButton15.ForeColor = Color.Black;
@@ -1409,7 +1406,6 @@
             roundedButton16.BorderRadius = 40;
             roundedButton16.BorderSize = 0;
             roundedButton16.Dock = DockStyle.Fill;
-            roundedButton16.Enabled = false;
             roundedButton16.FlatAppearance.BorderSize = 0;
             roundedButton16.FlatStyle = FlatStyle.Flat;
             roundedButton16.ForeColor = Color.Black;
@@ -1540,7 +1536,7 @@
             iconButton14.BackColor = Color.FromArgb(255, 112, 67);
             iconButton14.FlatAppearance.BorderSize = 0;
             iconButton14.FlatStyle = FlatStyle.Flat;
-            iconButton14.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton14.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton14.ForeColor = Color.White;
             iconButton14.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
             iconButton14.IconColor = Color.White;
@@ -1562,7 +1558,7 @@
             iconButton10.BackColor = Color.FromArgb(1, 87, 155);
             iconButton10.FlatAppearance.BorderSize = 0;
             iconButton10.FlatStyle = FlatStyle.Flat;
-            iconButton10.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton10.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton10.ForeColor = Color.White;
             iconButton10.IconChar = FontAwesome.Sharp.IconChar.Envelope;
             iconButton10.IconColor = Color.White;
@@ -1584,7 +1580,7 @@
             iconButton15.BackColor = Color.FromArgb(2, 119, 189);
             iconButton15.FlatAppearance.BorderSize = 0;
             iconButton15.FlatStyle = FlatStyle.Flat;
-            iconButton15.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton15.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton15.ForeColor = Color.White;
             iconButton15.IconChar = FontAwesome.Sharp.IconChar.ArrowRotateLeft;
             iconButton15.IconColor = Color.White;
@@ -1606,7 +1602,7 @@
             iconButton11.BackColor = Color.Gainsboro;
             iconButton11.FlatAppearance.BorderSize = 0;
             iconButton11.FlatStyle = FlatStyle.Flat;
-            iconButton11.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            iconButton11.Font = new Font("Century Gothic", 8.5F, FontStyle.Bold);
             iconButton11.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton11.IconColor = Color.Black;
             iconButton11.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -2158,7 +2154,6 @@
             roundedButton7.BorderRadius = 40;
             roundedButton7.BorderSize = 0;
             roundedButton7.Dock = DockStyle.Fill;
-            roundedButton7.Enabled = false;
             roundedButton7.FlatAppearance.BorderSize = 0;
             roundedButton7.FlatStyle = FlatStyle.Flat;
             roundedButton7.ForeColor = Color.Black;
@@ -2205,7 +2200,6 @@
             roundedButton8.BorderRadius = 40;
             roundedButton8.BorderSize = 0;
             roundedButton8.Dock = DockStyle.Fill;
-            roundedButton8.Enabled = false;
             roundedButton8.FlatAppearance.BorderSize = 0;
             roundedButton8.FlatStyle = FlatStyle.Flat;
             roundedButton8.ForeColor = Color.Black;
@@ -2485,7 +2479,6 @@
             roundedButton6.BorderRadius = 40;
             roundedButton6.BorderSize = 0;
             roundedButton6.Dock = DockStyle.Fill;
-            roundedButton6.Enabled = false;
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.ForeColor = Color.Black;
@@ -2532,7 +2525,6 @@
             roundedButton9.BorderRadius = 40;
             roundedButton9.BorderSize = 0;
             roundedButton9.Dock = DockStyle.Fill;
-            roundedButton9.Enabled = false;
             roundedButton9.FlatAppearance.BorderSize = 0;
             roundedButton9.FlatStyle = FlatStyle.Flat;
             roundedButton9.ForeColor = Color.Black;

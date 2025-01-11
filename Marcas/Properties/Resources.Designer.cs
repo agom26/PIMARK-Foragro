@@ -673,6 +673,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap simbolo_de_interfaz_grafica_de_tres_barras {
+            get {
+                object obj = ResourceManager.GetObject("simbolo-de-interfaz-grafica-de-tres-barras", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap suc {
             get {
                 object obj = ResourceManager.GetObject("suc", resourceCulture);

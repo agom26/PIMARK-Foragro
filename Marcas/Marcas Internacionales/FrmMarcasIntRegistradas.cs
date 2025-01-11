@@ -488,6 +488,11 @@ namespace Presentacion.Marcas_Internacionales
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
+                        if (row["logo"] == DBNull.Value)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
@@ -757,12 +762,12 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageTraspasoDetail);
             }
         }
-        public void Editar()
+        public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
@@ -827,7 +832,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            convertirImagen();
+            pictureBox1.Image = documento;
         }
 
         private async void roundedButton1_Click(object sender, EventArgs e)
@@ -1628,19 +1634,55 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void btnPrev_Click(object sender, EventArgs e)
+        private async void btnPrev_Click(object sender, EventArgs e)
         {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
 
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private async void btnNext_Click(object sender, EventArgs e)
         {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
 
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
         }
 
-        private void btnLast_Click(object sender, EventArgs e)
+        private async void btnLast_Click(object sender, EventArgs e)
         {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
 
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

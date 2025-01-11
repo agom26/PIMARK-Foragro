@@ -1404,6 +1404,10 @@ namespace Presentacion.Marcas_Internacionales
                 richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                 //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
+                if(textBoxEstatus.Text=="Registrada")
+                {
+                    mostrarPanelRegistro();
+                }
 
             }
         }
@@ -1701,9 +1705,9 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarPorSituacionActualInterpuestas();
+            await FiltrarPorSituacionActualInterpuestas();
         }
 
         private void iconButton8_Click(object sender, EventArgs e)

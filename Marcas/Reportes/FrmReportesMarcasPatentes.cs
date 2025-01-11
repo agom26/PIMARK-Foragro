@@ -308,7 +308,7 @@ namespace Presentacion.Reportes
             string? agente = null;
             string? cliente = null;
 
-
+            
             switch (comboBoxObjeto.SelectedIndex)
             {
                 case 0:
@@ -541,6 +541,7 @@ namespace Presentacion.Reportes
                 comboBoxEstado.Items.Add("Corrección del certificado o inscripción");
                 comboBoxEstado.Items.Add("Trámite de renovación");
                 comboBoxEstado.Items.Add("Trámite de traspaso");
+                comboBoxEstado.Items.Add("Abandono");
             }
         }
 

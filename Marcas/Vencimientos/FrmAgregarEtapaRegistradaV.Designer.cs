@@ -218,9 +218,9 @@
             lblNoExpediente.AutoSize = true;
             lblNoExpediente.Location = new Point(138, 20);
             lblNoExpediente.Name = "lblNoExpediente";
-            lblNoExpediente.Size = new Size(71, 20);
+            lblNoExpediente.Size = new Size(99, 20);
             lblNoExpediente.TabIndex = 12;
-            lblNoExpediente.Text = "Traspaso";
+            lblNoExpediente.Text = "Renovación";
             // 
             // groupBox1
             // 

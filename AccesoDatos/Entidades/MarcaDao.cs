@@ -323,7 +323,7 @@ namespace AccesoDatos.Entidades
         }
         
 
-            public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro)
+            public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
             {
             DataTable tabla = new DataTable();
             try
@@ -333,7 +333,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("filtrarMarcasEnRenovacion", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
@@ -350,7 +353,7 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-        public DataTable FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro)
+        public DataTable FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -360,7 +363,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("filtrarMarcaEnTramiteDeTraspaso", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
@@ -698,54 +704,121 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
+        public int GetTotalMarcasEnAbandono()
+        {
+            int totalMarcas = 0;
 
-        public DataTable GetAllMarcasNacionalesEnAbandono()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasAbandonadas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasEnAbandonoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasAbandonadasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasNacionalesEnAbandono(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
             {
-                using (MySqlConnection conexion = GetConnection()) 
+                using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand(@"
-                    SELECT  
-                        M.id,
-                        M.nombre AS Nombre, 
-                        M.estado AS Estado,
-                        M.Observaciones as Observaciones,
-                        M.expediente As Expediente,
-                        M.clase AS Clase,  
-                        P1.nombre AS Titular, 
-                        P2.nombre AS Agente
-                        
-                    FROM 
-                        `Marcas` M
-                    JOIN 
-                        Personas AS P1 ON M.IdTitular = P1.id 
-                    JOIN 
-                        Personas AS P2 ON M.IdAgente = P2.id 
-                    WHERE 
-                        M.tipo = 'nacional' AND 
-                        (estado='Abandono')
-                    ORDER BY 
-                        M.id DESC;", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasEnAbandono", conexion))
                     {
-                        conexion.Open(); 
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
                         {
-                            tabla.Load(leer); 
+                            tabla.Load(leer);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
-                
+                Console.WriteLine($"Error al obtener las marcas nacionales en abandono: {ex.Message}");
             }
-            return tabla; 
+            return tabla;
+        }
+        public DataTable FiltrarMarcasNacionalesEnAbandono(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasEnAbandono", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
         }
 
-       
+
         public DataTable GetAllMarcasInternacionalesEnAbandono()
         {
             DataTable tabla = new DataTable();
@@ -1118,8 +1191,62 @@ namespace AccesoDatos.Entidades
 
             return dataTable;
         }
+        public int GetTotalMarcasEnTramiteDeRenovacion()
+        {
+            int totalMarcas = 0;
 
-        public DataTable ObtenerMarcasRegistradasEnTramiteDeRenovacion()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasEnTramiteDeRenovacion", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasEnTramiteDeRenovacionCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasEnTramiteDeRenovacionCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        
+        public DataTable ObtenerMarcasRegistradasEnTramiteDeRenovacion(int currentPageIndex, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -1127,7 +1254,10 @@ namespace AccesoDatos.Entidades
                 using (var command = new MySqlCommand("ObtenerMarcasRegistradasRenovaciones", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    command.Parameters.AddWithValue("pageSize", pageSize);
+                    command.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     using (var adapter = new MySqlDataAdapter(command))
                     {
                         DataTable resultado = new DataTable();
@@ -1156,8 +1286,60 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        public int GetTotalMarcasEnTramiteDeTraspaso()
+        {
+            int totalMarcas = 0;
 
-        public DataTable ObtenerMarcasRegistradasEnTramiteDeTraspaso()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasEnTramiteDeTraspaso", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery(); 
+
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasEnTramiteDeTraspasoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasEnTramiteDeTraspasoCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable ObtenerMarcasRegistradasEnTramiteDeTraspaso(int currentPageIndex, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -1165,7 +1347,10 @@ namespace AccesoDatos.Entidades
                 using (var command = new MySqlCommand("ObtenerMarcasRegistradasEnTramiteDeTraspaso", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    command.Parameters.AddWithValue("pageSize", pageSize);
+                    command.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     using (var adapter = new MySqlDataAdapter(command))
                     {
                         DataTable resultado = new DataTable();

@@ -453,7 +453,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.fecha_solicitud = row["fechaSolicitud"] != DBNull.Value ? Convert.ToDateTime(row["fechaSolicitud"]) : DateTime.MinValue;
                         SeleccionarMarca.observaciones = row["observaciones"] != DBNull.Value ? row["observaciones"].ToString() : string.Empty;
 
-
+                      
                         // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -501,11 +501,17 @@ namespace Presentacion.Marcas_Internacionales
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
 
+                        if (row["logo"] is DBNull)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
+                            checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
                         }
                         else
@@ -565,7 +571,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idN));
+                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                     if (detallesMarcaInt.Rows.Count > 0)
                     {
@@ -576,6 +582,7 @@ namespace Presentacion.Marcas_Internacionales
                             // Actualizar los controles 
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["Observaciones"].ToString();
+                            
                         }
                         else
                         {
@@ -583,14 +590,16 @@ namespace Presentacion.Marcas_Internacionales
                         }
 
                         // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = textBoxEstatus.Text.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
                         {
+                            checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
                         }
                         else
                         {
+                            checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
                         }
                     }
@@ -637,6 +646,8 @@ namespace Presentacion.Marcas_Internacionales
         {
             await Task.Run(() => LoadMarcas());
             SeleccionarMarca.idN = 0;
+            convertirImagen();
+            pictureBox1.Image = documento;
             tabControl1.SelectedTab = tabPageIngresadasList;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
@@ -645,7 +656,7 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -654,7 +665,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageIngresadasList)
             {
-                LoadMarcas();
+                await LoadMarcas();
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -662,17 +673,17 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
             }
         }
-        public void Editar()
+        public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
@@ -766,7 +777,6 @@ namespace Presentacion.Marcas_Internacionales
                         mostrarPanelRegistro("no");
                     }
                     await refrescarMarca();
-                    await CargarDatosMarca();
                 }
                 catch (Exception ex)
                 {

@@ -244,7 +244,9 @@ namespace Presentacion.Patentes
                         }
                         bool contieneRegistrada = false;
 
-                        if (SeleccionarPatente.registro != "")
+
+
+                        if (row["registro"] != DBNull.Value)
                         {
                             contieneRegistrada = true;
                         }

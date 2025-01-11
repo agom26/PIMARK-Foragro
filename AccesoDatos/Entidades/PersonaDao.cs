@@ -331,7 +331,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='titular'" +
+                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as NOMBRE, direccion as DIRECCION, nit as NIT, pais as PAIS, correo as CORREO, telefono as TELEFONO, nombre_contacto as CONTACTO FROM Personas WHERE tipo='titular'" +
                     "ORDER BY id DESC " +
                     $"LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
@@ -351,7 +351,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection()) 
             {
-                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='agente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as NOMBRE, direccion as DIRECCION, nit as NIT, pais as PAIS, correo as CORREO, telefono as TELEFONO, nombre_contacto as CONTACTO FROM Personas WHERE tipo='agente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader()) 
@@ -370,7 +370,7 @@ namespace AccesoDatos.Entidades
             DataTable tabla = new DataTable();
             using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as Nombre, direccion as Direccion, nit as Nit, pais as Pais, correo as Correo, telefono as Telefono, nombre_contacto as Contacto FROM Personas WHERE tipo='cliente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
+                using (MySqlCommand comando = new MySqlCommand($"SELECT id, nombre as NOMBRE, direccion as DIRECCION, nit as NIT, pais as PAIS, correo as CORREO, telefono as TELEFONO, nombre_contacto as CONTACTO FROM Personas WHERE tipo='cliente' ORDER BY id DESC LIMIT {pageSize} OFFSET {registrosOmitidos};", conexion)) // Inicializa correctamente el comando
                 {
                     conexion.Open();
                     using (MySqlDataReader leer = comando.ExecuteReader())

@@ -989,31 +989,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtBuscar.Text != "")
-            {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnTramiteDeRenovacion(txtBuscar.Text);
-                if (marcas.Rows.Count > 0)
-                {
-                    dtgMarcasRenov.DataSource = marcas;
 
-                    if (dtgMarcasRenov.Columns["id"] != null)
-                    {
-                        dtgMarcasRenov.Columns["id"].Visible = false;
-                    }
-                    dtgMarcasRenov.ClearSelection();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    LoadMarcas();
-                }
-
-            }
-            else
-            {
-                LoadMarcas();
-            }
         }
 
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

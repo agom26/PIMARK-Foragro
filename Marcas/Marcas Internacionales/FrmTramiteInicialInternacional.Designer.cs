@@ -98,7 +98,7 @@
             txtNombre.Location = new Point(367, 138);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(292, 26);
-            txtNombre.TabIndex = 84;
+            txtNombre.TabIndex = 2;
             // 
             // label4
             // 
@@ -116,7 +116,7 @@
             txtClase.Location = new Point(22, 217);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(278, 26);
-            txtClase.TabIndex = 87;
+            txtClase.TabIndex = 3;
             // 
             // label5
             // 
@@ -194,7 +194,7 @@
             btnAgregarTitular.Location = new Point(20, 400);
             btnAgregarTitular.Name = "btnAgregarTitular";
             btnAgregarTitular.Size = new Size(638, 56);
-            btnAgregarTitular.TabIndex = 93;
+            btnAgregarTitular.TabIndex = 8;
             btnAgregarTitular.Text = "+ TITULAR";
             btnAgregarTitular.TextColor = Color.Black;
             btnAgregarTitular.UseVisualStyleBackColor = false;
@@ -234,7 +234,7 @@
             btnAgregarAgente.Location = new Point(20, 529);
             btnAgregarAgente.Name = "btnAgregarAgente";
             btnAgregarAgente.Size = new Size(638, 56);
-            btnAgregarAgente.TabIndex = 94;
+            btnAgregarAgente.TabIndex = 9;
             btnAgregarAgente.Text = "+ AGENTE";
             btnAgregarAgente.TextColor = Color.Black;
             btnAgregarAgente.UseVisualStyleBackColor = false;
@@ -274,7 +274,7 @@
             btnAgregarCliente.Location = new Point(20, 676);
             btnAgregarCliente.Name = "btnAgregarCliente";
             btnAgregarCliente.Size = new Size(638, 56);
-            btnAgregarCliente.TabIndex = 95;
+            btnAgregarCliente.TabIndex = 10;
             btnAgregarCliente.Text = "+ CLIENTE";
             btnAgregarCliente.TextColor = Color.Black;
             btnAgregarCliente.UseVisualStyleBackColor = false;
@@ -320,7 +320,7 @@
             datePickerFechaSolicitud.Location = new Point(367, 217);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(292, 26);
-            datePickerFechaSolicitud.TabIndex = 86;
+            datePickerFechaSolicitud.TabIndex = 4;
             // 
             // label14
             // 
@@ -390,7 +390,7 @@
             txtExpediente.Location = new Point(19, 138);
             txtExpediente.Name = "txtExpediente";
             txtExpediente.Size = new Size(280, 26);
-            txtExpediente.TabIndex = 83;
+            txtExpediente.TabIndex = 1;
             // 
             // label15
             // 
@@ -416,7 +416,7 @@
             roundedButton1.Location = new Point(20, 351);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(280, 35);
-            roundedButton1.TabIndex = 90;
+            roundedButton1.TabIndex = 7;
             roundedButton1.Text = "+ ESTADO ACTUAL";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
@@ -444,7 +444,7 @@
             comboBoxSignoDistintivo.Location = new Point(22, 287);
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
-            comboBoxSignoDistintivo.TabIndex = 88;
+            comboBoxSignoDistintivo.TabIndex = 5;
             // 
             // comboBoxTipoSigno
             // 
@@ -457,7 +457,7 @@
             comboBoxTipoSigno.Location = new Point(366, 287);
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
-            comboBoxTipoSigno.TabIndex = 89;
+            comboBoxTipoSigno.TabIndex = 6;
             // 
             // panel1
             // 
@@ -539,7 +539,7 @@
             iconButton3.Location = new Point(64, 17);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(191, 58);
-            iconButton3.TabIndex = 163;
+            iconButton3.TabIndex = 15;
             iconButton3.Text = "AGREGAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -560,7 +560,7 @@
             iconButton4.Location = new Point(383, 17);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(191, 58);
-            iconButton4.TabIndex = 164;
+            iconButton4.TabIndex = 16;
             iconButton4.Text = "CANCELAR";
             iconButton4.TextAlign = ContentAlignment.MiddleRight;
             iconButton4.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -611,7 +611,7 @@
             dateTimePFecha_Registro.Location = new Point(22, 135);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(224, 28);
-            dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.TabIndex = 14;
             // 
             // label18
             // 
@@ -627,7 +627,7 @@
             txtRegistro.Location = new Point(22, 53);
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(172, 28);
-            txtRegistro.TabIndex = 39;
+            txtRegistro.TabIndex = 11;
             // 
             // label17
             // 
@@ -643,7 +643,7 @@
             txtFolio.Location = new Point(228, 53);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(172, 28);
-            txtFolio.TabIndex = 9;
+            txtFolio.TabIndex = 12;
             // 
             // label7
             // 
@@ -659,7 +659,7 @@
             txtLibro.Location = new Point(434, 53);
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(172, 28);
-            txtLibro.TabIndex = 11;
+            txtLibro.TabIndex = 13;
             // 
             // label1
             // 
