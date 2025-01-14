@@ -93,7 +93,7 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = oposicionModel.GetFilteredMarcasSinRegistroCount(txtBuscar.Text);
+                totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
@@ -112,13 +112,13 @@ namespace Presentacion.Marcas_Internacionales
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     //MessageBox.Show("No existen titulares con esos datos");
-                    FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActual();
                 }
             }
             else
             {
                 //await LoadMarcas();
-                FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActual();
             }
         }
 
@@ -487,6 +487,8 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageOposicionesList)
             {
+                tabControl1.Visible = false;
+                Cursor = Cursors.WaitCursor;
                 dtgMarcasOp.ClearSelection();
                 dtgOpI.ClearSelection();
                 await FiltrarPorSituacionActual();
@@ -499,6 +501,8 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageReportes);
                 dtgReportesOp.DataSource = null;
                 dtgReportesOp.ClearSelection();
+                tabControl1.Visible = true;
+                Cursor = Cursors.Default;
 
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
@@ -2197,7 +2201,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActual();
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2214,7 +2218,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActual();
                 }
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2232,7 +2236,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActual();
                 }
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2248,13 +2252,13 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FiltrarPorSituacionActual();
+                await FiltrarPorSituacionActual();
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void btnFirst2_Click(object sender, EventArgs e)
+        private async void btnFirst2_Click(object sender, EventArgs e)
         {
             currentPageIndex2 = 1;
             if (txtBuscar2.Text != "")
@@ -2263,13 +2267,13 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FiltrarPorSituacionActualInterpuestas();
+                await FiltrarPorSituacionActualInterpuestas();
             }
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
 
-        private void btnPrev2_Click(object sender, EventArgs e)
+        private async void btnPrev2_Click(object sender, EventArgs e)
         {
             if (currentPageIndex2 > 1)
             {
@@ -2280,14 +2284,14 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    FiltrarPorSituacionActualInterpuestas();
+                    await FiltrarPorSituacionActualInterpuestas();
                 }
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
             }
         }
 
-        private void btnNext2_Click(object sender, EventArgs e)
+        private async void btnNext2_Click(object sender, EventArgs e)
         {
             if (currentPageIndex2 < totalPages2)
             {
@@ -2298,14 +2302,14 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    FiltrarPorSituacionActualInterpuestas();
+                    await FiltrarPorSituacionActualInterpuestas();
                 }
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
             }
         }
 
-        private void btnLast2_Click(object sender, EventArgs e)
+        private async void btnLast2_Click(object sender, EventArgs e)
         {
             currentPageIndex2 = totalPages2;
             if (txtBuscar2.Text != "")
@@ -2314,7 +2318,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FiltrarPorSituacionActualInterpuestas();
+                await FiltrarPorSituacionActualInterpuestas();
             }
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();

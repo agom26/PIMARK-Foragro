@@ -21,36 +21,71 @@ namespace Presentacion.Patentes
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
             this.Load += FrmMostrarIngresadasPatentes_Load;
-            int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox4.Size.Width) / 2;
-            int y = (panel17.Size.Height - label30.Size.Height) / 2;
-            panel18.Location = new Point(x, y);
 
-            int x2 = (panel15.Size.Width - label1.Size.Width) / 2;
-            int y2 = (panel15.Size.Height - label1.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
-            iconPictureBox4.IconSize = 25;
         }
         private async Task LoadPatentes()
         {
-            var patentes = await Task.Run(() => patenteModel.GetAllPatentesEnTramite());
-
+            totalRows = patenteModel.GetTotalPatentesSinRegistro();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgPatentes.DataSource = patentes;
-                dtgPatentes.Refresh();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgPatentes.DataSource = marcasN;
 
                 if (dtgPatentes.Columns["id"] != null)
                 {
                     dtgPatentes.Columns["id"].Visible = false;
                     dtgPatentes.ClearSelection();
                 }
+
+
             }));
         }
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = patenteModel.FiltrarPatentesEnTramite(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgPatentes.DataSource = titulares;
+                    if (dtgPatentes.Columns["id"] != null)
+                    {
+                        dtgPatentes.Columns["id"].Visible = false;
+                    }
+                    dtgPatentes.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN PATENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadPatentes();
+                }
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+        }
+
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))
@@ -631,6 +666,8 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.Visible = true;
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
         public async void Editar()
         {
@@ -1064,6 +1101,91 @@ namespace Presentacion.Patentes
                 }
                 */
             }
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadPatentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadPatentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

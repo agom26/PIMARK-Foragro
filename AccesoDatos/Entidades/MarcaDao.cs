@@ -173,6 +173,37 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
+        public DataTable FiltrarMarcasInternacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesSinRegistro", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
 
         public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
         {
@@ -232,17 +263,20 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public DataTable FiltrarMarcasInternacionalesEnOposicion(string filtro)
+        public DataTable FiltrarMarcasInternacionalesEnOposicion(string filtro, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
             {
                 using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand(" filtrarMarcasInternacionalesRecibidasEnOposicion ", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesRecibidasEnOposicion ", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
 
@@ -321,9 +355,39 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-        
+        public DataTable FiltrarMarcasInternacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesRegistradas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
-            public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
+
+
+        public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
             {
             DataTable tabla = new DataTable();
             try
@@ -468,7 +532,62 @@ namespace AccesoDatos.Entidades
             return tabla; 
         }
 
-        public DataTable GetAllMarcasInternacionalesIngresadas()
+        public int GetTotalMarcasInternacionalesSinRegistro()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasInternacionalesSinRegistro", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesSinRegistroCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesSinRegistroCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        
+        public DataTable GetAllMarcasInternacionalesIngresadas(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -478,7 +597,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesSinRegistro", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
-
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
                         {
@@ -489,7 +611,7 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+                Console.WriteLine($"Error al obtener las marcas internacionales sin registro: {ex.Message}");
 
             }
             return tabla;
@@ -538,7 +660,91 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-        public DataTable GetAllMarcasInternacionalesEnOposicion()
+        public int GetTotalMarcasInternacionalesEnOposicionRecibidas(string situacionActual, int currentPage, int pageSize)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalOposicionesInternacionalesRecibidas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+                    comando.Parameters.AddWithValue("pageSize", pageSize);
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesEnOposicionRecibidasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesSinRegistroCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        
+        public int GetFilteredMarcasInternacionalesRecibidasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesRecibidasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasInternacionalesEnOposicion(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -548,7 +754,11 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerOposicionesInternacionalesRecibidas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
-
+                        comando.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
                         {
@@ -677,9 +887,65 @@ namespace AccesoDatos.Entidades
             }
             return tabla; 
         }
+        //internacionales registradas
 
-        public DataTable GetAllMarcasInternacionalesRegistradas()
+        public int GetTotalMarcasInternacionalesRegistradas()
         {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasInternacionalesRegistradas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesRegistradasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesRegistradasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasInternacionalesRegistradas(int currentPageIndex, int pageSize)
+        {
+            string estadoFiltro = "Registrada";
             DataTable tabla = new DataTable();
             try
             {
@@ -688,6 +954,11 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesRegistradas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@estadoFiltro", estadoFiltro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -699,7 +970,8 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas internacionales: {ex.Message}");
+                Console.WriteLine($"Error al obtener las marcas nacionales: {ex.Message}");
+
             }
             return tabla;
         }
@@ -819,7 +1091,62 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public DataTable GetAllMarcasInternacionalesEnAbandono()
+        //internacionales en abandono
+        public int GetTotalMarcasInternacionalesEnAbandono()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasInternacionalesAbandonadas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesEnAbandonoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesAbandonadasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasInternacionalesEnAbandono(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -829,6 +1156,10 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasInternacionalesEnAbandono", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -840,7 +1171,37 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas nacionales en abandono: {ex.Message}");
+                Console.WriteLine($"Error al obtener las marcas internacionales en abandono: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarMarcasInternacionalesEnAbandono(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesEnAbandono", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
             }
             return tabla;
         }
@@ -1191,6 +1552,7 @@ namespace AccesoDatos.Entidades
 
             return dataTable;
         }
+        //nacionales en renovacion
         public int GetTotalMarcasEnTramiteDeRenovacion()
         {
             int totalMarcas = 0;
@@ -1267,8 +1629,93 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        //internacionales en renvacion
+        public DataTable FiltrarMarcasInternacionalesEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasInternacionalesEnRenovacion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
 
-        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeRenovacion()
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
+        public int GetTotalMarcasInternacionalesEnTramiteDeRenovacion()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasInternacionalesEnTramiteDeRenovacion", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  // Ejecutar el procedimiento almacenado
+
+                    // Obtener el valor de totalUsuarios desde el parámetro de salida
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasinternacionalesEnTramiteDeRenovacionCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+
+        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeRenovacion(int currentPageIndex, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -1276,7 +1723,10 @@ namespace AccesoDatos.Entidades
                 using (var command = new MySqlCommand("ObtenerMarcasInternacionalesRegistradasRenovaciones", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    command.Parameters.AddWithValue("pageSize", pageSize);
+                    command.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     using (var adapter = new MySqlDataAdapter(command))
                     {
                         DataTable resultado = new DataTable();
@@ -1286,6 +1736,7 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        //nacionales en traspaso
         public int GetTotalMarcasEnTramiteDeTraspaso()
         {
             int totalMarcas = 0;
@@ -1361,7 +1812,91 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso()
+        //internacionales en traspaso
+        public DataTable FiltrarMarcasInternacionalesEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcaInternacionalEnTramiteDeTraspaso", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
+        public int GetTotalMarcasInternacionalesEnTramiteDeTraspaso()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasInternacionalesEnTramiteDeTraspaso", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso(int currentPageIndex, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -1369,7 +1904,10 @@ namespace AccesoDatos.Entidades
                 using (var command = new MySqlCommand("ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    command.Parameters.AddWithValue("pageSize", pageSize);
+                    command.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
                     using (var adapter = new MySqlDataAdapter(command))
                     {
                         DataTable resultado = new DataTable();
@@ -1379,6 +1917,7 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        
 
         public DataTable ObtenerTipoMarca(int id)
         {

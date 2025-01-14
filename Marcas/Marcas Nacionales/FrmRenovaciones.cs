@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
 using System;
@@ -21,6 +22,10 @@ namespace Presentacion.Marcas_Nacionales
         HistorialModel historialModel = new HistorialModel();
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public void convertirImagen()
         {
 
@@ -32,15 +37,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmRenovaciones()
         {
             InitializeComponent();
-            int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel17.Size.Height - label30.Size.Height) / 2;
-            panel18.Location = new Point(x, y);
 
-            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
-
-            iconPictureBox3.IconSize = 25;
             this.Load += FrmRenovaciones_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -111,23 +108,62 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-       
-        private async void LoadMarcas()
+        private async Task LoadMarcas()
         {
-            var marcasR = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeRenovacion());
+            totalRows = marcaModel.GetTotalMarcasInternacionalesEnTramiteDeRenovacion();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeRenovacion(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgMarcasRenov.DataSource = marcasR;
-                dtgMarcasRenov.Refresh();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgMarcasRenov.DataSource = marcasN;
 
                 if (dtgMarcasRenov.Columns["id"] != null)
                 {
                     dtgMarcasRenov.Columns["id"].Visible = false;
                     dtgMarcasRenov.ClearSelection();
                 }
+
+
             }));
         }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = marcaModel.GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = marcaModel.FiltrarMarcasInternacionalesEnTramiteDeRenovacion(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgMarcasRenov.DataSource = titulares;
+                    if (dtgMarcasRenov.Columns["id"] != null)
+                    {
+                        dtgMarcasRenov.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasRenov.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadMarcas();
+                }
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+        }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -237,7 +273,7 @@ namespace Presentacion.Marcas_Nacionales
                 logo = null;
             }
 
-              
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -405,7 +441,7 @@ namespace Presentacion.Marcas_Nacionales
             richTextBox1.Text = "";
             AgregarEtapa.LimpiarEtapa();
             comboBox1.SelectedIndex = -1;
-            checkBoxTienePoder.Checked= false;
+            checkBoxTienePoder.Checked = false;
         }
 
         private async Task CargarDatosMarca()
@@ -578,6 +614,8 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             ActualizarFechaVencimiento();
+            currentPageIndex = 1;
+            lblCurrentPage.Text= currentPageIndex.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -605,18 +643,18 @@ namespace Presentacion.Marcas_Nacionales
         public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
-            Cursor= Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
             if (SeleccionarMarca.idInt > 0)
             {
-                
+
                 tabControl1.Visible = false;
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
                 tabControl1.Visible = true;
-                
+
             }
-            Cursor= Cursors.Default;
+            Cursor = Cursors.Default;
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
@@ -989,7 +1027,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-
+            filtrar();
         }
 
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1000,6 +1038,86 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditarHistorial();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

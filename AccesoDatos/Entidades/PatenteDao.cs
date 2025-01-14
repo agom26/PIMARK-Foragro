@@ -111,8 +111,60 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+        //patentes ingresadas
+        public int GetTotalPatentesSinRegistro()
+        {
+            int totalMarcas = 0;
 
-        public DataTable GetAllPatentesEnTramite()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesSinRegistro", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();  
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesSinRegistroCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesSinRegistroCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllPatentesEnTramite(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -122,6 +174,40 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesSinRegistro", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesEnTramite", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -134,11 +220,64 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
-
             }
             return tabla;
         }
-        public DataTable GetAllPatentesRegistradas()
+
+        //patentes registradas
+        public int GetTotalPatentesRegistradas()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesRegistradas", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesRegistradasCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesRegistradasCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllPatentesRegistradas(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -148,6 +287,40 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesRegistradas", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesRegistradas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -160,13 +333,64 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
-
             }
             return tabla;
         }
 
-        
-        public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion()
+        //patentes en renovacion
+        public int GetTotalPatentesRegistradasEnTramiteDeRenovacion()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesRegistradasEnTramiteDeRenovacion", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -176,6 +400,40 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnTramiteRenovacion", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesRegistradasEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesRegistradasEnTramiteDeRenovacion", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -188,12 +446,63 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
-
             }
             return tabla;
         }
+        //patentes en traspaso
+        public int GetTotalPatentesRegistradasEnTramiteDeTraspaso()
+        {
+            int totalMarcas = 0;
 
-        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesRegistradasEnTramiteDeTraspaso", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -203,6 +512,40 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnTramiteTraspaso", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesRegistradasEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesRegistradasEnTramiteDeTraspaso", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -215,12 +558,64 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
-
             }
             return tabla;
         }
 
-        public DataTable GetAllPatentesEnAbandono()
+        //patentes en abandono
+        public int GetTotalPatentesEnAbandono()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesEnAbandono", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesEnAbandonoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesEnAbandonoCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllPatentesEnAbandono(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
@@ -230,6 +625,40 @@ namespace AccesoDatos.Entidades
                     using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnAbandono", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesEnAbandono(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesEnAbandono", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -242,7 +671,6 @@ namespace AccesoDatos.Entidades
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
-
             }
             return tabla;
         }

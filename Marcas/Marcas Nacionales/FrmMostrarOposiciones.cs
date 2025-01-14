@@ -32,6 +32,16 @@ namespace Presentacion.Marcas_Nacionales
         public int numRegistros = 0;
         public float escala = 0;
         string titulo;
+
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
+
+        private const int pageSize2 = 20;
+        private int currentPageIndex2 = 1;
+        private int totalPages2 = 0;
+        private int totalRows2 = 0;
         public void convertirImagen()
         {
 
@@ -101,14 +111,16 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.TabPages.Remove(nombre);
             }
         }
-
         private async Task LoadMarcasInterpuestas(string situacionActual)
         {
-
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionalesInterpuestas(situacionActual));
+            totalRows2 = oposicionModel.GetTotalOposicionesInteracionalesInterpuestas(situacionActual);
+            totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionalesInterpuestas(situacionActual, currentPageIndex2, pageSize2));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages2.Text = totalPages2.ToString();
+                lblTotalRows2.Text = totalRows2.ToString();
                 dtgOpI.DataSource = marcasN;
                 dtgOpI.Refresh();
                 // Oculta la columna 'id'
@@ -121,6 +133,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }));
         }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -133,21 +146,60 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task LoadMarcas(string situacionActual)
         {
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionales(situacionActual));
+            
+            totalRows = oposicionModel.GetTotalOposicionesInternacionalesRecibidas(situacionActual);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionalesRecibidas(situacionActual, currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 dtgMarcasOp.DataSource = marcasN;
-                dtgMarcasOp.Refresh();
-                // Oculta la columna 'id'
+
                 if (dtgMarcasOp.Columns["id"] != null)
                 {
+
                     dtgMarcasOp.Columns["IdMarca"].Visible = false;
                     dtgMarcasOp.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
                     dtgMarcasOp.ClearSelection();
                 }
             }));
+            
+        }
+        public async void filtrarRecibidas()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = oposicionModel.FiltrarOposicionesInternacionalesRecibidas(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgMarcasOp.DataSource = titulares;
+                    if (dtgMarcasOp.Columns["id"] != null)
+                    {
+                        dtgMarcasOp.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasOp.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await FiltrarPorSituacionActual();
+                }
+            }
+            else
+            {
+                //await LoadMarcas();
+                await FiltrarPorSituacionActual();
+            }
         }
 
         public void MostrarLogoEnPictureBox(byte[] logo)
@@ -802,6 +854,7 @@ namespace Presentacion.Marcas_Nacionales
                     else
                     {
                         checkBoxAgregarLogos.Checked = false;
+                        MostrarLogos();
                     }
 
 
@@ -902,6 +955,12 @@ namespace Presentacion.Marcas_Nacionales
             await FiltrarPorSituacionActualInterpuestas();
             tabControl1.Visible = true;
             Cursor = Cursors.Default;
+
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
+
+            currentPageIndex2 = 1;
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -914,6 +973,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
+                tabControl1.Visible = false;
+                Cursor cursor = Cursors.WaitCursor;
+               
                 await FiltrarPorSituacionActual();
                 await FiltrarPorSituacionActualInterpuestas();
                 SeleccionarOposicion.idInt = 0;
@@ -922,6 +984,8 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialDetalle);
                 EliminarTabPage(tabPageAgregarOposicion);
                 EliminarTabPage(tabPageReportes);
+                tabControl1.Visible = true;
+                Cursor cursor1 = Cursors.Default;
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
             {
@@ -2095,7 +2159,7 @@ namespace Presentacion.Marcas_Nacionales
             string situacion = cmbSituacionActual.SelectedItem.ToString();
             if (valor != "")
             {
-                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasInternacionalesEnOposicion(valor));
+                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasInternacionalesEnOposicion(valor, currentPageIndex, pageSize));
                 if (marcasR.Rows.Count > 0)
                 {
                     Invoke(new Action(() =>
@@ -2164,13 +2228,13 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click_1(object sender, EventArgs e)
         {
-            filtrarMarcas();
+            filtrarRecibidas();
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = "";
-            filtrarMarcas();
+            filtrarRecibidas();
         }
 
         private void iconButton8_Click(object sender, EventArgs e)
@@ -2198,7 +2262,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
-                filtrarMarcas();
+                filtrarRecibidas();
             }
         }
 
@@ -2217,7 +2281,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public async void Filtrar()
         {
-            
+
             string expediente = null;
             string solicitante = null;
             string signo_pretendido = null;
@@ -2618,6 +2682,138 @@ namespace Presentacion.Marcas_Nacionales
         private void btnIrAReportes_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageReportes);
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrarRecibidas();
+            }
+            else
+            {
+                await FiltrarPorSituacionActual();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrarRecibidas();
+                }
+                else
+                {
+                    await FiltrarPorSituacionActual();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrarRecibidas();
+                }
+                else
+                {
+                    await FiltrarPorSituacionActual();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrarRecibidas();
+            }
+            else
+            {
+                await FiltrarPorSituacionActual();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnFirst2_Click(object sender, EventArgs e)
+        {
+            currentPageIndex2 = 1;
+            if (txtBuscar2.Text != "")
+            {
+                filtrarMarcasInterpuestas();
+            }
+            else
+            {
+                await FiltrarPorSituacionActualInterpuestas();
+            }
+
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
+        }
+
+        private async void btnPrev2_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex2 > 1)
+            {
+                currentPageIndex2--;
+                if (txtBuscar2.Text != "")
+                {
+                    filtrarMarcasInterpuestas();
+                }
+                else
+                {
+                    await FiltrarPorSituacionActualInterpuestas();
+                }
+
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+            }
+        }
+
+        private async void btnNext2_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex2 < totalPages2)
+            {
+                currentPageIndex2++;
+                if (txtBuscar2.Text != "")
+                {
+                    filtrarMarcasInterpuestas();
+                }
+                else
+                {
+                    await FiltrarPorSituacionActualInterpuestas();
+                }
+
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+            }
+        }
+
+        private async void btnLast2_Click(object sender, EventArgs e)
+        {
+            currentPageIndex2 = totalPages2;
+            if (txtBuscar2.Text != "")
+            {
+                filtrarMarcasInterpuestas();
+            }
+            else
+            {
+                await FiltrarPorSituacionActualInterpuestas();
+            }
+
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
     }
 }

@@ -30,23 +30,49 @@ namespace Dominio
                 estado, situacionActual, tipo, tipoOposicion
                 );
         }
-        public DataTable GetAllOposicionesInternacionales(string situacionActual)
+        //internacionales recibidas
+        public int GetTotalOposicionesInternacionalesRecibidas(string situacion)
+        {
+            return oposicionDao.GetTotalOposicionesInternacionalesRecibidas(situacion);
+        }
+        public int GetFilteredMarcasInternacionalesRecibidasCount(string value)
+        {
+            return oposicionDao.GetFilteredOposicionesInternacionalesRecibidasCount(value);
+        }
+        public DataTable FiltrarOposicionesInternacionalesRecibidas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.FiltrarOposicionesInternacionalesRecibidas(filtro, currentPageIndex, pageSize);
+        }
+        public DataTable GetAllOposicionesInternacionalesRecibidas(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = oposicionDao.GetAllOposicionesInternacionales(situacionActual);
+            tabla = oposicionDao.GetAllOposicionesInternacionalesRecibidas(situacionActual, currentPageIndex, pageSize);
             return tabla;
         }
-        public DataTable GetAllOposicionesInternacionalesInterpuestas(string situacionActual)
+        //internacionales internpuestas
+        public int GetTotalOposicionesInteracionalesInterpuestas(string situacion)
+        {
+            return oposicionDao.GetTotalOposicionesInternacionalesInterpuestas(situacion);
+        }
+        public int GetFilteredOposicionesInternacionalesInterpuestasCount(string value)
+        {
+            return oposicionDao.GetFilteredOposicionesInternacionalesInterpuestasCount(value);
+        }
+        public DataTable FiltrarOposicionesInternacionalesInterpuestas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.FiltrarOposicionesInternacionalesInterpuestas(filtro, currentPageIndex, pageSize);
+        }
+        public DataTable GetAllOposicionesInternacionalesInterpuestas(string situacionActual, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = oposicionDao.GetAllOposicionesInternacionalesInterpuestas(situacionActual);
+            tabla = oposicionDao.GetAllOposicionesInternacionalesInterpuestas(situacionActual, currentPageIndex, pageSize);
             return tabla;
         }
         public int GetTotalOposicionesNacionalesRecibidas(string situacion)
         {
             return oposicionDao.GetTotalOposicionesNacionalesRecibidas(situacion);
         }
-        public int GetFilteredMarcasSinRegistroCount(string value)
+        public int GetFilteredOposicionesNacionalesRecibidasCount(string value)
         {
             return oposicionDao.GetFilteredOposicionesNacionalesRecibidasCount(value);
         }

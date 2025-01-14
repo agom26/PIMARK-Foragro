@@ -53,16 +53,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void MostrarMarcasInternacionalesRegistradas()
-        {
-            dtgMarcasIn.DataSource = marcaModel.GetAllMarcasInternacionalesRegistradas();
-            if (dtgMarcasIn.Columns["id"] != null)
-            {
-                dtgMarcasIn.Columns["id"].Visible = false;
-
-                dtgMarcasIn.ClearSelection();
-            }
-        }
+        
         private async Task LoadMarcas()
         {
             totalRows = marcaModel.GetTotalMarcasRegistradas();
@@ -777,7 +768,7 @@ namespace Presentacion.Marcas_Internacionales
             Editar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -802,7 +793,7 @@ namespace Presentacion.Marcas_Internacionales
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                MostrarMarcasInternacionalesRegistradas();
+                                await LoadMarcas();
                             }
                         }
                         else

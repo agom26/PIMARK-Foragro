@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,35 +23,71 @@ namespace Presentacion.Patentes
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmMostrarTramiteRenovacionPatente()
         {
             InitializeComponent();
-            int x = (panel11.Size.Width - label16.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel11.Size.Height - label16.Size.Height) / 2;
-            panel19.Location = new Point(x, y);
-
-            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
-            iconPictureBox3.IconSize = 25;
+            this.Load += FrmMostrarTramiteRenovacionPatente_Load;
         }
         private async Task LoadPatentes()
         {
-            var patentes = await Task.Run(() => patenteModel.GetAllPatentesRegistradasEnTramiteDeRenovacion());
-
+            totalRows = patenteModel.GetTotalPatentesRegistradasEnTramiteDeRenovacion();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => patenteModel.GetAllPatentesRegistradasEnTramiteDeRenovacion(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
-                dtgPatentes.DataSource = patentes;
-                dtgPatentes.Refresh();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgPatentes.DataSource = marcasN;
 
                 if (dtgPatentes.Columns["id"] != null)
                 {
                     dtgPatentes.Columns["id"].Visible = false;
                     dtgPatentes.ClearSelection();
                 }
+
             }));
         }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = patenteModel.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = patenteModel.FiltrarPatentesRegistradasEnTramiteDeRenovacion(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgPatentes.DataSource = titulares;
+                    if (dtgPatentes.Columns["id"] != null)
+                    {
+                        dtgPatentes.Columns["id"].Visible = false;
+                    }
+                    dtgPatentes.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN PATENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadPatentes();
+                }
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+        }
+
+
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))
@@ -679,7 +717,8 @@ namespace Presentacion.Patentes
             btnVerTraspasos.Visible = false;
             tabControl1.Visible = true;
 
-
+            currentPageIndex = 1;
+            lblCurrentPage.Text=currentPageIndex.ToString();
         }
         public async void Editar()
         {
@@ -1124,6 +1163,91 @@ namespace Presentacion.Patentes
         private void dtgPatentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Editar();
+        }
+
+        private void iconButton12_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private void ibtnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadPatentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadPatentes();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadPatentes();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

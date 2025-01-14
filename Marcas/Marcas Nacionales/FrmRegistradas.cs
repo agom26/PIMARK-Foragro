@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
 using System;
@@ -23,6 +24,10 @@ namespace Presentacion.Marcas_Nacionales
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public void convertirImagen()
         {
 
@@ -34,14 +39,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmRegistradas()
         {
             InitializeComponent();
-            int x = (panel27.Size.Width - label36.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel27.Size.Height - label36.Size.Height) / 2;
-            panel28.Location = new Point(x, y);
 
-            int x2 = (panel25.Size.Width - label1.Size.Width) / 2;
-            int y2 = (panel25.Size.Height - label1.Size.Height) / 2;
-            panel26.Location = new Point(x2, y2);
-            iconPictureBox3.IconSize = 25;
             this.Load += FrmRegistradas_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -116,26 +114,62 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-      
-        private async void LoadMarcas()
+        private async Task LoadMarcas()
         {
-            // Obtiene las marcas en oposicion
-            
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesRegistradas());
+            totalRows = marcaModel.GetTotalMarcasInternacionalesRegistradas();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesRegistradas(currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 dtgMarcasR.DataSource = marcasN;
-                dtgMarcasR.Refresh();
-                // Oculta la columna 'id'
+
                 if (dtgMarcasR.Columns["id"] != null)
                 {
                     dtgMarcasR.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
                     dtgMarcasR.ClearSelection();
                 }
+
+
             }));
         }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = marcaModel.GetFilteredMarcasInternacionalesRegistradasCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = marcaModel.FiltrarMarcasInternacionalesRegistradas(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgMarcasR.DataSource = titulares;
+                    if (dtgMarcasR.Columns["id"] != null)
+                    {
+                        dtgMarcasR.Columns["id"].Visible = false;
+                    }
+                    dtgMarcasR.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadMarcas();
+                }
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+        }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -252,7 +286,7 @@ namespace Presentacion.Marcas_Nacionales
                 logo = null;
             }
 
-               
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -352,7 +386,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt,expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,paisRegistro,tiene_poder,null, registro,folio,libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
                 }
                 else
                 {
@@ -730,6 +764,8 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1367,10 +1403,10 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarTraspaso.nombreTitularA = fila["TitularAnterior"].ToString();
                         SeleccionarTraspaso.idTitularN = Convert.ToInt32(fila["IdTitularNuevo"]);
                         SeleccionarTraspaso.nombreTitularN = fila["TitularNuevo"].ToString();
-                        
+
                         //Asignar valores a controles
                         txtNumExpedienteTraspaso.Text = SeleccionarTraspaso.numExpediente;
-                        
+
                         txtNombreTitularA.Text = SeleccionarTraspaso.nombreTitularA;
                         txtNombreTitularN.Text = SeleccionarTraspaso.nombreTitularN;
 
@@ -1438,7 +1474,7 @@ namespace Presentacion.Marcas_Nacionales
         private void iconButton4_Click_2(object sender, EventArgs e)
         {
 
-         
+
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
             string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
             string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
@@ -1451,8 +1487,8 @@ namespace Presentacion.Marcas_Nacionales
 
 
             if (!string.IsNullOrEmpty(numeroExpediente) &&
-              
-              
+
+
                 !string.IsNullOrEmpty(nombreTitularAntiguo) &&
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {
@@ -1545,7 +1581,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-            
+            filtrar();
         }
 
         private void dtgMarcasR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1566,6 +1602,87 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditarTraspaso();
+        }
+
+        private void iconButton14_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

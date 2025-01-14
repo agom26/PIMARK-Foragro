@@ -1225,24 +1225,70 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void btnFirst_Click(object sender, EventArgs e)
+        private async void btnFirst_Click(object sender, EventArgs e)
         {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
 
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void btnPrev_Click(object sender, EventArgs e)
+        private async void btnPrev_Click(object sender, EventArgs e)
         {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
 
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private async void btnNext_Click(object sender, EventArgs e)
         {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
 
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
         }
 
-        private void btnLast_Click(object sender, EventArgs e)
+        private async void btnLast_Click(object sender, EventArgs e)
         {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadMarcas();
+            }
 
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

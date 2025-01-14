@@ -82,7 +82,7 @@ namespace Presentacion.Marcas_Nacionales
                     oposicionModel.CrearOposicion(SeleccionarMarca.expediente, SeleccionarMarca.nombre,
                         SeleccionarMarca.signoDistintivo, SeleccionarMarca.clase,
                         solicitante, SeleccionarMarca.idPersonaTitular,null, opositor,signoOpositor,
-                        situacion_actual, idMarca,null, SeleccionarMarca.logo,"internacional","interpuesta");
+                        situacion_actual, idMarca,null, SeleccionarMarca.logo,"internacional","recibida");
                     historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     string nuevaAnotacion = fechaSinHora+ " Oposición presentada";
                     historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, "Oposición presentada", nuevaAnotacion, AgregarEtapa.usuario, "OPOSICIÓN");

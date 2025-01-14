@@ -1059,11 +1059,12 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
             //Enviar a oposicion
+
             AgregarEtapa.solicitante = txtNombreTitular.Text;
             FrmEnviarAOposicionI frmEnviarAOposicion = new FrmEnviarAOposicionI();
             frmEnviarAOposicion.ShowDialog();
 
-            AgregarEtapa.solicitante = txtNombreTitular.Text;
+           
             if (AgregarEtapa.enviadoAOposicion == true)
             {
                 EliminarTabPage(tabPageMarcaDetail);

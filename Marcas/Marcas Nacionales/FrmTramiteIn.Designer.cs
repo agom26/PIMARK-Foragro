@@ -238,20 +238,22 @@
             // 
             // btnGuardarM
             // 
-            btnGuardarM.BackColor = Color.FromArgb(1, 87, 155);
+            btnGuardarM.BackColor = Color.FromArgb(50, 164, 115);
             btnGuardarM.FlatAppearance.BorderSize = 0;
             btnGuardarM.FlatStyle = FlatStyle.Flat;
-            btnGuardarM.Font = new Font("Century Gothic", 12F);
+            btnGuardarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnGuardarM.ForeColor = Color.White;
-            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnGuardarM.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnGuardarM.IconColor = Color.White;
             btnGuardarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarM.IconSize = 30;
+            btnGuardarM.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarM.Location = new Point(64, 17);
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
             btnGuardarM.TabIndex = 163;
-            btnGuardarM.Text = "GUARDAR";
+            btnGuardarM.Text = "AGREGAR";
+            btnGuardarM.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnGuardarM.UseVisualStyleBackColor = false;
             btnGuardarM.Click += btnGuardarM_Click;
@@ -261,16 +263,18 @@
             btnCancelarM.BackColor = Color.Gainsboro;
             btnCancelarM.FlatAppearance.BorderSize = 0;
             btnCancelarM.FlatStyle = FlatStyle.Flat;
-            btnCancelarM.Font = new Font("Century Gothic", 12F);
+            btnCancelarM.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
             btnCancelarM.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarM.IconColor = Color.Black;
             btnCancelarM.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarM.IconSize = 30;
+            btnCancelarM.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarM.Location = new Point(383, 17);
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
             btnCancelarM.TabIndex = 164;
             btnCancelarM.Text = "CANCELAR";
+            btnCancelarM.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarM.UseVisualStyleBackColor = false;
             btnCancelarM.Click += btnCancelarM_Click;

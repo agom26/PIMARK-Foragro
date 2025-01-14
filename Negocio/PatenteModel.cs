@@ -55,36 +55,104 @@ namespace Dominio
             );
         }
 
-        public DataTable GetAllPatentesEnTramite()
+        //patentes en tramite
+
+        public DataTable FiltrarPatentesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesEnTramite(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesSinRegistro()
+        {
+            return patenteDao.GetTotalPatentesSinRegistro();
+        }
+        public int GetFilteredPatentesSinRegistroCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesSinRegistroCount(value);
+        }
+        public DataTable GetAllPatentesEnTramite(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesEnTramite();
+            tabla = patenteDao.GetAllPatentesEnTramite(currentPage, pageSize);
             return tabla;
         }
 
-        public DataTable GetAllPatentesRegistradas()
+        //patentes registradas
+        public DataTable FiltrarPatentesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesRegistradas(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesRegistradas()
+        {
+            return patenteDao.GetTotalPatentesRegistradas();
+        }
+        public int GetFilteredPatentesRegistradasCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesRegistradasCount(value);
+        }
+        public DataTable GetAllPatentesRegistradas(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradas();
+            tabla = patenteDao.GetAllPatentesRegistradas(currentPage, pageSize);
             return tabla;
         }
-        public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion()
+        //patentes en renovacion
+        public DataTable FiltrarPatentesRegistradasEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesRegistradasEnTramiteDeRenovacion(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesRegistradasEnTramiteDeRenovacion()
+        {
+            return patenteDao.GetTotalPatentesRegistradasEnTramiteDeRenovacion();
+        }
+        public int GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(value);
+        }
+        public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeRenovacion();
+            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
             return tabla;
         }
 
-        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso()
+
+        //patentes en traspaso
+        public DataTable FiltrarPatentesRegistradasEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesRegistradasEnTramiteDeTraspaso(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesRegistradasEnTramiteDeTraspaso()
+        {
+            return patenteDao.GetTotalPatentesRegistradasEnTramiteDeTraspaso();
+        }
+        public int GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(value);
+        }
+        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeTraspaso();
+            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
             return tabla;
         }
-        public DataTable GetAllPatentesEnAbandono()
+
+        //patentes en abandono
+        public DataTable FiltrarPatentesEnAbandono(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesEnAbandono(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesEnAbandono()
+        {
+            return patenteDao.GetTotalPatentesEnAbandono();
+        }
+        public int GetFilteredPatentesEnAbandonoCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesEnAbandonoCount(value);
+        }
+        public DataTable GetAllPatentesEnAbandono(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesEnAbandono();
+            tabla = patenteDao.GetAllPatentesEnAbandono(currentPage, pageSize);
             return tabla;
         }
         public DataTable ObtenerPatentePorId(int idPatente)
