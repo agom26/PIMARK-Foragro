@@ -62,24 +62,119 @@ namespace AccesoDatos.Entidades
 
             return correos;
         }
+        //vencimientos normales
+        public int GetTotalVencimientos()
+        {
+            int totalMarcas = 0;
 
-        public DataTable GetAllVencimientos()
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalVencimientos", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredVencimientosCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredVencimientosCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllVencimientosPaginados(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection()) 
+            try
             {
-                using (MySqlCommand comando = new MySqlCommand("SELECT id, nombre as SIGNO, fecha_vencimiento as VENCIMIENTO,notificado as NOTIFICADO, tipo as TIPO, registro as REGISTRO, folio as FOLIO, libro as LIBRO, titular as TITULAR, agente as AGENTE, marcaID, patenteID FROM Vencimientos ORDER BY fecha_vencimiento;", conexion)) // Inicializa correctamente el comando
+                using (MySqlConnection conexion = GetConnection())
                 {
-                    conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) 
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerVencimientosP", conexion))
                     {
-                        tabla.Load(leer);
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los vencimientos: {ex.Message}");
+            }
             return tabla;
-
         }
+        public DataTable FiltrarVencimientos(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarVencimientos", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los vencimientos: {ex.Message}");
+            }
+            return tabla;
+        }
+        
 
         public DataTable GetVencimientoByValue(string value)
         {
@@ -204,7 +299,7 @@ namespace AccesoDatos.Entidades
             return mensajeRtf;
         }
 
-        public DataTable ObtenerVencimientos()
+        public DataTable ObtenerTodosLosVencimientosReporte()
         {
             DataTable tabla = new DataTable();
             try
@@ -215,6 +310,33 @@ namespace AccesoDatos.Entidades
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los vencimientos: {ex.Message}");
+
+            }
+            return tabla;
+        }
+
+        public DataTable ObtenerTodosLosVencimientosFiltradosReporte(string valor)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarVencimientosReporte", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@p_valor", valor);
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
                         {

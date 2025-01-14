@@ -22,25 +22,9 @@ namespace Presentacion
         public async void Ejecutar()
         {
             await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
-            await Task.Run(() => LoadVencimientos());
-        }
-        private async void LoadVencimientos()
-        {
             
-            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
-            Invoke(new Action(() =>
-            {
-                dtgVencimientos.DataSource = titulares;
-
-                if (dtgVencimientos.Columns["id"] != null)
-                {
-                    dtgVencimientos.Columns["id"].Visible = false;
-                    dtgVencimientos.Columns["marcaID"].Visible = false;
-
-                }
-                dtgVencimientos.Refresh();
-            }));
         }
+      
         public FrmDashboard2(Form1 mainForm)
         {
             InitializeComponent();

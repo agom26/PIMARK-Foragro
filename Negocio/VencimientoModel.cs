@@ -20,14 +20,30 @@ namespace Dominio
         public DataTable ObtenerVencimientos()
         {
             DataTable vencimientos= new DataTable();
-            vencimientos= vencimientoDao.ObtenerVencimientos();
+            vencimientos= vencimientoDao.ObtenerTodosLosVencimientosReporte();
             return vencimientos;
         }
-        public DataTable GetAllVencimientos()
+        public DataTable GetAllVencimientos(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = vencimientoDao.GetAllVencimientos();
+            tabla = vencimientoDao.GetAllVencimientosPaginados(currentPageIndex, pageSize);
             return tabla;
+        }
+        public DataTable FiltrarVencimientos(string filtro, int currentPageIndex, int pageSize)
+        {
+            return vencimientoDao.FiltrarVencimientos(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalVencimientos()
+        {
+            return vencimientoDao.GetTotalVencimientos();
+        }
+        public int GetFilteredVencimientosCount(string value)
+        {
+            return vencimientoDao.GetFilteredVencimientosCount(value);
+        }
+        public DataTable ObtenerTodosLosVencimientosFiltradosReporte(string valor)
+        {
+            return vencimientoDao.ObtenerTodosLosVencimientosFiltradosReporte(valor);
         }
         public DataTable GetVencimientoByValue(string value)
         {

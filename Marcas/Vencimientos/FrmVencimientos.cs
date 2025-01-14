@@ -30,6 +30,10 @@ namespace Presentacion.Vencimientos
         private bool isSendingEmail = false;
         public int numRegistros = 11;
         public float escala = 0.85f;
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public FrmVencimientos()
         {
             InitializeComponent();
@@ -60,14 +64,24 @@ namespace Presentacion.Vencimientos
             // Seleccionar fuente y tamaño por defecto
             fontComboBox.SelectedItem = "Arial";
             fontSizeComboBox.SelectedItem = "12";
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private async void LoadVencimientos()
+        private async Task LoadVencimientos()
         {
-            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
+            totalRows = vencimientoModel.GetTotalVencimientos();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            // Obtiene los usuarios
+            var marcasN = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
+
             Invoke(new Action(() =>
             {
-                dtgVencimientos.DataSource = titulares;
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+
+
+                dtgVencimientos.DataSource = marcasN;
 
                 if (dtgVencimientos.Columns["id"] != null)
                 {
@@ -75,21 +89,47 @@ namespace Presentacion.Vencimientos
                     dtgVencimientos.Columns["marcaID"].Visible = false;
                     dtgVencimientos.Columns["patenteID"].Visible = false;
                 }
-
-
-                //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                /*
                 dtgVencimientos.Columns["REGISTRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Centrar el texto
                 dtgVencimientos.Columns["FOLIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dtgVencimientos.Columns["LIBRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-
-
-                //dtgVencimientos.Columns["REGISTRO"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                //dtgVencimientos.Columns["CLASE"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
-
+                */
 
                 dtgVencimientos.Refresh();
             }));
+        }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (buscar != "")
+            {
+                totalRows = vencimientoModel.GetFilteredVencimientosCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                DataTable titulares = vencimientoModel.FiltrarVencimientos(buscar, currentPageIndex, pageSize);
+                if (titulares.Rows.Count > 0)
+                {
+                    dtgVencimientos.DataSource = titulares;
+                    if (dtgVencimientos.Columns["id"] != null)
+                    {
+                        dtgVencimientos.Columns["id"].Visible = false;
+                    }
+                    dtgVencimientos.ClearSelection();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN VENCIMIENTOS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No existen titulares con esos datos");
+                    await LoadVencimientos();
+                }
+            }
+            else
+            {
+                await LoadVencimientos();
+            }
         }
 
         public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox)
@@ -245,7 +285,7 @@ namespace Presentacion.Vencimientos
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
-
+            filtrar();
         }
         private async Task VerificarSeleccionId()
         {
@@ -1535,8 +1575,15 @@ namespace Presentacion.Vencimientos
 
         private async void roundedButton19_Click(object sender, EventArgs e)
         {
-            DataTable datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
-
+            DataTable datos = null;
+            if (txtBuscar.Text != "")
+            {
+                datos = await Task.Run(() => vencimientoModel.ObtenerTodosLosVencimientosFiltradosReporte(txtBuscar.Text));
+            }
+            else
+            {
+                datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
+            }
 
 
             if (datos != null)
@@ -1552,7 +1599,16 @@ namespace Presentacion.Vencimientos
 
         private async void roundedButton11_Click(object sender, EventArgs e)
         {
-            DataTable datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
+            DataTable datos;
+
+            if (txtBuscar.Text != "")
+            {
+                datos = await Task.Run(() => vencimientoModel.ObtenerTodosLosVencimientosFiltradosReporte(txtBuscar.Text));
+            }
+            else
+            {
+                datos = await Task.Run(() => vencimientoModel.ObtenerVencimientos());
+            }
 
             if (datos != null)
             {
@@ -1810,6 +1866,86 @@ namespace Presentacion.Vencimientos
 
 
             }
+        }
+
+        private void iconButton7_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            filtrar();
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                filtrar();
+            }
+        }
+
+        private async void btnFirst_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = 1;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadVencimientos();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private async void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadVencimientos();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                if (txtBuscar.Text != "")
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadVencimientos();
+                }
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+        }
+
+        private async void btnLast_Click(object sender, EventArgs e)
+        {
+            currentPageIndex = totalPages;
+            if (txtBuscar.Text != "")
+            {
+                filtrar();
+            }
+            else
+            {
+                await LoadVencimientos();
+            }
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
     }
 }

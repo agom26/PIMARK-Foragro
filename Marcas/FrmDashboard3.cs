@@ -19,7 +19,10 @@ namespace Presentacion
     {
         public Form1 mainForm;
         VencimientoModel vencimientoModel = new VencimientoModel();
-
+        private const int pageSize = 20;
+        private int currentPageIndex = 1;
+        private int totalPages = 0;
+        private int totalRows = 0;
         public async void Ejecutar()
         {
             await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
@@ -28,7 +31,8 @@ namespace Presentacion
 
         private async void LoadVencimientos()
         {
-            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos());
+            currentPageIndex = 1;
+            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
             Invoke(new Action(() =>
             {
                 dtgVencimientos.DataSource = titulares;
