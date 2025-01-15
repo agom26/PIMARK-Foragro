@@ -9,6 +9,7 @@ namespace Presentacion.Marcas_Internacionales
         public FrmAgregarRenovacionIntConcedida()
         {
             InitializeComponent();
+            this.Load += FrmAgregarRenovacionIntConcedida_Load;
         }
 
 
@@ -20,7 +21,7 @@ namespace Presentacion.Marcas_Internacionales
             AgregarRenovacion.fechaVencimientoNueva = fecha_vencimientoN;
         }
 
-        public void RenovarMarca()
+        public async Task RenovarMarca()
         {
             HistorialModel historialModel = new HistorialModel();
             RenovacionesMarcaModel renovacionModel = new RenovacionesMarcaModel();
@@ -29,7 +30,7 @@ namespace Presentacion.Marcas_Internacionales
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 
-            //renovacion
+            // Renovación
             string noExpediente = txtNoExpediente.Text;
             AgregarRenovacion.idMarca = SeleccionarMarca.idN;
             AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
@@ -37,7 +38,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (txtEstado.Text != "")
             {
-                //Historial
+                // Historial
                 string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
                 string formato = fechaSinHora + " " + txtEstado.Text;
                 if (anotaciones.Contains(formato))
@@ -48,31 +49,48 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
 
                 try
                 {
-                    //Agregar a renovaciones
-                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacion.idMarca, AgregarRenovacion.fechaVencimientoAntigua, AgregarRenovacion.fechaVencimientoNueva);
+                    // Crear tareas
+                    var guardarEtapaTask = Task.Run(() =>
+                        historialModel.GuardarEtapa(
+                            SeleccionarMarca.idN,
+                            (DateTime)AgregarEtapa.fecha,
+                            AgregarEtapa.etapa,
+                            AgregarEtapa.anotaciones,
+                            AgregarEtapa.usuario,
+                            "TRÁMITE"
+                        )
+                    );
+
+                    var addRenovacionTask = Task.Run(() =>
+                        renovacionModel.AddRenovacion(
+                            noExpediente,
+                            AgregarRenovacion.idMarca,
+                            AgregarRenovacion.fechaVencimientoAntigua,
+                            AgregarRenovacion.fechaVencimientoNueva
+                        )
+                    );
+
+                    await Task.WhenAll(guardarEtapaTask, addRenovacionTask);
 
                     AgregarRenovacion.renovacionTerminada = true;
-
                 }
                 catch (Exception ex)
                 {
                     FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.Show();
-                    //MessageBox.Show(ex.Message);
                 }
-
 
                 this.Close();
             }
             else
             {
-                //MessageBox.Show("No ha seleccionado ningun estado");
+                // MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
+
 
         private void FrmAgregarRenovacionIntConcedida_Load(object sender, EventArgs e)
         {
@@ -81,6 +99,7 @@ namespace Presentacion.Marcas_Internacionales
             txtNoExpediente.Text = SeleccionarMarca.erenov;
             dateFechVencAnt.Value = AgregarRenovacion.fechaVencimientoAntigua;
             ActualizarFechaVencimientoNueva();
+            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
 
         }
 
@@ -97,14 +116,14 @@ namespace Presentacion.Marcas_Internacionales
             AgregarEtapa.LimpiarEtapa();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE RENOVAR LA MARCA?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
             DialogResult resultado = alerta.ShowDialog();
             if (resultado == DialogResult.Yes)
             {
-                RenovarMarca();
+                await RenovarMarca();
             }
             else
             {

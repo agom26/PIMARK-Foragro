@@ -1402,8 +1402,10 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DataRow row = detallesOposicion.Rows[0];
 
-                SeleccionarOposicion.observaciones = row["observaciones"] is DBNull ? null : row["observaciones"].ToString();
-                SeleccionarOposicion.estado = row["estado"] is DBNull ? null : row["estado"].ToString();
+               SeleccionarOposicion.observaciones = row["observaciones"] == DBNull.Value ? null : row["observaciones"].ToString();
+
+                SeleccionarOposicion.estado = row["estado"] == DBNull.Value ? null : row["estado"].ToString();
+
 
                 richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                 //txtEstadoAO.Text = SeleccionarOposicion.estado;

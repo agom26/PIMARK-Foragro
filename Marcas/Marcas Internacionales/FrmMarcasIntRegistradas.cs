@@ -1152,6 +1152,8 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
+            currentPageIndex = 1;
+            lblCurrentPage.Text= currentPageIndex.ToString();
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
