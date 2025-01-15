@@ -11,6 +11,24 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        public void InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("InsertarExpedienteMarca", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@p_NumExpediente",numExpediente);
+                    comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
+                    comando.Parameters.AddWithValue("@p_tipo", tipo);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
+
         public int GetTotalMarcasSinRegistro()
         {
             int totalMarcas = 0;

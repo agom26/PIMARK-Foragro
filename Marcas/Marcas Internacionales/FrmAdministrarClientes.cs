@@ -375,7 +375,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void btnGuardarU_Click(object sender, EventArgs e)
         {
-            string nombre = txtNitCliente.Text;
+            string nombre = txtNombreCliente.Text;
             string direccion = txtDireccionCliente.Text;
             string nit = txtNitCliente.Text;
             string pais = comboBox1.SelectedItem?.ToString();
@@ -404,7 +404,7 @@ namespace Presentacion.Marcas_Internacionales
 
                     btnGuardarU.Enabled = false;
 
-                    if (btnGuardarU.Text == "GUARDAR")
+                    if (btnGuardarU.Text == "AGREGAR")
                     {
 
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));

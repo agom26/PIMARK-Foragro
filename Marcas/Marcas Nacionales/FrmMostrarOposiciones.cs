@@ -823,7 +823,7 @@ namespace Presentacion.Marcas_Nacionales
                     richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                     //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
-                    if (SeleccionarOposicion.situacion_actual == "TERMINADA")
+                    if (row["situacion_actual"].ToString().Trim().Equals("TERMINADA", StringComparison.OrdinalIgnoreCase))
                     {
                         btnEnviarATramite.Visible = false;
                         btnAgregarEstadoAO.Enabled = false;
@@ -832,7 +832,7 @@ namespace Presentacion.Marcas_Nacionales
                     else
                     {
                         btnEnviarATramite.Visible = true;
-                        btnAgregarEstadoAO.Enabled = false;
+                        btnAgregarEstadoAO.Enabled = true;
                         btnAgregarOpositorAO.Enabled = true;
                     }
 

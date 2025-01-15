@@ -750,13 +750,14 @@
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.Font = new Font("Century Gothic", 9F);
             roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Image = Properties.Resources.guatemala_2_;
+            roundedButton5.Image = Properties.Resources.guatemala_3_;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton5.Location = new Point(0, 0);
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(347, 49);
             roundedButton5.TabIndex = 164;
-            roundedButton5.Text = "MARCAS NACIONALES";
+            roundedButton5.Text = "  MARCAS NACIONALES";
+            roundedButton5.TextAlign = ContentAlignment.MiddleLeft;
             roundedButton5.TextColor = Color.Black;
             roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton5.UseVisualStyleBackColor = false;

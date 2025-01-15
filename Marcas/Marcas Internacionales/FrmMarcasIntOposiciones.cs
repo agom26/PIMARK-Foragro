@@ -558,7 +558,8 @@ namespace Presentacion.Marcas_Internacionales
                     richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                     //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
-                    if (SeleccionarOposicion.situacion_actual == "TERMINADA")
+                    if (row["situacion_actual"].ToString().Trim().Equals("TERMINADA", StringComparison.OrdinalIgnoreCase))
+
                     {
                         btnEnviarATramite.Visible = false;
                         btnAgregarEstadoAO.Enabled = false;
@@ -594,7 +595,6 @@ namespace Presentacion.Marcas_Internacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-
                         btnAgregarOpositorAO.Enabled = false;
                         // btnTitular.Visible = true;
                         txtExpedienteAO.Enabled = false;
@@ -1645,7 +1645,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                             historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
+                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
                                 );
 
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);

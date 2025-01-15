@@ -904,15 +904,36 @@ namespace Presentacion.Marcas_Nacionales
                     await CargarDatosMarca();
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "0")
+                    if (AgregarEtapa.etapa == "Trámite de renovación" )
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "renovacion");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+
+                        }
+
                     }
-                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "0")
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "traspaso");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+
+                        }
                     }
                     else
                     {

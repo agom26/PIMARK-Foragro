@@ -702,7 +702,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -711,7 +711,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageRegistradasList)
             {
-                LoadMarcas();
+                await LoadMarcas();
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -723,7 +723,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
@@ -849,25 +849,47 @@ namespace Presentacion.Marcas_Internacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    await refrescarMarca();
-                    await CargarDatosMarca();
+                   
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "0")
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente.ToString(), AgregarEtapa.idMarca, "renovacion");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+                        }
+                       
+
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "0")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, AgregarEtapa.idMarca, "traspaso");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+                        }
                     }
                     else
                     {
                         txtERenovacion.Enabled = false;
                         txtETraspaso.Enabled = false;
                     }
+
+                    await refrescarMarca();
+                    await CargarDatosMarca();
                 }
                 catch (Exception ex)
                 {
@@ -1221,7 +1243,19 @@ namespace Presentacion.Marcas_Internacionales
 
             if (!string.IsNullOrEmpty(numExpediente))
             {
-                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+                bool actualizado = false;
+                try
+                {
+                    actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+
+
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.Show();
+                }
+
 
                 if (actualizado)
                 {
@@ -1439,15 +1473,36 @@ namespace Presentacion.Marcas_Internacionales
                     await CargarDatosMarca();
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "0")
+                    if (AgregarEtapa.etapa == "Trámite de renovación")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+
+                        }
+                        
                     }
-                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "0")
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso" )
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
+                        try
+                        {
+                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "traspaso");
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+
+                        }
                     }
                     else
                     {

@@ -48,7 +48,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
 
                 try
                 {

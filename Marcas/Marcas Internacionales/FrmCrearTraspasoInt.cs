@@ -28,7 +28,7 @@ namespace Presentacion.Marcas_Internacionales
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
            txtNombreTitularA.Text=AgregarTraspaso.nombreTitulara;
-          
+            richTextBox1.Text= dateTimePicker1.Value.ToShortDateString()+" "+txtEstado.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace Presentacion.Marcas_Internacionales
           
             string nuevoTitular = txtNombreTitularN.Text;
 
-            if (txtEstado.Text != "")
+            if (txtEstado.Text != "" && txtNoExpediente.Text!="")
             {
                 if (nuevoTitular !="")
                 {
@@ -102,6 +102,8 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR EL NÚMERO DE EXPEDIENTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
                 //MessageBox.Show("No ha seleccionado ningun estado");
             }
         }

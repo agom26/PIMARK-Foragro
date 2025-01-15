@@ -15,6 +15,11 @@ namespace Dominio
         {
             marcaDao = new MarcaDao();
         }
+        public void InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
+        {
+            marcaDao.InsertarExpedienteMarca(numExpediente, idMarca, tipo);
+        }
+
         public DataTable GetAllMarcasInternacionales()
         {
             DataTable tabla = new DataTable();

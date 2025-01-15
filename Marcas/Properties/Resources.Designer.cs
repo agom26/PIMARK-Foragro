@@ -473,6 +473,26 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap guatemala__1_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guatemala__2_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap guatemala_1_ {
             get {
                 object obj = ResourceManager.GetObject("guatemala(1)", resourceCulture);
@@ -486,6 +506,26 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap guatemala_2_ {
             get {
                 object obj = ResourceManager.GetObject("guatemala(2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guatemala_3_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guatemala_4_ {
+            get {
+                object obj = ResourceManager.GetObject("guatemala(4)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
