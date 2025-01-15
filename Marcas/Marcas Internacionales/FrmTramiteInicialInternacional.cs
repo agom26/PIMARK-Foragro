@@ -436,9 +436,18 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            LimpiarFormulario();
-            //llamar a DashboardPrincipal
-            _form1.cargarDashboard();
+            if (DatosRegistro.peligro == false)
+            {
+                LimpiarFormulario();
+                //llamar a DashboardPrincipal
+                _form1.cargarDashboard();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

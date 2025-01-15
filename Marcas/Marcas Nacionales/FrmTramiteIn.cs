@@ -37,14 +37,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             _form1 = form1;
-            int x = (panel17.Size.Width - label30.Size.Width - iconPictureBox3.Size.Width) / 2;
-            int y = (panel17.Size.Height - label30.Size.Height) / 2;
-            panel18.Location = new Point(x, y);
-
-            int x2 = (panel15.Size.Width - label29.Size.Width) / 2;
-            int y2 = (panel15.Size.Height - label29.Size.Height) / 2;
-            panel16.Location = new Point(x2, y2);
-            iconPictureBox3.IconSize = 25;
+           
             panel2I.Visible = false;
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
@@ -454,8 +447,17 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-            LimpiarFormulario();
-            _form1.cargarDashboard();
+            if (DatosRegistro.peligro == false)
+            {
+                LimpiarFormulario();
+                _form1.cargarDashboard();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

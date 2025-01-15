@@ -1560,44 +1560,22 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-            if (textBoxEstatus.Text != "Registrada")
+            if (DatosRegistro.peligro == false)
             {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageRegistradasList;
+                if (textBoxEstatus.Text != "Registrada")
+                {
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                }
             }
             else
             {
-                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
-                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite esa etapa")
-                    )
-                {
-
-                }
-                else
-                {
-                    if (
-                        (!int.TryParse(txtRegistro.Text, out _)) ||
-                        (!int.TryParse(txtFolio.Text, out _)) ||
-                        (!int.TryParse(txtLibro.Text, out _)))
-                    {
-                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("El registro, folio y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    }
-                    else
-                    {
-                        //ActualizarMarcaNacional();
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageHistorialMarca);
-                        tabControl1.SelectedTab = tabPageRegistradasList;
-                    }
-
-                }
-
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
+           
+           
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)

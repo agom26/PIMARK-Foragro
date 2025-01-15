@@ -388,8 +388,17 @@ namespace Presentacion.Patentes
 
         private void btnCancelarM_Click_1(object sender, EventArgs e)
         {
-            LimpiarFomulario();
-            _form1.cargarDashboard();
+            if (DatosRegistro.peligro == false)
+            {
+                LimpiarFomulario();
+                _form1.cargarDashboard();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

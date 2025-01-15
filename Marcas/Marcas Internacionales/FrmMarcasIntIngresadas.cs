@@ -1077,45 +1077,21 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton5_Click_1(object sender, EventArgs e)
         {
-            if (textBoxEstatus.Text != "Registrada")
+            if (DatosRegistro.peligro == false)
             {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageIngresadasList;
+                if (textBoxEstatus.Text != "Registrada")
+                {
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageIngresadasList;
+                }
             }
             else
             {
-                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
-                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado")
-                    )
-                {
-                    // Validar que el expediente, clase, folio, registro y libro sean enteros
-
-                    //MessageBox.Show("No es posible salir sin ingresar datos de registro");
-                }
-                else
-                {
-                    if (
-                        (!int.TryParse(txtRegistro.Text, out _)) ||
-                        (!int.TryParse(txtFolio.Text, out _)) ||
-                        (!int.TryParse(txtLibro.Text, out _)))
-                    {
-                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS ENTEROS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    }
-                    else
-                    {
-                        ActualizarMarcaInternacional();
-                        EliminarTabPage(tabPageHistorialMarca);
-                        EliminarTabPage(tabPageMarcaDetail);
-                    }
-
-                }
-
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
+           
         }
 
         private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
