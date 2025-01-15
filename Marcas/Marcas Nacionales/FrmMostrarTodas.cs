@@ -41,7 +41,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarTodas()
         {
             InitializeComponent();
-           
+
             this.Load += FrmMostrarTodas_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -1163,7 +1163,7 @@ namespace Presentacion.Marcas_Nacionales
             FrmEnviarAOposicion frmEnviarAOposicion = new FrmEnviarAOposicion();
             frmEnviarAOposicion.ShowDialog();
 
-           
+
             if (AgregarEtapa.enviadoAOposicion == true)
             {
                 EliminarTabPage(tabPageMarcaDetail);
@@ -1257,6 +1257,26 @@ namespace Presentacion.Marcas_Nacionales
         private void lblTotalPages_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

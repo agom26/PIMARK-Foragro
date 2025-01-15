@@ -53,7 +53,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        
+
         private async Task LoadMarcas()
         {
             totalRows = marcaModel.GetTotalMarcasRegistradas();
@@ -849,7 +849,7 @@ namespace Presentacion.Marcas_Internacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                   
+
 
 
                     if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "")
@@ -865,7 +865,7 @@ namespace Presentacion.Marcas_Internacionales
                             FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             alerta2.ShowDialog();
                         }
-                       
+
 
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "0")
@@ -1153,7 +1153,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageTraspasoDetail);
             ActualizarFechaVencimiento();
             currentPageIndex = 1;
-            lblCurrentPage.Text= currentPageIndex.ToString();
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
@@ -1489,9 +1489,9 @@ namespace Presentacion.Marcas_Internacionales
                             alerta2.ShowDialog();
 
                         }
-                        
+
                     }
-                    else if (AgregarEtapa.etapa == "Trámite de traspaso" )
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
@@ -1731,6 +1731,31 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

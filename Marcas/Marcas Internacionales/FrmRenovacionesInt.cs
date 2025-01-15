@@ -1245,9 +1245,29 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 filtrar();
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
             }
         }
     }

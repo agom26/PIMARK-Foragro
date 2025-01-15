@@ -396,6 +396,7 @@
             checkBox1.TabIndex = 205;
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // comboBoxAnualidades
             // 

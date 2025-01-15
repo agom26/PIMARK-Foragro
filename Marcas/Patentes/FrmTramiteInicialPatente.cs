@@ -20,11 +20,11 @@ namespace Presentacion.Patentes
         PatenteModel patenteModel = new PatenteModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         private Form1 _form1;
-        public FrmTramiteInicialPatente( Form1 form1)
+        public FrmTramiteInicialPatente(Form1 form1)
         {
             InitializeComponent();
             _form1 = form1;
-           
+
             panel2I.Visible = false;
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
@@ -59,7 +59,7 @@ namespace Presentacion.Patentes
                 mensajesError.Add("SELECCIONE UN ESTADO\n");
 
             // Validación de valores numéricos 
-            
+
             if (!int.TryParse(anualidad, out _))
                 mensajesError.Add("LA ANUALIDAD DEBE SER UN VALOR NUMÉRICO\n");
 
@@ -144,8 +144,8 @@ namespace Presentacion.Patentes
             string nombre = txtNombre.Text;
             string tipo = comboBoxTipo.SelectedItem?.ToString();
             string anualidad = comboBoxAnualidades.SelectedItem?.ToString();
-            
-            
+
+
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             int idTitular = SeleccionarPersonaPatente.idPersonaT;
@@ -390,6 +390,26 @@ namespace Presentacion.Patentes
         {
             LimpiarFomulario();
             _form1.cargarDashboard();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

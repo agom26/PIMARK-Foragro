@@ -18,6 +18,7 @@ using Dominio;
 using Presentacion.Reportes;
 using Presentacion.Patentes;
 using System.Diagnostics;
+using Presentacion.Alertas;
 
 namespace Presentacion
 {
@@ -263,18 +264,34 @@ namespace Presentacion
 
         private async void button23_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmRenovaciones());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRenovaciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button22_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmTraspasos());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTraspasos());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void panelChildForm_Paint(object sender, PaintEventArgs e)
@@ -294,35 +311,68 @@ namespace Presentacion
 
         private async void button35_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarTramiteRenovacionPatente());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTramiteRenovacionPatente());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button30_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarClientes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarClientes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button29_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmTramiteInicialInternacional(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTramiteInicialInternacional(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button34_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarTramiteTraspasoPatente());
-            await Task.Delay(1000);
-            EnableButtons();
-            //openChildForm(new PatentesForm());
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTramiteTraspasoPatente());
+                await Task.Delay(1000);
+                EnableButtons();
+                //openChildForm(new PatentesForm());
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
 
         private void button18_Click(object sender, EventArgs e)
@@ -332,10 +382,18 @@ namespace Presentacion
 
         private async void iconButton1_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmReportesMarcasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -350,11 +408,18 @@ namespace Presentacion
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (DatosRegistro.peligro == false)
             {
-                this.Close();
+                if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
             }
-
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
 
         }
 
@@ -365,35 +430,67 @@ namespace Presentacion
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (DatosRegistro.peligro == false)
             {
-                Application.Exit();
+                if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
         }
 
         private async void iconButtonUsuarios_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarUsuarios());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarUsuarios());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void iconButton8_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarAgentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarAgentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
 
         }
 
         private async void iconButton9_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarTitulares());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarTitulares());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void iconButton2_Click_1(object sender, EventArgs e)
@@ -434,10 +531,18 @@ namespace Presentacion
 
         private async void button26_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTramiteIn(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
@@ -452,10 +557,18 @@ namespace Presentacion
 
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmVencimientos());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmVencimientos());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void labelName_LN_Click(object sender, EventArgs e)
@@ -470,66 +583,130 @@ namespace Presentacion
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarTodas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTodas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnOposiciones_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarOposiciones());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarOposiciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnAbandonadas_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarAbandonadas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarAbandonadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnRegistradas_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmRegistradas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRegistradas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button5_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMarcasIntIngresadas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntIngresadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button6_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMarcasIntRegistradas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntRegistradas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button1_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMarcasIntOposiciones());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntOposiciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button2_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMarcasIntAbandonadas());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntAbandonadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -544,50 +721,98 @@ namespace Presentacion
 
         public async void cargarDashboard()
         {
-            DisableButtons();
-            openChildForm(new FrmDashboard3(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmDashboard3(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnHome_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmDashboard3(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmDashboard3(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnRenovInter_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmRenovacionesInt());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRenovacionesInt());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnTraspasoInter_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmTraspasosInt());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTraspasosInt());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button36_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmTramiteInicialPatente(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTramiteInicialPatente(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarIngresadasPatentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarIngresadasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void iconButton5_Click_2(object sender, EventArgs e)
@@ -602,38 +827,63 @@ namespace Presentacion
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            string url = "https://www.facebook.com/SitiosEnRed/";
-
-            try
+            if (DatosRegistro.peligro == false)
             {
-                Process.Start(new ProcessStartInfo
+                string url = "https://www.facebook.com/SitiosEnRed/";
+
+                try
                 {
-                    FileName = url,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
 
-                MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
         }
 
 
         private async void button33_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarRegistradasPatentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarRegistradasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void btnAbandonadasPatentes_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmMostrarAbandonadasPatentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarAbandonadasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
 
         private void iconButton1_Click_1(object sender, EventArgs e)
@@ -648,34 +898,68 @@ namespace Presentacion
 
         private async void button3_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmDashboard3(this));
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmDashboard3(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private async void button4_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarUsuarios());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarUsuarios());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
 
         private async void button4_Click_2(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarAgentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarAgentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void button5_Click_2(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmAdministrarTitulares());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarTitulares());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void button6_Click_2(object sender, EventArgs e)
@@ -690,25 +974,51 @@ namespace Presentacion
 
         private async void button8_Click_1(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmReportesMarcasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
 
         private async void button9_Click(object sender, EventArgs e)
         {
-            DisableButtons();
-            openChildForm(new FrmVencimientos());
-            await Task.Delay(1000);
-            EnableButtons();
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmVencimientos());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (DatosRegistro.peligro == false)
             {
-                this.Close();
+                if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
         }
     }

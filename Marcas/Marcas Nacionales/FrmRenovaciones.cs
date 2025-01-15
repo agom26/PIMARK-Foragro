@@ -615,7 +615,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialDetail);
             ActualizarFechaVencimiento();
             currentPageIndex = 1;
-            lblCurrentPage.Text= currentPageIndex.ToString();
+            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1118,6 +1118,26 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Presentacion.Patentes
 
             }));
         }
-       
+
         public async void filtrar()
         {
             string buscar = txtBuscar.Text;
@@ -776,7 +776,7 @@ namespace Presentacion.Patentes
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -1522,6 +1522,26 @@ namespace Presentacion.Patentes
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

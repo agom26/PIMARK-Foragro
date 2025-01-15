@@ -14,14 +14,25 @@ namespace Comun.Cache
         public static int tomo;
         public static DateTime fechaRegistro;
         public static DateTime fechaVencimiento;
+        public static bool peligro;
 
-        public static void LimpiarDatos()
+        public static void LimpiarDatosMarca()
+        {
+            registro = 0;
+            folio = 0;
+            tomo = 0;
+            fechaRegistro = DateTime.Now; 
+            fechaVencimiento = DateTime.Now.AddYears(10).AddDays(-1);
+
+        }
+
+        public static void LimpiarDatosPatente()
         {
             registro = 0;
             folio = 0;
             tomo = 0;
             fechaRegistro = DateTime.Now;
-            fechaVencimiento= DateTime.Now;
+            fechaVencimiento = DateTime.Now.AddYears(20);
         }
     }
 }

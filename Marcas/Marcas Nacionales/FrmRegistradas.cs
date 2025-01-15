@@ -904,7 +904,7 @@ namespace Presentacion.Marcas_Nacionales
                     await CargarDatosMarca();
 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación" )
+                    if (AgregarEtapa.etapa == "Trámite de renovación")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
@@ -1704,6 +1704,26 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

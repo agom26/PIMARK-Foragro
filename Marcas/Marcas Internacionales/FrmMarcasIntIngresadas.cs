@@ -453,7 +453,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.fecha_solicitud = row["fechaSolicitud"] != DBNull.Value ? Convert.ToDateTime(row["fechaSolicitud"]) : DateTime.MinValue;
                         SeleccionarMarca.observaciones = row["observaciones"] != DBNull.Value ? row["observaciones"].ToString() : string.Empty;
 
-                      
+
                         // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -582,7 +582,7 @@ namespace Presentacion.Marcas_Internacionales
                             // Actualizar los controles 
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["Observaciones"].ToString();
-                            
+
                         }
                         else
                         {
@@ -1064,7 +1064,7 @@ namespace Presentacion.Marcas_Internacionales
             FrmEnviarAOposicionI frmEnviarAOposicion = new FrmEnviarAOposicionI();
             frmEnviarAOposicion.ShowDialog();
 
-           
+
             if (AgregarEtapa.enviadoAOposicion == true)
             {
                 EliminarTabPage(tabPageMarcaDetail);
@@ -1202,6 +1202,26 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if(string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

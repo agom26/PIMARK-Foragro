@@ -1204,7 +1204,7 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcas();
             }
         }
-        
+
 
         private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
@@ -1289,6 +1289,26 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
+                    || string.IsNullOrWhiteSpace(txtLibro.Text))
+                {
+                    DatosRegistro.peligro = true;
+                }
+                else
+                {
+                    DatosRegistro.peligro = false;
+                }
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }
