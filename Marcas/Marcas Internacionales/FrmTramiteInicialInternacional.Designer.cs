@@ -628,6 +628,7 @@
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(172, 28);
             txtRegistro.TabIndex = 11;
+            txtRegistro.TextChanged += txtRegistro_TextChanged;
             // 
             // label17
             // 
@@ -644,6 +645,7 @@
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(172, 28);
             txtFolio.TabIndex = 12;
+            txtFolio.TextChanged += txtFolio_TextChanged;
             // 
             // label7
             // 
@@ -660,6 +662,7 @@
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(172, 28);
             txtLibro.TabIndex = 13;
+            txtLibro.TextChanged += txtLibro_TextChanged;
             // 
             // label1
             // 

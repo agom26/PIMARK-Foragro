@@ -417,6 +417,8 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
         }
 
         public void EditarPatente()
@@ -1035,11 +1037,33 @@ namespace Presentacion.Patentes
                     {
                         txtERenovacion.Text = AgregarEtapaPatente.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
+
+                        try
+                        {
+                            patenteModel.InsertarExpedientePatente(AgregarEtapaPatente.numExpediente.ToString(), SeleccionarPatente.id, "renovacion");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+                        }
+
                     }
                     else if (AgregarEtapaPatente.etapa == "Trámite de traspaso" && AgregarEtapaPatente.numExpediente != "0")
                     {
                         txtETraspaso.Text = AgregarEtapaPatente.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
+                        try
+                        {
+                            patenteModel.InsertarExpedientePatente(AgregarEtapaPatente.numExpediente.ToString(), SeleccionarPatente.id, "traspaso");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta2.ShowDialog();
+                        }
                     }
                     else
                     {
@@ -1342,6 +1366,7 @@ namespace Presentacion.Patentes
                         try
                         {
 
+
                             var filaSeleccionada = dtgPatentes.SelectedRows[0];
 
 
@@ -1407,8 +1432,8 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-           
-           
+
+
         }
 
         private void txtNombreMarcaN_TextChanged(object sender, EventArgs e)
@@ -1504,21 +1529,50 @@ namespace Presentacion.Patentes
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
+            
+        }
+
+        private void txtERenovacion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
             }
             else
             {
                 DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
             }
         }
     }

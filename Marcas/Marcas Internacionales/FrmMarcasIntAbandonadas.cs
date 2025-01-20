@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
+using Presentacion.Marcas_Nacionales;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +33,14 @@ namespace Presentacion.Marcas_Internacionales
             this.Load += FrmMarcasIntAbandonadas_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            if (UsuarioActivo.isAdmin)
+            {
+                roundedButton1.Enabled = true;
+            }
+            else
+            {
+                roundedButton1.Enabled = false;
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -215,7 +224,7 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxTipoSigno.SelectedIndex = -1;
         }
 
-        private async void CargarDatosMarca()
+        private async Task CargarDatosMarca()
         {
             try
             {
@@ -693,6 +702,148 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+        private async Task refrescarMarca()
+        {
+            if (SeleccionarMarca.idN > 0)
+            {
+                try
+                {
+                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+
+                    if (detallesMarcaInt.Rows.Count > 0)
+                    {
+                        DataRow row = detallesMarcaInt.Rows[0];
+
+                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
+                        {
+                            // Actualizar los controles 
+                            textBoxEstatus.Text = row["estado"].ToString();
+                            richTextBox1.Text = row["Observaciones"].ToString();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                        // Verificar si "observaciones" contiene la palabra "registrada"
+                        bool contieneRegistrada = textBoxEstatus.Text.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                            VerificarDatosRegistro();
+                        }
+                        else
+                        {
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la marca.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al refrescar los datos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private async void roundedButton1_Click(object sender, EventArgs e)
+        {
+            /*
+                FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
+                frmAgregarEtapa.ShowDialog();
+
+                if (AgregarEtapa.etapa != "")
+                {
+                    try
+                    {
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                        FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        if (AgregarEtapa.etapa == "Registrada")
+                        {
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                        }
+                        else
+                        {
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                        }
+                        await refrescarMarca();
+                        await CargarDatosMarca();
+
+
+                        if (AgregarEtapa.etapa == "Trámite de renovación")
+                        {
+                            txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
+                            txtERenovacion.Enabled = true;
+                            try
+                            {
+                                marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
+                            }
+                            catch (Exception ex)
+                            {
+                                FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alerta2.ShowDialog();
+
+                            }
+
+                        }
+                        else if (AgregarEtapa.etapa == "Trámite de traspaso")
+                        {
+                            txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
+                            txtETraspaso.Enabled = true;
+                            try
+                            {
+                                marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "traspaso");
+                            }
+                            catch (Exception ex)
+                            {
+                                FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alerta2.ShowDialog();
+
+                            }
+                        }
+                        else
+                        {
+                            txtERenovacion.Enabled = false;
+                            txtETraspaso.Enabled = false;
+                        }
+
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                }*/
+           
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }

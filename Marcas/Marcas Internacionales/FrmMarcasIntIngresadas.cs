@@ -386,7 +386,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 LimpiarFormulario();
@@ -513,6 +513,8 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
+
+                            VerificarDatosRegistro();
                         }
                         else
                         {
@@ -596,6 +598,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
+                            VerificarDatosRegistro();
                         }
                         else
                         {
@@ -755,35 +758,44 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
-            frmAgregarEtapa.ShowDialog();
-
-            if (AgregarEtapa.etapa != "")
+            if (SeleccionarMarca.registro == null)
             {
-                try
+                FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
+                frmAgregarEtapa.ShowDialog();
+
+                if (AgregarEtapa.etapa != "")
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
-                    FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("Etapa agregada con éxito");
-                    if (AgregarEtapa.etapa == "Registrada")
+                    try
                     {
-                        checkBox1.Checked = true;
-                        mostrarPanelRegistro("si");
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                        FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Etapa agregada con éxito");
+                        if (AgregarEtapa.etapa == "Registrada")
+                        {
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                            VerificarDatosRegistro();
+                        }
+                        else
+                        {
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                        }
+                        await refrescarMarca();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        checkBox1.Checked = false;
-                        mostrarPanelRegistro("no");
+                        MessageBox.Show(ex.Message);
                     }
-                    await refrescarMarca();
+
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            else
+            {
 
             }
+           
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
@@ -881,7 +893,7 @@ namespace Presentacion.Marcas_Internacionales
             EditarVerHistorial();
         }
 
-        private void iconButton4_Click(object sender, EventArgs e)
+        private async void iconButton4_Click(object sender, EventArgs e)
         {
             if (dtgHistorialIn.SelectedRows.Count > 0)
             {
@@ -937,7 +949,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
 
                         loadHistorialById();
-                        refrescarMarca();
+                        await refrescarMarca();
                     }
                 }
             }
@@ -958,7 +970,7 @@ namespace Presentacion.Marcas_Internacionales
             richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -989,7 +1001,7 @@ namespace Presentacion.Marcas_Internacionales
                     //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     tabControl1.SelectedTab = tabPageHistorialMarca;
                     SeleccionarHistorial.id = 0;
-                    refrescarMarca();
+                    await refrescarMarca();
                 }
                 else
                 {
@@ -1043,7 +1055,17 @@ namespace Presentacion.Marcas_Internacionales
             Editar();
         }
 
-
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
@@ -1052,35 +1074,56 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton4_Click_1(object sender, EventArgs e)
         {
-            ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaInternacional();
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-            //Enviar a oposicion
-
-            AgregarEtapa.solicitante = txtNombreTitular.Text;
-            FrmEnviarAOposicionI frmEnviarAOposicion = new FrmEnviarAOposicionI();
-            frmEnviarAOposicion.ShowDialog();
-
-
-            if (AgregarEtapa.enviadoAOposicion == true)
+            if (DatosRegistro.peligro==false)
             {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageIngresadasList;
-                FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //Enviar a oposicion
+
+                AgregarEtapa.solicitante = txtNombreTitular.Text;
+                FrmEnviarAOposicionI frmEnviarAOposicion = new FrmEnviarAOposicionI();
+                frmEnviarAOposicion.ShowDialog();
+
+
+                if (AgregarEtapa.enviadoAOposicion == true)
+                {
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageIngresadasList;
+                    FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
+           
         }
 
         private void iconButton5_Click_1(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text != "Registrada")
                 {
+                    ActualizarMarcaInternacional();
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
                     tabControl1.SelectedTab = tabPageIngresadasList;
@@ -1091,7 +1134,7 @@ namespace Presentacion.Marcas_Internacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-           
+
         }
 
         private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1182,22 +1225,47 @@ namespace Presentacion.Marcas_Internacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
             {
-                if(string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
             }
             else
             {
                 DatosRegistro.peligro = false;
             }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

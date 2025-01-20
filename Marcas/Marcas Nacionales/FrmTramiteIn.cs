@@ -37,7 +37,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             _form1 = form1;
-           
+
             panel2I.Visible = false;
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
@@ -64,7 +64,7 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        private bool ValidarCampos(string pais,string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
+        private bool ValidarCampos(string pais, string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
     ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
@@ -117,7 +117,7 @@ namespace Presentacion.Marcas_Nacionales
                 logo = null;
             }
 
-              
+
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -132,7 +132,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-            return true; 
+            return true;
         }
 
         public void GuardarMarcaInternacional()
@@ -197,8 +197,8 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud,paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento):
-                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud,paisRegistro, tiene_poder, null);
+                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento) :
+                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, null);
 
                 if (idMarca > 0)
                 {
@@ -353,22 +353,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -400,7 +385,17 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
-
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private void roundedButton3_Click_1(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
@@ -412,6 +407,7 @@ namespace Presentacion.Marcas_Nacionales
                 textBoxEstatus.Text = AgregarEtapa.etapa;
                 mostrarPanelRegistro();
                 richTextBox1.Text = AgregarEtapa.anotaciones;
+                VerificarDatosRegistro();
             }
         }
 
@@ -442,15 +438,10 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
-            GuardarMarcaInternacional();
-        }
-
-        private void btnCancelarM_Click(object sender, EventArgs e)
-        {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                LimpiarFormulario();
-                _form1.cargarDashboard();
+                GuardarMarcaInternacional();
             }
             else
             {
@@ -458,6 +449,24 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
             }
            
+        }
+
+        private void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE GUARDARON LOS DATOS DE LA MARCA", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                DatosRegistro.peligro = false;
+            }
+            LimpiarFormulario();
+            _form1.cargarDashboard();
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -473,6 +482,50 @@ namespace Presentacion.Marcas_Nacionales
         private void roundedButton6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
         }
     }
 }

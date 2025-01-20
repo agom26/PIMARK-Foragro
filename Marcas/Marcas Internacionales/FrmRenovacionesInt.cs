@@ -1048,8 +1048,8 @@ namespace Presentacion.Marcas_Internacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-          
-           
+
+
         }
 
         private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1232,17 +1232,50 @@ namespace Presentacion.Marcas_Internacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            
+        }
+
+        private void txtERenovacion_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtERenovacion.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
             }
             else
             {

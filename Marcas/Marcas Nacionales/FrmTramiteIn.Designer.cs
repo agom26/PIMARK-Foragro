@@ -168,7 +168,7 @@
             checkBoxTienePoder.Location = new Point(201, 56);
             checkBoxTienePoder.Name = "checkBoxTienePoder";
             checkBoxTienePoder.Size = new Size(18, 17);
-            checkBoxTienePoder.TabIndex = 96;
+            checkBoxTienePoder.TabIndex = 13;
             checkBoxTienePoder.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -191,7 +191,7 @@
             comboBox1.Location = new Point(64, 200);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(280, 29);
-            comboBox1.TabIndex = 179;
+            comboBox1.TabIndex = 3;
             // 
             // label24
             // 
@@ -243,7 +243,7 @@
             btnGuardarM.Location = new Point(64, 17);
             btnGuardarM.Name = "btnGuardarM";
             btnGuardarM.Size = new Size(191, 58);
-            btnGuardarM.TabIndex = 163;
+            btnGuardarM.TabIndex = 18;
             btnGuardarM.Text = "AGREGAR";
             btnGuardarM.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -264,7 +264,7 @@
             btnCancelarM.Location = new Point(383, 17);
             btnCancelarM.Name = "btnCancelarM";
             btnCancelarM.Size = new Size(191, 58);
-            btnCancelarM.TabIndex = 164;
+            btnCancelarM.TabIndex = 19;
             btnCancelarM.Text = "CANCELAR";
             btnCancelarM.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarM.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -317,7 +317,7 @@
             dateTimePFecha_Registro.Location = new Point(22, 135);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(224, 28);
-            dateTimePFecha_Registro.TabIndex = 39;
+            dateTimePFecha_Registro.TabIndex = 17;
             dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             // 
             // label18
@@ -334,7 +334,8 @@
             txtRegistro.Location = new Point(22, 53);
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(172, 28);
-            txtRegistro.TabIndex = 39;
+            txtRegistro.TabIndex = 14;
+            txtRegistro.TextChanged += txtRegistro_TextChanged;
             // 
             // label17
             // 
@@ -350,7 +351,8 @@
             txtFolio.Location = new Point(228, 53);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(172, 28);
-            txtFolio.TabIndex = 9;
+            txtFolio.TabIndex = 15;
+            txtFolio.TextChanged += txtFolio_TextChanged;
             // 
             // label7
             // 
@@ -366,7 +368,8 @@
             txtLibro.Location = new Point(434, 53);
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(172, 28);
-            txtLibro.TabIndex = 11;
+            txtLibro.TabIndex = 16;
+            txtLibro.TextChanged += txtLibro_TextChanged;
             // 
             // label6
             // 
@@ -499,7 +502,7 @@
             comboBoxTipoSigno.Location = new Point(410, 350);
             comboBoxTipoSigno.Name = "comboBoxTipoSigno";
             comboBoxTipoSigno.Size = new Size(292, 28);
-            comboBoxTipoSigno.TabIndex = 42;
+            comboBoxTipoSigno.TabIndex = 7;
             // 
             // label15
             // 
@@ -532,7 +535,7 @@
             comboBoxSignoDistintivo.Location = new Point(64, 350);
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 28);
-            comboBoxSignoDistintivo.TabIndex = 40;
+            comboBoxSignoDistintivo.TabIndex = 6;
             // 
             // roundedButton3
             // 
@@ -548,7 +551,7 @@
             roundedButton3.Location = new Point(62, 408);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(280, 35);
-            roundedButton3.TabIndex = 39;
+            roundedButton3.TabIndex = 8;
             roundedButton3.Text = "+ ESTADO ACTUAL";
             roundedButton3.TextColor = Color.Black;
             roundedButton3.UseVisualStyleBackColor = false;
@@ -596,6 +599,7 @@
             textBoxEstatus.ReadOnly = true;
             textBoxEstatus.Size = new Size(290, 28);
             textBoxEstatus.TabIndex = 29;
+            textBoxEstatus.TextChanged += textBoxEstatus_TextChanged;
             // 
             // label14
             // 
@@ -614,7 +618,7 @@
             datePickerFechaSolicitud.Location = new Point(410, 196);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(292, 28);
-            datePickerFechaSolicitud.TabIndex = 27;
+            datePickerFechaSolicitud.TabIndex = 4;
             // 
             // label13
             // 
@@ -659,7 +663,7 @@
             roundedButton2.Location = new Point(64, 675);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(638, 56);
-            roundedButton2.TabIndex = 23;
+            roundedButton2.TabIndex = 10;
             roundedButton2.Text = "+ AGENTE";
             roundedButton2.TextColor = Color.Black;
             roundedButton2.UseVisualStyleBackColor = false;
@@ -738,7 +742,7 @@
             roundedButton1.Location = new Point(64, 472);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(638, 56);
-            roundedButton1.TabIndex = 16;
+            roundedButton1.TabIndex = 9;
             roundedButton1.Text = "+ TITULAR";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.UseVisualStyleBackColor = false;
@@ -756,7 +760,7 @@
             iconButton2.Location = new Point(868, 369);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(74, 33);
-            iconButton2.TabIndex = 15;
+            iconButton2.TabIndex = 12;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
             // 
@@ -772,7 +776,7 @@
             iconButton1.Location = new Point(788, 369);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(74, 33);
-            iconButton1.TabIndex = 14;
+            iconButton1.TabIndex = 11;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
             // 
@@ -821,7 +825,7 @@
             txtNombre.Location = new Point(410, 123);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(292, 28);
-            txtNombre.TabIndex = 3;
+            txtNombre.TabIndex = 2;
             // 
             // label3
             // 

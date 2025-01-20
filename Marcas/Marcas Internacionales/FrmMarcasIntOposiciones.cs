@@ -1426,7 +1426,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (btnGuardarU.Text == "EDITAR")
             {
-                if (SeleccionarOposicion.idMarca == 0)
+                if (SeleccionarOposicion.idMarca == 0 || SeleccionarOposicion.idMarca.ToString() ==null)
                 {
                     if (AgregarEtapaOposicion.etapa != "")
                     {
@@ -1434,7 +1434,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                             historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
+                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
                                 );
 
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1639,7 +1639,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (btnGuardarU.Text == "EDITAR")
             {
-                if (SeleccionarOposicion.idMarca > 0)
+                if (SeleccionarOposicion.idMarca ==0 )
                 {
                     if (AgregarEtapaOposicion.etapa != "")
                     {

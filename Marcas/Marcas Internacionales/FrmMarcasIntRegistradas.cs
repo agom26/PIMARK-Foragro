@@ -1396,12 +1396,22 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton12_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaInternacional();
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void iconButton13_Click(object sender, EventArgs e)
         {
+            
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text != "Registrada")
@@ -1410,14 +1420,25 @@ namespace Presentacion.Marcas_Internacionales
                     EliminarTabPage(tabPageHistorialMarca);
                     tabControl1.SelectedTab = tabPageRegistradasList;
                 }
-              
+                else
+                {
+                    if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio!= txtFolio.Text || SeleccionarMarca.libro!= txtLibro.Text)
+                    {
+                        ActualizarMarcaInternacional();
+                    }
+
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                }
+
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-           
+
         }
 
         private void roundedButton5_Click(object sender, EventArgs e)
@@ -1488,6 +1509,7 @@ namespace Presentacion.Marcas_Internacionales
                         txtERenovacion.Enabled = false;
                         txtETraspaso.Enabled = false;
                     }
+
 
 
                 }
@@ -1712,17 +1734,19 @@ namespace Presentacion.Marcas_Internacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            
+        }
+
+        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
             }
             else
             {
@@ -1730,9 +1754,28 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        private void txtFolio_TextChanged(object sender, EventArgs e)
         {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
 
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
         }
     }
 }

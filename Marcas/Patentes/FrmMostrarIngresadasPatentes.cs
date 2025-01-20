@@ -922,7 +922,17 @@ namespace Presentacion.Patentes
                 */
             }
         }
-
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox2.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
 
@@ -943,6 +953,7 @@ namespace Presentacion.Patentes
                         checkBox2.Checked = true;
                         checkBox2.Checked = true;
                         mostrarPanelRegistro("si");
+                        VerificarDatosRegistro();
                     }
                     else
                     {
@@ -1057,7 +1068,16 @@ namespace Presentacion.Patentes
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            EditarPatente();
+            if (DatosRegistro.peligro == false)
+            {
+                EditarPatente();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -1077,8 +1097,8 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-           
-           
+
+
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
@@ -1168,22 +1188,51 @@ namespace Presentacion.Patentes
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
+
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
             }
             else
             {
                 DatosRegistro.peligro = false;
+
             }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void textBoxEstatus_TextChanged(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
         }
     }
 }

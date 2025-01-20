@@ -492,17 +492,22 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-
-        public DataTable GetAllMarcasNacionales()
+        //todas las marcas nacionales 
+        public DataTable filtrarMarcasNacionales(string filtro, int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
             try
             {
                 using (MySqlConnection conexion = GetConnection())
                 {
-                    using (MySqlCommand comando = new MySqlCommand("ObtenerMarcasNacionales", conexion))
+                    using (MySqlCommand comando = new MySqlCommand("filtrarMarcasNacionales", conexion))
                     {
                         comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
 
                         conexion.Open();
                         using (MySqlDataReader leer = comando.ExecuteReader())
@@ -514,11 +519,85 @@ namespace AccesoDatos.Entidades
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las marcas internacionales: {ex.Message}");
-
+                Console.WriteLine($"Error al obtener las marcas sin registro: {ex.Message}");
             }
             return tabla;
         }
+        public int GetTotalMarcasNacionales()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalMarcasNacionales", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredMarcasNacionalesCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredMarcasNacionalesCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public DataTable GetAllMarcasNacionales(int currentPageIndex, int pageSize)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new MySqlCommand("ObtenerMarcasNacionales", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                    // Agregar parámetros de entrada
+                    command.Parameters.AddWithValue("pageSize", pageSize);
+                    command.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable resultado = new DataTable();
+                        adapter.Fill(resultado);
+                        return resultado;
+                    }
+                }
+            }
+        }
+       
         public DataTable GetAllMarcasNacionalesEnTramite(int currentPageIndex, int pageSize)
         {
            

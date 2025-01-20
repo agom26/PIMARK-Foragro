@@ -10,7 +10,23 @@ namespace AccesoDatos.Entidades
 {
     public class PatenteDao:ConnectionSQL
     {
+        public void InsertarExpedientePatente(string numExpediente, int idMarca, string tipo)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("InsertarExpedientePatente", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
 
+                    comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
+                    comando.Parameters.AddWithValue("@p_IdMarca", idMarca);
+                    comando.Parameters.AddWithValue("@p_tipo", tipo);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
         public void ActualizarExpedientePatente(int p_id, string p_expediente, DateTime fecha, string estado,
             string anotaciones, string usuario)
         {

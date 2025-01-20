@@ -820,12 +820,12 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageTraspasoDetail);
             }
         }
-        public void Editar()
+        public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idInt > 0)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
@@ -1568,14 +1568,25 @@ namespace Presentacion.Marcas_Nacionales
                     EliminarTabPage(tabPageHistorialMarca);
                     tabControl1.SelectedTab = tabPageRegistradasList;
                 }
+                else
+                {
+                    if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio!= txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
+                    {
+                        ActualizarMarcaNacional();
+                    }
+                   
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                }
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-           
-           
+
+
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
@@ -1686,21 +1697,45 @@ namespace Presentacion.Marcas_Nacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            
+        }
+
+        private void txtRegistro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
             {
-                if (string.IsNullOrWhiteSpace(txtRegistro.Text) || string.IsNullOrWhiteSpace(txtFolio.Text)
-                    || string.IsNullOrWhiteSpace(txtLibro.Text))
-                {
-                    DatosRegistro.peligro = true;
-                }
-                else
-                {
-                    DatosRegistro.peligro = false;
-                }
+                DatosRegistro.peligro = true;
             }
             else
             {
                 DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void txtLibro_TextChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+
             }
         }
     }

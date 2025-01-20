@@ -17,6 +17,10 @@ namespace Dominio
         {
             patenteDao = new PatenteDao();
         }
+        public void InsertarExpedientePatente(string numExpediente, int idPatente, string tipo)
+        {
+            patenteDao.InsertarExpedientePatente(numExpediente, idPatente, tipo);
+        }
 
         public int CrearPatente(
            string caso,
