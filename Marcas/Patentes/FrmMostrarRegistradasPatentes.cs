@@ -1004,7 +1004,17 @@ namespace Presentacion.Patentes
         {
 
         }
-
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapaRegistradaPatente frmAgregarEtapa = new FrmAgregarEtapaRegistradaPatente();
@@ -1023,6 +1033,7 @@ namespace Presentacion.Patentes
                     {
                         checkBox1.Checked = true;
                         mostrarPanelRegistro("si");
+                        VerificarDatosRegistro();
                     }
                     else
                     {
@@ -1412,11 +1423,22 @@ namespace Presentacion.Patentes
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            EditarPatente();
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                EditarPatente();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton11_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text != "Registrada")

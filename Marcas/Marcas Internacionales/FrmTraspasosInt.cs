@@ -644,6 +644,7 @@ namespace Presentacion.Marcas_Internacionales
             if (SeleccionarMarca.idN > 0)
             {
                 CargarDatosMarca();
+                EliminarTabPage(tabPageRegistradasList);
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
@@ -1036,43 +1037,79 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton5_MouseUp(object sender, MouseEventArgs e)
         {
+
         }
 
         private void iconButton1_Click_2(object sender, EventArgs e)
         {
-            ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
-        }
-
-        private void iconButton4_Click_1(object sender, EventArgs e)
-        {
-            AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
-            FrmCrearTraspasoInt frmCrearTraspaso = new FrmCrearTraspasoInt();
-            frmCrearTraspaso.ShowDialog();
-
-            if (AgregarTraspaso.traspasoFinalizado == true)
-            {
-                //Limpiar campos
-                LimpiarFormulario();
-                //Volver a poner traspasos = false
-                AgregarTraspaso.traspasoFinalizado = false;
-                tabControl1.SelectedTab = tabPageRegistradasList;
-                FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
-                //MessageBox.Show("Traspaso guardado correctamente");
-            }
-        }
-
-        private void iconButton5_Click_1(object sender, EventArgs e)
-        {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                ActualizarMarcaInternacional();
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
+        }
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+        private void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
+                FrmCrearTraspasoInt frmCrearTraspaso = new FrmCrearTraspasoInt();
+                frmCrearTraspaso.ShowDialog();
+
+                if (AgregarTraspaso.traspasoFinalizado == true)
                 {
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
+                    //Limpiar campos
+                    LimpiarFormulario();
+                    //Volver a poner traspasos = false
+                    AgregarTraspaso.traspasoFinalizado = false;
                     tabControl1.SelectedTab = tabPageRegistradasList;
+                    FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Traspaso guardado correctamente");
                 }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
+        }
+
+        private async void iconButton5_Click_1(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio!=txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
+                {
+                    ActualizarMarcaInternacional();
+                }
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                await LoadMarcas();
+                
             }
             else
             {
@@ -1271,7 +1308,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtETraspaso_TextChanged(object sender, EventArgs e)
@@ -1323,6 +1360,11 @@ namespace Presentacion.Marcas_Internacionales
                 DatosRegistro.peligro = false;
 
             }
+        }
+
+        private void panel11_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

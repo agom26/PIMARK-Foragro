@@ -730,6 +730,7 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageRenovacionDetail);
                 EliminarTabPage(tabPageTraspasosList);
                 EliminarTabPage(tabPageTraspasoDetail);
+                EliminarTabPage(tabPageRegistradasList);
             }
             else if (tabControl1.SelectedTab == tabPageRenovacionesList)
             {
@@ -760,7 +761,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
-                tabControl1.SelectedTab = tabPageMarcaDetail;
+                EliminarTabPage(tabPageRegistradasList);
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -1393,13 +1394,30 @@ namespace Presentacion.Marcas_Internacionales
         {
             Editar();
         }
-
-        private void iconButton12_Click(object sender, EventArgs e)
+        public void VerificarDatosRegistro()
         {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+        private async void iconButton12_Click(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                ActualizarMarcaInternacional();
+                if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio !=txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
+                {
+                    ActualizarMarcaInternacional();
+                }
+
                 EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                await LoadMarcas();
             }
             else
             {
@@ -1409,16 +1427,18 @@ namespace Presentacion.Marcas_Internacionales
             
         }
 
-        private void iconButton13_Click(object sender, EventArgs e)
+        private async void iconButton13_Click(object sender, EventArgs e)
         {
-            
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text != "Registrada")
                 {
+
+                    AnadirTabPage(tabPageRegistradasList);
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    await LoadMarcas();
                 }
                 else
                 {
@@ -1427,9 +1447,10 @@ namespace Presentacion.Marcas_Internacionales
                         ActualizarMarcaInternacional();
                     }
 
+                    AnadirTabPage(tabPageRegistradasList);
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    await LoadMarcas();
                 }
 
             }
@@ -1471,7 +1492,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     await refrescarMarca();
                     await CargarDatosMarca();
-
+                    VerificarDatosRegistro();
 
                     if (AgregarEtapa.etapa == "Trámite de renovación")
                     {

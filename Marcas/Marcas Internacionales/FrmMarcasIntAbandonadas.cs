@@ -22,6 +22,8 @@ namespace Presentacion.Marcas_Internacionales
         HistorialModel historialModel = new HistorialModel();
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
+        byte[] defaultImage = Properties.Resources.logoImage;
+        System.Drawing.Image documento;
         private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;
@@ -35,11 +37,13 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             if (UsuarioActivo.isAdmin)
             {
-                roundedButton1.Enabled = true;
+                btnAgregarEstado.Enabled = true;
+                btnEditar.Enabled = true;
             }
             else
             {
-                roundedButton1.Enabled = false;
+                btnAgregarEstado.Enabled = false;
+                btnEditar.Enabled = false;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -766,7 +770,8 @@ namespace Presentacion.Marcas_Internacionales
         }
         private async void roundedButton1_Click(object sender, EventArgs e)
         {
-            /*
+            if (SeleccionarMarca.observaciones.Contains("Registrada"))
+            {
                 FrmAgregarEtapaRegistrada frmAgregarEtapa = new FrmAgregarEtapaRegistrada();
                 frmAgregarEtapa.ShowDialog();
 
@@ -782,11 +787,25 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
+                            txtRegistro.ReadOnly = false;
+                            txtRegistro.Enabled = true;
+                            txtFolio.Enabled = true;
+                            txtFolio.ReadOnly = false;
+                            txtLibro.Enabled = true;
+                            txtLibro.ReadOnly = false;
+                            dateTimePFecha_Registro.Enabled = true;
                         }
                         else
                         {
                             checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
+                            txtRegistro.Enabled = false;
+                            txtRegistro.ReadOnly = true;
+                            txtFolio.Enabled = false;
+                            txtFolio.ReadOnly = true;
+                            txtLibro.Enabled = false;
+                            txtLibro.ReadOnly = true;
+                            dateTimePFecha_Registro.Enabled = false;
                         }
                         await refrescarMarca();
                         await CargarDatosMarca();
@@ -837,13 +856,262 @@ namespace Presentacion.Marcas_Internacionales
                         MessageBox.Show(ex.Message);
                     }
 
-                }*/
-           
+                }
+            }
+            else
+            {
+                FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
+                frmAgregarEtapa.ShowDialog();
+
+                if (AgregarEtapa.etapa != "")
+                {
+                    try
+                    {
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                        FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Etapa agregada con éxito");
+                        if (AgregarEtapa.etapa == "Registrada")
+                        {
+                            checkBox1.Checked = true;
+                            mostrarPanelRegistro("si");
+                            VerificarDatosRegistro();
+                            txtRegistro.ReadOnly = false;
+                            txtRegistro.Enabled = true;
+                            txtFolio.Enabled = true;
+                            txtFolio.ReadOnly = false;
+                            txtLibro.Enabled = true;
+                            txtLibro.ReadOnly = false;
+                            dateTimePFecha_Registro.Enabled = true;
+                        }
+                        else
+                        {
+                            checkBox1.Checked = false;
+                            mostrarPanelRegistro("no");
+                            txtRegistro.Enabled = false;
+                            txtRegistro.ReadOnly = true;
+                            txtFolio.Enabled = false;
+                            txtFolio.ReadOnly = true;
+                            txtLibro.Enabled = false;
+                            txtLibro.ReadOnly = true;
+                            dateTimePFecha_Registro.Enabled = false;
+                        }
+                        await refrescarMarca();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                }
+            }
+
+
+        }
+        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
+   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+        {
+            // Verificar campos obligatorios
+            if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
+                !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
+                !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
+                !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
+                !ValidarCampo(estado, "Por favor, seleccione un estado."))
+            {
+                return false;
+            }
+
+            // Validar que el expediente, clase, folio, registro y libro sean enteros
+            if (
+                !int.TryParse(clase, out _) ||
+                (registroChek && !int.TryParse(registro, out _)) ||
+                (registroChek && !int.TryParse(folio, out _)) ||
+                (registroChek && !int.TryParse(libro, out _)))
+            {
+                FrmAlerta alerta = new FrmAlerta("LA CLASE, FOLIO, REGISTRO Y TOMO\nDEBEN SER VAORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
+               comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            {
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
+                }
+            }
+            else
+            {
+                logo = null;
+            }
+
+
+            // Si está registrada, se verifica la información del registro
+            if (registroChek)
+            {
+                // Validar campos adicionales para marcas registradas
+                if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
+                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
+                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
+                    )
+                {
+                    return false;
+                }
+            }
+
+            return true; // Todas las validaciones pasaron
+        }
+
+        public void ActualizarMarcaInternacional()
+        {
+            string expediente = txtExpediente.Text;
+            string nombre = txtNombre.Text;
+            string clase = txtClase.Text;
+            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
+            string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
+            string folio = txtFolio.Text;
+            string libro = txtLibro.Text;
+            byte[] logo = null;
+            int idTitular = SeleccionarPersona.idPersonaT;
+            int idAgente = SeleccionarPersona.idPersonaA;
+            int? idCliente = SeleccionarPersona.idPersonaC;
+            DateTime solicitud = datePickerFechaSolicitud.Value;
+            string observaciones = richTextBox1.Text;
+
+            string estado = textBoxEstatus.Text;
+            bool registroChek = checkBox1.Checked;
+            string registro = txtRegistro.Text;
+            DateTime fecha_registro = dateTimePFecha_Registro.Value;
+            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+
+            // Validaciones
+            if (idTitular <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN TITULAR VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (idAgente <= 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (idCliente <= 0)
+            {
+                idCliente = null;
+                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //return;
+            }
+
+            // Validar campos 
+            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
+            {
+                return;
+            }
+
+            // Editar la marca
+            try
+            {
+
+
+
+                bool esActualizado;
+
+                // Verificar si la marca está registrada
+                if (registroChek)
+                {
+                    esActualizado = marcaModel.EditMarcaNacionalRegistrada(
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, null, null, idCliente);
+                }
+                else
+                {
+                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                }
+
+                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
+
+                if (esActualizado)
+                {
+
+                    if (esActualizado)
+                    {
+
+                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                        {
+                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            SeleccionarMarca.idN = 0;
+                            tabControl1.SelectedTab = tabPageAbandonadasList;
+                        }
+                        else
+                        {
+
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            SeleccionarMarca.idN = 0;
+                            tabControl1.SelectedTab = tabPageAbandonadasList;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                LimpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LimpiarFormulario();
+            }
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+        }
+
+        private void iconButton10_Click(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaInternacional();
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
     }
 }

@@ -206,7 +206,7 @@
             // panel22
             // 
             panel22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel22.Location = new Point(279, 787);
+            panel22.Location = new Point(258, 787);
             panel22.Name = "panel22";
             panel22.Size = new Size(130, 27);
             panel22.TabIndex = 222;
@@ -224,7 +224,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(560, 750);
+            btnLast.Location = new Point(539, 750);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 31);
             btnLast.TabIndex = 226;
@@ -245,7 +245,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(450, 749);
+            btnNext.Location = new Point(429, 749);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 31);
             btnNext.TabIndex = 225;
@@ -266,7 +266,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(340, 750);
+            btnPrev.Location = new Point(319, 750);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 31);
             btnPrev.TabIndex = 224;
@@ -287,7 +287,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(230, 750);
+            btnFirst.Location = new Point(209, 750);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 31);
             btnFirst.TabIndex = 223;
@@ -300,7 +300,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(629, 184);
+            lblTotalPages.Location = new Point(608, 184);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(17, 20);
             lblTotalPages.TabIndex = 221;
@@ -311,7 +311,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 9F);
-            label1.Location = new Point(594, 184);
+            label1.Location = new Point(573, 184);
             label1.Name = "label1";
             label1.Size = new Size(29, 20);
             label1.TabIndex = 220;
@@ -322,7 +322,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(560, 184);
+            lblCurrentPage.Location = new Point(539, 184);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(17, 20);
             lblCurrentPage.TabIndex = 219;
@@ -343,7 +343,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(494, 184);
+            label2.Location = new Point(473, 184);
             label2.Name = "label2";
             label2.Size = new Size(60, 20);
             label2.TabIndex = 217;
@@ -369,7 +369,7 @@
             panel20.Controls.Add(roundedButton3);
             panel20.Location = new Point(8, 99);
             panel20.Name = "panel20";
-            panel20.Size = new Size(836, 73);
+            panel20.Size = new Size(815, 73);
             panel20.TabIndex = 175;
             // 
             // label10
@@ -378,7 +378,7 @@
             label10.AutoSize = true;
             label10.BackColor = Color.FromArgb(236, 236, 238);
             label10.Font = new Font("Century Gothic", 9F);
-            label10.Location = new Point(118, 6);
+            label10.Location = new Point(107, 6);
             label10.Name = "label10";
             label10.Size = new Size(148, 20);
             label10.TabIndex = 222;
@@ -394,7 +394,7 @@
             iconButton6.IconColor = Color.Black;
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 25;
-            iconButton6.Location = new Point(425, 29);
+            iconButton6.Location = new Point(414, 29);
             iconButton6.Name = "iconButton6";
             iconButton6.Size = new Size(26, 32);
             iconButton6.TabIndex = 23;
@@ -405,7 +405,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 12F);
-            txtBuscar.Location = new Point(118, 29);
+            txtBuscar.Location = new Point(107, 29);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 32);
             txtBuscar.TabIndex = 1;
@@ -423,7 +423,7 @@
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 30;
-            ibtnBuscar.Location = new Point(457, 17);
+            ibtnBuscar.Location = new Point(446, 17);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 44);
             ibtnBuscar.TabIndex = 16;
@@ -444,7 +444,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(79, 6);
+            roundedButton3.Location = new Point(68, 6);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(560, 61);
             roundedButton3.TabIndex = 22;
@@ -460,7 +460,7 @@
             panel12.Controls.Add(panel14);
             panel12.Location = new Point(3, 3);
             panel12.Name = "panel12";
-            panel12.Size = new Size(841, 49);
+            panel12.Size = new Size(820, 49);
             panel12.TabIndex = 174;
             // 
             // panel13
@@ -556,7 +556,7 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
-            iconButton3.Location = new Point(670, 262);
+            iconButton3.Location = new Point(649, 262);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(174, 49);
             iconButton3.TabIndex = 48;
@@ -577,7 +577,7 @@
             ibtnEditar.IconColor = Color.White;
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
-            ibtnEditar.Location = new Point(670, 207);
+            ibtnEditar.Location = new Point(649, 207);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(174, 49);
             ibtnEditar.TabIndex = 46;
@@ -593,7 +593,7 @@
             panel4.Controls.Add(dtgMarcasRenov);
             panel4.Location = new Point(26, 207);
             panel4.Name = "panel4";
-            panel4.Size = new Size(638, 533);
+            panel4.Size = new Size(617, 533);
             panel4.TabIndex = 45;
             // 
             // dtgMarcasRenov
@@ -641,7 +641,7 @@
             dtgMarcasRenov.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgMarcasRenov.RowHeadersWidth = 51;
             dtgMarcasRenov.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgMarcasRenov.Size = new Size(617, 512);
+            dtgMarcasRenov.Size = new Size(596, 512);
             dtgMarcasRenov.TabIndex = 29;
             dtgMarcasRenov.CellDoubleClick += dtgMarcasRenov_CellDoubleClick;
             // 
@@ -905,6 +905,7 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(632, 94);
             panel11.TabIndex = 151;
+            panel11.Paint += panel11_Paint;
             // 
             // iconButton1
             // 

@@ -325,6 +325,17 @@ namespace Presentacion.Patentes
         private void txtExpediente_TextChanged(object sender, EventArgs e)
         {
         }
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
@@ -378,7 +389,17 @@ namespace Presentacion.Patentes
 
         private void btnGuardarM_Click(object sender, EventArgs e)
         {
-            IngresarPatente();
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+
+                IngresarPatente();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)

@@ -588,7 +588,7 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -597,7 +597,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageRegistradasList)
             {
-                LoadMarcas();
+                await LoadMarcas();
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -608,6 +608,7 @@ namespace Presentacion.Marcas_Internacionales
                 CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRegistradasList);
             }
         }
         public void Editar()
@@ -617,6 +618,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageRegistradasList);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
         }
@@ -1010,38 +1012,77 @@ namespace Presentacion.Marcas_Internacionales
             Editar();
         }
 
-        private void iconButton1_Click_1(object sender, EventArgs e)
+        public void VerificarDatosRegistro()
         {
-            ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
+        private async void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaInternacional();
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                await LoadMarcas();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-            FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
-            frmAgregarConcesion.ShowDialog();
-
-            if (AgregarRenovacion.renovacionTerminada == true)
-            {
-                LimpiarFormulario();
-                AgregarRenovacion.renovacionTerminada = false;
-                tabControl1.SelectedTab = tabPageRegistradasList;
-                FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.Show();
-
-            }
-        }
-
-        private void iconButton4_Click_1(object sender, EventArgs e)
-        {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();
+                frmAgregarConcesion.ShowDialog();
+
+                if (AgregarRenovacion.renovacionTerminada == true)
                 {
+                    LimpiarFormulario();
+                    AgregarRenovacion.renovacionTerminada = false;
+                    AnadirTabPage(tabPageRegistradasList);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.Show();
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
+        }
+
+        private async void iconButton4_Click_1(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
+                {
+                    ActualizarMarcaInternacional();
+                }
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                await LoadMarcas();
                     tabControl1.SelectedTab = tabPageRegistradasList;
-                }
             }
             else
             {
