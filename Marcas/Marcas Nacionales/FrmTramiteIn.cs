@@ -453,18 +453,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro == true)
             {
-                
+                FrmAlerta alerta = new FrmAlerta("LA MARCA NO FUE INGRESADA", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("NO SE GUARDARON LOS DATOS DE LA MARCA", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                DatosRegistro.peligro = false;
+
             }
             LimpiarFormulario();
+            DatosRegistro.peligro = false;
+            //llamar a DashboardPrincipal
             _form1.cargarDashboard();
 
         }
@@ -506,7 +506,6 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 DatosRegistro.peligro = false;
-
             }
         }
 

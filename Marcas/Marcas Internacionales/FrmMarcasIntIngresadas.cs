@@ -826,8 +826,18 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadHistorialById();
-            AnadirTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadHistorialById();
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -1075,13 +1085,16 @@ namespace Presentacion.Marcas_Internacionales
             filtrar();
         }
 
-        private void iconButton4_Click_1(object sender, EventArgs e)
+        private async void iconButton4_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaInternacional();
                 EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageIngresadasList);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+                await LoadMarcas();
             }
             else
             {
@@ -1091,8 +1104,9 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton2_Click_1(object sender, EventArgs e)
+        private async void iconButton2_Click_1(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 //Enviar a oposicion
@@ -1106,7 +1120,9 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageIngresadasList);
                     tabControl1.SelectedTab = tabPageIngresadasList;
+                    await LoadMarcas();
                     FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
@@ -1119,7 +1135,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton5_Click_1(object sender, EventArgs e)
+        private async void iconButton5_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
@@ -1132,7 +1148,8 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 AnadirTabPage(tabPageIngresadasList);
-
+                tabControl1.SelectedTab = tabPageIngresadasList;
+                await LoadMarcas();
 
 
             }

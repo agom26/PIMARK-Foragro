@@ -412,6 +412,7 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
+                        AnadirTabPage(tabPageRegistradasList);
                         tabControl1.SelectedTab = tabPageRegistradasList;
                     }
 
@@ -828,6 +829,8 @@ namespace Presentacion.Marcas_Nacionales
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
+                EliminarTabPage(tabPageRegistradasList);
+
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -1552,21 +1555,47 @@ namespace Presentacion.Marcas_Nacionales
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
 
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
         private void btnActualizarM_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaNacional();
-            EliminarTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaNacional();
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+
+            }
+            else{
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text != "Registrada")
                 {
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageRegistradasList);
                     tabControl1.SelectedTab = tabPageRegistradasList;
+                    
                 }
                 else
                 {
@@ -1577,6 +1606,7 @@ namespace Presentacion.Marcas_Nacionales
                    
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageRegistradasList);
                     tabControl1.SelectedTab = tabPageRegistradasList;
                 }
             }

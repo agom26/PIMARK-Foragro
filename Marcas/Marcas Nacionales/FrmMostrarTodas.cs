@@ -655,6 +655,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 tabControl1.Visible = false;
                 await CargarDatosMarca();
+                EliminarTabPage(tabPageListaMarcas);
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
                 tabControl1.Visible = true;
@@ -824,8 +825,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click_1(object sender, EventArgs e)
         {
-            loadHistorialById();
-            AnadirTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadHistorialById();
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1107,10 +1118,14 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnActualizarM_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 await ActualizarMarcaNacional();
                 EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageListaMarcas);
+                tabControl1.SelectedTab = tabPageListaMarcas;
+                await LoadMarcas();
             }
             else
             {
@@ -1122,21 +1137,24 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if (checkBox1.Checked)
                 {
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageListaMarcas;
+                    if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
+                    {
+                        await ActualizarMarcaNacional();
+                    }
                 }
-                else
-                {
-                    await ActualizarMarcaNacional();
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageListaMarcas;
-                }
+              
+
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageListaMarcas);
+                tabControl1.SelectedTab = tabPageListaMarcas;
+                await LoadMarcas();
+
             }
             else
             {
@@ -1163,6 +1181,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click_2(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 //Enviar a oposicion
@@ -1175,6 +1194,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageListaMarcas);
                     tabControl1.SelectedTab = tabPageListaMarcas;
                     FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();

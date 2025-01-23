@@ -1040,13 +1040,16 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton1_Click_2(object sender, EventArgs e)
+        private async void iconButton1_Click_2(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaInternacional();
                 EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                tabControl1.SelectedTab= tabPageRegistradasList;
+                await LoadMarcas();
             }
             else
             {
@@ -1174,8 +1177,18 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton6_Click_1(object sender, EventArgs e)
         {
-            loadHistorialById();
-            AnadirTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadHistorialById();
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void dtgHistorialR_CellContentClick(object sender, DataGridViewCellEventArgs e)
