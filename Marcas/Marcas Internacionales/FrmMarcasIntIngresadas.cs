@@ -1080,6 +1080,18 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
+        public void VerificarDatosIngresados()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(SeleccionarMarca.registro) || string.IsNullOrEmpty(SeleccionarMarca.libro) || string.IsNullOrEmpty(SeleccionarMarca.folio)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
             filtrar();
@@ -1138,6 +1150,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+            VerificarDatosIngresados();
             if (DatosRegistro.peligro == false)
             {
                 if (textBoxEstatus.Text == "Registrada")

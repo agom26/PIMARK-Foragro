@@ -1098,10 +1098,22 @@ namespace Presentacion.Patentes
             }
             
         }
+        public void VerificarDatosIngresados()
+        {
+            if (checkBox2.Checked == true && (string.IsNullOrEmpty(SeleccionarPatente.registro) || string.IsNullOrEmpty(SeleccionarPatente.libro) || string.IsNullOrEmpty(SeleccionarPatente.folio)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
 
         private async void iconButton2_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+            VerificarDatosIngresados();
             if (DatosRegistro.peligro == false)
             {
                 if (checkBox2.Checked == true)

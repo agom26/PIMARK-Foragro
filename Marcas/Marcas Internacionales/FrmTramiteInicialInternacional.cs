@@ -441,6 +441,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void iconButton4_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                

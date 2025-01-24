@@ -1134,10 +1134,21 @@ namespace Presentacion.Marcas_Nacionales
             }
             
         }
-
+        public void VerificarDatosIngresados()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(SeleccionarMarca.registro) || string.IsNullOrEmpty(SeleccionarMarca.libro) || string.IsNullOrEmpty(SeleccionarMarca.folio)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+            VerificarDatosIngresados();
             if (DatosRegistro.peligro == false)
             {
                 if (checkBox1.Checked)

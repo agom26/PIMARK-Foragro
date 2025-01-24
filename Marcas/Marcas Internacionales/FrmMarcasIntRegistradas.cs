@@ -1426,32 +1426,33 @@ namespace Presentacion.Marcas_Internacionales
             }
             
         }
-
+        public void VerificarDatosIngresados()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(SeleccionarMarca.registro) || string.IsNullOrEmpty(SeleccionarMarca.libro) || string.IsNullOrEmpty(SeleccionarMarca.folio)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private async void iconButton13_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
                 {
-
-                    AnadirTabPage(tabPageRegistradasList);
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    await LoadMarcas();
+                    ActualizarMarcaInternacional();
                 }
-                else
-                {
-                    if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio!= txtFolio.Text || SeleccionarMarca.libro!= txtLibro.Text)
-                    {
-                        ActualizarMarcaInternacional();
-                    }
 
-                    AnadirTabPage(tabPageRegistradasList);
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    await LoadMarcas();
-                }
+                AnadirTabPage(tabPageRegistradasList);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                await LoadMarcas();
+
 
             }
             else
