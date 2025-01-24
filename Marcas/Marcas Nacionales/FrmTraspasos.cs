@@ -963,7 +963,17 @@ namespace Presentacion.Marcas_Nacionales
 
 
         }
-
+        public void VerificarDatosRegistro()
+        {
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabPageMarcaDetail;
@@ -971,8 +981,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnActualizarM_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaNacional();
-            EliminarTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                ActualizarMarcaNacional();
+                EliminarTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton1_Click_1(object sender, EventArgs e)
@@ -996,14 +1016,19 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.libro!=txtLibro.Text || SeleccionarMarca.folio != txtFolio.Text)
                 {
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    ActualizarMarcaNacional();
                 }
+
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                tabControl1.SelectedTab = tabPageRegistradasList;
+
             }
             else
             {

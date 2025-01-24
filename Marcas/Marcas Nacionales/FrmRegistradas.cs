@@ -981,8 +981,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadRenovacionesById();
-            AnadirTabPage(tabPageRenovacionesList);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadRenovacionesById();
+                AnadirTabPage(tabPageRenovacionesList);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -1246,8 +1256,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void roundedButton8_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => loadHistorialById());
-            AnadirTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                await Task.Run(() => loadHistorialById());
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton5_Click_1(object sender, EventArgs e)
@@ -1398,8 +1418,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton9_Click(object sender, EventArgs e)
         {
-            loadTraspasosById();
-            AnadirTabPage(tabPageTraspasosList);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadTraspasosById();
+                AnadirTabPage(tabPageTraspasosList);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         public void EditarTraspaso()
@@ -1567,7 +1597,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnActualizarM_Click(object sender, EventArgs e)
+        private async void btnActualizarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
@@ -1575,6 +1605,7 @@ namespace Presentacion.Marcas_Nacionales
                 ActualizarMarcaNacional();
                 EliminarTabPage(tabPageHistorialMarca);
                 AnadirTabPage(tabPageRegistradasList);
+                await LoadMarcas();
 
             }
             else{
@@ -1584,31 +1615,21 @@ namespace Presentacion.Marcas_Nacionales
             
         }
 
-        private void btnCancelarM_Click(object sender, EventArgs e)
+        private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
                 {
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    AnadirTabPage(tabPageRegistradasList);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
-                    
+                    ActualizarMarcaNacional();
                 }
-                else
-                {
-                    if(SeleccionarMarca.registro!=txtRegistro.Text || SeleccionarMarca.folio!= txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
-                    {
-                        ActualizarMarcaNacional();
-                    }
-                   
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    AnadirTabPage(tabPageRegistradasList);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
-                }
+
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageRegistradasList);
+                tabControl1.SelectedTab = tabPageRegistradasList;
+                await LoadMarcas();
             }
             else
             {

@@ -415,7 +415,7 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        public void EditarPatente()
+        public async void EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -524,7 +524,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -543,7 +545,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -676,9 +680,11 @@ namespace Presentacion.Patentes
             {
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageIngresadasList);
+
             }
         }
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private void ibtnEditar_Click(object sender, EventArgs e)
         {
             Editar();
         }
@@ -688,7 +694,7 @@ namespace Presentacion.Patentes
 
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -697,7 +703,8 @@ namespace Presentacion.Patentes
             }
             else if (tabControl1.SelectedTab == tabPageIngresadasList)
             {
-                LoadPatentes();
+                AnadirTabPage(tabPageIngresadasList);
+                await LoadPatentes();
                 SeleccionarPatente.id = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
@@ -706,16 +713,26 @@ namespace Presentacion.Patentes
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
-                CargarDatosPatente();
+                await CargarDatosPatente();
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageIngresadasList);
             }
         }
 
         private async void roundedButton8_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => loadHistorialById());
-            AnadirTabPage(tabPageHistorialMarca);
+            if (DatosRegistro.peligro == false)
+            {
+                await Task.Run(() => loadHistorialById());
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
@@ -1068,9 +1085,11 @@ namespace Presentacion.Patentes
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 EditarPatente();
+
             }
             else
             {
@@ -1080,17 +1099,26 @@ namespace Presentacion.Patentes
             
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private async void iconButton2_Click(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if (checkBox2.Checked == true)
                 {
+                    if (SeleccionarPatente.registro != txtRegistro.Text || SeleccionarPatente.folio != txtFolio.Text || SeleccionarPatente.libro != txtLibro.Text)
+                    {
+                        EditarPatente();
+                    }
+                }
+               
                     LimpiarFomulario();
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageIngresadasList);
                     tabControl1.SelectedTab = tabPageIngresadasList;
-                }
+                DatosRegistro.peligro = false;
+                    await LoadPatentes();
             }
             else
             {

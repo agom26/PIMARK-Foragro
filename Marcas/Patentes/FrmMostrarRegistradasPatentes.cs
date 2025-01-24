@@ -304,12 +304,12 @@ namespace Presentacion.Patentes
                                 dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
                                 dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
                             }
-                            checkBox1.Checked = true;
+                            checkBox2.Checked = true;
                             mostrarPanelRegistro("si");
                         }
                         else
                         {
-                            checkBox1.Checked = false;
+                            checkBox2.Checked = false;
                             mostrarPanelRegistro("no");
                         }
                     }
@@ -417,11 +417,11 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
-            checkBox1.Checked = false;
+            checkBox2.Checked = false;
             checkBox2.Checked = false;
         }
 
-        public void EditarPatente()
+        public async void EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -436,7 +436,7 @@ namespace Presentacion.Patentes
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string pct = "no";
             string estado = textBoxEstatus.Text;
-            bool registroChek = checkBox1.Checked;
+            bool registroChek = checkBox2.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
@@ -547,7 +547,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -566,7 +568,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -764,6 +768,7 @@ namespace Presentacion.Patentes
             {
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageIngresadasList);
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -830,8 +835,18 @@ namespace Presentacion.Patentes
 
         private async void roundedButton8_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => loadHistorialById());
-            AnadirTabPage(tabPageHistorialMarca);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                await Task.Run(() => loadHistorialById());
+                AnadirTabPage(tabPageHistorialMarca);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
@@ -1006,7 +1021,7 @@ namespace Presentacion.Patentes
         }
         public void VerificarDatosRegistro()
         {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            if (checkBox2.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
             {
                 DatosRegistro.peligro = true;
             }
@@ -1031,13 +1046,13 @@ namespace Presentacion.Patentes
 
                     if (AgregarEtapaPatente.etapa == "Registro/concesión" || AgregarEtapaPatente.etapa == "Trámite de renovación" || AgregarEtapaPatente.etapa == "Trámite de traspaso")
                     {
-                        checkBox1.Checked = true;
+                        checkBox2.Checked = true;
                         mostrarPanelRegistro("si");
                         VerificarDatosRegistro();
                     }
                     else
                     {
-                        checkBox1.Checked = false;
+                        checkBox2.Checked = false;
                         mostrarPanelRegistro("no");
                     }
                     await refrescarMarca();
@@ -1094,8 +1109,18 @@ namespace Presentacion.Patentes
 
         private void roundedButton10_Click(object sender, EventArgs e)
         {
-            loadRenovacionesById();
-            AnadirTabPage(tabPageRenovacionesList);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadRenovacionesById();
+                AnadirTabPage(tabPageRenovacionesList);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+           
         }
 
         private void iconButton8_Click(object sender, EventArgs e)
@@ -1195,8 +1220,18 @@ namespace Presentacion.Patentes
 
         private void roundedButton9_Click(object sender, EventArgs e)
         {
-            loadTraspasosById();
-            AnadirTabPage(tabPageTraspasosList);
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                loadTraspasosById();
+                AnadirTabPage(tabPageTraspasosList);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+            
         }
 
         private void btnEditarTraspaso_Click(object sender, EventArgs e)
@@ -1436,18 +1471,23 @@ namespace Presentacion.Patentes
            
         }
 
-        private void iconButton11_Click(object sender, EventArgs e)
+        private async void iconButton11_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if(SeleccionarPatente.registro!=txtRegistro.Text || SeleccionarPatente.folio!= txtFolio.Text || SeleccionarPatente.libro != txtLibro.Text)
                 {
+                    EditarPatente() ;
+                }
+
                     LimpiarFomulario();
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageIngresadasList);
                     tabControl1.SelectedTab = tabPageIngresadasList;
-                }
+                DatosRegistro.peligro = false;
+                await LoadPatentes();
             }
             else
             {

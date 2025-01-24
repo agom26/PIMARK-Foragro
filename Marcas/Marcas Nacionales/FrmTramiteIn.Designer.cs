@@ -410,7 +410,6 @@
             roundedButton4.BorderRadius = 40;
             roundedButton4.BorderSize = 0;
             roundedButton4.Dock = DockStyle.Fill;
-            roundedButton4.Enabled = false;
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.Font = new Font("Century Gothic", 9F);
@@ -457,7 +456,6 @@
             roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
             roundedButton5.BorderRadius = 40;
             roundedButton5.BorderSize = 0;
-            roundedButton5.Enabled = false;
             roundedButton5.FlatAppearance.BorderSize = 0;
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.Font = new Font("Century Gothic", 9F);

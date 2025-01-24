@@ -407,17 +407,24 @@ namespace Presentacion.Patentes
             LimpiarFomulario();
         }
 
+
         private void btnCancelarM_Click_1(object sender, EventArgs e)
         {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
+
                 LimpiarFomulario();
                 _form1.cargarDashboard();
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DatosRegistro.peligro = false;
+                FrmAlerta alerta = new FrmAlerta("NO SE GUARDARON LOS DATOS DE LA PATENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                LimpiarFomulario();
+                _form1.cargarDashboard();
+               
             }
 
         }

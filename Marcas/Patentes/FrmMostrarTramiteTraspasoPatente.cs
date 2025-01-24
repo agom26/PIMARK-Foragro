@@ -416,7 +416,7 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        public void EditarPatente()
+        public async void EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -542,7 +542,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -561,7 +563,9 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
+                        AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -728,9 +732,11 @@ namespace Presentacion.Patentes
             {
                 await CargarDatosPatente();
                 AnadirTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageIngresadasList);
+
             }
         }
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private  void ibtnEditar_Click(object sender, EventArgs e)
         {
             Editar();
         }
@@ -958,25 +964,44 @@ namespace Presentacion.Patentes
         {
             richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
-
-        private void btnCancelarM_Click(object sender, EventArgs e)
+        public void VerificarDatosRegistro()
         {
+            if (checkBox2.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            {
+                DatosRegistro.peligro = true;
+            }
+            else
+            {
+                DatosRegistro.peligro = false;
+            }
+        }
+        private async void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (textBoxEstatus.Text != "Registrada")
+                if (checkBox2.Checked == true)
                 {
-                    LimpiarFomulario();
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageIngresadasList;
+                    if (SeleccionarPatente.registro != txtRegistro.Text || SeleccionarPatente.folio != txtFolio.Text || SeleccionarPatente.libro != txtLibro.Text)
+                    {
+                        EditarPatente();
+                    }
                 }
+
+                LimpiarFomulario();
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                AnadirTabPage(tabPageIngresadasList);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+                DatosRegistro.peligro = false;
+                await LoadPatentes();
+
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-
 
         }
 
