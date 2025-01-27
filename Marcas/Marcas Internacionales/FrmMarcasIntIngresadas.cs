@@ -655,6 +655,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
+            EliminarTabPage(tabPageListaArchivos);
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
@@ -1537,7 +1538,8 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    MessageBox.Show("El archivo no se descargó correctamente.");
+                    FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO SE DESCARGÓ CORRECTAMENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
                 }
             }
             catch (Exception ex)

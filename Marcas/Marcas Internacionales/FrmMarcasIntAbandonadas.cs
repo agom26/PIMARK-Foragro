@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using FluentFTP;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -28,6 +30,12 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+
+        //ftp
+        private string host = "ftp.bpa.com.es"; // Tu host FTP
+        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
+        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
+        private string directorioBase = "/bpa.com.es/test/marcas/nacionales";
         public FrmMarcasIntAbandonadas()
         {
             InitializeComponent();
@@ -479,11 +487,12 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageRenovacionesList);
             EliminarTabPage(tabPageTraspasosList);
+            EliminarTabPage(tabPageListaArchivos);
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
@@ -494,21 +503,23 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageAbandonadasList)
             {
-                LoadMarcas();
+                await LoadMarcas();
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageListaArchivos);
                 //EliminarTabPage(tabPageHistorialDetalle);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 //EliminarTabPage(tabPageHistorialDetalle);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageListaArchivos);
             }
             else if (tabControl1.SelectedTab == tabPageRenovacionesList)
             {
@@ -1112,6 +1123,291 @@ namespace Presentacion.Marcas_Internacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
+        }
+        private List<string> ListarNombresDeArchivos(string idMarca)
+        {
+            string carpetaMarca = $"{directorioBase}/marca-{idMarca}";
+            var nombresArchivos = new List<string>();
+
+            using (FtpClient cliente = new FtpClient(host))
+            {
+                cliente.Credentials = new NetworkCredential(usuario, contraseña);
+
+                try
+                {
+                    cliente.Connect();
+
+                    // Obtener listado de archivos en el directorio
+                    var listado = cliente.GetListing(carpetaMarca);
+
+                    foreach (var item in listado)
+                    {
+                        if (item.Type == FtpObjectType.File) // Solo archivos
+                        {
+                            nombresArchivos.Add(item.Name); // Agregar solo el nombre del archivo
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al listar archivos: {ex.Message}");
+                }
+                finally
+                {
+                    cliente.Disconnect();
+                }
+            }
+
+            return nombresArchivos;
+        }
+
+        public void ListarArchivosEnGeneral()
+        {
+            try
+            {
+                // Cambiar el cursor global a "WaitCursor"
+                Cursor.Current = Cursors.WaitCursor;
+
+                AnadirTabPage(tabPageListaArchivos);
+                tabControl1.Visible = false;
+
+                string id = "" + SeleccionarMarca.idN;
+                CrearCarpetaMarca(id);
+
+                // Obtener nombres de archivos desde el servidor FTP
+                var nombresArchivos = ListarNombresDeArchivos(id);
+
+                // Limpiar y configurar DataGridView
+                dtgArchivos.DataSource = null;
+                dtgArchivos.Columns.Clear();
+                dtgArchivos.Columns.Add("NombreArchivo", "Nombre del Archivo");
+
+                // Agregar los nombres al DataGridView
+                foreach (var nombre in nombresArchivos)
+                {
+                    dtgArchivos.Rows.Add(nombre);
+                }
+
+                dtgArchivos.ClearSelection();
+                tabControl1.Visible = true;
+            }
+            finally
+            {
+                // Restaurar el cursor global a "Default"
+                Cursor.Current = Cursors.Default;
+            }
+        }
+        private void AbrirArchivoDesdeFtp(string idMarca, string archivoNombre)
+        {
+            string carpeta = $"{directorioBase}/marca-{idMarca}/";
+            string rutaRemota = $"{carpeta}/{archivoNombre}";
+            string rutaLocal = Path.Combine(Path.GetTempPath(), archivoNombre); // Carpeta temporal
+
+            try
+            {
+                using (var cliente = new FtpClient(host, usuario, contraseña))
+                {
+                    cliente.Connect();
+
+                    // Descargar el archivo al directorio temporal
+                    cliente.DownloadFile(rutaLocal, rutaRemota, FtpLocalExists.Overwrite, FtpVerify.None);
+                }
+
+                // Asegúrate de que el archivo existe localmente antes de abrirlo
+                if (File.Exists(rutaLocal))
+                {
+                    // Abre el archivo con la aplicación predeterminada de manera confiable
+                    var process = new System.Diagnostics.Process
+                    {
+                        StartInfo = new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = rutaLocal,
+                            UseShellExecute = true // Importante para manejar rutas complejas
+                        }
+                    };
+                    process.Start();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO SE DESCARGÓ CORRECTAMENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el archivo: {ex.Message}");
+            }
+        }
+
+        public void Abrir()
+        {
+            string idMarca = "" + SeleccionarMarca.idN; // Id de la marca actual
+            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+
+            if (string.IsNullOrEmpty(archivoNombre))
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ARCHIVO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                return;
+            }
+            Cursor.Current = Cursors.WaitCursor;
+            AbrirArchivoDesdeFtp(idMarca, archivoNombre);
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void EliminarArchivoDesdeFtp(string idMarca, string archivoNombre)
+        {
+            string carpeta = $"{directorioBase}/marca-{idMarca}/";
+            string rutaRemota = $"{carpeta}/{archivoNombre}";
+
+            try
+            {
+                using (var cliente = new FtpClient(host, usuario, contraseña))
+                {
+                    cliente.Connect();
+
+                    // Verifica si el archivo existe antes de intentar eliminarlo
+                    if (cliente.FileExists(rutaRemota))
+                    {
+                        cliente.DeleteFile(rutaRemota);
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO ELIMINADO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO EXISTE EN EL SERVIDOR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL ELIMINAR EL ARCHIVO: " + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        public void Eliminar()
+        {
+            string idMarca = "" + SeleccionarMarca.idN; // Id de la marca actual
+            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+
+            if (string.IsNullOrEmpty(archivoNombre))
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ARCHIVO A ELIMINAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                return;
+            }
+
+            FrmAlerta alerta2 = new FrmAlerta($"¿ESTÁ SEGURO DE ELIMINAR EL ARCHIVO \"{archivoNombre}\"?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            var confirmacion = alerta2.ShowDialog();
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                EliminarArchivoDesdeFtp(idMarca, archivoNombre);
+
+                // Actualizar la lista de archivos en el DataGridView
+                ListarArchivosEnGeneral();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        public void CrearCarpetaMarca(string idMarca)
+        {
+            string carpetaMarca = $"{directorioBase}/marca-{idMarca}"; // Ruta completa para la carpeta de la marca
+
+            using (FtpClient cliente = new FtpClient(host))
+            {
+                cliente.Credentials = new NetworkCredential(usuario, contraseña);
+
+                try
+                {
+                    cliente.Connect(); // Conecta al servidor FTP
+
+                    // Verifica si la carpeta ya existe
+                    if (!cliente.DirectoryExists(carpetaMarca))
+                    {
+                        cliente.CreateDirectory(carpetaMarca); // Crea la carpeta
+                        //MessageBox.Show($"Carpeta creada exitosamente: {carpetaMarca}");
+                    }
+                    else
+                    {
+                        //MessageBox.Show($"La carpeta ya existe: {carpetaMarca}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
+                }
+                finally
+                {
+                    cliente.Disconnect(); // Desconecta del servidor FTP
+                }
+            }
+        }
+        private void SubirArchivo(string idMarca)
+        {
+            string carpeta = $"{directorioBase}/marca-{idMarca}/";
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor cursor = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = Path.GetFileName(archivoLocal1);
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                }
+                Cursor cursor1 = Cursors.Default;
+            }
+        }
+        private void roundedButton1_Click_1(object sender, EventArgs e)
+        {
+            ListarArchivosEnGeneral();
+        }
+
+        private void iconButton10_Click_1(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageMarcaDetail;
+        }
+
+        private void iconButton12_Click(object sender, EventArgs e)
+        {
+            Abrir();
+        }
+
+        private void dtgArchivos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Abrir();
         }
     }
 }
