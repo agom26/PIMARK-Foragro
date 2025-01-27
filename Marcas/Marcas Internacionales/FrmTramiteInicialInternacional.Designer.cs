@@ -81,6 +81,7 @@
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             panel17 = new Panel();
             roundedButton5 = new Clases.RoundedButton();
+            btnSubirTitulo = new Clases.RoundedButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -461,6 +462,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnSubirTitulo);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
@@ -765,6 +767,25 @@
             roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton5.UseVisualStyleBackColor = false;
             // 
+            // btnSubirTitulo
+            // 
+            btnSubirTitulo.BackColor = Color.LightSteelBlue;
+            btnSubirTitulo.BackgroundColor = Color.LightSteelBlue;
+            btnSubirTitulo.BorderColor = Color.LightSteelBlue;
+            btnSubirTitulo.BorderRadius = 40;
+            btnSubirTitulo.BorderSize = 0;
+            btnSubirTitulo.FlatAppearance.BorderSize = 0;
+            btnSubirTitulo.FlatStyle = FlatStyle.Flat;
+            btnSubirTitulo.Font = new Font("Century Gothic", 9F);
+            btnSubirTitulo.ForeColor = Color.Black;
+            btnSubirTitulo.Location = new Point(763, 676);
+            btnSubirTitulo.Name = "btnSubirTitulo";
+            btnSubirTitulo.Size = new Size(276, 56);
+            btnSubirTitulo.TabIndex = 179;
+            btnSubirTitulo.Text = "SUBIR TíTULO";
+            btnSubirTitulo.TextColor = Color.Black;
+            btnSubirTitulo.UseVisualStyleBackColor = false;
+            // 
             // FrmTramiteInicialInternacional
             // 
             AutoScaleDimensions = new SizeF(12F, 23F);
@@ -852,5 +873,6 @@
         private Panel panel3;
         private Panel panel17;
         private Clases.RoundedButton roundedButton5;
+        private Clases.RoundedButton btnSubirTitulo;
     }
 }

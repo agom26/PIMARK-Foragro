@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -134,7 +135,33 @@ namespace Presentacion.Marcas_Internacionales
             return true; // Todas las validaciones pasaron
         }
 
-        public void GuardarMarcaInter()
+        //crear carpeta en ftp
+        
+
+    private void CrearCarpetaEnFTP(string idMarca)
+    {
+        string ftpUrl = "ftp://bpa.com.es/test/marcas/nacionales/marca-" + idMarca; // Ruta en tu servidor FTP
+        string usuario = "test@bpa.com.es"; // Usuario FTP
+        string contraseña = "2O1VsAbUGbUo"; // Contraseña FTP
+
+        FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+        request.Method = WebRequestMethods.Ftp.MakeDirectory;
+        request.Credentials = new NetworkCredential(usuario, contraseña);
+
+        try
+        {
+            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+            {
+                MessageBox.Show($"Carpeta creada exitosamente: {response.StatusDescription}");
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
+        }
+    }
+
+    public void GuardarMarcaInter()
         {
             // Recolectar valores de los controles
             string expediente = txtExpediente.Text;
@@ -209,6 +236,8 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
+                    CrearCarpetaEnFTP(SeleccionarMarca.idN+"");
+
                     FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Marca internacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
