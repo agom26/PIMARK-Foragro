@@ -236,7 +236,6 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
-                    CrearCarpetaEnFTP(SeleccionarMarca.idN+"");
 
                     FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
