@@ -34,6 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        bool agregoEstado=false;
 
         private const int pageSize2 = 20;
         private int currentPageIndex2 = 1;
@@ -1218,6 +1219,24 @@ namespace Presentacion.Marcas_Internacionales
             {
                 bool actualizado = false;
 
+                if (agregoEstado == true)
+                {
+                    if (SeleccionarOposicion.idMarca == 0)
+                    {
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                            AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
+                            );
+                    }
+                    else
+                    {
+                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                           AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
+                           AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                    }
+                    agregoEstado = false;
+                }
+
                 if (SeleccionarOposicion.idSolicitante != 0)
                 {
                     actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idN, expediente, signo_pretendido, signoDistintivo, clase,
@@ -1645,15 +1664,19 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         try
                         {
+                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
+                            
+                            /*
                             HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                             historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
                                 AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
                                 );
-
+                            */
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
 
-                            await recargarDatosOposicion();
+                            //await recargarDatosOposicion();
+                            agregoEstado = true;
                         }
                         catch (Exception ex)
                         {
@@ -1674,12 +1697,15 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         if (AgregarEtapaOposicion.etapa != "")
                         {
+                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
+                            /*
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                             AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");*/
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
-                            await recargarDatosOposicion();
+                            agregoEstado = true;
+                            //await recargarDatosOposicion();
                         }
                         else
                         {
