@@ -1111,27 +1111,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
-            {
-                if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
-                {
-                    ActualizarMarcaInternacional();
-                }
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                tabControl1.SelectedTab = tabPageRegistradasList;
-                await LoadMarcas();
-
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
-
-
+            DatosRegistro.peligro = false;
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageRegistradasList);
+            tabControl1.SelectedTab = tabPageRegistradasList;
+            await LoadMarcas();
         }
 
         private void label6_Click(object sender, EventArgs e)
