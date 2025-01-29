@@ -718,6 +718,7 @@ namespace Presentacion.Patentes
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageListaArchivos);
 
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
@@ -726,6 +727,7 @@ namespace Presentacion.Patentes
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageIngresadasList);
+                EliminarTabPage(tabPageListaArchivos);
             }
         }
 
