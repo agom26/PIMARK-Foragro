@@ -512,7 +512,11 @@ namespace Presentacion.Marcas_Nacionales
 
                         checkBoxTienePoder.Checked = SeleccionarMarca.tiene_poder.Equals("si", StringComparison.OrdinalIgnoreCase);
 
-
+                        if (row["logo"] is DBNull)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
 
@@ -1170,7 +1174,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-
+            DatosRegistro.peligro = false;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageListaMarcas);

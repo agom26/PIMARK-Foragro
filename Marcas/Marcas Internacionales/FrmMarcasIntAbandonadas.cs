@@ -236,6 +236,14 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxTipoSigno.SelectedIndex = -1;
         }
 
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         private async Task CargarDatosMarca()
         {
             try
@@ -310,7 +318,11 @@ namespace Presentacion.Marcas_Internacionales
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
-
+                        if (row["logo"] is DBNull)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
@@ -464,12 +476,12 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void Ver()
+        public async void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
-                CargarDatosMarca();
+                await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
                 tabControl1.SelectedTab = tabPageMarcaDetail;
             }
