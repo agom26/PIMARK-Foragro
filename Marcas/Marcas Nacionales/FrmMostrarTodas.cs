@@ -33,6 +33,7 @@ namespace Presentacion.Marcas_Nacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        bool agregoEstado = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -356,6 +357,13 @@ namespace Presentacion.Marcas_Nacionales
 
             try
             {
+                if (agregoEstado == true)
+                {
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    agregoEstado = false;
+
+                }
+
                 // Actualizar la marca con tipo
                 bool esActualizado = registroChek ?
                     marcaModel.EditMarcaInternacionalRegistrada(
@@ -706,7 +714,10 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    agregoEstado = true;
+                    richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+                    textBoxEstatus.Text = AgregarEtapa.etapa;
+                    //historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -719,7 +730,7 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                     }
                     mostrarPanelRegistro();
-                    await refrescarMarca();
+                    //await refrescarMarca();
                     VerificarDatosRegistro();
                 }
                 catch (Exception ex)
@@ -1159,32 +1170,12 @@ namespace Presentacion.Marcas_Nacionales
         }
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            VerificarDatosIngresados();
-            if (DatosRegistro.peligro == false)
-            {
-                if (checkBox1.Checked)
-                {
-                    if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.folio != txtFolio.Text || SeleccionarMarca.libro != txtLibro.Text)
-                    {
-                        await ActualizarMarcaNacional();
-                    }
-                }
 
-
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageListaMarcas);
-                tabControl1.SelectedTab = tabPageListaMarcas;
-                await LoadMarcas();
-
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
-
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageListaMarcas);
+            tabControl1.SelectedTab = tabPageListaMarcas;
+            await LoadMarcas();
         }
 
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
