@@ -671,9 +671,6 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-           
-
                 if (tabControl1.SelectedTab == tabPageHistorialMarca)
                 {
                     loadHistorialById();
