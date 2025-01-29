@@ -476,6 +476,7 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show("Error al cargar los traspasos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         public async void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
