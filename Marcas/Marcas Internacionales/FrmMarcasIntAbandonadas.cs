@@ -790,14 +790,15 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     try
                     {
+
                         agregoEstado = true;
-                        richTextBox1.Text += AgregarEtapa.anotaciones;
-                        
+                        richTextBox1.Text += "\n"+AgregarEtapa.anotaciones;
+                        textBoxEstatus.Text = AgregarEtapa.etapa;
                         //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                         FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
 
-                        if (AgregarEtapa.etapa == "Registrada")
+                        if (AgregarEtapa.etapa == "Registrada" || AgregarEtapa.etapa == "Trámite de renovación" || AgregarEtapa.etapa == "Trámite de traspaso")
                         {
                             checkBox1.Checked = true;
                             mostrarPanelRegistro("si");
@@ -808,6 +809,46 @@ namespace Presentacion.Marcas_Internacionales
                             txtLibro.Enabled = true;
                             txtLibro.ReadOnly = false;
                             dateTimePFecha_Registro.Enabled = true;
+
+                            if (AgregarEtapa.etapa == "Trámite de renovación")
+                            {
+                                txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
+                                txtERenovacion.Enabled = true;
+                               
+                                /* try
+                                 {
+                                     marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
+                                 }
+                                 catch (Exception ex)
+                                 {
+                                     FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                     alerta2.ShowDialog();
+
+                                 }*/
+
+                            }
+                            else if (AgregarEtapa.etapa == "Trámite de traspaso")
+                            {
+                                txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
+                                txtETraspaso.Enabled = true;
+                               
+                                /*
+                                try
+                                {
+                                    marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "traspaso");
+                                }
+                                catch (Exception ex)
+                                {
+                                    FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    alerta2.ShowDialog();
+
+                                }*/
+                            }
+                            else
+                            {
+                                txtERenovacion.Enabled = false;
+                                txtETraspaso.Enabled = false;
+                            }
                         }
                         else
                         {
@@ -825,47 +866,7 @@ namespace Presentacion.Marcas_Internacionales
                         //await CargarDatosMarca();
 
 
-                        if (AgregarEtapa.etapa == "Trámite de renovación")
-                        {
-                            txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
-                            txtERenovacion.Enabled = true;
-                            agregoEstado = true;
-                            richTextBox1.Text += AgregarEtapa.anotaciones;
-                            /* try
-                             {
-                                 marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
-                             }
-                             catch (Exception ex)
-                             {
-                                 FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                 alerta2.ShowDialog();
-
-                             }*/
-
-                        }
-                        else if (AgregarEtapa.etapa == "Trámite de traspaso")
-                        {
-                            txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
-                            txtETraspaso.Enabled = true;
-                            agregoEstado = true;
-                            richTextBox1.Text += AgregarEtapa.anotaciones;
-                            /*
-                            try
-                            {
-                                marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "traspaso");
-                            }
-                            catch (Exception ex)
-                            {
-                                FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                alerta2.ShowDialog();
-
-                            }*/
-                        }
-                        else
-                        {
-                            txtERenovacion.Enabled = false;
-                            txtETraspaso.Enabled = false;
-                        }
+                        
 
 
 
@@ -1012,6 +1013,8 @@ namespace Presentacion.Marcas_Internacionales
             int? idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
+            string erenov = txtERenovacion.Text;
+            string etrasp = txtETraspaso.Text;
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
@@ -1066,7 +1069,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, null, null, idCliente);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,erenov, etrasp, idCliente);
                 }
                 else
                 {
