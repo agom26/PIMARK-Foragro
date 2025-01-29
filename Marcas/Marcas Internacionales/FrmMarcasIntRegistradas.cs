@@ -712,6 +712,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialDetail);
         }
 
+
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
