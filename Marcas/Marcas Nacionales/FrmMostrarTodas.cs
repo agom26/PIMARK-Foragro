@@ -34,6 +34,8 @@ namespace Presentacion.Marcas_Nacionales
         private int totalPages = 0;
         private int totalRows = 0;
         bool agregoEstado = false;
+        private bool archivoSubido = false;
+
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -54,6 +56,8 @@ namespace Presentacion.Marcas_Nacionales
 
             this.Load += FrmMostrarTodas_Load;
             SeleccionarMarca.idInt = 0;
+            archivoSubido = false;
+            btnAdjuntarT.Visible = false;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
             if (UsuarioActivo.isAdmin == false)
@@ -197,6 +201,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (textBoxEstatus.Text == "Registrada")
             {
+                btnAdjuntarT.Visible = true;
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel3.Visible = true;
@@ -207,6 +212,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
+                btnAdjuntarT.Visible = false;
                 checkBox1.Enabled = false;
                 checkBox1.Checked = false;
                 panel3.Visible = false;
@@ -667,6 +673,8 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageListaArchivos);
             ActualizarFechaVencimiento();
             currentPageIndex = 1;
+            archivoSubido = false;
+            btnAdjuntarT.Visible = false;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
@@ -1143,16 +1151,76 @@ namespace Presentacion.Marcas_Nacionales
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
 
+        private void SubirArchivoRegistro(string idMarca)
+        {
+            string carpeta = $"{directorioBase}/marca-{idMarca}/";
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                    archivoSubido = false; // Si hay error, el archivo no se subió
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                archivoSubido = false; // Si el usuario cancela la selección, no se subió ningún archivo
+            }
+        }
+
         private async void btnActualizarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                await ActualizarMarcaNacional();
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageListaMarcas);
-                tabControl1.SelectedTab = tabPageListaMarcas;
-                await LoadMarcas();
+                if (!archivoSubido && checkBox1.Checked)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    await ActualizarMarcaNacional();
+                    EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageListaMarcas);
+                    tabControl1.SelectedTab = tabPageListaMarcas;
+                    await LoadMarcas();
+                }
+
             }
             else
             {
@@ -1660,6 +1728,21 @@ namespace Presentacion.Marcas_Nacionales
         private void dtgArchivos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Abrir();
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            SubirArchivoRegistro("" + SeleccionarMarca.idInt);
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                archivoSubido = false;
+            }
+            else
+            {
+                archivoSubido = true;
+            }
         }
     }
 }

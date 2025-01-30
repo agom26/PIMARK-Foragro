@@ -29,6 +29,7 @@ namespace Presentacion.Patentes
         private int totalPages = 0;
         private int totalRows = 0;
         bool agregoEstado = false;
+        private bool archivoSubido = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -38,7 +39,9 @@ namespace Presentacion.Patentes
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
+            btnAdjuntarT.Visible = false;
             this.Load += FrmMostrarIngresadasPatentes_Load;
+            archivoSubido = false;
 
         }
         private async Task LoadPatentes()
@@ -140,6 +143,7 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
+                btnAdjuntarT.Visible = true;
                 ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
@@ -153,6 +157,7 @@ namespace Presentacion.Patentes
             }
             else
             {
+                btnAdjuntarT.Visible= false;
                 lblVencimiento.Visible = false;
                 dateTimePFecha_vencimiento.Visible = false;
                 checkBox2.Enabled = false;
@@ -696,6 +701,8 @@ namespace Presentacion.Patentes
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageListaArchivos);
             tabControl1.Visible = true;
+            archivoSubido = false;
+            btnAdjuntarT.Visible = false;
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
@@ -1118,7 +1125,16 @@ namespace Presentacion.Patentes
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                EditarPatente();
+                if (!archivoSubido && checkBox2.Checked)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    EditarPatente();
+                }
+               
 
             }
             else
@@ -1142,7 +1158,7 @@ namespace Presentacion.Patentes
 
         private async void iconButton2_Click(object sender, EventArgs e)
         {
-           
+
             LimpiarFomulario();
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
@@ -1583,6 +1599,70 @@ namespace Presentacion.Patentes
         private void iconButton11_Click(object sender, EventArgs e)
         {
             Eliminar();
+        }
+        private void SubirArchivoRegistro(string idMarca)
+        {
+            string carpeta = $"{directorioBase}/patente-{idMarca}/";
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = Path.GetFileName(archivoLocal1);
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                    archivoSubido = false; // Si hay error, el archivo no se subió
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                archivoSubido = false; // Si el usuario cancela la selección, no se subió ningún archivo
+            }
+        }
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            SubirArchivoRegistro("" + SeleccionarPatente.id);
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                archivoSubido = false;
+            }
+            else
+            {
+                archivoSubido = true;
+            }
         }
     }
 }

@@ -31,6 +31,8 @@ namespace Presentacion.Marcas_Internacionales
         private int totalPages = 0;
         private int totalRows = 0;
         bool agregoEstado = false;
+        private bool archivoSubido = false;
+
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
