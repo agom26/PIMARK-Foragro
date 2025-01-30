@@ -987,31 +987,14 @@ namespace Presentacion.Patentes
         }
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
-            {
-                if (checkBox2.Checked == true)
-                {
-                    if (SeleccionarPatente.registro != txtRegistro.Text || SeleccionarPatente.folio != txtFolio.Text || SeleccionarPatente.libro != txtLibro.Text)
-                    {
-                        EditarPatente();
-                    }
-                }
 
-                LimpiarFomulario();
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageIngresadasList);
-                tabControl1.SelectedTab = tabPageIngresadasList;
-                DatosRegistro.peligro = false;
-                await LoadPatentes();
-
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+            LimpiarFomulario();
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageIngresadasList);
+            tabControl1.SelectedTab = tabPageIngresadasList;
+            DatosRegistro.peligro = false;
+            await LoadPatentes();
 
         }
 
