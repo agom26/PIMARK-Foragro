@@ -535,6 +535,11 @@ namespace Presentacion.Marcas_Nacionales
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
 
+                        if (row["logo"] == DBNull.Value)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
@@ -1024,28 +1029,15 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnCancelarM_Click(object sender, EventArgs e)
+        private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
-            {
-                if (SeleccionarMarca.registro != txtRegistro.Text || SeleccionarMarca.libro != txtLibro.Text || SeleccionarMarca.folio != txtFolio.Text)
-                {
-                    ActualizarMarcaNacional();
-                }
+            DatosRegistro.peligro = false;
 
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                tabControl1.SelectedTab = tabPageRegistradasList;
-
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
-
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageRegistradasList);
+            tabControl1.SelectedTab = tabPageRegistradasList;
+            await LoadMarcas();
 
         }
 

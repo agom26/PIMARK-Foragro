@@ -515,6 +515,12 @@ namespace Presentacion.Marcas_Internacionales
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
 
+                        if (row["logo"] == DBNull.Value)
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
+
                         bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
