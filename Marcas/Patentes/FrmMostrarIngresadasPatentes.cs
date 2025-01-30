@@ -543,6 +543,7 @@ namespace Presentacion.Patentes
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        DatosRegistro.peligro = false;
                         await LoadPatentes();
                     }
                     catch (Exception ex)
@@ -570,6 +571,7 @@ namespace Presentacion.Patentes
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        DatosRegistro.peligro = false;
                         await LoadPatentes();
                     }
                     catch (Exception ex)
