@@ -332,7 +332,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (agregoEstado == true)
                 {
                     historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
-
+                    agregoEstado = false;
                 }
 
                 if (registroChek)
@@ -1457,9 +1457,9 @@ namespace Presentacion.Marcas_Internacionales
         {
             agregoEstado = false;
             DatosRegistro.peligro = false;
-            AnadirTabPage(tabPageRegistradasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageRegistradasList);
             await LoadMarcas();
 
         }
@@ -1480,6 +1480,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     agregoEstado = true;
                     richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
+                    textBoxEstatus.Text = AgregarEtapa.etapa;
                     //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
