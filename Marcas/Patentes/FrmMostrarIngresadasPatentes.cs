@@ -1,4 +1,5 @@
 ﻿using Comun.Cache;
+using DocumentFormat.OpenXml.Office2016.Drawing.Charts;
 using Dominio;
 using FluentFTP;
 using FontAwesome.Sharp;
@@ -27,6 +28,7 @@ namespace Presentacion.Patentes
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        bool agregoEstado = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -524,6 +526,13 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
+                        if (agregoEstado == true)
+                        {
+                            historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
+                            agregoEstado = false;
+                        }
+
+
                         bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
@@ -546,6 +555,12 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
+                        if (agregoEstado == true)
+                        {
+                            historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
+                            agregoEstado = false;
+                        }
+
                         bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
@@ -972,7 +987,9 @@ namespace Presentacion.Patentes
 
                 try
                 {
-                    historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
+                    agregoEstado = true;
+                    textBoxEstatus.Text = AgregarEtapaPatente.etapa;
+                    //historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -990,7 +1007,7 @@ namespace Presentacion.Patentes
                         mostrarPanelRegistro("no");
                     }
 
-                    await refrescarPatente();
+                    //await refrescarPatente();
 
                 }
                 catch (Exception ex)
@@ -1123,31 +1140,15 @@ namespace Presentacion.Patentes
 
         private async void iconButton2_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            VerificarDatosIngresados();
-            if (DatosRegistro.peligro == false)
-            {
-                if (checkBox2.Checked == true)
-                {
-                    if (SeleccionarPatente.registro != txtRegistro.Text || SeleccionarPatente.folio != txtFolio.Text || SeleccionarPatente.libro != txtLibro.Text)
-                    {
-                        EditarPatente();
-                    }
-                }
-
-                LimpiarFomulario();
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageIngresadasList);
-                tabControl1.SelectedTab = tabPageIngresadasList;
-                DatosRegistro.peligro = false;
-                await LoadPatentes();
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+           
+            LimpiarFomulario();
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            DatosRegistro.peligro = false;
+            agregoEstado = false;
+            AnadirTabPage(tabPageIngresadasList);
+            tabControl1.SelectedTab = tabPageIngresadasList;
+            await LoadPatentes();
 
 
         }
