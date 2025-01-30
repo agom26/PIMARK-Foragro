@@ -42,6 +42,8 @@ namespace Presentacion.Marcas_Nacionales
         private int currentPageIndex2 = 1;
         private int totalPages2 = 0;
         private int totalRows2 = 0;
+
+        bool agregoEstado = false;
         public void convertirImagen()
         {
 
@@ -1547,15 +1549,19 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         try
                         {
+                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
+                            agregoEstado = true;
+
+                            /*
                             HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                             historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
                                 AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
                                 );
-
+                            */
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
 
-                            await recargarDatosOposicion();
+                            //await recargarDatosOposicion();
                         }
                         catch (Exception ex)
                         {
@@ -1576,12 +1582,15 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         if (AgregarEtapaOposicion.etapa != "")
                         {
+                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
+                            agregoEstado = true;
+                            /*
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                             AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");*/
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
-                            await recargarDatosOposicion();
+                            //await recargarDatosOposicion();
                         }
                         else
                         {
@@ -1761,6 +1770,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
+            DatosRegistro.peligro = false;
             tabControl1.SelectedTab = tabPageListaMarcas;
             LimpiarFormularioOposicion();
         }
@@ -1853,6 +1863,24 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 bool actualizado = false;
+
+                if (agregoEstado == true)
+                {
+                    if (SeleccionarOposicion.idMarca == 0)
+                    {
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                            AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
+                            );
+                    }
+                    else
+                    {
+                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                           AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
+                           AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                    }
+                    agregoEstado = false;
+                }
 
                 if (SeleccionarOposicion.idSolicitante != 0)
                 {
