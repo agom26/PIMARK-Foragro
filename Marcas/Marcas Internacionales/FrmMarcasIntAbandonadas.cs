@@ -601,6 +601,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
+            DatosRegistro.peligro = false;
+            agregoEstado = false;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
@@ -901,7 +903,8 @@ namespace Presentacion.Marcas_Internacionales
                     try
                     {
                         agregoEstado = true;
-                        richTextBox1.Text += AgregarEtapa.anotaciones;
+                        richTextBox1.Text += "\n"+AgregarEtapa.anotaciones;
+                        textBoxEstatus.Text = AgregarEtapa.etapa;
                         //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                         FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
