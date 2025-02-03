@@ -417,6 +417,10 @@ namespace Presentacion.Personas
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
                         FrmAlerta alerta = new FrmAlerta("AGENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
+                        EliminarTabPage(tabPageAgenteDetail);
+                        tabControl1.SelectedTab = tabPageListado;
+                        await LoadAgentes();
+                        dtgAgentes.ClearSelection();
                         //MessageBox.Show("Agente agregado exitosamente");
                     }
                     else if (btnGuardarU.Text == "EDITAR")
@@ -440,6 +444,7 @@ namespace Presentacion.Personas
                                 //MessageBox.Show("Agente actualizado exitosamente");
                                 await LoadAgentes();
                                 EliminarTabPage(tabPageAgenteDetail);
+                                tabControl1.SelectedTab=tabPageListado;
                                 dtgAgentes.ClearSelection();
                             }
                             else
