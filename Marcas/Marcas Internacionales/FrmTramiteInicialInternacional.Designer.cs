@@ -36,13 +36,13 @@
             pictureBox1 = new PictureBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            btnAgregarTitular = new Clases.RoundedButton();
+            btnAgregarTitular = new Presentacion.Clases.RoundedButton();
             label9 = new Label();
             txtNombreTitular = new TextBox();
-            btnAgregarAgente = new Clases.RoundedButton();
+            btnAgregarAgente = new Presentacion.Clases.RoundedButton();
             label12 = new Label();
             txtNombreAgente = new TextBox();
-            btnAgregarCliente = new Clases.RoundedButton();
+            btnAgregarCliente = new Presentacion.Clases.RoundedButton();
             label6 = new Label();
             txtNombreCliente = new TextBox();
             label13 = new Label();
@@ -55,7 +55,7 @@
             label25 = new Label();
             txtExpediente = new TextBox();
             label15 = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             label26 = new Label();
             comboBoxSignoDistintivo = new ComboBox();
             comboBoxTipoSigno = new ComboBox();
@@ -77,10 +77,10 @@
             label1 = new Label();
             panel3 = new Panel();
             panel15 = new Panel();
-            roundedButton4 = new Clases.RoundedButton();
+            roundedButton4 = new Presentacion.Clases.RoundedButton();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             panel17 = new Panel();
-            roundedButton5 = new Clases.RoundedButton();
+            roundedButton5 = new Presentacion.Clases.RoundedButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -612,6 +612,7 @@
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(224, 28);
             dateTimePFecha_Registro.TabIndex = 14;
+            dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged_1;
             // 
             // label18
             // 

@@ -136,32 +136,32 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         //crear carpeta en ftp
-        
 
-    private void CrearCarpetaEnFTP(string idMarca)
-    {
-        string ftpUrl = "ftp://bpa.com.es/test/marcas/nacionales/marca-" + idMarca; // Ruta en tu servidor FTP
-        string usuario = "test@bpa.com.es"; // Usuario FTP
-        string contraseña = "2O1VsAbUGbUo"; // Contraseña FTP
 
-        FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
-        request.Method = WebRequestMethods.Ftp.MakeDirectory;
-        request.Credentials = new NetworkCredential(usuario, contraseña);
-
-        try
+        private void CrearCarpetaEnFTP(string idMarca)
         {
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+            string ftpUrl = "ftp://bpa.com.es/test/marcas/nacionales/marca-" + idMarca; // Ruta en tu servidor FTP
+            string usuario = "test@bpa.com.es"; // Usuario FTP
+            string contraseña = "2O1VsAbUGbUo"; // Contraseña FTP
+
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+            request.Method = WebRequestMethods.Ftp.MakeDirectory;
+            request.Credentials = new NetworkCredential(usuario, contraseña);
+
+            try
             {
-                MessageBox.Show($"Carpeta creada exitosamente: {response.StatusDescription}");
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    MessageBox.Show($"Carpeta creada exitosamente: {response.StatusDescription}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
             }
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
-        }
-    }
 
-    public void GuardarMarcaInter()
+        public void GuardarMarcaInter()
         {
             // Recolectar valores de los controles
             string expediente = txtExpediente.Text;
@@ -376,7 +376,7 @@ namespace Presentacion.Marcas_Internacionales
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             mostrarPanelRegistro();
-            
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -454,7 +454,7 @@ namespace Presentacion.Marcas_Internacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-            
+
         }
         public void VerificarDatosRegistro()
         {
@@ -472,7 +472,7 @@ namespace Presentacion.Marcas_Internacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-               
+
             }
             else
             {
@@ -525,6 +525,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DatosRegistro.peligro = false;
             }
+        }
+
+        private void dateTimePFecha_Registro_ValueChanged_1(object sender, EventArgs e)
+        {
+            ActualizarFechaVencimiento();
         }
     }
 }
