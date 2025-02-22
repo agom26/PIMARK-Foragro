@@ -255,7 +255,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        public void ActualizarMarcaInternacional()
+        public async void ActualizarMarcaInternacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -324,6 +324,13 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
+            if (registroChek && marcaModel.ExisteRegistro(registro, SeleccionarMarca.idN))
+            {
+                FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
             // Editar la marca
             try
             {
@@ -364,7 +371,10 @@ namespace Presentacion.Marcas_Internacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
+                            EliminarTabPage(tabPageHistorialMarca);
+                            AnadirTabPage(tabPageRegistradasList);
                             tabControl1.SelectedTab = tabPageRegistradasList;
+                            await LoadMarcas();
                         }
                         else
                         {
@@ -374,7 +384,11 @@ namespace Presentacion.Marcas_Internacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
+                            
+                            EliminarTabPage(tabPageHistorialMarca);
+                            AnadirTabPage(tabPageRegistradasList);
                             tabControl1.SelectedTab = tabPageRegistradasList;
+                            await LoadMarcas();
                         }
                     }
                     else
@@ -387,14 +401,14 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                LimpiarFormulario();
+                //LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + " LA MARCA INTERNACIONAL:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LimpiarFormulario();
+                //LimpiarFormulario();
             }
         }
 
@@ -1433,9 +1447,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 ActualizarMarcaInternacional();
 
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                await LoadMarcas();
+               
             }
             else
             {

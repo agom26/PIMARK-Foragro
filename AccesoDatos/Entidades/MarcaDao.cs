@@ -11,6 +11,28 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+
+        public bool ExisteRegistro(string registro, int? idMarcaActual)
+        {
+            using (MySqlConnection conn = GetConnection())
+            using (MySqlCommand cmd = new MySqlCommand("CALL ExisteRegistroMarca(@Registro, @IdMarca, @Existe)", conn))
+            {
+                cmd.Parameters.AddWithValue("@Registro", registro);
+                cmd.Parameters.AddWithValue("@IdMarca", idMarcaActual ?? 0); // Si es NULL, pasamos 0
+
+                MySqlParameter outputParam = new MySqlParameter("@Existe", MySqlDbType.Bit);
+                outputParam.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(outputParam);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                return Convert.ToBoolean(outputParam.Value);
+            }
+        }
+
+
+
         public void InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
         {
             using (MySqlConnection conexion = GetConnection())

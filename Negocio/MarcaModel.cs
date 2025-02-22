@@ -15,10 +15,17 @@ namespace Dominio
         {
             marcaDao = new MarcaDao();
         }
+
+     
+
         //todas las marcas nacionales
         public DataTable FiltrarMarcasNacionales(string filtro, int currentPageIndex, int pageSize)
         {
             return marcaDao.filtrarMarcasNacionales(filtro, currentPageIndex, pageSize);
+        }
+        public bool ExisteRegistro(string registro, int? idMarcaActual)
+        {
+            return marcaDao.ExisteRegistro(registro, idMarcaActual);
         }
         public int GetTotalMarcasNacionales()
         {

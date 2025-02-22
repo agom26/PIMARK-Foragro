@@ -221,12 +221,19 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-
+            
+            if (registroChek && marcaModel.ExisteRegistro(registro,null))
+            {
+                FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
 
 
             // Guardar la marca
             try
             {
+                
                 int idMarca = registroChek ?
                     marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
                     marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
