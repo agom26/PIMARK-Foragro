@@ -2023,7 +2023,7 @@ namespace Presentacion.Marcas_Nacionales
         private void btnAgregarLogoOpositor_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            openFile.Filter = "Images (*.jpg;*.jpeg;*.png;*.tiff)|*.jpg;*.jpeg;*.png;*.tiff";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 pictureBoxOpositor.Image = new Bitmap(openFile.FileName);
@@ -2033,7 +2033,7 @@ namespace Presentacion.Marcas_Nacionales
         private void btnAgregarSignoPretendido_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            openFile.Filter = "Images (*.jpg;*.jpeg;*.png;*.tiff)|*.jpg;*.jpeg;*.png;*.tiff";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 pictureBoxSignoPretendido.Image = new Bitmap(openFile.FileName);

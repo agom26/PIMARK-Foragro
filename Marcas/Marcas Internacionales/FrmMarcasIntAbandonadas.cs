@@ -807,7 +807,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
 
                         agregoEstado = true;
-                        richTextBox1.Text += "\n"+AgregarEtapa.anotaciones;
+                        richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                         textBoxEstatus.Text = AgregarEtapa.etapa;
                         //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                         FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -829,7 +829,7 @@ namespace Presentacion.Marcas_Internacionales
                             {
                                 txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                                 txtERenovacion.Enabled = true;
-                               
+
                                 /* try
                                  {
                                      marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
@@ -846,7 +846,7 @@ namespace Presentacion.Marcas_Internacionales
                             {
                                 txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                                 txtETraspaso.Enabled = true;
-                               
+
                                 /*
                                 try
                                 {
@@ -881,7 +881,7 @@ namespace Presentacion.Marcas_Internacionales
                         //await CargarDatosMarca();
 
 
-                        
+
 
 
 
@@ -903,7 +903,7 @@ namespace Presentacion.Marcas_Internacionales
                     try
                     {
                         agregoEstado = true;
-                        richTextBox1.Text += "\n"+AgregarEtapa.anotaciones;
+                        richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                         textBoxEstatus.Text = AgregarEtapa.etapa;
                         //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                         FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1085,7 +1085,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,erenov, etrasp, idCliente);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
                 }
                 else
                 {
@@ -1443,6 +1443,11 @@ namespace Presentacion.Marcas_Internacionales
         private void dtgArchivos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             Abrir();
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

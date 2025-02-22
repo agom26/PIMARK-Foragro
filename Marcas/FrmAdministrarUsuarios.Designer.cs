@@ -52,15 +52,15 @@
             iconButton6 = new FontAwesome.Sharp.IconButton();
             txtBuscar = new TextBox();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            roundedButton3 = new Clases.RoundedButton();
-            btnTitulo = new Clases.RoundedButton();
+            roundedButton3 = new Presentacion.Clases.RoundedButton();
+            btnTitulo = new Presentacion.Clases.RoundedButton();
             panel1 = new Panel();
             dtgUsuarios = new DataGridView();
             tabPageUserDetail = new TabPage();
             panel5 = new Panel();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
-            btnCambios = new Clases.RoundedButton();
-            roundedButton1 = new Clases.RoundedButton();
+            btnCambios = new Presentacion.Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel3 = new Panel();
             label3 = new Label();
             txtUsername = new TextBox();
@@ -77,7 +77,7 @@
             label8 = new Label();
             txtCont = new TextBox();
             chckbIsAdmin = new CheckBox();
-            roundedButton4 = new Clases.RoundedButton();
+            roundedButton4 = new Presentacion.Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel2.SuspendLayout();
@@ -252,7 +252,7 @@
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 31);
             btnFirst.TabIndex = 53;
-            btnFirst.Text = "1";
+            btnFirst.Text = "PRIMERA";
             btnFirst.UseVisualStyleBackColor = false;
             btnFirst.Click += btnFirst_Click;
             // 

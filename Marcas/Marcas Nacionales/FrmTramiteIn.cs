@@ -321,7 +321,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             //Agregar una imagen al cuadro de imagen para la foto del usuario.
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            openFile.Filter = "Images (*.jpg;*.jpeg;*.png;*.tiff)|*.jpg;*.jpeg;*.png;*.tiff";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image = new Bitmap(openFile.FileName);

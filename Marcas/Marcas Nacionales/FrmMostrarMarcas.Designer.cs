@@ -69,16 +69,19 @@
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
+            iconButton3.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(628, 443);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(187, 34);
             iconButton3.TabIndex = 4;
             iconButton3.Text = "SELECCIONAR";
+            iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -88,16 +91,18 @@
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
+            iconButton2.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(845, 443);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 3;
             iconButton2.Text = "CANCELAR";
-            iconButton2.TextAlign = ContentAlignment.TopLeft;
+            iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -199,7 +204,7 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // FrmMostrarTitulares
+            // FrmMostrarMarcas
             // 
             AutoScaleDimensions = new SizeF(12F, 23F);
             AutoScaleMode = AutoScaleMode.Font;

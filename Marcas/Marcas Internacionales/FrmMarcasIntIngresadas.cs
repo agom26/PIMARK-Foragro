@@ -768,7 +768,7 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton1_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFile = new System.Windows.Forms.OpenFileDialog();
-            openFile.Filter = "Images(.jpg,.png)|*.png;*.jpg";
+            openFile.Filter = "Images (*.jpg;*.jpeg;*.png;*.tiff)|*.jpg;*.jpeg;*.png;*.tiff";
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image = new Bitmap(openFile.FileName);

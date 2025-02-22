@@ -160,7 +160,7 @@
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 31);
             btnFirst.TabIndex = 95;
-            btnFirst.Text = "1";
+            btnFirst.Text = "PRIMERA";
             btnFirst.UseVisualStyleBackColor = false;
             btnFirst.Click += btnFirst_Click;
             // 
@@ -250,7 +250,7 @@
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
@@ -272,7 +272,7 @@
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
