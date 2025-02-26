@@ -8,13 +8,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>PIMARK</AssemblyName>
     <ApplicationIcon>WhatsApp-Image-2024-11-21-at-3.17.08-PM.ico</ApplicationIcon>
-    <Version>1</Version>
+    <Version>1.0.1</Version>
     <StartupObject>Marcas.Program</StartupObject>
     <SignAssembly>False</SignAssembly>
     <PackageOutputPath>D:\</PackageOutputPath>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <PackageIcon>WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg</PackageIcon>
     <ReferencePath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win64_x64\dotnet\</ReferencePath>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -48,6 +50,7 @@
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="PuppeteerSharp" Version="20.0.5" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
   </ItemGroup>
 

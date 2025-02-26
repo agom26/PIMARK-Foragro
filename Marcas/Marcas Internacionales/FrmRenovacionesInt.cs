@@ -331,7 +331,6 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE TRASPASO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-
                 return;
             }
 

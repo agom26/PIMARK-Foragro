@@ -23,6 +23,7 @@ namespace Presentacion
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = true;
 
         public FrmAdministrarUsuarios()
         {
@@ -593,6 +594,7 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
+                buscando = false;
                 await CargarDatos();
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
@@ -616,12 +618,21 @@ namespace Presentacion
 
         private async void iconButton1_Click_1(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             FiltrarUsuarios();
             
         }
 
         private void iconButton6_Click_2(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             FiltrarUsuarios();
         }
@@ -630,6 +641,14 @@ namespace Presentacion
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 FiltrarUsuarios();
             }
         }
@@ -637,7 +656,7 @@ namespace Presentacion
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando==true)
             {
                 FiltrarUsuarios();
             }
@@ -654,7 +673,7 @@ namespace Presentacion
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     FiltrarUsuarios();
                 }
@@ -672,7 +691,7 @@ namespace Presentacion
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     FiltrarUsuarios();
                 }
@@ -688,7 +707,7 @@ namespace Presentacion
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 FiltrarUsuarios();
             }

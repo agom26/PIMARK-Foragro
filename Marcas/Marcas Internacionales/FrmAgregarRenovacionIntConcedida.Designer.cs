@@ -34,7 +34,7 @@
             dateTimePicker1 = new DateTimePicker();
             richTextBox1 = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
@@ -59,7 +59,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(31, 70);
             label1.Name = "label1";
-            label1.Size = new Size(55, 20);
+            label1.Size = new Size(66, 21);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -68,7 +68,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(265, 70);
             label2.Name = "label2";
-            label2.Size = new Size(58, 20);
+            label2.Size = new Size(70, 21);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -77,7 +77,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(31, 149);
             label3.Name = "label3";
-            label3.Size = new Size(102, 20);
+            label3.Size = new Size(124, 21);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -86,7 +86,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(31, 93);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 26);
+            dateTimePicker1.Size = new Size(154, 30);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -104,7 +104,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(212, 28);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(55, 20);
+            lblUser.Size = new Size(66, 21);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -180,7 +180,7 @@
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(319, 477);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
+            iconButton3.Size = new Size(179, 44);
             iconButton3.TabIndex = 10;
             iconButton3.Text = "ACEPTAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
@@ -201,7 +201,7 @@
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(522, 477);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 34);
+            iconButton2.Size = new Size(179, 44);
             iconButton2.TabIndex = 9;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
@@ -214,7 +214,7 @@
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(197, 26);
+            txtEstado.Size = new Size(197, 30);
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
@@ -224,7 +224,7 @@
             dateFechVencAnt.Format = DateTimePickerFormat.Short;
             dateFechVencAnt.Location = new Point(24, 172);
             dateFechVencAnt.Name = "dateFechVencAnt";
-            dateFechVencAnt.Size = new Size(185, 26);
+            dateFechVencAnt.Size = new Size(185, 30);
             dateFechVencAnt.TabIndex = 17;
             dateFechVencAnt.ValueChanged += dateFechVencAnt_ValueChanged;
             // 
@@ -233,7 +233,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(24, 149);
             label6.Name = "label6";
-            label6.Size = new Size(185, 20);
+            label6.Size = new Size(224, 21);
             label6.TabIndex = 16;
             label6.Text = "Antigua fecha de venc.";
             // 
@@ -243,7 +243,7 @@
             dateFechVencNueva.Format = DateTimePickerFormat.Short;
             dateFechVencNueva.Location = new Point(296, 172);
             dateFechVencNueva.Name = "dateFechVencNueva";
-            dateFechVencNueva.Size = new Size(178, 26);
+            dateFechVencNueva.Size = new Size(178, 30);
             dateFechVencNueva.TabIndex = 19;
             // 
             // label7
@@ -251,7 +251,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(296, 149);
             label7.Name = "label7";
-            label7.Size = new Size(178, 20);
+            label7.Size = new Size(212, 21);
             label7.TabIndex = 18;
             label7.Text = "Nueva fecha de venc.";
             // 
@@ -276,7 +276,7 @@
             txtNoExpediente.Location = new Point(175, 93);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.ReadOnly = true;
-            txtNoExpediente.Size = new Size(120, 19);
+            txtNoExpediente.Size = new Size(120, 23);
             txtNoExpediente.TabIndex = 12;
             txtNoExpediente.TextAlign = HorizontalAlignment.Center;
             txtNoExpediente.TextChanged += textBox2_TextChanged;
@@ -286,7 +286,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(175, 70);
             label8.Name = "label8";
-            label8.Size = new Size(120, 20);
+            label8.Size = new Size(145, 21);
             label8.TabIndex = 12;
             label8.Text = "No. Expediente";
             // 
@@ -308,7 +308,7 @@
             // 
             // FrmAgregarRenovacionIntConcedida
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 600);
             Controls.Add(Fechas);

@@ -20,6 +20,7 @@ namespace Presentacion.Personas
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = false;
         public FrmAdministrarAgentes()
         {
             InitializeComponent();
@@ -325,6 +326,14 @@ namespace Presentacion.Personas
         }
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
@@ -444,7 +453,7 @@ namespace Presentacion.Personas
                                 //MessageBox.Show("Agente actualizado exitosamente");
                                 await LoadAgentes();
                                 EliminarTabPage(tabPageAgenteDetail);
-                                tabControl1.SelectedTab=tabPageListado;
+                                tabControl1.SelectedTab = tabPageListado;
                                 dtgAgentes.ClearSelection();
                             }
                             else
@@ -493,6 +502,7 @@ namespace Presentacion.Personas
 
         private async void dtgAgentes_DoubleClick(object sender, EventArgs e)
         {
+            buscando = false;
             VerificarSeleccion();
             await Editar();
             if (EditarPersona.idPersona > 0)
@@ -506,17 +516,25 @@ namespace Presentacion.Personas
 
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private async void iconButton6_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = "";
-
-            filtrar();
+            buscando = false;
+            await LoadAgentes();
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }
@@ -524,7 +542,7 @@ namespace Presentacion.Personas
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando==true)
             {
                 filtrar();
             }
@@ -541,7 +559,7 @@ namespace Presentacion.Personas
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando==true)
                 {
                     filtrar();
                 }
@@ -559,7 +577,7 @@ namespace Presentacion.Personas
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -575,7 +593,7 @@ namespace Presentacion.Personas
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -585,6 +603,11 @@ namespace Presentacion.Personas
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void lblTotalRows_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

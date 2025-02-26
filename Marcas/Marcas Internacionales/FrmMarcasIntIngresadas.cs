@@ -31,6 +31,7 @@ namespace Presentacion.Marcas_Internacionales
         private int totalRows = 0;
         bool agregoEstado = false;
         private bool archivoSubido = false;
+        private bool buscando = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -127,10 +128,7 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = marcaModel.GetFilteredMarcasSinRegistroCount(txtBuscar.Text);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
+                
                 DataTable titulares = marcaModel.FiltrarMarcasNacionalesEnTramite(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
@@ -1202,6 +1200,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = marcaModel.GetFilteredMarcasSinRegistroCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
@@ -1280,6 +1286,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             filtrar();
 
@@ -1289,6 +1296,14 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = marcaModel.GetFilteredMarcasSinRegistroCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }
@@ -1296,7 +1311,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1313,7 +1328,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1331,7 +1346,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1347,7 +1362,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }

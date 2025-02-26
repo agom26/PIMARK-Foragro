@@ -1401,7 +1401,7 @@ namespace Presentacion.Vencimientos
                 }
             }
         }
-
+        /*
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
         {
             // Ruta al ejecutable de Chrome en tu sistema
@@ -1484,11 +1484,11 @@ namespace Presentacion.Vencimientos
                                  th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
                                  th {{ background-color: #f2f2f2; font-weight: bold; }}
                                  img {{
-                                     width: 200px; /* Tamaño del logo */
-                                     height: auto; /* Altura automática */
+                                     width: 200px; // Tamaño del logo 
+                                     height: auto; // Altura automática 
                                  }}
                                  @page {{
-                                     size: legal landscape; /* Configura tamaño legal y orientación horizontal */
+                                     size: legal landscape; // Configura tamaño legal y orientación horizontal 
                                      margin: 20mm;
                                  }}
                                  table {{
@@ -1570,6 +1570,140 @@ namespace Presentacion.Vencimientos
                 FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ NINGUNA RUTA PARA GUARDAR EL PDF", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+*/
+
+        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
+        {
+            // Buscar la ruta de Chrome automáticamente
+            string chromePath = "chrome"; // Intentará usar Chrome desde PATH
+
+            string[] possiblePaths = {
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Google\\Chrome\\Application\\chrome.exe"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Google\\Chrome\\Application\\chrome.exe")
+    };
+
+            foreach (var path in possiblePaths)
+            {
+                if (File.Exists(path))
+                {
+                    chromePath = path;
+                    break;
+                }
+            }
+
+            string nombre = "Próximos vencimientos-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+
+            // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF Files|*.pdf",
+                FileName = nombre + ".pdf"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Lanza el navegador Chrome
+                var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = chromePath // Usa la ruta encontrada o la predeterminada
+                });
+
+                // Crea una nueva página
+                var page = await browser.NewPageAsync();
+
+                // Límite de registros por página
+                int totalPaginas = (int)Math.Ceiling((double)dt.Rows.Count / registrosPagina);
+
+                string fullHtmlContent = "";
+
+                for (int pagina = 0; pagina < totalPaginas; pagina++)
+                {
+                    string tableContent = "";
+                    int startRecord = pagina * registrosPagina;
+                    int endRecord = Math.Min((pagina + 1) * registrosPagina, dt.Rows.Count);
+
+                    for (int i = startRecord; i < endRecord; i++)
+                    {
+                        DataRow row = dt.Rows[i];
+                        tableContent += "<tr>";
+
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
+                                ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
+                                : (column.ColumnName == "NOTIFICADO"
+                                    ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
+                                    : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
+
+                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
+                        }
+                        tableContent += "</tr>";
+                    }
+
+                    string headers = "";
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
+                    }
+
+                    fullHtmlContent += $@"
+             <html>
+                 <head>
+                     <style>
+                         body {{ font-family: Arial, sans-serif; }}
+                         table {{ border-collapse: collapse; width: 100%; }}
+                         th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                         th {{ background-color: #f2f2f2; font-weight: bold; }}
+                         img {{ width: 200px; height: auto; }}
+                         @page {{ size: legal landscape; margin: 20mm; }}
+                         table {{ page-break-inside: auto; }}
+                         tr {{ page-break-inside: avoid; }}
+                         td {{ page-break-before: auto; }}
+                         .footer {{ text-align: center; position: fixed; bottom: 10mm; left: 0; right: 0; font-size: 10px; }}
+                         .header {{ text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
+                     </style>
+                 </head>
+                 <body>
+                     <div class='header'>PRÓXIMOS VENCIMIENTOS</div>
+                     <div class='fecha'><center>Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}</center></div>
+                     <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
+                     <table>
+                         <thead>
+                             <tr>{headers}</tr>
+                         </thead>
+                         <tbody>{tableContent}</tbody>
+                     </table>
+                     {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")}
+                 </body>
+             </html>";
+                }
+
+                await page.SetContentAsync(fullHtmlContent);
+
+                // Generar el PDF
+                string pdfFilePath = saveFileDialog.FileName;
+                await page.PdfAsync(pdfFilePath, new PdfOptions
+                {
+                    Format = PaperFormat.Legal,
+                    PrintBackground = true,
+                    Landscape = true,
+                    Scale = (Decimal)escalas
+                });
+
+                // Cerrar el navegador
+                await browser.CloseAsync();
+
+                FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ NINGUNA RUTA PARA GUARDAR EL PDF", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
             }
         }
 

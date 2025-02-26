@@ -118,7 +118,7 @@
             btnLast.IconSize = 25;
             btnLast.Location = new Point(920, 419);
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(104, 31);
+            btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 76;
             btnLast.Text = "ÚLTIMA";
             btnLast.UseVisualStyleBackColor = false;
@@ -139,7 +139,7 @@
             btnNext.IconSize = 25;
             btnNext.Location = new Point(801, 420);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(104, 31);
+            btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 75;
             btnNext.Text = ">>";
             btnNext.UseVisualStyleBackColor = false;
@@ -160,7 +160,7 @@
             btnPrev.IconSize = 25;
             btnPrev.Location = new Point(678, 421);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(104, 31);
+            btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 74;
             btnPrev.Text = "<<";
             btnPrev.UseVisualStyleBackColor = false;
@@ -181,7 +181,7 @@
             btnFirst.IconSize = 25;
             btnFirst.Location = new Point(553, 421);
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(104, 31);
+            btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 73;
             btnFirst.Text = "PRIMERA";
             btnFirst.UseVisualStyleBackColor = false;
@@ -194,7 +194,7 @@
             lblTotalPages.Font = new Font("Century Gothic", 9F);
             lblTotalPages.Location = new Point(981, 82);
             lblTotalPages.Name = "lblTotalPages";
-            lblTotalPages.Size = new Size(17, 20);
+            lblTotalPages.Size = new Size(20, 21);
             lblTotalPages.TabIndex = 72;
             lblTotalPages.Text = "0";
             // 
@@ -205,7 +205,7 @@
             label10.Font = new Font("Century Gothic", 9F);
             label10.Location = new Point(946, 82);
             label10.Name = "label10";
-            label10.Size = new Size(29, 20);
+            label10.Size = new Size(34, 21);
             label10.TabIndex = 71;
             label10.Text = "de";
             // 
@@ -216,7 +216,7 @@
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
             lblCurrentPage.Location = new Point(912, 82);
             lblCurrentPage.Name = "lblCurrentPage";
-            lblCurrentPage.Size = new Size(17, 20);
+            lblCurrentPage.Size = new Size(20, 21);
             lblCurrentPage.TabIndex = 70;
             lblCurrentPage.Text = "0";
             // 
@@ -226,7 +226,7 @@
             lblTotalRows.Font = new Font("Century Gothic", 9F);
             lblTotalRows.Location = new Point(191, 82);
             lblTotalRows.Name = "lblTotalRows";
-            lblTotalRows.Size = new Size(17, 20);
+            lblTotalRows.Size = new Size(20, 21);
             lblTotalRows.TabIndex = 69;
             lblTotalRows.Text = "0";
             // 
@@ -237,7 +237,7 @@
             label2.Font = new Font("Century Gothic", 9F);
             label2.Location = new Point(846, 82);
             label2.Name = "label2";
-            label2.Size = new Size(60, 20);
+            label2.Size = new Size(71, 21);
             label2.TabIndex = 68;
             label2.Text = "Página";
             // 
@@ -247,7 +247,7 @@
             label1.Font = new Font("Century Gothic", 9F);
             label1.Location = new Point(47, 82);
             label1.Name = "label1";
-            label1.Size = new Size(138, 20);
+            label1.Size = new Size(166, 21);
             label1.TabIndex = 67;
             label1.Text = "Total de registros: ";
             // 
@@ -256,7 +256,7 @@
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton3.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
@@ -278,7 +278,7 @@
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton2.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -348,16 +348,16 @@
             iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton1.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             iconButton1.ForeColor = Color.White;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 30;
+            iconButton1.IconSize = 25;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton1.Location = new Point(667, 44);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(148, 34);
+            iconButton1.Size = new Size(148, 44);
             iconButton1.TabIndex = 1;
             iconButton1.Text = "BUSCAR";
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
@@ -369,7 +369,7 @@
             // 
             txtBuscar.Location = new Point(217, 44);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(418, 32);
+            txtBuscar.Size = new Size(418, 37);
             txtBuscar.TabIndex = 0;
             txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
@@ -398,7 +398,7 @@
             // 
             // FrmMostrarTitulares
             // 
-            AutoScaleDimensions = new SizeF(12F, 23F);
+            AutoScaleDimensions = new SizeF(14F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.Gainsboro;

@@ -2403,11 +2403,25 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
-            // Ruta al ejecutable de Chrome en tu sistema
-            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
+            // Buscar la ruta de Chrome automáticamente
+            string chromePath = "chrome"; // Intentará usar Chrome desde PATH
+
+            string[] possiblePaths = {
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Google\\Chrome\\Application\\chrome.exe"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Google\\Chrome\\Application\\chrome.exe")
+    };
+
+            foreach (string path in possiblePaths)
+            {
+                if (File.Exists(path))
+                {
+                    chromePath = path;
+                    break;
+                }
+            }
 
             string nombre = titulo + "-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
-            // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF Files|*.pdf",
@@ -2416,32 +2430,25 @@ namespace Presentacion.Marcas_Nacionales
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Lanza el navegador Chrome
                 var browser = await Puppeteer.LaunchAsync(new LaunchOptions
                 {
-                    Headless = true,  // Ejecutar en modo headless (sin interfaz gráfica)
-                    ExecutablePath = chromePath // Usa Google Chrome en lugar de Chromium
+                    Headless = true,
+                    ExecutablePath = chromePath
                 });
 
-                // Crea una nueva página
                 var page = await browser.NewPageAsync();
 
-                // Límite de registros por página (12 registros por página)
                 int registrosPorPagina = registrosPagina;
                 int totalPaginas = (int)Math.Ceiling((double)dt.Rows.Count / registrosPorPagina);
 
-                // Crear el contenido HTML completo para todo el PDF
                 string fullHtmlContent = "";
 
-                // Recorrer las páginas y generar el contenido HTML para cada una
                 for (int pagina = 0; pagina < totalPaginas; pagina++)
                 {
-                    // Crear el contenido de la tabla para la página actual
                     string tableContent = "";
                     int startRecord = pagina * registrosPorPagina;
                     int endRecord = Math.Min((pagina + 1) * registrosPorPagina, dt.Rows.Count);
 
-                    // Crear las filas para la tabla
                     for (int i = startRecord; i < endRecord; i++)
                     {
                         DataRow row = dt.Rows[i];
@@ -2459,102 +2466,63 @@ namespace Presentacion.Marcas_Nacionales
                         tableContent += "</tr>";
                     }
 
-                    // Generar los encabezados de la tabla
                     string headers = "";
                     foreach (DataColumn column in dt.Columns)
                     {
                         headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
                     }
 
-                    // HTML con el logo y el título "Reportes" en el header
                     fullHtmlContent += $@"
-                     <html>
-                         <head>
-                             <style>
-                                 body {{
-                                     font-family: Arial, sans-serif;
-                                 }}
-                                 table {{ border-collapse: collapse; width: 100%; }}
-                                 th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                                 th {{ background-color: #f2f2f2; font-weight: bold; }}
-                                 img {{
-                                     width: 200px;
-                                     height: auto;
-                                 }}
-                                 @page {{
-                                     size: legal landscape;
-                                     margin: 20mm;
-                                 }}
-                                 table {{
-                                     page-break-inside: auto;
-                                 }}
-                                 tr {{
-                                     page-break-inside: avoid;
-                                 }}
-                                 td {{
-                                     page-break-before: auto;
-                                 }}
-                                 .footer {{
-                                     text-align: center;
-                                     position: fixed;
-                                     bottom: 10mm;
-                                     left: 0;
-                                     right: 0;
-                                     font-size: 10px;
-                                 }}
-                                 .header {{
-                                     text-align: center;
-                                     font-size: 20px;
-                                     font-weight: bold;
-                                     margin-bottom: 10px;
-                                 }}
-                             </style>
-                         </head>
-                         <body>
-                             <div class='header'>
-                                 {titulo}
-                             </div>
-                             <div class='fecha'>
-                                 <center>
-                                     Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
-                                 </center>
-                             </div>
-                             <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
-                             <table>
-                                 <thead>
-                                     <tr>
-                                         {headers}
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     {tableContent}
-                                 </tbody>
-                             </table>
-                             {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")}
-                         </body>
-                     </html>";
+              <html>
+                  <head>
+                      <style>
+                          body {{ font-family: Arial, sans-serif; }}
+                          table {{ border-collapse: collapse; width: 100%; }}
+                          th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                          th {{ background-color: #f2f2f2; font-weight: bold; }}
+                          img {{ width: 200px; height: auto; }}
+                          @page {{ size: legal landscape; margin: 20mm; }}
+                          table {{ page-break-inside: auto; }}
+                          tr {{ page-break-inside: avoid; }}
+                          td {{ page-break-before: auto; }}
+                          .footer {{ text-align: center; position: fixed; bottom: 10mm; left: 0; right: 0; font-size: 10px; }}
+                          .header {{ text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
+                      </style>
+                  </head>
+                  <body>
+                      <div class='header'>
+                          {titulo}
+                      </div>
+                      <div class='fecha'>
+                          <center>Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}</center>
+                      </div>
+                      <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
+                      <table>
+                          <thead>
+                              <tr>{headers}</tr>
+                          </thead>
+                          <tbody>
+                              {tableContent}
+                          </tbody>
+                      </table>
+                      {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")}
+                  </body>
+              </html>";
                 }
 
-
-                // Establecer el contenido HTML completo para el PDF
                 await page.SetContentAsync(fullHtmlContent);
-
-                // Ruta para guardar el PDF
                 string pdfFilePath = saveFileDialog.FileName;
 
-                // Generar el PDF para todo el contenido
                 await page.PdfAsync(pdfFilePath, new PdfOptions
                 {
-                    Format = PaperFormat.Legal,      // Tamaño oficio
-                    PrintBackground = true,         // Incluir fondo
-                    Landscape = true,               // Orientación horizontal
-                    Scale = (Decimal)escalas           // Reducir la escala para ajustar mejor
+                    Format = PaperFormat.Legal,
+                    PrintBackground = true,
+                    Landscape = true,
+                    Scale = (Decimal)escalas
                 });
 
-                // Cerrar el navegador
                 await browser.CloseAsync();
 
-                // Confirmar que el PDF se ha generado
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
             }

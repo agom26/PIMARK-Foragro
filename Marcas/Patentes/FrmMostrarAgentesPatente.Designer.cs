@@ -95,7 +95,7 @@
             btnLast.IconSize = 25;
             btnLast.Location = new Point(920, 419);
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(104, 31);
+            btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 98;
             btnLast.Text = "ÚLTIMA";
             btnLast.UseVisualStyleBackColor = false;
@@ -116,7 +116,7 @@
             btnNext.IconSize = 25;
             btnNext.Location = new Point(801, 420);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(104, 31);
+            btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 97;
             btnNext.Text = ">>";
             btnNext.UseVisualStyleBackColor = false;
@@ -137,7 +137,7 @@
             btnPrev.IconSize = 25;
             btnPrev.Location = new Point(678, 421);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(104, 31);
+            btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 96;
             btnPrev.Text = "<<";
             btnPrev.UseVisualStyleBackColor = false;
@@ -158,7 +158,7 @@
             btnFirst.IconSize = 25;
             btnFirst.Location = new Point(553, 421);
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(104, 31);
+            btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 95;
             btnFirst.Text = "PRIMERA";
             btnFirst.UseVisualStyleBackColor = false;
@@ -257,7 +257,7 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(631, 474);
+            iconButton3.Location = new Point(632, 466);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(188, 34);
             iconButton3.TabIndex = 4;
@@ -278,7 +278,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(845, 474);
+            iconButton2.Location = new Point(846, 466);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 3;
@@ -341,7 +341,7 @@
             iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            iconButton1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             iconButton1.ForeColor = Color.White;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
             iconButton1.IconColor = Color.White;

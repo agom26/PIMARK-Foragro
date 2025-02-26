@@ -23,6 +23,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = false;
 
         public FrmAdministrarClientes()
         {
@@ -88,29 +89,35 @@ namespace Presentacion.Marcas_Internacionales
         }
         public async void filtrar()
         {
-            string buscar = txtBuscar.Text;
-            if (buscar != "")
+
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(buscar))
             {
-                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
+
+
+
+
+                // Obtener los clientes filtrados desde la base de datos con OFFSET correcto
                 DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+
                 if (titulares.Rows.Count > 0)
                 {
                     dtgClientes.DataSource = titulares;
+
                     if (dtgClientes.Columns["id"] != null)
                     {
                         dtgClientes.Columns["id"].Visible = false;
                         dtgClientes.Columns["tipo"].Visible = false;
                     }
+
                     dtgClientes.ClearSelection();
                 }
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    //MessageBox.Show("No existen titulares con esos datos");
+
                     await LoadClientes();
                 }
             }
@@ -321,6 +328,15 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
@@ -442,7 +458,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
 
                     tabControl1.SelectedTab = tabClientesList;
-                    LoadClientes();
+                    await LoadClientes();
                     EliminarTabPage(tabClienteDetail);
                 }
                 catch (Exception ex)
@@ -460,6 +476,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            buscando = false;
             EditarCliente();
         }
 
@@ -468,16 +485,18 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
-        {
-            txtBuscar.Text = "";
-            filtrar();
-        }
-
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }
@@ -485,7 +504,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -502,7 +521,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -517,10 +536,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
+
+            if (totalPages != 1)
             {
-                currentPageIndex++;
-                if (txtBuscar.Text != "")
+                currentPageIndex++; // Avanza una página
+
+                lblCurrentPage.Text = currentPageIndex.ToString(); // Actualiza la UI
+
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -528,15 +551,27 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     await LoadClientes();
                 }
-
-                lblCurrentPage.Text = currentPageIndex.ToString();
             }
+            else
+            {
+                if (buscando == true)
+                {
+                    filtrar();
+                }
+                else
+                {
+                    await LoadClientes();
+                }
+            }
+
+
+
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -546,6 +581,20 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void lblTotalRows_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+        private async void btnX_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            buscando = false;
+            await LoadClientes();
         }
     }
 }

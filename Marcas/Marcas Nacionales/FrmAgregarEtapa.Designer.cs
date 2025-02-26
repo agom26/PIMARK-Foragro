@@ -35,7 +35,7 @@
             comboBox1 = new ComboBox();
             richTextBox1 = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
@@ -49,7 +49,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(168, 195);
             label1.Name = "label1";
-            label1.Size = new Size(55, 20);
+            label1.Size = new Size(66, 21);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -58,7 +58,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(349, 197);
             label2.Name = "label2";
-            label2.Size = new Size(58, 20);
+            label2.Size = new Size(70, 21);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -67,7 +67,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(168, 274);
             label3.Name = "label3";
-            label3.Size = new Size(102, 20);
+            label3.Size = new Size(124, 21);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -76,7 +76,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(168, 218);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 26);
+            dateTimePicker1.Size = new Size(154, 30);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -89,7 +89,7 @@
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Orden de pago", "Registrada", "Licencia de uso" });
             comboBox1.Location = new Point(349, 220);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 28);
+            comboBox1.Size = new Size(250, 29);
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -107,7 +107,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(349, 153);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(55, 20);
+            lblUser.Size = new Size(66, 21);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -174,17 +174,19 @@
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 10F);
+            iconButton3.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(188, 425);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(179, 34);
             iconButton3.TabIndex = 10;
             iconButton3.Text = "SELECCIONAR";
+            iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -194,23 +196,25 @@
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(393, 425);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(179, 34);
             iconButton2.TabIndex = 9;
             iconButton2.Text = "CANCELAR";
+            iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
             // 
             // FrmAgregarEtapa
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(779, 493);
             Controls.Add(panel2);

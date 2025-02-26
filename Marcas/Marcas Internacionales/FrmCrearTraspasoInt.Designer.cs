@@ -34,7 +34,7 @@
             dateTimePicker1 = new DateTimePicker();
             richTextBox1 = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
@@ -44,7 +44,7 @@
             label4 = new Label();
             Fechas = new GroupBox();
             txtNombreTitularN = new TextBox();
-            roundedButton2 = new Clases.RoundedButton();
+            roundedButton2 = new Presentacion.Clases.RoundedButton();
             txtNombreTitularA = new TextBox();
             txtNoExpediente = new TextBox();
             label8 = new Label();
@@ -59,7 +59,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(31, 70);
             label1.Name = "label1";
-            label1.Size = new Size(55, 20);
+            label1.Size = new Size(66, 21);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -68,7 +68,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(265, 70);
             label2.Name = "label2";
-            label2.Size = new Size(58, 20);
+            label2.Size = new Size(70, 21);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -77,7 +77,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(31, 149);
             label3.Name = "label3";
-            label3.Size = new Size(102, 20);
+            label3.Size = new Size(124, 21);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -86,7 +86,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(31, 93);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 26);
+            dateTimePicker1.Size = new Size(154, 30);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -104,7 +104,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(212, 28);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(55, 20);
+            lblUser.Size = new Size(66, 21);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -171,17 +171,19 @@
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 10F);
+            iconButton3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton3.ForeColor = Color.White;
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(319, 548);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
+            iconButton3.Size = new Size(179, 44);
             iconButton3.TabIndex = 10;
             iconButton3.Text = "ACEPTAR";
+            iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
@@ -191,16 +193,18 @@
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F);
+            iconButton2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 30;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(522, 548);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 34);
+            iconButton2.Size = new Size(179, 44);
             iconButton2.TabIndex = 9;
             iconButton2.Text = "CANCELAR";
+            iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
@@ -210,7 +214,7 @@
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(197, 26);
+            txtEstado.Size = new Size(197, 30);
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
@@ -219,7 +223,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(76, 91);
             label4.Name = "label4";
-            label4.Size = new Size(110, 20);
+            label4.Size = new Size(134, 21);
             label4.TabIndex = 12;
             label4.Text = "Antiguo titular";
             // 
@@ -243,7 +247,7 @@
             txtNombreTitularN.Location = new Point(76, 200);
             txtNombreTitularN.Name = "txtNombreTitularN";
             txtNombreTitularN.ReadOnly = true;
-            txtNombreTitularN.Size = new Size(323, 26);
+            txtNombreTitularN.Size = new Size(323, 30);
             txtNombreTitularN.TabIndex = 21;
             // 
             // roundedButton2
@@ -270,7 +274,7 @@
             txtNombreTitularA.Location = new Point(76, 114);
             txtNombreTitularA.Name = "txtNombreTitularA";
             txtNombreTitularA.ReadOnly = true;
-            txtNombreTitularA.Size = new Size(323, 26);
+            txtNombreTitularA.Size = new Size(323, 30);
             txtNombreTitularA.TabIndex = 19;
             // 
             // txtNoExpediente
@@ -279,7 +283,7 @@
             txtNoExpediente.Location = new Point(173, 46);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.ReadOnly = true;
-            txtNoExpediente.Size = new Size(120, 19);
+            txtNoExpediente.Size = new Size(120, 23);
             txtNoExpediente.TabIndex = 12;
             txtNoExpediente.TextAlign = HorizontalAlignment.Center;
             txtNoExpediente.TextChanged += textBox2_TextChanged;
@@ -289,7 +293,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(173, 23);
             label8.Name = "label8";
-            label8.Size = new Size(120, 20);
+            label8.Size = new Size(145, 21);
             label8.TabIndex = 12;
             label8.Text = "No. Expediente";
             // 
@@ -311,7 +315,7 @@
             // 
             // FrmCrearTraspasoInt
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 679);
             Controls.Add(Fechas);
