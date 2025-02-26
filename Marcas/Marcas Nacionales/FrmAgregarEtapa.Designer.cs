@@ -49,7 +49,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(168, 195);
             label1.Name = "label1";
-            label1.Size = new Size(66, 21);
+            label1.Size = new Size(45, 17);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -58,7 +58,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(349, 197);
             label2.Name = "label2";
-            label2.Size = new Size(70, 21);
+            label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -67,7 +67,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(168, 274);
             label3.Name = "label3";
-            label3.Size = new Size(124, 21);
+            label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -76,7 +76,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(168, 218);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 30);
+            dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -89,7 +89,7 @@
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Orden de pago", "Registrada", "Licencia de uso" });
             comboBox1.Location = new Point(349, 220);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 29);
+            comboBox1.Size = new Size(250, 25);
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -107,7 +107,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(349, 153);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(66, 21);
+            lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -179,7 +179,7 @@
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 30;
+            iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(188, 425);
             iconButton3.Name = "iconButton3";
@@ -200,7 +200,7 @@
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
+            iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(393, 425);
             iconButton2.Name = "iconButton2";
@@ -214,7 +214,7 @@
             // 
             // FrmAgregarEtapa
             // 
-            AutoScaleDimensions = new SizeF(11F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(779, 493);
             Controls.Add(panel2);

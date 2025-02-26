@@ -12,6 +12,7 @@ namespace Presentacion.Marcas_Nacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = false;
         public FrmMostrarTitulares()
         {
             InitializeComponent();
@@ -70,6 +71,14 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
@@ -83,6 +92,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (dtgTitulares.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
             {
+                buscando = false;
                 // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
                 var filaSeleccionada = dtgTitulares.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -158,7 +168,7 @@ namespace Presentacion.Marcas_Nacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando==true)
             {
                 filtrar();
             }
@@ -175,7 +185,7 @@ namespace Presentacion.Marcas_Nacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -193,7 +203,7 @@ namespace Presentacion.Marcas_Nacionales
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -209,7 +219,7 @@ namespace Presentacion.Marcas_Nacionales
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -223,6 +233,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             filtrar();
         }
@@ -231,6 +242,14 @@ namespace Presentacion.Marcas_Nacionales
         {
             if(e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }

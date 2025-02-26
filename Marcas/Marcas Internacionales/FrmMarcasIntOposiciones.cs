@@ -40,6 +40,8 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex2 = 1;
         private int totalPages2 = 0;
         private int totalRows2 = 0;
+        private bool buscando1 = false;
+        private bool buscando2 = false;
         public void convertirImagen()
         {
 
@@ -1107,6 +1109,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgMarcasOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            buscando1 = false;
             Editar();
         }
         public async Task FiltrarPorSituacionActual()
@@ -1619,11 +1622,20 @@ namespace Presentacion.Marcas_Internacionales
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
             //filtrarMarcas();
+            buscando1 = true;
+            currentPageIndex = 1;
+            totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrarRecibidas();
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
+            buscando1 = false;
             txtBuscar.Text = "";
             //filtrarMarcas();
             filtrarRecibidas();
@@ -1744,6 +1756,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
+            buscando2 = false;
             txtBuscar2.Text = "";
             filtrarMarcasInterpuestas();
         }
@@ -1752,6 +1765,14 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando1 = true;
+                currentPageIndex = 1;
+                totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 //filtrarMarcas();
                 filtrarRecibidas();
             }
@@ -1759,6 +1780,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void ibtnBuscar2_Click(object sender, EventArgs e)
         {
+            buscando2 = true;
+            currentPageIndex2 = 1;
+            totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
+            totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
+            lblTotalPages2.Text = totalPages2.ToString();
+            lblTotalRows2.Text = totalRows2.ToString();
             filtrarMarcasInterpuestas();
         }
 
@@ -1766,6 +1795,14 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando2 = true;
+                currentPageIndex2 = 1;
+                totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
+                totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+                lblTotalPages2.Text = totalPages2.ToString();
+                lblTotalRows2.Text = totalRows2.ToString();
                 filtrarMarcasInterpuestas();
             }
         }
@@ -1777,6 +1814,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgOpI_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            buscando2 = false;
             Editar();
         }
 
@@ -2178,7 +2216,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando1==true)
             {
                 filtrarRecibidas();
             }
@@ -2195,7 +2233,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando1 == true)
                 {
                     filtrarRecibidas();
                 }
@@ -2213,7 +2251,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando1 == true)
                 {
                     filtrarRecibidas();
                 }
@@ -2229,7 +2267,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando1 == true)
             {
                 filtrarRecibidas();
             }
@@ -2244,7 +2282,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst2_Click(object sender, EventArgs e)
         {
             currentPageIndex2 = 1;
-            if (txtBuscar2.Text != "")
+            if (buscando2==true)
             {
                 filtrarMarcasInterpuestas();
             }
@@ -2261,7 +2299,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex2 > 1)
             {
                 currentPageIndex2--;
-                if (txtBuscar2.Text != "")
+                if (buscando2 == true)
                 {
                     filtrarMarcasInterpuestas();
                 }
@@ -2279,7 +2317,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex2 < totalPages2)
             {
                 currentPageIndex2++;
-                if (txtBuscar2.Text != "")
+                if (buscando2 == true)
                 {
                     filtrarMarcasInterpuestas();
                 }
@@ -2295,7 +2333,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnLast2_Click(object sender, EventArgs e)
         {
             currentPageIndex2 = totalPages2;
-            if (txtBuscar2.Text != "")
+            if (buscando2 == true)
             {
                 filtrarMarcasInterpuestas();
             }

@@ -23,6 +23,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -1032,6 +1033,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgMarcasRenov_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            buscando = false;
             Editar();
         }
 
@@ -1196,19 +1198,28 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton6_Click_1(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             filtrar();
         }
 
         private void ibtnBuscar_Click_1(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando==true)
             {
                 filtrar();
             }
@@ -1225,7 +1236,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1243,7 +1254,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1259,7 +1270,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1275,6 +1286,14 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }

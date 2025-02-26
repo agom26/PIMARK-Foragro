@@ -55,7 +55,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(31, 70);
             label1.Name = "label1";
-            label1.Size = new Size(184, 21);
+            label1.Size = new Size(125, 17);
             label1.TabIndex = 0;
             label1.Text = "Fecha de oposición";
             // 
@@ -64,7 +64,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(31, 149);
             label3.Name = "label3";
-            label3.Size = new Size(124, 21);
+            label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -73,7 +73,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(31, 93);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 30);
+            dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -91,7 +91,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(212, 28);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(66, 21);
+            lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -163,7 +163,7 @@
             iconButton3.IconChar = FontAwesome.Sharp.IconChar.Gavel;
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 30;
+            iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton3.Location = new Point(340, 485);
             iconButton3.Name = "iconButton3";
@@ -184,7 +184,7 @@
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             iconButton2.IconColor = Color.Black;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 30;
+            iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
             iconButton2.Location = new Point(542, 485);
             iconButton2.Name = "iconButton2";
@@ -201,7 +201,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(84, 88);
             label4.Name = "label4";
-            label4.Size = new Size(84, 21);
+            label4.Size = new Size(59, 17);
             label4.TabIndex = 12;
             label4.Text = "Opositor";
             // 
@@ -223,7 +223,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(87, 172);
             label6.Name = "label6";
-            label6.Size = new Size(132, 21);
+            label6.Size = new Size(93, 17);
             label6.TabIndex = 24;
             label6.Text = "Signo opositor";
             // 
@@ -231,14 +231,14 @@
             // 
             txtSolicitante.Location = new Point(87, 195);
             txtSolicitante.Name = "txtSolicitante";
-            txtSolicitante.Size = new Size(323, 30);
+            txtSolicitante.Size = new Size(323, 22);
             txtSolicitante.TabIndex = 21;
             // 
             // txtNombreOpositor
             // 
             txtNombreOpositor.Location = new Point(87, 111);
             txtNombreOpositor.Name = "txtNombreOpositor";
-            txtNombreOpositor.Size = new Size(323, 30);
+            txtNombreOpositor.Size = new Size(323, 22);
             txtNombreOpositor.TabIndex = 19;
             // 
             // groupBox1
@@ -257,7 +257,7 @@
             // 
             // FrmEnviarAOposicion
             // 
-            AutoScaleDimensions = new SizeF(11F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 601);
             Controls.Add(Fechas);

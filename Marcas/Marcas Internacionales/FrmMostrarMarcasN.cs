@@ -13,6 +13,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        private bool buscando = false;
         public FrmMostrarMarcasN()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (dtgTitulares.Columns["id"] != null)
                 {
                     dtgTitulares.Columns["id"].Visible = false;
+                    dtgTitulares.Columns["IdTitular"].Visible = false;
                     dtgTitulares.ClearSelection();
                 }
 
@@ -104,6 +106,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
             /*
             string valor = "%" + txtBuscar.Text + "%";
@@ -126,6 +136,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
+            
             if (dtgTitulares.RowCount <= 0)
             {
                 MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -134,6 +145,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (dtgTitulares.SelectedRows.Count > 0) // Verifica si hay filas seleccionadas
             {
+                buscando = false;
                 // Usa DataBoundItem para acceder al objeto vinculado a la fila seleccionada
                 var filaSeleccionada = dtgTitulares.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
@@ -182,7 +194,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -198,7 +210,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando==true)
             {
                 filtrar();
             }
@@ -215,7 +227,7 @@ namespace Presentacion.Marcas_Internacionales
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -231,7 +243,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -247,12 +259,21 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             filtrar();
         }

@@ -105,7 +105,6 @@
             // 
             // btnLast
             // 
-            btnLast.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLast.AutoSize = true;
             btnLast.BackColor = Color.FromArgb(158, 158, 158);
             btnLast.FlatAppearance.BorderSize = 0;
@@ -126,7 +125,6 @@
             // 
             // btnNext
             // 
-            btnNext.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnNext.AutoSize = true;
             btnNext.BackColor = Color.FromArgb(158, 158, 158);
             btnNext.FlatAppearance.BorderSize = 0;
@@ -147,7 +145,6 @@
             // 
             // btnPrev
             // 
-            btnPrev.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPrev.AutoSize = true;
             btnPrev.BackColor = Color.FromArgb(158, 158, 158);
             btnPrev.FlatAppearance.BorderSize = 0;
@@ -168,7 +165,6 @@
             // 
             // btnFirst
             // 
-            btnFirst.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFirst.AutoSize = true;
             btnFirst.BackColor = Color.FromArgb(158, 158, 158);
             btnFirst.FlatAppearance.BorderSize = 0;
@@ -189,34 +185,31 @@
             // 
             // lblTotalPages
             // 
-            lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
             lblTotalPages.Location = new Point(996, 77);
             lblTotalPages.Name = "lblTotalPages";
-            lblTotalPages.Size = new Size(20, 21);
+            lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 104;
             lblTotalPages.Text = "0";
             // 
             // label10
             // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 9F);
             label10.Location = new Point(961, 77);
             label10.Name = "label10";
-            label10.Size = new Size(34, 21);
+            label10.Size = new Size(24, 17);
             label10.TabIndex = 103;
             label10.Text = "de";
             // 
             // lblCurrentPage
             // 
-            lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
             lblCurrentPage.Location = new Point(927, 77);
             lblCurrentPage.Name = "lblCurrentPage";
-            lblCurrentPage.Size = new Size(20, 21);
+            lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 102;
             lblCurrentPage.Text = "0";
             // 
@@ -226,18 +219,17 @@
             lblTotalRows.Font = new Font("Century Gothic", 9F);
             lblTotalRows.Location = new Point(202, 77);
             lblTotalRows.Name = "lblTotalRows";
-            lblTotalRows.Size = new Size(20, 21);
+            lblTotalRows.Size = new Size(15, 17);
             lblTotalRows.TabIndex = 101;
             lblTotalRows.Text = "0";
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
             label2.Location = new Point(850, 77);
             label2.Name = "label2";
-            label2.Size = new Size(71, 21);
+            label2.Size = new Size(49, 17);
             label2.TabIndex = 100;
             label2.Text = "Página";
             // 
@@ -247,13 +239,12 @@
             label1.Font = new Font("Century Gothic", 9F);
             label1.Location = new Point(47, 77);
             label1.Name = "label1";
-            label1.Size = new Size(166, 21);
+            label1.Size = new Size(115, 17);
             label1.TabIndex = 99;
             label1.Text = "Total de registros: ";
             // 
             // iconButton6
             // 
-            iconButton6.Anchor = AnchorStyles.Top;
             iconButton6.BackColor = Color.Gainsboro;
             iconButton6.FlatAppearance.BorderSize = 0;
             iconButton6.FlatStyle = FlatStyle.Flat;
@@ -366,13 +357,13 @@
             txtBuscar.Font = new Font("Century Gothic", 12F);
             txtBuscar.Location = new Point(217, 26);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(418, 37);
+            txtBuscar.Size = new Size(418, 27);
             txtBuscar.TabIndex = 0;
             txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
             // FrmMostrarClientes
             // 
-            AutoScaleDimensions = new SizeF(14F, 30F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
             ClientSize = new Size(1086, 543);

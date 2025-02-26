@@ -62,7 +62,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(188, 130);
             label1.Name = "label1";
-            label1.Size = new Size(66, 21);
+            label1.Size = new Size(45, 17);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -72,7 +72,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(369, 132);
             label2.Name = "label2";
-            label2.Size = new Size(70, 21);
+            label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
             label2.Text = "Estado";
             // 
@@ -82,7 +82,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(188, 209);
             label3.Name = "label3";
-            label3.Size = new Size(124, 21);
+            label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -92,7 +92,7 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(188, 153);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 30);
+            dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -106,7 +106,7 @@
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
             comboBox1.Location = new Point(369, 155);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 29);
+            comboBox1.Size = new Size(250, 25);
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -126,7 +126,7 @@
             lblUser.AutoSize = true;
             lblUser.Location = new Point(369, 88);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(66, 21);
+            lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -199,14 +199,14 @@
             btnSeleccionar.IconChar = FontAwesome.Sharp.IconChar.Check;
             btnSeleccionar.IconColor = Color.White;
             btnSeleccionar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnSeleccionar.IconSize = 30;
+            btnSeleccionar.IconSize = 25;
             btnSeleccionar.ImageAlign = ContentAlignment.MiddleLeft;
             btnSeleccionar.Location = new Point(29, 20);
             btnSeleccionar.Name = "btnSeleccionar";
             btnSeleccionar.Size = new Size(179, 34);
             btnSeleccionar.TabIndex = 10;
             btnSeleccionar.Text = "SELECCIONAR";
-            btnSeleccionar.TextAlign = ContentAlignment.MiddleLeft;
+            btnSeleccionar.TextAlign = ContentAlignment.MiddleRight;
             btnSeleccionar.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnSeleccionar.UseVisualStyleBackColor = false;
             btnSeleccionar.Click += iconButton3_Click;
@@ -220,14 +220,14 @@
             btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelar.IconColor = Color.Black;
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelar.IconSize = 30;
+            btnCancelar.IconSize = 25;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelar.Location = new Point(234, 20);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(179, 34);
             btnCancelar.TabIndex = 9;
             btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextAlign = ContentAlignment.MiddleLeft;
+            btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += iconButton2_Click;
@@ -236,7 +236,7 @@
             // 
             txtNoExpedienteRT.Location = new Point(138, 43);
             txtNoExpedienteRT.Name = "txtNoExpedienteRT";
-            txtNoExpedienteRT.Size = new Size(154, 30);
+            txtNoExpedienteRT.Size = new Size(154, 22);
             txtNoExpedienteRT.TabIndex = 11;
             // 
             // lblNoExpediente
@@ -244,7 +244,7 @@
             lblNoExpediente.AutoSize = true;
             lblNoExpediente.Location = new Point(138, 20);
             lblNoExpediente.Name = "lblNoExpediente";
-            lblNoExpediente.Size = new Size(85, 21);
+            lblNoExpediente.Size = new Size(59, 17);
             lblNoExpediente.TabIndex = 12;
             lblNoExpediente.Text = "Traspaso";
             // 
@@ -310,7 +310,7 @@
             // 
             // FrmAgregarEtapaRegistrada
             // 
-            AutoScaleDimensions = new SizeF(11F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(779, 576);
