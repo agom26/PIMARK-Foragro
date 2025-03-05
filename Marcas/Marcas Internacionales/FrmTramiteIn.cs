@@ -269,6 +269,11 @@ namespace Presentacion.Marcas_Nacionales
 
             if (textBoxEstatus.Text == "Registrada")
             {
+                txtRegistro.Text = "";
+                txtLibro.Text = "";
+                txtFolio.Text = "";
+                dateTimePFecha_Registro.Value = DateTime.Now;
+                ActualizarFechaVencimiento();
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 panel2I.Visible = true;

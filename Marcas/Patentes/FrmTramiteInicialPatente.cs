@@ -296,6 +296,10 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
+                txtRegistro.Text = "";
+                txtLibro.Text = "";
+                txtFolio.Text = "";
+                dateTimePFecha_Registro.Value = DateTime.Now;
                 ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;

@@ -298,6 +298,11 @@ namespace Presentacion.Marcas_Internacionales
 
             if (textBoxEstatus.Text == "Registrada")
             {
+                txtRegistro.Text = "";
+                txtLibro.Text = "";
+                txtFolio.Text = "";
+                dateTimePFecha_Registro.Value = DateTime.Now;
+                ActualizarFechaVencimiento();
                 checkBox1.Checked = true;
                 checkBox1.Enabled = false;
                 tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;

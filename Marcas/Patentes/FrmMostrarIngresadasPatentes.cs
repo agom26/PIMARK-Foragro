@@ -1008,6 +1008,11 @@ namespace Presentacion.Patentes
                         checkBox2.Checked = true;
                         checkBox2.Checked = true;
                         mostrarPanelRegistro("si");
+                        txtRegistro.Text = "";
+                        txtLibro.Text = "";
+                        txtFolio.Text = "";
+                        dateTimePFecha_Registro.Value = DateTime.Now;
+                        ActualizarFechaVencimiento();
                         VerificarDatosRegistro();
                     }
                     else
