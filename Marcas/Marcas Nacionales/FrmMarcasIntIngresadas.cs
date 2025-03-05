@@ -894,6 +894,7 @@ namespace Presentacion.Marcas_Internacionales
         private void SubirArchivo(string idMarca)
         {
             string carpeta = $"{directorioBase}/marca-{idMarca}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
@@ -903,9 +904,19 @@ namespace Presentacion.Marcas_Internacionales
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Cursor cursor = Cursors.WaitCursor;
+                Cursor.Current = Cursors.WaitCursor;
                 string archivoLocal1 = openFileDialog.FileName;
-                string nombreArchivo1 = Path.GetFileName(archivoLocal1);
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (100MB).",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
 
                 try
                 {
@@ -931,7 +942,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     MessageBox.Show($"Error al subir el archivo: {ex.Message}");
                 }
-                Cursor cursor1 = Cursors.Default;
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -1675,6 +1686,7 @@ namespace Presentacion.Marcas_Internacionales
         private void SubirArchivoRegistro(string idMarca)
         {
             string carpeta = $"{directorioBase}/marca-{idMarca}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
@@ -1686,7 +1698,16 @@ namespace Presentacion.Marcas_Internacionales
             {
                 Cursor.Current = Cursors.WaitCursor;
                 string archivoLocal1 = openFileDialog.FileName;
-                string nombreArchivo1 = Path.GetFileName(archivoLocal1);
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (100MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
 
                 try
                 {
@@ -1713,13 +1734,13 @@ namespace Presentacion.Marcas_Internacionales
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error al subir el archivo: {ex.Message}");
-                    archivoSubido = false; // Si hay error, el archivo no se subió
+                    archivoSubido = false;
                 }
                 Cursor.Current = Cursors.Default;
             }
             else
             {
-                archivoSubido = false; // Si el usuario cancela la selección, no se subió ningún archivo
+                archivoSubido = false;
             }
         }
 

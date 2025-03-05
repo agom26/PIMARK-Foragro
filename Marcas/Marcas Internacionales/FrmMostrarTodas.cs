@@ -1173,7 +1173,7 @@ namespace Presentacion.Marcas_Nacionales
         private void SubirArchivoRegistro(string idMarca)
         {
             string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            long limiteTamanio = 100 * 1024 * 1024; // 100MB en bytes
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
@@ -1706,7 +1706,7 @@ namespace Presentacion.Marcas_Nacionales
         private void SubirArchivo(string idMarca)
         {
             string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            long limiteTamanio = 100 * 1024 * 1024; // 100MB en bytes
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
