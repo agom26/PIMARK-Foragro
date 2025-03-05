@@ -303,7 +303,7 @@ namespace Presentacion.Marcas_Internacionales
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
-            string registro = txtRegistro.Text;
+            string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
 
