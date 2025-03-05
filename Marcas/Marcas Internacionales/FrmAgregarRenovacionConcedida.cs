@@ -20,59 +20,57 @@ namespace Presentacion.Marcas_Nacionales
             AgregarRenovacion.fechaVencimientoNueva = fecha_vencimientoN;
         }
 
-        public void RenovarMarca()
+        public async Task RenovarMarca()
         {
-            HistorialModel historialModel = new HistorialModel();
-            RenovacionesMarcaModel renovacionModel = new RenovacionesMarcaModel();
+            MarcaModel marcaModel = new MarcaModel();
+
             string anotaciones = richTextBox1.Text;
-            AgregarEtapa.etapa = txtEstado.Text;
-            AgregarEtapa.fecha = dateTimePicker1.Value;
-            AgregarEtapa.usuario = UsuarioActivo.usuario;
-
-            //renovacion
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacion.idMarca = SeleccionarMarca.idInt;
-            AgregarRenovacion.fechaVencimientoAntigua = dateFechVencAnt.Value;
-            AgregarRenovacion.fechaVencimientoNueva = dateFechVencNueva.Value;
 
-            if (txtEstado.Text != "")
+            int idMarca = SeleccionarMarca.idInt;
+            DateTime fechaVencAnt = dateFechVencAnt.Value;
+            DateTime fechaVencNueva = dateFechVencNueva.Value;
+            DateTime fecha = dateTimePicker1.Value;
+            string etapa = txtEstado.Text;
+            string usuario = UsuarioActivo.usuario;
+
+            if (string.IsNullOrEmpty(etapa))
             {
-                //Historial
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + txtEstado.Text;
-                if (anotaciones.Contains(formato))
+                MessageBox.Show("No ha seleccionado ningún estado.");
+                return;
+            }
+
+            // Construcción de anotaciones
+            string fechaSinHora = fecha.ToShortDateString();
+            string formato = fechaSinHora + " " + etapa;
+            string anotacionesFinales = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
+
+            try
+            {
+                bool resultado = await Task.Run(() =>
+                    marcaModel.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotacionesFinales, usuario)
+                );
+
+                if (resultado)
                 {
-                    AgregarEtapa.anotaciones = anotaciones;
+
+                    AgregarRenovacion.renovacionTerminada = true;
                 }
                 else
                 {
-                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                    MessageBox.Show("Error al realizar la renovación.");
                 }
-                historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
-
-                try
-                {
-                    //Agregar a renovaciones
-                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacion.idMarca, AgregarRenovacion.fechaVencimientoAntigua, AgregarRenovacion.fechaVencimientoNueva);
-
-                    AgregarRenovacion.renovacionTerminada = true;
-
-                }
-                catch (Exception ex)
-                {
-                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.Show();
-                    //MessageBox.Show(ex.Message);
-                }
-
-
-                this.Close();
             }
-            else
+            catch (Exception ex)
             {
-                //MessageBox.Show("No ha seleccionado ningun estado");
+                FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.Show();
             }
+
+            this.Close();
         }
+
+        
 
         private void FrmAgregarRenovacionConcedida_Load(object sender, EventArgs e)
         {
