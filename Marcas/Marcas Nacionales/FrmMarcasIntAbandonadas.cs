@@ -689,7 +689,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1464,6 +1464,11 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconButton13_Click(object sender, EventArgs e)
         {
 
         }

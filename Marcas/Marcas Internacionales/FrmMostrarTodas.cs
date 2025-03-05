@@ -1191,7 +1191,7 @@ namespace Presentacion.Marcas_Nacionales
                 FileInfo fileInfo = new FileInfo(archivoLocal1);
                 if (fileInfo.Length > limiteTamanio)
                 {
-                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (100MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Cursor.Current = Cursors.Default;
                     return; // No sube el archivo si es demasiado grande
                 }
@@ -1724,7 +1724,7 @@ namespace Presentacion.Marcas_Nacionales
                 FileInfo fileInfo = new FileInfo(archivoLocal1);
                 if (fileInfo.Length > limiteTamanio)
                 {
-                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (100MB).",
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).",
                                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Cursor.Current = Cursors.Default;
                     return; // No sube el archivo si es demasiado grande

@@ -1564,6 +1564,7 @@ namespace Presentacion.Patentes
         private void SubirArchivo(string idMarca)
         {
             string carpeta = $"{directorioBase}/patente-{idMarca}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
@@ -1576,6 +1577,16 @@ namespace Presentacion.Patentes
                 Cursor.Current = Cursors.WaitCursor;
                 string archivoLocal1 = openFileDialog.FileName;
                 string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
 
                 try
                 {
