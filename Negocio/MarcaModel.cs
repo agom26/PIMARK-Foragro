@@ -16,12 +16,20 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
-     
+        public bool RenovarMarca(string noExpediente, int idMarca, DateTime fechaVencAnt, DateTime fechaVencNueva,
+                                DateTime fecha, string etapa, string anotaciones, string usuario)
+        {
+            return marcaDao.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
+        }
 
         //todas las marcas nacionales
         public DataTable FiltrarMarcasNacionales(string filtro, int currentPageIndex, int pageSize)
         {
             return marcaDao.filtrarMarcasNacionales(filtro, currentPageIndex, pageSize);
+        }
+        public DataTable FiltrarMarcasInternacionales(string filtro, int currentPageIndex, int pageSize)
+        {
+            return marcaDao.filtrarMarcasInternacionales(filtro, currentPageIndex, pageSize);
         }
         public bool ExisteRegistro(string registro, int? idMarcaActual)
         {
@@ -31,10 +39,19 @@ namespace Dominio
         {
             return marcaDao.GetTotalMarcasNacionales();
         }
+        public int GetTotalMarcasInternacionales()
+        {
+            return marcaDao.GetTotalMarcasInternacionales();
+        }
         public int GetFilteredMarcasNacionalesCount(string value)
         {
             return marcaDao.GetFilteredMarcasNacionalesCount(value);
         }
+        public int GetFilteredMarcasInternacionalesCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasInternacionalesCount(value);
+        }
+
         public DataTable GetAllMarcasNacionales(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
@@ -46,14 +63,14 @@ namespace Dominio
             marcaDao.InsertarExpedienteMarca(numExpediente, idMarca, tipo);
         }
 
-        public DataTable GetAllMarcasInternacionales()
+        public DataTable GetAllMarcasInternacionales(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionales();
+            tabla = marcaDao.GetAllMarcasInternacionales(currentPage, pageSize);
             return tabla;
         }
 
-        
+
         public int GetTotalMarcasSinRegistro()
         {
             return marcaDao.GetTotalMarcasSinRegistro();

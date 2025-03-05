@@ -30,6 +30,7 @@ namespace Presentacion.Patentes
         private int totalPages = 0;
         private int totalRows = 0;
         bool agregoEstado = false;
+        private bool buscando = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -1093,12 +1094,12 @@ namespace Presentacion.Patentes
                         txtLibro.ReadOnly = false;
                         dateTimePFecha_Registro.Enabled = true;
 
-                        if (AgregarEtapaPatente.etapa == "Trámite de renovación" )
+                        if (AgregarEtapaPatente.etapa == "Trámite de renovación")
                         {
                             txtERenovacion.Text = AgregarEtapaPatente.numExpediente.ToString();
                             txtERenovacion.Enabled = true;
                         }
-                        else if (AgregarEtapaPatente.etapa == "Trámite de traspaso" )
+                        else if (AgregarEtapaPatente.etapa == "Trámite de traspaso")
                         {
                             txtETraspaso.Text = AgregarEtapaPatente.numExpediente.ToString();
                             txtETraspaso.Enabled = true;
@@ -1111,7 +1112,7 @@ namespace Presentacion.Patentes
                             txtETraspaso.Enabled = false;
                         }
 
-                        
+
                     }
                     else
                     {
@@ -1129,7 +1130,7 @@ namespace Presentacion.Patentes
                     //await CargarDatosPatente();
 
 
-                    
+
 
 
                 }
@@ -1416,11 +1417,20 @@ namespace Presentacion.Patentes
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
+            buscando = true;
+            currentPageIndex = 1;
+            totalRows = patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRows.Text = totalRows.ToString();
             filtrar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
+            buscando = false;
             txtBuscar.Text = "";
             filtrar();
         }
@@ -1429,6 +1439,14 @@ namespace Presentacion.Patentes
         {
             if (e.KeyCode == Keys.Enter)
             {
+                buscando = true;
+                currentPageIndex = 1;
+                totalRows = patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
         }
@@ -1436,7 +1454,7 @@ namespace Presentacion.Patentes
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1453,7 +1471,7 @@ namespace Presentacion.Patentes
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1471,7 +1489,7 @@ namespace Presentacion.Patentes
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (txtBuscar.Text != "")
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -1487,7 +1505,7 @@ namespace Presentacion.Patentes
         private async void btnLast_Click(object sender, EventArgs e)
         {
             currentPageIndex = totalPages;
-            if (txtBuscar.Text != "")
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1820,6 +1838,11 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
+        }
+
+        private void tabPageIngresadasList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

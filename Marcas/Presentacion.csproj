@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Marcas Internacionales\FrmMarcasIntIngresadas.cs~RF23b52d9.TMP" />
-    <None Remove="Marcas Nacionales\FrmTramiteIn.resx~RF6f7e3f6.TMP" />
+    <None Remove="Marcas Nacionales\FrmMarcasIntIngresadas.cs~RF23b52d9.TMP" />
+    <None Remove="Marcas Internacionales\FrmTramiteIn.resx~RF6f7e3f6.TMP" />
     <None Remove="Vencimientos\FrmVencimientos.cs~RFe68d8b.TMP" />
   </ItemGroup>
 
@@ -60,61 +60,61 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Marcas Internacionales\FrmAgregarEtapaOposicionI.cs">
+    <Compile Update="Marcas Nacionales\FrmAgregarEtapaOposicionI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmAgregarRenovacionIntConcedida.cs">
+    <Compile Update="Marcas Nacionales\FrmAgregarRenovacionIntConcedida.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmCrearTraspasoInt.cs">
+    <Compile Update="Marcas Nacionales\FrmCrearTraspasoInt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmEnviarAOposicionI.cs">
+    <Compile Update="Marcas Nacionales\FrmEnviarAOposicionI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmMostrarMarcasN.cs">
+    <Compile Update="Marcas Nacionales\FrmMostrarMarcasN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmMostrarSolicitantesReportes.cs">
+    <Compile Update="Marcas Nacionales\FrmMostrarSolicitantesReportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmMostrarOpositoresReportes.cs">
+    <Compile Update="Marcas Nacionales\FrmMostrarOpositoresReportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmRenovacionesInt.cs">
+    <Compile Update="Marcas Nacionales\FrmRenovacionesInt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Internacionales\FrmTraspasosInt.cs">
+    <Compile Update="Marcas Nacionales\FrmTraspasosInt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmAgregarEtapaOposicion.cs">
+    <Compile Update="Marcas Internacionales\FrmAgregarEtapaOposicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmAgregarEtapaRegistrada.cs">
+    <Compile Update="Marcas Internacionales\FrmAgregarEtapaRegistrada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmEnviarAOposicion.cs">
+    <Compile Update="Marcas Internacionales\FrmEnviarAOposicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmCrearTraspaso.cs">
+    <Compile Update="Marcas Internacionales\FrmCrearTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmAgregarRenovacionConcedida.cs">
+    <Compile Update="Marcas Internacionales\FrmAgregarRenovacionConcedida.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmMostrarMarcas.cs">
+    <Compile Update="Marcas Internacionales\FrmMostrarMarcas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmMostrarTitularesEdicionTraspaso.cs">
+    <Compile Update="Marcas Internacionales\FrmMostrarTitularesEdicionTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmMostrarTitularesTraspaso.cs">
+    <Compile Update="Marcas Internacionales\FrmMostrarTitularesTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmTraspasos.cs">
+    <Compile Update="Marcas Internacionales\FrmTraspasos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Marcas Nacionales\FrmRenovaciones.cs">
+    <Compile Update="Marcas Internacionales\FrmRenovaciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Patentes\FrmAgregarEtapaPatente.cs">
