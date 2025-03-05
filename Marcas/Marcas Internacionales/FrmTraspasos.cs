@@ -401,6 +401,10 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageListaArchivos);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageHistorialMarca);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                         else
@@ -409,6 +413,10 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageListaArchivos);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageHistorialMarca);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                     }
@@ -1015,7 +1023,6 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaNacional();
-                EliminarTabPage(tabPageHistorialMarca);
             }
             else
             {
@@ -1037,6 +1044,10 @@ namespace Presentacion.Marcas_Nacionales
                 LimpiarFormulario();
                 //Volver a poner traspasos = false
                 AgregarTraspaso.traspasoFinalizado = false;
+                AnadirTabPage(tabPageRegistradasList);
+                EliminarTabPage(tabPageListaArchivos);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
                 tabControl1.SelectedTab = tabPageRegistradasList;
                 FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
@@ -1047,10 +1058,10 @@ namespace Presentacion.Marcas_Nacionales
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
-
+            AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageListaArchivos);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageRegistradasList);
             tabControl1.SelectedTab = tabPageRegistradasList;
             await LoadMarcas();
 

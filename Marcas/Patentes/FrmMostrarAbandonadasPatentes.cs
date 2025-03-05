@@ -154,7 +154,7 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
-                ActualizarFechaVencimiento();
+                //ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
                 checkBox2.Checked = true;
@@ -459,7 +459,7 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        public void EditarPatente()
+        public async void EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -593,7 +593,11 @@ namespace Presentacion.Patentes
                         LimpiarFomulario();
                         DatosRegistro.peligro = false;
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -620,7 +624,11 @@ namespace Presentacion.Patentes
                         LimpiarFomulario();
                         DatosRegistro.peligro = false;
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadPatentes();
                     }
                     catch (Exception ex)
                     {
@@ -1055,14 +1063,16 @@ namespace Presentacion.Patentes
             richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
-        private void btnCancelarM_Click(object sender, EventArgs e)
+        private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             LimpiarFomulario();
             DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageIngresadasList);
+            EliminarTabPage(tabPageListaArchivos);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageIngresadasList);
             tabControl1.SelectedTab = tabPageIngresadasList;
+            await LoadPatentes();
 
         }
 

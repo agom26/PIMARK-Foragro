@@ -320,6 +320,11 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             int? idCliente = SeleccionarPersona.idPersonaC;
+            if (idCliente == 0)
+            {
+                idCliente = null;
+            }
+
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
             string paisRegistro = comboBox1.SelectedItem?.ToString();
@@ -392,6 +397,10 @@ namespace Presentacion.Marcas_Nacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageListaMarcas);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageListaArchivos);
+                            EliminarTabPage(tabPageHistorialMarca);
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                         else
@@ -402,6 +411,10 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageListaMarcas);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageListaArchivos);
+                            EliminarTabPage(tabPageHistorialMarca);
                             tabControl1.SelectedTab = tabPageListaMarcas;
                         }
                     }
@@ -1273,9 +1286,10 @@ namespace Presentacion.Marcas_Nacionales
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageListaMarcas);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageListaMarcas;
             await LoadMarcas();
         }
@@ -1316,12 +1330,14 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (AgregarEtapa.enviadoAOposicion == true)
                 {
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    AnadirTabPage(tabPageListaMarcas);
-                    tabControl1.SelectedTab = tabPageListaMarcas;
+                    
                     FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    AnadirTabPage(tabPageListaMarcas);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageListaArchivos);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    tabControl1.SelectedTab = tabPageListaMarcas;
                 }
             }
             else

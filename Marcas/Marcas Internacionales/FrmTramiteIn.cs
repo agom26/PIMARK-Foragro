@@ -226,7 +226,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL."+ ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

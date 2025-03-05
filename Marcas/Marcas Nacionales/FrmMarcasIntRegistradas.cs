@@ -371,8 +371,10 @@ namespace Presentacion.Marcas_Internacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
-                            EliminarTabPage(tabPageHistorialMarca);
+                            
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageHistorialMarca);
+                            EliminarTabPage(tabPageMarcaDetail);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -387,6 +389,7 @@ namespace Presentacion.Marcas_Internacionales
                             
                             EliminarTabPage(tabPageHistorialMarca);
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -739,12 +742,14 @@ namespace Presentacion.Marcas_Internacionales
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
-                EliminarTabPage(tabPageHistorialDetail);
+                
+                EliminarTabPage(tabPageListaArchivos);
             }
             else if (tabControl1.SelectedTab == tabPageRegistradasList)
             {
                 await LoadMarcas();
                 SeleccionarMarca.idN = 0;
+                
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
@@ -756,15 +761,11 @@ namespace Presentacion.Marcas_Internacionales
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
+                
                 await CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageRenovacionDetail);
-                EliminarTabPage(tabPageTraspasosList);
                 EliminarTabPage(tabPageTraspasoDetail);
-                EliminarTabPage(tabPageRegistradasList);
-                EliminarTabPage(tabPageListaArchivos);
             }
             else if (tabControl1.SelectedTab == tabPageRenovacionesList)
             {
@@ -772,13 +773,13 @@ namespace Presentacion.Marcas_Internacionales
                 SeleccionarRenovacion.idRenovacion = 0;
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageRenovacionDetail);
                 EliminarTabPage(tabPageTraspasoDetail);
                 EliminarTabPage(tabPageTraspasosList);
 
             }
             else if (tabControl1.SelectedTab == tabPageTraspasosList)
             {
+                
                 loadTraspasosById();
                 SeleccionarTraspaso.id = 0;
                 EliminarTabPage(tabPageHistorialDetail);
@@ -1472,9 +1473,10 @@ namespace Presentacion.Marcas_Internacionales
         {
             agregoEstado = false;
             DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageRegistradasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageListaArchivos);
             await LoadMarcas();
 
         }
@@ -1643,20 +1645,24 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void roundedButton2_Click_1(object sender, EventArgs e)
         {
-            await Task.Run(() => loadHistorialById());
             AnadirTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageHistorialMarca;
+            await Task.Run(() => loadHistorialById());
+            
         }
 
         private void roundedButton6_Click_1(object sender, EventArgs e)
         {
-            loadRenovacionesById();
+
             AnadirTabPage(tabPageRenovacionesList);
+            loadRenovacionesById();
         }
 
         private void roundedButton9_Click_1(object sender, EventArgs e)
         {
-            loadTraspasosById();
             AnadirTabPage(tabPageTraspasosList);
+            tabControl1.SelectedTab = tabPageTraspasosList;
+            loadTraspasosById();
         }
 
         private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

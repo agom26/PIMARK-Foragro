@@ -16,6 +16,19 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
+        public void InsertarTraspasoYHistorialMarca(
+       string numExpediente,
+       int idMarca,
+       int idTitularAnterior,
+       int idTitularNuevo,
+       DateTime fecha,
+       string etapa,
+       string anotaciones,
+       string usuario)
+        {
+            marcaDao.InsertarTraspasoYHistorialMarca(numExpediente, idMarca, idTitularAnterior,
+                idTitularNuevo, fecha, etapa, anotaciones, usuario, "TRÁMITE");
+        }
         public bool RenovarMarca(string noExpediente, int idMarca, DateTime fechaVencAnt, DateTime fechaVencNueva,
                                 DateTime fecha, string etapa, string anotaciones, string usuario)
         {

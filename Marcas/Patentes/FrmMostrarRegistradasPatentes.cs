@@ -143,7 +143,7 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
-                ActualizarFechaVencimiento();
+                //ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
                 checkBox2.Checked = true;
@@ -183,6 +183,8 @@ namespace Presentacion.Patentes
                         SeleccionarPatente.anualidades = int.Parse(row["anualidades"].ToString());
                         SeleccionarPatente.pct = row["pct"].ToString();
                         SeleccionarPatente.fecha_solicitud = (DateTime)row["fecha_solicitud"];
+                        
+                        //MessageBox.Show(SeleccionarPatente.fecha_vencimiento.ToString());
                         SeleccionarPatente.estado = row["estado"].ToString();
                         SeleccionarPatente.idTitular = int.Parse(row["IdTitular"].ToString());
                         SeleccionarPatente.idAgente = int.Parse(row["IdAgente"].ToString());
@@ -246,6 +248,7 @@ namespace Presentacion.Patentes
                         txtNombre.Text = SeleccionarPatente.nombre;
                         textBoxEstatus.Text = SeleccionarPatente.estado;
                         datePickerFechaSolicitud.Value = SeleccionarPatente.fecha_solicitud;
+                        
                         comboBoxTipo.SelectedItem = SeleccionarPatente.tipo;
                         comboBoxAnualidades.SelectedItem = SeleccionarPatente.anualidades.ToString();
 
@@ -572,8 +575,11 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
-                        AnadirTabPage(tabPageIngresadasList);
                         DatosRegistro.peligro = false;
+                        AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -600,8 +606,11 @@ namespace Presentacion.Patentes
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         LimpiarFomulario();
-                        AnadirTabPage(tabPageIngresadasList);
                         DatosRegistro.peligro = false;
+                        AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -1409,6 +1418,7 @@ namespace Presentacion.Patentes
         private void datePickerFechaSolicitud_ValueChanged(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+
         }
 
         private void roundedButton5_Click(object sender, EventArgs e)
@@ -1517,14 +1527,15 @@ namespace Presentacion.Patentes
         {
             
             LimpiarFomulario();
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageIngresadasList);
             DatosRegistro.peligro = false;
-            tabControl1.SelectedTab = tabPageIngresadasList;
-            await LoadPatentes();
             SeleccionarPatente.Erenov = null;
             SeleccionarPatente.Etrasp = null;
+            AnadirTabPage(tabPageIngresadasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageIngresadasList;
+            await LoadPatentes();
 
 
         }

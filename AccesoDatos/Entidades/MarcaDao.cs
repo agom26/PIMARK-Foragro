@@ -11,6 +11,50 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        public void InsertarTraspasoYHistorialMarca(
+        string numExpediente,
+        int idMarca,
+        int idTitularAnterior,
+        int idTitularNuevo,
+        DateTime fecha,
+        string etapa,
+        string anotaciones,
+        string usuario,
+        string origen)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand("InsertarTraspasoYHistorialMarca", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
+                    cmd.Parameters.AddWithValue("@p_IdMarca", idMarca);
+                    cmd.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
+                    cmd.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
+                    cmd.Parameters.AddWithValue("@p_Fecha", fecha);
+                    cmd.Parameters.AddWithValue("@p_Etapa", etapa);
+                    cmd.Parameters.AddWithValue("@p_Anotaciones", anotaciones);
+                    cmd.Parameters.AddWithValue("@p_Usuario", usuario);
+                    cmd.Parameters.AddWithValue("@p_Origen", origen);
+
+                    MySqlParameter exito = new MySqlParameter("@p_Exito", MySqlDbType.Bit);
+                    exito.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(exito);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    bool resultado = Convert.ToBoolean(exito.Value);
+                    if (!resultado)
+                    {
+                        throw new Exception("Error al realizar la transacción de traspaso e historial.");
+                    }
+                }
+            }
+        }
+
+
         public bool RenovarMarca(string noExpediente, int idMarca, DateTime fechaVencAnt, DateTime fechaVencNueva,
                          DateTime fecha, string etapa, string anotaciones, string usuario)
         {

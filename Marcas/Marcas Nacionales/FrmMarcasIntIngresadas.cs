@@ -55,42 +55,7 @@ namespace Presentacion.Marcas_Internacionales
             ActualizarFechaVencimiento();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             btnAdjuntarT.Visible = false;
-            if (UsuarioActivo.isAdmin == false)
-            {
-                btnAgregarTitular.Enabled = false;
-                btnAgregarAgente.Enabled = false;
-                btnEditarEstadoHistorial.Visible = false;
-                txtExpediente.Enabled = false;
-                txtClase.Enabled = false;
-                txtNombre.Enabled = false;
-                datePickerFechaSolicitud.Enabled = false;
-                comboBoxTipoSigno.Enabled = false;
-                comboBoxSignoDistintivo.Enabled = false;
-                btnSubirImagen.Enabled = false;
-                btnQuitarImagen.Enabled = false;
-                dateTimePickerFechaH.Enabled = false;
-                comboBoxEstatusH.Enabled = false;
-                richTextBoxAnotacionesH.Enabled = false;
-                btnEditarH.Visible = false;
-            }
-            else if (UsuarioActivo.isAdmin == true)
-            {
-                btnAgregarTitular.Enabled = true;
-                btnAgregarAgente.Enabled = true;
-                btnEditarEstadoHistorial.Visible = true;
-                txtExpediente.Enabled = true;
-                txtClase.Enabled = true;
-                txtNombre.Enabled = true;
-                datePickerFechaSolicitud.Enabled = true;
-                comboBoxTipoSigno.Enabled = true;
-                comboBoxSignoDistintivo.Enabled = true;
-                btnSubirImagen.Enabled = true;
-                btnQuitarImagen.Enabled = true;
-                dateTimePickerFechaH.Enabled = true;
-                comboBoxEstatusH.Enabled = true;
-                richTextBoxAnotacionesH.Enabled = true;
-                btnEditarH.Visible = true;
-            }
+            
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -98,6 +63,10 @@ namespace Presentacion.Marcas_Internacionales
             if (tabControl1.TabPages.Contains(nombre))
             {
                 tabControl1.TabPages.Remove(nombre);
+            }
+            else
+            {
+
             }
         }
 
@@ -385,6 +354,7 @@ namespace Presentacion.Marcas_Internacionales
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
+                            EliminarTabPage(tabPageListaArchivos);
                             AnadirTabPage(tabPageIngresadasList);
                             tabControl1.SelectedTab = tabPageIngresadasList;
                             await LoadMarcas();
@@ -398,6 +368,7 @@ namespace Presentacion.Marcas_Internacionales
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
+                            EliminarTabPage(tabPageListaArchivos);
                             AnadirTabPage(tabPageIngresadasList);
                             tabControl1.SelectedTab = tabPageIngresadasList;
                             await LoadMarcas();
@@ -692,25 +663,28 @@ namespace Presentacion.Marcas_Internacionales
             {
                 loadHistorialById();
                 EliminarTabPage(tabPageIngresadasList);
-
+                EliminarTabPage(tabPageListaArchivos);
                 EliminarTabPage(tabPageHistorialDetail);
             }
             else if (tabControl1.SelectedTab == tabPageMarcaDetail)
             {
                 await CargarDatosMarca();
                 EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageIngresadasList);
+                EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageListaArchivos);
             }
             else if (tabControl1.SelectedTab == tabPageIngresadasList)
             {
+                EliminarTabPage(tabPageListaArchivos);
+                EliminarTabPage(tabPageHistorialMarca);
                 await LoadMarcas();
                 SeleccionarMarca.idN = 0;
-                EliminarTabPage(tabPageMarcaDetail);
+            }
+            else if (tabControl1.SelectedTab == tabPageListaArchivos)
+            {
                 EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageListaArchivos);
+                
             }
 
 
@@ -1172,7 +1146,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            EliminarTabPage(tabPageHistorialMarca);
+            AnadirTabPage(tabPageMarcaDetail);
         }
 
         private void btnActualizarM_Click(object sender, EventArgs e)
@@ -1289,10 +1264,10 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
 
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
             DatosRegistro.peligro = false;
+         
             AnadirTabPage(tabPageIngresadasList);
+            EliminarTabPage(tabPageMarcaDetail);
             tabControl1.SelectedTab = tabPageIngresadasList;
             await LoadMarcas();
 
@@ -1540,6 +1515,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
+            EliminarTabPage(tabPageListaArchivos);
+            AnadirTabPage(tabPageMarcaDetail);
             tabControl1.SelectedTab = tabPageMarcaDetail;
 
         }

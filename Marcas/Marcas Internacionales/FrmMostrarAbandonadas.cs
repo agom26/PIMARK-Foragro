@@ -595,13 +595,16 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void btnCancelarM_Click(object sender, EventArgs e)
+        private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
             agregoEstado = false;
+            AnadirTabPage(tabPageAbandonadasList);
             EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+            await LoadMarcas();
         }
 
         public void VerificarDatosRegistro()
@@ -1256,7 +1259,7 @@ namespace Presentacion.Marcas_Nacionales
 
             return true; // Todas las validaciones pasaron
         }
-        public void ActualizarMarcaNacional()
+        public async Task ActualizarMarcaNacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -1363,8 +1366,13 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
+
                         AnadirTabPage(tabPageAbandonadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageAbandonadasList;
+                        await LoadMarcas();
                     }
                     else
                     {
@@ -1373,7 +1381,11 @@ namespace Presentacion.Marcas_Nacionales
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
                         AnadirTabPage(tabPageAbandonadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageAbandonadasList;
+                        await LoadMarcas();
                     }
 
 
@@ -1399,7 +1411,7 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaNacional();
-                EliminarTabPage(tabPageHistorialMarca);
+               
             }
             else
             {

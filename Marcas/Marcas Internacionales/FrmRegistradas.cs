@@ -315,7 +315,7 @@ namespace Presentacion.Marcas_Nacionales
             return true; // Todas las validaciones pasaron
         }
 
-        public void ActualizarMarcaNacional()
+        public async void ActualizarMarcaNacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -328,6 +328,12 @@ namespace Presentacion.Marcas_Nacionales
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             int? idCliente = SeleccionarPersona.idPersonaC;
+
+            if (idCliente == 0)
+            {
+                idCliente = null;
+            }
+
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
 
@@ -404,7 +410,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder,idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
                 }
                 else
                 {
@@ -422,7 +428,12 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
+                        EliminarTabPage(tabPageHistorialMarca);                        
+                        AnadirTabPage(tabPageRegistradasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
                         tabControl1.SelectedTab = tabPageRegistradasList;
+                        await LoadMarcas();
                     }
                     else
                     {
@@ -430,8 +441,12 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
+                        EliminarTabPage(tabPageHistorialMarca);
                         AnadirTabPage(tabPageRegistradasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
                         tabControl1.SelectedTab = tabPageRegistradasList;
+                        await LoadMarcas();
                     }
 
 
@@ -537,7 +552,7 @@ namespace Presentacion.Marcas_Nacionales
                         if (titular.Count > 0)
                         {
                             txtNombreTitular.Text = titular[0].nombre;
-                            
+
                         }
 
                         if (agente.Count > 0)
@@ -1645,9 +1660,7 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaNacional();
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                await LoadMarcas();
+                
 
             }
             else
@@ -1662,9 +1675,10 @@ namespace Presentacion.Marcas_Nacionales
         {
             agregoEstado = false;
             DatosRegistro.peligro = false;
-            EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
             tabControl1.SelectedTab = tabPageRegistradasList;
             await LoadMarcas();
 
@@ -2160,6 +2174,11 @@ namespace Presentacion.Marcas_Nacionales
                 SeleccionarPersona.idPersonaC = null;
                 txtNombreCliente.Text = "";
             }
+        }
+
+        private void tabPageRegistradasList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

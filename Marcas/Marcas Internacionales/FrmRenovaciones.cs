@@ -404,6 +404,10 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageHistorialMarca);
+                            EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                         else
@@ -412,6 +416,10 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
+                            AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageHistorialMarca);
+                            EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                         }
                     }
@@ -1016,9 +1024,7 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaNacional();
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                await LoadMarcas();
+               
             }
             else
             {
@@ -1040,6 +1046,10 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     LimpiarFormulario();
                     AgregarRenovacion.renovacionTerminada = false;
+                    AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageListaArchivos);
                     tabControl1.SelectedTab = tabPageRegistradasList;
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
@@ -1067,9 +1077,10 @@ namespace Presentacion.Marcas_Nacionales
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageRegistradasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageListaArchivos);
             tabControl1.SelectedTab = tabPageRegistradasList;
             await LoadMarcas();
 

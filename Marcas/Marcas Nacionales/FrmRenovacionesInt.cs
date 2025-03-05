@@ -45,6 +45,7 @@ namespace Presentacion.Marcas_Internacionales
             this.Load += FrmRenovacionesInt_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+           /*
             if (UsuarioActivo.isAdmin == false)
             {
                 btnAgregarTitular.Enabled = false;
@@ -102,7 +103,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 //datos traspaso
                 txtETraspaso.Enabled = true;
-            }
+            }*/
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -373,6 +374,8 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageListaArchivos);
+                            EliminarTabPage(tabPageMarcaDetail);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -386,6 +389,8 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -1077,7 +1082,11 @@ namespace Presentacion.Marcas_Internacionales
                     LimpiarFormulario();
                     AgregarRenovacion.renovacionTerminada = false;
                     AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageListaArchivos);
                     tabControl1.SelectedTab = tabPageRegistradasList;
+
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
                 }
@@ -1094,9 +1103,11 @@ namespace Presentacion.Marcas_Internacionales
         {
 
             DatosRegistro.peligro = false;
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
+
             AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
             await LoadMarcas();
             tabControl1.SelectedTab = tabPageRegistradasList;
 
@@ -1650,6 +1661,7 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton7_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
         }
 
         private void dtgArchivos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)

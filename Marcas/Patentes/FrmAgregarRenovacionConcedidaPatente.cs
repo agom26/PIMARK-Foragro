@@ -21,59 +21,59 @@ namespace Presentacion.Patentes
             AgregarRenovacionPatente.fechaVencimientoNueva = fecha_vencimientoN;
         }
 
-        public void RenovarMarca()
+        public async Task RenovarMarca()
         {
-            HistorialPatenteModel historialModel = new HistorialPatenteModel();
-            RenovacionesPatenteModel renovacionModel = new RenovacionesPatenteModel();
-            string anotaciones = richTextBox1.Text;
-            AgregarEtapaPatente.etapa = txtEstado.Text;
-            AgregarEtapaPatente.fecha = dateTimePicker1.Value;
-            AgregarEtapaPatente.usuario = UsuarioActivo.usuario;
+            PatenteModel patenteModel= new PatenteModel();
 
-            //renovacion
+            string anotaciones = richTextBox1.Text;
             string noExpediente = txtNoExpediente.Text;
-            AgregarRenovacionPatente.idPatente= SeleccionarPatente.id;
+
+            int idPatente = SeleccionarPatente.id;
+            DateTime fechaVencAnt = dateFechVencAnt.Value;
+            DateTime fechaVencNueva = dateFechVencNueva.Value;
+            DateTime fecha = dateTimePicker1.Value;
+            string etapa = txtEstado.Text;
+            string usuario = UsuarioActivo.usuario;
+            AgregarRenovacionPatente.idPatente = SeleccionarPatente.id;
             AgregarRenovacionPatente.fechaVencimientoAntigua = dateFechVencAnt.Value;
             AgregarRenovacionPatente.fechaVencimientoNueva = dateFechVencNueva.Value;
 
-            if (txtEstado.Text != "")
+            if (string.IsNullOrEmpty(etapa))
             {
-                //Historial
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + txtEstado.Text;
-                if (anotaciones.Contains(formato))
+                MessageBox.Show("No ha seleccionado ningún estado.");
+                return;
+            }
+
+            // Construcción de anotaciones
+            string fechaSinHora = fecha.ToShortDateString();
+            string formato = fechaSinHora + " " + etapa;
+            string anotacionesFinales = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
+
+            try
+            {
+                bool resultado = await Task.Run(() =>
+                    patenteModel.RenovarPatente(noExpediente, idPatente, fechaVencAnt, fechaVencNueva, fecha, etapa, anotacionesFinales, usuario)
+                );
+
+                if (resultado)
                 {
-                    AgregarEtapaPatente.anotaciones = anotaciones;
+
+                    AgregarRenovacionPatente.renovacionTerminada = true;
                 }
                 else
                 {
-                    AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
+                    MessageBox.Show("Error al realizar la renovación.");
                 }
-                historialModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id);
-
-                try
-                {
-                    //Agregar a renovaciones
-                    renovacionModel.AddRenovacion(noExpediente, AgregarRenovacionPatente.idPatente, AgregarRenovacionPatente.fechaVencimientoAntigua, AgregarRenovacionPatente.fechaVencimientoNueva);
-
-                    AgregarRenovacionPatente.renovacionTerminada = true;
-
-                }
-                catch (Exception ex)
-                {
-                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.Show();
-                    //MessageBox.Show(ex.Message);
-                }
-
-
-                this.Close();
             }
-            else
+            catch (Exception ex)
             {
-                //MessageBox.Show("No ha seleccionado ningun estado");
+                FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.Show();
             }
+
+            this.Close();
         }
+
 
         private void FrmAgregarRenovacionConcedidaPatente_Load(object sender, EventArgs e)
         {

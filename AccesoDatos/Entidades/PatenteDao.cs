@@ -10,6 +10,82 @@ namespace AccesoDatos.Entidades
 {
     public class PatenteDao:ConnectionSQL
     {
+        public void InsertarTraspasoYHistorial(
+           string numExpediente,
+           int idPatente,
+           int idTitularAnterior,
+           int idTitularNuevo,
+           DateTime fecha,
+           string etapa,
+           string anotaciones,
+           string usuario,
+           string usuarioEdicion)
+        {
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("InsertarTraspasoYHistorialPatente", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros
+                    comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
+                    comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
+                    comando.Parameters.AddWithValue("@p_IdTitularAnterior", idTitularAnterior);
+                    comando.Parameters.AddWithValue("@p_IdTitularNuevo", idTitularNuevo);
+                    comando.Parameters.AddWithValue("@p_Fecha", fecha);
+                    comando.Parameters.AddWithValue("@p_Etapa", etapa);
+                    comando.Parameters.AddWithValue("@p_Anotaciones", anotaciones);
+                    comando.Parameters.AddWithValue("@p_Usuario", usuario);
+                    comando.Parameters.AddWithValue("@p_UsuarioEdicion", usuarioEdicion);
+
+                    // Parámetro de salida
+                    MySqlParameter exitoParam = new MySqlParameter("@p_Exito", MySqlDbType.Bit);
+                    exitoParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(exitoParam);
+
+                    // Ejecutar el procedimiento almacenado
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+
+                    // Verificar si la transacción fue exitosa
+                    bool exito = Convert.ToBoolean(exitoParam.Value);
+                    if (!exito)
+                    {
+                        throw new Exception("Error al insertar el traspaso y el historial.");
+                    }
+                }
+            }
+        }
+
+
+        public bool RenovarPatente(string noExpediente, int idPatente, DateTime fechaVencAnt, DateTime fechaVencNueva,
+                         DateTime fecha, string etapa, string anotaciones, string usuario)
+        {
+            using (MySqlConnection conn = GetConnection())
+            using (MySqlCommand cmd = new MySqlCommand("CALL RenovarPatenteConTransaccion(@NumExpediente, @IdPatente, @FechaVencAnt, @FechaVencNueva, " +
+                                                       "@Fecha, @Etapa, @Anotaciones, @Usuario, @Exito)", conn))
+            {
+                // Parámetros de entrada
+                cmd.Parameters.AddWithValue("@NumExpediente", noExpediente);
+                cmd.Parameters.AddWithValue("@IdPatente", idPatente);
+                cmd.Parameters.AddWithValue("@FechaVencAnt", fechaVencAnt);
+                cmd.Parameters.AddWithValue("@FechaVencNueva", fechaVencNueva);
+                cmd.Parameters.AddWithValue("@Fecha", fecha);
+                cmd.Parameters.AddWithValue("@Etapa", etapa);
+                cmd.Parameters.AddWithValue("@Anotaciones", anotaciones);
+                cmd.Parameters.AddWithValue("@Usuario", usuario);
+
+                // Parámetro de salida (indica si la operación fue exitosa)
+                MySqlParameter outputParam = new MySqlParameter("@Exito", MySqlDbType.Bit);
+                outputParam.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(outputParam);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                return Convert.ToBoolean(outputParam.Value);
+            }
+        }
         public void InsertarExpedientePatente(string numExpediente, int idMarca, string tipo)
         {
             using (MySqlConnection conexion = GetConnection())

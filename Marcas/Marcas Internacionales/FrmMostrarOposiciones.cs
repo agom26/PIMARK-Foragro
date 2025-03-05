@@ -1773,6 +1773,8 @@ namespace Presentacion.Marcas_Nacionales
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageListaMarcas);
+            EliminarTabPage(tabPageAgregarOposicion);
             tabControl1.SelectedTab = tabPageListaMarcas;
             LimpiarFormularioOposicion();
         }
@@ -1902,6 +1904,8 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    AnadirTabPage(tabPageListaMarcas);
+                    EliminarTabPage(tabPageAgregarOposicion);
                     tabControl1.SelectedTab = tabPageListaMarcas;
                 }
 
@@ -1912,7 +1916,7 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
             }
         }
-        public void AgregarOposicion()
+        public async Task AgregarOposicion()
         {
             byte[] logoOpositor = null;
             byte[] logoSignoPretendido = null;
@@ -1957,7 +1961,10 @@ namespace Presentacion.Marcas_Nacionales
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     LimpiarFormularioOposicion();
+                    AnadirTabPage(tabPageListaMarcas);
+                    EliminarTabPage(tabPageAgregarOposicion);
                     tabControl1.SelectedTab = tabPageListaMarcas;
+                    
                 }
                 else
                 {
@@ -1974,11 +1981,11 @@ namespace Presentacion.Marcas_Nacionales
             }
 
         }
-        private void btnGuardarU_Click(object sender, EventArgs e)
+        private async void btnGuardarU_Click(object sender, EventArgs e)
         {
             if (btnGuardarU.Text == "AGREGAR")
             {
-                AgregarOposicion();
+                await AgregarOposicion();
             }
             else if (btnGuardarU.Text == "EDITAR")
             {
@@ -2127,7 +2134,9 @@ namespace Presentacion.Marcas_Nacionales
             var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idInt);
             if (cambio == true)
             {
+                AnadirTabPage(tabPageListaMarcas);
                 tabControl1.SelectedTab = tabPageListaMarcas;
+                EliminarTabPage(tabPageAgregarOposicion);
                 FrmAlerta alerta = new FrmAlerta("OPOSICIÓN TERMINADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
             }

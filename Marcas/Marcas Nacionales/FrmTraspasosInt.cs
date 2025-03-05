@@ -50,6 +50,7 @@ namespace Presentacion.Marcas_Internacionales
             this.Load += FrmTraspasosInt_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            /*
             if (UsuarioActivo.isAdmin == false)
             {
                 btnAgregarTitular.Enabled = false;
@@ -107,7 +108,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 //datos traspaso
                 txtETraspaso.Enabled = true;
-            }
+            }*/
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -382,6 +383,8 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -392,9 +395,11 @@ namespace Presentacion.Marcas_Internacionales
                             FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0; 
+                            SeleccionarMarca.idN = 0;
                             EliminarTabPage(tabPageHistorialMarca);
                             AnadirTabPage(tabPageRegistradasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
                         }
@@ -650,6 +655,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 loadHistorialById();
                 EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageListaArchivos);
             }
             else if (tabControl1.SelectedTab == tabPageRegistradasList)
             {
@@ -1077,7 +1083,7 @@ namespace Presentacion.Marcas_Internacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaInternacional();
-               
+
             }
             else
             {
@@ -1112,6 +1118,10 @@ namespace Presentacion.Marcas_Internacionales
                     LimpiarFormulario();
                     //Volver a poner traspasos = false
                     AgregarTraspaso.traspasoFinalizado = false;
+                    AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageListaArchivos);
                     tabControl1.SelectedTab = tabPageRegistradasList;
                     FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
@@ -1129,9 +1139,10 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
             DatosRegistro.peligro = false;
-            EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageListaArchivos);
             AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageMarcaDetail);
             tabControl1.SelectedTab = tabPageRegistradasList;
             await LoadMarcas();
         }
@@ -1286,7 +1297,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1717,6 +1728,11 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton10_Click(object sender, EventArgs e)
         {
             Eliminar();
+
+        }
+
+        private void tabPageRegistradasList_Click(object sender, EventArgs e)
+        {
 
         }
     }

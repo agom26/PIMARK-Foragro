@@ -47,42 +47,40 @@ namespace Presentacion.Patentes
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            HistorialPatenteModel historialModel = new HistorialPatenteModel();
-            TraspasosPatenteModel traspasosPatenteModel = new TraspasosPatenteModel();
+            PatenteModel patenteModel = new PatenteModel();
             string anotaciones = richTextBox1.Text;
-            AgregarEtapaPatente.etapa = txtEstado.Text;
-            AgregarEtapaPatente.fecha = dateTimePicker1.Value;
-            AgregarEtapaPatente.usuario = UsuarioActivo.usuario;
+            string etapa = txtEstado.Text;
+            DateTime fecha = dateTimePicker1.Value;
+            string usuario = UsuarioActivo.usuario;
 
-            //traspaso
+            // Datos para el traspaso
             string noExpediente = txtNoExpediente.Text;
             int idPatente = SeleccionarPatente.id;
             string nuevoTitular = txtNombreTitularN.Text;
 
-            if (txtEstado.Text != "")
+            if (!string.IsNullOrEmpty(etapa)) // Verifica si se ha ingresado un estado
             {
-                if (nuevoTitular != "")
+                if (!string.IsNullOrEmpty(nuevoTitular)) // Verifica si hay un titular nuevo
                 {
-                    //Historial
-                    string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
-                    string formato = fechaSinHora + " " + txtEstado.Text;
-                    if (anotaciones.Contains(formato))
+                    // Formatear anotaciones con fecha y etapa
+                    string fechaSinHora = fecha.ToShortDateString();
+                    string formato = fechaSinHora + " " + etapa;
+                    if (!anotaciones.Contains(formato))
                     {
-                        AgregarEtapaPatente.anotaciones = anotaciones;
+                        anotaciones = formato + " " + anotaciones;
                     }
-                    else
-                    {
-                        AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
-                    }
-                    historialModel.CrearHistorialPatente( (DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario,null,SeleccionarPatente.id);
 
                     try
                     {
                         int idTitularNuevo = AgregarTraspasoPatente.idNuevoTitular;
                         int idTitularviejo = AgregarTraspasoPatente.idTitularAnterior;
-                        
-                        //Agregar a traspasos
-                        traspasosPatenteModel.AddTraspaso(noExpediente, idPatente, idTitularviejo, idTitularNuevo);
+
+                        // Llamar al método que ejecuta la transacción
+                        patenteModel.InsertarTraspasoYHistorial(
+                            noExpediente, idPatente, idTitularviejo, idTitularNuevo,
+                            fecha, etapa, anotaciones, usuario, null
+                        );
+
                         AgregarTraspasoPatente.traspasoFinalizado = true;
                         this.Close();
                     }
@@ -90,7 +88,6 @@ namespace Presentacion.Patentes
                     {
                         FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
-                        //MessageBox.Show(ex.Message);
                         this.Close();
                     }
                 }
@@ -98,12 +95,7 @@ namespace Presentacion.Patentes
                 {
                     FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
                 }
-            }
-            else
-            {
-                //MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
 

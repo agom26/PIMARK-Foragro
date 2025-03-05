@@ -30,11 +30,12 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
 
             this.Load += FrmAdministrarClientes_Load;
+            /*
             if (UsuarioActivo.isAdmin == false)
             {
                 ibtnEditar.Visible = false;
 
-            }
+            }*/
         }
         private void EliminarTabPage(TabPage nombre)
         {

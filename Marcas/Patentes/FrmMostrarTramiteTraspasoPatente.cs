@@ -139,7 +139,7 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
-                ActualizarFechaVencimiento();
+                //ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
                 checkBox2.Checked = true;
@@ -551,6 +551,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -572,6 +575,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -990,11 +996,12 @@ namespace Presentacion.Patentes
         {
 
             LimpiarFomulario();
+            
+            DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageIngresadasList);
             tabControl1.SelectedTab = tabPageIngresadasList;
-            DatosRegistro.peligro = false;
             await LoadPatentes();
 
         }
@@ -1079,7 +1086,7 @@ namespace Presentacion.Patentes
 
         }
 
-        private void btnTraspasar_Click_1(object sender, EventArgs e)
+        private async void btnTraspasar_Click_1(object sender, EventArgs e)
         {
             AgregarTraspasoPatente.antiguoNombre = SeleccionarPatente.nombre;
             FrmCrearTraspasoPatente frmCrearTraspaso = new FrmCrearTraspasoPatente();
@@ -1090,9 +1097,16 @@ namespace Presentacion.Patentes
                 //Limpiar campos
                 LimpiarFormulario();
                 AgregarTraspasoPatente.traspasoFinalizado = false;
-                tabControl1.SelectedTab = tabPageIngresadasList;
+                DatosRegistro.peligro = false;
                 FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                AnadirTabPage(tabPageIngresadasList);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageListaArchivos);
+                EliminarTabPage(tabPageHistorialMarca);
+                tabControl1.SelectedTab = tabPageIngresadasList;
+                await LoadPatentes();
+                
                 //MessageBox.Show("Traspaso guardado correctamente");
             }
         }

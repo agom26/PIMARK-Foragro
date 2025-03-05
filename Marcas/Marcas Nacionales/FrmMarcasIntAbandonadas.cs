@@ -529,10 +529,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await CargarDatosMarca();
                 //EliminarTabPage(tabPageHistorialDetalle);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageRenovacionesList);
-                EliminarTabPage(tabPageTraspasosList);
-                EliminarTabPage(tabPageListaArchivos);
+              
+             
             }
             else if (tabControl1.SelectedTab == tabPageRenovacionesList)
             {
@@ -604,8 +602,10 @@ namespace Presentacion.Marcas_Internacionales
         {
             DatosRegistro.peligro = false;
             agregoEstado = false;
+            AnadirTabPage(tabPageAbandonadasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageListaArchivos);
             tabControl1.SelectedTab = tabPageAbandonadasList;
         }
 

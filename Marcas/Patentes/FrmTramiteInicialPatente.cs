@@ -120,6 +120,7 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            checkedListBoxDocumentos.ClearSelected();
         }
 
         public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)

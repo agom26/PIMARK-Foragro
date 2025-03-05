@@ -17,6 +17,26 @@ namespace Dominio
         {
             patenteDao = new PatenteDao();
         }
+        public void InsertarTraspasoYHistorial(
+         string numExpediente,
+         int idPatente,
+         int idTitularAnterior,
+         int idTitularNuevo,
+         DateTime fecha,
+         string etapa,
+         string anotaciones,
+         string usuario,
+         string usuarioEdicion)
+        {
+            patenteDao.InsertarTraspasoYHistorial(numExpediente, idPatente, idTitularAnterior,
+                idTitularNuevo, fecha, etapa, anotaciones, usuario, usuarioEdicion);
+        }
+
+        public bool RenovarPatente(string noExpediente, int idPatente, DateTime fechaVencAnt, DateTime fechaVencNueva,
+                                DateTime fecha, string etapa, string anotaciones, string usuario)
+        {
+            return patenteDao.RenovarPatente(noExpediente, idPatente, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
+        }
         public void InsertarExpedientePatente(string numExpediente, int idPatente, string tipo)
         {
             patenteDao.InsertarExpedientePatente(numExpediente, idPatente, tipo);

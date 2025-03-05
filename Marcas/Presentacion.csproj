@@ -208,13 +208,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Bunifu.Licensing">
       <HintPath>Libs\Bunifu.Licensing.dll</HintPath>
     </Reference>

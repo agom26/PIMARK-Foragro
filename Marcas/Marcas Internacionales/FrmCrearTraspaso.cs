@@ -46,41 +46,40 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            HistorialModel historialModel = new HistorialModel();
-            TraspasosMarcaModel traspasosMarcaModel = new TraspasosMarcaModel();
+            // Instancias de modelos
+            MarcaModel marcaModel = new MarcaModel();
+
             string anotaciones = richTextBox1.Text;
             AgregarEtapa.etapa = txtEstado.Text;
             AgregarEtapa.fecha = dateTimePicker1.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 
-            //traspaso
+            // Datos del traspaso
             string noExpediente = txtNoExpediente.Text;
             int idMarca = SeleccionarMarca.idInt;
             string nuevoTitular = txtNombreTitularN.Text;
 
-            if (txtEstado.Text != "")
+            if (!string.IsNullOrEmpty(txtEstado.Text) && !string.IsNullOrEmpty(txtNoExpediente.Text))
             {
-                if (nuevoTitular != "")
+                if (!string.IsNullOrEmpty(nuevoTitular))
                 {
-                    //Historial
+                    // Formatear anotaciones con fecha y etapa
                     string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
                     string formato = fechaSinHora + " " + txtEstado.Text;
-                    if (anotaciones.Contains(formato))
-                    {
-                        AgregarEtapa.anotaciones = anotaciones;
-                    }
-                    else
-                    {
-                        AgregarEtapa.anotaciones = formato + " " + anotaciones;
-                    }
-                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                    AgregarEtapa.anotaciones = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
 
                     try
                     {
                         int idTitularNuevo = AgregarTraspaso.idNuevoTitular;
-                        int idTitularviejo = AgregarTraspaso.idTitularAnterior;
-                        //Agregar a traspasos
-                        traspasosMarcaModel.AddTraspaso(noExpediente, idMarca, idTitularviejo, idTitularNuevo);
+                        int idTitularViejo = AgregarTraspaso.idTitularAnterior;
+
+                        // Llamar al método con transacción en MarcaModel
+                        marcaModel.InsertarTraspasoYHistorialMarca(
+                            noExpediente, idMarca, idTitularViejo, idTitularNuevo,
+                            (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa,
+                            AgregarEtapa.anotaciones, AgregarEtapa.usuario
+                        );
+
                         AgregarTraspaso.traspasoFinalizado = true;
                         this.Close();
                     }
@@ -88,20 +87,19 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
-                        //MessageBox.Show(ex.Message);
                         this.Close();
                     }
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UN TITULAR Y NOMBRE NUEVO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Debe ingresar un titular y un nombre nuevo");
                 }
             }
             else
             {
-                //MessageBox.Show("No ha seleccionado ningun estado");
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR EL NÚMERO DE EXPEDIENTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
             }
         }
 

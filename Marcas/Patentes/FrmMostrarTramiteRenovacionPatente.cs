@@ -140,7 +140,7 @@ namespace Presentacion.Patentes
         {
             if (isRegistrada == "si")
             {
-                ActualizarFechaVencimiento();
+                //ActualizarFechaVencimiento();
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
                 checkBox2.Checked = true;
@@ -421,6 +421,7 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            checkedListBoxDocumentos.ClearSelected();
         }
 
         public async void EditarPatente()
@@ -550,6 +551,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -571,6 +575,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         await LoadPatentes();
                     }
@@ -998,11 +1005,12 @@ namespace Presentacion.Patentes
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
             LimpiarFomulario();
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            AnadirTabPage(tabPageIngresadasList);
-            tabControl1.SelectedTab = tabPageIngresadasList;
             DatosRegistro.peligro = false;
+            AnadirTabPage(tabPageIngresadasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
+            tabControl1.SelectedTab = tabPageIngresadasList;
             await LoadPatentes();
 
         }
@@ -1066,7 +1074,7 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        private void btnTraspasar_Click(object sender, EventArgs e)
+        private async void btnTraspasar_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
@@ -1078,7 +1086,12 @@ namespace Presentacion.Patentes
                 {
                     LimpiarFormulario();
                     AgregarRenovacionPatente.renovacionTerminada = false;
+                    AnadirTabPage(tabPageIngresadasList);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageListaArchivos);
+                    EliminarTabPage(tabPageHistorialMarca);
                     tabControl1.SelectedTab = tabPageIngresadasList;
+                    await LoadPatentes();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
@@ -1219,7 +1232,7 @@ namespace Presentacion.Patentes
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1643,6 +1656,11 @@ namespace Presentacion.Patentes
         private void iconButton11_Click(object sender, EventArgs e)
         {
             Eliminar();
+        }
+
+        private void tabPageIngresadasList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

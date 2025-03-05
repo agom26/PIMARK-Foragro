@@ -1258,7 +1258,9 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    AnadirTabPage(tabPageOposicionesList);
                     tabControl1.SelectedTab = tabPageOposicionesList;
+                    EliminarTabPage(tabPageAgregarOposicion);
                 }
 
             }
@@ -1313,7 +1315,9 @@ namespace Presentacion.Marcas_Internacionales
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     LimpiarFormularioOposicion();
+                    AnadirTabPage(tabPageOposicionesList);
                     tabControl1.SelectedTab = tabPageOposicionesList;
+                    EliminarTabPage(tabPageAgregarOposicion);
                 }
                 else
                 {
@@ -1348,7 +1352,9 @@ namespace Presentacion.Marcas_Internacionales
             var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idN);
             if (cambio == true)
             {
+                AnadirTabPage(tabPageOposicionesList);
                 tabControl1.SelectedTab = tabPageOposicionesList;
+                EliminarTabPage(tabPageAgregarOposicion);
                 FrmAlerta alerta = new FrmAlerta("OPOSICIÓN TERMINADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
             }
@@ -1414,6 +1420,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
+            AnadirTabPage(tabPageOposicionesList);
+            EliminarTabPage(tabPageAgregarOposicion);
             tabControl1.SelectedTab = tabPageOposicionesList;
             LimpiarFormularioOposicion();
         }

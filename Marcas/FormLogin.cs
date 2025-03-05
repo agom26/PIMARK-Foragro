@@ -31,8 +31,8 @@ namespace Marcas
 
         public LoginForm()
         {
-            zipPath = Path.Combine(tempFolder, "update.zip");
-            VerificarYActualizar();
+            //zipPath = Path.Combine(tempFolder, "update.zip");
+            //VerificarYActualizar();
             InitializeComponent();
             
             CustomComponents();

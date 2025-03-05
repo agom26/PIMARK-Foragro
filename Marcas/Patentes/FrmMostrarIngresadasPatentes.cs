@@ -429,6 +429,7 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            checkedListBoxDocumentos.ClearSelected();
         }
 
         public async void EditarPatente()
@@ -548,6 +549,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         DatosRegistro.peligro = false;
                         await LoadPatentes();
@@ -576,6 +580,9 @@ namespace Presentacion.Patentes
                         alerta.ShowDialog();
                         LimpiarFomulario();
                         AnadirTabPage(tabPageIngresadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageListaArchivos);
+                        EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
                         DatosRegistro.peligro = false;
                         await LoadPatentes();
@@ -1166,14 +1173,14 @@ namespace Presentacion.Patentes
         {
 
             LimpiarFomulario();
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
             DatosRegistro.peligro = false;
             agregoEstado = false;
             AnadirTabPage(tabPageIngresadasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageIngresadasList;
             await LoadPatentes();
-
 
         }
 
