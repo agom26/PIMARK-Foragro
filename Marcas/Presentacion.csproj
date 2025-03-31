@@ -10,13 +10,14 @@
     <ApplicationIcon>WhatsApp-Image-2024-11-21-at-3.17.08-PM.ico</ApplicationIcon>
     <Version>1.0.1</Version>
     <StartupObject>Marcas.Program</StartupObject>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>True</SignAssembly>
     <PackageOutputPath>D:\</PackageOutputPath>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <PackageIcon>WhatsApp Image 2024-11-21 at 3.17.08 PM.jpeg</PackageIcon>
     <ReferencePath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win64_x64\dotnet\</ReferencePath>
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1</FileVersion>
+    <AssemblyOriginatorKeyFile>C:\Users\LENOVO\source\repos\PIMARK\PIMARK_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -70,6 +71,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Marcas Nacionales\FrmEnviarAOposicionI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Marcas Nacionales\FrmMarcasLicenciaUso.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Marcas Nacionales\FrmMostrarMarcasN.cs">

@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using Presentacion.Marcas_Internacionales;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 
 namespace Presentacion.Marcas_Nacionales
@@ -915,7 +916,7 @@ namespace Presentacion.Marcas_Nacionales
                     //btnVerHistorial.Visible = true;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
-                    btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
+                    btnGuardarU.BackColor = System.Drawing.Color.FromArgb(96, 149, 241);
 
                     tabControl1.Visible = true;
                     Cursor = Cursors.Default;
@@ -1649,7 +1650,7 @@ namespace Presentacion.Marcas_Nacionales
             tabControl1.SelectedTab = tabPageAgregarOposicion;
             btnGuardarU.Text = "AGREGAR";
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
+            btnGuardarU.BackColor = System.Drawing.Color.FromArgb(50, 164, 115);
         }
 
         private void btnAgregarTitularAO_Click(object sender, EventArgs e)
@@ -2500,6 +2501,8 @@ namespace Presentacion.Marcas_Nacionales
                         tableContent += "<tr>";
                         foreach (DataColumn column in dt.Columns)
                         {
+                           
+
                             string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
                                 ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
                                 : (column.ColumnName == "TIPO_OPOSICION" || column.ColumnName == "SITUACION_ACTUAL"
@@ -2507,6 +2510,14 @@ namespace Presentacion.Marcas_Nacionales
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
                             tableContent += $"<td {alignStyle}>{row[column]}</td>";
+
+                            object cellValue = row[column];
+                            if (cellValue is DateTime dateValue)
+                            {
+                                cellValue = dateValue.ToString("dd/MM/yyyy"); // Cambia el formato según necesites
+                            }
+
+                            tableContent += $"<td {alignStyle}>{cellValue}</td>";
                         }
                         tableContent += "</tr>";
                     }
@@ -2620,7 +2631,7 @@ namespace Presentacion.Marcas_Nacionales
 
                     using (var workbook = new XLWorkbook())
                     {
-                        var worksheet = workbook.Worksheets.Add(titulo);
+                        var worksheet = workbook.Worksheets.Add("REPORTE OPOSICIÓN INTERNACIONAL");
                         // Fecha actual en el formato deseado
                         string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
 

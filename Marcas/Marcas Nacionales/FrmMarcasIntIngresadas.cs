@@ -55,7 +55,7 @@ namespace Presentacion.Marcas_Internacionales
             ActualizarFechaVencimiento();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             btnAdjuntarT.Visible = false;
-            
+
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -97,7 +97,7 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                
+
                 DataTable titulares = marcaModel.FiltrarMarcasNacionalesEnTramite(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
@@ -305,7 +305,7 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            if (registroChek && marcaModel.ExisteRegistro(registro,SeleccionarMarca.idN) && agregoEstado==true)
+            if (registroChek && marcaModel.ExisteRegistro(registro, SeleccionarMarca.idN) && agregoEstado == true)
             {
                 FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
@@ -323,9 +323,9 @@ namespace Presentacion.Marcas_Internacionales
                 if (agregoEstado == true)
                 {
 
-                   
+
                     historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
-                    
+
                     agregoEstado = false;
 
                 }
@@ -346,34 +346,34 @@ namespace Presentacion.Marcas_Internacionales
                 if (esActualizado)
                 {
 
-                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
-                        {
+                    if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                    {
 
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            EliminarTabPage(tabPageHistorialMarca);
-                            EliminarTabPage(tabPageListaArchivos);
-                            AnadirTabPage(tabPageIngresadasList);
-                            tabControl1.SelectedTab = tabPageIngresadasList;
-                            await LoadMarcas();
-                        }
-                        else
-                        {
+                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageListaArchivos);
+                        AnadirTabPage(tabPageIngresadasList);
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadMarcas();
+                    }
+                    else
+                    {
 
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            EliminarTabPage(tabPageHistorialMarca);
-                            EliminarTabPage(tabPageListaArchivos);
-                            AnadirTabPage(tabPageIngresadasList);
-                            tabControl1.SelectedTab = tabPageIngresadasList;
-                            await LoadMarcas();
-                        }
-                    
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageListaArchivos);
+                        AnadirTabPage(tabPageIngresadasList);
+                        tabControl1.SelectedTab = tabPageIngresadasList;
+                        await LoadMarcas();
+                    }
+
                 }
                 else
                 {
@@ -485,8 +485,8 @@ namespace Presentacion.Marcas_Internacionales
 
 
 
-                            // Actualizar los controles 
-                            txtExpediente.Text = SeleccionarMarca.expediente;
+                        // Actualizar los controles 
+                        txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
@@ -684,7 +684,7 @@ namespace Presentacion.Marcas_Internacionales
             else if (tabControl1.SelectedTab == tabPageListaArchivos)
             {
                 EliminarTabPage(tabPageHistorialMarca);
-                
+
             }
 
 
@@ -791,6 +791,15 @@ namespace Presentacion.Marcas_Internacionales
                         dateTimePFecha_Registro.Value = DateTime.Now;
                         ActualizarFechaVencimiento();
                         VerificarDatosRegistro();
+
+                        if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+                        {
+                            dateTimePFecha_vencimiento.Enabled = true;
+                        }
+                        else
+                        {
+                            dateTimePFecha_vencimiento.Enabled = false;
+                        }
                     }
                     else
                     {
@@ -1167,7 +1176,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public void VerificarDatosRegistro()
         {
-            if ( checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
             {
                 DatosRegistro.peligro = true;
             }
@@ -1177,7 +1186,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
 
-            
+
         }
 
         public void VerificarDatosIngresados()
@@ -1218,9 +1227,9 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     ActualizarMarcaInternacional();
-                    
+
                 }
-                
+
             }
             else
             {
@@ -1265,7 +1274,7 @@ namespace Presentacion.Marcas_Internacionales
         {
 
             DatosRegistro.peligro = false;
-         
+
             AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
             tabControl1.SelectedTab = tabPageIngresadasList;
@@ -1723,7 +1732,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnAdjuntarT_Click(object sender, EventArgs e)
         {
-            SubirArchivoRegistro(""+SeleccionarMarca.idN);
+            SubirArchivoRegistro("" + SeleccionarMarca.idN);
             if (!archivoSubido)
             {
                 FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1733,6 +1742,18 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 archivoSubido = true;
+            }
+        }
+
+        private void comboBoxSignoDistintivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+            else
+            {
+                dateTimePFecha_vencimiento.Enabled = false;
             }
         }
     }

@@ -189,6 +189,11 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
+            if (idCliente == null || idCliente <= 0)
+            {
+                idCliente = null;
+            }
+
             // Validar campos 
             if (!ValidarCampos(paisRegistro, expediente, nombre, clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
             {
@@ -226,7 +231,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL."+ ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL." + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -258,6 +263,7 @@ namespace Presentacion.Marcas_Nacionales
             checkBoxTienePoder.Checked = false;
             SeleccionarPersona.idPersonaT = 0;
             SeleccionarPersona.idPersonaA = 0;
+            SeleccionarPersona.idPersonaC = 0;
             //btnGuardarM.Location = new Point(105, 950);
             //btnCancelarM.Location = new Point(413, 950);
         }
@@ -424,6 +430,15 @@ namespace Presentacion.Marcas_Nacionales
                 mostrarPanelRegistro();
                 richTextBox1.Text = AgregarEtapa.anotaciones;
                 VerificarDatosRegistro();
+
+                if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                }
             }
         }
 
@@ -439,6 +454,7 @@ namespace Presentacion.Marcas_Nacionales
             pictureBox1.Image = documento;
             SeleccionarPersona.idPersonaA = 0;
             SeleccionarPersona.idPersonaT = 0;
+            SeleccionarPersona.idPersonaC = 0;
             mostrarPanelRegistro();
         }
 
@@ -589,12 +605,24 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePFecha_Registro_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            
+
         }
 
         private void txtNombreCliente_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxSignoDistintivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+            else
+            {
+                dateTimePFecha_vencimiento.Enabled = false;
+            }
         }
     }
 }

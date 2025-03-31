@@ -15,6 +15,7 @@ using PuppeteerSharp;
 using System.Diagnostics;
 using PuppeteerSharp.Media;
 using System.Security.RightsManagement;
+using System.Text.RegularExpressions;
 
 namespace Presentacion.Reportes
 {
@@ -39,8 +40,23 @@ namespace Presentacion.Reportes
         }
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
-            // Ruta al ejecutable de Chrome en tu sistema
-            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
+            // Buscar la ruta de Chrome automáticamente
+            string chromePath = "chrome"; // Intentará usar Chrome desde PATH
+
+            string[] possiblePaths = {
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Google\\Chrome\\Application\\chrome.exe"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Google\\Chrome\\Application\\chrome.exe")
+            };
+
+            foreach (var path in possiblePaths)
+            {
+                if (File.Exists(path))
+                {
+                    chromePath = path;
+                    break;
+                }
+            }
 
             string nombre = titulo+"-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
             // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
@@ -84,13 +100,22 @@ namespace Presentacion.Reportes
                         tableContent += "<tr>";
                         foreach (DataColumn column in dt.Columns)
                         {
+                            
+
                             string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
                                 ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
                                 : (column.ColumnName == "NOTIFICADO"
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
+
+                            object cellValue = row[column];
+                            if (cellValue is DateTime dateValue)
+                            {
+                                cellValue = dateValue.ToString("dd/MM/yyyy"); // Cambia el formato según necesites
+                            }
+
+                            tableContent += $"<td {alignStyle}>{cellValue}</td>";
                         }
                         tableContent += "</tr>";
                     }
@@ -152,7 +177,7 @@ namespace Presentacion.Reportes
          </div>
          <div class='fecha'>
              <center>
-                 Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
+                 Fecha: {DateTime.Now.ToString("dd-MM-yyyy")}
              </center>
          </div>
          <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
@@ -203,7 +228,7 @@ namespace Presentacion.Reportes
 
 
 
-
+        /*
         public void ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
@@ -211,7 +236,7 @@ namespace Presentacion.Reportes
                 MessageBox.Show("No hay datos para exportar.");
                 return;
             }
-            string nombre = titulo+"-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+            string nombre = titulo+"-" + DateTime.Now.ToString("dd-MM-yyyy");
 
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
             {
@@ -235,7 +260,7 @@ namespace Presentacion.Reportes
                     {
                         var worksheet = workbook.Worksheets.Add(titulo);
                         // Fecha actual en el formato deseado
-                        string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+                        string fecha = DateTime.Now.ToString("dd-MM-yyyy");
 
                         // Insertar el título "Próximos vencimientos" en la celda A1
                         worksheet.Cell(3, 5).Value = titulo;
@@ -281,7 +306,88 @@ namespace Presentacion.Reportes
                 }
             }
         }
+        */
+        public void ExportarDataTableAExcel(DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.");
+                return;
+            }
+            string nombre = titulo + "-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            {
+                Title = "Guardar archivo Excel",
+                Filter = "Archivos Excel (*.xlsx)|*.xlsx",
+                FileName = nombre + ".xlsx",
+                DefaultExt = "xlsx",
+                AddExtension = true
+            };
 
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
+
+                    // Guardar el recurso de imagen en un archivo temporal
+                    Properties.Resources.logoBPA.Save(tempLogoPath);
+
+                    using (var workbook = new XLWorkbook())
+                    {
+                        // Crear la hoja de trabajo
+                        var worksheet = workbook.Worksheets.Add("REPORTE");
+
+                        // Fecha actual en el formato deseado
+                        string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
+
+                        // Insertar el título "titulo" en la celda A1
+                        worksheet.Cell(3, 5).Value = titulo;
+                        worksheet.Cell(3, 5).Style.Font.Bold = true;
+                        worksheet.Cell(3, 5).Style.Font.Underline = XLFontUnderlineValues.Single;
+                        worksheet.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar el título
+
+                        // Insertar la fecha debajo del título (en la celda A2)
+                        worksheet.Cell(4, 5).Value = "Fecha: " + fecha;
+                        worksheet.Cell(4, 5).Style.Font.Italic = true;
+                        worksheet.Cell(4, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar la fecha
+
+                        // Ajustar el ancho de la columna A (para que todo el texto se vea bien centrado)
+                        worksheet.Column(1).AdjustToContents();
+
+                        // Agregar logo después del título y la fecha (en la celda A3)
+                        if (System.IO.File.Exists(tempLogoPath))
+                        {
+                            var image = worksheet.AddPicture(tempLogoPath)
+                                .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
+                                .Scale(0.5); // Ajustar tamaño
+                        }
+
+                        // Insertar tabla después del logo (a partir de la fila 10)
+                        int startRow = 10; // Ajustar según el espacio requerido
+                        worksheet.Cell(startRow, 1).InsertTable(dataTable);
+
+                        // Ajustar el ancho de las columnas
+                        worksheet.Columns().AdjustToContents();
+
+                        // Guardar archivo
+                        workbook.SaveAs(saveFileDialog.FileName);
+                    }
+
+                    // Eliminar archivo temporal
+                    if (System.IO.File.Exists(tempLogoPath))
+                        System.IO.File.Delete(tempLogoPath);
+
+                    // Mostrar mensaje de éxito
+                    FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
+                }
+            }
+        }
 
 
 
@@ -609,6 +715,7 @@ namespace Presentacion.Reportes
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
+            
             DataTable datos = dtgReportes.DataSource as DataTable;
 
             if (datos != null)

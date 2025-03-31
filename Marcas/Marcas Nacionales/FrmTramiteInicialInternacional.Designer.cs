@@ -322,6 +322,7 @@
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
             datePickerFechaSolicitud.Size = new Size(292, 22);
             datePickerFechaSolicitud.TabIndex = 4;
+            datePickerFechaSolicitud.KeyDown += datePickerFechaSolicitud_KeyDown;
             // 
             // label14
             // 
@@ -446,6 +447,7 @@
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 25);
             comboBoxSignoDistintivo.TabIndex = 5;
+            comboBoxSignoDistintivo.SelectedIndexChanged += comboBoxSignoDistintivo_SelectedIndexChanged;
             // 
             // comboBoxTipoSigno
             // 
@@ -596,6 +598,7 @@
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
             dateTimePFecha_vencimiento.Size = new Size(222, 24);
             dateTimePFecha_vencimiento.TabIndex = 41;
+            dateTimePFecha_vencimiento.KeyDown += dateTimePFecha_vencimiento_KeyDown;
             // 
             // label19
             // 

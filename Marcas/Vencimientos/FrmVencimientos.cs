@@ -1648,7 +1648,14 @@ namespace Presentacion.Vencimientos
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
+                          
+                            object cellValue = row[column];
+                            if (cellValue is DateTime dateValue)
+                            {
+                                cellValue = dateValue.ToString("dd/MM/yyyy"); // Cambia el formato según necesites
+                            }
+
+                            tableContent += $"<td {alignStyle}>{cellValue}</td>";
                         }
                         tableContent += "</tr>";
                     }

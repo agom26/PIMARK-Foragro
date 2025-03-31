@@ -380,8 +380,8 @@ namespace Presentacion.Marcas_Nacionales
                 // Actualizar la marca con tipo
                 bool esActualizado = registroChek ?
                     marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder,idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento,null, null) :
-                    marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder,idCliente);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, null, null) :
+                    marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
 
                 DataTable MarcaActualizada = marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt);
 
@@ -531,8 +531,8 @@ namespace Presentacion.Marcas_Nacionales
                             txtNombreCliente.Text = "";
                         }
 
-                            // Actualizar los controles 
-                            txtExpediente.Text = SeleccionarMarca.expediente;
+                        // Actualizar los controles 
+                        txtExpediente.Text = SeleccionarMarca.expediente;
                         txtNombre.Text = SeleccionarMarca.nombre;
                         txtClase.Text = SeleccionarMarca.clase;
                         textBoxEstatus.Text = SeleccionarMarca.estado;
@@ -769,6 +769,15 @@ namespace Presentacion.Marcas_Nacionales
                         txtLibro.Text = "";
                         dateTimePFecha_Registro.Value = DateTime.Now;
                         ActualizarFechaVencimiento();
+
+                        if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+                        {
+                            dateTimePFecha_vencimiento.Enabled = true;
+                        }
+                        else
+                        {
+                            dateTimePFecha_vencimiento.Enabled = false;
+                        }
                     }
                     else
                     {
@@ -1233,7 +1242,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}\n" + ex.InnerException.Message);
                     archivoSubido = false;
                 }
                 Cursor.Current = Cursors.Default;
@@ -1330,7 +1339,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (AgregarEtapa.enviadoAOposicion == true)
                 {
-                    
+
                     FrmAlerta alerta = new FrmAlerta("MARCA ENVIADA A OPOSICIÓN", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     AnadirTabPage(tabPageListaMarcas);
@@ -1833,6 +1842,18 @@ namespace Presentacion.Marcas_Nacionales
             {
                 SeleccionarPersona.idPersonaC = null;
                 txtNombreCliente.Text = "";
+            }
+        }
+
+        private void comboBoxSignoDistintivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+            else
+            {
+                dateTimePFecha_vencimiento.Enabled = false;
             }
         }
     }

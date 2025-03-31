@@ -108,25 +108,27 @@ namespace Presentacion
 
         public void DisableButtons()
         {
-            //home
-            //btnHome.Enabled = false;
-            btnUsers.Enabled = false;
-            //iconButtonAgentes.Enabled = false;
-            //iconButtonTitulares.Enabled = false;
+            
+            //marcas nacionales
+            btnIngresadasInt.Enabled = false;
+            btnClientes.Enabled = false;
+            btnTramiteInicialInter.Enabled = false;
+            btnOpoInter.Enabled = false;
+            btnRegInter.Enabled = false;
+            btnRenovInter.Enabled = false;
+            btnTraspasoInter.Enabled = false;
+            btnAbandonadasInter.Enabled = false;
+
+
+            //internacionales
             btnTramiteInicial.Enabled = false;
             btnEnTramite.Enabled = false;
             btnOposiciones.Enabled = false;
-            btnTramiteTraspaso.Enabled = false;
-            btnTramiteRenovacion.Enabled = false;
             btnRegistradas.Enabled = false;
+            btnTramiteRenovacion.Enabled = false;
+            btnTramiteTraspaso.Enabled = false;
             btnAbandonadas.Enabled = false;
-            //internacionales
-            btnClientes.Enabled = false;
-            btnTramiteInicialInter.Enabled = false;
-            btnIngresadasInt.Enabled = false;
-            btnOpoInter.Enabled = false;
-            btnRegInter.Enabled = false;
-            btnAbandonadasInter.Enabled = false;
+
             //patentes
             btnIngresarPatente.Enabled = false;
             btnTramiteInicialPatente.Enabled = false;
@@ -135,6 +137,17 @@ namespace Presentacion
             btnTramiteTraspPatentes.Enabled = false;
             btnAbandonadasPatentes.Enabled = false;
             //otros
+
+            btnInicio.Enabled = false;
+            btnUsers.Enabled = false;
+            btnAgentes.Enabled = false;
+            btnTitulares.Enabled = false;
+            btnMarcasNacionales.Enabled = false;
+            btnMInternacionales.Enabled = false;
+            btnPatentes.Enabled = false;
+            btnReportes.Enabled = false;
+            btnVencimientos.Enabled = false;
+            btnCerrarSesion.Enabled = false;
             //btnReportes.Enabled = false;
             //iconButtonLogout.Enabled = false;
             //iconButtonVencimientos.Enabled = false;
@@ -142,25 +155,26 @@ namespace Presentacion
 
         public void EnableButtons()
         {
-            //home
-            //btnHome.Enabled = true;
-            btnUsers.Enabled = true;
-            //iconButtonAgentes.Enabled = true;
-            //iconButtonTitulares.Enabled = true;
+            //marcas nacionales
+            btnIngresadasInt.Enabled = true;
+            btnClientes.Enabled = true;
+            btnTramiteInicialInter.Enabled = true;
+            btnOpoInter.Enabled = true;
+            btnRegInter.Enabled = true;
+            btnRenovInter.Enabled = true;
+            btnTraspasoInter.Enabled = true;
+            btnAbandonadasInter.Enabled = true;
+
+
+            //internacionales
             btnTramiteInicial.Enabled = true;
             btnEnTramite.Enabled = true;
             btnOposiciones.Enabled = true;
             btnRegistradas.Enabled = true;
-            btnAbandonadas.Enabled = true;
             btnTramiteRenovacion.Enabled = true;
             btnTramiteTraspaso.Enabled = true;
-            //internacionales
-            btnClientes.Enabled = true;
-            btnTramiteInicialInter.Enabled = true;
-            btnIngresadasInt.Enabled = true;
-            btnOpoInter.Enabled = true;
-            btnRegInter.Enabled = true;
-            btnAbandonadasInter.Enabled = true;
+            btnAbandonadas.Enabled = true;
+
             //patentes
             btnIngresarPatente.Enabled = true;
             btnTramiteInicialPatente.Enabled = true;
@@ -168,10 +182,18 @@ namespace Presentacion
             btnTramiteRenovPatentes.Enabled = true;
             btnTramiteTraspPatentes.Enabled = true;
             btnAbandonadasPatentes.Enabled = true;
+            
             //otros
-            //btnReportes.Enabled = true;
-            //iconButtonLogout.Enabled = true;
-            //iconButtonVencimientos.Enabled = true;
+            btnInicio.Enabled = true;
+            btnUsers.Enabled = true;
+            btnAgentes.Enabled = true;
+            btnTitulares.Enabled = true;
+            btnMarcasNacionales.Enabled = true;
+            btnMInternacionales.Enabled = true;
+            btnPatentes.Enabled = true;
+            btnReportes.Enabled = true;
+            btnVencimientos.Enabled = true;
+            btnCerrarSesion.Enabled = true;
         }
 
 

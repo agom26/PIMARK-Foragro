@@ -44,6 +44,7 @@ namespace Presentacion.Marcas_Internacionales
             checkBox1.Enabled = false;
             checkBox1.Checked = false;
             mostrarPanelRegistro();
+            datePickerFechaSolicitud.KeyDown += datePickerFechaSolicitud_KeyDown;
         }
 
         private void ActualizarFechaVencimiento()
@@ -220,8 +221,8 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            
-            if (registroChek && marcaModel.ExisteRegistro(registro,null))
+
+            if (registroChek && marcaModel.ExisteRegistro(registro, null))
             {
                 FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
@@ -232,7 +233,7 @@ namespace Presentacion.Marcas_Internacionales
             // Guardar la marca
             try
             {
-                
+
                 int idMarca = registroChek ?
                     marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
                     marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
@@ -420,6 +421,16 @@ namespace Presentacion.Marcas_Internacionales
                 mostrarPanelRegistro();
                 richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                 VerificarDatosRegistro();
+
+                if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                }
+
             }
         }
 
@@ -545,6 +556,56 @@ namespace Presentacion.Marcas_Internacionales
         private void dateTimePFecha_Registro_ValueChanged_1(object sender, EventArgs e)
         {
             ActualizarFechaVencimiento();
+        }
+
+        private void dateTimePFecha_vencimiento_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void datePickerFechaSolicitud_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                // Evitar el comportamiento predeterminado del Tab
+                e.SuppressKeyPress = true;
+
+                // Obtener el control actual
+                var control = (DateTimePicker)sender;
+
+                // Cambiar el enfoque según el formato
+                if (control.CustomFormat == "dd/MM/yyyy")
+                {
+                    // Cambiar de día a mes
+                    control.CustomFormat = "MM/dd/yyyy";
+                }
+                else if (control.CustomFormat == "MM/dd/yyyy")
+                {
+                    // Cambiar de mes a año
+                    control.CustomFormat = "yyyy/MM/dd";
+                }
+                else
+                {
+                    // Cambiar de año a siguiente control
+                    this.SelectNextControl(control, true, true, true, true);
+                    return; // Salir del método para evitar el cambio de formato
+                }
+
+                // Establecer el enfoque en el DateTimePicker
+                control.Focus();
+            }
+        }
+
+        private void comboBoxSignoDistintivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+            else
+            {
+                dateTimePFecha_vencimiento.Enabled = false;
+            }
         }
     }
 }

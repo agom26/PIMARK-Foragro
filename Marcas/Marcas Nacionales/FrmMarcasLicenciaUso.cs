@@ -19,7 +19,7 @@ using Presentacion.Reportes;
 
 namespace Presentacion.Marcas_Internacionales
 {
-    public partial class FrmMarcasIntOposiciones : Form
+    public partial class FrmMarcasLicenciaUso : Form
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
@@ -50,11 +50,11 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
-        public FrmMarcasIntOposiciones()
+        public FrmMarcasLicenciaUso()
         {
             InitializeComponent();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
-            this.Load += FrmMarcasIntOposiciones_Load;
+            this.Load += FrmMarcasLicenciaUso_Load;
 
             //ActualizarFechaVencimiento();
         }
@@ -458,7 +458,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
+        private async void FrmMarcasLicenciaUso_Load(object sender, EventArgs e)
         {
             tabControl1.Visible = false;
             Cursor= Cursors.WaitCursor;

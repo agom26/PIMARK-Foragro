@@ -1926,7 +1926,8 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                    
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}\n"+ex.InnerException.Message);
                 }
                 Cursor.Current = Cursors.Default;
             }

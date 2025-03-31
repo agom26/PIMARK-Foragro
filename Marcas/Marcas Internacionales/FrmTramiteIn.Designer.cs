@@ -566,6 +566,7 @@
             comboBoxSignoDistintivo.Name = "comboBoxSignoDistintivo";
             comboBoxSignoDistintivo.Size = new Size(280, 25);
             comboBoxSignoDistintivo.TabIndex = 6;
+            comboBoxSignoDistintivo.SelectedIndexChanged += comboBoxSignoDistintivo_SelectedIndexChanged;
             // 
             // roundedButton3
             // 
