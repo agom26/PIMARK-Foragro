@@ -422,6 +422,12 @@ namespace Presentacion.Marcas_Internacionales
                 richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                 VerificarDatosRegistro();
 
+                if (textBoxEstatus.Text == "Registrada")
+                {
+                    dateTimePFecha_Registro.Value = (DateTime)AgregarEtapa.fecha;
+                }
+
+
                 if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
                 {
                     dateTimePFecha_vencimiento.Enabled = true;
