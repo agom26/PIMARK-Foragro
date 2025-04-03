@@ -946,7 +946,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
+            if (etapa == "Resolución RPI favorable" || etapa == "Resolución RPI desfavorable" ||
+               etapa == "Recurso de revocatoria" || etapa == "Resolución Ministerio de Economía(MINECO)" ||
+               etapa == "Contencioso administrativo")
+            {
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " Por objeción-" + comboBoxEstatusH.SelectedItem;
+            }
+            else
+            {
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            }
         }
 
         private void btnEditarH_Click(object sender, EventArgs e)

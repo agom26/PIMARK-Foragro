@@ -103,7 +103,7 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
+            comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
             comboBox1.Location = new Point(369, 155);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(250, 25);
@@ -142,7 +142,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(261, 9);
+            roundedButton1.Location = new Point(260, 21);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;

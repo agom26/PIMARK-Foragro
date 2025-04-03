@@ -381,7 +381,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (registroChek)
                 {
                     esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder,idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
                 }
                 else
                 {
@@ -959,7 +959,17 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
+            if (etapa == "Resolución RPI favorable" || etapa == "Resolución RPI desfavorable" ||
+               etapa == "Recurso de revocatoria" || etapa == "Resolución Ministerio de Economía(MINECO)" ||
+               etapa == "Contencioso administrativo")
+            {
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " Por objeción-" + comboBoxEstatusH.SelectedItem;
+            }
+            else
+            {
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            }
         }
 
         private void btnEditarH_Click(object sender, EventArgs e)
@@ -1574,6 +1584,11 @@ namespace Presentacion.Marcas_Nacionales
                 SeleccionarPersona.idPersonaC = null;
                 txtNombreCliente.Text = "";
             }
+        }
+
+        private void iconButton1_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

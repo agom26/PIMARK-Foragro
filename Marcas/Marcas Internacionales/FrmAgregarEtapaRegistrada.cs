@@ -122,8 +122,19 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
-            if (comboBox1.SelectedItem.ToString() == "Trámite de renovación")
+            string etapa = comboBox1.SelectedItem.ToString();
+            if (etapa == "Resolución RPI favorable" || etapa == "Resolución RPI favorable" ||
+                etapa == "Recurso de revocatoria" || etapa == "Resolución Ministerio de Economía (MINECO)"
+                || etapa == "Contencioso administrativo")
+            {
+                richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " Por objeción-" + comboBox1.SelectedItem;
+            }
+            else
+            {
+                richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            }
+           
+            if (etapa == "Trámite de renovación")
             {
                 lblNoExpediente.Text = "Renovación";
                 tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;

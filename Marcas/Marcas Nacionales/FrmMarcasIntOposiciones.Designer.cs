@@ -359,7 +359,7 @@
             label31.AutoSize = true;
             label31.BackColor = Color.FromArgb(236, 236, 238);
             label31.Font = new Font("Century Gothic", 9F);
-            label31.Location = new Point(64, 608);
+            label31.Location = new Point(48, 608);
             label31.Name = "label31";
             label31.Size = new Size(0, 17);
             label31.TabIndex = 226;
@@ -370,7 +370,7 @@
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(236, 236, 238);
             label28.Font = new Font("Century Gothic", 9F);
-            label28.Location = new Point(52, 103);
+            label28.Location = new Point(36, 103);
             label28.Name = "label28";
             label28.Size = new Size(0, 17);
             label28.TabIndex = 225;
@@ -472,7 +472,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(816, 530);
+            btnLast.Location = new Point(782, 530);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 220;
@@ -493,7 +493,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(706, 530);
+            btnNext.Location = new Point(672, 530);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 219;
@@ -514,7 +514,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(596, 530);
+            btnPrev.Location = new Point(562, 530);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 218;
@@ -535,7 +535,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(486, 530);
+            btnFirst.Location = new Point(452, 530);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 217;
@@ -580,7 +580,7 @@
             // 
             lblTotalRows2.AutoSize = true;
             lblTotalRows2.Font = new Font("Century Gothic", 9F);
-            lblTotalRows2.Location = new Point(193, 677);
+            lblTotalRows2.Location = new Point(169, 677);
             lblTotalRows2.Name = "lblTotalRows2";
             lblTotalRows2.Size = new Size(15, 17);
             lblTotalRows2.TabIndex = 213;
@@ -612,7 +612,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(889, 170);
+            lblTotalPages.Location = new Point(889, 173);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 210;
@@ -623,7 +623,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 9F);
-            label1.Location = new Point(849, 169);
+            label1.Location = new Point(849, 172);
             label1.Name = "label1";
             label1.Size = new Size(24, 17);
             label1.TabIndex = 209;
@@ -634,7 +634,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(823, 170);
+            lblCurrentPage.Location = new Point(823, 173);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 208;
@@ -644,7 +644,7 @@
             // 
             lblTotalRows.AutoSize = true;
             lblTotalRows.Font = new Font("Century Gothic", 9F);
-            lblTotalRows.Location = new Point(193, 170);
+            lblTotalRows.Location = new Point(169, 173);
             lblTotalRows.Name = "lblTotalRows";
             lblTotalRows.Size = new Size(15, 17);
             lblTotalRows.TabIndex = 207;
@@ -655,7 +655,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(744, 170);
+            label2.Location = new Point(744, 173);
             label2.Name = "label2";
             label2.Size = new Size(49, 17);
             label2.TabIndex = 206;
@@ -665,7 +665,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 9F);
-            label11.Location = new Point(35, 170);
+            label11.Location = new Point(35, 173);
             label11.Name = "label11";
             label11.Size = new Size(115, 17);
             label11.TabIndex = 205;
@@ -711,7 +711,7 @@
             iconButton8.IconColor = Color.Black;
             iconButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton8.IconSize = 25;
-            iconButton8.Location = new Point(423, 630);
+            iconButton8.Location = new Point(444, 630);
             iconButton8.Name = "iconButton8";
             iconButton8.Size = new Size(26, 28);
             iconButton8.TabIndex = 199;
@@ -724,7 +724,7 @@
             cmbSituacionActualI.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSituacionActualI.FormattingEnabled = true;
             cmbSituacionActualI.Items.AddRange(new object[] { "EN TRÁMITE", "TERMINADA" });
-            cmbSituacionActualI.Location = new Point(605, 624);
+            cmbSituacionActualI.Location = new Point(626, 624);
             cmbSituacionActualI.Name = "cmbSituacionActualI";
             cmbSituacionActualI.Size = new Size(173, 25);
             cmbSituacionActualI.TabIndex = 198;
@@ -743,7 +743,7 @@
             ibtnBuscar2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar2.IconSize = 25;
             ibtnBuscar2.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar2.Location = new Point(455, 614);
+            ibtnBuscar2.Location = new Point(476, 614);
             ibtnBuscar2.Name = "ibtnBuscar2";
             ibtnBuscar2.Size = new Size(144, 44);
             ibtnBuscar2.TabIndex = 196;
@@ -757,7 +757,7 @@
             // 
             txtBuscar2.Anchor = AnchorStyles.Top;
             txtBuscar2.Font = new Font("Century Gothic", 10F);
-            txtBuscar2.Location = new Point(114, 630);
+            txtBuscar2.Location = new Point(135, 630);
             txtBuscar2.Name = "txtBuscar2";
             txtBuscar2.Size = new Size(301, 24);
             txtBuscar2.TabIndex = 195;
@@ -775,7 +775,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(98, 607);
+            roundedButton4.Location = new Point(119, 607);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(701, 61);
             roundedButton4.TabIndex = 200;
@@ -946,7 +946,7 @@
             iconButton7.IconColor = Color.Black;
             iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(421, 126);
+            iconButton7.Location = new Point(442, 119);
             iconButton7.Name = "iconButton7";
             iconButton7.Size = new Size(26, 28);
             iconButton7.TabIndex = 192;
@@ -982,7 +982,7 @@
             cmbSituacionActual.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSituacionActual.FormattingEnabled = true;
             cmbSituacionActual.Items.AddRange(new object[] { "EN TRÁMITE", "TERMINADA" });
-            cmbSituacionActual.Location = new Point(605, 120);
+            cmbSituacionActual.Location = new Point(626, 113);
             cmbSituacionActual.Name = "cmbSituacionActual";
             cmbSituacionActual.Size = new Size(173, 25);
             cmbSituacionActual.TabIndex = 190;
@@ -1001,7 +1001,7 @@
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 25;
             ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar.Location = new Point(455, 110);
+            ibtnBuscar.Location = new Point(476, 103);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 44);
             ibtnBuscar.TabIndex = 37;
@@ -1015,7 +1015,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 10F);
-            txtBuscar.Location = new Point(114, 126);
+            txtBuscar.Location = new Point(135, 119);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 24);
             txtBuscar.TabIndex = 36;
@@ -1079,7 +1079,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(98, 99);
+            roundedButton3.Location = new Point(119, 92);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(701, 68);
             roundedButton3.TabIndex = 194;
@@ -1160,7 +1160,7 @@
             roundedButton11.FlatAppearance.BorderSize = 0;
             roundedButton11.FlatStyle = FlatStyle.Flat;
             roundedButton11.ForeColor = Color.Black;
-            roundedButton11.Location = new Point(344, 74);
+            roundedButton11.Location = new Point(365, 67);
             roundedButton11.Name = "roundedButton11";
             roundedButton11.Size = new Size(218, 36);
             roundedButton11.TabIndex = 201;
@@ -1180,7 +1180,7 @@
             roundedButton6.FlatAppearance.BorderSize = 0;
             roundedButton6.FlatStyle = FlatStyle.Flat;
             roundedButton6.ForeColor = Color.Black;
-            roundedButton6.Location = new Point(339, 578);
+            roundedButton6.Location = new Point(360, 578);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(218, 36);
             roundedButton6.TabIndex = 202;
@@ -2608,9 +2608,9 @@
             tabPageReportes.Controls.Add(btnCancelar);
             tabPageReportes.Controls.Add(tableLayoutPanel2);
             tabPageReportes.Controls.Add(panel16);
-            tabPageReportes.Location = new Point(4, 24);
+            tabPageReportes.Location = new Point(4, 26);
             tabPageReportes.Name = "tabPageReportes";
-            tabPageReportes.Size = new Size(1161, 715);
+            tabPageReportes.Size = new Size(1161, 713);
             tabPageReportes.TabIndex = 5;
             tabPageReportes.UseVisualStyleBackColor = true;
             // 
@@ -2653,7 +2653,7 @@
             btnExportarExcel.ForeColor = Color.White;
             btnExportarExcel.Image = Properties.Resources.excel;
             btnExportarExcel.ImageAlign = ContentAlignment.MiddleLeft;
-            btnExportarExcel.Location = new Point(731, 1307);
+            btnExportarExcel.Location = new Point(807, 1307);
             btnExportarExcel.Name = "btnExportarExcel";
             btnExportarExcel.Size = new Size(206, 49);
             btnExportarExcel.TabIndex = 246;
@@ -2678,7 +2678,7 @@
             btnExportarPDF.ForeColor = Color.White;
             btnExportarPDF.Image = Properties.Resources.pdf_1_;
             btnExportarPDF.ImageAlign = ContentAlignment.MiddleLeft;
-            btnExportarPDF.Location = new Point(525, 1307);
+            btnExportarPDF.Location = new Point(601, 1307);
             btnExportarPDF.Name = "btnExportarPDF";
             btnExportarPDF.Size = new Size(203, 49);
             btnExportarPDF.TabIndex = 247;
@@ -2695,7 +2695,7 @@
             panel23.Controls.Add(dtgReportesOp);
             panel23.Location = new Point(105, 785);
             panel23.Name = "panel23";
-            panel23.Size = new Size(832, 516);
+            panel23.Size = new Size(908, 516);
             panel23.TabIndex = 248;
             // 
             // dtgReportesOp
@@ -2731,7 +2731,7 @@
             dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F);
             dtgReportesOp.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dtgReportesOp.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportesOp.Size = new Size(814, 495);
+            dtgReportesOp.Size = new Size(890, 495);
             dtgReportesOp.TabIndex = 7;
             // 
             // btnConsultar
@@ -2746,7 +2746,7 @@
             btnConsultar.FlatStyle = FlatStyle.Flat;
             btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(508, 702);
+            btnConsultar.Location = new Point(581, 702);
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(203, 49);
             btnConsultar.TabIndex = 245;
@@ -2767,7 +2767,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(737, 700);
+            btnCancelar.Location = new Point(810, 700);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(203, 49);
             btnCancelar.TabIndex = 244;
@@ -2790,7 +2790,7 @@
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(842, 588);
+            tableLayoutPanel2.Size = new Size(915, 588);
             tableLayoutPanel2.TabIndex = 243;
             // 
             // panel20
@@ -2823,7 +2823,7 @@
             panel20.Location = new Point(3, 4);
             panel20.Margin = new Padding(3, 4, 3, 4);
             panel20.Name = "panel20";
-            panel20.Size = new Size(836, 580);
+            panel20.Size = new Size(909, 580);
             panel20.TabIndex = 243;
             // 
             // chckTipoOpReporte
@@ -2831,7 +2831,7 @@
             chckTipoOpReporte.Anchor = AnchorStyles.Top;
             chckTipoOpReporte.AutoSize = true;
             chckTipoOpReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckTipoOpReporte.Location = new Point(135, 29);
+            chckTipoOpReporte.Location = new Point(171, 29);
             chckTipoOpReporte.Name = "chckTipoOpReporte";
             chckTipoOpReporte.Size = new Size(131, 21);
             chckTipoOpReporte.TabIndex = 239;
@@ -2847,7 +2847,7 @@
             cmbSignoDistintivoReporte.Font = new Font("Century Gothic", 9F);
             cmbSignoDistintivoReporte.FormattingEnabled = true;
             cmbSignoDistintivoReporte.Items.AddRange(new object[] { "", "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            cmbSignoDistintivoReporte.Location = new Point(135, 280);
+            cmbSignoDistintivoReporte.Location = new Point(171, 280);
             cmbSignoDistintivoReporte.Name = "cmbSignoDistintivoReporte";
             cmbSignoDistintivoReporte.Size = new Size(260, 25);
             cmbSignoDistintivoReporte.TabIndex = 238;
@@ -2856,7 +2856,7 @@
             // 
             richTextBoxOpositorReporte.Anchor = AnchorStyles.Top;
             richTextBoxOpositorReporte.BackColor = Color.White;
-            richTextBoxOpositorReporte.Location = new Point(158, 482);
+            richTextBoxOpositorReporte.Location = new Point(194, 482);
             richTextBoxOpositorReporte.Name = "richTextBoxOpositorReporte";
             richTextBoxOpositorReporte.Size = new Size(238, 47);
             richTextBoxOpositorReporte.TabIndex = 235;
@@ -2871,7 +2871,7 @@
             comboBoxTipoOposicion.Font = new Font("Century Gothic", 9F);
             comboBoxTipoOposicion.FormattingEnabled = true;
             comboBoxTipoOposicion.Items.AddRange(new object[] { "Oposiciones recibidas", "Oposiciones interpuestas" });
-            comboBoxTipoOposicion.Location = new Point(136, 59);
+            comboBoxTipoOposicion.Location = new Point(172, 59);
             comboBoxTipoOposicion.Name = "comboBoxTipoOposicion";
             comboBoxTipoOposicion.Size = new Size(260, 25);
             comboBoxTipoOposicion.TabIndex = 237;
@@ -2888,7 +2888,7 @@
             btnOpositorReporte.FlatStyle = FlatStyle.Flat;
             btnOpositorReporte.Font = new Font("Century Gothic", 10F);
             btnOpositorReporte.ForeColor = Color.Black;
-            btnOpositorReporte.Location = new Point(181, 441);
+            btnOpositorReporte.Location = new Point(217, 441);
             btnOpositorReporte.Name = "btnOpositorReporte";
             btnOpositorReporte.Size = new Size(194, 35);
             btnOpositorReporte.TabIndex = 234;
@@ -2900,7 +2900,7 @@
             // txtSignoOpositorReporte
             // 
             txtSignoOpositorReporte.Anchor = AnchorStyles.Top;
-            txtSignoOpositorReporte.Location = new Point(452, 446);
+            txtSignoOpositorReporte.Location = new Point(488, 446);
             txtSignoOpositorReporte.Name = "txtSignoOpositorReporte";
             txtSignoOpositorReporte.Size = new Size(260, 22);
             txtSignoOpositorReporte.TabIndex = 229;
@@ -2917,7 +2917,7 @@
             btnSolicitanteReporte.FlatStyle = FlatStyle.Flat;
             btnSolicitanteReporte.Font = new Font("Century Gothic", 10F);
             btnSolicitanteReporte.ForeColor = Color.Black;
-            btnSolicitanteReporte.Location = new Point(181, 138);
+            btnSolicitanteReporte.Location = new Point(217, 138);
             btnSolicitanteReporte.Name = "btnSolicitanteReporte";
             btnSolicitanteReporte.Size = new Size(194, 35);
             btnSolicitanteReporte.TabIndex = 230;
@@ -2931,7 +2931,7 @@
             checkBoxEstadoReporte.Anchor = AnchorStyles.Top;
             checkBoxEstadoReporte.AutoSize = true;
             checkBoxEstadoReporte.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxEstadoReporte.Location = new Point(452, 253);
+            checkBoxEstadoReporte.Location = new Point(488, 253);
             checkBoxEstadoReporte.Name = "checkBoxEstadoReporte";
             checkBoxEstadoReporte.Size = new Size(67, 21);
             checkBoxEstadoReporte.TabIndex = 196;
@@ -2942,7 +2942,7 @@
             // 
             richTextBoxSolicitanteReporte.Anchor = AnchorStyles.Top;
             richTextBoxSolicitanteReporte.BackColor = Color.White;
-            richTextBoxSolicitanteReporte.Location = new Point(158, 179);
+            richTextBoxSolicitanteReporte.Location = new Point(194, 179);
             richTextBoxSolicitanteReporte.Name = "richTextBoxSolicitanteReporte";
             richTextBoxSolicitanteReporte.Size = new Size(241, 47);
             richTextBoxSolicitanteReporte.TabIndex = 232;
@@ -2953,7 +2953,7 @@
             chckSignoOpositorReporte.Anchor = AnchorStyles.Top;
             chckSignoOpositorReporte.AutoSize = true;
             chckSignoOpositorReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckSignoOpositorReporte.Location = new Point(452, 411);
+            chckSignoOpositorReporte.Location = new Point(488, 411);
             chckSignoOpositorReporte.Name = "chckSignoOpositorReporte";
             chckSignoOpositorReporte.Size = new Size(112, 21);
             chckSignoOpositorReporte.TabIndex = 204;
@@ -2965,7 +2965,7 @@
             chckOpositorReporte.Anchor = AnchorStyles.Top;
             chckOpositorReporte.AutoSize = true;
             chckOpositorReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckOpositorReporte.Location = new Point(135, 411);
+            chckOpositorReporte.Location = new Point(171, 411);
             chckOpositorReporte.Name = "chckOpositorReporte";
             chckOpositorReporte.Size = new Size(78, 21);
             chckOpositorReporte.TabIndex = 233;
@@ -2975,7 +2975,7 @@
             // txtClaseReporte
             // 
             txtClaseReporte.Anchor = AnchorStyles.Top;
-            txtClaseReporte.Location = new Point(135, 355);
+            txtClaseReporte.Location = new Point(171, 355);
             txtClaseReporte.Name = "txtClaseReporte";
             txtClaseReporte.Size = new Size(260, 22);
             txtClaseReporte.TabIndex = 228;
@@ -2985,7 +2985,7 @@
             chckSolicitanteReporte.Anchor = AnchorStyles.Top;
             chckSolicitanteReporte.AutoSize = true;
             chckSolicitanteReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckSolicitanteReporte.Location = new Point(135, 104);
+            chckSolicitanteReporte.Location = new Point(171, 104);
             chckSolicitanteReporte.Name = "chckSolicitanteReporte";
             chckSolicitanteReporte.Size = new Size(196, 21);
             chckSolicitanteReporte.TabIndex = 202;
@@ -3001,7 +3001,7 @@
             comboBoxEstadoReporte.Font = new Font("Century Gothic", 9F);
             comboBoxEstadoReporte.FormattingEnabled = true;
             comboBoxEstadoReporte.Items.AddRange(new object[] { "", "Oposición presentada", "Contestación de oposición", "Apertura a prueba", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Desestimiento/Abandono" });
-            comboBoxEstadoReporte.Location = new Point(453, 283);
+            comboBoxEstadoReporte.Location = new Point(489, 283);
             comboBoxEstadoReporte.Name = "comboBoxEstadoReporte";
             comboBoxEstadoReporte.Size = new Size(260, 25);
             comboBoxEstadoReporte.TabIndex = 217;
@@ -3011,7 +3011,7 @@
             chckClaseReporte.Anchor = AnchorStyles.Top;
             chckClaseReporte.AutoSize = true;
             chckClaseReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckClaseReporte.Location = new Point(136, 325);
+            chckClaseReporte.Location = new Point(172, 325);
             chckClaseReporte.Name = "chckClaseReporte";
             chckClaseReporte.Size = new Size(60, 21);
             chckClaseReporte.TabIndex = 201;
@@ -3021,7 +3021,7 @@
             // txtExpedienteReporte
             // 
             txtExpedienteReporte.Anchor = AnchorStyles.Top;
-            txtExpedienteReporte.Location = new Point(452, 61);
+            txtExpedienteReporte.Location = new Point(488, 61);
             txtExpedienteReporte.Multiline = true;
             txtExpedienteReporte.Name = "txtExpedienteReporte";
             txtExpedienteReporte.Size = new Size(261, 26);
@@ -3032,7 +3032,7 @@
             chckSignoDistintivoReporte.Anchor = AnchorStyles.Top;
             chckSignoDistintivoReporte.AutoSize = true;
             chckSignoDistintivoReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckSignoDistintivoReporte.Location = new Point(136, 253);
+            chckSignoDistintivoReporte.Location = new Point(172, 253);
             chckSignoDistintivoReporte.Name = "chckSignoDistintivoReporte";
             chckSignoDistintivoReporte.Size = new Size(118, 21);
             chckSignoDistintivoReporte.TabIndex = 200;
@@ -3044,7 +3044,7 @@
             chckExpedienteReporte.Anchor = AnchorStyles.Top;
             chckExpedienteReporte.AutoSize = true;
             chckExpedienteReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckExpedienteReporte.Location = new Point(452, 31);
+            chckExpedienteReporte.Location = new Point(488, 31);
             chckExpedienteReporte.Name = "chckExpedienteReporte";
             chckExpedienteReporte.Size = new Size(94, 21);
             chckExpedienteReporte.TabIndex = 197;
@@ -3054,7 +3054,7 @@
             // txtSignoPretendidoReporte
             // 
             txtSignoPretendidoReporte.Anchor = AnchorStyles.Top;
-            txtSignoPretendidoReporte.Location = new Point(452, 134);
+            txtSignoPretendidoReporte.Location = new Point(488, 134);
             txtSignoPretendidoReporte.Name = "txtSignoPretendidoReporte";
             txtSignoPretendidoReporte.Size = new Size(260, 22);
             txtSignoPretendidoReporte.TabIndex = 226;
@@ -3064,7 +3064,7 @@
             chckSignoPretendidoRepo.Anchor = AnchorStyles.Top;
             chckSignoPretendidoRepo.AutoSize = true;
             chckSignoPretendidoRepo.BackColor = Color.FromArgb(222, 227, 234);
-            chckSignoPretendidoRepo.Location = new Point(452, 104);
+            chckSignoPretendidoRepo.Location = new Point(488, 104);
             chckSignoPretendidoRepo.Name = "chckSignoPretendidoRepo";
             chckSignoPretendidoRepo.Size = new Size(130, 21);
             chckSignoPretendidoRepo.TabIndex = 199;
@@ -3080,7 +3080,7 @@
             cmbSituacionActualReporte.Font = new Font("Century Gothic", 9F);
             cmbSituacionActualReporte.FormattingEnabled = true;
             cmbSituacionActualReporte.Items.AddRange(new object[] { "", "EN TRÁMITE", "TERMINADA" });
-            cmbSituacionActualReporte.Location = new Point(453, 355);
+            cmbSituacionActualReporte.Location = new Point(489, 355);
             cmbSituacionActualReporte.Name = "cmbSituacionActualReporte";
             cmbSituacionActualReporte.Size = new Size(260, 25);
             cmbSituacionActualReporte.TabIndex = 218;
@@ -3090,7 +3090,7 @@
             chckSituacionActualReporte.Anchor = AnchorStyles.Top;
             chckSituacionActualReporte.AutoSize = true;
             chckSituacionActualReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckSituacionActualReporte.Location = new Point(453, 325);
+            chckSituacionActualReporte.Location = new Point(489, 325);
             chckSituacionActualReporte.Name = "chckSituacionActualReporte";
             chckSituacionActualReporte.Size = new Size(125, 21);
             chckSituacionActualReporte.TabIndex = 198;

@@ -618,6 +618,11 @@ namespace Presentacion.Reportes
                 comboBoxEstado.Items.Add("Examen de fondo");
                 comboBoxEstado.Items.Add("Requerimiento");
                 comboBoxEstado.Items.Add("Objeción");
+                comboBoxEstado.Items.Add("Resolución RPI favorable");
+                comboBoxEstado.Items.Add("Resolución RPI desfavorable");
+                comboBoxEstado.Items.Add("Recurso de revocatoria");
+                comboBoxEstado.Items.Add("Resolución Ministerio de Economía (MINECO)");
+                comboBoxEstado.Items.Add("Contencioso administrativo");
                 comboBoxEstado.Items.Add("Edicto");
                 comboBoxEstado.Items.Add("Publicación");
                 comboBoxEstado.Items.Add("Oposición");
