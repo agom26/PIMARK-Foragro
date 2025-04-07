@@ -18,6 +18,10 @@ namespace Dominio
             oposicionDao = new OposicionesDao();
         }
 
+        public string ObtenerTipoOposicion(int idOp)
+        {
+            return oposicionDao.ObtenerTipoOposicion(idOp);
+        }
         public void Oposicion_a_abandono(DateTime fecha, 
             string anotaciones, string usuario, int idMarca, int idOposicion)
         {

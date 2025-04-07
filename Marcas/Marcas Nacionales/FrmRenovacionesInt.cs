@@ -804,21 +804,30 @@ namespace Presentacion.Marcas_Internacionales
                     if (historial.Rows.Count > 0)
                     {
                         DataRow fila = historial.Rows[0];
-                        // Asignar los valores obtenidos a la clase SeleccionarPersona
-                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
-                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
-                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
-                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
-                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                        if (fila["Origen"].ToString() == "TRÁMITE")
+                        {
+                            // Asignar los valores obtenidos a la clase SeleccionarPersona
+                            SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
 
-                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
-                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
-                        labelUserEditor.Text = UsuarioActivo.usuario;
-                        lblUser.Text = SeleccionarHistorial.usuario;
+                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                            dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                            labelUserEditor.Text = UsuarioActivo.usuario;
+                            lblUser.Text = SeleccionarHistorial.usuario;
 
-                        AnadirTabPage(tabPageHistorialDetail);
+                            AnadirTabPage(tabPageHistorialDetail);
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            alerta.ShowDialog();
+                        }
+
                     }
                     else
                     {

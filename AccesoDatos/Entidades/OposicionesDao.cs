@@ -11,6 +11,40 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
+
+
+        public string ObtenerTipoOposicion(int idOposicion)
+        {
+            string resultado = "";
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand("ObtenerTipoOposicion", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@p_id_oposicion", idOposicion); // Cambia el ID según lo que necesites
+
+                        var outputParam = new MySqlParameter("@p_tipo_oposicion", MySqlDbType.VarChar, 255);
+                        outputParam.Direction = System.Data.ParameterDirection.Output;
+                        cmd.Parameters.Add(outputParam);
+                        cmd.ExecuteNonQuery();
+                        
+                        string tipoOposicion = outputParam.Value?.ToString();
+                        resultado = tipoOposicion;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
+            return resultado;
+        }
         public DataTable FiltrarOposiciones(string tipo_filtro,
             string expediente, string solicitante, string signoPretendido, 
             string signoDistintivo, string clase, string opositor, string signoOpositor, 

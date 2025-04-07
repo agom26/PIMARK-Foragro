@@ -79,7 +79,7 @@ namespace Presentacion.Marcas_Nacionales
                 comboBoxEstatusH.Enabled = false;
                 richTextBoxAnotacionesH.Enabled = false;
                 btnEditarH.Visible = false;
-                btnVerH.Visible = true;
+                //btnVerH.Visible = true;
                 labelUserEditor.Visible = false;
                 lblUser.Visible = false;
             }
@@ -103,8 +103,8 @@ namespace Presentacion.Marcas_Nacionales
                 btnEditarH.Enabled = true;
                 btnEditarEstadoHistorial.Visible = true;
                 btnEditarEstadoHistorial.Enabled = true;
-                btnVerH.Visible = false;
-                btnEditarEstadoHistorial.Location = btnVerH.Location;
+                //btnVerH.Visible = false;
+                //btnEditarEstadoHistorial.Location = btnVerH.Location;
                 labelUserEditor.Visible = false;
                 lblUser.Visible = false;
             }
@@ -972,21 +972,29 @@ namespace Presentacion.Marcas_Nacionales
                     if (historial.Rows.Count > 0)
                     {
                         DataRow fila = historial.Rows[0];
+                        if (fila["Origen"].ToString() == "TRÁMITE")
+                        {
+                            SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
 
-                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
-                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
-                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
-                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
-                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                            dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                            labelUserEditor.Text = UsuarioActivo.usuario;
+                            lblUser.Text = SeleccionarHistorial.usuario;
 
-                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
-                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
-                        labelUserEditor.Text = UsuarioActivo.usuario;
-                        lblUser.Text = SeleccionarHistorial.usuario;
-
-                        AnadirTabPage(tabPageHistorialDetail);
+                            AnadirTabPage(tabPageHistorialDetail);
+                        }
+                        else
+                        {
+                            FrmAlerta alerta= new FrmAlerta("NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            alerta.ShowDialog();
+                        }
+                        
                     }
                     else
                     {

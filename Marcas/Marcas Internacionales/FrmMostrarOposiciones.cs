@@ -1173,16 +1173,67 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
+
+        private void CargarEstadosPorOrigen(string origen)
+        {
+            comboBoxEstatusH.Items.Clear();
+
+            if (origen == "TRÁMITE")
+            {
+                comboBoxEstatusH.Items.AddRange(new string[]
+                {
+                "Ingresada",
+                "Examen de forma",
+                "Examen de fondo",
+                "Requerimiento",
+                "Objeción",
+                "Resolución RPI favorable",
+                "Resolución RPI desfavorable",
+                "Recurso de revocatoria",
+                "Resolución Ministerio de Economía (MINECO)",
+                "Contencioso administrativo",
+                "Edicto",
+                "Publicación",
+                "Oposición",
+                "Orden de pago",
+                "Abandono",
+                "Registrada",
+                "Licencia de uso",
+                "Trámite de renovación",
+                "Trámite de traspaso"
+                });
+            }
+            else if (origen == "OPOSICIÓN")
+            {
+                comboBoxEstatusH.Items.AddRange(new string[]
+                {
+                "Oposición presentada",
+                "Contestación de oposición",
+                "Apertura a prueba",
+                "Resolución RPI favorable",
+                "Resolución RPI desfavorable",
+                "Recurso de revocatoria",
+                "Resolución Ministerio de Economía (MINECO)",
+                "Contencioso administrativo",
+                "Desestimiento/Abandono"
+                });
+            }
+        }
+
+
         public void EditarHistorial()
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
+                
+
                 Habilitar();
                 var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
+
                     SeleccionarHistorial.id = id;
 
                     if (SeleccionarOposicion.idMarca > 0)
@@ -1199,6 +1250,7 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                            CargarEstadosPorOrigen(fila["Origen"].ToString());
 
                             comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
                             dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
@@ -1409,7 +1461,7 @@ namespace Presentacion.Marcas_Nacionales
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["IdMarca"]);
-                                int idOposicion= Convert.ToInt32(dataRowView["id"]);
+                                int idOposicion = Convert.ToInt32(dataRowView["id"]);
 
                                 try
                                 {
@@ -1428,8 +1480,8 @@ namespace Presentacion.Marcas_Nacionales
                                     FrmAlerta alerta = new FrmAlerta(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     alerta.ShowDialog();
                                 }
-                                
-                                
+
+
                             }
                         }
                         else
@@ -1979,7 +2031,7 @@ namespace Presentacion.Marcas_Nacionales
                     AnadirTabPage(tabPageListaMarcas);
                     EliminarTabPage(tabPageAgregarOposicion);
                     tabControl1.SelectedTab = tabPageListaMarcas;
-                    
+
                 }
                 else
                 {
@@ -2515,7 +2567,7 @@ namespace Presentacion.Marcas_Nacionales
                         tableContent += "<tr>";
                         foreach (DataColumn column in dt.Columns)
                         {
-                           
+
 
                             string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
                                 ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
@@ -2883,6 +2935,26 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void dtgReportesOp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void roundedButton14_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageHistorialMarca);
+            string resultado=oposicionModel.ObtenerTipoOposicion(SeleccionarOposicion.idInt);
+            if(resultado == "recibida")
+            {
+                loadHistorialById();
+               
+            }
+            else if (resultado == "interpuesta")
+            {
+                loadHistorialOposicion();
+            }
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
         {
 
         }

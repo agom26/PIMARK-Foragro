@@ -34,7 +34,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
-        bool agregoEstado=false;
+        bool agregoEstado = false;
 
         private const int pageSize2 = 20;
         private int currentPageIndex2 = 1;
@@ -435,7 +435,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
+                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarOposicion.idMarca));
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -461,11 +461,11 @@ namespace Presentacion.Marcas_Internacionales
         private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
         {
             tabControl1.Visible = false;
-            Cursor= Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
             tabControl1.SelectedTab = tabPageOposicionesList;
-             EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageReportes);
@@ -485,8 +485,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageReportes);
+
             }
             else if (tabControl1.SelectedTab == tabPageOposicionesList)
             {
@@ -890,42 +889,126 @@ namespace Presentacion.Marcas_Internacionales
             pictureBox1.Image = null;
         }
 
-        private void iconButton5_Click(object sender, EventArgs e)
+        private void CargarEstadosPorOrigen(string origen)
+        {
+            comboBoxEstatusH.Items.Clear();
+
+            if (origen == "TRÁMITE")
+            {
+                comboBoxEstatusH.Items.AddRange(new string[]
+                {
+                "Ingresada",
+                "Examen de forma",
+                "Examen de fondo",
+                "Requerimiento",
+                "Objeción",
+                "Resolución RPI favorable",
+                "Resolución RPI desfavorable",
+                "Recurso de revocatoria",
+                "Resolución Ministerio de Economía (MINECO)",
+                "Contencioso administrativo",
+                "Edicto",
+                "Publicación",
+                "Oposición",
+                "Orden de pago",
+                "Abandono",
+                "Registrada",
+                "Licencia de uso",
+                "Trámite de renovación",
+                "Trámite de traspaso"
+                });
+            }
+            else if (origen == "OPOSICIÓN")
+            {
+                comboBoxEstatusH.Items.AddRange(new string[]
+                {
+                "Oposición presentada",
+                "Contestación de oposición",
+                "Apertura a prueba",
+                "Resolución RPI favorable",
+                "Resolución RPI desfavorable",
+                "Recurso de revocatoria",
+                "Resolución Ministerio de Economía (MINECO)",
+                "Contencioso administrativo",
+                "Desestimiento/Abandono"
+                });
+            }
+        }
+
+
+        public void EditarHistorial()
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
+
                 var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
                     int id = Convert.ToInt32(dataRowView["id"]);
+
                     SeleccionarHistorial.id = id;
 
-                    DataTable historial = historialModel.GetHistorialById(id);
-
-                    if (historial.Rows.Count > 0)
+                    if (SeleccionarOposicion.idMarca > 0)
                     {
-                        DataRow fila = historial.Rows[0];
-                        // Asignar los valores obtenidos a la clase SeleccionarPersona
-                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
-                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
-                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
-                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
-                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                        DataTable historial = historialModel.GetHistorialById(id);
 
-                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
-                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
-                        labelUserEditor.Text = UsuarioActivo.usuario;
-                        lblUser.Text = SeleccionarHistorial.usuario;
+                        if (historial.Rows.Count > 0)
+                        {
+                            DataRow fila = historial.Rows[0];
+                            // Asignar los valores obtenidos a la clase SeleccionarPersona
+                            SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                            CargarEstadosPorOrigen(fila["Origen"].ToString());
 
-                        AnadirTabPage(tabPageHistorialDetail);
+                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                            dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                            labelUserEditor.Text = UsuarioActivo.usuario;
+                            lblUser.Text = SeleccionarHistorial.usuario;
+
+                            AnadirTabPage(tabPageHistorialDetail);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
-                    else
+                    else if (SeleccionarOposicion.idMarca == 0)
                     {
-                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        DataTable historial = historialOposicionModel.ObtenerHistorialPorId(id);
+
+                        if (historial.Rows.Count > 0)
+                        {
+                            DataRow fila = historial.Rows[0];
+                            // Asignar los valores obtenidos a la clase SeleccionarPersona
+                            SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                            dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
+                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                            labelUserEditor.Text = UsuarioActivo.usuario;
+                            lblUser.Text = SeleccionarHistorial.usuario;
+
+                            AnadirTabPage(tabPageHistorialDetail);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
+
+
                 }
             }
             else
@@ -934,6 +1017,11 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void iconButton5_Click(object sender, EventArgs e)
+        {
+            EditarHistorial();
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1002,7 +1090,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -1011,7 +1099,7 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarHistorial.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
-            bool actualizar;
+            bool actualizar = false;
 
             if (comboBoxEstatusH.SelectedIndex != -1)
             {
@@ -1025,15 +1113,38 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+
+                if (SeleccionarOposicion.idMarca > 0)
+                {
+                    actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+
+                }
+                else if (SeleccionarOposicion.idMarca == 0)
+                {
+                    HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                    actualizar = historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                }
+
                 if (actualizar == true)
                 {
+
+                    if (SeleccionarOposicion.idMarca > 0)
+                    {
+                        loadHistorialById();
+                    }
+                    else if (SeleccionarOposicion.idMarca == 0)
+                    {
+                        loadHistorialOposicion();
+                    }
+
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
+
                     SeleccionarHistorial.id = 0;
-                    refrescarMarca();
+                    await recargarDatosOposicion();
+
+                    tabControl1.SelectedTab = tabPageHistorialMarca;
                 }
                 else
                 {
@@ -1044,7 +1155,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                MessageBox.Show("No ha seleccionado ningun estado");
+                //MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
 
@@ -1070,7 +1181,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton4_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            tabControl1.SelectedTab = tabPageAgregarOposicion;
         }
 
         private void btnActualizarM_Click(object sender, EventArgs e)
@@ -1445,7 +1556,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 DataRow row = detallesOposicion.Rows[0];
 
-               SeleccionarOposicion.observaciones = row["observaciones"] == DBNull.Value ? null : row["observaciones"].ToString();
+                SeleccionarOposicion.observaciones = row["observaciones"] == DBNull.Value ? null : row["observaciones"].ToString();
 
                 SeleccionarOposicion.estado = row["estado"] == DBNull.Value ? null : row["estado"].ToString();
 
@@ -1453,7 +1564,7 @@ namespace Presentacion.Marcas_Internacionales
                 richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                 //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
-                if(textBoxEstatus.Text=="Registrada")
+                if (textBoxEstatus.Text == "Registrada")
                 {
                     mostrarPanelRegistro();
                 }
@@ -1469,7 +1580,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (btnGuardarU.Text == "EDITAR")
             {
-                if (SeleccionarOposicion.idMarca == 0 || SeleccionarOposicion.idMarca.ToString() ==null)
+                if (SeleccionarOposicion.idMarca == 0 || SeleccionarOposicion.idMarca.ToString() == null)
                 {
                     if (AgregarEtapaOposicion.etapa != "")
                     {
@@ -1691,14 +1802,14 @@ namespace Presentacion.Marcas_Internacionales
 
             if (btnGuardarU.Text == "EDITAR")
             {
-                if (SeleccionarOposicion.idMarca ==0 )
+                if (SeleccionarOposicion.idMarca == 0)
                 {
                     if (AgregarEtapaOposicion.etapa != "")
                     {
                         try
                         {
                             richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
-                            
+
                             /*
                             HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                             historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
@@ -2347,7 +2458,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando1==true)
+            if (buscando1 == true)
             {
                 filtrarRecibidas();
             }
@@ -2413,7 +2524,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst2_Click(object sender, EventArgs e)
         {
             currentPageIndex2 = 1;
-            if (buscando2==true)
+            if (buscando2 == true)
             {
                 filtrarMarcasInterpuestas();
             }
@@ -2474,6 +2585,50 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
+        }
+        private async void loadHistorialOposicion()
+        {
+            try
+            {
+                HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                var historial = await Task.Run(() => historialOposicionModel.ObtenerHistorial(SeleccionarOposicion.idN));
+
+                Invoke(new Action(() =>
+                {
+                    dtgHistorialOp.AutoGenerateColumns = true;
+                    dtgHistorialOp.DataSource = historial;
+
+                    if (dtgHistorialOp.Columns["id"] != null)
+                    {
+                        dtgHistorialOp.Columns["id"].Visible = false;
+                    }
+
+                    dtgHistorialOp.ClearSelection();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void roundedButton14_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageHistorialMarca);
+            string resultado = oposicionModel.ObtenerTipoOposicion(SeleccionarOposicion.idN);
+            if (resultado == "recibida")
+            {
+                loadHistorialById();
+            }
+            else if (resultado == "interpuesta")
+            {
+                loadHistorialOposicion();
+            }
+        }
+
+        private void dtgHistorialOp_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarHistorial();
         }
     }
 }
