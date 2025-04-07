@@ -18,6 +18,12 @@ namespace Dominio
             oposicionDao = new OposicionesDao();
         }
 
+        public void Oposicion_a_abandono(DateTime fecha, 
+            string anotaciones, string usuario, int idMarca, int idOposicion)
+        {
+            oposicionDao.MandarMarcaAbandonoOposicionTerminar(fecha, anotaciones, usuario,
+                idMarca, idOposicion);
+        }
         public DataTable FiltrarOposiciones(
           string tipo_filtro,
           string expediente, string solicitante, string signoPretendido,

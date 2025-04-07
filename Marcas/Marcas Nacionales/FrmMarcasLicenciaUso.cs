@@ -158,21 +158,7 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedTab = nombre;
         }
 
-        public void MostrarLogoEnPictureBox(byte[] logo)
-        {
-            if (logo != null && logo.Length > 0)
-            {
-                using (var ms = new MemoryStream(logo))
-                {
-                    pictureBox1.Image = System.Drawing.Image.FromStream(ms);
-                }
-            }
-            else
-            {
-                convertirImagen();
-                pictureBox1.Image = documento;
-            }
-        }
+       
 
         public void MostrarLogoEnPictureBoxOpositor(byte[] logo)
         {
@@ -207,27 +193,8 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public void mostrarPanelRegistro()
-        {
-            if (textBoxEstatus.Text == "Registrada")
-            {
-                checkBox1.Checked = true;
-                checkBox1.Enabled = false;
-                panel3.Visible = true;
-            }
-            else
-            {
-                checkBox1.Enabled = false;
-                checkBox1.Checked = false;
-                panel3.Visible = false;
-            }
-        }
-        private void ActualizarFechaVencimiento()
-        {
-            DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = fecha_registro.AddYears(10).AddDays(-1);
-            dateTimePFecha_vencimiento.Value = fecha_vencimiento;
-        }
+       
+        
         private bool ValidarCampo(string campo, string mensaje)
         {
             if (string.IsNullOrEmpty(campo))
@@ -359,171 +326,21 @@ namespace Presentacion.Marcas_Internacionales
 
 
 
-        public void LimpiarFormulario()
-        {
-            txtExpediente.Text = "";
-            txtNombre.Text = "";
-            txtClase.Text = "";
-            txtFolio.Text = "";
-            txtLibro.Text = "";
-            pictureBox1.Image = null;
-            txtNombreTitular.Text = "";
-            txtNombreAgente.Text = "";
-            txtNombreCliente.Text = "";
-            datePickerFechaSolicitud.Value = DateTime.Now;
-            dateTimePFecha_Registro.Value = DateTime.Now;
-            dateTimePFecha_Registro.Value = DateTime.Now;
-            textBoxEstatus.Text = "";
-            checkBox1.Checked = false;
-            comboBox1.SelectedIndex = -1;
-            comboBoxSignoDistintivo.SelectedIndex = -1;
-            comboBoxTipoSigno.SelectedIndex = -1;
-            ActualizarFechaVencimiento();
-            txtRegistro.Text = "";
-            richTextBox1.Text = "";
-            AgregarEtapa.LimpiarEtapa();
-        }
+       
 
-        private async void refrescarMarca()
-        {
-            if (SeleccionarMarca.idInt > 0)
-            {
-                try
-                {
-                    DataTable detallesMarcaInt = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
+        
 
-                    if (detallesMarcaInt.Rows.Count > 0)
-                    {
-                        DataRow row = detallesMarcaInt.Rows[0];
-
-                        if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
-                        {
-                            // Actualizar los controles 
-                            textBoxEstatus.Text = row["estado"].ToString();
-                            richTextBox1.Text = row["Observaciones"].ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-
-                        // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
-
-                        if (contieneRegistrada)
-                        {
-                            mostrarPanelRegistro();
-                        }
-                        else
-                        {
-                            mostrarPanelRegistro();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron detalles de la marca.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al refrescar los datos de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private async void loadHistorialById()
-        {
-            try
-            {
-                var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
-
-                // Invoca el método para actualizar el DataGridView en el hilo principal
-                Invoke(new Action(() =>
-                {
-                    dtgHistorialOp.AutoGenerateColumns = true;
-                    dtgHistorialOp.DataSource = historial;
-                    dtgHistorialOp.Refresh();
-
-                    if (dtgHistorialOp.Columns["id"] != null)
-                    {
-                        dtgHistorialOp.Columns["id"].Visible = false;
-                    }
-
-                    dtgHistorialOp.ClearSelection();
-                }));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+       
 
         private async void FrmMarcasLicenciaUso_Load(object sender, EventArgs e)
         {
-            tabControl1.Visible = false;
-            Cursor= Cursors.WaitCursor;
-            cmbSituacionActual.SelectedIndex = 0;
-            cmbSituacionActualI.SelectedIndex = 0;
-            tabControl1.SelectedTab = tabPageOposicionesList;
-             EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            EliminarTabPage(tabPageHistorialDetail);
-            EliminarTabPage(tabPageReportes);
-            EliminarTabPage(tabPageAgregarOposicion);
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
-            currentPageIndex2 = 1;
-            lblCurrentPage2.Text = currentPageIndex2.ToString();
-            await FiltrarPorSituacionActual();
-            await FiltrarPorSituacionActualInterpuestas();
-            tabControl1.Visible = true;
-            Cursor = Cursors.Default;
+            
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (tabControl1.SelectedTab == tabPageHistorialMarca)
-            {
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageReportes);
-            }
-            else if (tabControl1.SelectedTab == tabPageOposicionesList)
-            {
-                tabControl1.Visible = false;
-                Cursor = Cursors.WaitCursor;
-                dtgMarcasOp.ClearSelection();
-                dtgOpI.ClearSelection();
-                await FiltrarPorSituacionActual();
-                await FiltrarPorSituacionActualInterpuestas();
-                SeleccionarOposicion.idN = 0;
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageAgregarOposicion);
-                EliminarTabPage(tabPageReportes);
-                dtgReportesOp.DataSource = null;
-                dtgReportesOp.ClearSelection();
-                tabControl1.Visible = true;
-                Cursor = Cursors.Default;
-
-            }
-            else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageReportes);
-            }
-            else if (tabControl1.SelectedTab == tabPageReportes)
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageAgregarOposicion);
-                dtgReportesOp.DataSource = null;
-                dtgReportesOp.ClearSelection();
-            }
+            
         }
         private async Task CargarDatosOposicion()
         {
@@ -775,76 +592,27 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
-            frmAgregarEtapa.ShowDialog();
-
-            if (AgregarEtapa.etapa != "")
-            {
-                try
-                {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
-                    FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("Etapa agregada con éxito");
-                    if (AgregarEtapa.etapa == "Registrada")
-                    {
-                        checkBox1.Checked = true;
-                    }
-                    else
-                    {
-                        checkBox1.Checked = false;
-                    }
-                    mostrarPanelRegistro();
-                    refrescarMarca();
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-            }
+            
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
         {
-            FrmMostrarTitulares frmMostrarTitulares = new FrmMostrarTitulares();
-            frmMostrarTitulares.ShowDialog();
-
-            if (SeleccionarPersona.idPersonaT != 0)
-            {
-                txtNombreTitular.Text = SeleccionarPersona.nombre;
-            }
+            
         }
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
-            FrmMostrarAgentes frmMostrarAgentes = new FrmMostrarAgentes();
-            frmMostrarAgentes.ShowDialog();
-
-            if (SeleccionarPersona.idPersonaA != 0)
-            {
-                txtNombreAgente.Text = SeleccionarPersona.nombre;
-
-            }
+            
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
-            frmMostrarClientes.ShowDialog();
-
-            if (SeleccionarPersona.idPersonaC != 0)
-            {
-                txtNombreCliente.Text = SeleccionarPersona.nombre;
-
-            }
+            
         }
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadHistorialById();
-            AnadirTabPage(tabPageHistorialMarca);
+            
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -854,7 +622,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
         {
-            ActualizarFechaVencimiento();
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -864,247 +632,62 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Images (*.jpg;*.jpeg;*.png;*.tiff)|*.jpg;*.jpeg;*.png;*.tiff";
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                pictureBox1.Image = new Bitmap(openFile.FileName);
-            }
+           
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
-            if (dtgHistorialOp.SelectedRows.Count > 0)
-            {
-                var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
-                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
-                {
-                    // Obtén el ID de la fila seleccionada
-                    int id = Convert.ToInt32(dataRowView["id"]);
-                    SeleccionarHistorial.id = id;
-
-                    DataTable historial = historialModel.GetHistorialById(id);
-
-                    if (historial.Rows.Count > 0)
-                    {
-                        DataRow fila = historial.Rows[0];
-                        // Asignar los valores obtenidos a la clase SeleccionarPersona
-                        SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
-                        SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
-                        SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
-                        SeleccionarHistorial.usuario = fila["usuario"].ToString();
-                        SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
-
-                        comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
-                        richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
-                        labelUserEditor.Text = UsuarioActivo.usuario;
-                        lblUser.Text = SeleccionarHistorial.usuario;
-
-                        AnadirTabPage(tabPageHistorialDetail);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                alerta.ShowDialog();
-                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+           
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
-            if (dtgHistorialOp.SelectedRows.Count > 0)
-            {
-                var filaSeleccionada = dtgHistorialOp.SelectedRows[0];
-                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
-                {
-                    int id = Convert.ToInt32(dataRowView["id"]);
-                    string etapa = dataRowView["etapa"].ToString();
-                    string anotaciones = dataRowView["anotaciones"].ToString();
-                    string usuario = UsuarioActivo.usuario;
-                    SeleccionarHistorial.id = id;
-                    SeleccionarHistorial.etapa = etapa;
-                    SeleccionarHistorial.anotaciones = anotaciones;
-
-
-                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (confirmacionInicial == DialogResult.Yes)
-                    {
-
-                        if (etapa.Equals("Registrada", StringComparison.OrdinalIgnoreCase))
-                        {
-
-                            DialogResult confirmacionRegistro = MessageBox.Show("Esta acción eliminará los datos de registro, folio, libro, fecha de registro y fecha de vencimiento. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                            if (confirmacionRegistro == DialogResult.Yes)
-                            {
-                                bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
-
-                                if (eliminarhistorial)
-                                {
-
-                                    MessageBox.Show("Estado eliminado y datos de registro borrados.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            bool eliminarhistorial = historialModel.EliminarRegistroHistorial(id, usuario);
-
-                            if (eliminarhistorial)
-                            {
-                                MessageBox.Show("Estado eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se encontró el estado a eliminar.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-
-                        loadHistorialById();
-                        refrescarMarca();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor seleccione una fila para eliminar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            
         }
 
         private void btnEditarH_Click(object sender, EventArgs e)
         {
-            //Editar historial por id
-            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
-            DateTime fecha = dateTimePickerFechaH.Value;
-            string anotaciones = richTextBoxAnotacionesH.Text;
-            SeleccionarHistorial.anotaciones = anotaciones;
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-            bool actualizar;
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
-            {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
-                if (anotaciones.Contains(formato))
-                {
-                    AgregarEtapa.anotaciones = anotaciones;
-                }
-                else
-                {
-                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
-                }
-                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
-                if (actualizar == true)
-                {
-                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
-                    SeleccionarHistorial.id = 0;
-                    refrescarMarca();
-                }
-                else
-                {
-                    MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                MessageBox.Show("No ha seleccionado ningun estado");
-            }
+           
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageHistorialMarca;
+           
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+           
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+           
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+           
         }
 
         private void btnActualizarM_Click(object sender, EventArgs e)
         {
             //ActualizarMarcaInternacional();
-            EliminarTabPage(tabPageHistorialMarca);
+           
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
-            if (textBoxEstatus.Text != "Registrada")
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageOposicionesList;
-            }
-            else
-            {
-                if (!ValidarCampo(txtFolio.Text, "Por favor, ingrese el número de folio.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
-                    !ValidarCampo(txtRegistro.Text, "Por favor, ingrese el número de registro.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado") ||
-                    !ValidarCampo(txtLibro.Text, "Por favor, ingrese el número de tomo.\n No es posible salir sin ingresar datos de registro,\n a menos que edite ese estado")
-                    )
-                {
-
-                }
-                else
-                {
-                    if (
-                        (!int.TryParse(txtRegistro.Text, out _)) ||
-                        (!int.TryParse(txtFolio.Text, out _)) ||
-                        (!int.TryParse(txtLibro.Text, out _)))
-                    {
-                        FrmAlerta alerta = new FrmAlerta("EL REGISTRO, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("El registro, folio y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    }
-                    else
-                    {
-                        //ActualizarMarcaInternacional();
-                        EliminarTabPage(tabPageHistorialMarca);
-                        EliminarTabPage(tabPageMarcaDetail);
-                    }
-
-                }
-
-            }
+            
         }
 
         private void dtgMarcasOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1425,6 +1008,7 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedTab = tabPageOposicionesList;
             LimpiarFormularioOposicion();
         }
+
         public async Task recargarDatosOposicion()
         {
             DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idN));
@@ -1440,10 +1024,7 @@ namespace Presentacion.Marcas_Internacionales
                 richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                 //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
-                if(textBoxEstatus.Text=="Registrada")
-                {
-                    mostrarPanelRegistro();
-                }
+               
 
             }
         }

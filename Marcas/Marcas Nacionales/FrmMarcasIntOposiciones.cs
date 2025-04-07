@@ -747,15 +747,28 @@ namespace Presentacion.Marcas_Internacionales
                             var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
-                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+                                int idMarca = Convert.ToInt32(dataRowView["IdMarca"]);
+                                int idOposicion = Convert.ToInt32(dataRowView["id"]);
 
-                                // Actualizar el estado y la justificación en la base de datos
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
-                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                alerta.ShowDialog();
-                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                FiltrarPorSituacionActual();
-                                FiltrarPorSituacionActualInterpuestas();
+                                try
+                                {
+                                    //procedimiento para mandar marca a abandono y oposicion a terminada
+                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono,
+                                        idMarca, idOposicion);
+                                    FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    alerta.ShowDialog();
+                                    //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    await FiltrarPorSituacionActual();
+                                    await FiltrarPorSituacionActualInterpuestas();
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    FrmAlerta alerta = new FrmAlerta(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    alerta.ShowDialog();
+                                }
+
+
                             }
                         }
                         else

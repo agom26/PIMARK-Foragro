@@ -669,6 +669,34 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public void MandarMarcaAbandonoOposicionTerminar(DateTime p_fecha,
+            string p_anotaciones, string p_usuario, int idMarca, int idOposicion)
+        {
+            try
+            {
+                using(MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("MandarOposicionMarcaAbandonoYTerminar", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("p_fecha", p_fecha);
+                        comando.Parameters.AddWithValue("p_anotaciones", p_anotaciones);
+                        comando.Parameters.AddWithValue("p_usuario", p_usuario);
+                        comando.Parameters.AddWithValue("p_id_marca", idMarca);
+                        comando.Parameters.AddWithValue("p_id_oposicion", idOposicion);
+                        conexion.Open();
+                        comando.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cambiar la marca y oposicion de estado: {ex.Message}");
+            }
+
+            
+        }
+
         public bool CambiarSituacionActualATerminada(int id)
         {
             bool resultado = false;

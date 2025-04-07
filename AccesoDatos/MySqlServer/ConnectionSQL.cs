@@ -1,7 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Data.SqlClient;
-using System.Security.Cryptography;
 namespace AccesoDatos.MySqlServer
 {
     public class ConnectionSQL
