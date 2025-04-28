@@ -281,17 +281,7 @@ namespace Presentacion.Patentes
                                 checkedListBoxDocumentos.SetItemChecked(i, true);
                             }
                         }
-                        bool contieneRegistrada = false;
-
-                        if (SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de renovación", StringComparison.OrdinalIgnoreCase) || SeleccionarPatente.estado.Contains("Trámite de traspaso", StringComparison.OrdinalIgnoreCase))
-                        {
-                            contieneRegistrada = true;
-                        }
-                        else
-                        {
-                            contieneRegistrada = false;
-                        }
-
+                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
                         if (contieneRegistrada)
                         {

@@ -400,11 +400,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
 
             }
-            else
-            {
-
-            }
-
+           
             return true;
         }
 
@@ -828,6 +824,9 @@ namespace Presentacion.Marcas_Nacionales
                     richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                     //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
+                    bool tieneLogoOpositor = SeleccionarOposicion.logoOpositor != null && SeleccionarOposicion.logoOpositor.Length > 0;
+                    bool tieneLogoSignoPretendido = SeleccionarOposicion.logoSignoPretendido != null && SeleccionarOposicion.logoSignoPretendido.Length > 0;
+
                     if (row["situacion_actual"].ToString().Trim().Equals("TERMINADA", StringComparison.OrdinalIgnoreCase))
                     {
                         btnEnviarATramite.Visible = false;
@@ -842,23 +841,26 @@ namespace Presentacion.Marcas_Nacionales
                     }
 
 
-                    if (SeleccionarOposicion.logoSignoPretendido != null || SeleccionarOposicion.logoOpositor != null)
+                    if (tieneLogoOpositor || tieneLogoSignoPretendido)
                     {
                         checkBoxAgregarLogos.Checked = true;
-                        MostrarLogos();
-                        if (SeleccionarOposicion.logoOpositor != null)
+                       
+                        if (tieneLogoOpositor)
                         {
                             MostrarLogoEnPictureBoxOpositor((byte[])row["logo_opositor"]);
                         }
-                        if (SeleccionarOposicion.logoSignoPretendido != null)
+                        if (tieneLogoSignoPretendido)
                         {
                             MostrarLogoEnPictureBoxSignoPretendido((byte[])row["logo_signo_pretendido"]);
                         }
-
+                        MostrarLogos();
                     }
                     else
                     {
                         checkBoxAgregarLogos.Checked = false;
+                         convertirImagen();
+                        pictureBoxOpositor.Image = documento;
+                        pictureBoxSignoPretendido.Image = documento;
                         MostrarLogos();
                     }
 
@@ -1280,6 +1282,7 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+                            CargarEstadosPorOrigen(fila["Origen"].ToString());
 
                             comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
                             dateTimePickerFechaH.Value = SeleccionarHistorial.fecha;
@@ -1961,7 +1964,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    actualizado = actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, signoOpositor, situacion_actual, IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     null);
                 }
@@ -2078,6 +2081,9 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
+                convertirImagen();
+                pictureBoxOpositor.Image = documento;
+                pictureBoxSignoPretendido.Image = documento;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }

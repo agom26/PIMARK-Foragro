@@ -502,7 +502,7 @@ namespace Presentacion.Marcas_Internacionales
                             pictureBox1.Image = documento;
                         }
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -1736,7 +1736,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
+                    MessageBox.Show($"Error al subir el archivo: {ex.InnerException.Message}");
                     archivoSubido = false;
                 }
                 Cursor.Current = Cursors.Default;

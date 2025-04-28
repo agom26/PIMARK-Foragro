@@ -11,6 +11,29 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+
+        public bool TieneEtapaRegistrada(int idMarca)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand("VerificarEtapaRegistrada", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@p_IdMarca", idMarca);
+
+                    MySqlParameter tieneEtapa = new MySqlParameter("@p_TieneEtapaRegistrada", MySqlDbType.Bit);
+                    tieneEtapa.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(tieneEtapa);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    return Convert.ToBoolean(tieneEtapa.Value);
+                }
+            }
+        }
+
         public void InsertarTraspasoYHistorialMarca(
         string numExpediente,
         int idMarca,

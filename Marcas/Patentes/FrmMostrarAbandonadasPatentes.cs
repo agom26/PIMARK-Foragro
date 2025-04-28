@@ -305,18 +305,8 @@ namespace Presentacion.Patentes
                                 checkedListBoxDocumentos.SetItemChecked(i, true);
                             }
                         }
-                        bool contieneRegistrada = false;
 
-
-
-                        if (row["registro"] != DBNull.Value)
-                        {
-                            contieneRegistrada = true;
-                        }
-                        else
-                        {
-                            contieneRegistrada = false;
-                        }
+                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
 
                         if (contieneRegistrada)

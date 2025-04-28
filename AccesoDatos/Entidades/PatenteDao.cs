@@ -10,6 +10,27 @@ namespace AccesoDatos.Entidades
 {
     public class PatenteDao:ConnectionSQL
     {
+        public bool TieneEtapaRegistradaPatente(int idPatente)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand("VerificarEtapaRegistradaPatente", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@p_IdPatente", idPatente);
+
+                    MySqlParameter tieneEtapa = new MySqlParameter("@p_TieneEtapaRegistrada", MySqlDbType.Bit);
+                    tieneEtapa.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(tieneEtapa);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    return Convert.ToBoolean(tieneEtapa.Value);
+                }
+            }
+        }
         public void InsertarTraspasoYHistorial(
            string numExpediente,
            int idPatente,

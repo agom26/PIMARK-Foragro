@@ -220,6 +220,7 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(280, 25);
             comboBox1.TabIndex = 3;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label24
             // 
@@ -321,7 +322,6 @@
             // dateTimePFecha_vencimiento
             // 
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
-            dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(384, 135);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";

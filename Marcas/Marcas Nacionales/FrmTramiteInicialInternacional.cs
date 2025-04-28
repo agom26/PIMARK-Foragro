@@ -434,7 +434,15 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    dateTimePFecha_vencimiento.Enabled = false;
+                    if (UsuarioActivo.isAdmin)
+                    {
+                        dateTimePFecha_vencimiento.Enabled = true;
+                    }
+                    else
+                    {
+                        dateTimePFecha_vencimiento.Enabled = false;
+
+                    }
                 }
 
             }

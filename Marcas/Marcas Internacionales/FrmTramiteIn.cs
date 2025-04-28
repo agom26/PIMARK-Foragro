@@ -437,7 +437,15 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    dateTimePFecha_vencimiento.Enabled = false;
+                    if (UsuarioActivo.isAdmin)
+                    {
+                        dateTimePFecha_vencimiento.Enabled = true;
+                    }
+                    else
+                    {
+                        dateTimePFecha_vencimiento.Enabled = false;
+
+                    }
                 }
             }
         }
@@ -623,6 +631,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 dateTimePFecha_vencimiento.Enabled = false;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

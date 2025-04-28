@@ -16,6 +16,11 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
+        public bool TieneEtapaRegistrada(int idMarca)
+        {
+            return marcaDao.TieneEtapaRegistrada(idMarca);
+        }
+
         public void InsertarTraspasoYHistorialMarca(
        string numExpediente,
        int idMarca,

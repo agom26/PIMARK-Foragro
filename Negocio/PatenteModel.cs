@@ -17,6 +17,11 @@ namespace Dominio
         {
             patenteDao = new PatenteDao();
         }
+
+        public bool TieneEtapaRegistradaPatente(int idPatente)
+        {
+            return patenteDao.TieneEtapaRegistradaPatente(idPatente);
+        }
         public void InsertarTraspasoYHistorial(
          string numExpediente,
          int idPatente,

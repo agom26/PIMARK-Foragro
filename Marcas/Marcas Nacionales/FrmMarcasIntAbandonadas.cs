@@ -323,8 +323,8 @@ namespace Presentacion.Marcas_Internacionales
                             convertirImagen();
                             pictureBox1.Image = documento;
                         }
-
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {

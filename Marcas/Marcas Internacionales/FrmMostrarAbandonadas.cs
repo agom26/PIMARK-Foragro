@@ -298,7 +298,7 @@ namespace Presentacion.Marcas_Nacionales
                             pictureBox1.Image = documento;
                         }
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
 
                         if (contieneRegistrada)
                         {
