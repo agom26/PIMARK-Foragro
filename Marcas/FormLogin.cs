@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.IO;
 using System.Net;
 using System.Diagnostics;
+using Presentacion.Alertas;
 
 namespace Marcas
 {
@@ -228,6 +229,12 @@ namespace Marcas
 
             //LOGIN                                
             UserModel userModel = new UserModel();
+            if (!userModel.ProbarConexion())
+            {
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             (bool validLogin, bool isAdmin) = userModel.Login(txtUserName.Text, txtPassword.Text);
             try
             {

@@ -64,8 +64,9 @@
             btnIngresadasInt = new Button();
             btnTramiteInicialInter = new Button();
             btnClientes = new Button();
-            btnTitulares = new Button();
+            btnClientes2 = new Button();
             btnAgentes = new Button();
+            btnTitulares = new Button();
             btnUsers = new Button();
             btnInicio = new Button();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -109,7 +110,7 @@
             btnMarcasNacionales.ForeColor = Color.White;
             btnMarcasNacionales.Image = Properties.Resources.bandera_4_;
             btnMarcasNacionales.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMarcasNacionales.Location = new Point(0, 333);
+            btnMarcasNacionales.Location = new Point(0, 394);
             btnMarcasNacionales.Name = "btnMarcasNacionales";
             btnMarcasNacionales.Size = new Size(263, 61);
             btnMarcasNacionales.TabIndex = 0;
@@ -130,7 +131,7 @@
             panelSubMenuPatentes.Controls.Add(btnIngresarPatente);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuPatentes.Location = new Point(0, 1322);
+            panelSubMenuPatentes.Location = new Point(0, 1383);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
             panelSubMenuPatentes.Size = new Size(263, 310);
             panelSubMenuPatentes.TabIndex = 12;
@@ -259,8 +260,9 @@
             panel2.Controls.Add(btnMInternacionales);
             panel2.Controls.Add(panelSubMenuMarcasInter);
             panel2.Controls.Add(btnMarcasNacionales);
-            panel2.Controls.Add(btnTitulares);
+            panel2.Controls.Add(btnClientes2);
             panel2.Controls.Add(btnAgentes);
+            panel2.Controls.Add(btnTitulares);
             panel2.Controls.Add(btnUsers);
             panel2.Controls.Add(btnInicio);
             panel2.Controls.Add(iconButton1);
@@ -280,7 +282,7 @@
             btnCerrarSesion.ForeColor = Color.White;
             btnCerrarSesion.Image = Properties.Resources.cerrar_sesion_4_;
             btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCerrarSesion.Location = new Point(0, 1754);
+            btnCerrarSesion.Location = new Point(0, 1815);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(263, 61);
             btnCerrarSesion.TabIndex = 26;
@@ -299,7 +301,7 @@
             btnVencimientos.ForeColor = Color.White;
             btnVencimientos.Image = Properties.Resources.reloj_y_calendario;
             btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVencimientos.Location = new Point(0, 1693);
+            btnVencimientos.Location = new Point(0, 1754);
             btnVencimientos.Name = "btnVencimientos";
             btnVencimientos.Size = new Size(263, 61);
             btnVencimientos.TabIndex = 25;
@@ -318,7 +320,7 @@
             btnReportes.ForeColor = Color.White;
             btnReportes.Image = Properties.Resources.grafico_simple_horizontal_1_;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(0, 1632);
+            btnReportes.Location = new Point(0, 1693);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(263, 61);
             btnReportes.TabIndex = 24;
@@ -337,7 +339,7 @@
             btnPatentes.ForeColor = Color.White;
             btnPatentes.Image = Properties.Resources.bahai;
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatentes.Location = new Point(0, 1261);
+            btnPatentes.Location = new Point(0, 1322);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Size = new Size(263, 61);
             btnPatentes.TabIndex = 23;
@@ -358,7 +360,7 @@
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteInicial);
             panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasNacionales.Location = new Point(0, 915);
+            panelSubMenuMarcasNacionales.Location = new Point(0, 976);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
             panelSubMenuMarcasNacionales.Size = new Size(263, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
@@ -505,7 +507,7 @@
             // 
             panel3.Controls.Add(button1);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 1815);
+            panel3.Location = new Point(0, 1876);
             panel3.Name = "panel3";
             panel3.Size = new Size(263, 54);
             panel3.TabIndex = 18;
@@ -536,7 +538,7 @@
             btnMInternacionales.ForeColor = Color.White;
             btnMInternacionales.Image = (Image)resources.GetObject("btnMInternacionales.Image");
             btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMInternacionales.Location = new Point(0, 854);
+            btnMInternacionales.Location = new Point(0, 915);
             btnMInternacionales.Name = "btnMInternacionales";
             btnMInternacionales.Size = new Size(263, 61);
             btnMInternacionales.TabIndex = 22;
@@ -560,7 +562,7 @@
             panelSubMenuMarcasInter.Controls.Add(btnClientes);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasInter.Location = new Point(0, 394);
+            panelSubMenuMarcasInter.Location = new Point(0, 455);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
             panelSubMenuMarcasInter.Size = new Size(263, 460);
             panelSubMenuMarcasInter.TabIndex = 10;
@@ -635,6 +637,7 @@
             button2.Text = "> LICENCIAS DE USO";
             button2.TextAlign = ContentAlignment.MiddleLeft;
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_3;
             // 
             // btnRegInter
             // 
@@ -726,24 +729,24 @@
             btnClientes.UseVisualStyleBackColor = true;
             btnClientes.Click += button30_Click;
             // 
-            // btnTitulares
+            // btnClientes2
             // 
-            btnTitulares.BackColor = Color.FromArgb(34, 77, 112);
-            btnTitulares.Dock = DockStyle.Top;
-            btnTitulares.FlatAppearance.BorderSize = 0;
-            btnTitulares.FlatStyle = FlatStyle.Flat;
-            btnTitulares.Font = new Font("Century Gothic", 9F);
-            btnTitulares.ForeColor = Color.White;
-            btnTitulares.Image = Properties.Resources.legal;
-            btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTitulares.Location = new Point(0, 272);
-            btnTitulares.Name = "btnTitulares";
-            btnTitulares.Size = new Size(263, 61);
-            btnTitulares.TabIndex = 21;
-            btnTitulares.Text = "     TITULARES";
-            btnTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnTitulares.UseVisualStyleBackColor = false;
-            btnTitulares.Click += button5_Click_2;
+            btnClientes2.BackColor = Color.FromArgb(34, 77, 112);
+            btnClientes2.Dock = DockStyle.Top;
+            btnClientes2.FlatAppearance.BorderSize = 0;
+            btnClientes2.FlatStyle = FlatStyle.Flat;
+            btnClientes2.Font = new Font("Century Gothic", 9F);
+            btnClientes2.ForeColor = Color.White;
+            btnClientes2.Image = (Image)resources.GetObject("btnClientes2.Image");
+            btnClientes2.ImageAlign = ContentAlignment.MiddleLeft;
+            btnClientes2.Location = new Point(0, 333);
+            btnClientes2.Name = "btnClientes2";
+            btnClientes2.Size = new Size(263, 61);
+            btnClientes2.TabIndex = 27;
+            btnClientes2.Text = "     CLIENTES";
+            btnClientes2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnClientes2.UseVisualStyleBackColor = false;
+            btnClientes2.Click += button3_Click_2;
             // 
             // btnAgentes
             // 
@@ -755,7 +758,7 @@
             btnAgentes.ForeColor = Color.White;
             btnAgentes.Image = Properties.Resources.empresarios_1_;
             btnAgentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgentes.Location = new Point(0, 211);
+            btnAgentes.Location = new Point(0, 272);
             btnAgentes.Name = "btnAgentes";
             btnAgentes.Size = new Size(263, 61);
             btnAgentes.TabIndex = 20;
@@ -763,6 +766,25 @@
             btnAgentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAgentes.UseVisualStyleBackColor = false;
             btnAgentes.Click += button4_Click_2;
+            // 
+            // btnTitulares
+            // 
+            btnTitulares.BackColor = Color.FromArgb(34, 77, 112);
+            btnTitulares.Dock = DockStyle.Top;
+            btnTitulares.FlatAppearance.BorderSize = 0;
+            btnTitulares.FlatStyle = FlatStyle.Flat;
+            btnTitulares.Font = new Font("Century Gothic", 9F);
+            btnTitulares.ForeColor = Color.White;
+            btnTitulares.Image = Properties.Resources.legal;
+            btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
+            btnTitulares.Location = new Point(0, 211);
+            btnTitulares.Name = "btnTitulares";
+            btnTitulares.Size = new Size(263, 61);
+            btnTitulares.TabIndex = 21;
+            btnTitulares.Text = "     TITULARES";
+            btnTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnTitulares.UseVisualStyleBackColor = false;
+            btnTitulares.Click += button5_Click_2;
             // 
             // btnUsers
             // 
@@ -1017,6 +1039,7 @@
         private Button btnVencimientos;
         private Button btnCerrarSesion;
         private Button button2;
+        private Button btnClientes2;
     }
 }
 

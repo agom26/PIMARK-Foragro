@@ -947,7 +947,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void FrmMostrarOposiciones_Load(object sender, EventArgs e)
         {
-            tabControl1.Visible = false;
+            //tabControl1.Visible = false;
             Cursor = Cursors.WaitCursor;
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
@@ -958,9 +958,16 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageAgregarOposicion);
             EliminarTabPage(tabPageReportes);
             ActualizarFechaVencimiento();
-            await FiltrarPorSituacionActual();
-            await FiltrarPorSituacionActualInterpuestas();
-            tabControl1.Visible = true;
+
+            // Ejecutar ambas tareas en paralelo
+            var tareasFiltrado = new Task[]
+            {
+                FiltrarPorSituacionActual(),
+                FiltrarPorSituacionActualInterpuestas()
+            };
+
+            await Task.WhenAll(tareasFiltrado);
+            //tabControl1.Visible = true;
             Cursor = Cursors.Default;
 
             currentPageIndex = 1;
@@ -980,18 +987,23 @@ namespace Presentacion.Marcas_Nacionales
             }
             else if (tabControl1.SelectedTab == tabPageListaMarcas)
             {
-                tabControl1.Visible = false;
+               // tabControl1.Visible = false;
                 Cursor cursor = Cursors.WaitCursor;
 
-                await FiltrarPorSituacionActual();
-                await FiltrarPorSituacionActualInterpuestas();
+                var tareasFiltrado = new Task[]
+            {
+                FiltrarPorSituacionActual(),
+                FiltrarPorSituacionActualInterpuestas()
+            };
+
+                await Task.WhenAll(tareasFiltrado);
                 SeleccionarOposicion.idInt = 0;
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetalle);
                 EliminarTabPage(tabPageAgregarOposicion);
                 EliminarTabPage(tabPageReportes);
-                tabControl1.Visible = true;
+                //tabControl1.Visible = true;
                 Cursor cursor1 = Cursors.Default;
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)

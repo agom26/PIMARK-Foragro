@@ -1811,7 +1811,7 @@ namespace Presentacion.Vencimientos
             alerta.ShowDialog();
         }
 
-        private void iconButton9_Click(object sender, EventArgs e)
+        private async Task iconButton9_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -1845,6 +1845,8 @@ namespace Presentacion.Vencimientos
                             idMarca = SeleccionarMarca.idInt;
                             ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
                             MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
+                            
+
                         }
                         else if (SeleccionarMarca.idN != 0)
                         {
@@ -1858,6 +1860,11 @@ namespace Presentacion.Vencimientos
                             ActualizarEstadoPatente(idPatente, fechaAbandono, textoJustificado, usuarioAbandono);
                             MostrarAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA");
                         }
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPagePatenteDetail);
+                        await LoadVencimientos();
+                        tabControl1.SelectedTab = tabPageVencimientosList;
                     }
                     catch (Exception ex)
                     {

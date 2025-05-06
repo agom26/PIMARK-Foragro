@@ -462,6 +462,19 @@ namespace Presentacion.Marcas_Internacionales
         {
             tabControl1.Visible = false;
             Cursor = Cursors.WaitCursor;
+            
+
+            var tareas = new Task[]
+            {
+                FiltrarPorSituacionActual(),
+                FiltrarPorSituacionActualInterpuestas()
+            };
+
+            await Task.WhenAll(tareas);
+
+            tabControl1.Visible = true;
+            Cursor = Cursors.Default;
+
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
             tabControl1.SelectedTab = tabPageOposicionesList;
@@ -474,10 +487,6 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             currentPageIndex2 = 1;
             lblCurrentPage2.Text = currentPageIndex2.ToString();
-            await FiltrarPorSituacionActual();
-            await FiltrarPorSituacionActualInterpuestas();
-            tabControl1.Visible = true;
-            Cursor = Cursors.Default;
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -491,20 +500,30 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.Visible = false;
                 Cursor = Cursors.WaitCursor;
-                dtgMarcasOp.ClearSelection();
-                dtgOpI.ClearSelection();
-                await FiltrarPorSituacionActual();
-                await FiltrarPorSituacionActualInterpuestas();
+                
+                var tareas = new Task[]
+               {
+                    FiltrarPorSituacionActual(),
+                    FiltrarPorSituacionActualInterpuestas()
+               };
+
+                await Task.WhenAll(tareas);
+               
                 SeleccionarOposicion.idN = 0;
+                
+                
+                tabControl1.Visible = true;
+                Cursor = Cursors.Default;
+
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageAgregarOposicion);
                 EliminarTabPage(tabPageReportes);
+                dtgMarcasOp.ClearSelection();
                 dtgReportesOp.DataSource = null;
                 dtgReportesOp.ClearSelection();
-                tabControl1.Visible = true;
-                Cursor = Cursors.Default;
+                dtgOpI.ClearSelection();
 
             }
             else if (tabControl1.SelectedTab == tabPageAgregarOposicion)

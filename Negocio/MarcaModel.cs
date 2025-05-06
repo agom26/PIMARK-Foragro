@@ -16,6 +16,27 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
+        public DataTable GetAllMarcasNacionalesParaLicencia(int currentPage, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            tabla = marcaDao.GetAllMarcasNacionalesParaLicencia(currentPage, pageSize);
+            return tabla;
+        }
+        public DataTable FiltrarMarcasNacionalesParaLicencia(string filtro, int currentPageIndex, int pageSize)
+        {
+            return marcaDao.filtrarMarcasNacionalesParaLicencia(filtro, currentPageIndex, pageSize);
+        }
+
+        public int GetTotalMarcasNacionalesParaLicencia()
+        {
+            return marcaDao.GetTotalMarcasNacionalesParaLicencia();
+        }
+
+        public int GetFilteredMarcasNacionalesParaLicenciaCount(string value)
+        {
+            return marcaDao.GetFilteredMarcasNacionalesParaLicenciaCount(value);
+        }
+
         public bool TieneEtapaRegistrada(int idMarca)
         {
             return marcaDao.TieneEtapaRegistrada(idMarca);

@@ -74,5 +74,10 @@ namespace Dominio
             return userDao.ContarAdministradores();
         }
 
+        public bool ProbarConexion()
+        {
+            return userDao.ProbarConexion();
+        }
+
     }
 }

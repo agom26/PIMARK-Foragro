@@ -1022,7 +1022,6 @@
             iconButton9.TextAlign = ContentAlignment.MiddleRight;
             iconButton9.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton9.UseVisualStyleBackColor = false;
-            iconButton9.Click += iconButton9_Click;
             // 
             // iconButton8
             // 

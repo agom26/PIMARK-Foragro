@@ -21,12 +21,7 @@ namespace Presentacion.Marcas_Internacionales
 {
     public partial class FrmMarcasLicenciaUso : Form
     {
-        MarcaModel marcaModel = new MarcaModel();
-        PersonaModel personaModel = new PersonaModel();
-        HistorialModel historialModel = new HistorialModel();
-        OposicionModel oposicionModel = new OposicionModel();
-        byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
         public int numRegistros = 0;
         public float escala = 0;
         string titulo;
@@ -34,7 +29,7 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
-        bool agregoEstado = false;
+        bool exclusiva = false;
 
         private const int pageSize2 = 20;
         private int currentPageIndex2 = 1;
@@ -42,14 +37,7 @@ namespace Presentacion.Marcas_Internacionales
         private int totalRows2 = 0;
         private bool buscando1 = false;
         private bool buscando2 = false;
-        public void convertirImagen()
-        {
 
-            using (MemoryStream ms = new MemoryStream(defaultImage))
-            {
-                documento = System.Drawing.Image.FromStream(ms);
-            }
-        }
         public FrmMarcasLicenciaUso()
         {
             InitializeComponent();
@@ -67,12 +55,13 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        private async Task LoadMarcas(string situacionActual)
+        private async Task LoadLicenciasUsoExclusivas(string situacionActual)
         {
-            totalRows = oposicionModel.GetTotalOposicionesNacionalesRecibidas(situacionActual);
+            
+
+            totalRows = licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas(situacionActual);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionales(situacionActual, currentPageIndex, pageSize));
+            var marcasN = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesExclusivas(situacionActual, currentPageIndex, pageSize));
 
             Invoke(new Action(() =>
             {
@@ -91,46 +80,46 @@ namespace Presentacion.Marcas_Internacionales
 
             }));
         }
-        public async void filtrarRecibidas()
+
+        public async void filtrarLicenciasUsoExclusivas()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
+                totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = oposicionModel.FiltrarOposicionesNacionalesRecibidas(buscar, currentPageIndex, pageSize);
+                DataTable titulares = licenciaUso.FiltrarLicenciasUsoNacionalesExclusivas(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgMarcasOp.DataSource = titulares;
                     if (dtgMarcasOp.Columns["id"] != null)
                     {
                         dtgMarcasOp.Columns["id"].Visible = false;
+                        dtgMarcasOp.Columns["IdMarca"].Visible = false;
                     }
                     dtgMarcasOp.ClearSelection();
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN LICENCIAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    //MessageBox.Show("No existen titulares con esos datos");
-                    await FiltrarPorSituacionActual();
+                    await FiltrarExclusivasPorSituacionActual();
                 }
             }
             else
             {
-                //await LoadMarcas();
-                await FiltrarPorSituacionActual();
+                await FiltrarExclusivasPorSituacionActual();
             }
         }
 
 
-        private async Task LoadMarcasInterpuestas(string situacionActual)
+        private async Task LoadLicenciasUsoNoExclusivas(string situacionActual)
         {
-            totalRows2 = oposicionModel.GetTotalOposicionesNacionalesInterpuestas(situacionActual);
+            totalRows2 = licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas(situacionActual);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionalesInterpuestas(situacionActual, currentPageIndex2, pageSize2));
+            var marcasN = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesNoExclusivas(situacionActual, currentPageIndex2, pageSize2));
 
             Invoke(new Action(() =>
             {
@@ -138,12 +127,11 @@ namespace Presentacion.Marcas_Internacionales
                 lblTotalRows2.Text = totalRows2.ToString();
                 dtgOpI.DataSource = marcasN;
                 dtgOpI.Refresh();
-                // Oculta la columna 'id'
+
                 if (dtgOpI.Columns["id"] != null)
                 {
                     dtgOpI.Columns["IdMarca"].Visible = false;
                     dtgOpI.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
                     dtgOpI.ClearSelection();
                 }
             }));
@@ -172,16 +160,69 @@ namespace Presentacion.Marcas_Internacionales
             return true;
         }
 
-        private async void FrmMarcasLicenciaUso_Load(object sender, EventArgs e)
+        private void FrmMarcasLicenciaUso_Load(object sender, EventArgs e)
         {
 
+            _ = CargarDatosLicenciasUsoAsync();
         }
+
+        private async Task CargarDatosLicenciasUsoAsync()
+        {
+            try
+            {
+                currentPageIndex = 1;
+                currentPageIndex2 = 1;
+
+                int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas("En Trámite"));
+                int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas("En Trámite"));
+
+                if (currP == 0)
+                    currentPageIndex = 0;
+
+                if (currP2 == 0)
+                    currentPageIndex2 = 0;
+
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                lblCurrentPage2.Text = currentPageIndex2.ToString();
+
+                cmbSituacionActual.SelectedIndex = 0;
+                cmbSituacionActual2.SelectedIndex = 0;
+
+                if (tabPageAgregarOposicion != null)
+                {
+                    EliminarTabPage(tabPageAgregarOposicion);
+                    EliminarTabPage(tabPageReportes);
+                }
+
+                var filtrarExclusivasTask = FiltrarExclusivasPorSituacionActual();
+                var filtrarNoExclusivasTask = FiltrarNoExclusivasPorSituacionActual();
+
+                await Task.WhenAll(filtrarExclusivasTask, filtrarNoExclusivasTask);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar licencias de uso: " + ex.Message);
+            }
+            finally
+            {
+
+            }
+        }
+
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (tabControl1.SelectedTab == tabPageOposicionesList)
+            {
+                //await CargarDatosLicenciasUsoAsync();
+            }
+            else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
+            {
+                //await CargarDatosOposicion();
+            }
 
         }
+        /*
         private async Task CargarDatosOposicion()
         {
             try
@@ -210,29 +251,27 @@ namespace Presentacion.Marcas_Internacionales
 
                     txtExpediente.Text = SeleccionarOposicion.expediente;
                     txtSigno.Text = SeleccionarOposicion.signo_pretendido;
-                    txtEstado.Text = SeleccionarOposicion.clase;
+                    //txtEstado.Text = SeleccionarOposicion.clase;
                     txtTitular.Text = SeleccionarOposicion.solicitante_signo_pretendido;
                     txtRegistro.Text = SeleccionarOposicion.opositor;
                     txtRazonSocial.Text = SeleccionarOposicion.signo_opositor;
-                    richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
+                    //richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
                     //txtEstadoAO.Text = SeleccionarOposicion.estado;
 
                     if (row["situacion_actual"].ToString().Trim().Equals("TERMINADA", StringComparison.OrdinalIgnoreCase))
 
                     {
                         btnEnviarATramite.Visible = false;
-                        btnAgregarEstadoAO.Enabled = false;
                         btnAgregarOpositorAO.Enabled = false;
                     }
                     else
                     {
                         btnEnviarATramite.Visible = true;
-                        btnAgregarEstadoAO.Enabled = true;
                         btnAgregarOpositorAO.Enabled = true;
                     }
 
 
-                   
+
 
 
                     if (SeleccionarOposicion.idMarca > 0)
@@ -240,7 +279,6 @@ namespace Presentacion.Marcas_Internacionales
                         btnAgregarOpositorAO.Enabled = false;
                         // btnTitular.Visible = true;
                         txtExpediente.Enabled = false;
-                        txtEstado.Enabled = false;
                         txtSigno.Enabled = false;
                         txtRazonSocial.Enabled = true;
                         txtRegistro.Enabled = true;
@@ -273,10 +311,7 @@ namespace Presentacion.Marcas_Internacionales
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
                         txtSigno.Enabled = true;
-                        txtEstado.Enabled = true;
                         txtExpediente.Enabled = true;
-                        txtEstado.Enabled = true;
-                        txtEstado.Enabled = true;
                         txtTitular.Enabled = true;
                         btnAgregarOpositorAO.Enabled = true;
                         txtRazonSocial.Enabled = true;
@@ -300,7 +335,7 @@ namespace Presentacion.Marcas_Internacionales
                 MessageBox.Show(ex.Message);
             }
         }
-
+        */
         private void ProcesarSeleccion(DataGridView dataGridView)
         {
             var filaSeleccionada = dataGridView.SelectedRows[0];
@@ -353,11 +388,11 @@ namespace Presentacion.Marcas_Internacionales
 
         public async void Editar()
         {
-            btnEnviarATramite.Visible = true;
+            btnEnviarATerminar.Visible = true;
             VerificarSeleccionEdicion();
             if (SeleccionarOposicion.idN > 0)
             {
-                await CargarDatosOposicion();
+                //await CargarDatosOposicion();
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -387,12 +422,11 @@ namespace Presentacion.Marcas_Internacionales
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
                                 // Actualizar el estado y la justificación en la base de datos
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
+                                //historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                FiltrarPorSituacionActual();
-                                FiltrarPorSituacionActualInterpuestas();
+
                             }
                         }
                         else
@@ -515,50 +549,56 @@ namespace Presentacion.Marcas_Internacionales
             buscando1 = false;
             Editar();
         }
-        public async Task FiltrarPorSituacionActual()
+        public async Task FiltrarExclusivasPorSituacionActual()
         {
             if (cmbSituacionActual.SelectedIndex == 0)
             {
-                await LoadMarcas("EN TRÁMITE");
+                await LoadLicenciasUsoExclusivas("En Trámite");
             }
             else if (cmbSituacionActual.SelectedIndex == 1)
             {
-                await LoadMarcas("TERMINADA");
+                await LoadLicenciasUsoExclusivas("En Uso");
+            }
+            else if (cmbSituacionActual.SelectedIndex == 2)
+            {
+                await LoadLicenciasUsoExclusivas("Terminada");
             }
         }
 
-        public async Task FiltrarPorSituacionActualInterpuestas()
+        public async Task FiltrarNoExclusivasPorSituacionActual()
         {
-            if (cmbSituacionActualI.SelectedIndex == 0)
+            if (cmbSituacionActual2.SelectedIndex == 0)
             {
-                await LoadMarcasInterpuestas("EN TRÁMITE");
+                await LoadLicenciasUsoNoExclusivas("En Trámite");
             }
-            else if (cmbSituacionActualI.SelectedIndex == 1)
+            else if (cmbSituacionActual2.SelectedIndex == 1)
             {
-                await LoadMarcasInterpuestas("TERMINADA");
+                await LoadLicenciasUsoNoExclusivas("En Uso");
+            }
+            else if (cmbSituacionActual2.SelectedIndex == 2)
+            {
+                await LoadLicenciasUsoNoExclusivas("Terminada");
             }
         }
         private async void cmbSituacionActual_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await FiltrarPorSituacionActual();
+            await FiltrarExclusivasPorSituacionActual();
         }
         public void MostrarLogos()
         {
-           
+
         }
         private void iconButton6_Click(object sender, EventArgs e)
         {
-            btnEnviarATramite.Visible = false;
+            btnEnviarATerminar.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
             txtExpediente.Enabled = true;
             txtTitular.Enabled = true;
             txtSigno.Enabled = true;
-            txtEstado.Enabled = true;
             txtRegistro.Enabled = true;
             txtRazonSocial.Enabled = true;
             btnAgregarOpositorAO.Enabled = true;
             SeleccionarOposicion.idN = 0;
-            convertirImagen();
             MostrarLogos();
             //iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             tabControl1.SelectedTab = tabPageAgregarOposicion;
@@ -572,56 +612,99 @@ namespace Presentacion.Marcas_Internacionales
             MostrarLogos();
         }
 
-       
-        public void AgregarOposicion()
+        private bool ValidarCamposLicenciaUso()
         {
-            byte[] logoOpositor = null;
-            byte[] logoSignoPretendido = null;
-            string expediente = txtExpediente.Text;
-            string signo_pretendido = txtSigno.Text;
-            string clase = txtEstado.Text;
-            string solicitante_signo_distintivo = txtTitular.Text;
+            if (string.IsNullOrWhiteSpace(txtTitulo.Text))
+                return false;
+            if (SeleccionarMarcaParaLicencia.idMarca == 0)
+                return false;
+            if (string.IsNullOrWhiteSpace(txtTerritorio.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtRazonSocial.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtDireccion.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtDomicilio.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtNacionalidad.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtApoderadoRL.Text))
+                return false;
 
-            int? idMarca = null;
-            string opositor = txtRegistro.Text;
-            string signoOpositor = txtRazonSocial.Text;
+            if (comboBoxEstado.SelectedItem == null)
+                return false;
 
-            btnAgregarEstadoAO.Enabled = true;
-            btnEnviarATramite.Visible = false;
+            if (dateTimePickerInicio.Value == DateTime.MinValue)
+                return false;
+            if (dateTimePickerFin.Value == DateTime.MinValue)
+                return false;
+            if (dateTimePickerInicio.Value > dateTimePickerFin.Value)
+                return false;
+
+            // Si todo está bien
+            return true;
+        }
 
 
-            bool validacionExitosa=true;
+        public void AgregarLicencia()
+        {
 
+            bool validacionExitosa = ValidarCamposLicenciaUso();
             if (!validacionExitosa)
             {
+                FrmAlerta alerta = new FrmAlerta("COMPLETE TODOS LOS CAMPOS OBLIGATORIOS", "VALIDACIÓN FALLIDA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
                 return;
             }
 
+            if (comboBoxEstado.SelectedItem == null)
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+            string estado = comboBoxEstado.SelectedItem.ToString();
+
+            string tituloPorElCualSeVerifica = txtTitulo.Text;
+            int? idMarca = SeleccionarMarcaParaLicencia.idMarca;
+            string territorio = txtTerritorio.Text;
+            string razonSocial = txtRazonSocial.Text;
+            string direccion = txtDireccion.Text;
+            string domicilio = txtDomicilio.Text;
+            string nacionalidad = txtNacionalidad.Text;
+            string apoderado = txtApoderadoRL.Text;
+            DateTime fechaInicio = dateTimePickerInicio.Value;
+            DateTime fechaFin = dateTimePickerFin.Value;
+            string tipo;
+
+            if (exclusiva == true) { tipo = "exclusiva"; }
+            else { tipo = "no Exclusiva"; }
+
+
+
             try
             {
-                if (AgregarEtapaOposicion.etapa != "")
+                LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
+                if (licenciaUso.ExisteLicenciaUsoExclusiva((int)idMarca)==true)
                 {
-                    OposicionModel oposicionModel = new OposicionModel();
-                    int idOposicion = 1;
-                    if (idOposicion > 0)
-                    {
-                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                            AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
-                            );
-                    }
-                    FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    LimpiarFormularioOposicion();
-                    AnadirTabPage(tabPageOposicionesList);
-                    tabControl1.SelectedTab = tabPageOposicionesList;
-                    EliminarTabPage(tabPageAgregarOposicion);
+                    FrmAlerta alertaExiste = new FrmAlerta("YA EXISTE UNA LICENCIA DE USO EXCLUSIVA PARA ESTA MARCA.", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alertaExiste.ShowDialog();
+                    return;
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("DEBE AGREGAR UN ESTADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    licenciaUso.InsertarLicenciaUso((int)idMarca, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
+                        razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
+                    FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                 }
+
+                    
+
+                LimpiarFormularioLicencia();
+                AnadirTabPage(tabPageOposicionesList);
+                tabControl1.SelectedTab = tabPageOposicionesList;
+                EliminarTabPage(tabPageAgregarOposicion);
 
             }
             catch (Exception ex)
@@ -636,17 +719,17 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (btnGuardarU.Text == "AGREGAR")
             {
-                AgregarOposicion();
+                AgregarLicencia();
             }
             else if (btnGuardarU.Text == "EDITAR")
             {
-               
+
             }
 
         }
         public void TerminarOposicion()
         {
-            var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idN);
+            /*var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idN);
             if (cambio == true)
             {
                 AnadirTabPage(tabPageOposicionesList);
@@ -654,62 +737,43 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageAgregarOposicion);
                 FrmAlerta alerta = new FrmAlerta("OPOSICIÓN TERMINADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-            }
+            }*/
         }
 
         private void btnEnviarATramite_Click(object sender, EventArgs e)
         {
-            if (btnEnviarATramite.Text == "TERMINAR")
+            if (btnEnviarATerminar.Text == "TERMINAR")
             {
                 if (SeleccionarOposicion.idMarca == 0)
                 {
                     TerminarOposicion();
                 }
-                else
-                {
-                    FrmAgregarEtapa frmAgregarEtapa = new FrmAgregarEtapa();
-                    frmAgregarEtapa.ShowDialog();
-
-
-                    if (AgregarEtapa.etapa != "")
-                    {
-                        try
-                        {
-                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapa.fecha,
-                            AgregarEtapa.etapa, AgregarEtapa.anotaciones,
-                            AgregarEtapa.usuario, "TRÁMITE");
-                            TerminarOposicion();
-
-                            //MessageBox.Show("Etapa agregada con éxito");
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        FrmAlerta alerta = new FrmAlerta("NO SE ENVIÓ A TERMINADA PORQUE NO SELECCIONÓ UN ESTADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-                    }
-                }
 
             }
         }
-        public void LimpiarFormularioOposicion()
+        public void LimpiarFormularioLicencia()
         {
+            txtTitulo.Text = "";
             txtRegistro.Text = "";
             txtSigno.Text = "";
-            richtxtObservacionesAO.Text = "";
-            txtRazonSocial.Text = "";
-            txtEstado.Text = "";
             txtRazonSocial.Text = "";
             txtTitular.Text = "";
-            //txtEstadoAO.Text = "";
             txtExpediente.Text = "";
-
-
+            txtFolio.Text = "";
+            txtTomo.Text = "";
+            txtClase.Text = "";
+            txtDireccion.Text = "";
+            txtDomicilio.Text = "";
+            txtNacionalidad.Text = "";
+            txtApoderadoRL.Text = "";
+            txtTerritorio.Text = "";
+            comboBoxEstado.SelectedIndex = -1;
+            radioButtonExclusiva.Checked = false;
+            radioButtonNoExclusiva.Checked = false;
+            dateTimePickerInicio.Value = DateTime.Now;
+            dateTimePickerFin.Value = DateTime.Now;
+            dateTimePFecha_vencimiento.Value = DateTime.Now;
+            SeleccionarMarcaParaLicencia.LimpiarMarcaParaLicencia();
         }
 
         private void btnCancelarU_Click(object sender, EventArgs e)
@@ -717,9 +781,10 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageOposicionesList);
             EliminarTabPage(tabPageAgregarOposicion);
             tabControl1.SelectedTab = tabPageOposicionesList;
-            LimpiarFormularioOposicion();
+            LimpiarFormularioLicencia();
         }
 
+        /*
         public async Task recargarDatosOposicion()
         {
             DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idN));
@@ -731,14 +796,8 @@ namespace Presentacion.Marcas_Internacionales
 
                 SeleccionarOposicion.estado = row["estado"] == DBNull.Value ? null : row["estado"].ToString();
 
-
-                richtxtObservacionesAO.Text = SeleccionarOposicion.observaciones;
-                //txtEstadoAO.Text = SeleccionarOposicion.estado;
-
-
-
             }
-        }
+        }*/
 
         private async void btnAgregarEstadoAO_Click(object sender, EventArgs e)
         {
@@ -762,7 +821,7 @@ namespace Presentacion.Marcas_Internacionales
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
 
-                            await recargarDatosOposicion();
+                            //await recargarDatosOposicion();
                         }
                         catch (Exception ex)
                         {
@@ -783,12 +842,12 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         if (AgregarEtapaOposicion.etapa != "")
                         {
-                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                            /*historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                             AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");*/
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
-                            await recargarDatosOposicion();
+                            //await recargarDatosOposicion();
                         }
                         else
                         {
@@ -809,37 +868,33 @@ namespace Presentacion.Marcas_Internacionales
                 if (AgregarEtapaOposicion.etapa != "")
                 {
                     //txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
-                    richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
 
                 }
                 else
                 {
                     //txtEstadoAO.Text = "";
-                    richtxtObservacionesAO.Text = "";
                 }
             }
         }
 
         private void btnAgregarLogoOpositor_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btnQuitarLogoOpositor_Click(object sender, EventArgs e)
         {
-            convertirImagen();
-           
+
         }
 
         private void btnAgregarSignoPretendido_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void btnQuitarLogoSignoPretendido_Click(object sender, EventArgs e)
         {
-            convertirImagen();
-          
+
         }
 
         private void btnAgregarOpositorAO_Click(object sender, EventArgs e)
@@ -866,20 +921,18 @@ namespace Presentacion.Marcas_Internacionales
 
 
 
-        private async void filtrarMarcasInterpuestas()
+        private async void filtrarNoExclusivas()
         {
             string valor = txtBuscar2.Text;
-            string situacion = cmbSituacionActualI.SelectedItem.ToString();
-
-
+            string situacion = cmbSituacionActual2.SelectedItem.ToString();
 
             if (valor != "")
             {
-                totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(valor);
+                totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(valor);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
                 lblTotalPages2.Text = totalPages2.ToString();
                 lblTotalRows2.Text = totalRows2.ToString();
-                var marcasR = await Task.Run(() => oposicionModel.FiltrarOposicionesNacionalesInterpuestas(valor, currentPageIndex2, pageSize2));
+                var marcasR = await Task.Run(() => licenciaUso.FiltrarLicenciasUsoNacionalesNoExclusivas(valor, currentPageIndex2, pageSize2));
                 if (marcasR.Rows.Count > 0)
                 {
                     Invoke(new Action(() =>
@@ -890,6 +943,7 @@ namespace Presentacion.Marcas_Internacionales
                         if (dtgOpI.Columns["id"] != null)
                         {
                             dtgOpI.Columns["id"].Visible = false;
+                            dtgOpI.Columns["IdMarca"].Visible = false;
                             dtgOpI.ClearSelection();
                         }
                     }));
@@ -898,13 +952,13 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES INTERPUESTAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    await LoadMarcasInterpuestas(situacion);
+                    await LoadLicenciasUsoNoExclusivas(situacion);
                 }
 
             }
             else
             {
-                await LoadMarcasInterpuestas(situacion);
+                await LoadLicenciasUsoNoExclusivas(situacion);
             }
 
         }
@@ -914,13 +968,13 @@ namespace Presentacion.Marcas_Internacionales
             //filtrarMarcas();
             buscando1 = true;
             currentPageIndex = 1;
-            totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
+            totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrarRecibidas();
+            filtrarLicenciasUsoExclusivas();
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -928,28 +982,36 @@ namespace Presentacion.Marcas_Internacionales
             buscando1 = false;
             txtBuscar.Text = "";
             //filtrarMarcas();
-            filtrarRecibidas();
+            filtrarLicenciasUsoExclusivas();
         }
 
         private void btnAgregarOpositorAO_Click_1(object sender, EventArgs e)
         {
-            FrmMostrarMarcasN frmMostrarMarcas = new FrmMostrarMarcasN();
+            FrmMostrarMarcasLicencias frmMostrarMarcas = new FrmMostrarMarcasLicencias();
             frmMostrarMarcas.ShowDialog();
 
-            if (SeleccionarMarcaOposicion.idMarca > 0)
+            if (SeleccionarMarcaParaLicencia.idMarca > 0)
             {
-                txtRegistro.Enabled = false;
-                txtRazonSocial.Enabled = false;
-                txtRegistro.Text = SeleccionarMarcaOposicion.nombreTitular;
-                txtRazonSocial.Text = SeleccionarMarcaOposicion.nombreSigno;
+                txtTitular.Enabled = false;
+                txtSigno.Enabled = false;
+                txtExpediente.Enabled = false;
+                comboBoxSignoDist.Enabled = false;
+                txtClase.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                txtFolio.Enabled = false;
+                txtTomo.Enabled = false;
+                txtTitular.Text = SeleccionarMarcaParaLicencia.nombreTitular;
+                txtSigno.Text = SeleccionarMarcaParaLicencia.nombreSigno;
+                txtClase.Text = SeleccionarMarcaParaLicencia.clase;
+                txtRegistro.Text = SeleccionarMarcaParaLicencia.registro;
+                txtFolio.Text = SeleccionarMarcaParaLicencia.folio;
+                txtTomo.Text = SeleccionarMarcaParaLicencia.tomo;
+                txtExpediente.Text = SeleccionarMarcaParaLicencia.expediente;
+                comboBoxSignoDist.SelectedItem = SeleccionarMarcaParaLicencia.signoDistintivo;
+                dateTimePFecha_vencimiento.Value = SeleccionarMarcaParaLicencia.fechaVencimiento;
+
             }
-            else
-            {
-                txtRegistro.Enabled = true;
-                txtRazonSocial.Enabled = true;
-                txtRegistro.Text = "";
-                txtRazonSocial.Text = "";
-            }
+
         }
 
         private async void btnAgregarEstadoAO_Click_1(object sender, EventArgs e)
@@ -966,19 +1028,9 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         try
                         {
-                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
-
-                            /*
-                            HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                            historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
-                                AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idN
-                                );
-                            */
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
 
-                            //await recargarDatosOposicion();
-                            agregoEstado = true;
                         }
                         catch (Exception ex)
                         {
@@ -989,8 +1041,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        //txtEstadoAO.Text = "";
-                        //richtxtObservacionesAO.Text = "";
+
                     }
                 }
                 else
@@ -999,15 +1050,12 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         if (AgregarEtapaOposicion.etapa != "")
                         {
-                            richtxtObservacionesAO.Text += "\n" + AgregarEtapaOposicion.anotaciones;
                             /*
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                             AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
                             AgregarEtapaOposicion.usuario, "OPOSICIÓN");*/
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
-                            agregoEstado = true;
-                            //await recargarDatosOposicion();
                         }
                         else
                         {
@@ -1027,28 +1075,24 @@ namespace Presentacion.Marcas_Internacionales
             {
                 if (AgregarEtapaOposicion.etapa != "")
                 {
-                    //txtEstadoAO.Text = AgregarEtapaOposicion.etapa;
-                    richtxtObservacionesAO.Text = AgregarEtapaOposicion.anotaciones;
 
                 }
                 else
                 {
-                    //txtEstadoAO.Text = "";
-                    richtxtObservacionesAO.Text = "";
                 }
             }
         }
 
         private async void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await FiltrarPorSituacionActualInterpuestas();
+            await FiltrarNoExclusivasPorSituacionActual();
         }
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
             buscando2 = false;
             txtBuscar2.Text = "";
-            filtrarMarcasInterpuestas();
+            filtrarNoExclusivas();
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -1057,14 +1101,13 @@ namespace Presentacion.Marcas_Internacionales
             {
                 buscando1 = true;
                 currentPageIndex = 1;
-                totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
+                totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                //filtrarMarcas();
-                filtrarRecibidas();
+                filtrarLicenciasUsoExclusivas();
             }
         }
 
@@ -1072,13 +1115,13 @@ namespace Presentacion.Marcas_Internacionales
         {
             buscando2 = true;
             currentPageIndex2 = 1;
-            totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
+            totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
             lblTotalPages2.Text = totalPages2.ToString();
             lblTotalRows2.Text = totalRows2.ToString();
-            filtrarMarcasInterpuestas();
+            filtrarNoExclusivas();
         }
 
         private void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
@@ -1087,13 +1130,13 @@ namespace Presentacion.Marcas_Internacionales
             {
                 buscando2 = true;
                 currentPageIndex2 = 1;
-                totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
+                totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
                 lblTotalPages2.Text = totalPages2.ToString();
                 lblTotalRows2.Text = totalRows2.ToString();
-                filtrarMarcasInterpuestas();
+                filtrarNoExclusivas();
             }
         }
 
@@ -1175,7 +1218,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
             }
 
-
+            /*
             if (checkBoxEstadoReporte.Checked)
             { estado = comboBoxEstadoReporte.SelectedItem.ToString(); }
             else { estado = null; }
@@ -1200,7 +1243,7 @@ namespace Presentacion.Marcas_Internacionales
             if (chckOpositorReporte.Checked) { opositor = richTextBoxOpositorReporte.Text; }
             else { opositor = null; }
 
-            if (chckSignoOpositorReporte.Checked) { signoOpositor = txtSignoOpositorReporte.Text; }
+            if (chckSignoOpositorReporte.Checked) { signoOpositor = txtTituloReporte.Text; }
             else { signoOpositor = null; }
 
             if (chckSituacionActualReporte.Checked) { situacionA = cmbSituacionActualReporte.SelectedItem.ToString(); }
@@ -1208,18 +1251,18 @@ namespace Presentacion.Marcas_Internacionales
 
             if (chckTipoOpReporte.Checked) { tipoOposicion = tipoOposicion; }
             else { tipoOposicion = null; }
-
-
+            
+            /*
             dtgReportesOp.DataSource = oposicionModel.FiltrarOposiciones("op_nacionales", expediente, solicitante, signo_pretendido,
                 signoDistintivo, clase, opositor, signoOpositor, estado, situacionA, "nacional", tipoOposicion);
-            dtgReportesOp.ClearSelection();
+            dtgReportesOp.ClearSelection();*/
 
         }
 
         public void LimpiarReportes()
         {
-            checkBoxEstadoReporte.Checked = false;
-            comboBoxEstadoReporte.SelectedIndex = -1;
+            //checkBoxEstadoReporte.Checked = false;
+            //comboBoxEstadoReporte.SelectedIndex = -1;
             chckTipoOpReporte.Checked = false;
             comboBoxTipoOposicion.SelectedIndex = -1;
             chckExpedienteReporte.Checked = false;
@@ -1379,84 +1422,6 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
             }
         }
-        /*
-        public void ExportarDataTableAExcel(DataTable dataTable)
-        {
-            if (dataTable == null || dataTable.Rows.Count == 0)
-            {
-                MessageBox.Show("No hay datos para exportar.");
-                return;
-            }
-            string nombre = titulo + "-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
-
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
-            {
-                Title = "Guardar archivo Excel",
-                Filter = "Archivos Excel (*.xlsx)|*.xlsx",
-                FileName = nombre + ".xlsx",
-                DefaultExt = "xlsx",
-                AddExtension = true
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
-
-                    // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA.Save(tempLogoPath);
-
-                    using (var workbook = new XLWorkbook())
-                    {
-                        var worksheet = workbook.Worksheets.Add(titulo);
-                        // Fecha actual en el formato deseado
-                        string fecha = DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
-
-                        // Insertar el título "Próximos vencimientos" en la celda A1
-                        worksheet.Cell(3, 5).Value = titulo;
-                        worksheet.Cell(3, 5).Style.Font.Bold = true;
-                        worksheet.Cell(3, 5).Style.Font.Underline = XLFontUnderlineValues.Single;
-                        worksheet.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar el título
-
-                        // Insertar la fecha debajo del título (en la celda A2)
-                        worksheet.Cell(4, 5).Value = "Fecha: " + fecha;
-                        worksheet.Cell(4, 5).Style.Font.Italic = true;
-                        worksheet.Cell(4, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;  // Centrar la fecha
-
-                        worksheet.Column(1).AdjustToContents();
-                        // Agregar logo antes de la tabla
-                        if (System.IO.File.Exists(tempLogoPath))
-                        {
-                            var image = worksheet.AddPicture(tempLogoPath)
-                                .MoveTo(worksheet.Cell(3, 1)) // Posición del logo
-                                .Scale(0.5); // Ajustar tamaño
-                        }
-
-                        // Insertar tabla después del logo
-                        int startRow = 10; // Ajustar según el espacio requerido
-                        worksheet.Cell(startRow, 1).InsertTable(dataTable);
-
-                        // Ajustar ancho de las columnas
-                        worksheet.Columns().AdjustToContents();
-
-                        // Guardar archivo
-                        workbook.SaveAs(saveFileDialog.FileName);
-                    }
-
-                    // Eliminar archivo temporal
-                    if (System.IO.File.Exists(tempLogoPath))
-                        System.IO.File.Delete(tempLogoPath);
-
-                    FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al guardar el archivo: {ex.Message}");
-                }
-            }
-        }*/
 
         public void ExportarDataTableAExcel(DataTable dataTable)
         {
@@ -1582,11 +1547,11 @@ namespace Presentacion.Marcas_Internacionales
 
             if (SeleccionarPersonaReportes.nombreTitular != "")
             {
-                richTextBoxOpositorReporte.Text = SeleccionarPersonaReportes.nombreTitular;
+                //richTextBoxOpositorReporte.Text = SeleccionarPersonaReportes.nombreTitular;
             }
             else
             {
-                richTextBoxOpositorReporte.Text = "";
+                //richTextBoxOpositorReporte.Text = "";
             }
         }
 
@@ -1610,11 +1575,11 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = 1;
             if (buscando1 == true)
             {
-                filtrarRecibidas();
+                filtrarLicenciasUsoExclusivas();
             }
             else
             {
-                await FiltrarPorSituacionActual();
+                await FiltrarExclusivasPorSituacionActual();
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1627,11 +1592,11 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex--;
                 if (buscando1 == true)
                 {
-                    filtrarRecibidas();
+                    filtrarLicenciasUsoExclusivas();
                 }
                 else
                 {
-                    await FiltrarPorSituacionActual();
+                    await FiltrarExclusivasPorSituacionActual();
                 }
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1645,11 +1610,11 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex++;
                 if (buscando1 == true)
                 {
-                    filtrarRecibidas();
+                    filtrarLicenciasUsoExclusivas();
                 }
                 else
                 {
-                    await FiltrarPorSituacionActual();
+                    await FiltrarExclusivasPorSituacionActual();
                 }
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1661,11 +1626,11 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = totalPages;
             if (buscando1 == true)
             {
-                filtrarRecibidas();
+                filtrarLicenciasUsoExclusivas();
             }
             else
             {
-                await FiltrarPorSituacionActual();
+                await FiltrarExclusivasPorSituacionActual();
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1676,11 +1641,11 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex2 = 1;
             if (buscando2 == true)
             {
-                filtrarMarcasInterpuestas();
+                filtrarNoExclusivas();
             }
             else
             {
-                await FiltrarPorSituacionActualInterpuestas();
+                await FiltrarNoExclusivasPorSituacionActual();
             }
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1693,11 +1658,11 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex2--;
                 if (buscando2 == true)
                 {
-                    filtrarMarcasInterpuestas();
+                    filtrarNoExclusivas();
                 }
                 else
                 {
-                    await FiltrarPorSituacionActualInterpuestas();
+                    await FiltrarNoExclusivasPorSituacionActual();
                 }
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1711,11 +1676,11 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex2++;
                 if (buscando2 == true)
                 {
-                    filtrarMarcasInterpuestas();
+                    filtrarNoExclusivas();
                 }
                 else
                 {
-                    await FiltrarPorSituacionActualInterpuestas();
+                    await FiltrarNoExclusivasPorSituacionActual();
                 }
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1727,11 +1692,11 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex2 = totalPages2;
             if (buscando2 == true)
             {
-                filtrarMarcasInterpuestas();
+                filtrarNoExclusivas();
             }
             else
             {
-                await FiltrarPorSituacionActualInterpuestas();
+                await FiltrarNoExclusivasPorSituacionActual();
             }
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1745,6 +1710,41 @@ namespace Presentacion.Marcas_Internacionales
         private void roundedButton9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButtonExclusiva_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonExclusiva.Checked)
+            {
+                radioButtonNoExclusiva.Checked = false;
+                exclusiva = true;
+            }
+        }
+
+        private void radioButtonNoExclusiva_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNoExclusiva.Checked)
+            {
+                radioButtonExclusiva.Checked = false;
+                exclusiva = false;
+            }
+        }
+
+        private void dateTimePickerInicio_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFin.Value = dateTimePickerInicio.Value.AddDays(-1);
+        }
+
+        private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (btnGuardarU.Text == "AGREGAR")
+            {
+                btnAdjuntarT.Enabled = true;
+            }
+            else
+            {
+
+            }
         }
     }
 }

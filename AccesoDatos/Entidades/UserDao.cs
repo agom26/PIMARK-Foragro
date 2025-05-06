@@ -328,6 +328,22 @@ namespace AccesoDatos.Usuarios
             }
         }
 
+        public bool ProbarConexion()
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open(); // Si esto falla, lanzará excepción
+                    return true;       // Conexión exitosa
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al conectar a la base de datos: " + ex.Message);
+                return false; // Conexión fallida
+            }
+        }
 
 
     }
