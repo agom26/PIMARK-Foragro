@@ -63,7 +63,6 @@
             btnOpoInter = new Button();
             btnIngresadasInt = new Button();
             btnTramiteInicialInter = new Button();
-            btnClientes = new Button();
             btnClientes2 = new Button();
             btnAgentes = new Button();
             btnTitulares = new Button();
@@ -131,7 +130,7 @@
             panelSubMenuPatentes.Controls.Add(btnIngresarPatente);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuPatentes.Location = new Point(0, 1383);
+            panelSubMenuPatentes.Location = new Point(0, 1353);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
             panelSubMenuPatentes.Size = new Size(263, 310);
             panelSubMenuPatentes.TabIndex = 12;
@@ -282,7 +281,7 @@
             btnCerrarSesion.ForeColor = Color.White;
             btnCerrarSesion.Image = Properties.Resources.cerrar_sesion_4_;
             btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCerrarSesion.Location = new Point(0, 1815);
+            btnCerrarSesion.Location = new Point(0, 1785);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(263, 61);
             btnCerrarSesion.TabIndex = 26;
@@ -301,7 +300,7 @@
             btnVencimientos.ForeColor = Color.White;
             btnVencimientos.Image = Properties.Resources.reloj_y_calendario;
             btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVencimientos.Location = new Point(0, 1754);
+            btnVencimientos.Location = new Point(0, 1724);
             btnVencimientos.Name = "btnVencimientos";
             btnVencimientos.Size = new Size(263, 61);
             btnVencimientos.TabIndex = 25;
@@ -320,7 +319,7 @@
             btnReportes.ForeColor = Color.White;
             btnReportes.Image = Properties.Resources.grafico_simple_horizontal_1_;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(0, 1693);
+            btnReportes.Location = new Point(0, 1663);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(263, 61);
             btnReportes.TabIndex = 24;
@@ -339,7 +338,7 @@
             btnPatentes.ForeColor = Color.White;
             btnPatentes.Image = Properties.Resources.bahai;
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatentes.Location = new Point(0, 1322);
+            btnPatentes.Location = new Point(0, 1292);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Size = new Size(263, 61);
             btnPatentes.TabIndex = 23;
@@ -360,7 +359,7 @@
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteInicial);
             panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasNacionales.Location = new Point(0, 976);
+            panelSubMenuMarcasNacionales.Location = new Point(0, 946);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
             panelSubMenuMarcasNacionales.Size = new Size(263, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
@@ -507,7 +506,7 @@
             // 
             panel3.Controls.Add(button1);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 1876);
+            panel3.Location = new Point(0, 1846);
             panel3.Name = "panel3";
             panel3.Size = new Size(263, 54);
             panel3.TabIndex = 18;
@@ -538,7 +537,7 @@
             btnMInternacionales.ForeColor = Color.White;
             btnMInternacionales.Image = (Image)resources.GetObject("btnMInternacionales.Image");
             btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMInternacionales.Location = new Point(0, 915);
+            btnMInternacionales.Location = new Point(0, 885);
             btnMInternacionales.Name = "btnMInternacionales";
             btnMInternacionales.Size = new Size(263, 61);
             btnMInternacionales.TabIndex = 22;
@@ -559,12 +558,11 @@
             panelSubMenuMarcasInter.Controls.Add(btnOpoInter);
             panelSubMenuMarcasInter.Controls.Add(btnIngresadasInt);
             panelSubMenuMarcasInter.Controls.Add(btnTramiteInicialInter);
-            panelSubMenuMarcasInter.Controls.Add(btnClientes);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasInter.Location = new Point(0, 455);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
-            panelSubMenuMarcasInter.Size = new Size(263, 460);
+            panelSubMenuMarcasInter.Size = new Size(263, 430);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
             // btnAbandonadasInter
@@ -575,7 +573,7 @@
             btnAbandonadasInter.FlatStyle = FlatStyle.Flat;
             btnAbandonadasInter.Font = new Font("Century Gothic", 9F);
             btnAbandonadasInter.ForeColor = Color.Black;
-            btnAbandonadasInter.Location = new Point(0, 402);
+            btnAbandonadasInter.Location = new Point(0, 355);
             btnAbandonadasInter.Name = "btnAbandonadasInter";
             btnAbandonadasInter.Padding = new Padding(58, 0, 0, 0);
             btnAbandonadasInter.Size = new Size(263, 47);
@@ -593,7 +591,7 @@
             btnTraspasoInter.FlatStyle = FlatStyle.Flat;
             btnTraspasoInter.Font = new Font("Century Gothic", 9F);
             btnTraspasoInter.ForeColor = Color.Black;
-            btnTraspasoInter.Location = new Point(0, 355);
+            btnTraspasoInter.Location = new Point(0, 308);
             btnTraspasoInter.Name = "btnTraspasoInter";
             btnTraspasoInter.Padding = new Padding(58, 0, 0, 0);
             btnTraspasoInter.Size = new Size(263, 47);
@@ -611,7 +609,7 @@
             btnRenovInter.FlatStyle = FlatStyle.Flat;
             btnRenovInter.Font = new Font("Century Gothic", 9F);
             btnRenovInter.ForeColor = Color.Black;
-            btnRenovInter.Location = new Point(0, 295);
+            btnRenovInter.Location = new Point(0, 248);
             btnRenovInter.Name = "btnRenovInter";
             btnRenovInter.Padding = new Padding(58, 0, 0, 0);
             btnRenovInter.Size = new Size(263, 60);
@@ -629,7 +627,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 9F);
             button2.ForeColor = Color.Black;
-            button2.Location = new Point(0, 248);
+            button2.Location = new Point(0, 201);
             button2.Name = "button2";
             button2.Padding = new Padding(58, 0, 0, 0);
             button2.Size = new Size(263, 47);
@@ -647,7 +645,7 @@
             btnRegInter.FlatStyle = FlatStyle.Flat;
             btnRegInter.Font = new Font("Century Gothic", 9F);
             btnRegInter.ForeColor = Color.Black;
-            btnRegInter.Location = new Point(0, 201);
+            btnRegInter.Location = new Point(0, 154);
             btnRegInter.Name = "btnRegInter";
             btnRegInter.Padding = new Padding(58, 0, 0, 0);
             btnRegInter.Size = new Size(263, 47);
@@ -665,7 +663,7 @@
             btnOpoInter.FlatStyle = FlatStyle.Flat;
             btnOpoInter.Font = new Font("Century Gothic", 9F);
             btnOpoInter.ForeColor = Color.Black;
-            btnOpoInter.Location = new Point(0, 141);
+            btnOpoInter.Location = new Point(0, 94);
             btnOpoInter.Name = "btnOpoInter";
             btnOpoInter.Padding = new Padding(58, 0, 0, 0);
             btnOpoInter.Size = new Size(263, 60);
@@ -683,7 +681,7 @@
             btnIngresadasInt.FlatStyle = FlatStyle.Flat;
             btnIngresadasInt.Font = new Font("Century Gothic", 9F);
             btnIngresadasInt.ForeColor = Color.Black;
-            btnIngresadasInt.Location = new Point(0, 94);
+            btnIngresadasInt.Location = new Point(0, 47);
             btnIngresadasInt.Name = "btnIngresadasInt";
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
             btnIngresadasInt.Size = new Size(263, 47);
@@ -701,7 +699,7 @@
             btnTramiteInicialInter.FlatStyle = FlatStyle.Flat;
             btnTramiteInicialInter.Font = new Font("Century Gothic", 9F);
             btnTramiteInicialInter.ForeColor = Color.Black;
-            btnTramiteInicialInter.Location = new Point(0, 47);
+            btnTramiteInicialInter.Location = new Point(0, 0);
             btnTramiteInicialInter.Name = "btnTramiteInicialInter";
             btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
             btnTramiteInicialInter.Size = new Size(263, 47);
@@ -710,24 +708,6 @@
             btnTramiteInicialInter.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicialInter.UseVisualStyleBackColor = true;
             btnTramiteInicialInter.Click += button29_Click;
-            // 
-            // btnClientes
-            // 
-            btnClientes.AutoSize = true;
-            btnClientes.Dock = DockStyle.Top;
-            btnClientes.FlatAppearance.BorderSize = 0;
-            btnClientes.FlatStyle = FlatStyle.Flat;
-            btnClientes.Font = new Font("Century Gothic", 9F);
-            btnClientes.ForeColor = Color.Black;
-            btnClientes.Location = new Point(0, 0);
-            btnClientes.Name = "btnClientes";
-            btnClientes.Padding = new Padding(58, 0, 0, 0);
-            btnClientes.Size = new Size(263, 47);
-            btnClientes.TabIndex = 3;
-            btnClientes.Text = "> CLIENTES";
-            btnClientes.TextAlign = ContentAlignment.MiddleLeft;
-            btnClientes.UseVisualStyleBackColor = true;
-            btnClientes.Click += button30_Click;
             // 
             // btnClientes2
             // 
@@ -1010,7 +990,6 @@
         private System.Windows.Forms.Button btnRenovInter;
         private System.Windows.Forms.Button btnTraspasoInter;
         private System.Windows.Forms.Button btnTramiteInicialInter;
-        private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Panel panel1;
         private Button btnOpoInter;
         private Button btnAbandonadasInter;

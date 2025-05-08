@@ -86,6 +86,24 @@ namespace Dominio
             return licenciaDao.ExisteLicenciaUsoExclusiva(idMarca);
         }
 
+        public DataTable ObtenerLicenciaUsoPorId(int idLicencia)
+        {
+            DataTable tabla = new DataTable();
+            tabla=licenciaDao.ObtenerLicenciaUsoPorId(idLicencia);
+            return tabla;
+        }
+
+        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        {
+            return licenciaDao.ObtenerLicenciasUsoNacionalesExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
+        }
+
+        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        {
+            return licenciaDao.ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
+        }
+
+
 
     }
 }

@@ -359,5 +359,125 @@ namespace AccesoDatos.Entidades
         }
 
 
+        public DataTable ObtenerLicenciaUsoPorId(int idLicencia)
+        {
+            DataTable dt = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("ObtenerLicenciaPorId", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("p_id", idLicencia);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener la licencia de uso por ID: " + ex.Message);
+                }
+            }
+
+            if (dt.Rows.Count > 0)
+                return dt; // Devuelve la primera (y única) fila encontrada
+            else
+                return null; // No se encontró ninguna licencia
+        }
+
+
+        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        {
+            int total = 0;
+            DataTable datos = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("GetLicenciasUsoNacionalesExclusivasCombinado", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        cmd.Parameters.AddWithValue("estadoFiltro", estadoFiltro);
+                        cmd.Parameters.AddWithValue("pageSize", pageSize);
+                        cmd.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // 1. Primer resultado: total de registros
+                            if (reader.Read())
+                            {
+                                total = reader.GetInt32("totalMarcas");
+                            }
+
+                            // 2. Avanzar al segundo resultado
+                            if (reader.NextResult())
+                            {
+                                datos.Load(reader);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener licencias nacionales exclusivas combinadas: " + ex.Message);
+                }
+            }
+
+            return (total, datos);
+        }
+
+        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        {
+            int total = 0;
+            DataTable datos = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("GetLicenciasUsoNacionalesNoExclusivasCombinado", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        cmd.Parameters.AddWithValue("estadoFiltro", estadoFiltro);
+                        cmd.Parameters.AddWithValue("pageSize", pageSize);
+                        cmd.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // 1. Primer resultado: total de registros
+                            if (reader.Read())
+                            {
+                                total = reader.GetInt32("totalMarcas");
+                            }
+
+                            // 2. Avanzar al segundo resultado
+                            if (reader.NextResult())
+                            {
+                                datos.Load(reader);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener licencias nacionales no exclusivas combinadas: " + ex.Message);
+                }
+            }
+
+            return (total, datos);
+        }
+
+
     }
 }

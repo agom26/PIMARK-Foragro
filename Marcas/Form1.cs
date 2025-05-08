@@ -111,7 +111,7 @@ namespace Presentacion
 
             //marcas nacionales
             btnIngresadasInt.Enabled = false;
-            btnClientes.Enabled = false;
+            btnClientes2.Enabled = false;
             btnTramiteInicialInter.Enabled = false;
             btnOpoInter.Enabled = false;
             btnRegInter.Enabled = false;
@@ -157,7 +157,7 @@ namespace Presentacion
         {
             //marcas nacionales
             btnIngresadasInt.Enabled = true;
-            btnClientes.Enabled = true;
+            btnClientes2.Enabled = true;
             btnTramiteInicialInter.Enabled = true;
             btnOpoInter.Enabled = true;
             btnRegInter.Enabled = true;
