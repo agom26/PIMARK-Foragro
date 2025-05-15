@@ -368,15 +368,13 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                // Cargar los datos de la marca desde la base de datos
+                
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
-                    // Obtener la primera fila de la base de datos
                     DataRow row = detallesMarcaInter.Rows[0];
 
-                    // Declarar la variable logo como byte[]
                     byte[] logo = null;
 
                     // Asignar los valores de los campos de la marca
@@ -386,6 +384,7 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarMarca.estado = row["estado"] != DBNull.Value ? row["estado"].ToString() : string.Empty;
                     SeleccionarMarca.signoDistintivo = row["signoDistintivo"] != DBNull.Value ? row["signoDistintivo"].ToString() : string.Empty;
                     SeleccionarMarca.tipoSigno = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty;
+                    SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
 
                     logo = row["logo"] != DBNull.Value ? (byte[])row["logo"] : null;
 
@@ -398,7 +397,8 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        pictureBox1.Image = null;
+                        convertirImagen();
+                        pictureBox1.Image = documento;
                     }
 
                     SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
