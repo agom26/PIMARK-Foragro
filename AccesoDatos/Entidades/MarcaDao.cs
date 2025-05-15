@@ -1779,33 +1779,24 @@ namespace AccesoDatos.Entidades
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand(@"
-            UPDATE Marcas 
-            SET expediente = @expediente, 
-                nombre = @nombre, 
-                signo_distintivo = @signoDistintivo, 
-                tipoSigno=@tipoSigno,
-                clase = @clase, 
-                logo = @logo, 
-                idTitular = @idPersonaTitular, 
-                idAgente = @idPersonaAgente, 
-                fecha_solicitud = @fecha_solicitud,
-                idCliente=@idCliente
-            WHERE (id = @id) AND (tipo = 'nacional');", connection))
+                using (var command = new MySqlCommand("EditMarcaNacional", connection))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@expediente", expediente);
-                    command.Parameters.AddWithValue("@nombre", nombre);
-                    command.Parameters.AddWithValue("@signoDistintivo", signoDistintivo);
-                    command.Parameters.AddWithValue("@tipoSigno", tipoSigno);
-                    command.Parameters.AddWithValue("@clase", clase);
-                    command.Parameters.AddWithValue("@logo", logo); 
-                    command.Parameters.AddWithValue("@idPersonaTitular", idPersonaTitular);
-                    command.Parameters.AddWithValue("@idPersonaAgente", idPersonaAgente);
-                    command.Parameters.AddWithValue("@fecha_solicitud", fecha_solicitud);
-                    command.Parameters.AddWithValue("@idCliente", idCliente);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("p_id", id);
+                    command.Parameters.AddWithValue("p_expediente", expediente);
+                    command.Parameters.AddWithValue("p_nombre", nombre);
+                    command.Parameters.AddWithValue("p_signoDistintivo", signoDistintivo);
+                    command.Parameters.AddWithValue("p_tipoSigno", tipoSigno);
+                    command.Parameters.AddWithValue("p_clase", clase);
+                    command.Parameters.AddWithValue("p_logo", logo);
+                    command.Parameters.AddWithValue("p_idPersonaTitular", idPersonaTitular);
+                    command.Parameters.AddWithValue("p_idPersonaAgente", idPersonaAgente);
+                    command.Parameters.AddWithValue("p_fecha_solicitud", fecha_solicitud);
+                    command.Parameters.AddWithValue("p_idCliente", (object)idCliente ?? DBNull.Value);
+
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0; 
+                    return rowsAffected > 0;
                 }
             }
         }
@@ -1816,11 +1807,10 @@ namespace AccesoDatos.Entidades
             using (var connection = GetConnection())
             {
                 connection.Open();
-
-                
                 using (var command = new MySqlCommand("EditMarcaNacionalRegistrada", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@p_id", id);
                     command.Parameters.AddWithValue("@p_expediente", expediente);
                     command.Parameters.AddWithValue("@p_nombre", nombre);
@@ -1829,7 +1819,13 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@p_clase", clase);
                     command.Parameters.AddWithValue("@p_folio", folio);
                     command.Parameters.AddWithValue("@p_libro", libro);
-                    command.Parameters.AddWithValue("@p_logo", logo);
+
+                    // Validar si el logo viene nulo
+                    if (logo != null)
+                        command.Parameters.AddWithValue("@p_logo", logo);
+                    else
+                        command.Parameters.AddWithValue("@p_logo", DBNull.Value);
+
                     command.Parameters.AddWithValue("@p_idPersonaTitular", idPersonaTitular);
                     command.Parameters.AddWithValue("@p_idPersonaAgente", idPersonaAgente);
                     command.Parameters.AddWithValue("@p_fechaSolicitud", fecha_solicitud);
@@ -1838,14 +1834,19 @@ namespace AccesoDatos.Entidades
                     command.Parameters.AddWithValue("@p_fechaVencimiento", fechaVencimiento);
                     command.Parameters.AddWithValue("@p_erenov", erenov);
                     command.Parameters.AddWithValue("@p_etrasp", etrasp);
-                    command.Parameters.AddWithValue("@p_idCliente", idCliente);
 
+                    // Validar nulo en idCliente
+                    if (idCliente.HasValue)
+                        command.Parameters.AddWithValue("@p_idCliente", idCliente.Value);
+                    else
+                        command.Parameters.AddWithValue("@p_idCliente", DBNull.Value);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected > 0;  
+                    return rowsAffected > 0;
                 }
             }
         }
+
 
 
         public bool EditarMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)

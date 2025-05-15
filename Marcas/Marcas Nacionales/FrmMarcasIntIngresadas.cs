@@ -54,8 +54,8 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarMarca.idN = 0;
             archivoSubido = false;
             ActualizarFechaVencimiento();
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             btnAdjuntarT.Visible = false;
+            dtgMarcasIn.DataBindingComplete += dtgMarcasIn_DataBindingComplete;
 
         }
 
@@ -65,10 +65,6 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.TabPages.Remove(nombre);
             }
-            else
-            {
-
-            }
         }
 
         private async Task LoadMarcas()
@@ -76,24 +72,17 @@ namespace Presentacion.Marcas_Internacionales
             totalRows = marcaModel.GetTotalMarcasSinRegistro();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-            // Obtiene las marcas
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize))
-                                       .ConfigureAwait(false);
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize));
+
 
             if (this.IsHandleCreated && !this.IsDisposed)
             {
-                this.Invoke(new Action(() =>
+                this.Invoke(() =>
                 {
                     lblTotalPages.Text = totalPages.ToString();
                     lblTotalRows.Text = totalRows.ToString();
                     dtgMarcasIn.DataSource = marcasN;
-
-                    if (dtgMarcasIn.Columns["id"] != null)
-                    {
-                        dtgMarcasIn.Columns["id"].Visible = false;
-                        dtgMarcasIn.ClearSelection();
-                    }
-                }));
+                });
             }
         }
 
@@ -325,6 +314,30 @@ namespace Presentacion.Marcas_Internacionales
 
 
 
+        private void LimpiarControles()
+        {
+            txtExpediente.Text = "";
+            txtNombre.Text = "";
+            txtClase.Text = "";
+            textBoxEstatus.Text = "";
+            comboBoxSignoDistintivo.SelectedIndex = -1;
+            comboBoxTipoSigno.SelectedIndex = -1;
+            datePickerFechaSolicitud.Value = DateTime.Today;
+            dateTimePFecha_Registro.Value = DateTime.Now;
+            richTextBox1.Text = "";
+            pictureBox1.Image = null;
+            txtNombreTitular.Text = "";
+            txtNombreAgente.Text = "";
+            txtNombreCliente.Text = "";
+            checkBox1.Checked = false;
+            txtFolio.Text = "";
+            txtLibro.Text = "";
+            pictureBox1.Image = null;
+            checkBox1.Checked = false;
+            ActualizarFechaVencimiento();
+            txtRegistro.Text = "";
+            AgregarEtapa.LimpiarEtapa();
+        }
 
         public void LimpiarFormulario()
         {
@@ -374,10 +387,8 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarMarca.signoDistintivo = row["signoDistintivo"] != DBNull.Value ? row["signoDistintivo"].ToString() : string.Empty;
                     SeleccionarMarca.tipoSigno = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty;
 
-                    // Asignar el logo, si está presente en la base de datos
                     logo = row["logo"] != DBNull.Value ? (byte[])row["logo"] : null;
 
-                    // Mostrar el logo en PictureBox si existe
                     if (logo != null)
                     {
                         using (MemoryStream ms = new MemoryStream(logo))
@@ -387,7 +398,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        pictureBox1.Image = null; // Si no hay logo, asegurarse de que el PictureBox esté vacío
+                        pictureBox1.Image = null;
                     }
 
                     SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
@@ -396,7 +407,6 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarMarca.fecha_solicitud = row["fechaSolicitud"] != DBNull.Value ? Convert.ToDateTime(row["fechaSolicitud"]) : DateTime.MinValue;
                     SeleccionarMarca.observaciones = row["observaciones"] != DBNull.Value ? row["observaciones"].ToString() : string.Empty;
 
-                    // Cargar datos del titular y agente
                     var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                     var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
 
@@ -410,7 +420,6 @@ namespace Presentacion.Marcas_Internacionales
                     var agente = agenteTask.Result;
                     var cliente = clienteTask?.Result;
 
-                    // Asignar datos a los controles
                     SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                     SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
                     SeleccionarPersona.idPersonaC = SeleccionarMarca.idPersonaCliente;
@@ -434,7 +443,6 @@ namespace Presentacion.Marcas_Internacionales
                         txtNombreCliente.Text = "";
                     }
 
-                    // Actualizar los controles de la interfaz
                     txtExpediente.Text = SeleccionarMarca.expediente;
                     txtNombre.Text = SeleccionarMarca.nombre;
                     txtClase.Text = SeleccionarMarca.clase;
@@ -444,7 +452,6 @@ namespace Presentacion.Marcas_Internacionales
                     datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                     richTextBox1.Text = SeleccionarMarca.observaciones;
 
-                    // Verificar si tiene una etapa registrada
                     bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
                     if (contieneRegistrada)
                     {
@@ -492,6 +499,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
+                SeleccionarMarca.idN = 0;
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -594,7 +602,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -620,17 +628,15 @@ namespace Presentacion.Marcas_Internacionales
             else if (tabControl1.SelectedTab == tabPageListaArchivos)
             {
                 EliminarTabPage(tabPageHistorialMarca);
-
             }
-
-
-
+            */
         }
         public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
             {
+                LimpiarControles();
                 EliminarTabPage(tabPageIngresadasList);
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
@@ -1091,7 +1097,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageHistorialMarca;
+            AnadirTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageHistorialDetail);
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
@@ -1108,6 +1115,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
+            EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageMarcaDetail);
         }
@@ -1225,12 +1233,9 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
-
             DatosRegistro.peligro = false;
-
             AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
-            tabControl1.SelectedTab = tabPageIngresadasList;
             await LoadMarcas();
 
         }
@@ -1718,6 +1723,14 @@ namespace Presentacion.Marcas_Internacionales
         private void panel8_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dtgMarcasIn_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgMarcasIn.Columns["id"] != null)
+                dtgMarcasIn.Columns["id"].Visible = false;
+
+            dtgMarcasIn.ClearSelection();
         }
     }
 }
