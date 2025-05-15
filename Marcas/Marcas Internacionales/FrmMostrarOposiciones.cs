@@ -121,8 +121,9 @@ namespace Presentacion.Marcas_Nacionales
             totalRows2 = oposicionModel.GetTotalOposicionesInteracionalesInterpuestas(situacionActual);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
             var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionalesInterpuestas(situacionActual, currentPageIndex2, pageSize2));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                Invoke(new Action(() =>
             {
                 lblTotalPages2.Text = totalPages2.ToString();
                 lblTotalRows2.Text = totalRows2.ToString();
@@ -137,6 +138,7 @@ namespace Presentacion.Marcas_Nacionales
                     dtgOpI.ClearSelection();
                 }
             }));
+            }
         }
 
         private void AnadirTabPage(TabPage nombre)
@@ -156,8 +158,9 @@ namespace Presentacion.Marcas_Nacionales
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
             var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesInternacionalesRecibidas(situacionActual, currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                Invoke(new Action(() =>
             {
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
@@ -171,6 +174,7 @@ namespace Presentacion.Marcas_Nacionales
                     dtgMarcasOp.ClearSelection();
                 }
             }));
+            }
 
         }
         public async void filtrarRecibidas()

@@ -13,6 +13,7 @@ namespace AccesoDatos.Entidades
         public bool InsertarLicenciaUso
         (
             int idMarca,
+            int idTitular,
             string titulo,
             string tipo,
             DateTime fechaInicio,
@@ -38,6 +39,7 @@ namespace AccesoDatos.Entidades
 
                         // Parámetros
                         cmd.Parameters.AddWithValue("p_IdMarca", idMarca);
+                        cmd.Parameters.AddWithValue("p_IdTitular", idTitular);
                         cmd.Parameters.AddWithValue("p_titulo", titulo);
                         cmd.Parameters.AddWithValue("p_tipo", tipo);
                         cmd.Parameters.AddWithValue("p_fecha_inicio", fechaInicio);
@@ -62,6 +64,98 @@ namespace AccesoDatos.Entidades
                 }
             }
         }
+
+        public bool EditarLicenciaUso(
+            int id,
+            int idMarca,
+            int idTitular,
+            string titulo,
+            string tipo,
+            DateTime fechaInicio,
+            DateTime fechaFin,
+            string territorio,
+            string nombreRazonSocial,
+            string direccion,
+            string domicilio,
+            string nacionalidad,
+            string apoderadoRepresentanteLegal,
+            string estado,
+            string origen
+        )
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("EditarLicenciaUso", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("p_id", id);
+                        cmd.Parameters.AddWithValue("p_IdMarca", idMarca);
+                        cmd.Parameters.AddWithValue("p_IdTitular", idTitular);
+                        cmd.Parameters.AddWithValue("p_titulo", titulo);
+                        cmd.Parameters.AddWithValue("p_tipo", tipo);
+                        cmd.Parameters.AddWithValue("p_fecha_inicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("p_fecha_fin", fechaFin);
+                        cmd.Parameters.AddWithValue("p_territorio", territorio);
+                        cmd.Parameters.AddWithValue("p_nombre_razon_social", nombreRazonSocial);
+                        cmd.Parameters.AddWithValue("p_direccion", direccion);
+                        cmd.Parameters.AddWithValue("p_domicilio", domicilio);
+                        cmd.Parameters.AddWithValue("p_nacionalidad", nacionalidad);
+                        cmd.Parameters.AddWithValue("p_apoderado_representante_legal", apoderadoRepresentanteLegal);
+                        cmd.Parameters.AddWithValue("p_estado", estado);
+                        cmd.Parameters.AddWithValue("p_origen", origen);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al editar licencia de uso: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        public bool ExisteOtraLicenciaUsoNoExclusiva(int idMarca, int idLicenciaExcluir, string origen)
+{
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("ExisteOtraLicenciaUsoNoExclusiva", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros de entrada
+                        cmd.Parameters.AddWithValue("p_IdMarca", idMarca);
+                        cmd.Parameters.AddWithValue("p_IdLicenciaExcluir", idLicenciaExcluir);
+                        cmd.Parameters.AddWithValue("p_origen", origen);
+
+                        // Parámetro de salida
+                        var existeLicenciaParam = new MySqlParameter("p_ExisteLicencia", MySqlDbType.Int32);
+                        existeLicenciaParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(existeLicenciaParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        int existeLicencia = Convert.ToInt32(existeLicenciaParam.Value);
+                        return existeLicencia == 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error verificando licencia no exclusiva: " + ex.Message);
+                    return false;
+                }
+    }
+}
+
 
         public DataTable ObtenerLicenciasUsoNacionalesExclusivas(string estadoFiltro, int currentPageIndex, int pageSize)
         {
@@ -326,37 +420,39 @@ namespace AccesoDatos.Entidades
             return total;
         }
 
-        public bool ExisteLicenciaUsoExclusiva(int idMarca)
+        public bool VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
         {
             using (MySqlConnection conn = GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    using (MySqlCommand cmd = new MySqlCommand("ExisteLicenciaUsoExclusiva", conn))
+                    using (MySqlCommand cmd = new MySqlCommand("VerificarCompatibilidadLicenciaUso", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("p_IdMarca", idMarca);
+                        cmd.Parameters.AddWithValue("p_TipoLicencia", tipoLicencia);
+                        cmd.Parameters.AddWithValue("p_origen", origen);
 
-                        MySqlParameter existeParam = new MySqlParameter("p_ExisteLicencia", MySqlDbType.Int32);
-                        existeParam.Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add(existeParam);
+                        var conflictoParam = new MySqlParameter("p_ExisteConflicto", MySqlDbType.Int32);
+                        conflictoParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(conflictoParam);
 
                         cmd.ExecuteNonQuery();
 
-                        int existe = Convert.ToInt32(existeParam.Value);
-
-                        return existe == 1;
+                        int conflicto = Convert.ToInt32(conflictoParam.Value);
+                        return conflicto == 1; 
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error al verificar licencia de uso exclusiva: " + ex.Message);
-                    throw;
+                    Console.WriteLine("Error verificando compatibilidad de licencia: " + ex.Message);
+                    return true;
                 }
             }
         }
+
 
 
         public DataTable ObtenerLicenciaUsoPorId(int idLicencia)
@@ -478,6 +574,35 @@ namespace AccesoDatos.Entidades
             return (total, datos);
         }
 
+       
 
+    public string CambiarEstadoLicencia(int idLicencia)
+    {
+        string resultado = "";
+
+        using (MySqlConnection conn = GetConnection())
+        {
+            conn.Open();
+
+            using (var cmd = new MySqlCommand("CambiarEstadoLicencia", conn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("p_id", idLicencia);
+
+                var output = new MySqlParameter("p_mensaje", MySqlDbType.VarChar, 100);
+                output.Direction = System.Data.ParameterDirection.Output;
+                cmd.Parameters.Add(output);
+
+                cmd.ExecuteNonQuery();
+
+                resultado = output.Value.ToString();
+            }
+        }
+
+        return resultado;
     }
+
+
+}
 }

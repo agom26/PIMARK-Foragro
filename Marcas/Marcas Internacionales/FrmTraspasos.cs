@@ -127,8 +127,9 @@ namespace Presentacion.Marcas_Nacionales
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnTramiteDeTraspaso(currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                Invoke(new Action(() =>
             {
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
@@ -142,6 +143,7 @@ namespace Presentacion.Marcas_Nacionales
 
 
             }));
+            }
         }
         public async void filtrar()
         {

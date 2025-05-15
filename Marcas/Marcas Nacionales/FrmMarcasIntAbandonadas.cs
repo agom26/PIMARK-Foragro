@@ -66,24 +66,28 @@ namespace Presentacion.Marcas_Internacionales
         {
             totalRows = marcaModel.GetTotalMarcasEnAbandono();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnAbandono(currentPageIndex, pageSize));
 
-            Invoke(new Action(() =>
+            // Obtiene las marcas
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnAbandono(currentPageIndex, pageSize))
+                                       .ConfigureAwait(false);
+
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasAban.DataSource = marcasN;
-
-                if (dtgMarcasAban.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgMarcasAban.Columns["id"].Visible = false;
-                    dtgMarcasAban.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgMarcasAban.DataSource = marcasN;
 
-
-            }));
+                    if (dtgMarcasAban.Columns["id"] != null)
+                    {
+                        dtgMarcasAban.Columns["id"].Visible = false;
+                        dtgMarcasAban.ClearSelection();
+                    }
+                }));
+            }
         }
+
 
         private void AnadirTabPage(TabPage nombre)
         {

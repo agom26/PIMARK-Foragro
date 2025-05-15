@@ -16,6 +16,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using Presentacion.Reportes;
+using FluentFTP;
+using System.Net;
+using System.Reflection.Metadata.Ecma335;
+using System.Windows.Media.Converters;
+using DocumentFormat.OpenXml.Vml;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -32,7 +37,8 @@ namespace Presentacion.Marcas_Internacionales
         private int totalPages = 0;
         private int totalRows = 0;
         bool exclusiva = false;
-        bool cambioEstado = false;
+        bool necesitaArchivo = false;
+
 
         private const int pageSize2 = 20;
         private int currentPageIndex2 = 1;
@@ -40,13 +46,22 @@ namespace Presentacion.Marcas_Internacionales
         private int totalRows2 = 0;
         private bool buscando1 = false;
         private bool buscando2 = false;
-
+        private bool archivoSubido = false;
+        //ftp
+        private string host = "ftp.bpa.com.es"; // Tu host FTP
+        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
+        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
+        private string directorioBase = "/bpa.com.es/test/licencias/nacionales"; // La ruta base de tu servidor
         public FrmMarcasLicenciaUso()
         {
             InitializeComponent();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             this.Load += FrmMarcasLicenciaUso_Load;
-
+            verificarBotones();
+            comboBoxEstado.SelectedItem = "En Trámite";
+            archivoSubido = false;
+            necesitaArchivo = false;
+            
             //ActualizarFechaVencimiento();
         }
         private void EliminarTabPage(TabPage nombre)
@@ -60,53 +75,61 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadLicenciasUsoExclusivas(string situacionActual)
         {
-            var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesExclusivasCombinado(situacionActual, currentPageIndex, pageSize));
+            var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesExclusivasCombinado(situacionActual, currentPageIndex, pageSize))
+                                       .ConfigureAwait(false);
+           
 
-
-            totalRows = resultado.total; 
+            totalRows = resultado.total;
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            var marcasN = resultado.datos;
 
-            var marcasN = resultado.datos; 
 
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgLicenciasExclusivas.DataSource = marcasN; 
-
-                if (dtgLicenciasExclusivas.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgLicenciasExclusivas.Columns["IdMarca"].Visible = false;
-                    dtgLicenciasExclusivas.Columns["id"].Visible = false;
-                    dtgLicenciasExclusivas.ClearSelection();
-                }
-            }));
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgLicenciasExclusivas.DataSource = marcasN;
+
+                    if (dtgLicenciasExclusivas.Columns["id"] != null)
+                    {
+                        dtgLicenciasExclusivas.Columns["IdMarca"].Visible = false;
+                        dtgLicenciasExclusivas.Columns["id"].Visible = false;
+                        dtgLicenciasExclusivas.ClearSelection();
+                    }
+                }));
+            }
         }
+
 
         private async Task LoadLicenciasUsoNoExclusivas(string situacionActual)
         {
-            var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(situacionActual, currentPageIndex2, pageSize2));
+            var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(situacionActual, currentPageIndex2, pageSize2))
+                                       .ConfigureAwait(false);
 
-            totalRows2 = resultado.total; 
+            totalRows2 = resultado.total;
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+            var marcasN = resultado.datos;
 
-            var marcasN = resultado.datos; 
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages2.Text = totalPages2.ToString();
-                lblTotalRows2.Text = totalRows2.ToString();
-                dtgLicenciasNoEx.DataSource = marcasN; 
-
-                if (dtgLicenciasNoEx.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgLicenciasNoEx.Columns["IdMarca"].Visible = false;
-                    dtgLicenciasNoEx.Columns["id"].Visible = false;
-                    dtgLicenciasNoEx.ClearSelection();
-                }
-            }));
+                    lblTotalPages2.Text = totalPages2.ToString();
+                    lblTotalRows2.Text = totalRows2.ToString();
+                    dtgLicenciasNoEx.DataSource = marcasN;
 
+                    if (dtgLicenciasNoEx.Columns["id"] != null)
+                    {
+                        dtgLicenciasNoEx.Columns["IdMarca"].Visible = false;
+                        dtgLicenciasNoEx.Columns["id"].Visible = false;
+                        dtgLicenciasNoEx.ClearSelection();
+                    }
+                }));
+            }
         }
+
 
         public async void filtrarLicenciasUsoExclusivas()
         {
@@ -142,7 +165,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -154,23 +177,17 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-
-
-        private bool ValidarCampo(string campo, string mensaje)
-        {
-            if (string.IsNullOrEmpty(campo))
-            {
-                FrmAlerta alerta = new FrmAlerta(mensaje.ToUpper(), "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                return false;
-            }
-            return true;
-        }
-
         private void FrmMarcasLicenciaUso_Load(object sender, EventArgs e)
         {
 
-            _ = CargarDatosLicenciasUsoAsync();
+            archivoSubido = false;
+            necesitaArchivo = false;
+            comboBoxEstado.SelectedItem = "En Trámite";
+            cmbSituacionActual.SelectedIndex = 0;
+            cmbSituacionActual2.SelectedIndex = 0;
+           
+            verificarBotones();
+            //_ = CargarDatosLicenciasUsoAsync();
         }
 
         private async Task CargarDatosLicenciasUsoAsync()
@@ -179,9 +196,10 @@ namespace Presentacion.Marcas_Internacionales
             {
                 currentPageIndex = 1;
                 currentPageIndex2 = 1;
-
-                int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas("En Trámite"));
-                int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas("En Trámite"));
+                string estado = cmbSituacionActual.SelectedItem.ToString();
+                string estado2 = cmbSituacionActual2.SelectedItem.ToString();
+                int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas(estado));
+                int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas(estado2));
 
                 if (currP == 0)
                     currentPageIndex = 0;
@@ -199,6 +217,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     EliminarTabPage(tabPageAgregarOposicion);
                     EliminarTabPage(tabPageReportes);
+                    EliminarTabPage(tabPageArchivos);
                 }
 
                 var filtrarExclusivasTask = FiltrarExclusivasPorSituacionActual();
@@ -210,11 +229,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 MessageBox.Show("Error al cargar licencias de uso: " + ex.Message);
             }
-            
+
         }
 
 
-        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedTab == tabPageOposicionesList)
             {
@@ -250,7 +269,7 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarLicencia.fechaInicio = Convert.ToDateTime(row["fecha_inicio"]);
                     SeleccionarLicencia.fechaFin = Convert.ToDateTime(row["fecha_fin"]);
                     SeleccionarLicencia.idMarca = int.Parse(row["IdMarca"].ToString());
-
+                    SeleccionarLicencia.idTitular = row["IdTitular"] is DBNull ? 0 : int.Parse(row["IdTitular"].ToString());
 
 
                     txtTitulo.Text = SeleccionarLicencia.tituloPorElQueVerifica;
@@ -262,7 +281,35 @@ namespace Presentacion.Marcas_Internacionales
                     txtApoderadoRL.Text = SeleccionarLicencia.apoderadoRepresentanteL;
                     dateTimePickerInicio.Value = SeleccionarLicencia.fechaInicio;
                     dateTimePickerFin.Value = SeleccionarLicencia.fechaFin;
-                    comboBoxEstado.SelectedItem = row["estado"].ToString();
+
+                    if (SeleccionarLicencia.estado == "Terminada")
+                    {
+                        if (!comboBoxEstado.Items.Contains("Terminada"))
+                        {
+                            comboBoxEstado.Items.Add("Terminada");
+                        }
+                        comboBoxEstado.SelectedItem = "Terminada";
+                        comboBoxEstado.Enabled = false;
+                    }
+                    else
+                    {
+                        if (comboBoxEstado.Items.Contains("Terminada"))
+                        {
+                            comboBoxEstado.Items.Remove("Terminada");
+                        }
+                        comboBoxEstado.SelectedItem = row["estado"].ToString();
+                        comboBoxEstado.Enabled = true;
+                    }
+
+                    if (SeleccionarLicencia.tipo == "exclusiva")
+                    {
+                        radioButtonExclusiva.Checked = true;
+                    }
+                    else
+                    {
+                        radioButtonNoExclusiva.Checked = true;
+                    }
+
 
                     if (row["estado"].ToString().Trim().Equals("Terminada", StringComparison.OrdinalIgnoreCase))
 
@@ -286,7 +333,7 @@ namespace Presentacion.Marcas_Internacionales
                         if (marca.Rows.Count > 0)
                         {
                             DataRow dataRow = marca.Rows[0];
-                            SeleccionarLicencia.idTitular = dataRow["idTitular"] is DBNull ? 0 : int.Parse(dataRow["idTitular"].ToString());
+
                             txtSigno.Text = dataRow["nombre"].ToString();
                             txtExpediente.Text = dataRow["expediente"].ToString();
                             txtClase.Text = dataRow["clase"].ToString();
@@ -295,6 +342,7 @@ namespace Presentacion.Marcas_Internacionales
                             txtTomo.Text = dataRow["libro"].ToString();
                             comboBoxSignoDist.SelectedItem = dataRow["signoDistintivo"].ToString();
                             dateTimePFecha_vencimiento.Value = Convert.ToDateTime(dataRow["fechaVencimiento"]);
+
                             if (SeleccionarLicencia.idTitular > 0)
                             {
                                 var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarLicencia.idTitular));
@@ -383,7 +431,9 @@ namespace Presentacion.Marcas_Internacionales
             VerificarSeleccionEdicion();
             if (SeleccionarLicencia.idLicencia > 0)
             {
+
                 await CargarDatosLicenciaUso();
+                EliminarTabPage(tabPageOposicionesList);
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -432,6 +482,88 @@ namespace Presentacion.Marcas_Internacionales
                         MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        async void EditarLicenciaUso()
+        {
+            string mensajeValidacion = ValidarCamposLicenciaUso("editando");
+            if (mensajeValidacion != null)
+            {
+                FrmAlerta alerta = new FrmAlerta(mensajeValidacion.ToUpper(), "VALIDACIÓN FALLIDA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
+            if (comboBoxEstado.SelectedItem == null)
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+            string estado = comboBoxEstado.SelectedItem.ToString();
+            int idLicencia = SeleccionarLicencia.idLicencia;
+            string tituloPorElCualSeVerifica = txtTitulo.Text;
+            int? idMarca = SeleccionarLicencia.idMarca;
+            int idTitular = SeleccionarLicencia.idTitular;
+            string territorio = txtTerritorio.Text;
+            string razonSocial = txtRazonSocial.Text;
+            string direccion = txtDireccion.Text;
+            string domicilio = txtDomicilio.Text;
+            string nacionalidad = txtNacionalidad.Text;
+            string apoderado = txtApoderadoRL.Text;
+            DateTime fechaInicio = dateTimePickerInicio.Value;
+            DateTime fechaFin = dateTimePickerFin.Value;
+            string tipo;
+
+            if (exclusiva == true) { tipo = "exclusiva"; }
+            else { tipo = "no exclusiva"; }
+
+
+            try
+            {
+                LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
+                if (licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
+                {
+                    string mensaje = "";
+
+                    if (tipo == "exclusiva")
+                    {
+                        mensaje = "NO ES POSIBLE MARCAR ESTA LICENCIA COMO EXCLUSIVA PORQUE EXISTEN OTRAS LICENCIAS NO EXCLUSIVAS CON ESTA MARCA.";
+                    }
+                    else if (tipo == "no exclusiva")
+                    {
+                        mensaje = "NO ES POSIBLE MARCAR ESTA LICENCIA COMO NO EXCLUSIVA PORQUE EXISTE UNA LICENCIA EXCLUSIVA VIGENTE PARA ESTA MARCA.";
+                    }
+                    else
+                    {
+                        mensaje = "TIPO DE LICENCIA NO RECONOCIDO.";
+                    }
+
+                    FrmAlerta alertaExiste = new FrmAlerta(mensaje, "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alertaExiste.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    licenciaUso.EditarLicenciaUso(idLicencia, (int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
+                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
+                    FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+
+                }
+
+                LimpiarFormularioLicencia();
+                AnadirTabPage(tabPageOposicionesList);
+                tabControl1.SelectedTab = tabPageOposicionesList;
+                EliminarTabPage(tabPageAgregarOposicion);
+                await CargarDatosLicenciasUsoAsync();
+
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
             }
         }
 
@@ -542,6 +674,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public async Task FiltrarExclusivasPorSituacionActual()
         {
+            
             if (cmbSituacionActual.SelectedIndex == 0)
             {
                 await LoadLicenciasUsoExclusivas("En Trámite");
@@ -558,6 +691,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public async Task FiltrarNoExclusivasPorSituacionActual()
         {
+            
             if (cmbSituacionActual2.SelectedIndex == 0)
             {
                 await LoadLicenciasUsoNoExclusivas("En Trámite");
@@ -583,16 +717,16 @@ namespace Presentacion.Marcas_Internacionales
         {
             btnEnviarATerminar.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
+            EliminarTabPage(tabPageOposicionesList);
             txtExpediente.Enabled = true;
             txtTitular.Enabled = true;
             txtSigno.Enabled = true;
             txtRegistro.Enabled = true;
             txtRazonSocial.Enabled = true;
             btnDatosLicenciante.Enabled = true;
-            SeleccionarOposicion.idN = 0;
-            MostrarLogos();
             //iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             tabControl1.SelectedTab = tabPageAgregarOposicion;
+            comboBoxEstado.SelectedItem = "En Trámite";
             btnGuardarU.Text = "AGREGAR";
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
@@ -603,12 +737,22 @@ namespace Presentacion.Marcas_Internacionales
             MostrarLogos();
         }
 
-        private string ValidarCamposLicenciaUso()
+        private string ValidarCamposLicenciaUso(string accion)
         {
+            if (accion == "agregando")
+            {
+                if (SeleccionarMarcaParaLicencia.idMarca == 0)
+                    return "Debe seleccionar una marca.";
+            }
+            else if (accion == "editando")
+            {
+                if (SeleccionarLicencia.idMarca == 0)
+                    return "Debe seleccionar una marca.";
+            }
+
             if (string.IsNullOrWhiteSpace(txtTitulo.Text))
                 return "El campo 'Título' es obligatorio.";
-            if (SeleccionarMarcaParaLicencia.idMarca == 0)
-                return "Debe seleccionar una marca.";
+
             if (string.IsNullOrWhiteSpace(txtTerritorio.Text))
                 return "El campo 'Territorio' es obligatorio.";
             if (string.IsNullOrWhiteSpace(txtRazonSocial.Text))
@@ -636,10 +780,10 @@ namespace Presentacion.Marcas_Internacionales
 
 
 
-        public void AgregarLicencia()
+        public async void AgregarLicencia()
         {
 
-            string mensajeValidacion = ValidarCamposLicenciaUso();
+            string mensajeValidacion = ValidarCamposLicenciaUso("agregando");
             if (mensajeValidacion != null)
             {
                 FrmAlerta alerta = new FrmAlerta(mensajeValidacion.ToUpper(), "VALIDACIÓN FALLIDA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -657,6 +801,7 @@ namespace Presentacion.Marcas_Internacionales
 
             string tituloPorElCualSeVerifica = txtTitulo.Text;
             int? idMarca = SeleccionarMarcaParaLicencia.idMarca;
+            int idTitular = SeleccionarMarcaParaLicencia.idTitularMarca;
             string territorio = txtTerritorio.Text;
             string razonSocial = txtRazonSocial.Text;
             string direccion = txtDireccion.Text;
@@ -668,33 +813,49 @@ namespace Presentacion.Marcas_Internacionales
             string tipo;
 
             if (exclusiva == true) { tipo = "exclusiva"; }
-            else { tipo = "no Exclusiva"; }
+            else { tipo = "no exclusiva"; }
 
 
 
             try
             {
                 LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
-                if (licenciaUso.ExisteLicenciaUsoExclusiva((int)idMarca) == true)
+                if (licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
                 {
-                    FrmAlerta alertaExiste = new FrmAlerta("YA EXISTE UNA LICENCIA DE USO EXCLUSIVA PARA ESTA MARCA.", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    string mensaje = "";
+
+                    if (tipo == "exclusiva")
+                    {
+                        mensaje = "NO ES POSIBLE AGREGAR UNA LICENCIA DE USO EXCLUSIVA PORQUE EXISTEN LICENCIAS NO EXCLUSIVAS PARA ESTA MARCA.";
+                    }
+                    else if (tipo == "no exclusiva")
+                    {
+                        mensaje = "NO ES POSIBLE AGREGAR UNA LICENCIA DE USO NO EXCLUSIVA PORQUE EXISTE UNA LICENCIA EXCLUSIVA VIGENTE PARA ESTA MARCA.";
+                    }
+                    else
+                    {
+                        mensaje = "TIPO DE LICENCIA NO RECONOCIDO.";
+                    }
+
+                    FrmAlerta alertaExiste = new FrmAlerta(mensaje, "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alertaExiste.ShowDialog();
                     return;
                 }
                 else
                 {
-                    licenciaUso.InsertarLicenciaUso((int)idMarca, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
-                        razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
+                    licenciaUso.InsertarLicenciaUso((int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
+                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
                     FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+
                 }
-
-
 
                 LimpiarFormularioLicencia();
                 AnadirTabPage(tabPageOposicionesList);
                 tabControl1.SelectedTab = tabPageOposicionesList;
                 EliminarTabPage(tabPageAgregarOposicion);
+                await CargarDatosLicenciasUsoAsync();
+
 
             }
             catch (Exception ex)
@@ -710,36 +871,51 @@ namespace Presentacion.Marcas_Internacionales
             if (btnGuardarU.Text == "AGREGAR")
             {
                 AgregarLicencia();
+
             }
             else if (btnGuardarU.Text == "EDITAR")
             {
-
+                if (!archivoSubido && necesitaArchivo)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    EditarLicenciaUso();
+                }
             }
 
         }
         public void TerminarLicencia()
         {
-            /*var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idN);
-            if (cambio == true)
+            DialogResult resultado = MessageBox.Show("¿Está seguro de que desea terminar esta licencia?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
             {
-                AnadirTabPage(tabPageOposicionesList);
-                tabControl1.SelectedTab = tabPageOposicionesList;
-                EliminarTabPage(tabPageAgregarOposicion);
-                FrmAlerta alerta = new FrmAlerta("OPOSICIÓN TERMINADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                int idLicencia = SeleccionarLicencia.idLicencia;
+                string mensaje = licenciaUso.FinalizarLicencia(idLicencia);
+
+                string titulo = mensaje.StartsWith("Estado actualizado") ? "ÉXITO" : "ERROR";
+
+                FrmAlerta alerta = new FrmAlerta(mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-            }*/
+            }
+            else
+            {
+                // Si el usuario selecciona "No", no hacer nada o mostrar un mensaje adicional si lo deseas
+                MessageBox.Show("La operación ha sido cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+
 
         private void btnEnviarATramite_Click(object sender, EventArgs e)
         {
-            if (btnEnviarATerminar.Text == "TERMINAR")
+            if (SeleccionarLicencia.idLicencia != 0)
             {
-                if (SeleccionarLicencia.idLicencia != 0)
-                {
-                    TerminarLicencia();
-                }
-
+                TerminarLicencia();
             }
+
         }
         public void LimpiarFormularioLicencia()
         {
@@ -766,12 +942,14 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarMarcaParaLicencia.LimpiarMarcaParaLicencia();
         }
 
-        private void btnCancelarU_Click(object sender, EventArgs e)
+        private async void btnCancelarU_Click(object sender, EventArgs e)
         {
+
             AnadirTabPage(tabPageOposicionesList);
             EliminarTabPage(tabPageAgregarOposicion);
             tabControl1.SelectedTab = tabPageOposicionesList;
             LimpiarFormularioLicencia();
+            await CargarDatosLicenciasUsoAsync();
         }
 
         /*
@@ -1277,9 +1455,9 @@ namespace Presentacion.Marcas_Internacionales
             string chromePath = "chrome"; // Intentará usar Chrome desde PATH
 
             string[] possiblePaths = {
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Google\\Chrome\\Application\\chrome.exe"),
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Google\\Chrome\\Application\\chrome.exe")
+        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
+        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Google\\Chrome\\Application\\chrome.exe"),
+        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Google\\Chrome\\Application\\chrome.exe")
     };
 
             foreach (var path in possiblePaths)
@@ -1727,14 +1905,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (btnGuardarU.Text == "AGREGAR")
-            {
-                btnAdjuntarT.Enabled = true;
-            }
-            else
-            {
-
-            }
+            verificarBotones();
         }
 
         private void txtTitular_TextChanged(object sender, EventArgs e)
@@ -1742,28 +1913,459 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void comboBoxEstado_SelectedValueChanged(object sender, EventArgs e)
+
+        void verificarBotones()
         {
             var comboEstado = comboBoxEstado.SelectedItem as string;
 
             if (!string.IsNullOrEmpty(comboEstado))
             {
-                if ((SeleccionarLicencia.estado == "En Trámite" && comboEstado == "En Uso") ||
-                    (SeleccionarLicencia.estado == "En Uso" && comboEstado == "En Uso"))
+                if (SeleccionarLicencia.estado == "En Trámite" && comboEstado == "En Uso")
                 {
                     btnAdjuntarT.Visible = true;
+                    necesitaArchivo = true;
+                    btnVerArchivos.Visible = false;
                 }
-                else
+                else if (SeleccionarLicencia.estado == "En Trámite" && comboEstado == "En Trámite")
                 {
                     btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = false;
+                }
+                else if (SeleccionarLicencia.estado == "En Uso" && comboEstado == "En Uso")
+                {
+                    btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = true;
+                }
+                else if (SeleccionarLicencia.estado == "Terminada" && comboEstado == "Terminada")
+                {
+                    btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = true;
+                }
+                else if (comboEstado == "En Trámite")
+                {
+                    btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = false;
+                }
+                else if (comboEstado == "En Uso")
+                {
+                    btnAdjuntarT.Visible = true;
+                    necesitaArchivo = true;
+                    btnVerArchivos.Visible = false;
                 }
             }
             else
             {
-                btnAdjuntarT.Visible = false;
+                if (comboBoxEstado.SelectedIndex == -1)
+                {
+                    btnVerArchivos.Visible = false;
+                    necesitaArchivo = false;
+                    btnAdjuntarT.Visible = false;
+                }
+                else if (comboBoxEstado.SelectedIndex == 1)
+                {
+                    btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = false;
+                }
+                else if (comboBoxEstado.SelectedIndex == 2)
+                {
+                    btnAdjuntarT.Visible = true;
+                    necesitaArchivo = true;
+                    btnVerArchivos.Visible = false;
+                }
+                else if (comboBoxEstado.SelectedIndex == 3)
+                {
+                    btnAdjuntarT.Visible = false;
+                    necesitaArchivo = false;
+                    btnVerArchivos.Visible = true;
+                }
+            }
+        }
+        private void comboBoxEstado_SelectedValueChanged(object sender, EventArgs e)
+        {
+            verificarBotones();
+
+
+        }
+        private void SubirArchivoRegistro(string idLicencia)
+        {
+            string carpeta = $"{directorioBase}/licencia-{idLicencia}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.InnerException.Message}");
+                    archivoSubido = false;
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                archivoSubido = false;
+            }
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            SubirArchivoRegistro("" + SeleccionarLicencia.idLicencia);
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                archivoSubido = false;
+            }
+            else
+            {
+                archivoSubido = true;
+            }
+        }
+        public void CrearCarpetaMarca(string idLicencia)
+        {
+            string carpetaMarca = $"{directorioBase}/licencia-{idLicencia}"; // Ruta completa para la carpeta de la licencia
+
+            using (FtpClient cliente = new FtpClient(host))
+            {
+                cliente.Credentials = new NetworkCredential(usuario, contraseña);
+
+                try
+                {
+                    cliente.Connect(); // Conecta al servidor FTP
+
+                    // Verifica si la carpeta ya existe
+                    if (!cliente.DirectoryExists(carpetaMarca))
+                    {
+                        cliente.CreateDirectory(carpetaMarca); // Crea la carpeta
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
+                }
+                finally
+                {
+                    cliente.Disconnect(); // Desconecta del servidor FTP
+                }
+            }
+        }
+        private List<string> ListarNombresDeArchivos(string idLicencia)
+        {
+            string carpetaMarca = $"{directorioBase}/licencia-{idLicencia}";
+            var nombresArchivos = new List<string>();
+
+            using (FtpClient cliente = new FtpClient(host))
+            {
+                cliente.Credentials = new NetworkCredential(usuario, contraseña);
+
+                try
+                {
+                    cliente.Connect();
+
+                    // Obtener listado de archivos en el directorio
+                    var listado = cliente.GetListing(carpetaMarca);
+
+                    foreach (var item in listado)
+                    {
+                        if (item.Type == FtpObjectType.File) // Solo archivos
+                        {
+                            nombresArchivos.Add(item.Name); // Agregar solo el nombre del archivo
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al listar archivos: {ex.Message}");
+                }
+                finally
+                {
+                    cliente.Disconnect();
+                }
             }
 
+            return nombresArchivos;
+        }
+        public void ListarArchivosEnGeneral()
+        {
+            try
+            {
+                // Cambiar el cursor global a "WaitCursor"
+                Cursor.Current = Cursors.WaitCursor;
 
+                AnadirTabPage(tabPageArchivos);
+                //tabControl1.Visible = false;
+
+                string id = "" + SeleccionarLicencia.idLicencia;
+                CrearCarpetaMarca(id);
+
+                // Obtener nombres de archivos desde el servidor FTP
+                var nombresArchivos = ListarNombresDeArchivos(id);
+
+                // Limpiar y configurar DataGridView
+                dtgArchivos.DataSource = null;
+                dtgArchivos.Columns.Clear();
+                dtgArchivos.Columns.Add("NombreArchivo", "Nombre del Archivo");
+
+                // Agregar los nombres al DataGridView
+                foreach (var nombre in nombresArchivos)
+                {
+                    dtgArchivos.Rows.Add(nombre);
+                }
+
+                dtgArchivos.ClearSelection();
+                //tabControl1.Visible = true;
+            }
+            finally
+            {
+                // Restaurar el cursor global a "Default"
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void SubirArchivo(string idLicencia)
+        {
+            string carpeta = $"{directorioBase}/licencia-{idLicencia}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Error al subir el archivo: {ex.Message}\n" + ex.InnerException.Message);
+                }
+                Cursor.Current = Cursors.Default;
+            }
+        }
+        private void AbrirArchivoDesdeFtp(string idLicencia, string archivoNombre)
+        {
+            string carpeta = $"{directorioBase}/licencia-{idLicencia}/";
+            string rutaRemota = $"{carpeta}/{archivoNombre}";
+            string rutaLocal = System.IO.Path.Combine(System.IO.Path.GetTempPath(), archivoNombre); // Carpeta temporal
+
+            try
+            {
+                using (var cliente = new FtpClient(host, usuario, contraseña))
+                {
+                    cliente.Connect();
+
+                    // Descargar el archivo al directorio temporal
+                    cliente.DownloadFile(rutaLocal, rutaRemota, FtpLocalExists.Overwrite, FtpVerify.None);
+                }
+
+                // Asegúrate de que el archivo existe localmente antes de abrirlo
+                if (File.Exists(rutaLocal))
+                {
+                    // Abre el archivo con la aplicación predeterminada de manera confiable
+                    var process = new System.Diagnostics.Process
+                    {
+                        StartInfo = new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = rutaLocal,
+                            UseShellExecute = true // Importante para manejar rutas complejas
+                        }
+                    };
+                    process.Start();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO SE DESCARGÓ CORRECTAMENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el archivo: {ex.Message}");
+            }
+        }
+        public void Abrir()
+        {
+            string idMarca = "" + SeleccionarLicencia.idLicencia; // Id de la licencia actual
+            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+
+            if (string.IsNullOrEmpty(archivoNombre))
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ARCHIVO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                return;
+            }
+            Cursor.Current = Cursors.WaitCursor;
+            AbrirArchivoDesdeFtp(idMarca, archivoNombre);
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void EliminarArchivoDesdeFtp(string idLicencia, string archivoNombre)
+        {
+            string carpeta = $"{directorioBase}/licencia-{idLicencia}/";
+            string rutaRemota = $"{carpeta}/{archivoNombre}";
+
+            try
+            {
+                using (var cliente = new FtpClient(host, usuario, contraseña))
+                {
+                    cliente.Connect();
+
+                    // Verifica si el archivo existe antes de intentar eliminarlo
+                    if (cliente.FileExists(rutaRemota))
+                    {
+                        cliente.DeleteFile(rutaRemota);
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO ELIMINADO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO EXISTE EN EL SERVIDOR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL ELIMINAR EL ARCHIVO: " + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        public void Eliminar()
+        {
+            string idMarca = "" + SeleccionarLicencia.idLicencia; // Id de la marca actual
+            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+
+            if (string.IsNullOrEmpty(archivoNombre))
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ARCHIVO A ELIMINAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                return;
+            }
+
+            FrmAlerta alerta2 = new FrmAlerta($"¿ESTÁ SEGURO DE ELIMINAR EL ARCHIVO \"{archivoNombre}\"?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            var confirmacion = alerta2.ShowDialog();
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                EliminarArchivoDesdeFtp(idMarca, archivoNombre);
+
+                // Actualizar la lista de archivos en el DataGridView
+                ListarArchivosEnGeneral();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+        private void btnVerArchivos_Click(object sender, EventArgs e)
+        {
+            ListarArchivosEnGeneral();
+        }
+
+        private void iconButton17_Click(object sender, EventArgs e)
+        {
+            SubirArchivo("" + SeleccionarLicencia.idLicencia);
+            ListarArchivosEnGeneral();
+        }
+
+        private void btnAbrirArchivo_Click(object sender, EventArgs e)
+        {
+            Abrir();
+        }
+
+        private void btnEliminarArchivo_Click(object sender, EventArgs e)
+        {
+            Eliminar();
+        }
+        
+        private void iconButton18_Click(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageAgregarOposicion);
+            this.BeginInvoke(new Action(() =>
+            {
+                EliminarTabPage(tabPageArchivos);
+            }));
+           
         }
     }
 }

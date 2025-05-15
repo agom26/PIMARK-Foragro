@@ -70,24 +70,29 @@ namespace Presentacion.Marcas_Internacionales
         {
             totalRows = personaModel.GetTotalClientes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
 
-            Invoke(new Action(() =>
+            // Obtiene los clientes
+            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize))
+                                       .ConfigureAwait(false);
+
+            // Verifica si el handle está creado y si el formulario no ha sido desechado
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgClientes.DataSource = titulares;
-
-                if (dtgClientes.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgClientes.Columns["id"].Visible = false;
-                    dtgClientes.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgClientes.DataSource = titulares;
 
-
-            }));
+                    if (dtgClientes.Columns["id"] != null)
+                    {
+                        dtgClientes.Columns["id"].Visible = false;
+                        dtgClientes.ClearSelection();
+                    }
+                }));
+            }
         }
+
         public async void filtrar()
         {
 

@@ -333,29 +333,19 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap empresarios_1_ {
-            get {
-                object obj = ResourceManager.GetObject("empresarios(1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap empresarios_2_ {
-            get {
-                object obj = ResourceManager.GetObject("empresarios(2)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap error {
             get {
                 object obj = ResourceManager.GetObject("error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_pica__2__pica {
+            get {
+                object obj = ResourceManager.GetObject("error-pica (2)-pica", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -561,6 +551,16 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] iconWarning {
+            get {
+                object obj = ResourceManager.GetObject("iconWarning", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap info {
@@ -571,12 +571,12 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] InfoIcon {
+        internal static System.Drawing.Bitmap informacion_artguru_artguru {
             get {
-                object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("informacion-artguru-artguru", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -683,20 +683,20 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap question {
+        internal static System.Drawing.Bitmap pregunta_artguru_artguru {
             get {
-                object obj = ResourceManager.GetObject("question", resourceCulture);
+                object obj = ResourceManager.GetObject("pregunta-artguru-artguru", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] QuestionIcon {
+        internal static System.Drawing.Bitmap question {
             get {
-                object obj = ResourceManager.GetObject("QuestionIcon", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("question", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -723,6 +723,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap reloj_y_calendario_1_1 {
+            get {
+                object obj = ResourceManager.GetObject("reloj-y-calendario(1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap simbolo_de_interfaz_grafica_de_tres_barras {
             get {
                 object obj = ResourceManager.GetObject("simbolo-de-interfaz-grafica-de-tres-barras", resourceCulture);
@@ -741,12 +751,12 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] SucessIcon {
+        internal static System.Drawing.Bitmap success {
             get {
-                object obj = ResourceManager.GetObject("SucessIcon", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("success", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -871,12 +881,82 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] WarningIcon {
+        internal static System.Drawing.Bitmap warning_pica {
             get {
-                object obj = ResourceManager.GetObject("WarningIcon", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("warning-pica", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_pica_pica {
+            get {
+                object obj = ResourceManager.GetObject("warning-pica-pica", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("warning-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_sign {
+            get {
+                object obj = ResourceManager.GetObject("warning-sign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning_sign__1_ {
+            get {
+                object obj = ResourceManager.GetObject("warning-sign (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning1 {
+            get {
+                object obj = ResourceManager.GetObject("warning1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning2 {
+            get {
+                object obj = ResourceManager.GetObject("warning2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap warning3 {
+            get {
+                object obj = ResourceManager.GetObject("warning3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

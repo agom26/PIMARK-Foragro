@@ -55,21 +55,25 @@ namespace Presentacion.Personas
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
             var titulares = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgAgentes.DataSource = titulares;
-
-                if (dtgAgentes.Columns["id"] != null)
+                Invoke(new Action(() =>
                 {
-                    dtgAgentes.Columns["id"].Visible = false;
-                    dtgAgentes.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgAgentes.DataSource = titulares;
+
+                    if (dtgAgentes.Columns["id"] != null)
+                    {
+                        dtgAgentes.Columns["id"].Visible = false;
+                        dtgAgentes.ClearSelection();
+                    }
 
 
-            }));
+                }));
+            }
+
+               
         }
         private async Task AnadirTabPage(TabPage nombre)
         {

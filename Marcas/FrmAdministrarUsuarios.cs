@@ -81,9 +81,10 @@ namespace Presentacion
         {
             totalRows = UserModel.GetTotalUsers();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-            // Invoca el método para actualizar tanto lblTotalPages como dtgUsuarios en el hilo principal
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                // Invoca el método para actualizar tanto lblTotalPages como dtgUsuarios en el hilo principal
+                Invoke(new Action(() =>
             {
                 // Actualizar el texto de lblTotalPages en el hilo principal
                 lblTotalPages.Text = totalPages.ToString();
@@ -108,6 +109,7 @@ namespace Presentacion
                     dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }));
+            }
         }
 
 

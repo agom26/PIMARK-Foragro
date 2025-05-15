@@ -222,15 +222,22 @@ namespace Marcas
                 Presentacion.Properties.Settings.Default.Save();
                 Presentacion.Properties.Settings.Default.Reload();
             }
-            else
-            {
-
-            }
+           
 
             //LOGIN                                
             UserModel userModel = new UserModel();
             if (!userModel.ProbarConexion())
-            {
+            {/*
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                alerta.ShowDialog();
+                FrmAlerta alerta2 = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                alerta2.ShowDialog();
+                FrmAlerta alerta3 = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta3.ShowDialog();
+                FrmAlerta alerta4 = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta4.ShowDialog();
+                FrmAlerta alerta5 = new FrmAlerta("NO HAY DATOS PARA SELECCIONAR", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta5.ShowDialog();*/
                 MessageBox.Show("No se pudo establecer conexión con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

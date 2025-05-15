@@ -736,7 +736,7 @@
             btnAgentes.FlatStyle = FlatStyle.Flat;
             btnAgentes.Font = new Font("Century Gothic", 9F);
             btnAgentes.ForeColor = Color.White;
-            btnAgentes.Image = Properties.Resources.empresarios_1_;
+            btnAgentes.Image = Properties.Resources.empresario;
             btnAgentes.ImageAlign = ContentAlignment.MiddleLeft;
             btnAgentes.Location = new Point(0, 272);
             btnAgentes.Name = "btnAgentes";

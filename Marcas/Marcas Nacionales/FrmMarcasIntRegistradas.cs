@@ -70,24 +70,26 @@ namespace Presentacion.Marcas_Internacionales
         {
             totalRows = marcaModel.GetTotalMarcasRegistradas();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesRegistradas(currentPageIndex, pageSize));
 
-            Invoke(new Action(() =>
+            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesRegistradas(currentPageIndex, pageSize)).ConfigureAwait(false);
+
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasIn.DataSource = marcasN;
-
-                if (dtgMarcasIn.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgMarcasIn.Columns["id"].Visible = false;
-                    dtgMarcasIn.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgMarcasIn.DataSource = marcasN;
 
-
-            }));
+                    if (dtgMarcasIn.Columns["id"] != null)
+                    {
+                        dtgMarcasIn.Columns["id"].Visible = false;
+                        dtgMarcasIn.ClearSelection();
+                    }
+                }));
+            }
         }
+
 
         public async void filtrar()
         {
@@ -1470,7 +1472,6 @@ namespace Presentacion.Marcas_Internacionales
             {
                 ActualizarMarcaInternacional();
 
-               
             }
             else
             {

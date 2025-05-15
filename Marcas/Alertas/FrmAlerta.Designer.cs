@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAlerta));
             picIcon = new PictureBox();
             lblTitulo = new Label();
-            btnYes = new FontAwesome.Sharp.IconButton();
-            btnNo = new FontAwesome.Sharp.IconButton();
             richTextBoxMensaje = new RichTextBox();
             panel1 = new Panel();
+            btnNo2 = new Button();
+            btnYes2 = new Button();
             panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
             panel1.SuspendLayout();
@@ -43,65 +43,31 @@
             // 
             // picIcon
             // 
-            picIcon.Image = Properties.Resources.logoBPA;
+            picIcon.Image = Properties.Resources.success;
             picIcon.Location = new Point(3, 16);
             picIcon.Name = "picIcon";
-            picIcon.Size = new Size(61, 61);
-            picIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+            picIcon.Size = new Size(61, 50);
+            picIcon.SizeMode = PictureBoxSizeMode.Zoom;
             picIcon.TabIndex = 0;
             picIcon.TabStop = false;
             // 
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            lblTitulo.Font = new Font("Segoe UI", 9F);
             lblTitulo.ForeColor = Color.Black;
             lblTitulo.Location = new Point(136, 24);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(54, 18);
+            lblTitulo.Size = new Size(38, 15);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "label1";
             lblTitulo.Visible = false;
-            // 
-            // btnYes
-            // 
-            btnYes.BackColor = Color.FromArgb(51, 109, 156);
-            btnYes.FlatAppearance.BorderSize = 0;
-            btnYes.FlatStyle = FlatStyle.Flat;
-            btnYes.ForeColor = Color.White;
-            btnYes.IconChar = FontAwesome.Sharp.IconChar.None;
-            btnYes.IconColor = Color.Black;
-            btnYes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnYes.Location = new Point(106, 15);
-            btnYes.Name = "btnYes";
-            btnYes.Size = new Size(102, 37);
-            btnYes.TabIndex = 2;
-            btnYes.Text = "SI";
-            btnYes.UseVisualStyleBackColor = false;
-            btnYes.Click += btnYes_Click;
-            // 
-            // btnNo
-            // 
-            btnNo.BackColor = Color.FromArgb(51, 109, 156);
-            btnNo.FlatAppearance.BorderSize = 0;
-            btnNo.FlatStyle = FlatStyle.Flat;
-            btnNo.ForeColor = Color.White;
-            btnNo.IconChar = FontAwesome.Sharp.IconChar.None;
-            btnNo.IconColor = Color.Black;
-            btnNo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnNo.Location = new Point(214, 15);
-            btnNo.Name = "btnNo";
-            btnNo.Size = new Size(102, 37);
-            btnNo.TabIndex = 3;
-            btnNo.Text = "NO";
-            btnNo.UseVisualStyleBackColor = false;
-            btnNo.Click += btnNo_Click;
             // 
             // richTextBoxMensaje
             // 
             richTextBoxMensaje.BackColor = Color.White;
             richTextBoxMensaje.BorderStyle = BorderStyle.None;
-            richTextBoxMensaje.Font = new Font("Century Gothic", 7F);
+            richTextBoxMensaje.Font = new Font("Segoe UI", 9F);
             richTextBoxMensaje.ForeColor = Color.Black;
             richTextBoxMensaje.Location = new Point(70, 16);
             richTextBoxMensaje.Name = "richTextBoxMensaje";
@@ -113,18 +79,38 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ButtonFace;
-            panel1.Controls.Add(btnYes);
-            panel1.Controls.Add(btnNo);
+            panel1.Controls.Add(btnNo2);
+            panel1.Controls.Add(btnYes2);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 151);
             panel1.Name = "panel1";
             panel1.Size = new Size(350, 64);
             panel1.TabIndex = 6;
             // 
+            // btnNo2
+            // 
+            btnNo2.Location = new Point(214, 22);
+            btnNo2.Name = "btnNo2";
+            btnNo2.Size = new Size(102, 23);
+            btnNo2.TabIndex = 9;
+            btnNo2.Text = "No";
+            btnNo2.UseVisualStyleBackColor = true;
+            btnNo2.Click += btnNo2_Click;
+            // 
+            // btnYes2
+            // 
+            btnYes2.Location = new Point(106, 22);
+            btnYes2.Name = "btnYes2";
+            btnYes2.Size = new Size(102, 23);
+            btnYes2.TabIndex = 8;
+            btnYes2.Text = "Sí";
+            btnYes2.UseVisualStyleBackColor = true;
+            btnYes2.Click += btnYes2_Click;
+            // 
             // panel2
             // 
-            panel2.Controls.Add(richTextBoxMensaje);
             panel2.Controls.Add(picIcon);
+            panel2.Controls.Add(richTextBoxMensaje);
             panel2.Location = new Point(28, 45);
             panel2.Name = "panel2";
             panel2.Size = new Size(295, 100);
@@ -132,7 +118,7 @@
             // 
             // FrmAlerta
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(350, 215);
@@ -159,10 +145,10 @@
 
         private PictureBox picIcon;
         private Label lblTitulo;
-        private FontAwesome.Sharp.IconButton btnYes;
-        private FontAwesome.Sharp.IconButton btnNo;
         private RichTextBox richTextBoxMensaje;
         private Panel panel1;
         private Panel panel2;
+        private Button btnNo2;
+        private Button btnYes2;
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AccesoDatos;
 using AccesoDatos.Entidades;
+using static Dominio.LicenciaUsoModel;
 namespace Dominio
 {
     public class LicenciaUsoModel : ConnectionSQL
@@ -19,6 +20,7 @@ namespace Dominio
 
         public bool InsertarLicenciaUso(
             int idMarca,
+            int idTitular,
             string titulo,
             string tipo,
             DateTime fechaInicio,
@@ -34,8 +36,36 @@ namespace Dominio
         )
         {
             return licenciaDao.InsertarLicenciaUso(
-                idMarca, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen
+                idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen
             );
+        }
+
+        public bool EditarLicenciaUso(
+            int id,
+            int idMarca,
+            int idTitular,
+            string titulo,
+            string tipo,
+            DateTime fechaInicio,
+            DateTime fechaFin,
+            string territorio,
+            string nombreRazonSocial,
+            string direccion,
+            string domicilio,
+            string nacionalidad,
+            string apoderadoRepresentanteLegal,
+            string estado,
+            string origen
+        )
+        {
+            return licenciaDao.EditarLicenciaUso(
+                id, idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen
+            );
+        }
+
+        public bool ExisteOtraLicenciaUsoNoExclusiva(int idMarca, int idLicenciaExcluir, string origen)
+        {
+            return licenciaDao.ExisteOtraLicenciaUsoNoExclusiva(idMarca, idLicenciaExcluir, origen);
         }
 
 
@@ -81,10 +111,11 @@ namespace Dominio
         {
             return licenciaDao.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(valor);
         }
-        public bool ExisteLicenciaUsoExclusiva(int idMarca)
+        public bool VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
         {
-            return licenciaDao.ExisteLicenciaUsoExclusiva(idMarca);
+            return licenciaDao.VerificarCompatibilidadLicenciaUso(idMarca, tipoLicencia, origen);
         }
+
 
         public DataTable ObtenerLicenciaUsoPorId(int idLicencia)
         {
@@ -103,7 +134,10 @@ namespace Dominio
             return licenciaDao.ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
         }
 
-
+        public string FinalizarLicencia(int idLicencia)
+        {
+            return licenciaDao.CambiarEstadoLicencia(idLicencia);
+        }
 
     }
 }

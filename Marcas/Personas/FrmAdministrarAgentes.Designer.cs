@@ -457,7 +457,7 @@
             roundedButton5.FlatStyle = FlatStyle.Flat;
             roundedButton5.Font = new Font("Century Gothic", 15F);
             roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Image = Properties.Resources.empresarios_2_;
+            roundedButton5.Image = Properties.Resources.empresario;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton5.Location = new Point(22, 3);
             roundedButton5.Name = "roundedButton5";
@@ -793,7 +793,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 12F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Image = Properties.Resources.empresarios_2_;
+            roundedButton1.Image = Properties.Resources.empresarios;
             roundedButton1.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton1.Location = new Point(3, 4);
             roundedButton1.Name = "roundedButton1";

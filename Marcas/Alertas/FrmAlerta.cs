@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,19 +37,20 @@ namespace Presentacion.Alertas
             switch (icon)
             {
                 case MessageBoxIcon.Information:
-                    picIcon.Image = Properties.Resources.suc;
+                    picIcon.Image = Properties.Resources.success;
                     break;
                 case MessageBoxIcon.Warning:
-                    picIcon.Image = Properties.Resources.warning;
+
+                    picIcon.Image = Properties.Resources.warning_pica_pica;
                     break;
                 case MessageBoxIcon.Error:
-                    picIcon.Image = Properties.Resources.error;
+                    picIcon.Image = Properties.Resources.error_pica__2__pica;
                     break;
                 case MessageBoxIcon.Question:
-                    picIcon.Image = Properties.Resources.question;
+                    picIcon.Image = Properties.Resources.pregunta_artguru_artguru;
                     break;
                 default:
-                    picIcon.Image = Properties.Resources.info;
+                    picIcon.Image = Properties.Resources.informacion_artguru_artguru;
                     break;
             }
 
@@ -56,26 +58,26 @@ namespace Presentacion.Alertas
             if (buttons == MessageBoxButtons.OK)
             {
 
-                btnYes.Text = "OK";
-                btnYes.Width = 100;
-                btnYes.Left = (this.ClientSize.Width - btnYes.Width) / 2;
-                btnNo.Visible = false;
+                btnYes2.Text = "OK";
+                btnYes2.Width = 100;
+                btnYes2.Left = (this.ClientSize.Width - btnYes2.Width) / 2;
+                btnNo2.Visible = false;
             }
             else if (buttons == MessageBoxButtons.YesNo)
             {
 
-                btnYes.Text = "Sí";
-                btnNo.Text = "No";
-                btnYes.Width = 100;
-                btnNo.Width = 100;
+                btnYes2.Text = "Sí";
+                btnNo2.Text = "No";
+                btnYes2.Width = 100;
+                btnNo2.Width = 100;
 
 
-                btnYes.Left = (this.ClientSize.Width / 2) - btnYes.Width - 10;
-                btnNo.Left = (this.ClientSize.Width / 2) + 10;
+                btnYes2.Left = (this.ClientSize.Width / 2) - btnYes2.Width - 10;
+                btnNo2.Left = (this.ClientSize.Width / 2) + 10;
             }
             lblTitulo.Left = ((this.ClientSize.Width - lblTitulo.Width) / 2);
 
-            this.Load += FrmAlerta_Load;
+            //this.Load += FrmAlerta_Load;
             FrmAlerta_Resize(this, EventArgs.Empty);
         }
         private void FrmAlerta_Resize(object sender, EventArgs e)
@@ -88,13 +90,13 @@ namespace Presentacion.Alertas
         }
 
 
-        private void btnNo_Click(object sender, EventArgs e)
+        private void btnNo2_Click(object sender, EventArgs e)
         {
             DialogResult = System.Windows.Forms.DialogResult.No;
             this.Close();
         }
 
-        private void btnYes_Click(object sender, EventArgs e)
+        private void btnYes2_Click(object sender, EventArgs e)
         {
             DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.Close();
