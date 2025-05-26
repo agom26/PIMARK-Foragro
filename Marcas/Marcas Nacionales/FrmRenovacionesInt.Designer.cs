@@ -981,6 +981,7 @@
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton2.UseVisualStyleBackColor = false;
+            iconButton1.Click += iconButton1_Click_1;
             iconButton2.Click += iconButton2_Click_1;
             // 
             // iconButton4

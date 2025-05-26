@@ -1067,7 +1067,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async Task iconButton4_Click_1(object sender, EventArgs e)
+        private async void iconButton4_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (!archivoSubido)

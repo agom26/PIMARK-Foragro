@@ -1039,13 +1039,12 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void iconButton1_Click_1(object sender, EventArgs e)
+        private void iconButton1_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaInternacional();
-
             }
             else
             {
@@ -1055,7 +1054,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private async Task iconButton2_Click_1(object sender, EventArgs e)
+        private async void iconButton2_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (!archivoSubido)
