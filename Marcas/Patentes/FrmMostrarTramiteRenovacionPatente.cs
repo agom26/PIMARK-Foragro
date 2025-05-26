@@ -30,6 +30,7 @@ namespace Presentacion.Patentes
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        private bool archivoSubido = false;
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
         private string usuario = "test@bpa.com.es"; // Tu usuario FTP
@@ -38,6 +39,7 @@ namespace Presentacion.Patentes
         public FrmMostrarTramiteRenovacionPatente()
         {
             InitializeComponent();
+            archivoSubido = false;
             this.Load += FrmMostrarTramiteRenovacionPatente_Load;
         }
         private async Task LoadPatentes()
@@ -726,7 +728,7 @@ namespace Presentacion.Patentes
             btnVerRenovaciones.Visible = false;
             btnVerTraspasos.Visible = false;
             tabControl1.Visible = true;
-
+            archivoSubido = false;
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
@@ -1067,6 +1069,14 @@ namespace Presentacion.Patentes
         private async void btnTraspasar_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return;
+            }
+
             if (DatosRegistro.peligro == false)
             {
                 FrmAgregarRenovacionConcedidaPatente frmAgregarConcesion = new FrmAgregarRenovacionConcedidaPatente();
@@ -1651,6 +1661,82 @@ namespace Presentacion.Patentes
         private void tabPageIngresadasList_Click(object sender, EventArgs e)
         {
 
+        }
+        private void SubirArchivoRenovacion(string idMarca)
+        {
+            string carpeta = $"{directorioBase}/patente-{idMarca}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.InnerException.Message}");
+                    archivoSubido = false;
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                archivoSubido = false;
+            }
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            SubirArchivoRenovacion("" + SeleccionarPatente.id);
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                archivoSubido = false;
+            }
+            else
+            {
+                archivoSubido = true;
+            }
+            
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Presentacion.Marcas_Nacionales
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        private bool archivoSubido = false;
 
         //ftp
         private string host = "ftp.bpa.com.es"; // Tu host FTP
@@ -47,7 +48,7 @@ namespace Presentacion.Marcas_Nacionales
         public FrmRenovaciones()
         {
             InitializeComponent();
-
+            archivoSubido = false;
             this.Load += FrmRenovaciones_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -76,7 +77,7 @@ namespace Presentacion.Marcas_Nacionales
                     dtgMarcasRenov.DataSource = marcasN;
 
                 }));
-               
+
             }
         }
 
@@ -603,6 +604,7 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarFechaVencimiento();
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
+            archivoSubido = false;
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -952,7 +954,7 @@ namespace Presentacion.Marcas_Nacionales
             if (actualizar == true)
             {
                 MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AnadirTabPage( tabPageHistorialMarca);
+                AnadirTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
             }
             else
@@ -991,7 +993,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private async void btnActualizarM_Click(object sender, EventArgs e)
+        private void btnActualizarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
@@ -1006,9 +1008,17 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void btnTraspasar_Click(object sender, EventArgs e)
+        private async void btnTraspasar_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
+
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return;
+            }
+
             if (DatosRegistro.peligro == false)
             {
                 FrmAgregarRenovacionConcedida frmAgregarConcesion = new FrmAgregarRenovacionConcedida();
@@ -1022,7 +1032,7 @@ namespace Presentacion.Marcas_Nacionales
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageHistorialMarca);
                     EliminarTabPage(tabPageListaArchivos);
-                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    await LoadMarcas();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN GUARDADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
 
@@ -1567,6 +1577,81 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             dtgHistorialR.ClearSelection();
+        }
+        private void SubirArchivoRenovacion(string idMarca)
+        {
+            string carpeta = $"{directorioBase}/marca-{idMarca}/";
+            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Seleccione un archivo para subir",
+                Filter = "Todos los archivos (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                string archivoLocal1 = openFileDialog.FileName;
+                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+
+                // Verificar tamaño del archivo antes de subirlo
+                FileInfo fileInfo = new FileInfo(archivoLocal1);
+                if (fileInfo.Length > limiteTamanio)
+                {
+                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.Default;
+                    return; // No sube el archivo si es demasiado grande
+                }
+
+                try
+                {
+                    using (var client = new FtpClient(host, usuario, contraseña))
+                    {
+                        client.Connect();
+
+                        // Crear carpeta si no existe
+                        if (!client.DirectoryExists(carpeta))
+                        {
+                            client.CreateDirectory(carpeta);
+                        }
+
+                        // Subir el archivo
+                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
+                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+
+                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al subir el archivo: {ex.InnerException.Message}");
+                    archivoSubido = false;
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                archivoSubido = false;
+            }
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            SubirArchivoRenovacion("" + SeleccionarMarca.idInt);
+            if (!archivoSubido)
+            {
+                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                archivoSubido = false;
+            }
+            else
+            {
+                archivoSubido = true;
+            }
         }
     }
 }

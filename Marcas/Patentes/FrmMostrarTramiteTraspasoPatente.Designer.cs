@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageIngresadasList = new TabPage();
             panel16 = new Panel();
@@ -193,6 +193,7 @@
             dtgArchivos = new DataGridView();
             iconButton10 = new FontAwesome.Sharp.IconButton();
             label19 = new Label();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabPageIngresadasList.SuspendLayout();
             panel3.SuspendLayout();
@@ -281,7 +282,7 @@
             // panel16
             // 
             panel16.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel16.Location = new Point(-169, 790);
+            panel16.Location = new Point(-186, 790);
             panel16.Name = "panel16";
             panel16.Size = new Size(130, 27);
             panel16.TabIndex = 232;
@@ -299,7 +300,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(830, 752);
+            btnLast.Location = new Point(813, 752);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 236;
@@ -320,7 +321,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(722, 752);
+            btnNext.Location = new Point(705, 752);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 235;
@@ -341,7 +342,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(612, 752);
+            btnPrev.Location = new Point(595, 752);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 234;
@@ -362,7 +363,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(502, 752);
+            btnFirst.Location = new Point(485, 752);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 233;
@@ -375,7 +376,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(903, 173);
+            lblTotalPages.Location = new Point(886, 173);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 231;
@@ -386,7 +387,7 @@
             label16.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label16.AutoSize = true;
             label16.Font = new Font("Century Gothic", 9F);
-            label16.Location = new Point(863, 173);
+            label16.Location = new Point(846, 173);
             label16.Name = "label16";
             label16.Size = new Size(24, 17);
             label16.TabIndex = 230;
@@ -397,7 +398,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(837, 173);
+            lblCurrentPage.Location = new Point(820, 173);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 229;
@@ -418,7 +419,7 @@
             label28.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label28.AutoSize = true;
             label28.Font = new Font("Century Gothic", 9F);
-            label28.Location = new Point(763, 173);
+            label28.Location = new Point(746, 173);
             label28.Name = "label28";
             label28.Size = new Size(49, 17);
             label28.TabIndex = 227;
@@ -535,7 +536,7 @@
             panel9.Controls.Add(roundedButton3);
             panel9.Location = new Point(23, 60);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1115, 101);
+            panel9.Size = new Size(1098, 101);
             panel9.TabIndex = 195;
             // 
             // iconButton12
@@ -548,7 +549,7 @@
             iconButton12.IconColor = Color.Black;
             iconButton12.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton12.IconSize = 25;
-            iconButton12.Location = new Point(569, 50);
+            iconButton12.Location = new Point(561, 50);
             iconButton12.Name = "iconButton12";
             iconButton12.Size = new Size(26, 24);
             iconButton12.TabIndex = 211;
@@ -561,7 +562,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(236, 236, 238);
             label2.Font = new Font("Century Gothic", 10F);
-            label2.Location = new Point(267, 27);
+            label2.Location = new Point(259, 27);
             label2.Name = "label2";
             label2.Size = new Size(142, 19);
             label2.TabIndex = 0;
@@ -571,7 +572,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 10F);
-            txtBuscar.Location = new Point(262, 50);
+            txtBuscar.Location = new Point(254, 50);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 24);
             txtBuscar.TabIndex = 1;
@@ -590,7 +591,7 @@
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 25;
             ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar.Location = new Point(601, 33);
+            ibtnBuscar.Location = new Point(593, 33);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(144, 44);
             ibtnBuscar.TabIndex = 16;
@@ -612,7 +613,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(228, 25);
+            roundedButton3.Location = new Point(220, 25);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(560, 61);
             roundedButton3.TabIndex = 22;
@@ -632,7 +633,7 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 30;
             iconButton3.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton3.Location = new Point(940, 250);
+            iconButton3.Location = new Point(923, 250);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(181, 49);
             iconButton3.TabIndex = 194;
@@ -655,7 +656,7 @@
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 30;
             ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(940, 196);
+            ibtnEditar.Location = new Point(923, 196);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(181, 49);
             ibtnEditar.TabIndex = 191;
@@ -672,7 +673,7 @@
             panel4.Controls.Add(dtgPatentes);
             panel4.Location = new Point(23, 196);
             panel4.Name = "panel4";
-            panel4.Size = new Size(911, 550);
+            panel4.Size = new Size(894, 550);
             panel4.TabIndex = 193;
             // 
             // dtgPatentes
@@ -680,22 +681,22 @@
             dtgPatentes.AllowUserToAddRows = false;
             dtgPatentes.AllowUserToDeleteRows = false;
             dtgPatentes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 10F);
-            dtgPatentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 10F);
+            dtgPatentes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             dtgPatentes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgPatentes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgPatentes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgPatentes.BorderStyle = BorderStyle.None;
             dtgPatentes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgPatentes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgPatentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dtgPatentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dtgPatentes.ColumnHeadersHeight = 40;
             dtgPatentes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgPatentes.EnableHeadersVisualStyles = false;
@@ -706,10 +707,10 @@
             dtgPatentes.ReadOnly = true;
             dtgPatentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgPatentes.RowHeadersWidth = 51;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F);
-            dtgPatentes.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 10F);
+            dtgPatentes.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dtgPatentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgPatentes.Size = new Size(880, 520);
+            dtgPatentes.Size = new Size(863, 520);
             dtgPatentes.TabIndex = 190;
             dtgPatentes.CellDoubleClick += dtgPatentes_CellDoubleClick;
             // 
@@ -717,15 +718,16 @@
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
-            tabPageMarcaDetail.Location = new Point(4, 24);
+            tabPageMarcaDetail.Location = new Point(4, 26);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 715);
+            tabPageMarcaDetail.Size = new Size(1161, 713);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(roundedButton9);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(checkBox2);
@@ -1494,14 +1496,14 @@
             dtgHistorial.BorderStyle = BorderStyle.None;
             dtgHistorial.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorial.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgHistorial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = SystemColors.Control;
+            dataGridViewCellStyle11.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dtgHistorial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dtgHistorial.ColumnHeadersHeight = 40;
             dtgHistorial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorial.EnableHeadersVisualStyles = false;
@@ -1796,14 +1798,14 @@
             dtgRenovaciones.BorderStyle = BorderStyle.None;
             dtgRenovaciones.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgRenovaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = SystemColors.Control;
+            dataGridViewCellStyle12.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
+            dtgRenovaciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             dtgRenovaciones.ColumnHeadersHeight = 40;
             dtgRenovaciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgRenovaciones.EnableHeadersVisualStyles = false;
@@ -2061,14 +2063,14 @@
             dtgTraspasos.BorderStyle = BorderStyle.None;
             dtgTraspasos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTraspasos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = SystemColors.Control;
+            dataGridViewCellStyle13.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle13.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
+            dtgTraspasos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             dtgTraspasos.ColumnHeadersHeight = 40;
             dtgTraspasos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgTraspasos.EnableHeadersVisualStyles = false;
@@ -2433,14 +2435,14 @@
             dtgArchivos.BorderStyle = BorderStyle.None;
             dtgArchivos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgArchivos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dtgArchivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = SystemColors.Control;
+            dataGridViewCellStyle14.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle14.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
+            dtgArchivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             dtgArchivos.ColumnHeadersHeight = 40;
             dtgArchivos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgArchivos.EnableHeadersVisualStyles = false;
@@ -2479,6 +2481,29 @@
             label19.Size = new Size(149, 32);
             label19.TabIndex = 74;
             label19.Text = "ARCHIVOS";
+            // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(802, 1010);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(276, 58);
+            btnAdjuntarT.TabIndex = 215;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
             // 
             // FrmMostrarTramiteTraspasoPatente
             // 
@@ -2708,5 +2733,6 @@
         private FontAwesome.Sharp.IconButton iconButton11;
         private FontAwesome.Sharp.IconButton iconButton13;
         private FontAwesome.Sharp.IconButton iconButton14;
+        private FontAwesome.Sharp.IconButton btnAdjuntarT;
     }
 }
