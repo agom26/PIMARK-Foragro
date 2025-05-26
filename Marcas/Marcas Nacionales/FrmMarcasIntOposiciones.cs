@@ -56,7 +56,6 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             this.Load += FrmMarcasIntOposiciones_Load;
 
-            //ActualizarFechaVencimiento();
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -69,28 +68,27 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadMarcas(string situacionActual)
         {
-            totalRows = oposicionModel.GetTotalOposicionesNacionalesRecibidas(situacionActual);
+            var resultado = await Task.Run(() =>
+                oposicionModel.ObtenerOposicionesNacionalesRecibidasCombinado(situacionActual, currentPageIndex, pageSize)
+            ).ConfigureAwait(false);
+
+            totalRows = resultado.total;
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionales(situacionActual, currentPageIndex, pageSize));
+            var marcasN = resultado.datos;
 
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasOp.DataSource = marcasN;
-
-                if (dtgMarcasOp.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-
-                    dtgMarcasOp.Columns["IdMarca"].Visible = false;
-                    dtgMarcasOp.Columns["id"].Visible = false;
-                    dtgMarcasOp.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgMarcasOp.DataSource = marcasN;
 
 
-            }));
+                }));
+            }
         }
+
         public async void filtrarRecibidas()
         {
             string buscar = txtBuscar.Text;
@@ -128,25 +126,26 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadMarcasInterpuestas(string situacionActual)
         {
-            totalRows2 = oposicionModel.GetTotalOposicionesNacionalesInterpuestas(situacionActual);
-            totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
-            var marcasN = await Task.Run(() => oposicionModel.GetAllOposicionesNacionalesInterpuestas(situacionActual, currentPageIndex2, pageSize2));
+            var resultado = await Task.Run(() =>
+                oposicionModel.ObtenerOposicionesNacionalesInterpuestasCombinado(situacionActual, currentPageIndex2, pageSize2)
+            ).ConfigureAwait(false);
 
-            Invoke(new Action(() =>
+            totalRows2 = resultado.total;
+            totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+            var marcasN = resultado.datos;
+
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages2.Text = totalPages2.ToString();
-                lblTotalRows2.Text = totalRows2.ToString();
-                dtgOpI.DataSource = marcasN;
-                dtgOpI.Refresh();
-                // Oculta la columna 'id'
-                if (dtgOpI.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgOpI.Columns["IdMarca"].Visible = false;
-                    dtgOpI.Columns["id"].Visible = false;
-                    // Desactiva la selección automática de la primera fila
-                    dtgOpI.ClearSelection();
-                }
-            }));
+                    lblTotalPages2.Text = totalPages2.ToString();
+                    lblTotalRows2.Text = totalRows2.ToString();
+                    dtgOpI.DataSource = marcasN;
+                    dtgOpI.Refresh();
+
+
+                }));
+            }
         }
         private void AnadirTabPage(TabPage nombre)
         {
@@ -431,52 +430,58 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void loadHistorialById()
+        private async Task loadHistorialById()
         {
             try
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarOposicion.idMarca));
-
-                // Invoca el método para actualizar el DataGridView en el hilo principal
-                Invoke(new Action(() =>
+                Invoke(() =>
                 {
                     dtgHistorialOp.AutoGenerateColumns = true;
                     dtgHistorialOp.DataSource = historial;
-                    dtgHistorialOp.Refresh();
-
                     if (dtgHistorialOp.Columns["id"] != null)
-                    {
                         dtgHistorialOp.Columns["id"].Visible = false;
-                    }
 
                     dtgHistorialOp.ClearSelection();
-                }));
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message);
             }
         }
 
+        private async Task loadHistorialOposicion()
+        {
+            try
+            {
+                HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                var historial = await Task.Run(() => historialOposicionModel.ObtenerHistorial(SeleccionarOposicion.idN));
+                Invoke(() =>
+                {
+                    dtgHistorialOp.AutoGenerateColumns = true;
+                    dtgHistorialOp.DataSource = historial;
+                    if (dtgHistorialOp.Columns["Id"] != null)
+                        dtgHistorialOp.Columns["Id"].Visible = false;
+
+                    dtgHistorialOp.ClearSelection();
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message);
+            }
+        }
+
+
         private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
         {
-            tabControl1.Visible = false;
             Cursor = Cursors.WaitCursor;
-            
-
-            var tareas = new Task[]
-            {
-                FiltrarPorSituacionActual(),
-                FiltrarPorSituacionActualInterpuestas()
-            };
-
-            await Task.WhenAll(tareas);
-
-            tabControl1.Visible = true;
-            Cursor = Cursors.Default;
-
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
+
+            Cursor = Cursors.Default;
+
             tabControl1.SelectedTab = tabPageOposicionesList;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
@@ -487,11 +492,35 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             currentPageIndex2 = 1;
             lblCurrentPage2.Text = currentPageIndex2.ToString();
+
         }
+
+        private void LimpiarCamposOposicion()
+        {
+
+            // Limpiar controles del formulario
+            txtExpedienteAO.Text = string.Empty;
+            txtSignoAO.Text = string.Empty;
+            cmbSignoDAO.SelectedIndex = -1;
+            txtClaseAO.Text = string.Empty;
+            txtSolicitanteSignoPretendido.Text = string.Empty;
+            txtNombreTitularAO.Text = string.Empty;
+            txtSignoOpositor.Text = string.Empty;
+            richtxtObservacionesAO.Text = string.Empty;
+
+
+            // Logos
+            checkBoxAgregarLogos.Checked = false;
+            convertirImagen(); // Asume que esto crea un "documento" por defecto
+            pictureBoxOpositor.Image = documento;
+            pictureBoxSignoPretendido.Image = documento;
+
+        }
+
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            /*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
 
@@ -500,7 +529,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 tabControl1.Visible = false;
                 Cursor = Cursors.WaitCursor;
-                
+
                 var tareas = new Task[]
                {
                     FiltrarPorSituacionActual(),
@@ -508,10 +537,10 @@ namespace Presentacion.Marcas_Internacionales
                };
 
                 await Task.WhenAll(tareas);
-               
+
                 SeleccionarOposicion.idN = 0;
-                
-                
+
+
                 tabControl1.Visible = true;
                 Cursor = Cursors.Default;
 
@@ -541,7 +570,7 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageAgregarOposicion);
                 dtgReportesOp.DataSource = null;
                 dtgReportesOp.ClearSelection();
-            }
+            }*/
         }
         private async Task CargarDatosOposicion()
         {
@@ -598,7 +627,7 @@ namespace Presentacion.Marcas_Internacionales
                     if (tieneLogoOpositor || tieneLogoSignoPretendido)
                     {
                         checkBoxAgregarLogos.Checked = true;
-                        
+
                         if (tieneLogoOpositor)
                         {
                             MostrarLogoEnPictureBoxOpositor((byte[])row["logo_opositor"]);
@@ -741,10 +770,12 @@ namespace Presentacion.Marcas_Internacionales
 
         public async void Editar()
         {
+            btnVerHistorial.Visible = true;
             btnEnviarATramite.Visible = true;
             VerificarSeleccionEdicion();
             if (SeleccionarOposicion.idN > 0)
             {
+                LimpiarCamposOposicion();
                 await CargarDatosOposicion();
             }
         }
@@ -881,7 +912,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadHistorialById();
+            //loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
         }
 
@@ -1188,7 +1219,9 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageHistorialMarca;
+            AnadirTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageHistorialDetail);
+
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
@@ -1208,7 +1241,9 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton4_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageAgregarOposicion;
+            LimpiarTablaHistorial();
+            AnadirTabPage(tabPageAgregarOposicion);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void btnActualizarM_Click(object sender, EventArgs e)
@@ -1309,6 +1344,8 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void iconButton6_Click(object sender, EventArgs e)
         {
+            LimpiarCamposOposicion();
+            btnVerHistorial.Visible = false;
             btnEnviarATramite.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
             txtExpedienteAO.Enabled = true;
@@ -2008,6 +2045,7 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton9_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageOposicionesList);
+            EliminarTabPage(tabPageReportes);
         }
         public async void Filtrar()
         {
@@ -2616,49 +2654,70 @@ namespace Presentacion.Marcas_Internacionales
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
-        private async void loadHistorialOposicion()
+
+
+        private void LimpiarTablaHistorial()
         {
-            try
-            {
-                HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                var historial = await Task.Run(() => historialOposicionModel.ObtenerHistorial(SeleccionarOposicion.idN));
-
-                Invoke(new Action(() =>
-                {
-                    dtgHistorialOp.AutoGenerateColumns = true;
-                    dtgHistorialOp.DataSource = historial;
-
-                    if (dtgHistorialOp.Columns["id"] != null)
-                    {
-                        dtgHistorialOp.Columns["id"].Visible = false;
-                    }
-
-                    dtgHistorialOp.ClearSelection();
-                }));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            dtgHistorialOp.DataSource = null;
+            dtgHistorialOp.Rows.Clear();
+            dtgHistorialOp.Refresh();
         }
 
-        private void roundedButton14_Click(object sender, EventArgs e)
+        private async void roundedButton14_Click(object sender, EventArgs e)
         {
-            AnadirTabPage(tabPageHistorialMarca);
+            LimpiarTablaHistorial();
+
+
             string resultado = oposicionModel.ObtenerTipoOposicion(SeleccionarOposicion.idN);
             if (resultado == "recibida")
             {
-                loadHistorialById();
+                await loadHistorialById();
             }
             else if (resultado == "interpuesta")
             {
-                loadHistorialOposicion();
+                await loadHistorialOposicion();
             }
+
+            AnadirTabPage(tabPageHistorialMarca);
         }
 
         private void dtgHistorialOp_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditarHistorial();
+        }
+
+        private void dtgOpI_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgOpI.Columns["id"] != null)
+            {
+                dtgOpI.Columns["IdMarca"].Visible = false;
+                dtgOpI.Columns["id"].Visible = false;
+                dtgOpI.ClearSelection();
+            }
+        }
+
+        private void dtgMarcasOp_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgMarcasOp.Columns["id"] != null)
+            {
+                dtgMarcasOp.Columns["IdMarca"].Visible = false;
+                dtgMarcasOp.Columns["id"].Visible = false;
+                dtgMarcasOp.ClearSelection();
+            }
+        }
+
+        private void dtgHistorialOp_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewColumn column in dtgHistorialOp.Columns)
+            {
+                string colName = column.Name.ToLower();
+                if (colName == "id" || colName == "Id")
+                {
+                    column.Visible = false;
+                }
+            }
+
+            dtgHistorialOp.ClearSelection();
         }
     }
 }

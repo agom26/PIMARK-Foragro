@@ -11,6 +11,36 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao:ConnectionSQL
     {
+        public bool EliminarMarcaConLog(int idMarca, string usuario)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    using (var command = new MySqlCommand("EliminarMarcaConLog", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@p_Id", idMarca);
+                        command.Parameters.AddWithValue("@p_usuario", usuario);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[Error SQL] {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error general] {ex.Message}");
+                return false;
+            }
+        }
 
         //todas las marcas nacionales para licencias de uso
         public DataTable GetAllMarcasNacionalesParaLicencia(int currentPageIndex, int pageSize)

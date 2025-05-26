@@ -220,12 +220,13 @@ namespace Presentacion.Marcas_Internacionales
 
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
@@ -327,7 +328,7 @@ namespace Presentacion.Marcas_Internacionales
                             convertirImagen();
                             pictureBox1.Image = documento;
                         }
-                        
+
                         bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
@@ -411,12 +412,7 @@ namespace Presentacion.Marcas_Internacionales
                     dtgHistorialAban.DataSource = historial;
                     dtgHistorialAban.Refresh();
 
-                    if (dtgHistorialAban.Columns["id"] != null)
-                    {
-                        dtgHistorialAban.Columns["id"].Visible = false;
-                    }
 
-                    dtgHistorialAban.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -437,13 +433,7 @@ namespace Presentacion.Marcas_Internacionales
                     dtgRenovaciones.DataSource = renovaciones;
                     dtgRenovaciones.Refresh();
 
-                    if (dtgRenovaciones.Columns["id"] != null)
-                    {
-                        dtgRenovaciones.Columns["id"].Visible = false;
-                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
-                    }
 
-                    dtgRenovaciones.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -464,15 +454,7 @@ namespace Presentacion.Marcas_Internacionales
                     dtgTraspasos.DataSource = traspasos;
                     dtgTraspasos.Refresh();
 
-                    if (dtgTraspasos.Columns["id"] != null)
-                    {
-                        dtgTraspasos.Columns["id"].Visible = false;
-                        dtgTraspasos.Columns["IdMarca"].Visible = false;
-                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
-                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
-                    }
 
-                    dtgTraspasos.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -484,11 +466,12 @@ namespace Presentacion.Marcas_Internacionales
         public async void Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
+            LimpiarFormulario();
             if (SeleccionarMarca.idN > 0)
             {
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
-                tabControl1.SelectedTab = tabPageMarcaDetail;
+                EliminarTabPage(tabPageAbandonadasList);
             }
         }
         private void ibtnEditar_Click(object sender, EventArgs e)
@@ -510,7 +493,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -545,7 +528,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageHistorialMarca);
-            }
+            }*/
         }
 
         private void roundedButton6_Click(object sender, EventArgs e)
@@ -566,7 +549,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
@@ -576,12 +560,14 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageTraspasosList);
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageTraspasosList);
         }
 
         private void roundedButton8_Click(object sender, EventArgs e)
@@ -611,6 +597,8 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageListaArchivos);
             tabControl1.SelectedTab = tabPageAbandonadasList;
+            SeleccionarMarca.idN = 0;
+            LimpiarFormulario();
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
@@ -1128,7 +1116,9 @@ namespace Presentacion.Marcas_Internacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
-                            tabControl1.SelectedTab = tabPageAbandonadasList;
+                            AnadirTabPage(tabPageAbandonadasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            LimpiarFormulario();
                         }
                         else
                         {
@@ -1138,7 +1128,9 @@ namespace Presentacion.Marcas_Internacionales
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             SeleccionarMarca.idN = 0;
-                            tabControl1.SelectedTab = tabPageAbandonadasList;
+                            AnadirTabPage(tabPageAbandonadasList);
+                            EliminarTabPage(tabPageMarcaDetail);
+                            LimpiarFormulario();
                         }
                     }
                     else
@@ -1151,14 +1143,12 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LimpiarFormulario();
             }
         }
 
@@ -1173,7 +1163,7 @@ namespace Presentacion.Marcas_Internacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaInternacional();
-                EliminarTabPage(tabPageHistorialMarca);
+
             }
             else
             {
@@ -1454,7 +1444,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton10_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
         }
 
         private void iconButton12_Click(object sender, EventArgs e)
@@ -1475,6 +1466,40 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton13_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtgHistorialAban_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorialAban.Columns["id"] != null)
+            {
+                dtgHistorialAban.Columns["id"].Visible = false;
+            }
+
+            dtgHistorialAban.ClearSelection();
+        }
+
+        private void dtgRenovaciones_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgRenovaciones.Columns["id"] != null)
+            {
+                dtgRenovaciones.Columns["id"].Visible = false;
+                dtgRenovaciones.Columns["IdMarca"].Visible = false;
+            }
+
+            dtgRenovaciones.ClearSelection();
+        }
+
+        private void dtgTraspasos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgTraspasos.Columns["id"] != null)
+            {
+                dtgTraspasos.Columns["id"].Visible = false;
+                dtgTraspasos.Columns["IdMarca"].Visible = false;
+                dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
+            }
+
+            dtgTraspasos.ClearSelection();
         }
     }
 }

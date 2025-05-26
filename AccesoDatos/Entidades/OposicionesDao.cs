@@ -11,6 +11,92 @@ namespace AccesoDatos.Entidades
 {
     public class OposicionesDao: ConnectionSQL
     {
+        public (int total, DataTable datos) ObtenerOposicionesNacionalesInterpuestasCombinado(string situacionActual, int currentPageIndex, int pageSize)
+        {
+            int total = 0;
+            DataTable datos = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("ObtenerOposicionesNacionalesInterpuestasCombinado", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        cmd.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+                        cmd.Parameters.AddWithValue("pageSize", pageSize);
+                        cmd.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                total = reader.GetInt32("totalMarcas");
+                            }
+
+                            if (reader.NextResult())
+                            {
+                                datos.Load(reader);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener oposiciones interpuestas combinadas: " + ex.Message);
+                }
+            }
+
+            return (total, datos);
+        }
+
+
+        public (int total, DataTable datos) ObtenerOposicionesNacionalesRecibidasCombinado(string situacionActual, int currentPageIndex, int pageSize)
+        {
+            int total = 0;
+            DataTable datos = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("ObtenerOposicionesNacionalesRecibidasCombinado", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        cmd.Parameters.AddWithValue("p_situacion_actual", situacionActual);
+                        cmd.Parameters.AddWithValue("pageSize", pageSize);
+                        cmd.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // 1. Primer resultado: total
+                            if (reader.Read())
+                            {
+                                total = reader.GetInt32("totalMarcas");
+                            }
+
+                            // 2. Segundo resultado: los registros paginados
+                            if (reader.NextResult())
+                            {
+                                datos.Load(reader);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener oposiciones nacionales combinadas: " + ex.Message);
+                }
+            }
+
+            return (total, datos);
+        }
 
 
         public string ObtenerTipoOposicion(int idOposicion)

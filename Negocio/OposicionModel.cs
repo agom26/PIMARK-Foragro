@@ -18,6 +18,17 @@ namespace Dominio
             oposicionDao = new OposicionesDao();
         }
 
+        public (int total, DataTable datos) ObtenerOposicionesNacionalesInterpuestasCombinado(string situacionActual, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.ObtenerOposicionesNacionalesInterpuestasCombinado(situacionActual, currentPageIndex, pageSize);
+        }
+
+
+        public (int total, DataTable datos) ObtenerOposicionesNacionalesRecibidasCombinado(string situacionActual, int currentPageIndex, int pageSize)
+        {
+            return oposicionDao.ObtenerOposicionesNacionalesRecibidasCombinado(situacionActual, currentPageIndex, pageSize);
+        }
+
         public string ObtenerTipoOposicion(int idOp)
         {
             return oposicionDao.ObtenerTipoOposicion(idOp);

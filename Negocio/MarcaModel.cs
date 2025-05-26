@@ -16,6 +16,10 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
+        public bool EliminarMarcaConLog(int idMarca, string usuario)
+        {
+            return marcaDao.EliminarMarcaConLog(idMarca, usuario);
+        }
         public DataTable GetAllMarcasNacionalesParaLicencia(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();

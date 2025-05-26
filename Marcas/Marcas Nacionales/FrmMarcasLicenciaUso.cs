@@ -235,15 +235,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPageOposicionesList)
-            {
-                //await CargarDatosLicenciasUsoAsync();
-            }
-            else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
-            {
-                //await CargarDatosOposicion();
-            }
-
+           
         }
 
         private async Task CargarDatosLicenciaUso()

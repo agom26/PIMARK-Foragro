@@ -5,6 +5,7 @@ using AccesoDatos.ServiciosEmail;
 using AccesoDatos.MySqlServer;
 using AccesoDatos.Usuarios;
 using System.Data;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace AccesoDatos.Usuarios
 {
@@ -20,7 +21,8 @@ namespace AccesoDatos.Usuarios
                 using (var command = new MySqlCommand("INSERT INTO USERS (usuario, contrasena, nombres, apellidos, isAdmin, correo) VALUES (@usuario, @contrasena, @nombres, @apellidos, @isAdmin, @correo)", connection))
                 {
                     command.Parameters.AddWithValue("@usuario", usuario);
-                    command.Parameters.AddWithValue("@contrasena", contrasena);
+                    string hash = BCrypt.Net.BCrypt.HashPassword(contrasena);
+                    command.Parameters.AddWithValue("@contrasena", hash);
                     command.Parameters.AddWithValue("@nombres", nombres);
                     command.Parameters.AddWithValue("@apellidos", apellidos);
                     command.Parameters.AddWithValue("@isAdmin", isAdmin);
@@ -255,9 +257,82 @@ namespace AccesoDatos.Usuarios
             return tabla;
         }
 
+        public (bool, bool) Login(string user, string pass)
+        {
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (var command = new MySqlCommand("SELECT contrasena, isAdmin, id, usuario, nombres, apellidos, correo FROM USERS WHERE usuario=@user", connection))
+                    {
+                        command.Parameters.AddWithValue("@user", user);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string storedPassword = reader.GetString(0);
+                                bool passwordMatches = false;
+
+                                // Verificamos si la contraseña almacenada parece un hash bcrypt (si empieza con $2)
+                                if (storedPassword.StartsWith("$2"))
+                                {
+                                    passwordMatches = BCrypt.Net.BCrypt.Verify(pass, storedPassword);
+                                }
+                                else
+                                {
+                                    // Comparar directamente (texto plano)
+                                    if (storedPassword == pass)
+                                    {
+                                        passwordMatches = true;
+
+                                        // Migrar a hash bcrypt
+                                        string newHash = BCrypt.Net.BCrypt.HashPassword(pass);
+
+                                        reader.Close(); // cerrar antes de ejecutar otro comando
+
+                                        using (var updateCommand = new MySqlCommand("UPDATE USERS SET contrasena=@newHash WHERE usuario=@user", connection))
+                                        {
+                                            updateCommand.Parameters.AddWithValue("@newHash", newHash);
+                                            updateCommand.Parameters.AddWithValue("@user", user);
+                                            updateCommand.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+
+                                if (!passwordMatches)
+                                    return (false, false);
+
+                                // Si coincide, rellenar usuario activo
+                                UsuarioActivo.isAdmin = reader.GetBoolean(1);
+                                UsuarioActivo.idUser = reader.GetInt32(2);
+                                UsuarioActivo.usuario = reader.GetString(3);
+                                UsuarioActivo.nombres = reader.GetString(4);
+                                UsuarioActivo.apellidos = reader.GetString(5);
+                                UsuarioActivo.correo = reader.GetString(6);
+
+                                return (true, UsuarioActivo.isAdmin);
+                            }
+                            else
+                            {
+                                return (false, false); // Usuario no existe
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    return (false, false);
+                }
+            }
+        }
 
 
 
+        /*
         public (bool, bool) Login(string user, string pass)
         {
             using (var connection = GetConnection())
@@ -298,7 +373,7 @@ namespace AccesoDatos.Usuarios
                     return (false, false); 
                 }
             }
-        }
+        }*/
 
         public int ContarAdministradores()
         {

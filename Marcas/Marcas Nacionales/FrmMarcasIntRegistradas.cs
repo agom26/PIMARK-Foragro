@@ -56,6 +56,14 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarMarca.idN = 0;
             ActualizarFechaVencimiento();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            if (UsuarioActivo.isAdmin)
+            {
+                btnEliminarMarca.Visible = true;
+            }
+            else
+            {
+                btnEliminarMarca.Visible = false;
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -64,7 +72,6 @@ namespace Presentacion.Marcas_Internacionales
                 tabControl1.TabPages.Remove(nombre);
             }
         }
-
 
         private async Task LoadMarcas()
         {
@@ -629,12 +636,7 @@ namespace Presentacion.Marcas_Internacionales
                     dtgHistorialIn.DataSource = historial;
                     dtgHistorialIn.Refresh();
 
-                    if (dtgHistorialIn.Columns["id"] != null)
-                    {
-                        dtgHistorialIn.Columns["id"].Visible = false;
-                    }
 
-                    dtgHistorialIn.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -771,6 +773,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void LimpiarControles()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
@@ -780,7 +783,7 @@ namespace Presentacion.Marcas_Internacionales
             datePickerFechaSolicitud.Value = DateTime.Today;
             dateTimePFecha_Registro.Value = DateTime.Now;
             richTextBox1.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtNombreCliente.Text = "";
@@ -1509,7 +1512,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageListaArchivos);
             await LoadMarcas();
-
+            SeleccionarMarca.idN = 0;
         }
 
         private void roundedButton5_Click(object sender, EventArgs e)
@@ -1673,12 +1676,19 @@ namespace Presentacion.Marcas_Internacionales
 
             }
         }
-
+        private void LimpiarTablaHistorial()
+        {
+            dtgHistorialIn.DataSource = null;
+            dtgHistorialIn.Rows.Clear();
+            dtgHistorialIn.Refresh();
+        }
         private async void roundedButton2_Click_1(object sender, EventArgs e)
         {
-            AnadirTabPage(tabPageHistorialMarca);
+            LimpiarTablaHistorial();
             tabControl1.SelectedTab = tabPageHistorialMarca;
             await Task.Run(() => loadHistorialById());
+
+            AnadirTabPage(tabPageHistorialMarca);
 
         }
 
@@ -2191,6 +2201,78 @@ namespace Presentacion.Marcas_Internacionales
                 dtgMarcasIn.Columns["id"].Visible = false;
 
             dtgMarcasIn.ClearSelection();
+        }
+
+        private async void btnEliminarMarca_Click(object sender, EventArgs e)
+        {
+            // Verificar que haya una fila seleccionada
+            if (dtgMarcasIn.SelectedRows.Count == 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("Debe seleccionar una marca para eliminar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
+            var filaSeleccionada = dtgMarcasIn.SelectedRows[0];
+            if (!(filaSeleccionada.DataBoundItem is DataRowView dataRowView))
+            {
+                FrmAlerta alerta = new FrmAlerta("Error al obtener la información de la marca", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return;
+            }
+
+            int idMarca = Convert.ToInt32(dataRowView["Id"]);
+
+            // Confirmar eliminación con advertencia de licencias
+            FrmAlerta confirmar = new FrmAlerta(
+                "¿Está seguro que desea eliminar esta marca?\n\n" +
+                "Nota: Si está relacionada con licencias de uso, también serán eliminadas.",
+                "Confirmación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            var resultado = confirmar.ShowDialog();
+
+            if (resultado == DialogResult.Yes)
+            {
+                MarcaModel model = new MarcaModel();
+                bool eliminado = false;
+
+                try
+                {
+                    // Aquí debes tener un método que llame al procedimiento almacenado para eliminar con log
+                    eliminado = model.EliminarMarcaConLog(idMarca, UsuarioActivo.usuario);
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta error = new FrmAlerta("Error al eliminar la marca:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                    return;
+                }
+
+                if (eliminado)
+                {
+                    FrmAlerta exito = new FrmAlerta("Marca eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    exito.ShowDialog();
+
+                    await LoadMarcas();
+                }
+                else
+                {
+                    FrmAlerta error = new FrmAlerta("No se pudo eliminar la marca. Puede que no exista o esté relacionada con datos protegidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                }
+            }
+        }
+
+        private void dtgHistorialIn_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorialIn.Columns["id"] != null)
+            {
+                dtgHistorialIn.Columns["id"].Visible = false;
+            }
+
+            dtgHistorialIn.ClearSelection();
         }
     }
 }

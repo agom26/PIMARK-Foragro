@@ -7,8 +7,8 @@ namespace AccesoDatos.MySqlServer
 
         public ConnectionSQL()
         {
-            // Cadena de conexión para SQL Server
-            connectionString = "server=bpa.com.es;port=3306;uid=bpaes_registrador;pwd=X*r@$Vh6VF@_;database=bpaes_marcas;";
+            
+            connectionString = "server=mysql.bpa.com.es;port=3306;uid=bpaes_bpaes_registrador;pwd=X*r@$Vh6VF@_;database=bpaes_bpaes_marcas;";
         }
 
         protected MySqlConnection GetConnection()

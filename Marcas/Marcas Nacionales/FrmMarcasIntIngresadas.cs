@@ -106,7 +106,6 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
-                    //MessageBox.Show("No existen titulares con esos datos");
                     await LoadMarcas();
                 }
             }
