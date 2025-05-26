@@ -367,34 +367,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (esActualizado == true)
                 {
-                    // Verificar si la actualización fue exitosa
-                    /*
-                    if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
-                    {
-                        FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        SeleccionarMarca.idInt = 0;
-                        await LoadMarcas();
-                        EliminarTabPage(tabPageHistorialMarca);
-                        AnadirTabPage(tabPageRegistradasList);
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageListaArchivos);
-                    }
-                    else
-                    {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
-                        FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        SeleccionarMarca.idInt = 0;
-                        await LoadMarcas();
-                        AnadirTabPage(tabPageRegistradasList);
-                        EliminarTabPage(tabPageHistorialMarca);
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageListaArchivos);
-                    }*/
-
                     new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
-                    // 5. Reset UI
                     SeleccionarMarca.idInt = 0;
                     await LoadMarcas();
                     AnadirTabPage(tabPageRegistradasList);
@@ -1097,7 +1070,7 @@ namespace Presentacion.Marcas_Nacionales
                     SeleccionarHistorial.anotaciones = anotaciones;
 
 
-                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar esta etapa? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult confirmacionInicial = MessageBox.Show("¿Está seguro que desea eliminar este estado? " + usuario, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (confirmacionInicial == DialogResult.Yes)
                     {
@@ -1545,7 +1518,6 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task iconButton4_Click_2(object sender, EventArgs e)
         {
-
 
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
             string nombreTitularNuevo = txtNombreTitularN.Text.Trim();

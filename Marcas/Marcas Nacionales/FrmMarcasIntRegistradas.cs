@@ -360,27 +360,9 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                /*
-                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
-                
-                bool contieneEtapa = marcaActualizada.Rows.Count > 0 &&
-                                     marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado);
-
-                if (!contieneEtapa)
-                {
-                    historialModel.GuardarEtapa(
-                        SeleccionarMarca.idN,
-                        AgregarEtapa.fecha.Value,
-                        estado,
-                        AgregarEtapa.anotaciones,
-                        AgregarEtapa.usuario,
-                        "TRÁMITE"
-                    );
-                }*/
 
                 new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
 
-                // 5. Reset UI
                 SeleccionarMarca.idN = 0;
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageMarcaDetail);

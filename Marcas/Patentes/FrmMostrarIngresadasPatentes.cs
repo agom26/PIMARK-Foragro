@@ -28,7 +28,7 @@ namespace Presentacion.Patentes
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
-        bool agregoEstado = false;
+        //bool agregoEstado = false;
         private bool archivoSubido = false;
         private bool buscando = false;
 
@@ -52,18 +52,11 @@ namespace Presentacion.Patentes
             // Obtiene los usuarios
             var marcasN = await Task.Run(() => patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize));
 
-            Invoke(new Action(() =>
+            this.Invoke(new Action(() =>
             {
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
                 dtgPatentes.DataSource = marcasN;
-
-                if (dtgPatentes.Columns["id"] != null)
-                {
-                    dtgPatentes.Columns["id"].Visible = false;
-                    dtgPatentes.ClearSelection();
-                }
-
 
             }));
         }
@@ -158,7 +151,7 @@ namespace Presentacion.Patentes
             }
             else
             {
-                btnAdjuntarT.Visible= false;
+                btnAdjuntarT.Visible = false;
                 lblVencimiento.Visible = false;
                 dateTimePFecha_vencimiento.Visible = false;
                 checkBox2.Enabled = false;
@@ -290,7 +283,7 @@ namespace Presentacion.Patentes
 
                         bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
-                       
+
                         if (contieneRegistrada)
                         {
                             if (SeleccionarPatente.registro != null)
@@ -429,8 +422,8 @@ namespace Presentacion.Patentes
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
-            string tipo = comboBoxTipo.SelectedItem?.ToString();
-            string anualidad = comboBoxAnualidades.SelectedItem?.ToString();
+            string? tipo = comboBoxTipo.SelectedItem?.ToString();
+            string? anualidad = comboBoxAnualidades.SelectedItem?.ToString();
             int anualidades = int.Parse(anualidad);
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
@@ -443,8 +436,8 @@ namespace Presentacion.Patentes
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-            string erenov = null;
-            string etrasp = null;
+            string? erenov = null;
+            string? etrasp = null;
             string comprobante_pagos = "no";
             string descripcion = "no";
             string reivindicaciones = "no";
@@ -525,12 +518,12 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
+                        /*
                         if (agregoEstado == true)
                         {
                             historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
                             agregoEstado = false;
-                        }
-
+                        }*/
 
                         bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
@@ -539,14 +532,13 @@ namespace Presentacion.Patentes
 
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
-                        LimpiarFomulario();
+                        await LoadPatentes();
                         AnadirTabPage(tabPageIngresadasList);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
                         EliminarTabPage(tabPageHistorialMarca);
-                        tabControl1.SelectedTab = tabPageIngresadasList;
                         DatosRegistro.peligro = false;
-                        await LoadPatentes();
+                        LimpiarFomulario();
                     }
                     catch (Exception ex)
                     {
@@ -557,12 +549,12 @@ namespace Presentacion.Patentes
                 else
                 {
                     try
-                    {
+                    {/*
                         if (agregoEstado == true)
                         {
                             historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
                             agregoEstado = false;
-                        }
+                        }*/
 
                         bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, erenov, etrasp, anualidades, pct,
@@ -668,6 +660,7 @@ namespace Presentacion.Patentes
                         {
                             //MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
                         bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
 
                         if (contieneRegistrada)
@@ -708,6 +701,7 @@ namespace Presentacion.Patentes
         }
         public async void Editar()
         {
+            LimpiarFomulario();
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
             {
@@ -728,7 +722,7 @@ namespace Presentacion.Patentes
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -752,7 +746,7 @@ namespace Presentacion.Patentes
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageIngresadasList);
                 EliminarTabPage(tabPageListaArchivos);
-            }
+            }*/
         }
 
         private async void roundedButton8_Click(object sender, EventArgs e)
@@ -996,12 +990,13 @@ namespace Presentacion.Patentes
 
                 try
                 {
-                    agregoEstado = true;
+                    //agregoEstado = true;
                     textBoxEstatus.Text = AgregarEtapaPatente.etapa;
-                    //historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
-                    FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, UsuarioActivo.usuario, null, SeleccionarPatente.id);
+                    FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
+                    await refrescarPatente();
                     if (AgregarEtapaPatente.etapa == "Registro/concesión")
                     {
                         checkBox2.Checked = true;
@@ -1021,7 +1016,7 @@ namespace Presentacion.Patentes
                         mostrarPanelRegistro("no");
                     }
 
-                    //await refrescarPatente();
+
 
                 }
                 catch (Exception ex)
@@ -1139,7 +1134,7 @@ namespace Presentacion.Patentes
                 {
                     EditarPatente();
                 }
-               
+
 
             }
             else
@@ -1166,7 +1161,7 @@ namespace Presentacion.Patentes
 
             LimpiarFomulario();
             DatosRegistro.peligro = false;
-            agregoEstado = false;
+            //agregoEstado = false;
             AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageListaArchivos);
@@ -1215,7 +1210,7 @@ namespace Presentacion.Patentes
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -1603,7 +1598,7 @@ namespace Presentacion.Patentes
                 Cursor.Current = Cursors.Default;
             }
         }
-       
+
         private void roundedButton11_Click(object sender, EventArgs e)
         {
             ListarArchivosEnGeneral();
@@ -1706,6 +1701,15 @@ namespace Presentacion.Patentes
             else
             {
                 archivoSubido = true;
+            }
+        }
+
+        private void dtgPatentes_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgPatentes.Columns["id"] != null)
+            {
+                dtgPatentes.Columns["id"].Visible = false;
+                dtgPatentes.ClearSelection();
             }
         }
     }
