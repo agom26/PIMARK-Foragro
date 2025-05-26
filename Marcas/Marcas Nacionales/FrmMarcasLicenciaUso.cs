@@ -79,7 +79,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesExclusivasCombinado(situacionActual, currentPageIndex, pageSize))
                                        .ConfigureAwait(false);
-           
+
 
             totalRows = resultado.total;
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
@@ -187,7 +187,7 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxEstado.SelectedItem = "En Trámite";
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActual2.SelectedIndex = 0;
-           
+
             verificarBotones();
             //_ = CargarDatosLicenciasUsoAsync();
             EliminarTabPage(tabPageReportes);
@@ -201,8 +201,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 currentPageIndex = 1;
                 currentPageIndex2 = 1;
-                string estado = cmbSituacionActual.SelectedItem.ToString();
-                string estado2 = cmbSituacionActual2.SelectedItem.ToString();
+                string? estado = cmbSituacionActual.SelectedItem.ToString();
+                string? estado2 = cmbSituacionActual2.SelectedItem.ToString();
                 int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas(estado));
                 int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas(estado2));
 
@@ -240,7 +240,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private async Task CargarDatosLicenciaUso()
@@ -671,7 +671,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public async Task FiltrarExclusivasPorSituacionActual()
         {
-            
+
             if (cmbSituacionActual.SelectedIndex == 0)
             {
                 await LoadLicenciasUsoExclusivas("En Trámite");
@@ -688,7 +688,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public async Task FiltrarNoExclusivasPorSituacionActual()
         {
-            
+
             if (cmbSituacionActual2.SelectedIndex == 0)
             {
                 await LoadLicenciasUsoNoExclusivas("En Trámite");
@@ -1354,11 +1354,11 @@ namespace Presentacion.Marcas_Internacionales
             string tipoLicencia = null;
             string expediente = null;
             string tituloVerifica = null;
-            string signo= null;
+            string signo = null;
             string signoDistintivo = null;
-            string estado= null;
-            string clase= null;
-            string origen= "nacional";
+            string estado = null;
+            string clase = null;
+            string origen = "nacional";
             string nombreRazonSocial = null;
             string titular = null;
             numRegistros = 9;
@@ -1395,28 +1395,28 @@ namespace Presentacion.Marcas_Internacionales
             { tituloVerifica = txtTituloReporte.Text; }
             else { tituloVerifica = null; }
 
-           
+
             if (chckSignoRepo.Checked) { signo = txtSignoReporte.Text; }
             else { signo = null; }
 
             if (chckSignoDistintivoReporte.Checked) { signoDistintivo = cmbSignoDistintivoReporte.SelectedItem.ToString(); }
             else { signoDistintivo = null; }
 
-            if (chckEstadoReporte.Checked) { estado= cmbEstadolReporte.Text; }
+            if (chckEstadoReporte.Checked) { estado = cmbEstadolReporte.Text; }
             else { estado = null; }
 
-            
+
             if (chckClaseReporte.Checked) { clase = txtClaseReporte.Text; }
             else { clase = null; }
 
-            if (chckNombreRazonSocial.Checked) { nombreRazonSocial= txtNombreRazonSOCIAL.Text; }
+            if (chckNombreRazonSocial.Checked) { nombreRazonSocial = txtNombreRazonSOCIAL.Text; }
             else { nombreRazonSocial = null; }
 
-            if (chckTitularReporte.Checked) { titular= richTextBoxtTitularReporte.Text; }
+            if (chckTitularReporte.Checked) { titular = richTextBoxtTitularReporte.Text; }
             else { titular = null; }
 
 
-            dtgReportesOp.DataSource = licenciaUso.FiltrarLicenciasUso(tipoLicencia,expediente,tituloVerifica,signo, signoDistintivo,
+            dtgReportesOp.DataSource = licenciaUso.FiltrarLicenciasUso(tipoLicencia, expediente, tituloVerifica, signo, signoDistintivo,
                 estado, clase, "nacional", nombreRazonSocial, titular);
             dtgReportesOp.ClearSelection();
 
@@ -2362,7 +2362,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             Eliminar();
         }
-        
+
         private void iconButton18_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageAgregarOposicion);
@@ -2370,7 +2370,108 @@ namespace Presentacion.Marcas_Internacionales
             {
                 EliminarTabPage(tabPageArchivos);
             }));
-           
+
+        }
+
+        private async void btnEliminarLicencia_Click(object sender, EventArgs e)
+        {
+            // Verificar si no hay nada seleccionado en ambos
+            if (dtgLicenciasExclusivas.SelectedRows.Count == 0 && dtgLicenciasNoEx.SelectedRows.Count == 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE SELECCIONAR UNA LICENCIA PARA ELIMINAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
+            DataGridView gridSeleccionado = null;
+
+            // Si ambas tienen selección, preguntar al usuario
+            if (dtgLicenciasExclusivas.SelectedRows.Count > 0 && dtgLicenciasNoEx.SelectedRows.Count > 0)
+            {
+                DialogResult resultado = MessageBox.Show(
+                         "Ha seleccionado una licencia de uso en ambas listas.\n\n" +
+                         "¿Qué desea eliminar?\n\n" +
+                         "Sí: Eliminar licencia EXCLUSIVA\n" +
+                         "No: Eliminar licencia NO EXCLUSIVA\n" +
+                         "Cancelar: Anular operación",
+                         "¿Qué tipo de licencia desea eliminar?",
+                         MessageBoxButtons.YesNoCancel,
+                         MessageBoxIcon.Question,
+                         MessageBoxDefaultButton.Button1);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    gridSeleccionado = dtgLicenciasExclusivas;
+                }
+                else if (resultado == DialogResult.No)
+                {
+                    gridSeleccionado = dtgLicenciasNoEx;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+
+            else if (dtgLicenciasExclusivas.SelectedRows.Count > 0)
+            {
+                gridSeleccionado = dtgLicenciasExclusivas;
+            }
+            else if (dtgLicenciasNoEx.SelectedRows.Count > 0)
+            {
+                gridSeleccionado = dtgLicenciasNoEx;
+            }
+
+            // Validar la fila seleccionada
+            var filaSeleccionada = gridSeleccionado.SelectedRows[0];
+            if (!(filaSeleccionada.DataBoundItem is DataRowView dataRowView))
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL OBTENER LA INFORMACIÓN DE LA LICENCIA ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return;
+            }
+
+            int idLicencia= Convert.ToInt32(dataRowView["id"]);
+
+            FrmAlerta confirmar = new FrmAlerta(
+                "¿ESTÁ SEGURO QUE DESEA ELIMINAR ESTA LICENCIA DE USO?",
+                "CONFIRMACIÓN",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            var confirmacion = confirmar.ShowDialog();
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                
+                bool eliminado = false;
+
+                try
+                {
+                    eliminado = licenciaUso.EliminarLicenciaUso(idLicencia, UsuarioActivo.usuario);
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta error = new FrmAlerta("ERROR AL ELIMINAR LA LICENCIA DE USO:\n" + ex.Message.ToUpper(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                    return;
+                }
+
+                if (eliminado)
+                {
+                    FrmAlerta exito = new FrmAlerta("LICENCIA DE USO ELIMINADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    exito.ShowDialog();
+                    cmbSituacionActual.SelectedIndex = 0;
+                    cmbSituacionActual2.SelectedIndex = 0;
+                    await CargarDatosLicenciasUsoAsync();
+                }
+                else
+                {
+                    FrmAlerta error = new FrmAlerta("NO SE PUDO ELIMINAR LA LICENCIA DE USO.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                }
+            }
         }
     }
 }

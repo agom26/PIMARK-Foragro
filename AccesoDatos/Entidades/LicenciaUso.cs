@@ -10,7 +10,39 @@ namespace AccesoDatos.Entidades
 {
     public class LicenciaUso : ConnectionSQL
     {
-        
+
+        public bool EliminarLicenciaUsoConLog(int idLicencia, string usuario)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    using (var command = new MySqlCommand("EliminarLicenciaUso", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@p_id", idLicencia);
+                        command.Parameters.AddWithValue("@p_usuario", usuario);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"[Error SQL] {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error general] {ex.Message}");
+                return false;
+            }
+        }
+
+
         public DataTable FiltrarLicenciasUso(
             string tipoLicencia,
             string expediente,

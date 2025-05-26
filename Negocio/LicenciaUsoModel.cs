@@ -18,6 +18,12 @@ namespace Dominio
             licenciaDao = new LicenciaUso();
         }
 
+        public bool EliminarLicenciaUso(int idLicencia, string usuario)
+        {
+            return licenciaDao.EliminarLicenciaUsoConLog(idLicencia, usuario);
+        }
+
+
         public DataTable FiltrarLicenciasUso(
             string tipoLicencia,
             string expediente,
