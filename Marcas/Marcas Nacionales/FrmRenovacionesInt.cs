@@ -1057,12 +1057,12 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton2_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
-            if (!archivoSubido)
+            /*if (!archivoSubido)
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 return;
-            }
+            }*/
             if (DatosRegistro.peligro == false)
             {
                 FrmAgregarRenovacionIntConcedida frmAgregarConcesion = new FrmAgregarRenovacionIntConcedida();

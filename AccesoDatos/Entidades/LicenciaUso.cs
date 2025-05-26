@@ -10,6 +10,99 @@ namespace AccesoDatos.Entidades
 {
     public class LicenciaUso : ConnectionSQL
     {
+        public bool RenovarLicenciaUso(int idLicencia, string numExpediente, DateTime fechaAntigua, DateTime fechaNueva)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("RenovarLicenciaUso", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("p_IdLicencia", idLicencia);
+                        cmd.Parameters.AddWithValue("p_NumExpediente", numExpediente);
+                        cmd.Parameters.AddWithValue("p_FechaVencimientoAntigua", fechaAntigua);
+                        cmd.Parameters.AddWithValue("p_FechaVencimientoNueva", fechaNueva);
+
+                        cmd.ExecuteNonQuery();
+                        return true; 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al renovar licencia de uso: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        public DataTable ObtenerDatosRenovacionLicencia(int idLicencia)
+        {
+            DataTable dt = new DataTable();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("ObtenerDatosRenovacionLicencia", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("p_idLicencia", idLicencia);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener datos para renovación de licencia: " + ex.Message);
+                }
+            }
+
+            return dt.Rows.Count > 0 ? dt : null;
+        }
+
+
+        public DataTable ObtenerLicenciasPorMarca(int idMarca)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    using (var command = new MySqlCommand("ObtenerLicenciasPorMarcaId", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("p_IdMarca", idMarca);
+
+                        connection.Open();
+
+                        using (var adapter = new MySqlDataAdapter(command))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Manejo de errores, log, etc.
+                Console.WriteLine($"Error SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error general: {ex.Message}");
+            }
+
+            return dt;
+        }
+
 
         public bool EliminarLicenciaUsoConLog(int idLicencia, string usuario)
         {

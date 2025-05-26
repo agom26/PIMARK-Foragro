@@ -18,6 +18,21 @@ namespace Dominio
             licenciaDao = new LicenciaUso();
         }
 
+        public bool RenovarLicenciaUso(int idLicencia, string numExpediente, DateTime fechaAntigua, DateTime fechaNueva)
+        {
+            return licenciaDao.RenovarLicenciaUso(idLicencia, numExpediente, fechaAntigua, fechaNueva);
+        }
+
+        public DataTable ObtenerDatosRenovacionLicencia(int idLicencia)
+        {
+            return licenciaDao.ObtenerDatosRenovacionLicencia(idLicencia);
+        }
+
+        public DataTable ObtenerLicenciasPorMarca(int idMarca)
+        {
+            return licenciaDao.ObtenerLicenciasPorMarca(idMarca);
+        }
+
         public bool EliminarLicenciaUso(int idLicencia, string usuario)
         {
             return licenciaDao.EliminarLicenciaUsoConLog(idLicencia, usuario);

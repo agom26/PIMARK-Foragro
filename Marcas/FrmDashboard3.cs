@@ -33,19 +33,25 @@ namespace Presentacion
         {
             currentPageIndex = 1;
             var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                dtgVencimientos.DataSource = titulares;
-
-                if (dtgVencimientos.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgVencimientos.Columns["id"].Visible = false;
-                    dtgVencimientos.Columns["marcaID"].Visible = false;
-                    dtgVencimientos.Columns["patenteID"].Visible = false;
+                    dtgVencimientos.DataSource = titulares;
 
-                }
-                dtgVencimientos.Refresh();
-            }));
+                    if (dtgVencimientos.Columns["id"] != null)
+                    {
+                        dtgVencimientos.Columns["id"].Visible = false;
+                        dtgVencimientos.Columns["marcaID"].Visible = false;
+                        dtgVencimientos.Columns["patenteID"].Visible = false;
+
+                    }
+                    dtgVencimientos.Refresh();
+                }));
+            }
+
+
+                
         }
         public FrmDashboard3(Form1 mainForm)
         {
