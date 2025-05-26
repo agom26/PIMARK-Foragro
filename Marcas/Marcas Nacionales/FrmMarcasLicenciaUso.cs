@@ -62,6 +62,14 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxEstado.SelectedItem = "En Trámite";
             archivoSubido = false;
             necesitaArchivo = false;
+            if (UsuarioActivo.isAdmin)
+            {
+                btnEliminarLicencia.Visible = true;
+            }
+            else
+            {
+                btnEliminarLicencia.Visible = false;
+            }
             EliminarTabPage(tabPageReportes);
             EliminarTabPage(tabPageArchivos);
             EliminarTabPage(tabPageAgregarOposicion);
