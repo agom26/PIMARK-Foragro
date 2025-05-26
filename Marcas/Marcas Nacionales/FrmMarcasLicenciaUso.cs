@@ -61,7 +61,9 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxEstado.SelectedItem = "En Trámite";
             archivoSubido = false;
             necesitaArchivo = false;
-            
+            EliminarTabPage(tabPageReportes);
+            EliminarTabPage(tabPageArchivos);
+            EliminarTabPage(tabPageAgregarOposicion);
             //ActualizarFechaVencimiento();
         }
         private void EliminarTabPage(TabPage nombre)
@@ -188,6 +190,9 @@ namespace Presentacion.Marcas_Internacionales
            
             verificarBotones();
             //_ = CargarDatosLicenciasUsoAsync();
+            EliminarTabPage(tabPageReportes);
+            EliminarTabPage(tabPageArchivos);
+            EliminarTabPage(tabPageAgregarOposicion);
         }
 
         private async Task CargarDatosLicenciasUsoAsync()
@@ -1339,7 +1344,11 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton9_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageOposicionesList);
+            cmbSituacionActual.SelectedIndex = 0;
+            cmbSituacionActual2.SelectedIndex = 0;
+            EliminarTabPage(tabPageReportes);
         }
+
         public void Filtrar()
         {
             string tipoLicencia = null;
@@ -1491,16 +1500,16 @@ namespace Presentacion.Marcas_Internacionales
                                 : (column.ColumnName == "TIPO_OPOSICION" || column.ColumnName == "SITUACION_ACTUAL")
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'";
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
 
                             object cellValue = row[column];
                             if (cellValue is DateTime dateValue)
                             {
-                                cellValue = dateValue.ToString("dd/MM/yyyy"); // Cambia el formato según necesites
+                                cellValue = dateValue.ToString("dd/MM/yyyy");
                             }
 
                             tableContent += $"<td {alignStyle}>{cellValue}</td>";
                         }
+
                         tableContent += "</tr>";
 
                     }
@@ -1510,6 +1519,16 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
                     }
+
+                    string base64Logo;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        byte[] imageBytes = ms.ToArray();
+                        base64Logo = Convert.ToBase64String(imageBytes);
+                    }
+
+                    string imageHtml = $"<img src='data:image/png;base64,{base64Logo}' />";
 
                     fullHtmlContent += $@"<html>
                 <head>
@@ -1529,7 +1548,7 @@ namespace Presentacion.Marcas_Internacionales
                 <body>
                     <div class='header'>{titulo}</div>
                     <div class='fecha'><center>Fecha: {DateTime.Now:dd-MM-yyyy HH:mm}</center></div>
-                    <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
+                    {imageHtml}
                     <table>
                         <thead><tr>{headers}</tr></thead>
                         <tbody>{tableContent}</tbody>
@@ -1601,7 +1620,7 @@ namespace Presentacion.Marcas_Internacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA.Save(tempLogoPath);
+                    Properties.Resources.logoBPA2.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {

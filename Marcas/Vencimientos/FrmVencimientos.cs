@@ -1353,7 +1353,7 @@ namespace Presentacion.Vencimientos
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA.Save(tempLogoPath);
+                    Properties.Resources.logoBPA2.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -1665,6 +1665,15 @@ namespace Presentacion.Vencimientos
                     {
                         headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
                     }
+                    string base64Logo;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        byte[] imageBytes = ms.ToArray();
+                        base64Logo = Convert.ToBase64String(imageBytes);
+                    }
+
+                    string imageHtml = $"<img src='data:image/png;base64,{base64Logo}' />";
 
                     fullHtmlContent += $@"
              <html>
@@ -1686,7 +1695,7 @@ namespace Presentacion.Vencimientos
                  <body>
                      <div class='header'>PRÓXIMOS VENCIMIENTOS</div>
                      <div class='fecha'><center>Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}</center></div>
-                     <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' />
+                    {imageHtml}
                      <table>
                          <thead>
                              <tr>{headers}</tr>

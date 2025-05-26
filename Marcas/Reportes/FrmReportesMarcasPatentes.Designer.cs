@@ -134,7 +134,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(731, 534);
+            tableLayoutPanel1.Size = new Size(753, 534);
             tableLayoutPanel1.TabIndex = 242;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
@@ -161,7 +161,7 @@
             panel6.Controls.Add(checkBoxReigstro);
             panel6.Controls.Add(checkBoxTitular);
             panel6.Controls.Add(checkBoxVencimiento);
-            panel6.Location = new Point(368, 3);
+            panel6.Location = new Point(379, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(344, 528);
             panel6.TabIndex = 244;
@@ -412,7 +412,7 @@
             panel5.Controls.Add(checkBoxFolio);
             panel5.Controls.Add(comboBoxPais);
             panel5.Controls.Add(checkBoxPais);
-            panel5.Location = new Point(19, 3);
+            panel5.Location = new Point(30, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(343, 528);
             panel5.TabIndex = 243;
@@ -595,7 +595,7 @@
             panel1.Location = new Point(7, 1158);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(115, 36);
+            panel1.Size = new Size(98, 36);
             panel1.TabIndex = 236;
             // 
             // roundedButton2
@@ -613,7 +613,7 @@
             roundedButton2.ForeColor = Color.White;
             roundedButton2.Image = Properties.Resources.excel;
             roundedButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton2.Location = new Point(589, 1115);
+            roundedButton2.Location = new Point(611, 1115);
             roundedButton2.Margin = new Padding(3, 2, 3, 2);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(178, 37);
@@ -636,7 +636,7 @@
             btnConsultar.FlatStyle = FlatStyle.Flat;
             btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(407, 596);
+            btnConsultar.Location = new Point(429, 596);
             btnConsultar.Margin = new Padding(3, 2, 3, 2);
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(178, 37);
@@ -661,7 +661,7 @@
             roundedButton3.ForeColor = Color.White;
             roundedButton3.Image = Properties.Resources.pdf_1_;
             roundedButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton3.Location = new Point(406, 1115);
+            roundedButton3.Location = new Point(428, 1115);
             roundedButton3.Margin = new Padding(3, 2, 3, 2);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(178, 37);
@@ -684,7 +684,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(589, 595);
+            btnCancelar.Location = new Point(611, 595);
             btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(178, 37);
@@ -708,7 +708,7 @@
             roundedButton6.ForeColor = Color.Black;
             roundedButton6.Image = Properties.Resources.simbolo_de_interfaz_grafica_de_tres_barras;
             roundedButton6.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton6.Location = new Point(161, 4);
+            roundedButton6.Location = new Point(152, 4);
             roundedButton6.Margin = new Padding(3, 2, 3, 2);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(416, 37);
@@ -727,7 +727,7 @@
             panel2.Location = new Point(36, 724);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(731, 387);
+            panel2.Size = new Size(753, 387);
             panel2.TabIndex = 216;
             // 
             // dtgReportes
@@ -764,7 +764,7 @@
             dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
             dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(716, 371);
+            dtgReportes.Size = new Size(738, 371);
             dtgReportes.TabIndex = 7;
             // 
             // FrmReportesMarcasPatentes
