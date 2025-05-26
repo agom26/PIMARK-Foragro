@@ -122,7 +122,7 @@ namespace Presentacion
                 int idUser = EditarUsuario.idUser;
 
 
-                DataTable userDetails = UserModel.GetById(idUser);
+                DataTable userDetails = await Task.Run(()=> UserModel.GetById(idUser));
 
                 if (userDetails.Rows.Count > 0)
                 {
@@ -132,7 +132,7 @@ namespace Presentacion
                     EditarUsuario.nombres = row["nombres"].ToString();
                     EditarUsuario.apellidos = row["apellidos"].ToString();
                     EditarUsuario.usuario = row["usuario"].ToString();
-                    EditarUsuario.contrasena = row["contrasena"].ToString();
+                    //EditarUsuario.contrasena = row["contrasena"].ToString();
                     EditarUsuario.correo = row["correo"].ToString();
                     EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
 
@@ -141,8 +141,10 @@ namespace Presentacion
                     txtUsername.Text = EditarUsuario.usuario;
                     txtApellidos.Text = EditarUsuario.apellidos;
                     txtCorreo.Text = EditarUsuario.correo;
-                    txtCont.Text = EditarUsuario.contrasena;
-                    txtConfirmarCont.Text = EditarUsuario.contrasena;
+                    //txtCont.Text = EditarUsuario.contrasena;
+                    //txtConfirmarCont.Text = EditarUsuario.contrasena;
+                    txtCont.Text = "";
+                    txtConfirmarCont.Text = "";
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
@@ -169,7 +171,7 @@ namespace Presentacion
                 int idUser = EditarUsuario.idUser;
 
 
-                DataTable userDetails = UserModel.GetById(idUser);
+                DataTable userDetails = await Task.Run(() => UserModel.GetById(idUser));
 
                 if (userDetails.Rows.Count > 0)
                 {
@@ -229,7 +231,8 @@ namespace Presentacion
             {
                 tabControl1.TabPages.Add(tabPageUserDetail);
             }
-
+            chkCambiarContrasena.Visible = false;
+            chkCambiarContrasena.Checked = false;
             // Muestra el TabPage especificado (lo selecciona)
             tabControl1.SelectedTab = tabPageUserDetail;
             btnGuardarU.Text = "AGREGAR";
@@ -256,6 +259,8 @@ namespace Presentacion
             VerificarSeleccionIdUser();
             if (EditarUsuario.idUser > 0)
             {
+                chkCambiarContrasena.Visible = true;
+                chkCambiarContrasena.Checked = false;
                 await CargarDatos();
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
@@ -421,7 +426,8 @@ namespace Presentacion
                         }
                         else if (btnGuardarU.Text == "EDITAR")
                         {
-                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
+                            bool cambiarContra = chkCambiarContrasena.Checked;
+                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo,cambiarContra));
 
                             FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
@@ -506,7 +512,8 @@ namespace Presentacion
                         }
                         else if (btnGuardarU.Text == "EDITAR")
                         {
-                            await Task.Run(() => UserModel.UpdateUser(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo));
+                            bool cambiarContra = chkCambiarContrasena.Checked;
+                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra));
 
                             FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();

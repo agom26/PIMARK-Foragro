@@ -59,9 +59,9 @@ namespace Dominio
             userDao.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo);
         }
 
-        public void UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
+        public bool UpdateUserSecure(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena)
         {
-            userDao.UpdateUser(id, usuario, contrasena, nombres, apellidos, isAdmin, correo);
+            return userDao.UpdateUser(id, usuario, contrasena, nombres, apellidos, isAdmin, correo, cambiarContrasena);
         }
 
         public bool RemoveUser(int userId,string deletedUser, string deletedBy )

@@ -79,11 +79,14 @@ namespace Dominio
             string nacionalidad,
             string apoderadoRepresentanteLegal,
             string estado,
-            string origen
+            string origen,
+            int anios, 
+            int meses,
+            int dias
         )
         {
             return licenciaDao.InsertarLicenciaUso(
-                idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen
+                idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen, anios, meses,dias
             );
         }
 
@@ -102,11 +105,14 @@ namespace Dominio
             string nacionalidad,
             string apoderadoRepresentanteLegal,
             string estado,
-            string origen
+            string origen,
+            int anios, 
+            int meses,
+            int dias
         )
         {
             return licenciaDao.EditarLicenciaUso(
-                id, idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen
+                id, idMarca, idTitular, titulo, tipo, fechaInicio, fechaFin, territorio, nombreRazonSocial, direccion, domicilio, nacionalidad, apoderadoRepresentanteLegal, estado, origen, anios, meses, dias
             );
         }
 

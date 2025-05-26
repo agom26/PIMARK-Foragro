@@ -267,18 +267,22 @@ namespace Presentacion.Marcas_Internacionales
             DataRow filaRenovacion = dtDatosRenovacion.Rows[0];
 
             txtTituloVerifica.Text = filaRenovacion["titulo"].ToString();
+            int anios = Convert.ToInt32(filaRenovacion["Anios"].ToString());
+            int meses = Convert.ToInt32(filaRenovacion["Meses"].ToString());
+            int dias = Convert.ToInt32(filaRenovacion["Dias"].ToString());
+            if(dias == -1 || dias == 1)
+            {
+                dias = 0;
+            }
 
             DateTime fechaInicioActual = filaRenovacion["fecha_inicio"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(filaRenovacion["fecha_inicio"]);
             DateTime fechaFinActual = filaRenovacion["fecha_fin"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(filaRenovacion["fecha_fin"]);
 
             dtpFechaFinAntigua.Value = fechaFinActual;
 
-            DiferenciaAnioMesDia(fechaInicioActual, fechaFinActual, out int años, out int meses, out int dias);
-
-            DateTime nuevaFechaFin = fechaFinActual.AddYears(años).AddMonths(meses).AddDays(dias);
+            DateTime nuevaFechaFin = fechaFinActual.AddYears(anios).AddMonths(meses).AddDays(dias);
             dtpFechaFinNueva.Value = nuevaFechaFin;
 
-            // Asegúrate que estas variables estáticas o propiedades estén definidas en tu clase AgregarRenovacionLicencia
             AgregarRenovacionLicencia.idLicencia = idLicencia;
             AgregarRenovacionLicencia.fechaVencimientoAntigua = fechaFinActual;
             AgregarRenovacionLicencia.fechaVencimientoNueva = dtpFechaFinNueva.Value;

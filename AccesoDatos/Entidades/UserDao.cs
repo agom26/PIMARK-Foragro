@@ -12,7 +12,6 @@ namespace AccesoDatos.Usuarios
     public class UserDao : ConnectionSQL
     {
         
-       
         public bool AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
         {
             using (var connection = GetConnection())
@@ -35,27 +34,33 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-        public bool UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
+        public bool UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand("UPDATE USERS SET usuario=@usuario, contrasena=@contrasena, nombres=@nombres, apellidos=@apellidos, isAdmin=@isAdmin, correo=@correo WHERE id=@id AND (SELECT COUNT(*) FROM USERS WHERE usuario=@usuario AND id!=@id) = 0;", connection))
+                using (var command = new MySqlCommand("UpdateUser", connection))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@usuario", usuario);
-                    command.Parameters.AddWithValue("@contrasena", contrasena);
-                    command.Parameters.AddWithValue("@nombres", nombres);
-                    command.Parameters.AddWithValue("@apellidos", apellidos);
-                    command.Parameters.AddWithValue("@isAdmin", isAdmin);
-                    command.Parameters.AddWithValue("@correo", correo);
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@p_id", id);
+                    command.Parameters.AddWithValue("@p_usuario", usuario);
 
-                    return rowsAffected > 0;
+                    string contrasenaFinal = cambiarContrasena ? BCrypt.Net.BCrypt.HashPassword(contrasena) : "";
+                    command.Parameters.AddWithValue("@p_contrasena", contrasenaFinal);
+
+                    command.Parameters.AddWithValue("@p_nombres", nombres);
+                    command.Parameters.AddWithValue("@p_apellidos", apellidos);
+                    command.Parameters.AddWithValue("@p_isAdmin", isAdmin);
+                    command.Parameters.AddWithValue("@p_correo", correo);
+
+                    command.ExecuteNonQuery();
+                    return true;
                 }
             }
         }
+
+
 
         public int GetTotalUsuarios()
         {

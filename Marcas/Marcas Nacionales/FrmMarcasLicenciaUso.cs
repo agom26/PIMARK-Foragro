@@ -21,6 +21,7 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows.Media.Converters;
 using DocumentFormat.OpenXml.Vml;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -206,12 +207,7 @@ namespace Presentacion.Marcas_Internacionales
                 int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas(estado));
                 int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas(estado2));
 
-                if (currP == 0)
-                    currentPageIndex = 0;
-
-                if (currP2 == 0)
-                    currentPageIndex2 = 0;
-
+                
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
 
@@ -278,7 +274,9 @@ namespace Presentacion.Marcas_Internacionales
                     txtApoderadoRL.Text = SeleccionarLicencia.apoderadoRepresentanteL;
                     dateTimePickerInicio.Value = SeleccionarLicencia.fechaInicio;
                     dateTimePickerFin.Value = SeleccionarLicencia.fechaFin;
-
+                    numericAnio.Value = Convert.ToInt32(row["Anios"].ToString());
+                    numericMes.Value = Convert.ToInt32(row["Meses"].ToString());
+                    numericDia.Value = Convert.ToInt32(row["Dias"].ToString());
                     if (SeleccionarLicencia.estado == "Terminada")
                     {
                         if (!comboBoxEstado.Items.Contains("Terminada"))
@@ -512,7 +510,9 @@ namespace Presentacion.Marcas_Internacionales
             DateTime fechaInicio = dateTimePickerInicio.Value;
             DateTime fechaFin = dateTimePickerFin.Value;
             string tipo;
-
+            int anios = (int)numericAnio.Value;
+            int meses = (int)numericMes.Value;
+            int dias = (int)numericDia.Value;
             if (exclusiva == true) { tipo = "exclusiva"; }
             else { tipo = "no exclusiva"; }
 
@@ -544,7 +544,7 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     licenciaUso.EditarLicenciaUso(idLicencia, (int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
-                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
+                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional", anios, meses,dias);
                     FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
@@ -808,6 +808,9 @@ namespace Presentacion.Marcas_Internacionales
             DateTime fechaInicio = dateTimePickerInicio.Value;
             DateTime fechaFin = dateTimePickerFin.Value;
             string tipo;
+            int anios = (int)numericAnio.Value;
+            int meses = (int)numericMes.Value;
+            int dias = (int)numericDia.Value;
 
             if (exclusiva == true) { tipo = "exclusiva"; }
             else { tipo = "no exclusiva"; }
@@ -841,7 +844,7 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     licenciaUso.InsertarLicenciaUso((int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
-                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional");
+                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional", anios, meses, dias);
                     FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
@@ -1771,7 +1774,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     await FiltrarExclusivasPorSituacionActual();
                 }
-
+                
                 lblCurrentPage.Text = currentPageIndex.ToString();
             }
         }
@@ -1905,7 +1908,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePickerInicio_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePickerFin.Value = dateTimePickerInicio.Value.AddDays(-1);
+
         }
 
         private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
@@ -2432,7 +2435,7 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            int idLicencia= Convert.ToInt32(dataRowView["id"]);
+            int idLicencia = Convert.ToInt32(dataRowView["id"]);
 
             FrmAlerta confirmar = new FrmAlerta(
                 "¿ESTÁ SEGURO QUE DESEA ELIMINAR ESTA LICENCIA DE USO?",
@@ -2444,7 +2447,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (confirmacion == DialogResult.Yes)
             {
-                
+
                 bool eliminado = false;
 
                 try
@@ -2472,6 +2475,42 @@ namespace Presentacion.Marcas_Internacionales
                     error.ShowDialog();
                 }
             }
+        }
+
+        private void numericAnio_ValueChanged(object sender, EventArgs e)
+        {
+            int anios = (int)numericAnio.Value;
+            int meses = (int)numericMes.Value;
+            int dias = (int)numericDia.Value;
+            DateTime fechaInicio = dateTimePickerInicio.Value;
+
+            DateTime nuevaFecha = fechaInicio.AddYears(anios).AddMonths(meses).AddDays(dias);
+
+            dateTimePickerFin.Value = nuevaFecha;
+        }
+
+        private void numericMes_ValueChanged(object sender, EventArgs e)
+        {
+            int anios = (int)numericAnio.Value;
+            int meses = (int)numericMes.Value;
+            int dias = (int)numericDia.Value;
+            DateTime fechaInicio = dateTimePickerInicio.Value;
+
+            DateTime nuevaFecha = fechaInicio.AddYears(anios).AddMonths(meses).AddDays(dias);
+
+            dateTimePickerFin.Value = nuevaFecha;
+        }
+
+        private void numericDia_ValueChanged(object sender, EventArgs e)
+        {
+            int anios = (int)numericAnio.Value;
+            int meses = (int)numericMes.Value;
+            int dias = (int)numericDia.Value;
+            DateTime fechaInicio = dateTimePickerInicio.Value;
+
+            DateTime nuevaFecha = fechaInicio.AddYears(anios).AddMonths(meses).AddDays(dias);
+
+            dateTimePickerFin.Value = nuevaFecha;
         }
     }
 }

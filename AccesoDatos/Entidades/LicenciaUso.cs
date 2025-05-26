@@ -195,7 +195,10 @@ namespace AccesoDatos.Entidades
             string nacionalidad,
             string apoderadoRepresentanteLegal,
             string estado,
-            string origen
+            string origen,
+            int anios, 
+            int meses, 
+            int dias
         )
         {
             using (MySqlConnection conn = GetConnection())
@@ -222,6 +225,9 @@ namespace AccesoDatos.Entidades
                         cmd.Parameters.AddWithValue("p_apoderado_representante_legal", apoderadoRepresentanteLegal);
                         cmd.Parameters.AddWithValue("p_estado", estado);
                         cmd.Parameters.AddWithValue("p_origen", origen);
+                        cmd.Parameters.AddWithValue("p_anios", anios);
+                        cmd.Parameters.AddWithValue("p_meses", meses);
+                        cmd.Parameters.AddWithValue("p_dias", dias);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -250,7 +256,10 @@ namespace AccesoDatos.Entidades
             string nacionalidad,
             string apoderadoRepresentanteLegal,
             string estado,
-            string origen
+            string origen,
+            int anios,
+            int meses,
+            int dias
         )
         {
             using (MySqlConnection conn = GetConnection())
@@ -278,6 +287,9 @@ namespace AccesoDatos.Entidades
                         cmd.Parameters.AddWithValue("p_apoderado_representante_legal", apoderadoRepresentanteLegal);
                         cmd.Parameters.AddWithValue("p_estado", estado);
                         cmd.Parameters.AddWithValue("p_origen", origen);
+                        cmd.Parameters.AddWithValue("p_anios", anios);
+                        cmd.Parameters.AddWithValue("p_meses", meses);
+                        cmd.Parameters.AddWithValue("p_dias", dias);
 
                         cmd.ExecuteNonQuery();
                     }
