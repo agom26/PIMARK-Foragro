@@ -1340,82 +1340,76 @@ namespace Presentacion.Marcas_Internacionales
         {
             AnadirTabPage(tabPageOposicionesList);
         }
-        public async void Filtrar()
+        public void Filtrar()
         {
-            string objeto = null;
+            string tipoLicencia = null;
             string expediente = null;
-            string solicitante = null;
-            string signo_pretendido = null;
+            string tituloVerifica = null;
+            string signo= null;
             string signoDistintivo = null;
-            string clase = null;
-            string opositor = null;
-            string signoOpositor = null;
-            string estado = null;
-            string situacionA = null;
-            string tipoOposicion = null;
+            string estado= null;
+            string clase= null;
+            string origen= "nacional";
+            string nombreRazonSocial = null;
+            string titular = null;
             numRegistros = 9;
             escala = 0.85f;
 
-            titulo = "REPORTE DE OPOSICIONES NACIONALES ";
+            titulo = "REPORTE DE LICENCIAS DE USO NACIONALES ";
 
-            if (chckTipoOpReporte.Checked)
+            if (chckTipoLicenciaReporte.Checked)
             {
-                switch (comboBoxTipoOposicion.SelectedIndex)
+                switch (comboBoxTipoLicenciaReporte.SelectedIndex)
                 {
                     case 0:
-                        tipoOposicion = "recibida";
-                        titulo += "RECIBIDAS";
+                        tipoLicencia = "exclusiva";
+                        titulo += "EXCLUSIVAS";
                         break;
                     case 1:
-                        tipoOposicion = "interpuesta";
-                        titulo += "INTERPUESTAS";
-
+                        tipoLicencia = "no exclusiva";
+                        titulo += "NO EXCLUSIVAS";
                         break;
-                    case 2:
-                        tipoOposicion = null;
-                        break;
-
                 }
             }
-
-            /*
-            if (checkBoxEstadoReporte.Checked)
-            { estado = comboBoxEstadoReporte.SelectedItem.ToString(); }
-            else { estado = null; }
+            else
+            {
+                tipoLicencia = null;
+            }
 
             if (chckExpedienteReporte.Checked)
             { expediente = txtExpedienteReporte.Text; }
             else
             { expediente = null; }
 
-            if (chckSolicitanteReporte.Checked) { solicitante = richTextBoxSolicitanteReporte.Text; }
-            else { solicitante = null; }
 
-            if (chckSignoPretendidoRepo.Checked) { signo_pretendido = txtSignoPretendidoReporte.Text; }
-            else { signo_pretendido = null; }
+            if (chckTituloPorElQueSeVerificaReporte.Checked)
+            { tituloVerifica = txtTituloReporte.Text; }
+            else { tituloVerifica = null; }
+
+           
+            if (chckSignoRepo.Checked) { signo = txtSignoReporte.Text; }
+            else { signo = null; }
 
             if (chckSignoDistintivoReporte.Checked) { signoDistintivo = cmbSignoDistintivoReporte.SelectedItem.ToString(); }
             else { signoDistintivo = null; }
 
+            if (chckEstadoReporte.Checked) { estado= cmbEstadolReporte.Text; }
+            else { estado = null; }
+
+            
             if (chckClaseReporte.Checked) { clase = txtClaseReporte.Text; }
             else { clase = null; }
 
-            if (chckOpositorReporte.Checked) { opositor = richTextBoxOpositorReporte.Text; }
-            else { opositor = null; }
+            if (chckNombreRazonSocial.Checked) { nombreRazonSocial= txtNombreRazonSOCIAL.Text; }
+            else { nombreRazonSocial = null; }
 
-            if (chckSignoOpositorReporte.Checked) { signoOpositor = txtTituloReporte.Text; }
-            else { signoOpositor = null; }
+            if (chckTitularReporte.Checked) { titular= richTextBoxtTitularReporte.Text; }
+            else { titular = null; }
 
-            if (chckSituacionActualReporte.Checked) { situacionA = cmbSituacionActualReporte.SelectedItem.ToString(); }
-            else { situacionA = null; }
 
-            if (chckTipoOpReporte.Checked) { tipoOposicion = tipoOposicion; }
-            else { tipoOposicion = null; }
-            
-            /*
-            dtgReportesOp.DataSource = oposicionModel.FiltrarOposiciones("op_nacionales", expediente, solicitante, signo_pretendido,
-                signoDistintivo, clase, opositor, signoOpositor, estado, situacionA, "nacional", tipoOposicion);
-            dtgReportesOp.ClearSelection();*/
+            dtgReportesOp.DataSource = licenciaUso.FiltrarLicenciasUso(tipoLicencia,expediente,tituloVerifica,signo, signoDistintivo,
+                estado, clase, "nacional", nombreRazonSocial, titular);
+            dtgReportesOp.ClearSelection();
 
         }
 
@@ -1423,8 +1417,8 @@ namespace Presentacion.Marcas_Internacionales
         {
             //checkBoxEstadoReporte.Checked = false;
             //comboBoxEstadoReporte.SelectedIndex = -1;
-            chckTipoOpReporte.Checked = false;
-            comboBoxTipoOposicion.SelectedIndex = -1;
+            chckTipoLicenciaReporte.Checked = false;
+            comboBoxTipoLicenciaReporte.SelectedIndex = -1;
             chckExpedienteReporte.Checked = false;
             txtExpedienteReporte.Text = "";
 
@@ -1722,11 +1716,11 @@ namespace Presentacion.Marcas_Internacionales
 
             if (SeleccionarPersonaReportes.nombreTitular != "")
             {
-                richTextBoxSolicitanteReporte.Text = SeleccionarPersonaReportes.nombreTitular;
+                richTextBoxtTitularReporte.Text = SeleccionarPersonaReportes.nombreTitular;
             }
             else
             {
-                richTextBoxSolicitanteReporte.Text = "";
+                richTextBoxtTitularReporte.Text = "";
             }
         }
 

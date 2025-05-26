@@ -10,6 +10,51 @@ namespace AccesoDatos.Entidades
 {
     public class LicenciaUso : ConnectionSQL
     {
+        
+        public DataTable FiltrarLicenciasUso(
+            string tipoLicencia,
+            string expediente,
+            string titulo,
+            string signo,
+            string signoDistintivo,
+            string estado,
+            string clase,
+            string origen,
+            string nombreRazonSocial,
+            string titular)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                conexion.Open();
+                using (MySqlCommand cmd = new MySqlCommand("FiltrarLicenciasUso", conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("p_tipo_licencia", tipoLicencia ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_expediente", expediente ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_titulo", titulo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_signo", signo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_signo_distintivo", signoDistintivo ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_estado", estado ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_origen", origen ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_nombre_razon_social", nombreRazonSocial ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+
+
+
         public bool InsertarLicenciaUso
         (
             int idMarca,

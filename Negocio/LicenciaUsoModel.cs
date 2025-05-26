@@ -18,6 +18,32 @@ namespace Dominio
             licenciaDao = new LicenciaUso();
         }
 
+        public DataTable FiltrarLicenciasUso(
+            string tipoLicencia,
+            string expediente,
+            string titulo,
+            string signo,
+            string signoDistintivo,
+            string estado,
+            string clase,
+            string origen,
+            string nombreRazonSocial,
+            string titular)
+        {
+            return licenciaDao.FiltrarLicenciasUso(
+                tipoLicencia,
+                expediente,
+                titulo,
+                signo,
+                signoDistintivo,
+                estado,
+                clase,
+                origen,
+                nombreRazonSocial,
+                titular
+            );
+        }
+
         public bool InsertarLicenciaUso(
             int idMarca,
             int idTitular,
