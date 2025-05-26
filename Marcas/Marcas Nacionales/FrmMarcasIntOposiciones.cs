@@ -368,7 +368,6 @@ namespace Presentacion.Marcas_Internacionales
             pictureBox1.Image = null;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
-            txtNombreCliente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
@@ -461,10 +460,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     dtgHistorialOp.AutoGenerateColumns = true;
                     dtgHistorialOp.DataSource = historial;
-                    if (dtgHistorialOp.Columns["Id"] != null)
-                        dtgHistorialOp.Columns["Id"].Visible = false;
-
-                    dtgHistorialOp.ClearSelection();
+                   
                 });
             }
             catch (Exception ex)
@@ -653,7 +649,6 @@ namespace Presentacion.Marcas_Internacionales
                     if (SeleccionarOposicion.idMarca > 0)
                     {
                         btnAgregarOpositorAO.Enabled = false;
-                        // btnTitular.Visible = true;
                         txtExpedienteAO.Enabled = false;
                         txtClaseAO.Enabled = false;
                         cmbSignoDAO.Enabled = false;
@@ -698,10 +693,8 @@ namespace Presentacion.Marcas_Internacionales
                         btnAgregarOpositorAO.Enabled = true;
                         txtSignoOpositor.Enabled = true;
                         txtNombreTitularAO.Enabled = true;
-                        //btnTitular.Visible = false;
                     }
 
-                    //btnVerHistorial.Visible = true;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
                     btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
@@ -1362,7 +1355,6 @@ namespace Presentacion.Marcas_Internacionales
             pictureBoxSignoPretendido.Image = documento;
             checkBoxAgregarLogos.Checked = false;
             MostrarLogos();
-            //iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             tabControl1.SelectedTab = tabPageAgregarOposicion;
             btnGuardarU.Text = "AGREGAR";
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
@@ -1450,7 +1442,8 @@ namespace Presentacion.Marcas_Internacionales
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     AnadirTabPage(tabPageOposicionesList);
-                    tabControl1.SelectedTab = tabPageOposicionesList;
+                    cmbSituacionActual.SelectedIndex = 0;
+                    cmbSituacionActualI.SelectedIndex = 0;
                     EliminarTabPage(tabPageAgregarOposicion);
                 }
 
@@ -1505,9 +1498,9 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    LimpiarFormularioOposicion();
                     AnadirTabPage(tabPageOposicionesList);
-                    tabControl1.SelectedTab = tabPageOposicionesList;
+                    LimpiarFormularioOposicion();
+                    cmbSituacionActualI.SelectedIndex = 0;
                     EliminarTabPage(tabPageAgregarOposicion);
                 }
                 else
@@ -1611,9 +1604,10 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnCancelarU_Click(object sender, EventArgs e)
         {
+            DatosRegistro.peligro = false;
             AnadirTabPage(tabPageOposicionesList);
             EliminarTabPage(tabPageAgregarOposicion);
-            tabControl1.SelectedTab = tabPageOposicionesList;
+            SeleccionarOposicion.idN = 0;
             LimpiarFormularioOposicion();
         }
         public async Task recargarDatosOposicion()
@@ -2692,8 +2686,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 dtgOpI.Columns["IdMarca"].Visible = false;
                 dtgOpI.Columns["id"].Visible = false;
-                dtgOpI.ClearSelection();
             }
+            dtgOpI.ClearSelection();
         }
 
         private void dtgMarcasOp_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -2702,8 +2696,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 dtgMarcasOp.Columns["IdMarca"].Visible = false;
                 dtgMarcasOp.Columns["id"].Visible = false;
-                dtgMarcasOp.ClearSelection();
             }
+            dtgMarcasOp.ClearSelection();
         }
 
         private void dtgHistorialOp_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

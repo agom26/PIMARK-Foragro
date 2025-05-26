@@ -55,67 +55,13 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmRegistradas_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
-            if (UsuarioActivo.isAdmin == false)
+            if (UsuarioActivo.isAdmin)
             {
-                btnAgregarTitular.Enabled = false;
-                btnAgregarAgente.Enabled = false;
-                btnEditarEstadoHistorial.Visible = false;
-                txtExpediente.Enabled = false;
-                txtClase.Enabled = false;
-                txtNombre.Enabled = false;
-                datePickerFechaSolicitud.Enabled = false;
-                comboBoxTipoSigno.Enabled = false;
-                comboBoxSignoDistintivo.Enabled = false;
-                btnSubirImagen.Enabled = false;
-                btnQuitarImagen.Enabled = false;
-                dateTimePickerFechaH.Enabled = false;
-                comboBoxEstatusH.Enabled = false;
-                richTextBoxAnotacionesH.Enabled = false;
-                btnEditarH.Visible = false;
-                //Datos registro
-                txtRegistro.Enabled = false;
-                txtFolio.Enabled = false;
-                txtLibro.Enabled = false;
-                dateTimePFecha_Registro.Enabled = false;
-                //Datos de renovacion
-                btnEditarRenovacion.Visible = false;
-                txtERenovacion.Enabled = false;
-                //Datos de traspaso
-                btnEditarTraspaso.Visible = false;
-                txtETraspaso.Enabled = false;
-                lblUser.Visible = false;
-                labelUserEditor.Visible = false;
+                btnEliminarMarca.Visible = true;
             }
-            else if (UsuarioActivo.isAdmin == true)
+            else
             {
-                btnAgregarTitular.Enabled = true;
-                btnAgregarAgente.Enabled = true;
-                btnEditarEstadoHistorial.Visible = true;
-                txtExpediente.Enabled = true;
-                txtClase.Enabled = true;
-                txtNombre.Enabled = true;
-                datePickerFechaSolicitud.Enabled = true;
-                comboBoxTipoSigno.Enabled = true;
-                comboBoxSignoDistintivo.Enabled = true;
-                btnSubirImagen.Enabled = true;
-                btnQuitarImagen.Enabled = true;
-                dateTimePickerFechaH.Enabled = true;
-                comboBoxEstatusH.Enabled = true;
-                richTextBoxAnotacionesH.Enabled = true;
-                //Datos registro
-                txtRegistro.Enabled = true;
-                txtFolio.Enabled = true;
-                txtLibro.Enabled = true;
-                dateTimePFecha_Registro.Enabled = true;
-                btnEditarH.Visible = true;
-                //Datos de renovacion
-                btnEditarRenovacion.Visible = true;
-                txtERenovacion.Enabled = true;
-                //Datos de traspaso
-                btnEditarTraspaso.Visible = true;
-                txtETraspaso.Enabled = true;
-                lblUser.Visible = false;
-                labelUserEditor.Visible = false;
+                btnEliminarMarca.Visible = false;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -130,24 +76,16 @@ namespace Presentacion.Marcas_Nacionales
         {
             totalRows = marcaModel.GetTotalMarcasInternacionalesRegistradas();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
+
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesRegistradas(currentPageIndex, pageSize));
             if (this.IsHandleCreated && !this.IsDisposed)
             {
-                Invoke(new Action(() =>
-            {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasR.DataSource = marcasN;
-
-                if (dtgMarcasR.Columns["id"] != null)
+                this.Invoke(() =>
                 {
-                    dtgMarcasR.Columns["id"].Visible = false;
-                    dtgMarcasR.ClearSelection();
-                }
-
-
-            }));
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgMarcasR.DataSource = marcasN;
+                });
             }
         }
 
@@ -430,12 +368,11 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
-                        EliminarTabPage(tabPageHistorialMarca);                        
+                        await LoadMarcas();
+                        EliminarTabPage(tabPageHistorialMarca);
                         AnadirTabPage(tabPageRegistradasList);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
-                        tabControl1.SelectedTab = tabPageRegistradasList;
-                        await LoadMarcas();
                     }
                     else
                     {
@@ -443,12 +380,11 @@ namespace Presentacion.Marcas_Nacionales
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         SeleccionarMarca.idInt = 0;
-                        EliminarTabPage(tabPageHistorialMarca);
+                        await LoadMarcas();
                         AnadirTabPage(tabPageRegistradasList);
+                        EliminarTabPage(tabPageHistorialMarca);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
-                        tabControl1.SelectedTab = tabPageRegistradasList;
-                        await LoadMarcas();
                     }
 
 
@@ -459,28 +395,30 @@ namespace Presentacion.Marcas_Nacionales
                     alerta.Show();
                 }
 
-                LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LimpiarFormulario();
+
             }
         }
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtETraspaso.Text = "";
             txtERenovacion.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
+            comboBoxSignoDistintivo.SelectedIndex = -1;
+            comboBoxTipoSigno.SelectedIndex = -1;
             textBoxEstatus.Text = "";
             checkBox1.Checked = false;
             ActualizarFechaVencimiento();
@@ -673,12 +611,7 @@ namespace Presentacion.Marcas_Nacionales
                     dtgHistorialR.DataSource = historial;
                     dtgHistorialR.Refresh();
 
-                    if (dtgHistorialR.Columns["id"] != null)
-                    {
-                        dtgHistorialR.Columns["id"].Visible = false;
-                    }
 
-                    dtgHistorialR.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -699,13 +632,7 @@ namespace Presentacion.Marcas_Nacionales
                     dtgRenovaciones.DataSource = renovaciones;
                     dtgRenovaciones.Refresh();
 
-                    if (dtgRenovaciones.Columns["id"] != null)
-                    {
-                        dtgRenovaciones.Columns["id"].Visible = false;
-                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
-                    }
 
-                    dtgRenovaciones.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -824,7 +751,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -875,17 +802,18 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageRenovacionDetail);
                 EliminarTabPage(tabPageTraspasoDetail);
-            }
+            }*/
         }
         public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
+            LimpiarFormulario();
             if (SeleccionarMarca.idInt > 0)
             {
+                EliminarTabPage(tabPageRegistradasList);
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
-                tabControl1.SelectedTab = tabPageMarcaDetail;
-                EliminarTabPage(tabPageRegistradasList);
+
 
             }
         }
@@ -1119,7 +1047,7 @@ namespace Presentacion.Marcas_Nacionales
                             FrmAlerta alerta = new FrmAlerta("NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             alerta.ShowDialog();
                         }
-                        
+
                     }
                     else
                     {
@@ -1224,7 +1152,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -1252,10 +1180,10 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    AnadirTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageHistorialDetail);
                     SeleccionarHistorial.id = 0;
-                    refrescarMarca();
+                    await refrescarMarca();
                 }
                 else
                 {
@@ -1266,7 +1194,6 @@ namespace Presentacion.Marcas_Nacionales
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
-                //MessageBox.Show("No ha seleccionado ningun estado");
             }
 
 
@@ -1274,7 +1201,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageHistorialMarca;
+            AnadirTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageHistorialDetail);
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)
@@ -1449,7 +1377,6 @@ namespace Presentacion.Marcas_Nacionales
         {
             string numExpediente = txtNoExpediente.Text;
 
-
             DateTime fechaVencimientoA = dateFechVencAnt.Value;
             DateTime fechaVencimientoN = dateFechVencNueva.Value;
             int id = SeleccionarRenovacion.idRenovacion;
@@ -1464,15 +1391,14 @@ namespace Presentacion.Marcas_Nacionales
                     loadRenovacionesById();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
-                    //MessageBox.Show("Registro de renovación actualizado exitosamente.");
-                    tabControl1.SelectedTab = tabPageRenovacionesList;
+                    AnadirTabPage(tabPageRenovacionesList);
+                    EliminarTabPage(tabPageRenovacionDetail);
 
                 }
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.Show();
-                    //MessageBox.Show("No se pudo actualizar el registro de renovación.");
                 }
             }
             else
@@ -1628,7 +1554,8 @@ namespace Presentacion.Marcas_Nacionales
                 traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-                tabControl1.SelectedTab = tabPageTraspasosList;
+                AnadirTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
             }
             else
             {
@@ -1640,27 +1567,32 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton5_Click_2(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageTraspasosList;
+            AnadirTabPage(tabPageTraspasosList);
+            EliminarTabPage(tabPageTraspasoDetail);
         }
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageRenovacionesList;
+            AnadirTabPage(tabPageRenovacionesList);
+            EliminarTabPage(tabPageRenovacionDetail);
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageRenovacionesList);
         }
 
         private void iconButton9_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageTraspasosList);
         }
 
         public void VerificarDatosRegistro()
@@ -1681,7 +1613,6 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 ActualizarMarcaNacional();
-                
 
             }
             else
@@ -1702,8 +1633,8 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageListaArchivos);
             tabControl1.SelectedTab = tabPageRegistradasList;
             await LoadMarcas();
-
-
+            SeleccionarMarca.idInt = 0;
+            LimpiarFormulario();
         }
 
         private void ibtnBuscar_Click(object sender, EventArgs e)
@@ -1875,7 +1806,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
         }
 
         private void roundedButton11_Click(object sender, EventArgs e)
@@ -2200,6 +2132,102 @@ namespace Presentacion.Marcas_Nacionales
         private void tabPageRegistradasList_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtgMarcasR_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgMarcasR.Columns["id"] != null)
+            {
+                dtgMarcasR.Columns["id"].Visible = false;
+            }
+
+            dtgMarcasR.ClearSelection();
+        }
+
+        private void dtgHistorialR_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorialR.Columns["id"] != null)
+            {
+                dtgHistorialR.Columns["id"].Visible = false;
+            }
+
+            dtgHistorialR.ClearSelection();
+        }
+
+        private void dtgRenovaciones_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgRenovaciones.Columns["id"] != null)
+            {
+                dtgRenovaciones.Columns["id"].Visible = false;
+                dtgRenovaciones.Columns["IdMarca"].Visible = false;
+            }
+
+            dtgRenovaciones.ClearSelection();
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private async void btnEliminarMarca_Click(object sender, EventArgs e)
+        {
+            // Verificar que haya una fila seleccionada
+            if (dtgMarcasR.SelectedRows.Count == 0)
+            {
+                FrmAlerta alerta = new FrmAlerta("Debe seleccionar una marca para eliminar", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
+            var filaSeleccionada = dtgMarcasR.SelectedRows[0];
+            if (!(filaSeleccionada.DataBoundItem is DataRowView dataRowView))
+            {
+                FrmAlerta alerta = new FrmAlerta("Error al obtener la información de la marca", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return;
+            }
+
+            int idMarca = Convert.ToInt32(dataRowView["Id"]);
+
+            FrmAlerta confirmar = new FrmAlerta(
+                "¿Está seguro que desea eliminar esta marca?\n\n" +
+                "Nota: Si está relacionada con licencias de uso, también serán eliminadas.",
+                "Confirmación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            var resultado = confirmar.ShowDialog();
+
+            if (resultado == DialogResult.Yes)
+            {
+                MarcaModel model = new MarcaModel();
+                bool eliminado = false;
+
+                try
+                {
+                    eliminado = model.EliminarMarcaConLog(idMarca, UsuarioActivo.usuario);
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta error = new FrmAlerta("Error al eliminar la marca:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                    return;
+                }
+
+                if (eliminado)
+                {
+                    FrmAlerta exito = new FrmAlerta("Marca eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    exito.ShowDialog();
+
+                    await LoadMarcas();
+                }
+                else
+                {
+                    FrmAlerta error = new FrmAlerta("No se pudo eliminar la marca. Puede que no exista o esté relacionada con datos protegidos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error.ShowDialog();
+                }
+            }
         }
     }
 }

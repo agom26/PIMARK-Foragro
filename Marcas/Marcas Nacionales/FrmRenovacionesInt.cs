@@ -45,65 +45,7 @@ namespace Presentacion.Marcas_Internacionales
             this.Load += FrmRenovacionesInt_Load;
             SeleccionarMarca.idN = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
-            /*
-             if (UsuarioActivo.isAdmin == false)
-             {
-                 btnAgregarTitular.Enabled = false;
-                 btnAgregarAgente.Enabled = false;
-                 btnEditarEstadoHistorial.Visible = false;
-                 txtExpediente.Enabled = false;
-                 txtClase.Enabled = false;
-                 txtNombre.Enabled = false;
-                 datePickerFechaSolicitud.Enabled = false;
-                 comboBoxTipoSigno.Enabled = false;
-                 comboBoxSignoDistintivo.Enabled = false;
-                 btnSubirImagen.Enabled = false;
-                 btnQuitarImagen.Enabled = false;
-                 dateTimePickerFechaH.Enabled = false;
-                 comboBoxEstatusH.Enabled = false;
-                 richTextBoxAnotacionesH.Enabled = false;
-                 btnEditarH.Visible = false;
-                 //datos registro
-                 txtRegistro.Enabled = false;
-                 txtFolio.Enabled = false;
-                 txtLibro.Enabled = false;
-                 dateTimePFecha_Registro.Enabled = false;
-
-                 //datos renovacion
-                 txtERenovacion.Enabled = false;
-
-                 //datos traspaso
-                 txtETraspaso.Enabled = false;
-             }
-             else if (UsuarioActivo.isAdmin == true)
-             {
-                 btnAgregarTitular.Enabled = true;
-                 btnAgregarAgente.Enabled = true;
-                 btnEditarEstadoHistorial.Visible = true;
-                 txtExpediente.Enabled = true;
-                 txtClase.Enabled = true;
-                 txtNombre.Enabled = true;
-                 datePickerFechaSolicitud.Enabled = true;
-                 comboBoxTipoSigno.Enabled = true;
-                 comboBoxSignoDistintivo.Enabled = true;
-                 btnSubirImagen.Enabled = true;
-                 btnQuitarImagen.Enabled = true;
-                 dateTimePickerFechaH.Enabled = true;
-                 comboBoxEstatusH.Enabled = true;
-                 richTextBoxAnotacionesH.Enabled = true;
-                 btnEditarH.Visible = true;
-                 //datos registro
-                 txtRegistro.Enabled = true;
-                 txtFolio.Enabled = true;
-                 txtLibro.Enabled = true;
-                 dateTimePFecha_Registro.Enabled = true;
-
-                 //datos renovacion
-                 txtERenovacion.Enabled = true;
-
-                 //datos traspaso
-                 txtETraspaso.Enabled = true;
-             }*/
+           
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -377,6 +319,7 @@ namespace Presentacion.Marcas_Internacionales
                             EliminarTabPage(tabPageMarcaDetail);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
+                            LimpiarFormulario();
                         }
                         else
                         {
@@ -392,6 +335,7 @@ namespace Presentacion.Marcas_Internacionales
                             EliminarTabPage(tabPageListaArchivos);
                             tabControl1.SelectedTab = tabPageRegistradasList;
                             await LoadMarcas();
+                            LimpiarFormulario();
                         }
                     }
                     else
@@ -404,14 +348,11 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + "\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
-                //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LimpiarFormulario();
             }
         }
         public void LimpiarFormulario()
@@ -434,6 +375,8 @@ namespace Presentacion.Marcas_Internacionales
             txtRegistro.Text = "";
             richTextBox1.Text = "";
             AgregarEtapa.LimpiarEtapa();
+            comboBoxTipoSigno.SelectedIndex = -1;
+            comboBoxSignoDistintivo.SelectedIndex = -1;
         }
 
         private void LimpiarControlesMarca()
@@ -1148,6 +1091,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageHistorialMarca);
             await LoadMarcas();
             SeleccionarMarca.idN = 0;
+            LimpiarFormulario();
         }
 
         private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

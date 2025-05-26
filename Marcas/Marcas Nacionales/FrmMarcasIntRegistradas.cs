@@ -398,22 +398,23 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-
-
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtNombreCliente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
             dateTimePFecha_Registro.Value = DateTime.Now;
+            comboBoxSignoDistintivo.SelectedIndex = -1;
+            comboBoxTipoSigno.SelectedIndex = -1;
             textBoxEstatus.Text = "";
             checkBox1.Checked = false;
             ActualizarFechaVencimiento();

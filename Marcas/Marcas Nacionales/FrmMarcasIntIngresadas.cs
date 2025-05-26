@@ -367,7 +367,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                
+
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0)
@@ -1174,7 +1174,7 @@ namespace Presentacion.Marcas_Internacionales
             filtrar();
         }
 
-        private async void iconButton4_Click_1(object sender, EventArgs e)
+        private void iconButton4_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
@@ -1236,6 +1236,8 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
             await LoadMarcas();
+            SeleccionarMarca.idN = 0;
+            LimpiarFormulario();
 
         }
 
@@ -1730,6 +1732,11 @@ namespace Presentacion.Marcas_Internacionales
                 dtgMarcasIn.Columns["id"].Visible = false;
 
             dtgMarcasIn.ClearSelection();
+        }
+
+        private void panel11_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

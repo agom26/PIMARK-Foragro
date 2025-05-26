@@ -42,7 +42,6 @@ namespace Presentacion.Marcas_Nacionales
         public FrmMostrarAbandonadas()
         {
             InitializeComponent();
-
             this.Load += FrmMostrarAbandonadas_Load;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -178,12 +177,13 @@ namespace Presentacion.Marcas_Nacionales
 
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
@@ -248,7 +248,7 @@ namespace Presentacion.Marcas_Nacionales
                         var titular = titularTask.Result;
                         var agente = agenteTask.Result;
                         var cliente = clienteTask?.Result;
-                      
+
 
                         SeleccionarPersona.idPersonaT = SeleccionarMarca.idPersonaTitular;
                         SeleccionarPersona.idPersonaA = SeleccionarMarca.idPersonaAgente;
@@ -372,25 +372,19 @@ namespace Presentacion.Marcas_Nacionales
 
 
 
-        private async void loadHistorialById()
+        private async Task loadHistorialById()
         {
             try
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
 
-                // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
                     dtgHistorialAban.AutoGenerateColumns = true;
                     dtgHistorialAban.DataSource = historial;
                     dtgHistorialAban.Refresh();
 
-                    if (dtgHistorialAban.Columns["id"] != null)
-                    {
-                        dtgHistorialAban.Columns["id"].Visible = false;
-                    }
 
-                    dtgHistorialAban.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -398,26 +392,19 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void loadRenovacionesById()
+        private async Task loadRenovacionesById()
         {
             try
             {
                 DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt));
 
-                // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
                     dtgRenovaciones.AutoGenerateColumns = true;
                     dtgRenovaciones.DataSource = renovaciones;
                     dtgRenovaciones.Refresh();
 
-                    if (dtgRenovaciones.Columns["id"] != null)
-                    {
-                        dtgRenovaciones.Columns["id"].Visible = false;
-                        dtgRenovaciones.Columns["IdMarca"].Visible = false;
-                    }
 
-                    dtgRenovaciones.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -425,28 +412,19 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar las renovaciones de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void loadTraspasosById()
+        private async Task loadTraspasosById()
         {
             try
             {
                 DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idInt));
 
-                // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
                 {
                     dtgTraspasos.AutoGenerateColumns = true;
                     dtgTraspasos.DataSource = traspasos;
                     dtgTraspasos.Refresh();
 
-                    if (dtgTraspasos.Columns["id"] != null)
-                    {
-                        dtgTraspasos.Columns["id"].Visible = false;
-                        dtgTraspasos.Columns["IdMarca"].Visible = false;
-                        dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
-                        dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
-                    }
 
-                    dtgTraspasos.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -458,19 +436,17 @@ namespace Presentacion.Marcas_Nacionales
         private async void FrmMostrarAbandonadas_Load(object sender, EventArgs e)
         {
             await Task.Run(() => LoadMarcas());
-            tabControl1.SelectedTab = tabPageAbandonadasList;
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageRenovacionesList);
             EliminarTabPage(tabPageTraspasosList);
             EliminarTabPage(tabPageListaArchivos);
-            //EliminarTabPage(tabPageHistorialDetalle);
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -507,10 +483,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 EliminarTabPage(tabPageRenovacionesList);
                 EliminarTabPage(tabPageHistorialMarca);
-            }
+            }*/
         }
         public async void Ver()
         {
+            LimpiarFormulario();
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idInt > 0)
             {
@@ -518,7 +495,7 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.Visible = false;
                 await CargarDatosMarca();
                 AnadirTabPage(tabPageMarcaDetail);
-                tabControl1.SelectedTab = tabPageMarcaDetail;
+                EliminarTabPage(tabPageAbandonadasList);
                 tabControl1.Visible = true;
                 Cursor = Cursors.Default;
             }
@@ -539,9 +516,9 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void roundedButton6_Click(object sender, EventArgs e)
+        private async void roundedButton6_Click(object sender, EventArgs e)
         {
-            loadHistorialById();
+            await loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
         }
 
@@ -560,9 +537,9 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void roundedButton2_Click(object sender, EventArgs e)
+        private async void roundedButton2_Click(object sender, EventArgs e)
         {
-            loadRenovacionesById();
+            await loadRenovacionesById();
             AnadirTabPage(tabPageRenovacionesList);
         }
 
@@ -571,25 +548,28 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void roundedButton9_Click(object sender, EventArgs e)
+        private async void roundedButton9_Click(object sender, EventArgs e)
         {
-            loadTraspasosById();
+            await loadTraspasosById();
             AnadirTabPage(tabPageTraspasosList);
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage( tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage( tabPageMarcaDetail);
+            EliminarTabPage(tabPageRenovacionesList);
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageTraspasosList);
         }
 
         private void btnQuitarImagen_Click(object sender, EventArgs e)
@@ -605,8 +585,9 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageListaArchivos);
             EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageAbandonadasList;
             await LoadMarcas();
+            SeleccionarMarca.idInt = 0;
+            LimpiarFormulario();
         }
 
         public void VerificarDatosRegistro()
@@ -1157,7 +1138,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
         }
 
         private void iconButton13_Click(object sender, EventArgs e)
@@ -1266,8 +1248,8 @@ namespace Presentacion.Marcas_Nacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
-            string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
+            string? signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
+            string? tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -1280,7 +1262,7 @@ namespace Presentacion.Marcas_Nacionales
             string etrasp = txtETraspaso.Text;
             string erenov = txtERenovacion.Text;
 
-            string paisRegistro = comboBox1.SelectedItem?.ToString();
+            string? paisRegistro = comboBox1.SelectedItem?.ToString();
             string tiene_poder = "no";
 
             string estado = textBoxEstatus.Text;
@@ -1367,27 +1349,27 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
-                        SeleccionarMarca.idInt = 0;
 
                         AnadirTabPage(tabPageAbandonadasList);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
                         EliminarTabPage(tabPageHistorialMarca);
-                        tabControl1.SelectedTab = tabPageAbandonadasList;
                         await LoadMarcas();
+                        LimpiarFormulario();
+                        SeleccionarMarca.idInt = 0;
                     }
                     else
                     {
                         historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
-                        SeleccionarMarca.idInt = 0;
                         AnadirTabPage(tabPageAbandonadasList);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
                         EliminarTabPage(tabPageHistorialMarca);
-                        tabControl1.SelectedTab = tabPageAbandonadasList;
                         await LoadMarcas();
+                        LimpiarFormulario();
+                        SeleccionarMarca.idInt = 0;
                     }
 
 
@@ -1398,22 +1380,20 @@ namespace Presentacion.Marcas_Nacionales
                     alerta.Show();
                 }
 
-                LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LimpiarFormulario();
             }
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private async void btnEditar_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                ActualizarMarcaNacional();
-               
+                await ActualizarMarcaNacional();
+
             }
             else
             {
@@ -1423,24 +1403,47 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
-        {/*
-            FrmMostrarClientes frmMostrarClientes = new FrmMostrarClientes();
-            frmMostrarClientes.ShowDialog();
+        {
 
-            if (SeleccionarPersona.idPersonaC != 0)
-            {
-                txtNombreCliente.Text = SeleccionarPersona.nombre;
-            }
-            else
-            {
-                SeleccionarPersona.idPersonaC = null;
-                txtNombreCliente.Text = "";
-            }*/
         }
 
         private void btnAgregarAgente_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtgHistorialAban_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorialAban.Columns["id"] != null)
+            {
+                dtgHistorialAban.Columns["id"].Visible = false;
+            }
+
+            dtgHistorialAban.ClearSelection();
+        }
+
+        private void dtgRenovaciones_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgRenovaciones.Columns["id"] != null)
+            {
+                dtgRenovaciones.Columns["id"].Visible = false;
+                dtgRenovaciones.Columns["IdMarca"].Visible = false;
+            }
+
+            dtgRenovaciones.ClearSelection();
+        }
+
+        private void dtgTraspasos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgTraspasos.Columns["id"] != null)
+            {
+                dtgTraspasos.Columns["id"].Visible = false;
+                dtgTraspasos.Columns["IdMarca"].Visible = false;
+                dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
+                dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
+            }
+
+            dtgTraspasos.ClearSelection();
         }
     }
 }

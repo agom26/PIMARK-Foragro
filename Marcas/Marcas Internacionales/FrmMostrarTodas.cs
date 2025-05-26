@@ -122,24 +122,16 @@ namespace Presentacion.Marcas_Nacionales
         {
             totalRows = marcaModel.GetTotalMarcasInternacionalesSinRegistro();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
+
             var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesIngresadas(currentPageIndex, pageSize));
             if (this.IsHandleCreated && !this.IsDisposed)
             {
-                Invoke(new Action(() =>
-            {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasN.DataSource = marcasN;
-
-                if (dtgMarcasN.Columns["id"] != null)
+                this.Invoke(() =>
                 {
-                    dtgMarcasN.Columns["id"].Visible = false;
-                    dtgMarcasN.ClearSelection();
-                }
-
-
-            }));
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgMarcasN.DataSource = marcasN;
+                });
             }
         }
 
@@ -666,7 +658,7 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 var historial = await Task.Run(() => historialModel.GetHistorialMarcaById(SeleccionarMarca.idInt));
-
+                AnadirTabPage(tabPageHistorialMarca);
 
                 Invoke(new Action(() =>
                 {
@@ -674,12 +666,6 @@ namespace Presentacion.Marcas_Nacionales
                     dtgHistorial.DataSource = historial;
                     dtgHistorial.Refresh();
 
-                    if (dtgHistorial.Columns["id"] != null)
-                    {
-                        dtgHistorial.Columns["id"].Visible = false;
-                    }
-
-                    dtgHistorial.ClearSelection();
                 }));
             }
             catch (Exception ex)
@@ -715,9 +701,8 @@ namespace Presentacion.Marcas_Nacionales
             {
                 tabControl1.Visible = false;
                 await CargarDatosMarca();
-                EliminarTabPage(tabPageListaMarcas);
                 AnadirTabPage(tabPageMarcaDetail);
-                tabControl1.SelectedTab = tabPageMarcaDetail;
+                EliminarTabPage(tabPageListaMarcas);
                 tabControl1.Visible = true;
             }
         }
@@ -905,7 +890,6 @@ namespace Presentacion.Marcas_Nacionales
             if (DatosRegistro.peligro == false)
             {
                 loadHistorialById();
-                AnadirTabPage(tabPageHistorialMarca);
             }
             else
             {
@@ -916,7 +900,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageHistorialMarca)
             {
                 loadHistorialById();
@@ -937,7 +921,7 @@ namespace Presentacion.Marcas_Nacionales
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageListaArchivos);
-            }
+            }*/
         }
         public void Habilitar()
         {
@@ -993,10 +977,10 @@ namespace Presentacion.Marcas_Nacionales
                         }
                         else
                         {
-                            FrmAlerta alerta= new FrmAlerta("NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            FrmAlerta alerta = new FrmAlerta("NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             alerta.ShowDialog();
                         }
-                        
+
                     }
                     else
                     {
@@ -1060,8 +1044,8 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
+                    AnadirTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageHistorialDetail);
                     SeleccionarHistorial.id = 0;
                     await refrescarMarca();
                 }
@@ -1074,13 +1058,13 @@ namespace Presentacion.Marcas_Nacionales
             {
                 FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("No ha seleccionado ningun estado");
             }
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageHistorialMarca;
+            AnadirTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageHistorialDetail);
 
         }
 
@@ -1209,7 +1193,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
         }
 
         private void SubirArchivoRegistro(string idMarca)
@@ -1287,10 +1272,9 @@ namespace Presentacion.Marcas_Nacionales
                 else
                 {
                     await ActualizarMarcaNacional();
-                    EliminarTabPage(tabPageHistorialMarca);
                     AnadirTabPage(tabPageListaMarcas);
-                    tabControl1.SelectedTab = tabPageListaMarcas;
                     await LoadMarcas();
+                    EliminarTabPage(tabPageHistorialMarca);
                 }
 
             }
@@ -1321,6 +1305,8 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialMarca);
             tabControl1.SelectedTab = tabPageListaMarcas;
             await LoadMarcas();
+            SeleccionarMarca.idInt = 0;
+            LimpiarFormulario();
         }
 
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1366,7 +1352,7 @@ namespace Presentacion.Marcas_Nacionales
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageListaArchivos);
                     EliminarTabPage(tabPageHistorialMarca);
-                    tabControl1.SelectedTab = tabPageListaMarcas;
+                    EliminarTabPage(tabPageHistorialDetail);
                 }
             }
             else
@@ -1805,7 +1791,8 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton7_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
         }
 
         private void iconButton8_Click(object sender, EventArgs e)
@@ -1875,6 +1862,25 @@ namespace Presentacion.Marcas_Nacionales
             {
                 dateTimePFecha_vencimiento.Enabled = false;
             }
+        }
+
+        private void dtgMarcasN_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgMarcasN.Columns["id"] != null)
+            {
+                dtgMarcasN.Columns["id"].Visible = false;
+            }
+            dtgMarcasN.ClearSelection();
+
+        }
+
+        private void dtgHistorial_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorial.Columns["id"] != null)
+            {
+                dtgHistorial.Columns["id"].Visible = false;
+            }
+            dtgHistorial.ClearSelection();
         }
     }
 }
