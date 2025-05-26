@@ -31,7 +31,7 @@ namespace Presentacion.Marcas_Nacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
-        bool agregoEstado = false;
+        //bool agregoEstado = false;
         private bool buscando = false;
 
         //ftp
@@ -340,12 +340,12 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 bool esActualizado;
-
+                /*
                 if (agregoEstado == true)
                 {
                     historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     agregoEstado = false;
-                }
+                }*/
 
                 if (registroChek)
                 {
@@ -358,11 +358,17 @@ namespace Presentacion.Marcas_Nacionales
                         , tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
                 }
 
-                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
+                //DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
+                if (!esActualizado)
+                {
+                    MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 if (esActualizado == true)
                 {
                     // Verificar si la actualización fue exitosa
+                    /*
                     if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                     {
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -385,9 +391,15 @@ namespace Presentacion.Marcas_Nacionales
                         EliminarTabPage(tabPageHistorialMarca);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageListaArchivos);
-                    }
+                    }*/
 
-
+                    new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+                    // 5. Reset UI
+                    SeleccionarMarca.idInt = 0;
+                    await LoadMarcas();
+                    AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageMarcaDetail);
                 }
                 else
                 {
@@ -598,7 +610,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
-        private async void loadHistorialById()
+        private async Task loadHistorialById()
         {
             try
             {
@@ -619,7 +631,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar el historial de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void loadRenovacionesById()
+        private async Task loadRenovacionesById()
         {
             try
             {
@@ -640,7 +652,7 @@ namespace Presentacion.Marcas_Nacionales
                 MessageBox.Show("Error al cargar las renovaciones de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void loadTraspasosById()
+        private async Task loadTraspasosById()
         {
             try
             {
@@ -693,7 +705,7 @@ namespace Presentacion.Marcas_Nacionales
                         }
 
                         // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
 
                         if (contieneRegistrada)
                         {
@@ -873,10 +885,10 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    agregoEstado = true;
+                    //agregoEstado = true;
                     richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                     textBoxEstatus.Text = AgregarEtapa.etapa;
-                    //historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
@@ -890,42 +902,44 @@ namespace Presentacion.Marcas_Nacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    //await refrescarMarca();
-                    //await CargarDatosMarca();
+                    await refrescarMarca();
+                    
 
 
                     if (AgregarEtapa.etapa == "Trámite de renovación")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                        /*
+                        
                         try
                         {
                             marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "renovacion");
+                            await CargarDatosMarca();
                         }
                         catch (Exception ex)
                         {
                             FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             alerta2.ShowDialog();
 
-                        }*/
+                        }
 
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
-                        /*
+                        
                         try
                         {
                             marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "traspaso");
+                            await CargarDatosMarca();
                         }
                         catch (Exception ex)
                         {
                             FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             alerta2.ShowDialog();
 
-                        }*/
+                        }
                     }
                     else
                     {
@@ -966,12 +980,12 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void roundedButton6_Click(object sender, EventArgs e)
+        private async void roundedButton6_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                loadRenovacionesById();
+                await loadRenovacionesById();
                 AnadirTabPage(tabPageRenovacionesList);
             }
             else
@@ -1067,7 +1081,7 @@ namespace Presentacion.Marcas_Nacionales
             EditarHistorial();
         }
 
-        private void iconButton4_Click(object sender, EventArgs e)
+        private async void iconButton4_Click(object sender, EventArgs e)
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -1122,7 +1136,7 @@ namespace Presentacion.Marcas_Nacionales
                             }
                         }
 
-                        loadHistorialById();
+                        await loadHistorialById();
                     }
                 }
             }
@@ -1265,7 +1279,7 @@ namespace Presentacion.Marcas_Nacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                await Task.Run(() => loadHistorialById());
+                await loadHistorialById();
                 AnadirTabPage(tabPageHistorialMarca);
             }
             else
@@ -1373,7 +1387,7 @@ namespace Presentacion.Marcas_Nacionales
             EditarRenovaciones();
         }
 
-        private void iconButton1_Click_1(object sender, EventArgs e)
+        private async void iconButton1_Click_1(object sender, EventArgs e)
         {
             string numExpediente = txtNoExpediente.Text;
 
@@ -1388,7 +1402,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (actualizado)
                 {
-                    loadRenovacionesById();
+                    await loadRenovacionesById();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
                     AnadirTabPage(tabPageRenovacionesList);
@@ -1420,12 +1434,12 @@ namespace Presentacion.Marcas_Nacionales
             //ActualizarFechaRegistroNuevoRenovacion();
         }
 
-        private void roundedButton9_Click(object sender, EventArgs e)
+        private async void roundedButton9_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                loadTraspasosById();
+                await loadTraspasosById();
                 AnadirTabPage(tabPageTraspasosList);
             }
             else
@@ -1529,7 +1543,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void iconButton4_Click_2(object sender, EventArgs e)
+        private async Task iconButton4_Click_2(object sender, EventArgs e)
         {
 
 
@@ -1554,6 +1568,7 @@ namespace Presentacion.Marcas_Nacionales
                 traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                await loadTraspasosById();
                 AnadirTabPage(tabPageTraspasosList);
                 EliminarTabPage(tabPageTraspasoDetail);
             }
@@ -1625,7 +1640,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            agregoEstado = false;
+            //agregoEstado = false;
             DatosRegistro.peligro = false;
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageRegistradasList);

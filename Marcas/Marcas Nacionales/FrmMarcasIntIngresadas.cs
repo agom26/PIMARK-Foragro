@@ -30,7 +30,6 @@ namespace Presentacion.Marcas_Internacionales
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
-        bool agregoEstado = false;
         private bool archivoSubido = false;
         private bool buscando = false;
 
@@ -251,10 +250,8 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                // Inicializar logo como null
-                byte[] logo = null;
+                byte[]? logo = null;
 
-                // Validaciones
                 if (SeleccionarPersona.idPersonaT <= 0 || SeleccionarPersona.idPersonaA <= 0)
                 {
                     FrmAlerta alerta = new FrmAlerta("SELECCIONE UN TITULAR Y UN AGENTE VÁLIDOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -262,21 +259,17 @@ namespace Presentacion.Marcas_Internacionales
                     return;
                 }
 
-                // Verificación de que los campos requeridos estén completos
                 if (!ValidarCampos(txtExpediente.Text, txtNombre.Text, txtClase.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), textBoxEstatus.Text, ref logo, checkBox1.Checked, txtRegistro.Text.Trim(), txtFolio.Text, txtLibro.Text))
                 {
                     return;
                 }
 
-                // Verificar si logo es null o está vacío
                 if (logo == null)
                 {
-                    // Si el logo no se ha cargado o no es válido, puedes agregar lógica aquí, por ejemplo:
                     MessageBox.Show("Por favor, cargue un logo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Actualización de la marca
                 bool esActualizado = await Task.Run(() =>
                 {
                     if (checkBox1.Checked)
@@ -299,6 +292,7 @@ namespace Presentacion.Marcas_Internacionales
                     AnadirTabPage(tabPageIngresadasList);
                     tabControl1.SelectedTab = tabPageIngresadasList;
                     await LoadMarcas();
+                    LimpiarControles();
                 }
                 else
                 {
@@ -315,6 +309,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void LimpiarControles()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
@@ -324,7 +319,7 @@ namespace Presentacion.Marcas_Internacionales
             datePickerFechaSolicitud.Value = DateTime.Today;
             dateTimePFecha_Registro.Value = DateTime.Now;
             richTextBox1.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtNombreCliente.Text = "";
@@ -340,12 +335,13 @@ namespace Presentacion.Marcas_Internacionales
 
         public void LimpiarFormulario()
         {
+            convertirImagen();
             txtExpediente.Text = "";
             txtNombre.Text = "";
             txtClase.Text = "";
             txtFolio.Text = "";
             txtLibro.Text = "";
-            pictureBox1.Image = null;
+            pictureBox1.Image = documento;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             txtNombreCliente.Text = "";
@@ -519,7 +515,6 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (row["estado"] != DBNull.Value && row["Observaciones"] != DBNull.Value)
                         {
-                            // Actualizar los controles 
                             textBoxEstatus.Text = row["estado"].ToString();
                             richTextBox1.Text = row["Observaciones"].ToString();
 
@@ -529,8 +524,7 @@ namespace Presentacion.Marcas_Internacionales
                             MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        // Verificar si "observaciones" contiene la palabra "registrada"
-                        bool contieneRegistrada = textBoxEstatus.Text.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -718,10 +712,11 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     textBoxEstatus.Text = AgregarEtapa.etapa;
                     richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
-                    //historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    agregoEstado = true;
+
+                    await refrescarMarca();
                     if (AgregarEtapa.etapa == "Registrada")
                     {
                         checkBox1.Checked = true;
@@ -748,7 +743,6 @@ namespace Presentacion.Marcas_Internacionales
                         mostrarPanelRegistro("no");
                         VerificarDatosRegistro();
                     }
-                    //await refrescarMarca();
                 }
                 catch (Exception ex)
                 {
