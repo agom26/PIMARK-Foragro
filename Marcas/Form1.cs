@@ -1286,9 +1286,20 @@ namespace Presentacion
 
         }
 
-        private void tRDERENOVACIÓToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void tRDERENOVACIÓToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRegistradas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
 
         private async void iNGRESARMARCAToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1409,6 +1420,198 @@ namespace Presentacion
             {
                 DisableButtons();
                 openChildForm(new FrmMarcasIntAbandonadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void iNGRESARMARCAToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTodas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRÁMITEINICIALToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTodas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void oPOSICIONESToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarOposiciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRDETRASPASOToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRenovaciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void aBANDONADASToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTraspasos());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void aBANDONADASToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarAbandonadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRÁMITEINICIALToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarIngresadasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRDERENOVACIÓNToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTramiteRenovacionPatente());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void iNGRESARPATENTEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTramiteInicialPatente(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void rEGISTRADASToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarRegistradasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRDETRASPASOToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarTramiteTraspasoPatente());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void aBANDONADASToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarAbandonadasPatentes());
                 await Task.Delay(1000);
                 EnableButtons();
             }

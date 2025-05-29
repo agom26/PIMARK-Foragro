@@ -94,6 +94,7 @@
             tRDERENOVACIÓToolStripMenuItem = new ToolStripMenuItem();
             tRDETRASPASOToolStripMenuItem1 = new ToolStripMenuItem();
             aBANDONADASToolStripMenuItem1 = new ToolStripMenuItem();
+            aBANDONADASToolStripMenuItem3 = new ToolStripMenuItem();
             rDropDownMenu3 = new Presentacion.Clases.RDropDownMenu(components);
             iNGRESARPATENTEToolStripMenuItem = new ToolStripMenuItem();
             tRÁMITEINICIALToolStripMenuItem2 = new ToolStripMenuItem();
@@ -1078,49 +1079,61 @@
             // rDropDownMenu2
             // 
             rDropDownMenu2.IsMainMenu = false;
-            rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1 });
+            rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1, aBANDONADASToolStripMenuItem3 });
             rDropDownMenu2.MenuItemHeight = 25;
             rDropDownMenu2.MenuItemTextColor = Color.Empty;
             rDropDownMenu2.Name = "rDropDownMenu2";
             rDropDownMenu2.PrimaryColor = Color.Empty;
-            rDropDownMenu2.Size = new Size(183, 136);
+            rDropDownMenu2.Size = new Size(186, 158);
             // 
             // iNGRESARMARCAToolStripMenuItem1
             // 
             iNGRESARMARCAToolStripMenuItem1.Name = "iNGRESARMARCAToolStripMenuItem1";
-            iNGRESARMARCAToolStripMenuItem1.Size = new Size(182, 22);
+            iNGRESARMARCAToolStripMenuItem1.Size = new Size(185, 22);
             iNGRESARMARCAToolStripMenuItem1.Text = "INGRESAR MARCA";
+            iNGRESARMARCAToolStripMenuItem1.Click += iNGRESARMARCAToolStripMenuItem1_Click;
             // 
             // tRÁMITEINICIALToolStripMenuItem1
             // 
             tRÁMITEINICIALToolStripMenuItem1.Name = "tRÁMITEINICIALToolStripMenuItem1";
-            tRÁMITEINICIALToolStripMenuItem1.Size = new Size(182, 22);
+            tRÁMITEINICIALToolStripMenuItem1.Size = new Size(185, 22);
             tRÁMITEINICIALToolStripMenuItem1.Text = "TRÁMITE INICIAL";
+            tRÁMITEINICIALToolStripMenuItem1.Click += tRÁMITEINICIALToolStripMenuItem1_Click;
             // 
             // oPOSICIONESToolStripMenuItem1
             // 
             oPOSICIONESToolStripMenuItem1.Name = "oPOSICIONESToolStripMenuItem1";
-            oPOSICIONESToolStripMenuItem1.Size = new Size(182, 22);
+            oPOSICIONESToolStripMenuItem1.Size = new Size(185, 22);
             oPOSICIONESToolStripMenuItem1.Text = "OPOSICIONES";
+            oPOSICIONESToolStripMenuItem1.Click += oPOSICIONESToolStripMenuItem1_Click;
             // 
             // tRDERENOVACIÓToolStripMenuItem
             // 
             tRDERENOVACIÓToolStripMenuItem.Name = "tRDERENOVACIÓToolStripMenuItem";
-            tRDERENOVACIÓToolStripMenuItem.Size = new Size(182, 22);
-            tRDERENOVACIÓToolStripMenuItem.Text = "TR.DE RENOVACIÓN";
+            tRDERENOVACIÓToolStripMenuItem.Size = new Size(185, 22);
+            tRDERENOVACIÓToolStripMenuItem.Text = "REGISTRADAS";
             tRDERENOVACIÓToolStripMenuItem.Click += tRDERENOVACIÓToolStripMenuItem_Click;
             // 
             // tRDETRASPASOToolStripMenuItem1
             // 
             tRDETRASPASOToolStripMenuItem1.Name = "tRDETRASPASOToolStripMenuItem1";
-            tRDETRASPASOToolStripMenuItem1.Size = new Size(182, 22);
-            tRDETRASPASOToolStripMenuItem1.Text = "TR. DE TRASPASO";
+            tRDETRASPASOToolStripMenuItem1.Size = new Size(185, 22);
+            tRDETRASPASOToolStripMenuItem1.Text = "TR. DE RENOVACIÓN";
+            tRDETRASPASOToolStripMenuItem1.Click += tRDETRASPASOToolStripMenuItem1_Click;
             // 
             // aBANDONADASToolStripMenuItem1
             // 
             aBANDONADASToolStripMenuItem1.Name = "aBANDONADASToolStripMenuItem1";
-            aBANDONADASToolStripMenuItem1.Size = new Size(182, 22);
-            aBANDONADASToolStripMenuItem1.Text = "ABANDONADAS";
+            aBANDONADASToolStripMenuItem1.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem1.Text = "TR. DE TRASPASO";
+            aBANDONADASToolStripMenuItem1.Click += aBANDONADASToolStripMenuItem1_Click;
+            // 
+            // aBANDONADASToolStripMenuItem3
+            // 
+            aBANDONADASToolStripMenuItem3.Name = "aBANDONADASToolStripMenuItem3";
+            aBANDONADASToolStripMenuItem3.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem3.Text = "ABANDONADAS";
+            aBANDONADASToolStripMenuItem3.Click += aBANDONADASToolStripMenuItem3_Click;
             // 
             // rDropDownMenu3
             // 
@@ -1137,36 +1150,42 @@
             iNGRESARPATENTEToolStripMenuItem.Name = "iNGRESARPATENTEToolStripMenuItem";
             iNGRESARPATENTEToolStripMenuItem.Size = new Size(185, 22);
             iNGRESARPATENTEToolStripMenuItem.Text = "INGRESAR PATENTE";
+            iNGRESARPATENTEToolStripMenuItem.Click += iNGRESARPATENTEToolStripMenuItem_Click;
             // 
             // tRÁMITEINICIALToolStripMenuItem2
             // 
             tRÁMITEINICIALToolStripMenuItem2.Name = "tRÁMITEINICIALToolStripMenuItem2";
             tRÁMITEINICIALToolStripMenuItem2.Size = new Size(185, 22);
             tRÁMITEINICIALToolStripMenuItem2.Text = "TRÁMITE INICIAL";
+            tRÁMITEINICIALToolStripMenuItem2.Click += tRÁMITEINICIALToolStripMenuItem2_Click;
             // 
             // rEGISTRADASToolStripMenuItem1
             // 
             rEGISTRADASToolStripMenuItem1.Name = "rEGISTRADASToolStripMenuItem1";
             rEGISTRADASToolStripMenuItem1.Size = new Size(185, 22);
             rEGISTRADASToolStripMenuItem1.Text = "REGISTRADAS";
+            rEGISTRADASToolStripMenuItem1.Click += rEGISTRADASToolStripMenuItem1_Click;
             // 
             // tRDERENOVACIÓNToolStripMenuItem1
             // 
             tRDERENOVACIÓNToolStripMenuItem1.Name = "tRDERENOVACIÓNToolStripMenuItem1";
             tRDERENOVACIÓNToolStripMenuItem1.Size = new Size(185, 22);
             tRDERENOVACIÓNToolStripMenuItem1.Text = "TR. DE RENOVACIÓN";
+            tRDERENOVACIÓNToolStripMenuItem1.Click += tRDERENOVACIÓNToolStripMenuItem1_Click;
             // 
             // tRDETRASPASOToolStripMenuItem2
             // 
             tRDETRASPASOToolStripMenuItem2.Name = "tRDETRASPASOToolStripMenuItem2";
             tRDETRASPASOToolStripMenuItem2.Size = new Size(185, 22);
             tRDETRASPASOToolStripMenuItem2.Text = "TR. DE TRASPASO";
+            tRDETRASPASOToolStripMenuItem2.Click += tRDETRASPASOToolStripMenuItem2_Click;
             // 
             // aBANDONADASToolStripMenuItem2
             // 
             aBANDONADASToolStripMenuItem2.Name = "aBANDONADASToolStripMenuItem2";
             aBANDONADASToolStripMenuItem2.Size = new Size(185, 22);
             aBANDONADASToolStripMenuItem2.Text = "ABANDONADAS";
+            aBANDONADASToolStripMenuItem2.Click += aBANDONADASToolStripMenuItem2_Click;
             // 
             // Form1
             // 
@@ -1281,6 +1300,7 @@
         private ToolStripMenuItem tRDERENOVACIÓNToolStripMenuItem1;
         private ToolStripMenuItem tRDETRASPASOToolStripMenuItem2;
         private ToolStripMenuItem aBANDONADASToolStripMenuItem2;
+        private ToolStripMenuItem aBANDONADASToolStripMenuItem3;
     }
 }
 
