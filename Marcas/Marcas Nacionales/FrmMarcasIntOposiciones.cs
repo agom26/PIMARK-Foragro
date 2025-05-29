@@ -460,7 +460,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     dtgHistorialOp.AutoGenerateColumns = true;
                     dtgHistorialOp.DataSource = historial;
-                   
+
                 });
             }
             catch (Exception ex)
@@ -1335,6 +1335,30 @@ namespace Presentacion.Marcas_Internacionales
                 tableLayoutPanel1.RowStyles[0].Height = 0;
             }
         }
+
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = 66; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new System.Drawing.Point(0, 66); // o donde quieras
+            }
+        }
+
+
         private void iconButton6_Click(object sender, EventArgs e)
         {
             LimpiarCamposOposicion();
@@ -2722,6 +2746,11 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             dtgHistorialOp.ClearSelection();
+        }
+
+        private void FrmMarcasIntOposiciones_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

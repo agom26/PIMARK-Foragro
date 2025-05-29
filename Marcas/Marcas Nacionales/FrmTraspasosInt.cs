@@ -1227,7 +1227,27 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
+        private void CentrarPanel()
+        {
 
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
         private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
@@ -1799,6 +1819,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 archivoSubido = true;
             }
+        }
+
+        private void FrmTraspasosInt_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

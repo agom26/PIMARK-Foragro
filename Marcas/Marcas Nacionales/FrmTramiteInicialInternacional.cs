@@ -24,6 +24,7 @@ namespace Presentacion.Marcas_Internacionales
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
         private Form1 _form1;
+
         public void convertirImagen()
         {
 
@@ -37,14 +38,13 @@ namespace Presentacion.Marcas_Internacionales
         {
             InitializeComponent();
             _form1 = form1;
-
+            this.AutoScroll = true;
             SeleccionarMarca.idN = 0;
             ActualizarFechaVencimiento();
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
             checkBox1.Checked = false;
             mostrarPanelRegistro();
-            datePickerFechaSolicitud.KeyDown += datePickerFechaSolicitud_KeyDown;
         }
 
         private void ActualizarFechaVencimiento()
@@ -507,6 +507,34 @@ namespace Presentacion.Marcas_Internacionales
                 DatosRegistro.peligro = false;
             }
         }
+        private void CentrarPanel()
+        {
+            // Si el formulario es más ancho que el panel → centrar horizontalmente
+            if (this.ClientSize.Width > panel1.Width)
+            {
+                // Solo si no está ya centrado
+                if (panel1.Anchor != AnchorStyles.Top || panel1.Dock != DockStyle.None)
+                {
+                    panel1.Anchor = AnchorStyles.Top;
+                    panel1.Dock = DockStyle.None;
+                }
+
+                int x = (this.ClientSize.Width - panel1.Width) / 2;
+                int y = panel1.Location.Y;
+                panel1.Location = new Point(x, y);
+            }
+            // Si el formulario es más angosto que el panel → ubicar arriba a la izquierda
+            else if (panel1.Location != new Point(0, panel1.Location.Y) || panel1.Anchor != (AnchorStyles.Top | AnchorStyles.Left))
+            {
+                panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panel1.Dock = DockStyle.None;
+                panel1.Location = new Point(0, panel1.Location.Y);
+            }
+        }
+
+
+
+
         private void iconButton4_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
@@ -620,6 +648,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 dateTimePFecha_vencimiento.Enabled = false;
             }
+        }
+
+        private void FrmTramiteInicialInternacional_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

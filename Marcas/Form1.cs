@@ -30,7 +30,7 @@ namespace Presentacion
     {
         VencimientoModel VencimientoModel = new VencimientoModel();
         private bool isAdmin;
-        private int borderSize = 2;
+        private int borderSize = 4;
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         public static extern void ReleaseCapture();
 
@@ -40,7 +40,7 @@ namespace Presentacion
         public Form1(bool isAdmin)
         {
             InitializeComponent();
-            CollapseMenu();
+            this.Shown += Form1_Shown;
             this.Padding = new Padding(borderSize);
             this.BackColor = Color.FromArgb(34, 77, 112);
             this.isAdmin = isAdmin;
@@ -228,13 +228,13 @@ namespace Presentacion
 
 
         private Form activeForm = null;
-
         private void FormResize()
         {
+            // Ajustar márgenes según el estado de la ventana
             switch (this.WindowState)
             {
                 case FormWindowState.Maximized:
-                    this.Padding = new Padding(0, 8, 8, 2);
+                    this.Padding = new Padding(0, 8, 8, 8);
                     break;
                 case FormWindowState.Normal:
                     if (this.Padding.Top != borderSize)
@@ -244,18 +244,99 @@ namespace Presentacion
 
             if (activeForm != null)
             {
+                // Ocultar temporalmente para evitar parpadeos
+                panelChildForm.Visible = false;
+
+                // Congelar diseño para evitar redibujos intermedios
                 panelChildForm.SuspendLayout();
+                activeForm.SuspendLayout();
+
+                // Ajustar posicionamiento
+                activeForm.Dock = DockStyle.None;
+                activeForm.Location = new System.Drawing.Point(0, 0);
+                activeForm.Dock = DockStyle.Fill;
+
+                // Reactivar el layout
+                activeForm.ResumeLayout(true);
+                panelChildForm.ResumeLayout(true);
+
+                // Mostrar suavemente luego de un frame
+                this.BeginInvoke((MethodInvoker)(() =>
+                {
+                    panelChildForm.Visible = true;
+                    panelChildForm.Refresh();
+                }));
+            }
+        }
+
+        /* mejorado
+        private void FormResize()
+        {
+            switch (this.WindowState)
+            {
+                case FormWindowState.Maximized:
+                    this.Padding = new Padding(0, 8, 8, 8);
+                    break;
+                case FormWindowState.Normal:
+                    if (this.Padding.Top != borderSize)
+                        this.Padding = new Padding(borderSize);
+                    break;
+            }
+
+            if (activeForm != null)
+            {
+                // Ocultar mientras se reajusta todo
+                panelChildForm.Visible = false;
+
+                panelChildForm.SuspendLayout();
+                activeForm.SuspendLayout();
+
+                activeForm.Dock = DockStyle.Fill;
+                activeForm.Location = new System.Drawing.Point(0, 0);
+
+                activeForm.ResumeLayout(true);
+                panelChildForm.ResumeLayout(true);
+
+                // Reaparecer suavemente después del ajuste
+                this.BeginInvoke((MethodInvoker)(() =>
+                {
+                    panelChildForm.Visible = true;
+                }));
+            }
+        }*/
+
+
+        /*
+        private void FormResize()
+        {
+            switch (this.WindowState)
+            {
+                case FormWindowState.Maximized:
+                    this.Padding = new Padding(0, 8, 8, 8);
+                    break;
+                case FormWindowState.Normal:
+                    if (this.Padding.Top != borderSize)
+                        this.Padding = new Padding(borderSize);
+                    break;
+            }
+
+            if (activeForm != null)
+            {
+                //panelChildForm.SuspendLayout();
 
                 activeForm.Dock = DockStyle.Fill; // Mantén tamaño si es necesario
                 activeForm.Location = new System.Drawing.Point(0, 0); // Reposiciona al origen
-                //panelChildForm.AutoScroll = true;
+                                         
+                this.BeginInvoke((MethodInvoker)(() =>
+                {
+                    //panelChildForm.ResumeLayout(true);
+                    panelChildForm.PerformLayout();
+                    panelChildForm.Refresh();
+                    activeForm.Refresh();
+                }));
 
-                panelChildForm.ResumeLayout(true);
-                panelChildForm.PerformLayout();
-                panelChildForm.Refresh();
-                activeForm.Refresh();
             }
-        }
+        }*/
 
 
         public void openChildForm(Form childForm)
@@ -637,7 +718,7 @@ namespace Presentacion
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            FormResize();
+            //FormResize();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -1196,8 +1277,87 @@ namespace Presentacion
             //rDropDownMenu2.Show();
         }
 
+
         private void CollapseMenu()
         {
+            // Oculta durante los cambios para evitar parpadeos
+            panel2.Visible = false;
+
+            // Suspende solo lo necesario
+            panel2.SuspendLayout();
+            panelSubMenuMarcasNacionales.SuspendLayout();
+            panelSubMenuMarcasInter.SuspendLayout();
+            panelSubMenuPatentes.SuspendLayout();
+
+            bool esExpandido = panel2.Width > 250;
+
+            if (esExpandido)
+            {
+                panel2.Width = 100;
+
+                // Minimizar botones
+                foreach (var panel in new[] {
+            panel2, panelSubMenuMarcasNacionales,
+            panelSubMenuMarcasInter, panelSubMenuPatentes })
+                {
+                    foreach (Button btn in panel.Controls.OfType<Button>())
+                    {
+                        btn.Text = "";
+                        btn.ImageAlign = ContentAlignment.MiddleCenter;
+                        btn.Padding = new Padding(0);
+                    }
+                }
+            }
+            else
+            {
+                panel2.Width = 260;
+
+                foreach (var panel in new[] {
+            panel2, panelSubMenuMarcasNacionales,
+            panelSubMenuMarcasInter, panelSubMenuPatentes })
+                {
+                    foreach (Button btn in panel.Controls.OfType<Button>())
+                    {
+                        btn.TextAlign = ContentAlignment.MiddleLeft;
+                        btn.ImageAlign = ContentAlignment.MiddleLeft;
+                        btn.Text = btn.Tag?.ToString() ?? ""; // Usa Tag como texto
+                        btn.Padding = new Padding(10, 0, 0, 0);
+                    }
+                }
+            }
+
+            // Restaura el layout
+            panelSubMenuPatentes.ResumeLayout();
+            panelSubMenuMarcasInter.ResumeLayout();
+            panelSubMenuMarcasNacionales.ResumeLayout();
+            panel2.ResumeLayout();
+
+            // Mostrar con cambios ya aplicados
+            panel2.Visible = true;
+
+            // Redibuja correctamente
+            this.PerformLayout();
+            panel2.Refresh();
+            FormResize(); // Si redimensionás el contenido
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
+
+
+
+        /*
+        private void CollapseMenu()
+        {
+            panel2.Visible = false;
             this.SuspendLayout(); // Congela el layout del formulario
 
             if (this.panel2.Width > 250)
@@ -1276,10 +1436,11 @@ namespace Presentacion
             panel2.Dock = DockStyle.Left;
             panelChildForm.Dock = DockStyle.Fill;
             this.ResumeLayout(true); // Aplica el layout nuevamente
+            panel2.Visible = true;
             this.Refresh(); // Fuerza actualización del layout del formulario
             FormResize();
 
-        }
+        }*/
 
         private void rEGISTRADASToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1435,7 +1596,7 @@ namespace Presentacion
             if (DatosRegistro.peligro == false)
             {
                 DisableButtons();
-                openChildForm(new FrmMostrarTodas());
+                openChildForm(new FrmTramiteIn(this));
                 await Task.Delay(1000);
                 EnableButtons();
             }
@@ -1620,6 +1781,11 @@ namespace Presentacion
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            CollapseMenu();
         }
     }
 }

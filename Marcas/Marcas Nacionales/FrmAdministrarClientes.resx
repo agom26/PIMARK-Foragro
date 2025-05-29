@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="roundedButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="roundedButton5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAA3BJREFUWEft
         lk9oVFcUxo8LlVg193z3JZNCxELBoEGwBgophJhCrESb0vQ+5t3EhSIESVukFEQwlFBoYdpCQZoWSiik
@@ -138,7 +138,7 @@
         kD2Ov8u4lFJqh6Otra1Dxp5a1tpzSZJcs9Yek7HnVo8BU7Jukq3/gEcAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="roundedButton5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="roundedButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAA3BJREFUWEft
         lk9oVFcUxo8LlVg193z3JZNCxELBoEGwBgophJhCrESb0vQ+5t3EhSIESVukFEQwlFBoYdpCQZoWSiik

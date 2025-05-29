@@ -1151,7 +1151,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
-            
+
             AnadirTabPage(tabPageHistorialMarca);
         }
 
@@ -1360,7 +1360,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public void CancelarEdicionHistorial()
         {
-            AnadirTabPage( tabPageHistorialMarca);
+            AnadirTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetalle);
         }
         private void btnCancelarH_Click(object sender, EventArgs e)
@@ -1545,7 +1545,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click_1(object sender, EventArgs e)
         {
-            AnadirTabPage( tabPageAgregarOposicion);
+            AnadirTabPage(tabPageAgregarOposicion);
             EliminarTabPage(tabPageHistorialMarca);
         }
 
@@ -1762,7 +1762,7 @@ namespace Presentacion.Marcas_Nacionales
                     SeleccionarHistorial.id = 0;
                     await recargarDatosOposicion();
 
-                    AnadirTabPage( tabPageHistorialMarca);
+                    AnadirTabPage(tabPageHistorialMarca);
                     EliminarTabPage(tabPageHistorialDetalle);
                 }
                 else
@@ -2291,7 +2291,38 @@ namespace Presentacion.Marcas_Nacionales
             }
 
         }
+        private void CentrarPanel()
+        {
 
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new System.Drawing.Point(x, y);
+
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda2.Anchor = AnchorStyles.None;
+
+                int x2 = (tabControl1.ClientSize.Width - panelBusqueda2.Width) / 2;
+                int y2 = panelBusqueda2.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda2.Location = new System.Drawing.Point(x2, y2);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new System.Drawing.Point(0, panelBusqueda.Height); // o donde quieras
+
+                // Pantalla pequeña → top-left
+                panelBusqueda2.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda2.Location = new System.Drawing.Point(0, panelBusqueda2.Height); // o donde quieras
+            }
+        }
         private void ibtnBuscar_Click_1(object sender, EventArgs e)
         {
             buscando1 = true;
@@ -2964,6 +2995,11 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             dtgHistorialOp.ClearSelection();
+        }
+
+        private void FrmMostrarOposiciones_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

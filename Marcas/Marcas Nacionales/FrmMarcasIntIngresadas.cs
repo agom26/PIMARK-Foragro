@@ -251,6 +251,12 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 byte[]? logo = null;
+                int? idCliente = SeleccionarPersona.idPersonaC;
+
+                if(idCliente==null || idCliente==0 ||idCliente<=0)
+                {
+                    idCliente = null;
+                }
 
                 if (SeleccionarPersona.idPersonaT <= 0 || SeleccionarPersona.idPersonaA <= 0)
                 {
@@ -270,27 +276,28 @@ namespace Presentacion.Marcas_Internacionales
                     return;
                 }*/
 
-                bool esActualizado = await Task.Run(() =>
+                bool esActualizado = false;
+
                 {
                     if (checkBox1.Checked)
                     {
-                        return marcaModel.EditMarcaNacionalRegistrada(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, txtFolio.Text, txtLibro.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, txtRegistro.Text.Trim(), dateTimePFecha_Registro.Value, dateTimePFecha_vencimiento.Value, null, null, SeleccionarPersona.idPersonaC);
+                        esActualizado=marcaModel.EditMarcaNacionalRegistrada(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, txtFolio.Text, txtLibro.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, txtRegistro.Text.Trim(), dateTimePFecha_Registro.Value, dateTimePFecha_vencimiento.Value, null, null, idCliente);
                     }
                     else
                     {
-                        return marcaModel.EditMarcaNacional(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, SeleccionarPersona.idPersonaC);
+                        esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, idCliente);
                     }
-                });
+                }
 
                 if (esActualizado)
                 {
-                    MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    frmAlerta.ShowDialog();
                     SeleccionarMarca.idN = 0;
                     EliminarTabPage(tabPageHistorialMarca);
                     EliminarTabPage(tabPageListaArchivos);
                     AnadirTabPage(tabPageIngresadasList);
-                    tabControl1.SelectedTab = tabPageIngresadasList;
                     await LoadMarcas();
                     LimpiarControles();
                 }
@@ -1155,6 +1162,27 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = 58; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, 58); // o donde quieras
+            }
+        }
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
@@ -1731,6 +1759,11 @@ namespace Presentacion.Marcas_Internacionales
         private void panel11_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void FrmMarcasIntIngresadas_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

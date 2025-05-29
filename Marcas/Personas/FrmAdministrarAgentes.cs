@@ -73,7 +73,7 @@ namespace Presentacion.Personas
                 }));
             }
 
-               
+
         }
         private async Task AnadirTabPage(TabPage nombre)
         {
@@ -328,6 +328,29 @@ namespace Presentacion.Personas
                 await LoadAgentes();
             }
         }
+
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = 0; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
+            }
+        }
+
         private void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
@@ -546,7 +569,7 @@ namespace Presentacion.Personas
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -563,7 +586,7 @@ namespace Presentacion.Personas
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (buscando==true)
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -612,6 +635,11 @@ namespace Presentacion.Personas
         private void lblTotalRows_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void FrmAdministrarAgentes_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

@@ -464,6 +464,8 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top;
+            panel1.AutoScroll = true;
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
@@ -784,6 +786,7 @@
             Name = "FrmTramiteInicialInternacional";
             Text = "FrmTramiteInicialInternacional";
             Load += FrmTramiteInicialInternacional_Load;
+            Resize += FrmTramiteInicialInternacional_Resize;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

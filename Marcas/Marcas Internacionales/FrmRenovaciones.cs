@@ -1653,5 +1653,32 @@ namespace Presentacion.Marcas_Nacionales
                 archivoSubido = true;
             }
         }
+
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
+
+        private void FrmRenovaciones_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
+        }
     }
 }

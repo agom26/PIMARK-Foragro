@@ -73,31 +73,20 @@ namespace Presentacion.Vencimientos
         {
             totalRows = vencimientoModel.GetTotalVencimientos();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
+
             var marcasN = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-
-
-                dtgVencimientos.DataSource = marcasN;
-
-                if (dtgVencimientos.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgVencimientos.Columns["id"].Visible = false;
-                    dtgVencimientos.Columns["marcaID"].Visible = false;
-                    dtgVencimientos.Columns["patenteID"].Visible = false;
-                }
-                /*
-                dtgVencimientos.Columns["REGISTRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Centrar el texto
-                dtgVencimientos.Columns["FOLIO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dtgVencimientos.Columns["LIBRO"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                */
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
 
-                dtgVencimientos.Refresh();
-            }));
+                    dtgVencimientos.DataSource = marcasN;
+
+                }));
+            }
+
         }
 
         public async void filtrar()
@@ -423,7 +412,6 @@ namespace Presentacion.Vencimientos
             {
 
                 tabControl1.Visible = false;
-                AnadirTabPage(tabPagePatenteDetail);
                 DataTable detallesPatente = await Task.Run(() => patenteModel.ObtenerPatentePorId(SeleccionarPatente.id));
 
                 if (detallesPatente.Rows.Count > 0)
@@ -582,6 +570,9 @@ namespace Presentacion.Vencimientos
                             mostrarPanelRegistroPatente("no");
                             tabControl1.Visible = true;
                         }
+
+
+                        AnadirTabPage(tabPagePatenteDetail);
                     }
                     else
                     {
@@ -642,11 +633,9 @@ namespace Presentacion.Vencimientos
 
         public async Task CargarDatosMarcaN()
         {
-
             try
             {
                 tabControl1.Visible = false;
-                AnadirTabPage(tabPageMarcaDetail);
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
 
                 if (detallesMarcaInter.Rows.Count > 0)
@@ -719,7 +708,7 @@ namespace Presentacion.Vencimientos
                         txtETraspasoM.Text = SeleccionarMarca.etraspaso;
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -743,7 +732,7 @@ namespace Presentacion.Vencimientos
                             checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
                         }
-
+                        AnadirTabPage(tabPageMarcaDetail);
                         tabControl1.Visible = true;
                     }
                     else
@@ -751,6 +740,7 @@ namespace Presentacion.Vencimientos
                         tabControl1.Visible = true;
                         MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
 
                     tabControl1.Visible = true;
 
@@ -777,7 +767,6 @@ namespace Presentacion.Vencimientos
             try
             {
                 tabControl1.Visible = false;
-                AnadirTabPage(tabPageMarcaDetail);
                 DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaInternacionalById(SeleccionarMarca.idInt));
 
                 if (detallesMarcaInter.Rows.Count > 0)
@@ -851,7 +840,7 @@ namespace Presentacion.Vencimientos
                         richTextBox1M.Text = SeleccionarMarca.observaciones;
 
 
-                        bool contieneRegistrada = SeleccionarMarca.observaciones.Contains("Registrada", StringComparison.OrdinalIgnoreCase);
+                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
 
                         if (contieneRegistrada)
                         {
@@ -875,6 +864,8 @@ namespace Presentacion.Vencimientos
                             checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
                         }
+
+                        AnadirTabPage(tabPageMarcaDetail);
                         tabControl1.Visible = true;
                     }
                     else
@@ -919,11 +910,13 @@ namespace Presentacion.Vencimientos
 
         private void iconButton13_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageVencimientosList;
+            AnadirTabPage(tabPageVencimientosList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPagePatenteDetail);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {/*
             if (tabControl1.SelectedTab == tabPageVencimientosList)
             {
                 EliminarTabPage(tabPagePatenteDetail);
@@ -942,7 +935,7 @@ namespace Presentacion.Vencimientos
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageMensajeMarca);
                 EliminarTabPage(tabPageMensajePatente);
-            }
+            }*/
         }
 
         private async void iconButton10_Click(object sender, EventArgs e)
@@ -970,9 +963,11 @@ namespace Presentacion.Vencimientos
 
         }
 
-        private void iconButton11_Click(object sender, EventArgs e)
+        private async void iconButton11_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageVencimientosList;
+            AnadirTabPage(tabPageVencimientosList);
+            EliminarTabPage(tabPagePatenteDetail);
+            await LoadVencimientos();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1217,8 +1212,9 @@ namespace Presentacion.Vencimientos
                     finally
                     {
                         iconButton1.Enabled = true;
-                        LoadVencimientos();
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMensajeMarca);
+                        await LoadVencimientos();
                     }
                     isSendingEmail = false;
                 }
@@ -1268,12 +1264,14 @@ namespace Presentacion.Vencimientos
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPageMarcaDetail;
+            AnadirTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageMensajeMarca);
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPagePatenteDetail;
+            AnadirTabPage(tabPagePatenteDetail);
+            EliminarTabPage(tabPageMensajePatente);
 
         }
 
@@ -1648,7 +1646,7 @@ namespace Presentacion.Vencimientos
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
-                          
+
                             object cellValue = row[column];
                             if (cellValue is DateTime dateValue)
                             {
@@ -1820,7 +1818,7 @@ namespace Presentacion.Vencimientos
             alerta.ShowDialog();
         }
 
-        private async Task iconButton9_Click(object sender, EventArgs e)
+        private async void iconButton9_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -1854,7 +1852,7 @@ namespace Presentacion.Vencimientos
                             idMarca = SeleccionarMarca.idInt;
                             ActualizarEstadoMarca(idMarca, fechaAbandono, textoJustificado, usuarioAbandono);
                             MostrarAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA");
-                            
+
 
                         }
                         else if (SeleccionarMarca.idN != 0)
@@ -1869,11 +1867,11 @@ namespace Presentacion.Vencimientos
                             ActualizarEstadoPatente(idPatente, fechaAbandono, textoJustificado, usuarioAbandono);
                             MostrarAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA");
                         }
+
                         AnadirTabPage(tabPageVencimientosList);
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPagePatenteDetail);
                         await LoadVencimientos();
-                        tabControl1.SelectedTab = tabPageVencimientosList;
                     }
                     catch (Exception ex)
                     {
@@ -1905,7 +1903,8 @@ namespace Presentacion.Vencimientos
                         marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     else if (SeleccionarMarca.idN != 0)
                     {
@@ -1913,15 +1912,19 @@ namespace Presentacion.Vencimientos
                         marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     else if (SeleccionarPatente.id != 0)
                     {
                         idPatente = SeleccionarPatente.id;
                         ActualizarEstadoPatente2(idPatente, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPagePatenteDetail);
                     }
+
+                    await LoadVencimientos();
                 }
                 catch (Exception ex)
                 {
@@ -1932,7 +1935,7 @@ namespace Presentacion.Vencimientos
             }
         }
 
-        private void iconButton14_Click(object sender, EventArgs e)
+        private async void iconButton14_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -1979,6 +1982,11 @@ namespace Presentacion.Vencimientos
                             ActualizarEstadoPatente(idPatente, fechaAbandono, textoJustificado, usuarioAbandono);
                             MostrarAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA");
                         }
+
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPagePatenteDetail);
+                        await LoadVencimientos();
                     }
                     catch (Exception ex)
                     {
@@ -1989,7 +1997,7 @@ namespace Presentacion.Vencimientos
 
         }
 
-        private void iconButton15_Click(object sender, EventArgs e)
+        private async void iconButton15_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapaRegistradaV frmAgregarEtapaRegistradaV = new FrmAgregarEtapaRegistradaV();
             frmAgregarEtapaRegistradaV.ShowDialog();
@@ -2006,7 +2014,8 @@ namespace Presentacion.Vencimientos
                         marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     else if (SeleccionarMarca.idN != 0)
                     {
@@ -2014,7 +2023,8 @@ namespace Presentacion.Vencimientos
                         marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     else if (SeleccionarPatente.id != 0)
                     {
@@ -2022,8 +2032,11 @@ namespace Presentacion.Vencimientos
                         patenteModel.ActualizarExpedientePatente(idPatente, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        EliminarTabPage(tabPagePatenteDetail);
                     }
+
+                    await LoadVencimientos();
                 }
                 catch (Exception ex)
                 {
@@ -2077,7 +2090,7 @@ namespace Presentacion.Vencimientos
             if (currentPageIndex > 1)
             {
                 currentPageIndex--;
-                if (buscando==true)
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -2095,7 +2108,7 @@ namespace Presentacion.Vencimientos
             if (currentPageIndex < totalPages)
             {
                 currentPageIndex++;
-                if (buscando==true)
+                if (buscando == true)
                 {
                     filtrar();
                 }
@@ -2121,6 +2134,46 @@ namespace Presentacion.Vencimientos
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void dtgVencimientos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgVencimientos.Columns["id"] != null)
+            {
+                dtgVencimientos.Columns["id"].Visible = false;
+                dtgVencimientos.Columns["marcaID"].Visible = false;
+                dtgVencimientos.Columns["patenteID"].Visible = false;
+            }
+            dtgVencimientos.ClearSelection();
+            SeleccionarMarca.idInt = 0;
+            SeleccionarMarca.idN = 0;
+            SeleccionarPatente.id = 0;
+            dtgVencimientos.Refresh();
+        }
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = 0; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new System.Drawing.Point(0, 0); // o donde quieras
+            }
+        }
+        private void FrmVencimientos_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

@@ -38,6 +38,9 @@
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             tabControl1 = new TabControl();
             tabPageVencimientosList = new TabPage();
+            panelBusqueda = new Panel();
+            roundedButton5 = new Presentacion.Clases.RoundedButton();
+            iconButton7 = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             btnLast = new FontAwesome.Sharp.IconButton();
             btnNext = new FontAwesome.Sharp.IconButton();
@@ -49,10 +52,8 @@
             lblTotalRows = new Label();
             label3 = new Label();
             label40 = new Label();
-            iconButton7 = new FontAwesome.Sharp.IconButton();
             roundedButton11 = new Presentacion.Clases.RoundedButton();
             roundedButton19 = new Presentacion.Clases.RoundedButton();
-            roundedButton5 = new Presentacion.Clases.RoundedButton();
             tabPageMarcaDetail = new TabPage();
             panel2 = new Panel();
             comboBox1 = new ComboBox();
@@ -224,6 +225,7 @@
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageVencimientosList.SuspendLayout();
+            panelBusqueda.SuspendLayout();
             tabPageMarcaDetail.SuspendLayout();
             panel2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -291,9 +293,10 @@
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVencimientos.Size = new Size(866, 509);
+            dtgVencimientos.Size = new Size(886, 509);
             dtgVencimientos.TabIndex = 4;
             dtgVencimientos.CellDoubleClick += dtgVencimientos_CellDoubleClick;
+            dtgVencimientos.DataBindingComplete += dtgVencimientos_DataBindingComplete;
             // 
             // panel1
             // 
@@ -302,7 +305,7 @@
             panel1.Controls.Add(dtgVencimientos);
             panel1.Location = new Point(21, 198);
             panel1.Name = "panel1";
-            panel1.Size = new Size(900, 539);
+            panel1.Size = new Size(914, 539);
             panel1.TabIndex = 6;
             // 
             // ibtnBuscar
@@ -311,16 +314,16 @@
             ibtnBuscar.BackColor = Color.FromArgb(251, 140, 0);
             ibtnBuscar.FlatAppearance.BorderSize = 0;
             ibtnBuscar.FlatStyle = FlatStyle.Flat;
-            ibtnBuscar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            ibtnBuscar.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
             ibtnBuscar.ForeColor = Color.White;
             ibtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             ibtnBuscar.IconColor = Color.White;
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnBuscar.IconSize = 25;
+            ibtnBuscar.IconSize = 18;
             ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar.Location = new Point(565, 107);
+            ibtnBuscar.Location = new Point(667, 97);
             ibtnBuscar.Name = "ibtnBuscar";
-            ibtnBuscar.Size = new Size(144, 44);
+            ibtnBuscar.Size = new Size(107, 27);
             ibtnBuscar.TabIndex = 37;
             ibtnBuscar.Text = "BUSCAR";
             ibtnBuscar.TextAlign = ContentAlignment.MiddleLeft;
@@ -332,7 +335,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 12F);
-            txtBuscar.Location = new Point(226, 114);
+            txtBuscar.Location = new Point(311, 97);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(301, 27);
             txtBuscar.TabIndex = 36;
@@ -350,9 +353,9 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(133, 100);
+            roundedButton3.Location = new Point(259, 86);
             roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(683, 61);
+            roundedButton3.Size = new Size(580, 52);
             roundedButton3.TabIndex = 38;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
@@ -370,9 +373,9 @@
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 28;
             ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(927, 198);
+            ibtnEditar.Location = new Point(941, 198);
             ibtnEditar.Name = "ibtnEditar";
-            ibtnEditar.Size = new Size(174, 49);
+            ibtnEditar.Size = new Size(160, 49);
             ibtnEditar.TabIndex = 44;
             ibtnEditar.Text = "VER";
             ibtnEditar.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -397,6 +400,7 @@
             // tabPageVencimientosList
             // 
             tabPageVencimientosList.AutoScroll = true;
+            tabPageVencimientosList.Controls.Add(panelBusqueda);
             tabPageVencimientosList.Controls.Add(panel8);
             tabPageVencimientosList.Controls.Add(btnLast);
             tabPageVencimientosList.Controls.Add(btnNext);
@@ -408,15 +412,10 @@
             tabPageVencimientosList.Controls.Add(lblTotalRows);
             tabPageVencimientosList.Controls.Add(label3);
             tabPageVencimientosList.Controls.Add(label40);
-            tabPageVencimientosList.Controls.Add(iconButton7);
             tabPageVencimientosList.Controls.Add(roundedButton11);
             tabPageVencimientosList.Controls.Add(roundedButton19);
             tabPageVencimientosList.Controls.Add(panel1);
-            tabPageVencimientosList.Controls.Add(ibtnBuscar);
             tabPageVencimientosList.Controls.Add(ibtnEditar);
-            tabPageVencimientosList.Controls.Add(txtBuscar);
-            tabPageVencimientosList.Controls.Add(roundedButton3);
-            tabPageVencimientosList.Controls.Add(roundedButton5);
             tabPageVencimientosList.Location = new Point(4, 26);
             tabPageVencimientosList.Name = "tabPageVencimientosList";
             tabPageVencimientosList.Padding = new Padding(3);
@@ -425,10 +424,62 @@
             tabPageVencimientosList.UseVisualStyleBackColor = true;
             tabPageVencimientosList.Click += tabPageVencimientosList_Click;
             // 
+            // panelBusqueda
+            // 
+            panelBusqueda.Controls.Add(roundedButton5);
+            panelBusqueda.Controls.Add(txtBuscar);
+            panelBusqueda.Controls.Add(ibtnBuscar);
+            panelBusqueda.Controls.Add(iconButton7);
+            panelBusqueda.Controls.Add(roundedButton3);
+            panelBusqueda.Location = new Point(3, 6);
+            panelBusqueda.Name = "panelBusqueda";
+            panelBusqueda.Size = new Size(1098, 150);
+            panelBusqueda.TabIndex = 233;
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.Anchor = AnchorStyles.Top;
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderRadius = 40;
+            roundedButton5.BorderSize = 0;
+            roundedButton5.FlatAppearance.BorderSize = 0;
+            roundedButton5.FlatStyle = FlatStyle.Flat;
+            roundedButton5.Font = new Font("Century Gothic", 15F);
+            roundedButton5.ForeColor = Color.Black;
+            roundedButton5.Image = Properties.Resources.reloj_y_calendario_1_;
+            roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
+            roundedButton5.Location = new Point(207, 3);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.Size = new Size(683, 61);
+            roundedButton5.TabIndex = 39;
+            roundedButton5.Text = "PRÓXIMOS VENCIMIENTOS";
+            roundedButton5.TextColor = Color.Black;
+            roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            roundedButton5.UseVisualStyleBackColor = false;
+            // 
+            // iconButton7
+            // 
+            iconButton7.Anchor = AnchorStyles.Top;
+            iconButton7.BackColor = Color.FromArgb(236, 236, 238);
+            iconButton7.FlatAppearance.BorderSize = 0;
+            iconButton7.FlatStyle = FlatStyle.Flat;
+            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton7.IconColor = Color.Black;
+            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton7.IconSize = 25;
+            iconButton7.Location = new Point(618, 97);
+            iconButton7.Name = "iconButton7";
+            iconButton7.Size = new Size(26, 27);
+            iconButton7.TabIndex = 221;
+            iconButton7.UseVisualStyleBackColor = false;
+            iconButton7.Click += iconButton7_Click;
+            // 
             // panel8
             // 
             panel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel8.Location = new Point(70, 828);
+            panel8.Location = new Point(-100, 828);
             panel8.Name = "panel8";
             panel8.Size = new Size(130, 27);
             panel8.TabIndex = 228;
@@ -446,7 +497,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(817, 743);
+            btnLast.Location = new Point(831, 743);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 31);
             btnLast.TabIndex = 232;
@@ -467,7 +518,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(707, 744);
+            btnNext.Location = new Point(721, 744);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 31);
             btnNext.TabIndex = 231;
@@ -488,7 +539,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(597, 744);
+            btnPrev.Location = new Point(611, 744);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 31);
             btnPrev.TabIndex = 230;
@@ -509,7 +560,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(487, 744);
+            btnFirst.Location = new Point(501, 744);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 31);
             btnFirst.TabIndex = 229;
@@ -522,7 +573,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(888, 175);
+            lblTotalPages.Location = new Point(908, 175);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 227;
@@ -533,7 +584,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(853, 175);
+            label2.Location = new Point(873, 175);
             label2.Name = "label2";
             label2.Size = new Size(24, 17);
             label2.TabIndex = 226;
@@ -544,7 +595,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(819, 175);
+            lblCurrentPage.Location = new Point(839, 175);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 225;
@@ -565,7 +616,7 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 9F);
-            label3.Location = new Point(753, 175);
+            label3.Location = new Point(773, 175);
             label3.Name = "label3";
             label3.Size = new Size(49, 17);
             label3.TabIndex = 223;
@@ -580,23 +631,6 @@
             label40.Size = new Size(115, 17);
             label40.TabIndex = 222;
             label40.Text = "Total de registros: ";
-            // 
-            // iconButton7
-            // 
-            iconButton7.Anchor = AnchorStyles.Top;
-            iconButton7.BackColor = Color.FromArgb(236, 236, 238);
-            iconButton7.FlatAppearance.BorderSize = 0;
-            iconButton7.FlatStyle = FlatStyle.Flat;
-            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
-            iconButton7.IconColor = Color.Black;
-            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(533, 114);
-            iconButton7.Name = "iconButton7";
-            iconButton7.Size = new Size(26, 32);
-            iconButton7.TabIndex = 221;
-            iconButton7.UseVisualStyleBackColor = false;
-            iconButton7.Click += iconButton7_Click;
             // 
             // roundedButton11
             // 
@@ -613,7 +647,7 @@
             roundedButton11.ForeColor = Color.White;
             roundedButton11.Image = Properties.Resources.excel;
             roundedButton11.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton11.Location = new Point(718, 798);
+            roundedButton11.Location = new Point(732, 798);
             roundedButton11.Name = "roundedButton11";
             roundedButton11.Size = new Size(203, 49);
             roundedButton11.TabIndex = 219;
@@ -638,7 +672,7 @@
             roundedButton19.ForeColor = Color.White;
             roundedButton19.Image = Properties.Resources.pdf_1_;
             roundedButton19.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton19.Location = new Point(496, 798);
+            roundedButton19.Location = new Point(510, 798);
             roundedButton19.Name = "roundedButton19";
             roundedButton19.Size = new Size(203, 49);
             roundedButton19.TabIndex = 220;
@@ -647,29 +681,6 @@
             roundedButton19.TextImageRelation = TextImageRelation.TextBeforeImage;
             roundedButton19.UseVisualStyleBackColor = false;
             roundedButton19.Click += roundedButton19_Click;
-            // 
-            // roundedButton5
-            // 
-            roundedButton5.Anchor = AnchorStyles.Top;
-            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 40;
-            roundedButton5.BorderSize = 0;
-            roundedButton5.FlatAppearance.BorderSize = 0;
-            roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 15F);
-            roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Image = Properties.Resources.reloj_y_calendario_1_;
-            roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton5.Location = new Point(133, 21);
-            roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(683, 61);
-            roundedButton5.TabIndex = 39;
-            roundedButton5.Text = "PRÓXIMOS VENCIMIENTOS";
-            roundedButton5.TextColor = Color.Black;
-            roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            roundedButton5.UseVisualStyleBackColor = false;
             // 
             // tabPageMarcaDetail
             // 
@@ -1022,6 +1033,7 @@
             iconButton9.TextAlign = ContentAlignment.MiddleRight;
             iconButton9.TextImageRelation = TextImageRelation.TextBeforeImage;
             iconButton9.UseVisualStyleBackColor = false;
+            iconButton9.Click += iconButton9_Click;
             // 
             // iconButton8
             // 
@@ -2838,11 +2850,14 @@
             Name = "FrmVencimientos";
             Text = "FrmVencimientos";
             Load += FrmVencimientos_Load;
+            Resize += FrmVencimientos_Resize;
             ((System.ComponentModel.ISupportInitialize)dtgVencimientos).EndInit();
             panel1.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPageVencimientosList.ResumeLayout(false);
             tabPageVencimientosList.PerformLayout();
+            panelBusqueda.ResumeLayout(false);
+            panelBusqueda.PerformLayout();
             tabPageMarcaDetail.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
@@ -3095,5 +3110,6 @@
         private FontAwesome.Sharp.IconButton btnNext;
         private FontAwesome.Sharp.IconButton btnPrev;
         private FontAwesome.Sharp.IconButton btnFirst;
+        private Panel panelBusqueda;
     }
 }

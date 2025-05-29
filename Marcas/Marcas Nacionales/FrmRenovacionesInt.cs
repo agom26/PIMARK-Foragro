@@ -2,13 +2,10 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using FluentFTP;
-using FontAwesome.Sharp;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System.Data;
-using System.Drawing.Printing;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Presentacion.Marcas_Internacionales
 
@@ -40,10 +37,11 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
+
         private void CentrarPanel()
         {
-            // Define el tamaño mínimo requerido para centrar
-            int anchoMinimo = panelBusqueda.Width + 100; // o un valor fijo como 800
+            
+            int anchoMinimo = panelBusqueda.Width + 100; 
 
             if (tabControl1.ClientSize.Width >= anchoMinimo)
             {
@@ -70,9 +68,10 @@ namespace Presentacion.Marcas_Internacionales
             archivoSubido = false;
             this.Load += FrmRenovacionesInt_Load;
             SeleccionarMarca.idN = 0;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
         }
+
+
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))

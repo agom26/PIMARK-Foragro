@@ -389,7 +389,7 @@ namespace Presentacion.Marcas_Nacionales
                     EliminarTabPage(tabPageMarcaDetail);
                     EliminarTabPage(tabPageListaArchivos);
                     EliminarTabPage(tabPageHistorialMarca);
-                    await LoadMarcas(); 
+                    await LoadMarcas();
                     SeleccionarMarca.idInt = 0;
                     LimpiarFormulario();
 
@@ -1294,6 +1294,29 @@ namespace Presentacion.Marcas_Nacionales
             EditarHistorial();
         }
 
+
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new System.Drawing.Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
+
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
@@ -1856,6 +1879,11 @@ namespace Presentacion.Marcas_Nacionales
                 dtgHistorial.Columns["id"].Visible = false;
             }
             dtgHistorial.ClearSelection();
+        }
+
+        private void FrmMostrarTodas_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

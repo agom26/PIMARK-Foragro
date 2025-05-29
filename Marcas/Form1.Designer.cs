@@ -1206,6 +1206,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PIMARK";
             Load += Form1_Load;
+            Shown += Form1_Shown;
             ResizeEnd += Form1_ResizeEnd;
             Resize += Form1_Resize;
             panelSubMenuPatentes.ResumeLayout(false);

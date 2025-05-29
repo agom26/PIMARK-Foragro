@@ -1693,6 +1693,28 @@ namespace Presentacion.Marcas_Internacionales
             filtrar();
         }
 
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
+
         private void ibtnBuscar_Click_1(object sender, EventArgs e)
         {
             buscando = true;
@@ -2258,6 +2280,11 @@ namespace Presentacion.Marcas_Internacionales
             }
 
             dtgTraspasos.ClearSelection();
+        }
+
+        private void FrmMarcasIntRegistradas_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

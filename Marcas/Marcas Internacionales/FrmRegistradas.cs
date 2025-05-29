@@ -876,14 +876,14 @@ namespace Presentacion.Marcas_Nacionales
                         mostrarPanelRegistro("no");
                     }
                     await refrescarMarca();
-                    
+
 
 
                     if (AgregarEtapa.etapa == "Trámite de renovación")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                        
+
                         try
                         {
                             marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "renovacion");
@@ -901,7 +901,7 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
-                        
+
                         try
                         {
                             marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "traspaso");
@@ -2215,6 +2215,32 @@ namespace Presentacion.Marcas_Nacionales
                     error.ShowDialog();
                 }
             }
+        }
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
+
+        private void FrmRegistradas_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

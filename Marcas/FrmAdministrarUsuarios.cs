@@ -122,7 +122,7 @@ namespace Presentacion
                 int idUser = EditarUsuario.idUser;
 
 
-                DataTable userDetails = await Task.Run(()=> UserModel.GetById(idUser));
+                DataTable userDetails = await Task.Run(() => UserModel.GetById(idUser));
 
                 if (userDetails.Rows.Count > 0)
                 {
@@ -323,10 +323,10 @@ namespace Presentacion
         {
             if (txtBuscar.Text != "")
             {
-                totalRows=UserModel.GetFilteredUserCount(txtBuscar.Text);
+                totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text,currentPageIndex, pageSize);
+                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text, currentPageIndex, pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
                 if (usuarios.Rows.Count > 0)
@@ -427,7 +427,7 @@ namespace Presentacion
                         else if (btnGuardarU.Text == "EDITAR")
                         {
                             bool cambiarContra = chkCambiarContrasena.Checked;
-                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo,cambiarContra));
+                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra));
 
                             FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
@@ -625,6 +625,26 @@ namespace Presentacion
 
         }
 
+        private void CentrarPanel()
+        {
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = 0; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
+            }
+        }
         private async void iconButton1_Click_1(object sender, EventArgs e)
         {
             buscando = true;
@@ -636,7 +656,7 @@ namespace Presentacion
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
             FiltrarUsuarios();
-            
+
         }
 
         private void iconButton6_Click_2(object sender, EventArgs e)
@@ -665,7 +685,7 @@ namespace Presentacion
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 FiltrarUsuarios();
             }
@@ -673,7 +693,7 @@ namespace Presentacion
             {
                 await LoadUsers();
             }
-            
+
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
@@ -690,7 +710,7 @@ namespace Presentacion
                 {
                     await LoadUsers();
                 }
-                
+
                 lblCurrentPage.Text = currentPageIndex.ToString();
             }
         }
@@ -708,7 +728,7 @@ namespace Presentacion
                 {
                     await LoadUsers();
                 }
-                
+
                 lblCurrentPage.Text = currentPageIndex.ToString();
             }
         }
@@ -724,8 +744,13 @@ namespace Presentacion
             {
                 await LoadUsers();
             }
-            
-            lblCurrentPage.Text= currentPageIndex.ToString();
+
+            lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void FrmAdministrarUsuarios_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

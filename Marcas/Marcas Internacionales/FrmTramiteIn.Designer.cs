@@ -102,7 +102,6 @@
             // 
             // panel1
             // 
-            panel1.AutoScroll = true;
             panel1.Controls.Add(label21);
             panel1.Controls.Add(btnAgregarCliente);
             panel1.Controls.Add(groupBox1);
@@ -141,10 +140,9 @@
             panel1.Controls.Add(txtExpediente);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(txtNombreCliente);
-            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1028, 772);
+            panel1.Size = new Size(1011, 1379);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
@@ -786,7 +784,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1046, 32713);
+            label5.Location = new Point(1046, 32695);
             label5.Name = "label5";
             label5.Size = new Size(110, 19);
             label5.TabIndex = 6;
@@ -875,6 +873,7 @@
             Name = "FrmTramiteIn";
             Text = "FrmTramiteIn";
             Load += FrmTramiteIn_Load;
+            Resize += FrmTramiteIn_Resize;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             groupBox1.ResumeLayout(false);

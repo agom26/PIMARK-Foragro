@@ -215,7 +215,7 @@ namespace Presentacion.Marcas_Internacionales
                 int currP = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesExclusivas(estado));
                 int currP2 = await Task.Run(() => licenciaUso.GetTotalLicenciasUsoNacionalesNoExclusivas(estado2));
 
-                
+
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
 
@@ -552,7 +552,7 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     licenciaUso.EditarLicenciaUso(idLicencia, (int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
-                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional", anios, meses,dias);
+                         razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional", anios, meses, dias);
                     FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
@@ -1138,7 +1138,38 @@ namespace Presentacion.Marcas_Internacionales
             }
 
         }
+        private void CentrarPanel()
+        {
 
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Location.Y; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new System.Drawing.Point(x, y);
+
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda2.Anchor = AnchorStyles.None;
+
+                int x2 = (tabControl1.ClientSize.Width - panelBusqueda2.Width) / 2;
+                int y2 = panelBusqueda2.Location.Y; // o donde quieras posicionarlo verticalmente
+                panelBusqueda2.Location = new System.Drawing.Point(x2, y2);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new System.Drawing.Point(0, panelBusqueda.Location.Y); // o donde quieras
+
+                // Pantalla pequeña → top-left
+                panelBusqueda2.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda2.Location = new System.Drawing.Point(0, panelBusqueda2.Location.Y); // o donde quieras
+            }
+        }
         private void ibtnBuscar_Click(object sender, EventArgs e)
         {
             //filtrarMarcas();
@@ -1782,7 +1813,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     await FiltrarExclusivasPorSituacionActual();
                 }
-                
+
                 lblCurrentPage.Text = currentPageIndex.ToString();
             }
         }
@@ -2519,6 +2550,16 @@ namespace Presentacion.Marcas_Internacionales
             DateTime nuevaFecha = fechaInicio.AddYears(anios).AddMonths(meses).AddDays(dias);
 
             dateTimePickerFin.Value = nuevaFecha;
+        }
+
+        private void FrmMarcasLicenciaUso_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
+        }
+
+        private void lblTotalPages_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
