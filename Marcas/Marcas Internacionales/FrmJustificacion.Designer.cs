@@ -40,6 +40,7 @@
             // 
             // iconButton1
             // 
+            iconButton1.Anchor = AnchorStyles.Top;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.CircleExclamation;
             iconButton1.IconColor = Color.Red;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -52,6 +53,7 @@
             // 
             // richTextBoxJustificacion
             // 
+            richTextBoxJustificacion.Anchor = AnchorStyles.Top;
             richTextBoxJustificacion.BorderStyle = BorderStyle.None;
             richTextBoxJustificacion.Location = new Point(175, 237);
             richTextBoxJustificacion.Name = "richTextBoxJustificacion";
@@ -62,6 +64,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10F);
             label1.Location = new Point(175, 213);
@@ -72,6 +75,7 @@
             // 
             // roundedButton1
             // 
+            roundedButton1.Anchor = AnchorStyles.Top;
             roundedButton1.BackColor = Color.FromArgb(183, 28, 28);
             roundedButton1.BackgroundColor = Color.FromArgb(183, 28, 28);
             roundedButton1.BorderColor = Color.FromArgb(183, 28, 28);
@@ -92,6 +96,7 @@
             // 
             // roundedButton2
             // 
+            roundedButton2.Anchor = AnchorStyles.Top;
             roundedButton2.BackColor = Color.FromArgb(189, 189, 189);
             roundedButton2.BackgroundColor = Color.FromArgb(189, 189, 189);
             roundedButton2.BorderColor = Color.FromArgb(189, 189, 189);
@@ -112,6 +117,7 @@
             // 
             // dateTimePicker1
             // 
+            dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(175, 172);
             dateTimePicker1.Name = "dateTimePicker1";
@@ -120,6 +126,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 10F);
             label2.Location = new Point(175, 148);
@@ -130,6 +137,7 @@
             // 
             // labelUsuarioAbandono
             // 
+            labelUsuarioAbandono.Anchor = AnchorStyles.Top;
             labelUsuarioAbandono.AutoSize = true;
             labelUsuarioAbandono.Font = new Font("Century Gothic", 10F);
             labelUsuarioAbandono.Location = new Point(385, 177);
@@ -142,6 +150,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
             BackColor = SystemColors.Control;
             ClientSize = new Size(725, 491);
             Controls.Add(labelUsuarioAbandono);

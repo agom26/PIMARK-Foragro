@@ -145,7 +145,7 @@
   <data name="btnClientes2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        6gAAAOoB+Ss1JgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAQgSURBVFhH7Zdf
+        4wAAAOMBD+bfpwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAQgSURBVFhH7Zdf
         aFtVHMe7KqvzQWXKVATRh7EHmxVxKE5l6oOiPijqwCY6mjRpI0OhSaGgQyNMfdiDOhFR3MtexLDqtL1Z
         l9xzsz+6UcWm3XLOyXLXjTqtD2qxdU1qcpOv3Lsku/ecm5oO54P4hQ+Ee76/3/eXk8u5N21t/4CA+BXi
         tX9F4KQHlJwDIyUwkgRP3yZ6LpvAtS1gpApGYGMCwCrRe1kETnYL4TWS6yUvsGrFgyGTvg6cxGvb+yso
@@ -651,6 +651,18 @@
         9bv5iTkssAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="rDropDownMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="rDropDownMenu2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>169, 17</value>
+  </metadata>
+  <metadata name="rDropDownMenu3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>321, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>71</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIAAoIAQAFgAAACgAAAAAAQAAAAIAAAEAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA

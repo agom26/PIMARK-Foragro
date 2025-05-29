@@ -46,6 +46,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Location = new Point(168, 195);
             label1.Name = "label1";
@@ -55,6 +56,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Location = new Point(349, 197);
             label2.Name = "label2";
@@ -64,6 +66,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
             label3.Location = new Point(168, 274);
             label3.Name = "label3";
@@ -73,6 +76,7 @@
             // 
             // dateTimePicker1
             // 
+            dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(168, 218);
             dateTimePicker1.Name = "dateTimePicker1";
@@ -83,6 +87,7 @@
             // 
             // comboBox1
             // 
+            comboBox1.Anchor = AnchorStyles.Top;
             comboBox1.BackColor = Color.White;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FlatStyle = FlatStyle.Flat;
@@ -96,6 +101,7 @@
             // 
             // richTextBox1
             // 
+            richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
             richTextBox1.Location = new Point(168, 297);
             richTextBox1.Name = "richTextBox1";
@@ -105,6 +111,7 @@
             // 
             // lblUser
             // 
+            lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
             lblUser.Location = new Point(349, 153);
             lblUser.Name = "lblUser";
@@ -114,6 +121,7 @@
             // 
             // roundedButton1
             // 
+            roundedButton1.Anchor = AnchorStyles.Top;
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(196, 195, 209);
@@ -172,6 +180,7 @@
             // 
             // iconButton3
             // 
+            iconButton3.Anchor = AnchorStyles.Top;
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -182,9 +191,9 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(188, 425);
+            iconButton3.Location = new Point(202, 425);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
+            iconButton3.Size = new Size(160, 34);
             iconButton3.TabIndex = 4;
             iconButton3.Text = "SELECCIONAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
@@ -194,7 +203,8 @@
             // 
             // iconButton2
             // 
-            iconButton2.BackColor = Color.White;
+            iconButton2.Anchor = AnchorStyles.Top;
+            iconButton2.BackColor = Color.Gainsboro;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
             iconButton2.Font = new Font("Century Gothic", 9.5F, FontStyle.Bold);
@@ -203,9 +213,9 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(393, 425);
+            iconButton2.Location = new Point(407, 425);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 34);
+            iconButton2.Size = new Size(160, 34);
             iconButton2.TabIndex = 5;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
@@ -217,6 +227,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
             ClientSize = new Size(779, 493);
             Controls.Add(panel2);
             Controls.Add(roundedButton1);

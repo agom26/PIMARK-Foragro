@@ -97,6 +97,7 @@
             // 
             // roundedButton1
             // 
+            roundedButton1.Anchor = AnchorStyles.Top;
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
@@ -155,6 +156,7 @@
             // 
             // iconButton3
             // 
+            iconButton3.Anchor = AnchorStyles.Top;
             iconButton3.BackColor = Color.FromArgb(161, 136, 127);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -177,6 +179,7 @@
             // 
             // iconButton2
             // 
+            iconButton2.Anchor = AnchorStyles.Top;
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
@@ -207,6 +210,7 @@
             // 
             // Fechas
             // 
+            Fechas.Anchor = AnchorStyles.Top;
             Fechas.Controls.Add(label6);
             Fechas.Controls.Add(txtSolicitante);
             Fechas.Controls.Add(txtNombreOpositor);
@@ -243,6 +247,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top;
             groupBox1.Controls.Add(dateTimePicker1);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(label3);
@@ -259,6 +264,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
             ClientSize = new Size(1090, 601);
             Controls.Add(Fechas);
             Controls.Add(iconButton3);

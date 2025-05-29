@@ -194,7 +194,7 @@
             btnGuardar.BackColor = Color.FromArgb(23, 22, 40);
             btnGuardar.BackgroundColor = Color.FromArgb(23, 22, 40);
             btnGuardar.BorderColor = Color.FromArgb(23, 22, 40);
-            btnGuardar.BorderRadius = 50;
+            btnGuardar.BorderRadius = 40;
             btnGuardar.BorderSize = 0;
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;

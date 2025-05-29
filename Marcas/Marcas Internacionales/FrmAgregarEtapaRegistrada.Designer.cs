@@ -261,6 +261,7 @@
             // 
             // panel1
             // 
+            panel1.AutoScroll = true;
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(richTextBox1);
             panel1.Controls.Add(roundedButton1);
@@ -279,6 +280,7 @@
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel4, 0, 1);
@@ -313,6 +315,7 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(779, 576);
             Controls.Add(panel1);
             Controls.Add(panel2);

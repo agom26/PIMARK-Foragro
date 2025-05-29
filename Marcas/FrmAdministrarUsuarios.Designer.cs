@@ -100,7 +100,7 @@
             tabControl1.Margin = new Padding(3, 2, 3, 2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(725, 591);
+            tabControl1.Size = new Size(821, 591);
             tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -126,7 +126,7 @@
             tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3, 2, 3, 2);
-            tabPage1.Size = new Size(717, 561);
+            tabPage1.Size = new Size(813, 561);
             tabPage1.TabIndex = 0;
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
@@ -137,7 +137,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(498, 157);
+            lblTotalPages.Location = new Point(592, 157);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 60;
@@ -148,7 +148,7 @@
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 9F);
-            label10.Location = new Point(468, 157);
+            label10.Location = new Point(562, 157);
             label10.Name = "label10";
             label10.Size = new Size(24, 17);
             label10.TabIndex = 59;
@@ -159,7 +159,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(438, 157);
+            lblCurrentPage.Location = new Point(532, 157);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 58;
@@ -188,7 +188,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(437, 558);
+            btnLast.Location = new Point(533, 559);
             btnLast.Margin = new Padding(3, 2, 3, 2);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(91, 31);
@@ -210,7 +210,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(333, 559);
+            btnNext.Location = new Point(429, 560);
             btnNext.Margin = new Padding(3, 2, 3, 2);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(91, 31);
@@ -232,7 +232,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(225, 559);
+            btnPrev.Location = new Point(321, 560);
             btnPrev.Margin = new Padding(3, 2, 3, 2);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(91, 31);
@@ -254,7 +254,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(116, 559);
+            btnFirst.Location = new Point(212, 560);
             btnFirst.Margin = new Padding(3, 2, 3, 2);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(91, 31);
@@ -268,7 +268,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(380, 157);
+            label2.Location = new Point(474, 157);
             label2.Name = "label2";
             label2.Size = new Size(49, 17);
             label2.TabIndex = 52;
@@ -298,7 +298,7 @@
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEliminar.IconSize = 25;
             btnEliminar.ImageAlign = ContentAlignment.MiddleRight;
-            btnEliminar.Location = new Point(534, 302);
+            btnEliminar.Location = new Point(630, 302);
             btnEliminar.Margin = new Padding(3, 2, 3, 2);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(160, 49);
@@ -322,7 +322,7 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton3.Location = new Point(534, 239);
+            iconButton3.Location = new Point(630, 239);
             iconButton3.Margin = new Padding(3, 2, 3, 2);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 49);
@@ -346,7 +346,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton2.Location = new Point(534, 176);
+            iconButton2.Location = new Point(630, 176);
             iconButton2.Margin = new Padding(3, 2, 3, 2);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(160, 49);
@@ -367,7 +367,7 @@
             panel2.Controls.Add(btnTitulo);
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(694, 145);
+            panel2.Size = new Size(790, 145);
             panel2.TabIndex = 50;
             // 
             // iconButton6
@@ -380,7 +380,7 @@
             iconButton6.IconColor = Color.Black;
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 25;
-            iconButton6.Location = new Point(315, 98);
+            iconButton6.Location = new Point(363, 98);
             iconButton6.Margin = new Padding(3, 2, 3, 2);
             iconButton6.Name = "iconButton6";
             iconButton6.Size = new Size(23, 24);
@@ -390,9 +390,9 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Anchor = AnchorStyles.None;
+            txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 10F);
-            txtBuscar.Location = new Point(78, 98);
+            txtBuscar.Location = new Point(126, 98);
             txtBuscar.Margin = new Padding(3, 2, 3, 2);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(232, 24);
@@ -401,7 +401,7 @@
             // 
             // iconButton1
             // 
-            iconButton1.Anchor = AnchorStyles.None;
+            iconButton1.Anchor = AnchorStyles.Top;
             iconButton1.BackColor = Color.FromArgb(251, 140, 0);
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
@@ -412,7 +412,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 18;
             iconButton1.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton1.Location = new Point(346, 96);
+            iconButton1.Location = new Point(394, 96);
             iconButton1.Margin = new Padding(3, 2, 3, 2);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(107, 27);
@@ -435,7 +435,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(50, 82);
+            roundedButton3.Location = new Point(98, 82);
             roundedButton3.Margin = new Padding(3, 2, 3, 2);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(432, 51);
@@ -457,7 +457,7 @@
             btnTitulo.ForeColor = Color.Black;
             btnTitulo.Image = Properties.Resources.usuario_final_4_;
             btnTitulo.ImageAlign = ContentAlignment.MiddleRight;
-            btnTitulo.Location = new Point(49, 4);
+            btnTitulo.Location = new Point(97, 4);
             btnTitulo.Margin = new Padding(3, 2, 3, 2);
             btnTitulo.Name = "btnTitulo";
             btnTitulo.Size = new Size(433, 46);
@@ -475,7 +475,7 @@
             panel1.Location = new Point(10, 176);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(518, 378);
+            panel1.Size = new Size(614, 378);
             panel1.TabIndex = 48;
             // 
             // dtgUsuarios
@@ -528,7 +528,7 @@
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 10F);
             dtgUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgUsuarios.Size = new Size(488, 349);
+            dtgUsuarios.Size = new Size(584, 349);
             dtgUsuarios.TabIndex = 4;
             dtgUsuarios.CellClick += dtgUsuarios_CellClick;
             dtgUsuarios.CellContentClick += dtgUsuarios_CellContentClick;
@@ -544,7 +544,7 @@
             tabPageUserDetail.Margin = new Padding(3, 2, 3, 2);
             tabPageUserDetail.Name = "tabPageUserDetail";
             tabPageUserDetail.Padding = new Padding(3, 2, 3, 2);
-            tabPageUserDetail.Size = new Size(717, 561);
+            tabPageUserDetail.Size = new Size(804, 561);
             tabPageUserDetail.TabIndex = 1;
             tabPageUserDetail.UseVisualStyleBackColor = true;
             // 
@@ -558,7 +558,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(3, 2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(711, 557);
+            panel5.Size = new Size(798, 557);
             panel5.TabIndex = 150;
             // 
             // iconPictureBox3
@@ -644,7 +644,7 @@
             panel3.Controls.Add(roundedButton4);
             panel3.Location = new Point(35, 59);
             panel3.Name = "panel3";
-            panel3.Size = new Size(659, 398);
+            panel3.Size = new Size(746, 398);
             panel3.TabIndex = 186;
             // 
             // chkCambiarContrasena
@@ -653,7 +653,7 @@
             chkCambiarContrasena.AutoSize = true;
             chkCambiarContrasena.BackColor = Color.FromArgb(222, 227, 234);
             chkCambiarContrasena.Font = new Font("Century Gothic", 10.2F);
-            chkCambiarContrasena.Location = new Point(362, 258);
+            chkCambiarContrasena.Location = new Point(406, 258);
             chkCambiarContrasena.Margin = new Padding(3, 2, 3, 2);
             chkCambiarContrasena.Name = "chkCambiarContrasena";
             chkCambiarContrasena.Size = new Size(172, 23);
@@ -667,7 +667,7 @@
             label3.AutoSize = true;
             label3.BackColor = Color.FromArgb(222, 227, 234);
             label3.Font = new Font("Century Gothic", 10.2F);
-            label3.Location = new Point(74, 39);
+            label3.Location = new Point(118, 39);
             label3.Name = "label3";
             label3.Size = new Size(58, 19);
             label3.TabIndex = 166;
@@ -677,7 +677,7 @@
             // 
             txtUsername.Anchor = AnchorStyles.Top;
             txtUsername.Font = new Font("Century Gothic", 10.2F);
-            txtUsername.Location = new Point(74, 59);
+            txtUsername.Location = new Point(118, 59);
             txtUsername.Margin = new Padding(3, 2, 3, 2);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(205, 24);
@@ -689,7 +689,7 @@
             label4.AutoSize = true;
             label4.BackColor = Color.FromArgb(222, 227, 234);
             label4.Font = new Font("Century Gothic", 10.2F);
-            label4.Location = new Point(74, 110);
+            label4.Location = new Point(118, 110);
             label4.Name = "label4";
             label4.Size = new Size(69, 19);
             label4.TabIndex = 169;
@@ -699,7 +699,7 @@
             // 
             txtNombres.Anchor = AnchorStyles.Top;
             txtNombres.Font = new Font("Century Gothic", 10.2F);
-            txtNombres.Location = new Point(74, 130);
+            txtNombres.Location = new Point(118, 130);
             txtNombres.Margin = new Padding(3, 2, 3, 2);
             txtNombres.Multiline = true;
             txtNombres.Name = "txtNombres";
@@ -713,7 +713,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.FromArgb(222, 227, 234);
             label5.Font = new Font("Century Gothic", 10.2F);
-            label5.Location = new Point(363, 110);
+            label5.Location = new Point(407, 110);
             label5.Name = "label5";
             label5.Size = new Size(70, 19);
             label5.TabIndex = 172;
@@ -723,7 +723,7 @@
             // 
             txtApellidos.Anchor = AnchorStyles.Top;
             txtApellidos.Font = new Font("Century Gothic", 10.2F);
-            txtApellidos.Location = new Point(363, 130);
+            txtApellidos.Location = new Point(407, 130);
             txtApellidos.Margin = new Padding(3, 2, 3, 2);
             txtApellidos.Multiline = true;
             txtApellidos.Name = "txtApellidos";
@@ -744,7 +744,7 @@
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardarU.IconSize = 25;
             btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardarU.Location = new Point(127, 294);
+            btnGuardarU.Location = new Point(171, 294);
             btnGuardarU.Margin = new Padding(3, 2, 3, 2);
             btnGuardarU.Name = "btnGuardarU";
             btnGuardarU.Size = new Size(152, 36);
@@ -761,7 +761,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(222, 227, 234);
             label6.Font = new Font("Century Gothic", 10.2F);
-            label6.Location = new Point(363, 39);
+            label6.Location = new Point(407, 39);
             label6.Name = "label6";
             label6.Size = new Size(55, 19);
             label6.TabIndex = 174;
@@ -779,7 +779,7 @@
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarU.IconSize = 25;
             btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelarU.Location = new Point(363, 294);
+            btnCancelarU.Location = new Point(407, 294);
             btnCancelarU.Margin = new Padding(3, 2, 3, 2);
             btnCancelarU.Name = "btnCancelarU";
             btnCancelarU.Size = new Size(152, 36);
@@ -794,7 +794,7 @@
             // 
             txtCorreo.Anchor = AnchorStyles.Top;
             txtCorreo.Font = new Font("Century Gothic", 10.2F);
-            txtCorreo.Location = new Point(363, 59);
+            txtCorreo.Location = new Point(407, 59);
             txtCorreo.Margin = new Padding(3, 2, 3, 2);
             txtCorreo.Multiline = true;
             txtCorreo.Name = "txtCorreo";
@@ -806,7 +806,7 @@
             // 
             txtConfirmarCont.Anchor = AnchorStyles.Top;
             txtConfirmarCont.Font = new Font("Century Gothic", 10.2F);
-            txtConfirmarCont.Location = new Point(363, 205);
+            txtConfirmarCont.Location = new Point(407, 205);
             txtConfirmarCont.Margin = new Padding(3, 2, 3, 2);
             txtConfirmarCont.Multiline = true;
             txtConfirmarCont.Name = "txtConfirmarCont";
@@ -820,7 +820,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(222, 227, 234);
             label7.Font = new Font("Century Gothic", 10.2F);
-            label7.Location = new Point(74, 186);
+            label7.Location = new Point(118, 186);
             label7.Name = "label7";
             label7.Size = new Size(90, 19);
             label7.TabIndex = 175;
@@ -832,7 +832,7 @@
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(222, 227, 234);
             label8.Font = new Font("Century Gothic", 10.2F);
-            label8.Location = new Point(363, 186);
+            label8.Location = new Point(407, 186);
             label8.Name = "label8";
             label8.Size = new Size(159, 19);
             label8.TabIndex = 176;
@@ -842,7 +842,7 @@
             // 
             txtCont.Anchor = AnchorStyles.Top;
             txtCont.Font = new Font("Century Gothic", 10.2F);
-            txtCont.Location = new Point(74, 205);
+            txtCont.Location = new Point(118, 205);
             txtCont.Margin = new Padding(3, 2, 3, 2);
             txtCont.Multiline = true;
             txtCont.Name = "txtCont";
@@ -856,7 +856,7 @@
             chckbIsAdmin.AutoSize = true;
             chckbIsAdmin.BackColor = Color.FromArgb(222, 227, 234);
             chckbIsAdmin.Font = new Font("Century Gothic", 10.2F);
-            chckbIsAdmin.Location = new Point(74, 258);
+            chckbIsAdmin.Location = new Point(118, 258);
             chckbIsAdmin.Margin = new Padding(3, 2, 3, 2);
             chckbIsAdmin.Name = "chckbIsAdmin";
             chckbIsAdmin.Size = new Size(206, 23);
@@ -877,7 +877,7 @@
             roundedButton4.FlatAppearance.BorderSize = 0;
             roundedButton4.FlatStyle = FlatStyle.Flat;
             roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(19, 14);
+            roundedButton4.Location = new Point(63, 14);
             roundedButton4.Margin = new Padding(3, 2, 3, 2);
             roundedButton4.Name = "roundedButton4";
             roundedButton4.Size = new Size(631, 360);
@@ -890,7 +890,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(725, 591);
+            ClientSize = new Size(821, 591);
             ControlBox = false;
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.None;

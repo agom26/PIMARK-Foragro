@@ -40,6 +40,30 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
+        private void CentrarPanel()
+        {
+            // Define el tamaño mínimo requerido para centrar
+            int anchoMinimo = panelBusqueda.Width + 100; // o un valor fijo como 800
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+
+                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
+                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
+                panelBusqueda.Location = new Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+            }
+        }
+
+
+
         public FrmRenovacionesInt()
         {
             InitializeComponent();
@@ -1751,6 +1775,11 @@ namespace Presentacion.Marcas_Internacionales
             {
                 archivoSubido = true;
             }
+        }
+
+        private void FrmRenovacionesInt_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
         }
     }
 }

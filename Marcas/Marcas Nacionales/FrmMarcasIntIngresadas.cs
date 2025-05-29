@@ -263,12 +263,12 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     return;
                 }
-
+                /*
                 if (logo == null)
                 {
                     MessageBox.Show("Por favor, cargue un logo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                }
+                }*/
 
                 bool esActualizado = await Task.Run(() =>
                 {

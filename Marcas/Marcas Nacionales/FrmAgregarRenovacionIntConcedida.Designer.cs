@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -357,6 +357,7 @@
             // 
             // tabPageRenovarMarca
             // 
+            tabPageRenovarMarca.AutoScroll = true;
             tabPageRenovarMarca.BackColor = SystemColors.Window;
             tabPageRenovarMarca.Controls.Add(iconButton1);
             tabPageRenovarMarca.Controls.Add(iconButton2);
@@ -372,7 +373,7 @@
             // 
             // iconButton1
             // 
-            iconButton1.BackColor = Color.FromArgb(40, 167, 69);
+            iconButton1.BackColor = Color.Green;
             iconButton1.FlatAppearance.BorderSize = 0;
             iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
@@ -394,14 +395,15 @@
             // 
             // tabPageListarLicencias
             // 
+            tabPageListarLicencias.AutoScroll = true;
             tabPageListarLicencias.Controls.Add(btnAgregarArchivo);
             tabPageListarLicencias.Controls.Add(iconButton18);
             tabPageListarLicencias.Controls.Add(label18);
             tabPageListarLicencias.Controls.Add(panel3);
-            tabPageListarLicencias.Location = new Point(4, 24);
+            tabPageListarLicencias.Location = new Point(4, 26);
             tabPageListarLicencias.Name = "tabPageListarLicencias";
             tabPageListarLicencias.Padding = new Padding(3);
-            tabPageListarLicencias.Size = new Size(1082, 538);
+            tabPageListarLicencias.Size = new Size(1082, 536);
             tabPageListarLicencias.TabIndex = 1;
             tabPageListarLicencias.UseVisualStyleBackColor = true;
             // 
@@ -474,14 +476,14 @@
             dtgLicencias.BorderStyle = BorderStyle.None;
             dtgLicencias.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgLicencias.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgLicencias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgLicencias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgLicencias.ColumnHeadersHeight = 40;
             dtgLicencias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgLicencias.EnableHeadersVisualStyles = false;
@@ -498,6 +500,7 @@
             // 
             // tabPageRenovarLicencia
             // 
+            tabPageRenovarLicencia.AutoScroll = true;
             tabPageRenovarLicencia.Controls.Add(panel4);
             tabPageRenovarLicencia.Location = new Point(4, 26);
             tabPageRenovarLicencia.Name = "tabPageRenovarLicencia";
@@ -670,6 +673,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = SystemColors.Window;
             ClientSize = new Size(1090, 600);
             Controls.Add(panel1);

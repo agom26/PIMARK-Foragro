@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelChildForm = new Panel();
             btnMarcasNacionales = new Button();
@@ -70,12 +71,36 @@
             btnInicio = new Button();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             labelUsername = new Label();
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
+            rDropDownMenu1 = new Presentacion.Clases.RDropDownMenu(components);
+            iNGRESARMARCAToolStripMenuItem = new ToolStripMenuItem();
+            tRÁMITEINICIALToolStripMenuItem = new ToolStripMenuItem();
+            oPOSICIONESToolStripMenuItem = new ToolStripMenuItem();
+            rEGISTRADASToolStripMenuItem = new ToolStripMenuItem();
+            lICENCIASDEUSOToolStripMenuItem = new ToolStripMenuItem();
+            tRDERENOVACIÓNToolStripMenuItem = new ToolStripMenuItem();
+            tRDETRASPASOToolStripMenuItem = new ToolStripMenuItem();
+            aBANDONADASToolStripMenuItem = new ToolStripMenuItem();
+            rDropDownMenu2 = new Presentacion.Clases.RDropDownMenu(components);
+            iNGRESARMARCAToolStripMenuItem1 = new ToolStripMenuItem();
+            tRÁMITEINICIALToolStripMenuItem1 = new ToolStripMenuItem();
+            oPOSICIONESToolStripMenuItem1 = new ToolStripMenuItem();
+            tRDERENOVACIÓToolStripMenuItem = new ToolStripMenuItem();
+            tRDETRASPASOToolStripMenuItem1 = new ToolStripMenuItem();
+            aBANDONADASToolStripMenuItem1 = new ToolStripMenuItem();
+            rDropDownMenu3 = new Presentacion.Clases.RDropDownMenu(components);
+            iNGRESARPATENTEToolStripMenuItem = new ToolStripMenuItem();
+            tRÁMITEINICIALToolStripMenuItem2 = new ToolStripMenuItem();
+            rEGISTRADASToolStripMenuItem1 = new ToolStripMenuItem();
+            tRDERENOVACIÓNToolStripMenuItem1 = new ToolStripMenuItem();
+            tRDETRASPASOToolStripMenuItem2 = new ToolStripMenuItem();
+            aBANDONADASToolStripMenuItem2 = new ToolStripMenuItem();
             panelSubMenuPatentes.SuspendLayout();
             panel2.SuspendLayout();
             panelSubMenuMarcasNacionales.SuspendLayout();
@@ -84,6 +109,9 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
+            rDropDownMenu1.SuspendLayout();
+            rDropDownMenu2.SuspendLayout();
+            rDropDownMenu3.SuspendLayout();
             SuspendLayout();
             // 
             // panelChildForm
@@ -93,9 +121,9 @@
             panelChildForm.AutoSize = true;
             panelChildForm.BackColor = Color.White;
             panelChildForm.Font = new Font("Century Gothic", 9F);
-            panelChildForm.Location = new Point(287, 106);
+            panelChildForm.Location = new Point(266, 95);
             panelChildForm.Name = "panelChildForm";
-            panelChildForm.Size = new Size(725, 594);
+            panelChildForm.Size = new Size(758, 605);
             panelChildForm.TabIndex = 1;
             panelChildForm.Paint += panelChildForm_Paint;
             // 
@@ -111,8 +139,9 @@
             btnMarcasNacionales.ImageAlign = ContentAlignment.MiddleLeft;
             btnMarcasNacionales.Location = new Point(0, 394);
             btnMarcasNacionales.Name = "btnMarcasNacionales";
-            btnMarcasNacionales.Size = new Size(263, 61);
+            btnMarcasNacionales.Size = new Size(243, 61);
             btnMarcasNacionales.TabIndex = 0;
+            btnMarcasNacionales.Tag = "MARCAS NACIONALES";
             btnMarcasNacionales.Text = "     MARCAS NACIONALES";
             btnMarcasNacionales.TextAlign = ContentAlignment.MiddleRight;
             btnMarcasNacionales.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -132,7 +161,7 @@
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuPatentes.Location = new Point(0, 1353);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
-            panelSubMenuPatentes.Size = new Size(263, 310);
+            panelSubMenuPatentes.Size = new Size(243, 310);
             panelSubMenuPatentes.TabIndex = 12;
             panelSubMenuPatentes.Paint += panel5_Paint;
             // 
@@ -147,8 +176,9 @@
             btnAbandonadasPatentes.Location = new Point(0, 235);
             btnAbandonadasPatentes.Name = "btnAbandonadasPatentes";
             btnAbandonadasPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadasPatentes.Size = new Size(263, 47);
+            btnAbandonadasPatentes.Size = new Size(243, 47);
             btnAbandonadasPatentes.TabIndex = 6;
+            btnAbandonadasPatentes.Tag = "> ABANDONADAS";
             btnAbandonadasPatentes.Text = "> ABANDONADAS";
             btnAbandonadasPatentes.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadasPatentes.UseVisualStyleBackColor = true;
@@ -165,8 +195,9 @@
             btnTramiteTraspPatentes.Location = new Point(0, 188);
             btnTramiteTraspPatentes.Name = "btnTramiteTraspPatentes";
             btnTramiteTraspPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteTraspPatentes.Size = new Size(263, 47);
+            btnTramiteTraspPatentes.Size = new Size(243, 47);
             btnTramiteTraspPatentes.TabIndex = 4;
+            btnTramiteTraspPatentes.Tag = "> TR. DE TRASPASO";
             btnTramiteTraspPatentes.Text = "> TR. DE TRASPASO";
             btnTramiteTraspPatentes.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteTraspPatentes.UseVisualStyleBackColor = true;
@@ -183,8 +214,9 @@
             btnTramiteRenovPatentes.Location = new Point(0, 141);
             btnTramiteRenovPatentes.Name = "btnTramiteRenovPatentes";
             btnTramiteRenovPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenovPatentes.Size = new Size(263, 47);
+            btnTramiteRenovPatentes.Size = new Size(243, 47);
             btnTramiteRenovPatentes.TabIndex = 3;
+            btnTramiteRenovPatentes.Tag = "> TR. DE RENOVACIÓN";
             btnTramiteRenovPatentes.Text = "> TR. DE RENOVACIÓN";
             btnTramiteRenovPatentes.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteRenovPatentes.UseVisualStyleBackColor = true;
@@ -201,8 +233,9 @@
             btnPatentesRegistradas.Location = new Point(0, 94);
             btnPatentesRegistradas.Name = "btnPatentesRegistradas";
             btnPatentesRegistradas.Padding = new Padding(58, 0, 0, 0);
-            btnPatentesRegistradas.Size = new Size(263, 47);
+            btnPatentesRegistradas.Size = new Size(243, 47);
             btnPatentesRegistradas.TabIndex = 5;
+            btnPatentesRegistradas.Tag = "> REGISTRADAS";
             btnPatentesRegistradas.Text = "> REGISTRADAS";
             btnPatentesRegistradas.TextAlign = ContentAlignment.MiddleLeft;
             btnPatentesRegistradas.UseVisualStyleBackColor = true;
@@ -219,8 +252,9 @@
             btnTramiteInicialPatente.Location = new Point(0, 47);
             btnTramiteInicialPatente.Name = "btnTramiteInicialPatente";
             btnTramiteInicialPatente.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialPatente.Size = new Size(263, 47);
+            btnTramiteInicialPatente.Size = new Size(243, 47);
             btnTramiteInicialPatente.TabIndex = 7;
+            btnTramiteInicialPatente.Tag = "> TRÁMITE INICIAL";
             btnTramiteInicialPatente.Text = "> TRÁMITE INICIAL";
             btnTramiteInicialPatente.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicialPatente.UseVisualStyleBackColor = true;
@@ -237,8 +271,9 @@
             btnIngresarPatente.Location = new Point(0, 0);
             btnIngresarPatente.Name = "btnIngresarPatente";
             btnIngresarPatente.Padding = new Padding(58, 0, 0, 0);
-            btnIngresarPatente.Size = new Size(263, 47);
+            btnIngresarPatente.Size = new Size(243, 47);
             btnIngresarPatente.TabIndex = 0;
+            btnIngresarPatente.Tag = "> INGRESAR PATENTE";
             btnIngresarPatente.Text = "> INGRESAR PATENTE";
             btnIngresarPatente.TextAlign = ContentAlignment.MiddleLeft;
             btnIngresarPatente.UseVisualStyleBackColor = true;
@@ -267,7 +302,7 @@
             panel2.Controls.Add(iconButton1);
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(280, 700);
+            panel2.Size = new Size(260, 700);
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
@@ -283,8 +318,9 @@
             btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
             btnCerrarSesion.Location = new Point(0, 1785);
             btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(263, 61);
+            btnCerrarSesion.Size = new Size(243, 61);
             btnCerrarSesion.TabIndex = 26;
+            btnCerrarSesion.Tag = "CERRAR SESIÓN";
             btnCerrarSesion.Text = "    CERRAR SESIÓN";
             btnCerrarSesion.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCerrarSesion.UseVisualStyleBackColor = false;
@@ -302,8 +338,9 @@
             btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
             btnVencimientos.Location = new Point(0, 1724);
             btnVencimientos.Name = "btnVencimientos";
-            btnVencimientos.Size = new Size(263, 61);
+            btnVencimientos.Size = new Size(243, 61);
             btnVencimientos.TabIndex = 25;
+            btnVencimientos.Tag = "VENCIMIENTOS";
             btnVencimientos.Text = "    VENCIMIENTOS";
             btnVencimientos.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnVencimientos.UseVisualStyleBackColor = false;
@@ -321,8 +358,9 @@
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
             btnReportes.Location = new Point(0, 1663);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(263, 61);
+            btnReportes.Size = new Size(243, 61);
             btnReportes.TabIndex = 24;
+            btnReportes.Tag = "REPORTES";
             btnReportes.Text = "     REPORTES";
             btnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnReportes.UseVisualStyleBackColor = false;
@@ -340,8 +378,9 @@
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
             btnPatentes.Location = new Point(0, 1292);
             btnPatentes.Name = "btnPatentes";
-            btnPatentes.Size = new Size(263, 61);
+            btnPatentes.Size = new Size(243, 61);
             btnPatentes.TabIndex = 23;
+            btnPatentes.Tag = "PATENTES";
             btnPatentes.Text = "     PATENTES";
             btnPatentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnPatentes.UseVisualStyleBackColor = false;
@@ -361,7 +400,7 @@
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasNacionales.Location = new Point(0, 946);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
-            panelSubMenuMarcasNacionales.Size = new Size(263, 346);
+            panelSubMenuMarcasNacionales.Size = new Size(243, 346);
             panelSubMenuMarcasNacionales.TabIndex = 8;
             // 
             // btnAbandonadas
@@ -377,8 +416,9 @@
             btnAbandonadas.Margin = new Padding(0);
             btnAbandonadas.Name = "btnAbandonadas";
             btnAbandonadas.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadas.Size = new Size(263, 47);
+            btnAbandonadas.Size = new Size(243, 47);
             btnAbandonadas.TabIndex = 5;
+            btnAbandonadas.Tag = "> ABANDONADAS";
             btnAbandonadas.Text = "> ABANDONADAS";
             btnAbandonadas.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadas.UseVisualStyleBackColor = false;
@@ -396,8 +436,9 @@
             btnTramiteTraspaso.Location = new Point(0, 235);
             btnTramiteTraspaso.Name = "btnTramiteTraspaso";
             btnTramiteTraspaso.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteTraspaso.Size = new Size(263, 47);
+            btnTramiteTraspaso.Size = new Size(243, 47);
             btnTramiteTraspaso.TabIndex = 4;
+            btnTramiteTraspaso.Tag = "> TR. DE TRASPASO";
             btnTramiteTraspaso.Text = "> TR. DE TRASPASO";
             btnTramiteTraspaso.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteTraspaso.UseVisualStyleBackColor = false;
@@ -416,8 +457,9 @@
             btnTramiteRenovacion.Margin = new Padding(0);
             btnTramiteRenovacion.Name = "btnTramiteRenovacion";
             btnTramiteRenovacion.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenovacion.Size = new Size(263, 47);
+            btnTramiteRenovacion.Size = new Size(243, 47);
             btnTramiteRenovacion.TabIndex = 3;
+            btnTramiteRenovacion.Tag = "> TR. DE RENOVACIÓN";
             btnTramiteRenovacion.Text = "> TR. DE RENOVACIÓN";
             btnTramiteRenovacion.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteRenovacion.UseVisualStyleBackColor = false;
@@ -435,8 +477,9 @@
             btnRegistradas.Location = new Point(0, 141);
             btnRegistradas.Name = "btnRegistradas";
             btnRegistradas.Padding = new Padding(58, 0, 0, 0);
-            btnRegistradas.Size = new Size(263, 47);
+            btnRegistradas.Size = new Size(243, 47);
             btnRegistradas.TabIndex = 2;
+            btnRegistradas.Tag = "> REGISTRADAS";
             btnRegistradas.Text = "> REGISTRADAS";
             btnRegistradas.TextAlign = ContentAlignment.MiddleLeft;
             btnRegistradas.UseVisualStyleBackColor = false;
@@ -455,8 +498,9 @@
             btnOposiciones.Margin = new Padding(0);
             btnOposiciones.Name = "btnOposiciones";
             btnOposiciones.Padding = new Padding(58, 0, 0, 0);
-            btnOposiciones.Size = new Size(263, 47);
+            btnOposiciones.Size = new Size(243, 47);
             btnOposiciones.TabIndex = 1;
+            btnOposiciones.Tag = "> OPOSICIONES";
             btnOposiciones.Text = "> OPOSICIONES";
             btnOposiciones.TextAlign = ContentAlignment.MiddleLeft;
             btnOposiciones.UseVisualStyleBackColor = false;
@@ -475,8 +519,9 @@
             btnEnTramite.Margin = new Padding(0);
             btnEnTramite.Name = "btnEnTramite";
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
-            btnEnTramite.Size = new Size(263, 47);
+            btnEnTramite.Size = new Size(243, 47);
             btnEnTramite.TabIndex = 6;
+            btnEnTramite.Tag = "> TRÁMITE INICIAL";
             btnEnTramite.Text = "> TRÁMITE INICIAL";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
             btnEnTramite.UseVisualStyleBackColor = false;
@@ -495,8 +540,9 @@
             btnTramiteInicial.Margin = new Padding(0);
             btnTramiteInicial.Name = "btnTramiteInicial";
             btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicial.Size = new Size(263, 47);
+            btnTramiteInicial.Size = new Size(243, 47);
             btnTramiteInicial.TabIndex = 0;
+            btnTramiteInicial.Tag = "> INGRESAR MARCA";
             btnTramiteInicial.Text = "> INGRESAR MARCA";
             btnTramiteInicial.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicial.UseVisualStyleBackColor = false;
@@ -508,7 +554,7 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 1846);
             panel3.Name = "panel3";
-            panel3.Size = new Size(263, 54);
+            panel3.Size = new Size(243, 54);
             panel3.TabIndex = 18;
             // 
             // button1
@@ -521,7 +567,7 @@
             button1.ForeColor = Color.White;
             button1.Location = new Point(3, 10);
             button1.Name = "button1";
-            button1.Size = new Size(280, 29);
+            button1.Size = new Size(260, 29);
             button1.TabIndex = 0;
             button1.Text = "Desarrollado por Sitios en Red";
             button1.UseVisualStyleBackColor = false;
@@ -539,8 +585,9 @@
             btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
             btnMInternacionales.Location = new Point(0, 885);
             btnMInternacionales.Name = "btnMInternacionales";
-            btnMInternacionales.Size = new Size(263, 61);
+            btnMInternacionales.Size = new Size(243, 61);
             btnMInternacionales.TabIndex = 22;
+            btnMInternacionales.Tag = "M.INTERNACIONALES";
             btnMInternacionales.Text = "     M. INTERNACIONALES";
             btnMInternacionales.TextAlign = ContentAlignment.MiddleRight;
             btnMInternacionales.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -562,7 +609,7 @@
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasInter.Location = new Point(0, 455);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
-            panelSubMenuMarcasInter.Size = new Size(263, 430);
+            panelSubMenuMarcasInter.Size = new Size(243, 430);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
             // btnAbandonadasInter
@@ -576,8 +623,9 @@
             btnAbandonadasInter.Location = new Point(0, 355);
             btnAbandonadasInter.Name = "btnAbandonadasInter";
             btnAbandonadasInter.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadasInter.Size = new Size(263, 47);
+            btnAbandonadasInter.Size = new Size(243, 47);
             btnAbandonadasInter.TabIndex = 9;
+            btnAbandonadasInter.Tag = "> ABANDONADAS";
             btnAbandonadasInter.Text = "> ABANDONADAS";
             btnAbandonadasInter.TextAlign = ContentAlignment.MiddleLeft;
             btnAbandonadasInter.UseVisualStyleBackColor = true;
@@ -594,8 +642,9 @@
             btnTraspasoInter.Location = new Point(0, 308);
             btnTraspasoInter.Name = "btnTraspasoInter";
             btnTraspasoInter.Padding = new Padding(58, 0, 0, 0);
-            btnTraspasoInter.Size = new Size(263, 47);
+            btnTraspasoInter.Size = new Size(243, 47);
             btnTraspasoInter.TabIndex = 5;
+            btnTraspasoInter.Tag = "> TR. DE TRASPASO";
             btnTraspasoInter.Text = "> TR. DE TRASPASO\r\n";
             btnTraspasoInter.TextAlign = ContentAlignment.MiddleLeft;
             btnTraspasoInter.UseVisualStyleBackColor = true;
@@ -612,8 +661,9 @@
             btnRenovInter.Location = new Point(0, 248);
             btnRenovInter.Name = "btnRenovInter";
             btnRenovInter.Padding = new Padding(58, 0, 0, 0);
-            btnRenovInter.Size = new Size(263, 60);
+            btnRenovInter.Size = new Size(243, 60);
             btnRenovInter.TabIndex = 7;
+            btnRenovInter.Tag = "> TR. DE RENOVACIÓN";
             btnRenovInter.Text = "> TR. DE RENOVACIÓN";
             btnRenovInter.TextAlign = ContentAlignment.MiddleLeft;
             btnRenovInter.UseVisualStyleBackColor = true;
@@ -630,8 +680,9 @@
             button2.Location = new Point(0, 201);
             button2.Name = "button2";
             button2.Padding = new Padding(58, 0, 0, 0);
-            button2.Size = new Size(263, 47);
+            button2.Size = new Size(243, 47);
             button2.TabIndex = 12;
+            button2.Tag = "> LICENCIAS DE USO";
             button2.Text = "> LICENCIAS DE USO";
             button2.TextAlign = ContentAlignment.MiddleLeft;
             button2.UseVisualStyleBackColor = true;
@@ -648,8 +699,9 @@
             btnRegInter.Location = new Point(0, 154);
             btnRegInter.Name = "btnRegInter";
             btnRegInter.Padding = new Padding(58, 0, 0, 0);
-            btnRegInter.Size = new Size(263, 47);
+            btnRegInter.Size = new Size(243, 47);
             btnRegInter.TabIndex = 11;
+            btnRegInter.Tag = "> REGISTRADAS";
             btnRegInter.Text = "> REGISTRADAS";
             btnRegInter.TextAlign = ContentAlignment.MiddleLeft;
             btnRegInter.UseVisualStyleBackColor = true;
@@ -666,8 +718,9 @@
             btnOpoInter.Location = new Point(0, 94);
             btnOpoInter.Name = "btnOpoInter";
             btnOpoInter.Padding = new Padding(58, 0, 0, 0);
-            btnOpoInter.Size = new Size(263, 60);
+            btnOpoInter.Size = new Size(243, 60);
             btnOpoInter.TabIndex = 8;
+            btnOpoInter.Tag = "> OPOSICIONES";
             btnOpoInter.Text = "> OPOSICIONES";
             btnOpoInter.TextAlign = ContentAlignment.MiddleLeft;
             btnOpoInter.UseVisualStyleBackColor = true;
@@ -684,8 +737,9 @@
             btnIngresadasInt.Location = new Point(0, 47);
             btnIngresadasInt.Name = "btnIngresadasInt";
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
-            btnIngresadasInt.Size = new Size(263, 47);
+            btnIngresadasInt.Size = new Size(243, 47);
             btnIngresadasInt.TabIndex = 10;
+            btnIngresadasInt.Tag = "> TRÁMITE INICIAL";
             btnIngresadasInt.Text = "> TRÁMITE INICIAL";
             btnIngresadasInt.TextAlign = ContentAlignment.MiddleLeft;
             btnIngresadasInt.UseVisualStyleBackColor = true;
@@ -702,8 +756,9 @@
             btnTramiteInicialInter.Location = new Point(0, 0);
             btnTramiteInicialInter.Name = "btnTramiteInicialInter";
             btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialInter.Size = new Size(263, 47);
+            btnTramiteInicialInter.Size = new Size(243, 47);
             btnTramiteInicialInter.TabIndex = 4;
+            btnTramiteInicialInter.Tag = "> INGRESAR MARCA";
             btnTramiteInicialInter.Text = "> INGRESAR MARCA";
             btnTramiteInicialInter.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicialInter.UseVisualStyleBackColor = true;
@@ -721,8 +776,9 @@
             btnClientes2.ImageAlign = ContentAlignment.MiddleLeft;
             btnClientes2.Location = new Point(0, 333);
             btnClientes2.Name = "btnClientes2";
-            btnClientes2.Size = new Size(263, 61);
+            btnClientes2.Size = new Size(243, 61);
             btnClientes2.TabIndex = 27;
+            btnClientes2.Tag = "CLIENTES";
             btnClientes2.Text = "     CLIENTES";
             btnClientes2.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnClientes2.UseVisualStyleBackColor = false;
@@ -740,8 +796,9 @@
             btnAgentes.ImageAlign = ContentAlignment.MiddleLeft;
             btnAgentes.Location = new Point(0, 272);
             btnAgentes.Name = "btnAgentes";
-            btnAgentes.Size = new Size(263, 61);
+            btnAgentes.Size = new Size(243, 61);
             btnAgentes.TabIndex = 20;
+            btnAgentes.Tag = "AGENTES";
             btnAgentes.Text = "     AGENTES";
             btnAgentes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAgentes.UseVisualStyleBackColor = false;
@@ -759,8 +816,9 @@
             btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
             btnTitulares.Location = new Point(0, 211);
             btnTitulares.Name = "btnTitulares";
-            btnTitulares.Size = new Size(263, 61);
+            btnTitulares.Size = new Size(243, 61);
             btnTitulares.TabIndex = 21;
+            btnTitulares.Tag = "TITULARES";
             btnTitulares.Text = "     TITULARES";
             btnTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnTitulares.UseVisualStyleBackColor = false;
@@ -778,8 +836,9 @@
             btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
             btnUsers.Location = new Point(0, 150);
             btnUsers.Name = "btnUsers";
-            btnUsers.Size = new Size(263, 61);
+            btnUsers.Size = new Size(243, 61);
             btnUsers.TabIndex = 19;
+            btnUsers.Tag = "USUARIOS";
             btnUsers.Text = "     USUARIOS";
             btnUsers.TextAlign = ContentAlignment.MiddleLeft;
             btnUsers.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -798,8 +857,9 @@
             btnInicio.ImageAlign = ContentAlignment.MiddleLeft;
             btnInicio.Location = new Point(0, 89);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(263, 61);
+            btnInicio.Size = new Size(243, 61);
             btnInicio.TabIndex = 5;
+            btnInicio.Tag = "INICIO";
             btnInicio.Text = "     INICIO";
             btnInicio.TextAlign = ContentAlignment.MiddleRight;
             btnInicio.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -826,8 +886,9 @@
             iconButton1.Margin = new Padding(0);
             iconButton1.Name = "iconButton1";
             iconButton1.Padding = new Padding(9, 0, 0, 0);
-            iconButton1.Size = new Size(263, 89);
+            iconButton1.Size = new Size(243, 89);
             iconButton1.TabIndex = 16;
+            iconButton1.Tag = ".";
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click_1;
@@ -836,17 +897,34 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(34, 77, 112);
+            panel1.Controls.Add(iconButton5);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(iconButton2);
             panel1.Controls.Add(labelUsername);
             panel1.Controls.Add(iconPictureBoxUser);
             panel1.Controls.Add(iconButton3);
             panel1.Controls.Add(iconButton4);
-            panel1.Location = new Point(280, 0);
+            panel1.Location = new Point(266, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(744, 89);
+            panel1.Size = new Size(758, 89);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
+            panel1.MouseDown += panel1_MouseDown;
+            // 
+            // iconButton5
+            // 
+            iconButton5.FlatAppearance.BorderSize = 0;
+            iconButton5.FlatStyle = FlatStyle.Flat;
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.ListDots;
+            iconButton5.IconColor = Color.White;
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.IconSize = 30;
+            iconButton5.Location = new Point(0, 18);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Size = new Size(36, 52);
+            iconButton5.TabIndex = 7;
+            iconButton5.UseVisualStyleBackColor = true;
+            iconButton5.Click += iconButton5_Click_4;
             // 
             // pictureBox1
             // 
@@ -867,9 +945,9 @@
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
-            iconButton2.Location = new Point(625, 0);
+            iconButton2.Location = new Point(639, 2);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(55, 64);
+            iconButton2.Size = new Size(55, 62);
             iconButton2.TabIndex = 4;
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click_1;
@@ -908,9 +986,9 @@
             iconButton3.IconColor = Color.White;
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
-            iconButton3.Location = new Point(686, -1);
+            iconButton3.Location = new Point(700, 2);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(55, 65);
+            iconButton3.Size = new Size(55, 62);
             iconButton3.TabIndex = 0;
             iconButton3.UseVisualStyleBackColor = true;
             iconButton3.Click += iconButton3_Click;
@@ -924,12 +1002,171 @@
             iconButton4.IconColor = Color.White;
             iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton4.IconSize = 25;
-            iconButton4.Location = new Point(564, 2);
+            iconButton4.Location = new Point(578, 2);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(55, 62);
             iconButton4.TabIndex = 5;
             iconButton4.UseVisualStyleBackColor = true;
             iconButton4.Click += iconButton4_Click_1;
+            // 
+            // rDropDownMenu1
+            // 
+            rDropDownMenu1.IsMainMenu = false;
+            rDropDownMenu1.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem, oPOSICIONESToolStripMenuItem, rEGISTRADASToolStripMenuItem, lICENCIASDEUSOToolStripMenuItem, tRDERENOVACIÓNToolStripMenuItem, tRDETRASPASOToolStripMenuItem, aBANDONADASToolStripMenuItem });
+            rDropDownMenu1.MenuItemHeight = 25;
+            rDropDownMenu1.MenuItemTextColor = Color.Empty;
+            rDropDownMenu1.Name = "rDropDownMenu1";
+            rDropDownMenu1.PrimaryColor = Color.Empty;
+            rDropDownMenu1.Size = new Size(186, 180);
+            // 
+            // iNGRESARMARCAToolStripMenuItem
+            // 
+            iNGRESARMARCAToolStripMenuItem.Name = "iNGRESARMARCAToolStripMenuItem";
+            iNGRESARMARCAToolStripMenuItem.Size = new Size(185, 22);
+            iNGRESARMARCAToolStripMenuItem.Text = "INGRESAR MARCA";
+            iNGRESARMARCAToolStripMenuItem.Click += iNGRESARMARCAToolStripMenuItem_Click;
+            // 
+            // tRÁMITEINICIALToolStripMenuItem
+            // 
+            tRÁMITEINICIALToolStripMenuItem.Name = "tRÁMITEINICIALToolStripMenuItem";
+            tRÁMITEINICIALToolStripMenuItem.Size = new Size(185, 22);
+            tRÁMITEINICIALToolStripMenuItem.Text = "TRÁMITE INICIAL ";
+            tRÁMITEINICIALToolStripMenuItem.Click += tRÁMITEINICIALToolStripMenuItem_Click;
+            // 
+            // oPOSICIONESToolStripMenuItem
+            // 
+            oPOSICIONESToolStripMenuItem.Name = "oPOSICIONESToolStripMenuItem";
+            oPOSICIONESToolStripMenuItem.Size = new Size(185, 22);
+            oPOSICIONESToolStripMenuItem.Text = "OPOSICIONES";
+            oPOSICIONESToolStripMenuItem.Click += oPOSICIONESToolStripMenuItem_Click;
+            // 
+            // rEGISTRADASToolStripMenuItem
+            // 
+            rEGISTRADASToolStripMenuItem.Name = "rEGISTRADASToolStripMenuItem";
+            rEGISTRADASToolStripMenuItem.Size = new Size(185, 22);
+            rEGISTRADASToolStripMenuItem.Text = "REGISTRADAS";
+            rEGISTRADASToolStripMenuItem.Click += rEGISTRADASToolStripMenuItem_Click_1;
+            // 
+            // lICENCIASDEUSOToolStripMenuItem
+            // 
+            lICENCIASDEUSOToolStripMenuItem.Name = "lICENCIASDEUSOToolStripMenuItem";
+            lICENCIASDEUSOToolStripMenuItem.Size = new Size(185, 22);
+            lICENCIASDEUSOToolStripMenuItem.Text = "LICENCIAS DE USO";
+            lICENCIASDEUSOToolStripMenuItem.Click += lICENCIASDEUSOToolStripMenuItem_Click;
+            // 
+            // tRDERENOVACIÓNToolStripMenuItem
+            // 
+            tRDERENOVACIÓNToolStripMenuItem.Name = "tRDERENOVACIÓNToolStripMenuItem";
+            tRDERENOVACIÓNToolStripMenuItem.Size = new Size(185, 22);
+            tRDERENOVACIÓNToolStripMenuItem.Text = "TR. DE RENOVACIÓN";
+            tRDERENOVACIÓNToolStripMenuItem.Click += tRDERENOVACIÓNToolStripMenuItem_Click;
+            // 
+            // tRDETRASPASOToolStripMenuItem
+            // 
+            tRDETRASPASOToolStripMenuItem.Name = "tRDETRASPASOToolStripMenuItem";
+            tRDETRASPASOToolStripMenuItem.Size = new Size(185, 22);
+            tRDETRASPASOToolStripMenuItem.Text = "TR. DE TRASPASO";
+            tRDETRASPASOToolStripMenuItem.Click += tRDETRASPASOToolStripMenuItem_Click;
+            // 
+            // aBANDONADASToolStripMenuItem
+            // 
+            aBANDONADASToolStripMenuItem.Name = "aBANDONADASToolStripMenuItem";
+            aBANDONADASToolStripMenuItem.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem.Text = "ABANDONADAS";
+            aBANDONADASToolStripMenuItem.Click += aBANDONADASToolStripMenuItem_Click;
+            // 
+            // rDropDownMenu2
+            // 
+            rDropDownMenu2.IsMainMenu = false;
+            rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1 });
+            rDropDownMenu2.MenuItemHeight = 25;
+            rDropDownMenu2.MenuItemTextColor = Color.Empty;
+            rDropDownMenu2.Name = "rDropDownMenu2";
+            rDropDownMenu2.PrimaryColor = Color.Empty;
+            rDropDownMenu2.Size = new Size(183, 136);
+            // 
+            // iNGRESARMARCAToolStripMenuItem1
+            // 
+            iNGRESARMARCAToolStripMenuItem1.Name = "iNGRESARMARCAToolStripMenuItem1";
+            iNGRESARMARCAToolStripMenuItem1.Size = new Size(182, 22);
+            iNGRESARMARCAToolStripMenuItem1.Text = "INGRESAR MARCA";
+            // 
+            // tRÁMITEINICIALToolStripMenuItem1
+            // 
+            tRÁMITEINICIALToolStripMenuItem1.Name = "tRÁMITEINICIALToolStripMenuItem1";
+            tRÁMITEINICIALToolStripMenuItem1.Size = new Size(182, 22);
+            tRÁMITEINICIALToolStripMenuItem1.Text = "TRÁMITE INICIAL";
+            // 
+            // oPOSICIONESToolStripMenuItem1
+            // 
+            oPOSICIONESToolStripMenuItem1.Name = "oPOSICIONESToolStripMenuItem1";
+            oPOSICIONESToolStripMenuItem1.Size = new Size(182, 22);
+            oPOSICIONESToolStripMenuItem1.Text = "OPOSICIONES";
+            // 
+            // tRDERENOVACIÓToolStripMenuItem
+            // 
+            tRDERENOVACIÓToolStripMenuItem.Name = "tRDERENOVACIÓToolStripMenuItem";
+            tRDERENOVACIÓToolStripMenuItem.Size = new Size(182, 22);
+            tRDERENOVACIÓToolStripMenuItem.Text = "TR.DE RENOVACIÓN";
+            tRDERENOVACIÓToolStripMenuItem.Click += tRDERENOVACIÓToolStripMenuItem_Click;
+            // 
+            // tRDETRASPASOToolStripMenuItem1
+            // 
+            tRDETRASPASOToolStripMenuItem1.Name = "tRDETRASPASOToolStripMenuItem1";
+            tRDETRASPASOToolStripMenuItem1.Size = new Size(182, 22);
+            tRDETRASPASOToolStripMenuItem1.Text = "TR. DE TRASPASO";
+            // 
+            // aBANDONADASToolStripMenuItem1
+            // 
+            aBANDONADASToolStripMenuItem1.Name = "aBANDONADASToolStripMenuItem1";
+            aBANDONADASToolStripMenuItem1.Size = new Size(182, 22);
+            aBANDONADASToolStripMenuItem1.Text = "ABANDONADAS";
+            // 
+            // rDropDownMenu3
+            // 
+            rDropDownMenu3.IsMainMenu = false;
+            rDropDownMenu3.Items.AddRange(new ToolStripItem[] { iNGRESARPATENTEToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem2, rEGISTRADASToolStripMenuItem1, tRDERENOVACIÓNToolStripMenuItem1, tRDETRASPASOToolStripMenuItem2, aBANDONADASToolStripMenuItem2 });
+            rDropDownMenu3.MenuItemHeight = 25;
+            rDropDownMenu3.MenuItemTextColor = Color.Empty;
+            rDropDownMenu3.Name = "rDropDownMenu3";
+            rDropDownMenu3.PrimaryColor = Color.Empty;
+            rDropDownMenu3.Size = new Size(186, 136);
+            // 
+            // iNGRESARPATENTEToolStripMenuItem
+            // 
+            iNGRESARPATENTEToolStripMenuItem.Name = "iNGRESARPATENTEToolStripMenuItem";
+            iNGRESARPATENTEToolStripMenuItem.Size = new Size(185, 22);
+            iNGRESARPATENTEToolStripMenuItem.Text = "INGRESAR PATENTE";
+            // 
+            // tRÁMITEINICIALToolStripMenuItem2
+            // 
+            tRÁMITEINICIALToolStripMenuItem2.Name = "tRÁMITEINICIALToolStripMenuItem2";
+            tRÁMITEINICIALToolStripMenuItem2.Size = new Size(185, 22);
+            tRÁMITEINICIALToolStripMenuItem2.Text = "TRÁMITE INICIAL";
+            // 
+            // rEGISTRADASToolStripMenuItem1
+            // 
+            rEGISTRADASToolStripMenuItem1.Name = "rEGISTRADASToolStripMenuItem1";
+            rEGISTRADASToolStripMenuItem1.Size = new Size(185, 22);
+            rEGISTRADASToolStripMenuItem1.Text = "REGISTRADAS";
+            // 
+            // tRDERENOVACIÓNToolStripMenuItem1
+            // 
+            tRDERENOVACIÓNToolStripMenuItem1.Name = "tRDERENOVACIÓNToolStripMenuItem1";
+            tRDERENOVACIÓNToolStripMenuItem1.Size = new Size(185, 22);
+            tRDERENOVACIÓNToolStripMenuItem1.Text = "TR. DE RENOVACIÓN";
+            // 
+            // tRDETRASPASOToolStripMenuItem2
+            // 
+            tRDETRASPASOToolStripMenuItem2.Name = "tRDETRASPASOToolStripMenuItem2";
+            tRDETRASPASOToolStripMenuItem2.Size = new Size(185, 22);
+            tRDETRASPASOToolStripMenuItem2.Text = "TR. DE TRASPASO";
+            // 
+            // aBANDONADASToolStripMenuItem2
+            // 
+            aBANDONADASToolStripMenuItem2.Name = "aBANDONADASToolStripMenuItem2";
+            aBANDONADASToolStripMenuItem2.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem2.Text = "ABANDONADAS";
             // 
             // Form1
             // 
@@ -939,12 +1176,10 @@
             AutoScroll = true;
             BackColor = Color.White;
             ClientSize = new Size(1024, 700);
-            ControlBox = false;
-            Controls.Add(panel1);
             Controls.Add(panelChildForm);
+            Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MinimumSize = new Size(1022, 700);
@@ -967,6 +1202,9 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).EndInit();
+            rDropDownMenu1.ResumeLayout(false);
+            rDropDownMenu2.ResumeLayout(false);
+            rDropDownMenu3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1019,6 +1257,30 @@
         private Button btnCerrarSesion;
         private Button button2;
         private Button btnClientes2;
+        private FontAwesome.Sharp.IconButton iconButton5;
+        private Clases.RDropDownMenu rDropDownMenu1;
+        private ToolStripMenuItem iNGRESARMARCAToolStripMenuItem;
+        private ToolStripMenuItem tRÁMITEINICIALToolStripMenuItem;
+        private ToolStripMenuItem oPOSICIONESToolStripMenuItem;
+        private ToolStripMenuItem rEGISTRADASToolStripMenuItem;
+        private ToolStripMenuItem lICENCIASDEUSOToolStripMenuItem;
+        private ToolStripMenuItem tRDERENOVACIÓNToolStripMenuItem;
+        private ToolStripMenuItem tRDETRASPASOToolStripMenuItem;
+        private ToolStripMenuItem aBANDONADASToolStripMenuItem;
+        private Clases.RDropDownMenu rDropDownMenu2;
+        private ToolStripMenuItem iNGRESARMARCAToolStripMenuItem1;
+        private ToolStripMenuItem tRÁMITEINICIALToolStripMenuItem1;
+        private ToolStripMenuItem oPOSICIONESToolStripMenuItem1;
+        private ToolStripMenuItem tRDERENOVACIÓToolStripMenuItem;
+        private ToolStripMenuItem tRDETRASPASOToolStripMenuItem1;
+        private ToolStripMenuItem aBANDONADASToolStripMenuItem1;
+        private Clases.RDropDownMenu rDropDownMenu3;
+        private ToolStripMenuItem iNGRESARPATENTEToolStripMenuItem;
+        private ToolStripMenuItem tRÁMITEINICIALToolStripMenuItem2;
+        private ToolStripMenuItem rEGISTRADASToolStripMenuItem1;
+        private ToolStripMenuItem tRDERENOVACIÓNToolStripMenuItem1;
+        private ToolStripMenuItem tRDETRASPASOToolStripMenuItem2;
+        private ToolStripMenuItem aBANDONADASToolStripMenuItem2;
     }
 }
 

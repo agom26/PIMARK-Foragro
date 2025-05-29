@@ -6,9 +6,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Comun;
 using Comun.Cache;
 using Presentacion.Personas;
 using Presentacion.Marcas_Nacionales;
@@ -19,6 +16,13 @@ using Presentacion.Reportes;
 using Presentacion.Patentes;
 using System.Diagnostics;
 using Presentacion.Alertas;
+using System.Runtime.InteropServices;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using FontAwesome.Sharp;
+using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Packaging;
+using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Presentacion
 {
@@ -26,11 +30,24 @@ namespace Presentacion
     {
         VencimientoModel VencimientoModel = new VencimientoModel();
         private bool isAdmin;
+        private int borderSize = 2;
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
 
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public Form1(bool isAdmin)
         {
             InitializeComponent();
+            CollapseMenu();
+            this.Padding = new Padding(borderSize);
+            this.BackColor = Color.FromArgb(34, 77, 112);
             this.isAdmin = isAdmin;
+
+
+
+            this.Resize += Form1_Resize;
             CustomizeDesign();
 
             if (isAdmin)
@@ -42,6 +59,8 @@ namespace Presentacion
                 btnUsers.Visible = false;
             }
             VencimientoModel.EjecutarProcedimiento();
+
+
 
         }
 
@@ -60,6 +79,16 @@ namespace Presentacion
                 panelSubMenuPatentes.Visible = false;
             if (panelSubMenuMarcasNacionales.Visible == true)
                 panelSubMenuMarcasNacionales.Visible = false;
+        }
+
+        private void hideSubMenusTodos()
+        {
+            panelSubMenuMarcasInter.Visible = false;
+
+            panelSubMenuPatentes.Visible = false;
+
+            panelSubMenuMarcasNacionales.Visible = false;
+
         }
 
         private void ShowSubMenu(Panel subMenu)
@@ -202,30 +231,76 @@ namespace Presentacion
 
         private void FormResize()
         {
+            switch (this.WindowState)
+            {
+                case FormWindowState.Maximized:
+                    this.Padding = new Padding(0, 8, 8, 2);
+                    break;
+                case FormWindowState.Normal:
+                    if (this.Padding.Top != borderSize)
+                        this.Padding = new Padding(borderSize);
+                    break;
+            }
+
             if (activeForm != null)
             {
-                activeForm.Hide();
-                activeForm.WindowState = FormWindowState.Normal;
-                activeForm.WindowState = FormWindowState.Maximized;
-                activeForm.Show();
+                panelChildForm.SuspendLayout();
+
+                activeForm.Dock = DockStyle.Fill; // Mantén tamaño si es necesario
+                activeForm.Location = new System.Drawing.Point(0, 0); // Reposiciona al origen
+                //panelChildForm.AutoScroll = true;
+
+                panelChildForm.ResumeLayout(true);
+                panelChildForm.PerformLayout();
+                panelChildForm.Refresh();
+                activeForm.Refresh();
             }
         }
+
+
         public void openChildForm(Form childForm)
         {
+            if (activeForm != null)
+                activeForm.Close();
 
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+
+            // No dock para que respete su tamaño original
+            childForm.Dock = DockStyle.None;
+
+            // No modificar tamaño para respetar el diseño original
+            // (si quieres podrías ajustar con lógica extra)
+
+            panelChildForm.Controls.Clear();
+            panelChildForm.Controls.Add(childForm);
+
+            panelChildForm.AutoScroll = true;  // IMPORTANTE: para scrollbars
+
+            childForm.BringToFront();
+            childForm.Show();
+
+            FormResize();
+        }
+
+
+        /*
+        public void openChildForm(Form childForm)
+        {
             if (activeForm != null)
                 activeForm.Close();
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            //panelChildForm.AutoScroll = true;
+            //childForm.Dock = DockStyle.Fill;
+            panelChildForm.AutoScroll = true;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
             FormResize();
-        }
+        }*/
 
         private void buttonMarcas_Click(object sender, EventArgs e)
         {
@@ -409,6 +484,10 @@ namespace Presentacion
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            panel1.Dock = DockStyle.Top;     // Primero arriba
+            panel2.Dock = DockStyle.Left;    // Luego a la izquierda (debajo del top)
+            panelChildForm.Dock = DockStyle.Fill; // Lo que queda
+
             //labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
             DisableButtons();
@@ -421,7 +500,7 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     this.Close();
                 }
@@ -443,9 +522,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                if (MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show("¿Está seguro de cerrar la aplicación?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    Application.Exit();
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -853,7 +932,7 @@ namespace Presentacion
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Windows.Forms.MessageBox.Show($"No se pudo abrir el enlace: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -904,7 +983,16 @@ namespace Presentacion
 
         private void button2_Click_2(object sender, EventArgs e)
         {
-            ShowSubMenu(panelSubMenuMarcasInter);
+            if (panel2.Width == 100)
+            {
+                hideSubMenusTodos();
+                rDropDownMenu1.Show(btnMarcasNacionales, btnMarcasNacionales.Width, 0);
+            }
+            else
+            {
+                ShowSubMenu(panelSubMenuMarcasInter);
+            }
+
         }
 
         private async void button3_Click_1(object sender, EventArgs e)
@@ -975,12 +1063,31 @@ namespace Presentacion
 
         private void button6_Click_2(object sender, EventArgs e)
         {
-            ShowSubMenu(panelSubMenuMarcasNacionales);
+            if (panel2.Width == 100)
+            {
+                rDropDownMenu2.Show(btnMInternacionales, btnMInternacionales.Width, 0);
+                hideSubMenusTodos();
+
+            }
+            else
+            {
+                ShowSubMenu(panelSubMenuMarcasNacionales);
+            }
+
         }
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            ShowSubMenu(panelSubMenuPatentes);
+            if (panel2.Width == 100)
+            {
+                rDropDownMenu3.Show(btnPatentes, btnPatentes.Width, 0);
+                hideSubMenusTodos();
+            }
+            else
+            {
+                ShowSubMenu(panelSubMenuPatentes);
+            }
+
         }
 
         private async void button8_Click_1(object sender, EventArgs e)
@@ -1021,7 +1128,7 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                if (MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show("¿Está seguro de cerrar sesión?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     this.Close();
                 }
@@ -1055,6 +1162,253 @@ namespace Presentacion
             {
                 DisableButtons();
                 openChildForm(new FrmAdministrarClientes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
+        }
+
+        //overridden methods
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void iconButton5_Click_4(object sender, EventArgs e)
+        {
+            CollapseMenu();
+            //rDropDownMenu2.Show();
+        }
+
+        private void CollapseMenu()
+        {
+            this.SuspendLayout(); // Congela el layout del formulario
+
+            if (this.panel2.Width > 250)
+            {
+
+                panel2.Width = 100;
+                //panel2.Visible = false;
+                foreach (Button menuButton in panel2.Controls.OfType<Button>())
+                {
+                    menuButton.Text = "";
+                    menuButton.ImageAlign = ContentAlignment.MiddleCenter;
+                    menuButton.Padding = new Padding(0);
+                }
+                foreach (Button menuButton2 in panelSubMenuMarcasNacionales.Controls.OfType<Button>())
+                {
+                    menuButton2.Text = "";
+                    menuButton2.ImageAlign = ContentAlignment.MiddleCenter;
+                    menuButton2.Padding = new Padding(0);
+                }
+                foreach (Button menuButton2 in panelSubMenuMarcasInter.Controls.OfType<Button>())
+                {
+                    menuButton2.Text = "";
+                    menuButton2.ImageAlign = ContentAlignment.MiddleCenter;
+                    menuButton2.Padding = new Padding(0);
+                }
+                foreach (Button menuButton2 in panelSubMenuPatentes.Controls.OfType<Button>())
+                {
+                    menuButton2.Text = "";
+                    menuButton2.ImageAlign = ContentAlignment.MiddleCenter;
+                    menuButton2.Padding = new Padding(0);
+                }
+            }
+            else
+            {
+                panel2.Width = 260;
+                foreach (IconButton menuButton in panel2.Controls.OfType<IconButton>())
+                {
+                    menuButton.TextAlign = ContentAlignment.MiddleLeft;
+                    menuButton.ImageAlign = ContentAlignment.MiddleLeft;
+                    menuButton.Text = menuButton.Tag.ToString();
+                    menuButton.Padding = new Padding(10, 0, 0, 0);
+                }
+                foreach (Button menuButton in panel2.Controls.OfType<Button>())
+                {
+                    menuButton.TextAlign = ContentAlignment.MiddleLeft;
+                    menuButton.ImageAlign = ContentAlignment.MiddleLeft;
+                    menuButton.Text = menuButton.Tag.ToString();
+                    menuButton.Padding = new Padding(10, 0, 0, 0);
+                }
+                foreach (Button menuButton2 in panelSubMenuMarcasNacionales.Controls.OfType<Button>())
+                {
+                    menuButton2.TextAlign = ContentAlignment.MiddleLeft;
+                    menuButton2.ImageAlign = ContentAlignment.MiddleLeft;
+                    menuButton2.Text = menuButton2.Tag.ToString();
+                    menuButton2.Padding = new Padding(10, 0, 0, 0);
+                }
+                foreach (Button menuButton in panelSubMenuMarcasInter.Controls.OfType<Button>())
+                {
+                    menuButton.TextAlign = ContentAlignment.MiddleLeft;
+                    menuButton.ImageAlign = ContentAlignment.MiddleLeft;
+                    menuButton.Text = menuButton.Tag.ToString();
+                    menuButton.Padding = new Padding(10, 0, 0, 0);
+                }
+                foreach (Button menuButton in panelSubMenuPatentes.Controls.OfType<Button>())
+                {
+                    menuButton.TextAlign = ContentAlignment.MiddleLeft;
+                    menuButton.ImageAlign = ContentAlignment.MiddleLeft;
+                    menuButton.Text = menuButton.Tag.ToString();
+                    menuButton.Padding = new Padding(10, 0, 0, 0);
+                }
+
+            }
+            //panelChildForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            //panelChildForm.Refresh();
+            panel1.Dock = DockStyle.Top;
+            panel2.Dock = DockStyle.Left;
+            panelChildForm.Dock = DockStyle.Fill;
+            this.ResumeLayout(true); // Aplica el layout nuevamente
+            this.Refresh(); // Fuerza actualización del layout del formulario
+            FormResize();
+
+        }
+
+        private void rEGISTRADASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tRDERENOVACIÓToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void iNGRESARMARCAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTramiteInicialInternacional(this));
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRÁMITEINICIALToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntIngresadas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void oPOSICIONESToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntOposiciones());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void rEGISTRADASToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntRegistradas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void lICENCIASDEUSOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasLicenciaUso());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRDERENOVACIÓNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmRenovacionesInt());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tRDETRASPASOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmTraspasosInt());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void aBANDONADASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasIntAbandonadas());
                 await Task.Delay(1000);
                 EnableButtons();
             }
