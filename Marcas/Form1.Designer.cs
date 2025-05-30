@@ -920,7 +920,7 @@
             iconButton5.IconColor = Color.White;
             iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton5.IconSize = 30;
-            iconButton5.Location = new Point(0, 18);
+            iconButton5.Location = new Point(6, 16);
             iconButton5.Name = "iconButton5";
             iconButton5.Size = new Size(36, 52);
             iconButton5.TabIndex = 7;
@@ -930,9 +930,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(42, 18);
+            pictureBox1.Location = new Point(48, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(63, 52);
+            pictureBox1.Size = new Size(63, 59);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -958,7 +958,7 @@
             labelUsername.AutoSize = true;
             labelUsername.Font = new Font("Century Gothic", 10F);
             labelUsername.ForeColor = Color.White;
-            labelUsername.Location = new Point(177, 34);
+            labelUsername.Location = new Point(183, 32);
             labelUsername.Name = "labelUsername";
             labelUsername.Size = new Size(52, 19);
             labelUsername.TabIndex = 3;
@@ -972,7 +972,7 @@
             iconPictureBoxUser.IconColor = Color.White;
             iconPictureBoxUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBoxUser.IconSize = 59;
-            iconPictureBoxUser.Location = new Point(111, 14);
+            iconPictureBoxUser.Location = new Point(117, 12);
             iconPictureBoxUser.Name = "iconPictureBoxUser";
             iconPictureBoxUser.Size = new Size(60, 59);
             iconPictureBoxUser.TabIndex = 1;

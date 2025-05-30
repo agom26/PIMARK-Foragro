@@ -63,10 +63,9 @@ namespace Presentacion.Marcas_Nacionales
             txtNombreTitularAO.Enabled = true;
             txtSignoOpositor.Enabled = true;
 
-
+            this.Resize += FrmMostrarOposiciones_Resize;
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idInt = 0;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
 
         }
 
@@ -2802,6 +2801,8 @@ namespace Presentacion.Marcas_Nacionales
         private void btnIrAReportes_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageReportes);
+            PosicionarPanelDebajoDerecha();
+        
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
@@ -2997,9 +2998,76 @@ namespace Presentacion.Marcas_Nacionales
             dtgHistorialOp.ClearSelection();
         }
 
+        private void CentrarTableLayoutReporte()
+        {
+            int anchoMinimo = 762 + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                // Centrar horizontalmente
+                tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+                int x = (this.ClientSize.Width - tableLayoutPanelReportes.Width) / 2;
+                int y = tableLayoutPanelReportes.Location.Y; // mantener posición vertical
+
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla más pequeña → alinear arriba a la izquierda
+                tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
+            }
+        }
+
+        private void CentrarDataGridView()
+        {
+            panelDataGridView.Visible = false;
+
+            int anchoMinimo = 762 + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                int x = (this.ClientSize.Width - panelDataGridView.Width) / 2;
+                int y = panelDataGridView.Location.Y;
+                panelDataGridView.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
+            }
+
+            this.BeginInvoke((MethodInvoker)(() =>
+            {
+                panelDataGridView.Visible = true;
+            }));
+        }
+
+
+        private void PosicionarPanelDebajoDerecha()
+        {
+
+            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
+            int x = tableLayoutPanelReportes.Right - panelBotones.Width; // Alineado a la derecha de panelA
+            int y = tableLayoutPanelReportes.Bottom; // Justo debajo de panelA
+
+            panelBotones.Location = new System.Drawing.Point(x, y);
+
+            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
+            int x2 = panelDataGridView.Right - panelBotones2.Width; // Alineado a la derecha de panelA
+            int y2 = panelDataGridView.Bottom; // Justo debajo de panelA
+
+            panelBotones2.Location = new System.Drawing.Point(x2, y2);
+        }
+
         private void FrmMostrarOposiciones_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+            CentrarDataGridView();
+            CentrarTableLayoutReporte();
+            PosicionarPanelDebajoDerecha();
         }
     }
 }

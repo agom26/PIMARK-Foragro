@@ -30,7 +30,7 @@ namespace Presentacion
     {
         VencimientoModel VencimientoModel = new VencimientoModel();
         private bool isAdmin;
-        private int borderSize = 4;
+        private int borderSize = 8;
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         public static extern void ReleaseCapture();
 
@@ -1273,6 +1273,7 @@ namespace Presentacion
 
         private void iconButton5_Click_4(object sender, EventArgs e)
         {
+            hideSubMenusTodos();
             CollapseMenu();
             //rDropDownMenu2.Show();
         }

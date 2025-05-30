@@ -33,7 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanelReportes = new TableLayoutPanel();
             panel6 = new Panel();
             richTextBoxCliente = new RichTextBox();
             checkBoxSolicitud = new CheckBox();
@@ -70,20 +70,24 @@
             comboBoxPais = new ComboBox();
             checkBoxPais = new CheckBox();
             panel1 = new Panel();
-            roundedButton2 = new Presentacion.Clases.RoundedButton();
-            btnConsultar = new Presentacion.Clases.RoundedButton();
-            roundedButton3 = new Presentacion.Clases.RoundedButton();
-            btnCancelar = new Presentacion.Clases.RoundedButton();
             roundedButton6 = new Presentacion.Clases.RoundedButton();
-            panel2 = new Panel();
+            panelDataGridView = new Panel();
             dtgReportes = new DataGridView();
+            panelBotones = new Panel();
+            btnCancelar = new Presentacion.Clases.RoundedButton();
+            btnConsultar = new Presentacion.Clases.RoundedButton();
+            panelBotones2 = new Panel();
+            roundedButton2 = new Presentacion.Clases.RoundedButton();
+            roundedButton3 = new Presentacion.Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanelReportes.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
-            panel2.SuspendLayout();
+            panelDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgReportes).BeginInit();
+            panelBotones.SuspendLayout();
+            panelBotones2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -101,14 +105,12 @@
             // tabPage1
             // 
             tabPage1.AutoScroll = true;
-            tabPage1.Controls.Add(tableLayoutPanel1);
+            tabPage1.Controls.Add(tableLayoutPanelReportes);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(roundedButton2);
-            tabPage1.Controls.Add(btnConsultar);
-            tabPage1.Controls.Add(roundedButton3);
-            tabPage1.Controls.Add(btnCancelar);
             tabPage1.Controls.Add(roundedButton6);
-            tabPage1.Controls.Add(panel2);
+            tabPage1.Controls.Add(panelDataGridView);
+            tabPage1.Controls.Add(panelBotones);
+            tabPage1.Controls.Add(panelBotones2);
             tabPage1.Location = new Point(4, 26);
             tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
@@ -118,25 +120,25 @@
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelReportes
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.AutoSize = true;
-            tableLayoutPanel1.BackColor = Color.FromArgb(222, 227, 234);
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(panel6, 1, 0);
-            tableLayoutPanel1.Controls.Add(panel5, 0, 0);
-            tableLayoutPanel1.Location = new Point(36, 56);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(736, 534);
-            tableLayoutPanel1.TabIndex = 242;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanelReportes.AutoSize = true;
+            tableLayoutPanelReportes.BackColor = Color.FromArgb(222, 227, 234);
+            tableLayoutPanelReportes.ColumnCount = 2;
+            tableLayoutPanelReportes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelReportes.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelReportes.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelReportes.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelReportes.Controls.Add(panel6, 1, 0);
+            tableLayoutPanelReportes.Controls.Add(panel5, 0, 0);
+            tableLayoutPanelReportes.Location = new Point(36, 56);
+            tableLayoutPanelReportes.Name = "tableLayoutPanelReportes";
+            tableLayoutPanelReportes.RowCount = 1;
+            tableLayoutPanelReportes.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelReportes.Size = new Size(753, 534);
+            tableLayoutPanelReportes.TabIndex = 242;
+            tableLayoutPanelReportes.Paint += tableLayoutPanel1_Paint;
             // 
             // panel6
             // 
@@ -161,7 +163,7 @@
             panel6.Controls.Add(checkBoxReigstro);
             panel6.Controls.Add(checkBoxTitular);
             panel6.Controls.Add(checkBoxVencimiento);
-            panel6.Location = new Point(371, 3);
+            panel6.Location = new Point(379, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(344, 528);
             panel6.TabIndex = 244;
@@ -412,7 +414,7 @@
             panel5.Controls.Add(checkBoxFolio);
             panel5.Controls.Add(comboBoxPais);
             panel5.Controls.Add(checkBoxPais);
-            panel5.Location = new Point(22, 3);
+            panel5.Location = new Point(30, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(343, 528);
             panel5.TabIndex = 243;
@@ -595,104 +597,8 @@
             panel1.Location = new Point(7, 1158);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(81, 36);
+            panel1.Size = new Size(30, 36);
             panel1.TabIndex = 236;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            roundedButton2.AutoSize = true;
-            roundedButton2.BackColor = Color.FromArgb(0, 137, 123);
-            roundedButton2.BackgroundColor = Color.FromArgb(0, 137, 123);
-            roundedButton2.BorderColor = Color.FromArgb(0, 137, 123);
-            roundedButton2.BorderRadius = 33;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Image = Properties.Resources.excel;
-            roundedButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton2.Location = new Point(594, 1115);
-            roundedButton2.Margin = new Padding(3, 2, 3, 2);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(178, 37);
-            roundedButton2.TabIndex = 214;
-            roundedButton2.Text = "EXPORTAR A EXCEL";
-            roundedButton2.TextColor = Color.White;
-            roundedButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
-            // 
-            // btnConsultar
-            // 
-            btnConsultar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnConsultar.BackColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BackgroundColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BorderColor = Color.FromArgb(251, 140, 0);
-            btnConsultar.BorderRadius = 37;
-            btnConsultar.BorderSize = 0;
-            btnConsultar.FlatAppearance.BorderSize = 0;
-            btnConsultar.FlatStyle = FlatStyle.Flat;
-            btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            btnConsultar.ForeColor = Color.White;
-            btnConsultar.Location = new Point(412, 596);
-            btnConsultar.Margin = new Padding(3, 2, 3, 2);
-            btnConsultar.Name = "btnConsultar";
-            btnConsultar.Size = new Size(178, 37);
-            btnConsultar.TabIndex = 215;
-            btnConsultar.Text = "CONSULTAR";
-            btnConsultar.TextColor = Color.White;
-            btnConsultar.UseVisualStyleBackColor = false;
-            btnConsultar.Click += btnConsultar_Click;
-            // 
-            // roundedButton3
-            // 
-            roundedButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            roundedButton3.AutoSize = true;
-            roundedButton3.BackColor = Color.FromArgb(229, 115, 115);
-            roundedButton3.BackgroundColor = Color.FromArgb(229, 115, 115);
-            roundedButton3.BorderColor = Color.FromArgb(229, 115, 115);
-            roundedButton3.BorderRadius = 33;
-            roundedButton3.BorderSize = 0;
-            roundedButton3.FlatAppearance.BorderSize = 0;
-            roundedButton3.FlatStyle = FlatStyle.Flat;
-            roundedButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            roundedButton3.ForeColor = Color.White;
-            roundedButton3.Image = Properties.Resources.pdf_1_;
-            roundedButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            roundedButton3.Location = new Point(411, 1115);
-            roundedButton3.Margin = new Padding(3, 2, 3, 2);
-            roundedButton3.Name = "roundedButton3";
-            roundedButton3.Size = new Size(178, 37);
-            roundedButton3.TabIndex = 215;
-            roundedButton3.Text = "EXPORTAR A PDF";
-            roundedButton3.TextColor = Color.White;
-            roundedButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
-            roundedButton3.UseVisualStyleBackColor = false;
-            roundedButton3.Click += roundedButton3_Click;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCancelar.BackColor = Color.Gainsboro;
-            btnCancelar.BackgroundColor = Color.Gainsboro;
-            btnCancelar.BorderColor = Color.Gainsboro;
-            btnCancelar.BorderRadius = 37;
-            btnCancelar.BorderSize = 0;
-            btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(594, 595);
-            btnCancelar.Margin = new Padding(3, 2, 3, 2);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(178, 37);
-            btnCancelar.TabIndex = 214;
-            btnCancelar.Text = "CANCELAR";
-            btnCancelar.TextColor = Color.Black;
-            btnCancelar.UseVisualStyleBackColor = false;
-            btnCancelar.Click += btnCancelar_Click;
             // 
             // roundedButton6
             // 
@@ -708,10 +614,10 @@
             roundedButton6.ForeColor = Color.Black;
             roundedButton6.Image = Properties.Resources.simbolo_de_interfaz_grafica_de_tres_barras;
             roundedButton6.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton6.Location = new Point(212, 4);
+            roundedButton6.Location = new Point(185, 4);
             roundedButton6.Margin = new Padding(3, 2, 3, 2);
             roundedButton6.Name = "roundedButton6";
-            roundedButton6.Size = new Size(416, 37);
+            roundedButton6.Size = new Size(416, 47);
             roundedButton6.TabIndex = 188;
             roundedButton6.Text = "REPORTES";
             roundedButton6.TextAlign = ContentAlignment.MiddleLeft;
@@ -719,16 +625,16 @@
             roundedButton6.TextImageRelation = TextImageRelation.ImageBeforeText;
             roundedButton6.UseVisualStyleBackColor = false;
             // 
-            // panel2
+            // panelDataGridView
             // 
-            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel2.BackColor = Color.FromArgb(192, 202, 212);
-            panel2.Controls.Add(dtgReportes);
-            panel2.Location = new Point(36, 724);
-            panel2.Margin = new Padding(3, 2, 3, 2);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(736, 387);
-            panel2.TabIndex = 216;
+            panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panelDataGridView.BackColor = Color.FromArgb(192, 202, 212);
+            panelDataGridView.Controls.Add(dtgReportes);
+            panelDataGridView.Location = new Point(36, 724);
+            panelDataGridView.Margin = new Padding(3, 2, 3, 2);
+            panelDataGridView.Name = "panelDataGridView";
+            panelDataGridView.Size = new Size(753, 387);
+            panelDataGridView.TabIndex = 216;
             // 
             // dtgReportes
             // 
@@ -764,8 +670,122 @@
             dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
             dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(721, 371);
+            dtgReportes.Size = new Size(738, 371);
             dtgReportes.TabIndex = 7;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(btnCancelar);
+            panelBotones.Controls.Add(btnConsultar);
+            panelBotones.Location = new Point(222, 593);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Size = new Size(550, 54);
+            panelBotones.TabIndex = 243;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.Gainsboro;
+            btnCancelar.BackgroundColor = Color.Gainsboro;
+            btnCancelar.BorderColor = Color.Gainsboro;
+            btnCancelar.BorderRadius = 37;
+            btnCancelar.BorderSize = 0;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnCancelar.ForeColor = Color.Black;
+            btnCancelar.Location = new Point(369, 2);
+            btnCancelar.Margin = new Padding(3, 2, 3, 2);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(178, 37);
+            btnCancelar.TabIndex = 214;
+            btnCancelar.Text = "CANCELAR";
+            btnCancelar.TextColor = Color.Black;
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnConsultar
+            // 
+            btnConsultar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnConsultar.BackColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BackgroundColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BorderColor = Color.FromArgb(251, 140, 0);
+            btnConsultar.BorderRadius = 37;
+            btnConsultar.BorderSize = 0;
+            btnConsultar.FlatAppearance.BorderSize = 0;
+            btnConsultar.FlatStyle = FlatStyle.Flat;
+            btnConsultar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            btnConsultar.ForeColor = Color.White;
+            btnConsultar.Location = new Point(187, 3);
+            btnConsultar.Margin = new Padding(3, 2, 3, 2);
+            btnConsultar.Name = "btnConsultar";
+            btnConsultar.Size = new Size(178, 37);
+            btnConsultar.TabIndex = 215;
+            btnConsultar.Text = "CONSULTAR";
+            btnConsultar.TextColor = Color.White;
+            btnConsultar.UseVisualStyleBackColor = false;
+            btnConsultar.Click += btnConsultar_Click;
+            // 
+            // panelBotones2
+            // 
+            panelBotones2.Controls.Add(roundedButton2);
+            panelBotones2.Controls.Add(roundedButton3);
+            panelBotones2.Location = new Point(288, 1115);
+            panelBotones2.Name = "panelBotones2";
+            panelBotones2.Size = new Size(484, 55);
+            panelBotones2.TabIndex = 244;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton2.AutoSize = true;
+            roundedButton2.BackColor = Color.FromArgb(0, 137, 123);
+            roundedButton2.BackgroundColor = Color.FromArgb(0, 137, 123);
+            roundedButton2.BorderColor = Color.FromArgb(0, 137, 123);
+            roundedButton2.BorderRadius = 33;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Image = Properties.Resources.excel;
+            roundedButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            roundedButton2.Location = new Point(303, 2);
+            roundedButton2.Margin = new Padding(3, 2, 3, 2);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(178, 37);
+            roundedButton2.TabIndex = 214;
+            roundedButton2.Text = "EXPORTAR A EXCEL";
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click;
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            roundedButton3.AutoSize = true;
+            roundedButton3.BackColor = Color.FromArgb(229, 115, 115);
+            roundedButton3.BackgroundColor = Color.FromArgb(229, 115, 115);
+            roundedButton3.BorderColor = Color.FromArgb(229, 115, 115);
+            roundedButton3.BorderRadius = 33;
+            roundedButton3.BorderSize = 0;
+            roundedButton3.FlatAppearance.BorderSize = 0;
+            roundedButton3.FlatStyle = FlatStyle.Flat;
+            roundedButton3.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            roundedButton3.ForeColor = Color.White;
+            roundedButton3.Image = Properties.Resources.pdf_1_;
+            roundedButton3.ImageAlign = ContentAlignment.MiddleLeft;
+            roundedButton3.Location = new Point(120, 2);
+            roundedButton3.Margin = new Padding(3, 2, 3, 2);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.Size = new Size(178, 37);
+            roundedButton3.TabIndex = 215;
+            roundedButton3.Text = "EXPORTAR A PDF";
+            roundedButton3.TextColor = Color.White;
+            roundedButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
+            roundedButton3.UseVisualStyleBackColor = false;
+            roundedButton3.Click += roundedButton3_Click;
             // 
             // FrmReportesMarcasPatentes
             // 
@@ -780,16 +800,20 @@
             Text = "FrmReportesMarcasPatentes";
             Load += FrmReportesMarcasPatentes_Load;
             Click += FrmReportesMarcasPatentes_Click;
+            Resize += FrmReportesMarcasPatentes_Resize;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanelReportes.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            panel2.ResumeLayout(false);
+            panelDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgReportes).EndInit();
+            panelBotones.ResumeLayout(false);
+            panelBotones2.ResumeLayout(false);
+            panelBotones2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -811,7 +835,7 @@
         private CheckBox checkBoxEstado;
         private Clases.RoundedButton btnConsultar;
         private Clases.RoundedButton btnCancelar;
-        private Panel panel2;
+        private Panel panelDataGridView;
         private DataGridView dtgReportes;
         private ComboBox comboBoxEstado;
         private ComboBox comboBoxPais;
@@ -838,8 +862,10 @@
         private RichTextBox richTextBoxCliente;
         private Clases.RoundedButton roundedButton5;
         private CheckBox checkBoxCliente;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanelReportes;
         private Panel panel5;
         private Panel panel6;
+        private Panel panelBotones;
+        private Panel panelBotones2;
     }
 }
