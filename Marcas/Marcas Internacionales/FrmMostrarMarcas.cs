@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
 using System.Data;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Presentacion.Marcas_Nacionales
@@ -16,6 +17,12 @@ namespace Presentacion.Marcas_Nacionales
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmMostrarMarcas()
         {
             InitializeComponent();
@@ -37,21 +44,24 @@ namespace Presentacion.Marcas_Nacionales
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene las marcas 
             var marcas = await Task.Run(() => marcaModel.GetAllMarcasInternacionales(currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgTitulares.DataSource = marcas;
-
-                if (dtgTitulares.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgTitulares.Columns["IdTitular"].Visible = false;
-                    dtgTitulares.Columns["id"].Visible = false;
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgTitulares.DataSource = marcas;
+
+                    if (dtgTitulares.Columns["id"] != null)
+                    {
+                        dtgTitulares.Columns["IdTitular"].Visible = false;
+                        dtgTitulares.Columns["id"].Visible = false;
+                    }
 
 
-            }));
+                }));
+            }
+
         }
 
         public async void filtrar()
@@ -88,13 +98,58 @@ namespace Presentacion.Marcas_Nacionales
                 await LoadMarcas();
             }
         }
+        private void CentrarPanel(Panel panel)
+        {
+            int anchoMinimo = panel.Width + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                panel.Anchor = AnchorStyles.Top;
+                int x = (this.ClientSize.Width - panel.Width) / 2;
+                int y = panel.Location.Y;
+                panel.Location = new Point(x, y);
+            }
+            else
+            {
+                panel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panel.Location = new Point(0, panel.Location.Y);
+            }
+        }
 
         private async void FrmMostrarMarcas_Load(object sender, EventArgs e)
         {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            if (screenWidth <= 1005 && screenHeight <= 600)
+            {
+                this.Size = new Size(740, 560);
+                this.StartPosition = FormStartPosition.CenterScreen;
+                this.AutoScroll = true;
+
+                panelSuperior.Width = this.ClientSize.Width - 20;
+                panelInferior.Width = this.ClientSize.Width - 20;
+
+                tblLayoutPrincipal.Dock = DockStyle.Fill;
+
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 8, FontStyle.Bold);
+
+                dtgTitulares.DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 8);
+
+            }
+            else
+            {
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Bold);
+                dtgTitulares.DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 10);
+                // Pantalla grande → centrar los paneles
+                CentrarPanel(panelSuperior);
+                CentrarPanel(panelInferior);
+            }
+
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
             // Cargar usuarios en segundo plano
-            await Task.Run(() => LoadMarcas());
+            await LoadMarcas();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -262,6 +317,27 @@ namespace Presentacion.Marcas_Nacionales
             buscando = false;
             txtBuscar.Text = "";
             await LoadMarcas();
+        }
+
+        private void panelSuperior_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void panelSuperior_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
         }
     }
 }

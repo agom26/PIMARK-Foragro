@@ -25,12 +25,10 @@ namespace Presentacion.Reportes
         public float escala = 0;
         MarcaModel marcamodel = new MarcaModel();
         string titulo;
+
         public FrmReportesMarcasPatentes()
         {
-
             InitializeComponent();
-
-
             this.Load += FrmReportesMarcasPatentes_Load;
             this.Resize += FrmReportesMarcasPatentes_Resize;
             SeleccionarPersonaReportes.LimpiarCliente();

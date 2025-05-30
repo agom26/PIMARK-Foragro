@@ -41,11 +41,12 @@
             // iconButton1
             // 
             iconButton1.Anchor = AnchorStyles.Top;
+            iconButton1.FlatStyle = FlatStyle.Flat;
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.CircleExclamation;
             iconButton1.IconColor = Color.Red;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 120;
-            iconButton1.Location = new Point(299, 12);
+            iconButton1.Location = new Point(229, 12);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(110, 107);
             iconButton1.TabIndex = 0;
@@ -54,8 +55,9 @@
             // richTextBoxJustificacion
             // 
             richTextBoxJustificacion.Anchor = AnchorStyles.Top;
+            richTextBoxJustificacion.BackColor = SystemColors.Control;
             richTextBoxJustificacion.BorderStyle = BorderStyle.None;
-            richTextBoxJustificacion.Location = new Point(175, 237);
+            richTextBoxJustificacion.Location = new Point(105, 237);
             richTextBoxJustificacion.Name = "richTextBoxJustificacion";
             richTextBoxJustificacion.Size = new Size(374, 153);
             richTextBoxJustificacion.TabIndex = 2;
@@ -67,11 +69,11 @@
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 10F);
-            label1.Location = new Point(175, 213);
+            label1.Location = new Point(105, 213);
             label1.Name = "label1";
             label1.Size = new Size(197, 19);
             label1.TabIndex = 2;
-            label1.Text = "Justificacion de abandono";
+            label1.Text = "Justificación de abandono";
             // 
             // roundedButton1
             // 
@@ -85,7 +87,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(175, 415);
+            roundedButton1.Location = new Point(105, 415);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(164, 50);
             roundedButton1.TabIndex = 3;
@@ -106,7 +108,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(385, 415);
+            roundedButton2.Location = new Point(315, 415);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(164, 50);
             roundedButton2.TabIndex = 4;
@@ -119,7 +121,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(175, 172);
+            dateTimePicker1.Location = new Point(105, 172);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(164, 22);
             dateTimePicker1.TabIndex = 1;
@@ -129,7 +131,7 @@
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 10F);
-            label2.Location = new Point(175, 148);
+            label2.Location = new Point(105, 148);
             label2.Name = "label2";
             label2.Size = new Size(53, 19);
             label2.TabIndex = 6;
@@ -140,7 +142,7 @@
             labelUsuarioAbandono.Anchor = AnchorStyles.Top;
             labelUsuarioAbandono.AutoSize = true;
             labelUsuarioAbandono.Font = new Font("Century Gothic", 10F);
-            labelUsuarioAbandono.Location = new Point(385, 177);
+            labelUsuarioAbandono.Location = new Point(315, 175);
             labelUsuarioAbandono.Name = "labelUsuarioAbandono";
             labelUsuarioAbandono.Size = new Size(53, 19);
             labelUsuarioAbandono.TabIndex = 7;
@@ -152,8 +154,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            BackColor = SystemColors.Control;
-            ClientSize = new Size(725, 491);
+            BackColor = Color.White;
+            ClientSize = new Size(584, 491);
             Controls.Add(labelUsuarioAbandono);
             Controls.Add(label2);
             Controls.Add(dateTimePicker1);
@@ -163,7 +165,6 @@
             Controls.Add(richTextBoxJustificacion);
             Controls.Add(iconButton1);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmJustificacion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ABANDONO";
