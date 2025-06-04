@@ -2,6 +2,7 @@
 using Dominio;
 using Presentacion.Alertas;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -13,6 +14,11 @@ namespace Presentacion.Marcas_Internacionales
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmMostrarSolicitantesReportes()
         {
             InitializeComponent();
@@ -33,24 +39,74 @@ namespace Presentacion.Marcas_Internacionales
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
             var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
-
-            Invoke(new Action(() =>
+            if(this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgTitulares.DataSource = titulares;
-
-                if (dtgTitulares.Columns["id"] != null)
+                this.Invoke(new Action(() =>
                 {
-                    dtgTitulares.Columns["id"].Visible = false;
-                    dtgTitulares.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgTitulares.DataSource = titulares;
 
+                    if (dtgTitulares.Columns["id"] != null)
+                    {
+                        dtgTitulares.Columns["id"].Visible = false;
+                        dtgTitulares.ClearSelection();
+                    }
 
-            }));
+                }));
+            }
+            
+        }
+
+        private void CentrarPanel(Panel panel)
+        {
+            int anchoMinimo = panel.Width + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                panel.Anchor = AnchorStyles.Top;
+                int x = (this.ClientSize.Width - panel.Width) / 2;
+                int y = panel.Location.Y;
+                panel.Location = new Point(x, y);
+            }
+            else
+            {
+                panel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panel.Location = new Point(0, panel.Location.Y);
+            }
         }
         private async void FrmMostrarSolicitantesReportes_Load(object sender, EventArgs e)
         {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            if (screenWidth <= 900 && screenHeight <= 600)
+            {
+                this.Size = new Size(750, 540);
+                this.StartPosition = FormStartPosition.CenterScreen;
+                this.AutoScroll = true;
+
+                panelSuperior.Width = this.ClientSize.Width - 20;
+                panelInferior.Width = this.ClientSize.Width - 20;
+
+                tblLayoutPrincipal.Dock = DockStyle.Fill;
+                panel1.Dock = DockStyle.Fill;
+                panel2.Dock = DockStyle.Fill;
+                panel3.Dock = DockStyle.Fill;
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+
+                dtgTitulares.DefaultCellStyle.Font = new Font("Century Gothic", 8);
+
+            }
+            else
+            {
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+                dtgTitulares.DefaultCellStyle.Font = new Font("Century Gothic", 10);
+                // Pantalla grande → centrar los paneles
+                CentrarPanel(panelSuperior);
+                CentrarPanel(panelInferior);
+            }
+
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
             currentPageIndex = 1;
@@ -163,7 +219,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -235,7 +291,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode== Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
@@ -247,6 +303,23 @@ namespace Presentacion.Marcas_Internacionales
                 lblTotalRows.Text = totalRows.ToString();
                 filtrar();
             }
+        }
+
+        private void panelSuperior_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }

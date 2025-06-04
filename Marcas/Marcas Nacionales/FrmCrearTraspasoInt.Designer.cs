@@ -28,76 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            richTextBox1 = new RichTextBox();
+            labelFecha = new Label();
+            labelEstado = new Label();
+            labelAnotaciones = new Label();
+            dateTimePickerFecha = new DateTimePicker();
+            textBoxAnotaciones = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Presentacion.Clases.RoundedButton();
+            btnTraspasar = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            btnAceptar = new FontAwesome.Sharp.IconButton();
+            btnCancelar = new FontAwesome.Sharp.IconButton();
             txtEstado = new TextBox();
-            label4 = new Label();
-            Fechas = new GroupBox();
+            labelAntiguoTitular = new Label();
+            groupBoxTraspaso = new GroupBox();
             txtNombreTitularN = new TextBox();
-            roundedButton2 = new Presentacion.Clases.RoundedButton();
+            btnNuevoTitular = new Presentacion.Clases.RoundedButton();
             txtNombreTitularA = new TextBox();
             txtNoExpediente = new TextBox();
-            label8 = new Label();
-            groupBox1 = new GroupBox();
+            labelNoExpediente = new Label();
+            groupBoxHistorial = new GroupBox();
+            panel1 = new Panel();
+            tblLayoutPrincipal = new TableLayoutPanel();
+            panelEncabezado = new Panel();
+            panel4 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panelBotones = new Panel();
             panel2.SuspendLayout();
-            Fechas.SuspendLayout();
-            groupBox1.SuspendLayout();
+            groupBoxTraspaso.SuspendLayout();
+            groupBoxHistorial.SuspendLayout();
+            panel1.SuspendLayout();
+            tblLayoutPrincipal.SuspendLayout();
+            panelEncabezado.SuspendLayout();
+            panel4.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panelBotones.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // labelFecha
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(31, 70);
-            label1.Name = "label1";
-            label1.Size = new Size(45, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Fecha";
+            labelFecha.AutoSize = true;
+            labelFecha.Location = new Point(31, 70);
+            labelFecha.Name = "labelFecha";
+            labelFecha.Size = new Size(45, 17);
+            labelFecha.TabIndex = 0;
+            labelFecha.Text = "Fecha";
             // 
-            // label2
+            // labelEstado
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(265, 70);
-            label2.Name = "label2";
-            label2.Size = new Size(48, 17);
-            label2.TabIndex = 1;
-            label2.Text = "Estado";
+            labelEstado.AutoSize = true;
+            labelEstado.Location = new Point(265, 70);
+            labelEstado.Name = "labelEstado";
+            labelEstado.Size = new Size(48, 17);
+            labelEstado.TabIndex = 1;
+            labelEstado.Text = "Estado";
             // 
-            // label3
+            // labelAnotaciones
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(31, 149);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 17);
-            label3.TabIndex = 2;
-            label3.Text = "Anotaciones";
+            labelAnotaciones.AutoSize = true;
+            labelAnotaciones.Location = new Point(31, 149);
+            labelAnotaciones.Name = "labelAnotaciones";
+            labelAnotaciones.Size = new Size(84, 17);
+            labelAnotaciones.TabIndex = 2;
+            labelAnotaciones.Text = "Anotaciones";
             // 
-            // dateTimePicker1
+            // dateTimePickerFecha
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(31, 93);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 22);
-            dateTimePicker1.TabIndex = 1;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            dateTimePickerFecha.Format = DateTimePickerFormat.Short;
+            dateTimePickerFecha.Location = new Point(31, 93);
+            dateTimePickerFecha.Name = "dateTimePickerFecha";
+            dateTimePickerFecha.Size = new Size(154, 22);
+            dateTimePickerFecha.TabIndex = 1;
+            dateTimePickerFecha.ValueChanged += dateTimePicker1_ValueChanged;
             // 
-            // richTextBox1
+            // textBoxAnotaciones
             // 
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(31, 172);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 70);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            textBoxAnotaciones.BorderStyle = BorderStyle.None;
+            textBoxAnotaciones.Location = new Point(31, 172);
+            textBoxAnotaciones.Name = "textBoxAnotaciones";
+            textBoxAnotaciones.Size = new Size(431, 70);
+            textBoxAnotaciones.TabIndex = 2;
+            textBoxAnotaciones.Text = "";
             // 
             // lblUser
             // 
@@ -108,24 +120,25 @@
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
-            // roundedButton1
+            // btnTraspasar
             // 
-            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 40;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 13F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(378, 77);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(290, 50);
-            roundedButton1.TabIndex = 7;
-            roundedButton1.Text = "TRASPASAR";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
+            btnTraspasar.BackColor = Color.FromArgb(175, 192, 218);
+            btnTraspasar.BackgroundColor = Color.FromArgb(175, 192, 218);
+            btnTraspasar.BorderColor = Color.FromArgb(175, 192, 218);
+            btnTraspasar.BorderRadius = 40;
+            btnTraspasar.BorderSize = 0;
+            btnTraspasar.FlatAppearance.BorderSize = 0;
+            btnTraspasar.FlatStyle = FlatStyle.Flat;
+            btnTraspasar.Font = new Font("Century Gothic", 13F);
+            btnTraspasar.ForeColor = Color.Black;
+            btnTraspasar.Location = new Point(409, 49);
+            btnTraspasar.Name = "btnTraspasar";
+            btnTraspasar.Size = new Size(290, 50);
+            btnTraspasar.TabIndex = 7;
+            btnTraspasar.Text = "TRASPASAR";
+            btnTraspasar.TextColor = Color.Black;
+            btnTraspasar.UseVisualStyleBackColor = false;
+            btnTraspasar.Click += btnTraspasar_Click;
             // 
             // panel2
             // 
@@ -137,6 +150,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1090, 34);
             panel2.TabIndex = 8;
+            panel2.MouseDown += panel2_MouseDown;
             // 
             // button2
             // 
@@ -166,81 +180,84 @@
             button1.Text = "X";
             button1.UseVisualStyleBackColor = true;
             // 
-            // iconButton3
+            // btnAceptar
             // 
-            iconButton3.BackColor = Color.FromArgb(1, 87, 155);
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            iconButton3.ForeColor = Color.White;
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Check;
-            iconButton3.IconColor = Color.White;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 25;
-            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(319, 548);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 44);
-            iconButton3.TabIndex = 4;
-            iconButton3.Text = "ACEPTAR";
-            iconButton3.TextAlign = ContentAlignment.MiddleRight;
-            iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton3.UseVisualStyleBackColor = false;
-            iconButton3.Click += iconButton3_Click;
+            btnAceptar.BackColor = Color.FromArgb(1, 87, 155);
+            btnAceptar.FlatAppearance.BorderSize = 0;
+            btnAceptar.FlatStyle = FlatStyle.Flat;
+            btnAceptar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAceptar.ForeColor = Color.White;
+            btnAceptar.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnAceptar.IconColor = Color.White;
+            btnAceptar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAceptar.IconSize = 25;
+            btnAceptar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAceptar.Location = new Point(351, 36);
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Size = new Size(160, 45);
+            btnAceptar.TabIndex = 4;
+            btnAceptar.Text = "ACEPTAR";
+            btnAceptar.TextAlign = ContentAlignment.MiddleRight;
+            btnAceptar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnAceptar.UseVisualStyleBackColor = false;
+            btnAceptar.Click += iconButton3_Click;
             // 
-            // iconButton2
+            // btnCancelar
             // 
-            iconButton2.BackColor = Color.White;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 25;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(522, 548);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 44);
-            iconButton2.TabIndex = 5;
-            iconButton2.Text = "CANCELAR";
-            iconButton2.TextAlign = ContentAlignment.MiddleRight;
-            iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelar.IconColor = Color.Black;
+            btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelar.IconSize = 25;
+            btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancelar.Location = new Point(554, 36);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(160, 45);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "CANCELAR";
+            btnCancelar.TextAlign = ContentAlignment.MiddleRight;
+            btnCancelar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += iconButton2_Click;
             // 
             // txtEstado
             // 
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(197, 22);
+            txtEstado.Size = new Size(95, 22);
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
-            // label4
+            // labelAntiguoTitular
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(76, 91);
-            label4.Name = "label4";
-            label4.Size = new Size(93, 17);
-            label4.TabIndex = 12;
-            label4.Text = "Antiguo titular";
+            labelAntiguoTitular.AutoSize = true;
+            labelAntiguoTitular.Location = new Point(76, 91);
+            labelAntiguoTitular.Name = "labelAntiguoTitular";
+            labelAntiguoTitular.Size = new Size(93, 17);
+            labelAntiguoTitular.TabIndex = 12;
+            labelAntiguoTitular.Text = "Antiguo titular";
             // 
-            // Fechas
+            // groupBoxTraspaso
             // 
-            Fechas.Controls.Add(txtNombreTitularN);
-            Fechas.Controls.Add(roundedButton2);
-            Fechas.Controls.Add(txtNombreTitularA);
-            Fechas.Controls.Add(txtNoExpediente);
-            Fechas.Controls.Add(label8);
-            Fechas.Controls.Add(label4);
-            Fechas.Location = new Point(522, 234);
-            Fechas.Name = "Fechas";
-            Fechas.Size = new Size(503, 272);
-            Fechas.TabIndex = 20;
-            Fechas.TabStop = false;
-            Fechas.Text = "Traspaso";
+            groupBoxTraspaso.Controls.Add(txtNombreTitularN);
+            groupBoxTraspaso.Controls.Add(btnNuevoTitular);
+            groupBoxTraspaso.Controls.Add(txtNombreTitularA);
+            groupBoxTraspaso.Controls.Add(txtNoExpediente);
+            groupBoxTraspaso.Controls.Add(labelNoExpediente);
+            groupBoxTraspaso.Controls.Add(labelAntiguoTitular);
+            groupBoxTraspaso.Dock = DockStyle.Fill;
+            groupBoxTraspaso.Location = new Point(562, 20);
+            groupBoxTraspaso.Margin = new Padding(20);
+            groupBoxTraspaso.Name = "groupBoxTraspaso";
+            groupBoxTraspaso.Size = new Size(502, 335);
+            groupBoxTraspaso.TabIndex = 20;
+            groupBoxTraspaso.TabStop = false;
+            groupBoxTraspaso.Text = "Traspaso";
+            groupBoxTraspaso.Resize += groupBoxTraspaso_Resize;
             // 
             // txtNombreTitularN
             // 
@@ -250,24 +267,24 @@
             txtNombreTitularN.Size = new Size(323, 22);
             txtNombreTitularN.TabIndex = 21;
             // 
-            // roundedButton2
+            // btnNuevoTitular
             // 
-            roundedButton2.BackColor = Color.LightSteelBlue;
-            roundedButton2.BackgroundColor = Color.LightSteelBlue;
-            roundedButton2.BorderColor = Color.Empty;
-            roundedButton2.BorderRadius = 30;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(76, 164);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(156, 30);
-            roundedButton2.TabIndex = 3;
-            roundedButton2.Text = "Nuevo titular";
-            roundedButton2.TextColor = Color.Black;
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
+            btnNuevoTitular.BackColor = Color.LightSteelBlue;
+            btnNuevoTitular.BackgroundColor = Color.LightSteelBlue;
+            btnNuevoTitular.BorderColor = Color.Empty;
+            btnNuevoTitular.BorderRadius = 30;
+            btnNuevoTitular.BorderSize = 0;
+            btnNuevoTitular.FlatAppearance.BorderSize = 0;
+            btnNuevoTitular.FlatStyle = FlatStyle.Flat;
+            btnNuevoTitular.ForeColor = Color.Black;
+            btnNuevoTitular.Location = new Point(76, 164);
+            btnNuevoTitular.Name = "btnNuevoTitular";
+            btnNuevoTitular.Size = new Size(156, 30);
+            btnNuevoTitular.TabIndex = 3;
+            btnNuevoTitular.Text = "Nuevo titular";
+            btnNuevoTitular.TextColor = Color.Black;
+            btnNuevoTitular.UseVisualStyleBackColor = false;
+            btnNuevoTitular.Click += roundedButton2_Click;
             // 
             // txtNombreTitularA
             // 
@@ -288,78 +305,157 @@
             txtNoExpediente.TextAlign = HorizontalAlignment.Center;
             txtNoExpediente.TextChanged += textBox2_TextChanged;
             // 
-            // label8
+            // labelNoExpediente
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(173, 23);
-            label8.Name = "label8";
-            label8.Size = new Size(98, 17);
-            label8.TabIndex = 12;
-            label8.Text = "No. Expediente";
+            labelNoExpediente.AutoSize = true;
+            labelNoExpediente.Location = new Point(173, 23);
+            labelNoExpediente.Name = "labelNoExpediente";
+            labelNoExpediente.Size = new Size(98, 17);
+            labelNoExpediente.TabIndex = 12;
+            labelNoExpediente.Text = "No. Expediente";
             // 
-            // groupBox1
+            // groupBoxHistorial
             // 
-            groupBox1.Controls.Add(dateTimePicker1);
-            groupBox1.Controls.Add(txtEstado);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(richTextBox1);
-            groupBox1.Controls.Add(lblUser);
-            groupBox1.Location = new Point(26, 234);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(472, 272);
-            groupBox1.TabIndex = 21;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Historial";
+            groupBoxHistorial.Controls.Add(dateTimePickerFecha);
+            groupBoxHistorial.Controls.Add(txtEstado);
+            groupBoxHistorial.Controls.Add(labelFecha);
+            groupBoxHistorial.Controls.Add(labelEstado);
+            groupBoxHistorial.Controls.Add(labelAnotaciones);
+            groupBoxHistorial.Controls.Add(textBoxAnotaciones);
+            groupBoxHistorial.Controls.Add(lblUser);
+            groupBoxHistorial.Dock = DockStyle.Fill;
+            groupBoxHistorial.Location = new Point(20, 20);
+            groupBoxHistorial.Margin = new Padding(20);
+            groupBoxHistorial.Name = "groupBoxHistorial";
+            groupBoxHistorial.Size = new Size(502, 335);
+            groupBoxHistorial.TabIndex = 21;
+            groupBoxHistorial.TabStop = false;
+            groupBoxHistorial.Text = "Historial";
+            groupBoxHistorial.Resize += groupBoxHistorial_Resize;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(tblLayoutPrincipal);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 34);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1090, 645);
+            panel1.TabIndex = 22;
+            // 
+            // tblLayoutPrincipal
+            // 
+            tblLayoutPrincipal.ColumnCount = 1;
+            tblLayoutPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblLayoutPrincipal.Controls.Add(panelEncabezado, 0, 0);
+            tblLayoutPrincipal.Controls.Add(panel4, 0, 1);
+            tblLayoutPrincipal.Controls.Add(panelBotones, 0, 2);
+            tblLayoutPrincipal.Dock = DockStyle.Fill;
+            tblLayoutPrincipal.Location = new Point(0, 0);
+            tblLayoutPrincipal.Name = "tblLayoutPrincipal";
+            tblLayoutPrincipal.RowCount = 3;
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 26.73077F));
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 73.26923F));
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 124F));
+            tblLayoutPrincipal.Size = new Size(1090, 645);
+            tblLayoutPrincipal.TabIndex = 0;
+            // 
+            // panelEncabezado
+            // 
+            panelEncabezado.Controls.Add(btnTraspasar);
+            panelEncabezado.Dock = DockStyle.Fill;
+            panelEncabezado.Location = new Point(3, 3);
+            panelEncabezado.Name = "panelEncabezado";
+            panelEncabezado.Size = new Size(1084, 133);
+            panelEncabezado.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(tableLayoutPanel1);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(3, 142);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1084, 375);
+            panel4.TabIndex = 1;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(groupBoxTraspaso, 1, 0);
+            tableLayoutPanel1.Controls.Add(groupBoxHistorial, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(1084, 375);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(btnAceptar);
+            panelBotones.Controls.Add(btnCancelar);
+            panelBotones.Dock = DockStyle.Fill;
+            panelBotones.Location = new Point(3, 523);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Size = new Size(1084, 119);
+            panelBotones.TabIndex = 2;
             // 
             // FrmCrearTraspasoInt
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 679);
-            Controls.Add(Fechas);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
+            Controls.Add(panel1);
             Controls.Add(panel2);
-            Controls.Add(roundedButton1);
-            Controls.Add(groupBox1);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmCrearTraspasoInt";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmCrearTraspasoInt";
             Load += FrmCrearTraspasoInt_Load;
             panel2.ResumeLayout(false);
-            Fechas.ResumeLayout(false);
-            Fechas.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            groupBoxTraspaso.ResumeLayout(false);
+            groupBoxTraspaso.PerformLayout();
+            groupBoxHistorial.ResumeLayout(false);
+            groupBoxHistorial.PerformLayout();
+            panel1.ResumeLayout(false);
+            tblLayoutPrincipal.ResumeLayout(false);
+            panelEncabezado.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private RichTextBox richTextBox1;
+        private Label labelFecha;
+        private Label labelEstado;
+        private Label labelAnotaciones;
+        private DateTimePicker dateTimePickerFecha;
+        private RichTextBox textBoxAnotaciones;
         private Label lblUser;
-        private Clases.RoundedButton roundedButton1;
+        private Clases.RoundedButton btnTraspasar;
         private Panel panel2;
         private Button button1;
         private Button button2;
-        private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton btnAceptar;
+        private FontAwesome.Sharp.IconButton btnCancelar;
         private TextBox txtEstado;
-        private Label label4;
-        private GroupBox Fechas;
-        private GroupBox groupBox1;
+        private Label labelAntiguoTitular;
+        private GroupBox groupBoxTraspaso;
+        private GroupBox groupBoxHistorial;
         private TextBox txtNoExpediente;
-        private Label label8;
-        private Clases.RoundedButton roundedButton2;
+        private Label labelNoExpediente;
+        private Clases.RoundedButton btnNuevoTitular;
         private TextBox txtNombreTitularA;
         private TextBox txtNombreTitularN;
+        private Panel panel1;
+        private TableLayoutPanel tblLayoutPrincipal;
+        private Panel panelEncabezado;
+        private Panel panel4;
+        private Panel panelBotones;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

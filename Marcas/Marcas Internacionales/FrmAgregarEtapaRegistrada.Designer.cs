@@ -45,12 +45,14 @@
             lblNoExpediente = new Label();
             groupBox1 = new GroupBox();
             panel1 = new Panel();
+            panel5 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel4 = new Panel();
             panel3 = new Panel();
             panel2.SuspendLayout();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
+            panel5.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
@@ -60,7 +62,7 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(188, 130);
+            label1.Location = new Point(72, 125);
             label1.Name = "label1";
             label1.Size = new Size(45, 17);
             label1.TabIndex = 0;
@@ -70,7 +72,7 @@
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(369, 132);
+            label2.Location = new Point(253, 127);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
@@ -80,7 +82,7 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(188, 209);
+            label3.Location = new Point(72, 204);
             label3.Name = "label3";
             label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
@@ -90,7 +92,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(188, 153);
+            dateTimePicker1.Location = new Point(72, 148);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 1;
@@ -104,7 +106,7 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Oposición", "Orden de pago", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
-            comboBox1.Location = new Point(369, 155);
+            comboBox1.Location = new Point(253, 150);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(250, 25);
             comboBox1.TabIndex = 2;
@@ -114,7 +116,7 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(188, 232);
+            richTextBox1.Location = new Point(72, 227);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(431, 102);
             richTextBox1.TabIndex = 3;
@@ -124,7 +126,7 @@
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(369, 88);
+            lblUser.Location = new Point(253, 83);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
@@ -142,7 +144,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(260, 21);
+            roundedButton1.Location = new Point(144, 16);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -158,8 +160,9 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(779, 34);
+            panel2.Size = new Size(574, 34);
             panel2.TabIndex = 8;
+            panel2.MouseDown += panel2_MouseDown;
             // 
             // button2
             // 
@@ -168,7 +171,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(728, 0);
+            button2.Location = new Point(523, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 7;
@@ -262,21 +265,31 @@
             // panel1
             // 
             panel1.AutoScroll = true;
-            panel1.Controls.Add(tableLayoutPanel1);
-            panel1.Controls.Add(richTextBox1);
-            panel1.Controls.Add(roundedButton1);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(lblUser);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(dateTimePicker1);
+            panel1.Controls.Add(panel5);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
-            panel1.Size = new Size(779, 542);
+            panel1.Size = new Size(574, 542);
             panel1.TabIndex = 14;
             panel1.Paint += panel1_Paint;
+            // 
+            // panel5
+            // 
+            panel5.AutoScroll = true;
+            panel5.Controls.Add(tableLayoutPanel1);
+            panel5.Controls.Add(roundedButton1);
+            panel5.Controls.Add(richTextBox1);
+            panel5.Controls.Add(dateTimePicker1);
+            panel5.Controls.Add(comboBox1);
+            panel5.Controls.Add(label1);
+            panel5.Controls.Add(label3);
+            panel5.Controls.Add(lblUser);
+            panel5.Controls.Add(label2);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(0, 0);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(574, 530);
+            panel5.TabIndex = 15;
             // 
             // tableLayoutPanel1
             // 
@@ -285,7 +298,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel4, 0, 1);
             tableLayoutPanel1.Controls.Add(panel3, 0, 0);
-            tableLayoutPanel1.Location = new Point(169, 350);
+            tableLayoutPanel1.Location = new Point(53, 345);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 63.3333321F));
@@ -316,11 +329,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(779, 576);
+            ClientSize = new Size(574, 576);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarEtapaRegistrada";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapaRegistrada";
@@ -329,7 +341,8 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -358,5 +371,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel3;
         private Panel panel4;
+        private Panel panel5;
     }
 }

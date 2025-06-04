@@ -1579,12 +1579,13 @@ namespace Presentacion.Marcas_Internacionales
                     fullHtmlContent += $@"<html>
                 <head>
                     <style>
+                        * {{box-sizing: border-box}}
                         body {{ font-family: Arial, sans-serif; }}
-                        table {{ border-collapse: collapse; width: 100%; }}
+                        table {{ border-collapse: collapse; width: 98%; }}
                         th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
                         th {{ background-color: #f2f2f2; font-weight: bold; }}
                         img {{ width: 200px; height: auto; }}
-                        @page {{ size: legal landscape; margin: 20mm; }}
+                        @page {{ size: legal landscape; margin: 25mm; }}
                         table {{ page-break-inside: auto; }}
                         tr {{ page-break-inside: avoid; }}
                         td {{ page-break-before: auto; }}
@@ -1695,7 +1696,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.5); // Ajustar tamaño
+                                .Scale(0.25); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)

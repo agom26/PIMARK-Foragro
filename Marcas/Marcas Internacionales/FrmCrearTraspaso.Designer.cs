@@ -49,9 +49,13 @@
             txtNoExpediente = new TextBox();
             label8 = new Label();
             groupBox1 = new GroupBox();
+            panel1 = new Panel();
+            panel3 = new Panel();
             panel2.SuspendLayout();
             Fechas.SuspendLayout();
             groupBox1.SuspendLayout();
+            panel1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -110,7 +114,6 @@
             // 
             // roundedButton1
             // 
-            roundedButton1.Anchor = AnchorStyles.Top;
             roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
@@ -120,7 +123,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(378, 77);
+            roundedButton1.Location = new Point(366, 12);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(290, 50);
             roundedButton1.TabIndex = 7;
@@ -136,7 +139,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1090, 34);
+            panel2.Size = new Size(1027, 34);
             panel2.TabIndex = 8;
             // 
             // button2
@@ -146,7 +149,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(1039, 0);
+            button2.Location = new Point(976, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 6;
@@ -169,7 +172,6 @@
             // 
             // iconButton3
             // 
-            iconButton3.Anchor = AnchorStyles.Top;
             iconButton3.BackColor = Color.FromArgb(1, 87, 155);
             iconButton3.FlatAppearance.BorderSize = 0;
             iconButton3.FlatStyle = FlatStyle.Flat;
@@ -180,9 +182,9 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(319, 543);
+            iconButton3.Location = new Point(338, 355);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 34);
+            iconButton3.Size = new Size(160, 49);
             iconButton3.TabIndex = 4;
             iconButton3.Text = "ACEPTAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
@@ -192,7 +194,6 @@
             // 
             // iconButton2
             // 
-            iconButton2.Anchor = AnchorStyles.Top;
             iconButton2.BackColor = Color.White;
             iconButton2.FlatAppearance.BorderSize = 0;
             iconButton2.FlatStyle = FlatStyle.Flat;
@@ -202,9 +203,9 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(522, 543);
+            iconButton2.Location = new Point(539, 355);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 34);
+            iconButton2.Size = new Size(160, 49);
             iconButton2.TabIndex = 5;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
@@ -214,17 +215,18 @@
             // 
             // txtEstado
             // 
+            txtEstado.BorderStyle = BorderStyle.FixedSingle;
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(197, 22);
+            txtEstado.Size = new Size(96, 22);
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(93, 140);
+            label4.Location = new Point(93, 96);
             label4.Name = "label4";
             label4.Size = new Size(93, 17);
             label4.TabIndex = 12;
@@ -232,26 +234,27 @@
             // 
             // Fechas
             // 
-            Fechas.Anchor = AnchorStyles.Top;
             Fechas.Controls.Add(txtNombreTitularN);
             Fechas.Controls.Add(roundedButton2);
             Fechas.Controls.Add(txtNombreTitularA);
             Fechas.Controls.Add(txtNoExpediente);
             Fechas.Controls.Add(label8);
             Fechas.Controls.Add(label4);
-            Fechas.Location = new Point(522, 154);
+            Fechas.Location = new Point(539, 77);
             Fechas.Name = "Fechas";
-            Fechas.Size = new Size(503, 352);
+            Fechas.Size = new Size(472, 272);
             Fechas.TabIndex = 20;
             Fechas.TabStop = false;
             Fechas.Text = "Traspaso";
             // 
             // txtNombreTitularN
             // 
-            txtNombreTitularN.Location = new Point(93, 249);
+            txtNombreTitularN.Location = new Point(93, 205);
+            txtNombreTitularN.Multiline = true;
             txtNombreTitularN.Name = "txtNombreTitularN";
             txtNombreTitularN.ReadOnly = true;
-            txtNombreTitularN.Size = new Size(323, 22);
+            txtNombreTitularN.ScrollBars = ScrollBars.Vertical;
+            txtNombreTitularN.Size = new Size(323, 28);
             txtNombreTitularN.TabIndex = 21;
             // 
             // roundedButton2
@@ -264,7 +267,7 @@
             roundedButton2.FlatAppearance.BorderSize = 0;
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.ForeColor = Color.Black;
-            roundedButton2.Location = new Point(93, 213);
+            roundedButton2.Location = new Point(93, 169);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(156, 30);
             roundedButton2.TabIndex = 3;
@@ -275,10 +278,12 @@
             // 
             // txtNombreTitularA
             // 
-            txtNombreTitularA.Location = new Point(93, 163);
+            txtNombreTitularA.Location = new Point(93, 119);
+            txtNombreTitularA.Multiline = true;
             txtNombreTitularA.Name = "txtNombreTitularA";
             txtNombreTitularA.ReadOnly = true;
-            txtNombreTitularA.Size = new Size(323, 22);
+            txtNombreTitularA.ScrollBars = ScrollBars.Vertical;
+            txtNombreTitularA.Size = new Size(323, 28);
             txtNombreTitularA.TabIndex = 19;
             // 
             // txtNoExpediente
@@ -295,7 +300,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(190, 72);
+            label8.Location = new Point(190, 28);
             label8.Name = "label8";
             label8.Size = new Size(98, 17);
             label8.TabIndex = 12;
@@ -303,7 +308,6 @@
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = AnchorStyles.Top;
             groupBox1.Controls.Add(dateTimePicker1);
             groupBox1.Controls.Add(txtEstado);
             groupBox1.Controls.Add(label1);
@@ -311,12 +315,34 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(richTextBox1);
             groupBox1.Controls.Add(lblUser);
-            groupBox1.Location = new Point(26, 234);
+            groupBox1.Location = new Point(26, 77);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(472, 272);
             groupBox1.TabIndex = 21;
             groupBox1.TabStop = false;
             groupBox1.Text = "Historial";
+            // 
+            // panel1
+            // 
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(panel3);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 34);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1027, 473);
+            panel1.TabIndex = 22;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(roundedButton1);
+            panel3.Controls.Add(iconButton3);
+            panel3.Controls.Add(groupBox1);
+            panel3.Controls.Add(Fechas);
+            panel3.Controls.Add(iconButton2);
+            panel3.Location = new Point(3, 6);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1023, 424);
+            panel3.TabIndex = 22;
             // 
             // FrmCrearTraspaso
             // 
@@ -324,24 +350,22 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(1090, 601);
-            Controls.Add(Fechas);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
+            ClientSize = new Size(1027, 521);
+            Controls.Add(panel1);
             Controls.Add(panel2);
-            Controls.Add(roundedButton1);
-            Controls.Add(groupBox1);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmCrearTraspaso";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapa";
             Load += FrmCrearTraspaso_Load;
+            KeyDown += FrmCrearTraspaso_KeyDown;
             panel2.ResumeLayout(false);
             Fechas.ResumeLayout(false);
             Fechas.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -368,5 +392,7 @@
         private Clases.RoundedButton roundedButton2;
         private TextBox txtNombreTitularA;
         private TextBox txtNombreTitularN;
+        private Panel panel1;
+        private Panel panel3;
     }
 }

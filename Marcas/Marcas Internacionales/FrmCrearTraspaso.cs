@@ -1,14 +1,41 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
+using System.Runtime.InteropServices;
 
 namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmCrearTraspaso : Form
     {
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmCrearTraspaso()
         {
             InitializeComponent();
+            this.Load += FrmCrearTraspaso_Load1;
+        }
+
+        private void CentrarPanel()
+        {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            // Si el formulario es más ancho que el panel → centrar horizontalmente
+            if (screenWidth <= 1025 && screenHeight <= 600)
+            {
+                this.Size = new Size(700, 540);
+                this.StartPosition = FormStartPosition.CenterScreen;
+
+            }
+        }
+
+        private void FrmCrearTraspaso_Load1(object? sender, EventArgs e)
+        {
+            CentrarPanel();
         }
 
         private void ActualizarFechaVencimiento()
@@ -24,6 +51,18 @@ namespace Presentacion.Marcas_Nacionales
 
         private void FrmCrearTraspaso_Load(object sender, EventArgs e)
         {
+
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            // Si el formulario es más ancho que el panel → centrar horizontalmente
+            if (screenWidth <= 1155 && screenHeight <= 600)
+            {
+                this.Size = new Size(700, 540);
+                this.StartPosition = FormStartPosition.CenterScreen;
+
+            }
+
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
@@ -146,5 +185,23 @@ namespace Presentacion.Marcas_Nacionales
             }
 
         }
+
+        private void FrmCrearTraspaso_KeyDown(object sender, KeyEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
     }
 }

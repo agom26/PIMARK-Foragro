@@ -28,102 +28,118 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            richTextBox1 = new RichTextBox();
+            labelFecha = new Label();
+            labelAnotaciones = new Label();
+            dateTimePickerFecha = new DateTimePicker();
+            textBoxAnotaciones = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Presentacion.Clases.RoundedButton();
-            panel2 = new Panel();
+            btnEnviarOposicion = new Presentacion.Clases.RoundedButton();
+            panelSuperior = new Panel();
             button2 = new Button();
             button1 = new Button();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            label4 = new Label();
-            Fechas = new GroupBox();
-            label6 = new Label();
+            panel1 = new Panel();
+            btnOposicion = new FontAwesome.Sharp.IconButton();
+            btnCancelar = new FontAwesome.Sharp.IconButton();
+            labelOpositor = new Label();
+            groupBoxOposicion = new GroupBox();
+            labelSignoOpositor = new Label();
             txtSolicitante = new TextBox();
             txtNombreOpositor = new TextBox();
-            groupBox1 = new GroupBox();
+            groupBoxHistorial = new GroupBox();
+            panel2 = new Panel();
+            tblLayoutPrincipal = new TableLayoutPanel();
+            panelEncabezado = new Panel();
+            panelContenidoCentro = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panelBotones = new Panel();
+            panelSuperior.SuspendLayout();
+            groupBoxOposicion.SuspendLayout();
+            groupBoxHistorial.SuspendLayout();
             panel2.SuspendLayout();
-            Fechas.SuspendLayout();
-            groupBox1.SuspendLayout();
+            tblLayoutPrincipal.SuspendLayout();
+            panelEncabezado.SuspendLayout();
+            panelContenidoCentro.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panelBotones.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // labelFecha
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(31, 70);
-            label1.Name = "label1";
-            label1.Size = new Size(125, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Fecha de oposición";
+            labelFecha.AutoSize = true;
+            labelFecha.Location = new Point(28, 67);
+            labelFecha.Name = "labelFecha";
+            labelFecha.Size = new Size(125, 17);
+            labelFecha.TabIndex = 0;
+            labelFecha.Text = "Fecha de oposición";
             // 
-            // label3
+            // labelAnotaciones
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(31, 149);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 17);
-            label3.TabIndex = 2;
-            label3.Text = "Anotaciones";
+            labelAnotaciones.AutoSize = true;
+            labelAnotaciones.Location = new Point(28, 146);
+            labelAnotaciones.Name = "labelAnotaciones";
+            labelAnotaciones.Size = new Size(84, 17);
+            labelAnotaciones.TabIndex = 2;
+            labelAnotaciones.Text = "Anotaciones";
             // 
-            // dateTimePicker1
+            // dateTimePickerFecha
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(31, 93);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 22);
-            dateTimePicker1.TabIndex = 1;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            dateTimePickerFecha.Format = DateTimePickerFormat.Short;
+            dateTimePickerFecha.Location = new Point(31, 93);
+            dateTimePickerFecha.Name = "dateTimePickerFecha";
+            dateTimePickerFecha.Size = new Size(154, 22);
+            dateTimePickerFecha.TabIndex = 1;
+            dateTimePickerFecha.ValueChanged += dateTimePicker1_ValueChanged;
             // 
-            // richTextBox1
+            // textBoxAnotaciones
             // 
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(31, 172);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 70);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            textBoxAnotaciones.BorderStyle = BorderStyle.None;
+            textBoxAnotaciones.Location = new Point(31, 172);
+            textBoxAnotaciones.Name = "textBoxAnotaciones";
+            textBoxAnotaciones.Size = new Size(431, 70);
+            textBoxAnotaciones.TabIndex = 2;
+            textBoxAnotaciones.Text = "";
             // 
             // lblUser
             // 
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(212, 28);
+            lblUser.Location = new Point(221, 88);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
-            // roundedButton1
+            // btnEnviarOposicion
             // 
-            roundedButton1.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton1.BorderRadius = 40;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Century Gothic", 13F);
-            roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(378, 77);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(290, 50);
-            roundedButton1.TabIndex = 8;
-            roundedButton1.Text = "ENVIAR A OPOSICIÓN";
-            roundedButton1.TextColor = Color.Black;
-            roundedButton1.UseVisualStyleBackColor = false;
+            btnEnviarOposicion.BackColor = Color.FromArgb(175, 192, 218);
+            btnEnviarOposicion.BackgroundColor = Color.FromArgb(175, 192, 218);
+            btnEnviarOposicion.BorderColor = Color.FromArgb(175, 192, 218);
+            btnEnviarOposicion.BorderRadius = 40;
+            btnEnviarOposicion.BorderSize = 0;
+            btnEnviarOposicion.FlatAppearance.BorderSize = 0;
+            btnEnviarOposicion.FlatStyle = FlatStyle.Flat;
+            btnEnviarOposicion.Font = new Font("Century Gothic", 13F);
+            btnEnviarOposicion.ForeColor = Color.Black;
+            btnEnviarOposicion.Location = new Point(397, 29);
+            btnEnviarOposicion.Name = "btnEnviarOposicion";
+            btnEnviarOposicion.Size = new Size(290, 50);
+            btnEnviarOposicion.TabIndex = 8;
+            btnEnviarOposicion.Text = "ENVIAR A OPOSICIÓN";
+            btnEnviarOposicion.TextColor = Color.Black;
+            btnEnviarOposicion.UseVisualStyleBackColor = false;
+            btnEnviarOposicion.Click += btnEnviarOposicion_Click;
             // 
-            // panel2
+            // panelSuperior
             // 
-            panel2.BackColor = Color.FromArgb(34, 77, 112);
-            panel2.Controls.Add(button2);
-            panel2.Controls.Add(button1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1090, 34);
-            panel2.TabIndex = 8;
+            panelSuperior.BackColor = Color.FromArgb(34, 77, 112);
+            panelSuperior.Controls.Add(button2);
+            panelSuperior.Controls.Add(button1);
+            panelSuperior.Controls.Add(panel1);
+            panelSuperior.Dock = DockStyle.Top;
+            panelSuperior.Location = new Point(0, 0);
+            panelSuperior.Name = "panelSuperior";
+            panelSuperior.Size = new Size(1090, 34);
+            panelSuperior.TabIndex = 8;
+            panelSuperior.MouseDown += panelSuperior_MouseDown;
             // 
             // button2
             // 
@@ -153,79 +169,88 @@
             button1.Text = "X";
             button1.UseVisualStyleBackColor = true;
             // 
-            // iconButton3
+            // panel1
             // 
-            iconButton3.BackColor = Color.FromArgb(161, 136, 127);
-            iconButton3.FlatAppearance.BorderSize = 0;
-            iconButton3.FlatStyle = FlatStyle.Flat;
-            iconButton3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            iconButton3.ForeColor = Color.White;
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Gavel;
-            iconButton3.IconColor = Color.White;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.IconSize = 25;
-            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(339, 485);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 58);
-            iconButton3.TabIndex = 5;
-            iconButton3.Text = "OPOSICIÓN";
-            iconButton3.TextAlign = ContentAlignment.MiddleRight;
-            iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton3.UseVisualStyleBackColor = false;
-            iconButton3.Click += iconButton3_Click;
+            panel1.Location = new Point(3, 40);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 455);
+            panel1.TabIndex = 22;
             // 
-            // iconButton2
+            // btnOposicion
             // 
-            iconButton2.BackColor = Color.White;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 25;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(542, 485);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 58);
-            iconButton2.TabIndex = 6;
-            iconButton2.Text = "CANCELAR";
-            iconButton2.TextAlign = ContentAlignment.MiddleRight;
-            iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click;
+            btnOposicion.BackColor = Color.FromArgb(161, 136, 127);
+            btnOposicion.FlatAppearance.BorderSize = 0;
+            btnOposicion.FlatStyle = FlatStyle.Flat;
+            btnOposicion.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnOposicion.ForeColor = Color.White;
+            btnOposicion.IconChar = FontAwesome.Sharp.IconChar.Gavel;
+            btnOposicion.IconColor = Color.White;
+            btnOposicion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnOposicion.IconSize = 25;
+            btnOposicion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnOposicion.Location = new Point(362, 30);
+            btnOposicion.Name = "btnOposicion";
+            btnOposicion.Size = new Size(160, 49);
+            btnOposicion.TabIndex = 5;
+            btnOposicion.Text = "OPOSICIÓN";
+            btnOposicion.TextAlign = ContentAlignment.MiddleRight;
+            btnOposicion.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnOposicion.UseVisualStyleBackColor = false;
+            btnOposicion.Click += iconButton3_Click;
             // 
-            // label4
+            // btnCancelar
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(84, 88);
-            label4.Name = "label4";
-            label4.Size = new Size(59, 17);
-            label4.TabIndex = 12;
-            label4.Text = "Opositor";
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            btnCancelar.IconColor = Color.Black;
+            btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelar.IconSize = 25;
+            btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancelar.Location = new Point(562, 30);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(160, 49);
+            btnCancelar.TabIndex = 6;
+            btnCancelar.Text = "CANCELAR";
+            btnCancelar.TextAlign = ContentAlignment.MiddleRight;
+            btnCancelar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += iconButton2_Click;
             // 
-            // Fechas
+            // labelOpositor
             // 
-            Fechas.Controls.Add(label6);
-            Fechas.Controls.Add(txtSolicitante);
-            Fechas.Controls.Add(txtNombreOpositor);
-            Fechas.Controls.Add(label4);
-            Fechas.Location = new Point(542, 192);
-            Fechas.Name = "Fechas";
-            Fechas.Size = new Size(503, 272);
-            Fechas.TabIndex = 20;
-            Fechas.TabStop = false;
-            Fechas.Text = "Oposición";
+            labelOpositor.AutoSize = true;
+            labelOpositor.Location = new Point(84, 88);
+            labelOpositor.Name = "labelOpositor";
+            labelOpositor.Size = new Size(59, 17);
+            labelOpositor.TabIndex = 12;
+            labelOpositor.Text = "Opositor";
             // 
-            // label6
+            // groupBoxOposicion
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(87, 172);
-            label6.Name = "label6";
-            label6.Size = new Size(93, 17);
-            label6.TabIndex = 24;
-            label6.Text = "Signo opositor";
+            groupBoxOposicion.Controls.Add(labelSignoOpositor);
+            groupBoxOposicion.Controls.Add(txtSolicitante);
+            groupBoxOposicion.Controls.Add(txtNombreOpositor);
+            groupBoxOposicion.Controls.Add(labelOpositor);
+            groupBoxOposicion.Dock = DockStyle.Fill;
+            groupBoxOposicion.Location = new Point(562, 20);
+            groupBoxOposicion.Margin = new Padding(20);
+            groupBoxOposicion.Name = "groupBoxOposicion";
+            groupBoxOposicion.Size = new Size(502, 249);
+            groupBoxOposicion.TabIndex = 20;
+            groupBoxOposicion.TabStop = false;
+            groupBoxOposicion.Text = "Oposición";
+            // 
+            // labelSignoOpositor
+            // 
+            labelSignoOpositor.AutoSize = true;
+            labelSignoOpositor.Location = new Point(87, 172);
+            labelSignoOpositor.Name = "labelSignoOpositor";
+            labelSignoOpositor.Size = new Size(93, 17);
+            labelSignoOpositor.TabIndex = 24;
+            labelSignoOpositor.Text = "Signo opositor";
             // 
             // txtSolicitante
             // 
@@ -241,63 +266,144 @@
             txtNombreOpositor.Size = new Size(323, 22);
             txtNombreOpositor.TabIndex = 3;
             // 
-            // groupBox1
+            // groupBoxHistorial
             // 
-            groupBox1.Controls.Add(dateTimePicker1);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(richTextBox1);
-            groupBox1.Controls.Add(lblUser);
-            groupBox1.Location = new Point(46, 192);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(472, 272);
-            groupBox1.TabIndex = 21;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Historial";
+            groupBoxHistorial.Controls.Add(dateTimePickerFecha);
+            groupBoxHistorial.Controls.Add(labelFecha);
+            groupBoxHistorial.Controls.Add(labelAnotaciones);
+            groupBoxHistorial.Controls.Add(textBoxAnotaciones);
+            groupBoxHistorial.Controls.Add(lblUser);
+            groupBoxHistorial.Dock = DockStyle.Fill;
+            groupBoxHistorial.Location = new Point(20, 20);
+            groupBoxHistorial.Margin = new Padding(20);
+            groupBoxHistorial.Name = "groupBoxHistorial";
+            groupBoxHistorial.Padding = new Padding(0);
+            groupBoxHistorial.Size = new Size(502, 249);
+            groupBoxHistorial.TabIndex = 21;
+            groupBoxHistorial.TabStop = false;
+            groupBoxHistorial.Text = "Historial";
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(tblLayoutPrincipal);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 34);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1090, 536);
+            panel2.TabIndex = 22;
+            // 
+            // tblLayoutPrincipal
+            // 
+            tblLayoutPrincipal.ColumnCount = 1;
+            tblLayoutPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblLayoutPrincipal.Controls.Add(panelEncabezado, 0, 0);
+            tblLayoutPrincipal.Controls.Add(panelContenidoCentro, 0, 1);
+            tblLayoutPrincipal.Controls.Add(panelBotones, 0, 2);
+            tblLayoutPrincipal.Dock = DockStyle.Fill;
+            tblLayoutPrincipal.Location = new Point(0, 0);
+            tblLayoutPrincipal.Name = "tblLayoutPrincipal";
+            tblLayoutPrincipal.RowCount = 3;
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 27.954546F));
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 72.0454559F));
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 126F));
+            tblLayoutPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tblLayoutPrincipal.Size = new Size(1090, 536);
+            tblLayoutPrincipal.TabIndex = 0;
+            // 
+            // panelEncabezado
+            // 
+            panelEncabezado.Controls.Add(btnEnviarOposicion);
+            panelEncabezado.Dock = DockStyle.Fill;
+            panelEncabezado.Location = new Point(3, 3);
+            panelEncabezado.Name = "panelEncabezado";
+            panelEncabezado.Size = new Size(1084, 108);
+            panelEncabezado.TabIndex = 0;
+            // 
+            // panelContenidoCentro
+            // 
+            panelContenidoCentro.Controls.Add(tableLayoutPanel1);
+            panelContenidoCentro.Dock = DockStyle.Fill;
+            panelContenidoCentro.Location = new Point(3, 117);
+            panelContenidoCentro.Name = "panelContenidoCentro";
+            panelContenidoCentro.Size = new Size(1084, 289);
+            panelContenidoCentro.TabIndex = 1;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(groupBoxHistorial, 0, 0);
+            tableLayoutPanel1.Controls.Add(groupBoxOposicion, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1084, 289);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(btnOposicion);
+            panelBotones.Controls.Add(btnCancelar);
+            panelBotones.Dock = DockStyle.Fill;
+            panelBotones.Location = new Point(3, 412);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Size = new Size(1084, 121);
+            panelBotones.TabIndex = 2;
             // 
             // FrmEnviarAOposicionI
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1090, 601);
-            Controls.Add(Fechas);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
+            ClientSize = new Size(1090, 570);
             Controls.Add(panel2);
-            Controls.Add(roundedButton1);
-            Controls.Add(groupBox1);
+            Controls.Add(panelSuperior);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmEnviarAOposicionI";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmEnviarAOposicionI";
             Load += FrmEnviarAOposicionI_Load;
+            panelSuperior.ResumeLayout(false);
+            groupBoxOposicion.ResumeLayout(false);
+            groupBoxOposicion.PerformLayout();
+            groupBoxHistorial.ResumeLayout(false);
+            groupBoxHistorial.PerformLayout();
             panel2.ResumeLayout(false);
-            Fechas.ResumeLayout(false);
-            Fechas.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            tblLayoutPrincipal.ResumeLayout(false);
+            panelEncabezado.ResumeLayout(false);
+            panelContenidoCentro.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Label label1;
-        private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private RichTextBox richTextBox1;
+        private Label labelFecha;
+        private Label labelAnotaciones;
+        private DateTimePicker dateTimePickerFecha;
+        private RichTextBox textBoxAnotaciones;
         private Label lblUser;
-        private Clases.RoundedButton roundedButton1;
-        private Panel panel2;
+        private Clases.RoundedButton btnEnviarOposicion;
+        private Panel panelSuperior;
         private Button button1;
         private Button button2;
-        private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private Label label4;
-        private GroupBox Fechas;
-        private GroupBox groupBox1;
+        private FontAwesome.Sharp.IconButton btnOposicion;
+        private FontAwesome.Sharp.IconButton btnCancelar;
+        private Label labelOpositor;
+        private GroupBox groupBoxOposicion;
+        private GroupBox groupBoxHistorial;
         private TextBox txtNombreOpositor;
         private TextBox txtSolicitante;
-        private Label label6;
+        private Label labelSignoOpositor;
+        private Panel panel1;
+        private Panel panel2;
+        private TableLayoutPanel tblLayoutPrincipal;
+        private Panel panelEncabezado;
+        private Panel panelContenidoCentro;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panelBotones;
     }
 }

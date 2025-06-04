@@ -44,9 +44,7 @@ namespace Presentacion.Marcas_Nacionales
                 this.StartPosition = FormStartPosition.CenterScreen;
 
             }
-           
         }
-
 
         private void FrmEnviarAOposicion_Load(object sender, EventArgs e)
         {

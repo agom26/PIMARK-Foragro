@@ -41,14 +41,16 @@
             button1 = new Button();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
+            panel1 = new Panel();
             panel2.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(168, 195);
+            label1.Location = new Point(65, 149);
             label1.Name = "label1";
             label1.Size = new Size(45, 17);
             label1.TabIndex = 0;
@@ -58,7 +60,7 @@
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(349, 197);
+            label2.Location = new Point(246, 151);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
@@ -68,7 +70,7 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(168, 274);
+            label3.Location = new Point(65, 228);
             label3.Name = "label3";
             label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
@@ -78,7 +80,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(168, 218);
+            dateTimePicker1.Location = new Point(65, 172);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 1;
@@ -93,7 +95,7 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Orden de pago", "Registrada", "Licencia de uso" });
-            comboBox1.Location = new Point(349, 220);
+            comboBox1.Location = new Point(246, 174);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(250, 25);
             comboBox1.TabIndex = 2;
@@ -103,7 +105,7 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(168, 297);
+            richTextBox1.Location = new Point(65, 251);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(431, 102);
             richTextBox1.TabIndex = 3;
@@ -113,7 +115,7 @@
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(349, 153);
+            lblUser.Location = new Point(246, 107);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
@@ -131,7 +133,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(241, 74);
+            roundedButton1.Location = new Point(138, 28);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -147,8 +149,9 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(779, 34);
+            panel2.Size = new Size(565, 34);
             panel2.TabIndex = 8;
+            panel2.MouseDown += panel2_MouseDown;
             // 
             // button2
             // 
@@ -157,7 +160,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(728, 0);
+            button2.Location = new Point(514, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 6;
@@ -191,9 +194,9 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(202, 425);
+            iconButton3.Location = new Point(99, 379);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(160, 34);
+            iconButton3.Size = new Size(160, 38);
             iconButton3.TabIndex = 4;
             iconButton3.Text = "SELECCIONAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
@@ -213,9 +216,9 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(407, 425);
+            iconButton2.Location = new Point(304, 379);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(160, 34);
+            iconButton2.Size = new Size(160, 38);
             iconButton2.TabIndex = 5;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
@@ -223,33 +226,43 @@
             iconButton2.UseVisualStyleBackColor = false;
             iconButton2.Click += iconButton2_Click;
             // 
+            // panel1
+            // 
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(roundedButton1);
+            panel1.Controls.Add(lblUser);
+            panel1.Controls.Add(iconButton2);
+            panel1.Controls.Add(richTextBox1);
+            panel1.Controls.Add(iconButton3);
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(dateTimePicker1);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label3);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 34);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(565, 436);
+            panel1.TabIndex = 9;
+            // 
             // FrmAgregarEtapa
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(779, 493);
+            ClientSize = new Size(565, 493);
+            Controls.Add(panel1);
             Controls.Add(panel2);
-            Controls.Add(roundedButton1);
-            Controls.Add(lblUser);
-            Controls.Add(richTextBox1);
-            Controls.Add(comboBox1);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarEtapa";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapa";
             Load += FrmAgregarEtapa_Load;
             panel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -267,5 +280,6 @@
         private Button button2;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
+        private Panel panel1;
     }
 }

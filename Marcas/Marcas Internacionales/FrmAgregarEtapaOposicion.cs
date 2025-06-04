@@ -1,17 +1,36 @@
 ﻿using Comun.Cache;
 using Presentacion.Alertas;
+using System.Runtime.InteropServices;
 
 namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmAgregarEtapaOposicion : Form
     {
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmAgregarEtapaOposicion()
         {
             InitializeComponent();
+            this.Load += FrmAgregarEtapaOposicion_Load;
         }
+        
 
         private void FrmAgregarEtapaOposicion_Load(object sender, EventArgs e)
         {
+
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            // Si el formulario es más ancho que el panel → centrar horizontalmente
+            if (screenWidth <= 1155 && screenHeight <= 600)
+            {
+                this.Size = new Size(568, 532);
+                this.StartPosition = FormStartPosition.CenterScreen;
+            }
+
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
         }
@@ -66,6 +85,23 @@ namespace Presentacion.Marcas_Nacionales
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
         }
     }
 }

@@ -2565,7 +2565,7 @@ namespace Presentacion.Marcas_Nacionales
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
 
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
+                            //tableContent += $"<td {alignStyle}>{row[column]}</td>";
 
                             object cellValue = row[column];
                             if (cellValue is DateTime dateValue)
@@ -2598,12 +2598,13 @@ namespace Presentacion.Marcas_Nacionales
               <html>
                   <head>
                       <style>
+                          * {{box-sizing: border-box}}
                           body {{ font-family: Arial, sans-serif; }}
                           table {{ border-collapse: collapse; width: 100%; }}
                           th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
                           th {{ background-color: #f2f2f2; font-weight: bold; }}
                           img {{ width: 200px; height: auto; }}
-                          @page {{ size: legal landscape; margin: 20mm; }}
+                          @page {{ size: legal landscape; margin: 25mm; }}
                           table {{ page-break-inside: auto; }}
                           tr {{ page-break-inside: avoid; }}
                           td {{ page-break-before: auto; }}
@@ -2718,7 +2719,7 @@ namespace Presentacion.Marcas_Nacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posición del logo
-                                .Scale(0.5); // Ajustar tamaño
+                                .Scale(0.25); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo

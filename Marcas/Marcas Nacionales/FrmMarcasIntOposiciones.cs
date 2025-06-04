@@ -2234,18 +2234,16 @@ namespace Presentacion.Marcas_Internacionales
                                 : (column.ColumnName == "TIPO_OPOSICION" || column.ColumnName == "SITUACION_ACTUAL")
                                     ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
                                     : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'";
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
 
                             object cellValue = row[column];
                             if (cellValue is DateTime dateValue)
                             {
-                                cellValue = dateValue.ToString("dd/MM/yyyy"); // Cambia el formato según necesites
+                                cellValue = dateValue.ToString("dd/MM/yyyy");
                             }
 
                             tableContent += $"<td {alignStyle}>{cellValue}</td>";
                         }
                         tableContent += "</tr>";
-
                     }
 
                     string headers = "";
@@ -2265,31 +2263,32 @@ namespace Presentacion.Marcas_Internacionales
                     string imageHtml = $"<img src='data:image/png;base64,{base64Logo}' />";
 
                     fullHtmlContent += $@"<html>
-                <head>
-                    <style>
-                        body {{ font-family: Arial, sans-serif; }}
-                        table {{ border-collapse: collapse; width: 100%; }}
-                        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                        th {{ background-color: #f2f2f2; font-weight: bold; }}
-                        img {{ width: 200px; height: auto; }}
-                        @page {{ size: legal landscape; margin: 20mm; }}
-                        table {{ page-break-inside: auto; }}
-                        tr {{ page-break-inside: avoid; }}
-                        td {{ page-break-before: auto; }}
-                        .header {{ text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
-                    </style>
-                </head>
-                <body>
-                    <div class='header'>{titulo}</div>
-                    <div class='fecha'><center>Fecha: {DateTime.Now:dd-MM-yyyy HH:mm}</center></div>
-                    {imageHtml}
-                    <table>
-                        <thead><tr>{headers}</tr></thead>
-                        <tbody>{tableContent}</tbody>
-                    </table>
-                    {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")}
-                </body>
-            </html>";
+<head>
+    <style>
+        * {{box-sizing: border-box}}
+        body {{ font-family: Arial, sans-serif; }}
+        table {{ border-collapse: collapse; width: 100%; }}
+        th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+        th {{ background-color: #f2f2f2; font-weight: bold; }}
+        img {{ width: 200px; height: auto; }}
+        @page {{ size: legal landscape; margin: 25mm; }}
+        table {{ page-break-inside: auto; }}
+        tr {{ page-break-inside: avoid; }}
+        td {{ page-break-before: auto; }}
+        .header {{ text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 10px; }}
+    </style>
+</head>
+<body>
+    <div class='header'>{titulo}</div>
+    <div class='fecha'><center>Fecha: {DateTime.Now:dd-MM-yyyy HH:mm}</center></div>
+    {imageHtml}
+    <table>
+        <thead><tr>{headers}</tr></thead>
+        <tbody>{tableContent}</tbody>
+    </table>
+    {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")}
+</body>
+</html>";
                 }
 
                 await page.SetContentAsync(fullHtmlContent);
@@ -2313,6 +2312,7 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
             }
         }
+
 
 
         private void btnExportarPDF_Click(object sender, EventArgs e)
@@ -2461,7 +2461,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.5); // Ajustar tamaño
+                                .Scale(0.25); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)

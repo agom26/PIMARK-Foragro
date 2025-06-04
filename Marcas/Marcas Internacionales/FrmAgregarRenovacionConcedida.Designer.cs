@@ -49,9 +49,14 @@
             txtNoExpediente = new TextBox();
             label8 = new Label();
             groupBox1 = new GroupBox();
+            panel1 = new Panel();
+            panel3 = new Panel();
+            panel4 = new Panel();
             panel2.SuspendLayout();
             Fechas.SuspendLayout();
             groupBox1.SuspendLayout();
+            panel1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -95,7 +100,7 @@
             richTextBox1.BorderStyle = BorderStyle.None;
             richTextBox1.Location = new Point(31, 172);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 70);
+            richTextBox1.Size = new Size(406, 70);
             richTextBox1.TabIndex = 2;
             richTextBox1.Text = "";
             // 
@@ -120,7 +125,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(347, 77);
+            roundedButton1.Location = new Point(302, 40);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(329, 50);
             roundedButton1.TabIndex = 7;
@@ -136,8 +141,9 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1090, 34);
+            panel2.Size = new Size(1015, 34);
             panel2.TabIndex = 8;
+            panel2.MouseDown += panel2_MouseDown;
             // 
             // button2
             // 
@@ -146,7 +152,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(1039, 0);
+            button2.Location = new Point(964, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 5;
@@ -180,9 +186,9 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(319, 477);
+            iconButton3.Location = new Point(283, 438);
             iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(179, 41);
+            iconButton3.Size = new Size(160, 41);
             iconButton3.TabIndex = 3;
             iconButton3.Text = "ACEPTAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
@@ -202,9 +208,9 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(522, 477);
+            iconButton2.Location = new Point(490, 438);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(179, 41);
+            iconButton2.Size = new Size(160, 41);
             iconButton2.TabIndex = 4;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
@@ -217,7 +223,7 @@
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;
-            txtEstado.Size = new Size(197, 22);
+            txtEstado.Size = new Size(111, 22);
             txtEstado.TabIndex = 11;
             txtEstado.Text = "Registrada";
             // 
@@ -244,7 +250,7 @@
             // 
             dateFechVencNueva.Enabled = false;
             dateFechVencNueva.Format = DateTimePickerFormat.Short;
-            dateFechVencNueva.Location = new Point(296, 172);
+            dateFechVencNueva.Location = new Point(264, 172);
             dateFechVencNueva.Name = "dateFechVencNueva";
             dateFechVencNueva.Size = new Size(178, 22);
             dateFechVencNueva.TabIndex = 19;
@@ -252,7 +258,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(296, 149);
+            label7.Location = new Point(264, 149);
             label7.Name = "label7";
             label7.Size = new Size(142, 17);
             label7.TabIndex = 18;
@@ -260,16 +266,15 @@
             // 
             // Fechas
             // 
-            Fechas.Anchor = AnchorStyles.Top;
             Fechas.Controls.Add(txtNoExpediente);
             Fechas.Controls.Add(label8);
             Fechas.Controls.Add(dateFechVencAnt);
             Fechas.Controls.Add(dateFechVencNueva);
             Fechas.Controls.Add(label7);
             Fechas.Controls.Add(label6);
-            Fechas.Location = new Point(522, 177);
+            Fechas.Location = new Point(512, 140);
             Fechas.Name = "Fechas";
-            Fechas.Size = new Size(503, 272);
+            Fechas.Size = new Size(479, 272);
             Fechas.TabIndex = 20;
             Fechas.TabStop = false;
             Fechas.Text = "Renovacion";
@@ -277,7 +282,7 @@
             // txtNoExpediente
             // 
             txtNoExpediente.BorderStyle = BorderStyle.None;
-            txtNoExpediente.Location = new Point(175, 93);
+            txtNoExpediente.Location = new Point(186, 93);
             txtNoExpediente.Name = "txtNoExpediente";
             txtNoExpediente.ReadOnly = true;
             txtNoExpediente.Size = new Size(120, 15);
@@ -288,7 +293,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(175, 70);
+            label8.Location = new Point(186, 70);
             label8.Name = "label8";
             label8.Size = new Size(98, 17);
             label8.TabIndex = 12;
@@ -296,7 +301,6 @@
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = AnchorStyles.Top;
             groupBox1.Controls.Add(dateTimePicker1);
             groupBox1.Controls.Add(txtEstado);
             groupBox1.Controls.Add(label1);
@@ -304,12 +308,43 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(richTextBox1);
             groupBox1.Controls.Add(lblUser);
-            groupBox1.Location = new Point(26, 177);
+            groupBox1.Location = new Point(16, 140);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(472, 272);
             groupBox1.TabIndex = 21;
             groupBox1.TabStop = false;
             groupBox1.Text = "Historial";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel3);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 34);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1015, 516);
+            panel1.TabIndex = 22;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(Fechas);
+            panel3.Controls.Add(groupBox1);
+            panel3.Controls.Add(iconButton2);
+            panel3.Controls.Add(roundedButton1);
+            panel3.Controls.Add(iconButton3);
+            panel3.Controls.Add(panel4);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1015, 507);
+            panel3.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.AutoScroll = true;
+            panel4.Location = new Point(3, 6);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1009, 498);
+            panel4.TabIndex = 22;
             // 
             // FrmAgregarRenovacionConcedida
             // 
@@ -317,15 +352,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(1090, 600);
-            Controls.Add(Fechas);
+            ClientSize = new Size(1015, 550);
+            Controls.Add(panel1);
             Controls.Add(panel2);
-            Controls.Add(roundedButton1);
-            Controls.Add(groupBox1);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarRenovacionConcedida";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarRenovacionConcedida";
@@ -335,6 +365,8 @@
             Fechas.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -361,5 +393,8 @@
         private GroupBox groupBox1;
         private TextBox txtNoExpediente;
         private Label label8;
+        private Panel panel1;
+        private Panel panel3;
+        private Panel panel4;
     }
 }

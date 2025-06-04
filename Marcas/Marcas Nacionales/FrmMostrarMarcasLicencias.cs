@@ -2,6 +2,7 @@
 using Dominio;
 using Presentacion.Alertas;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -13,6 +14,13 @@ namespace Presentacion.Marcas_Internacionales
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmMostrarMarcasLicencias()
         {
             InitializeComponent();
@@ -23,6 +31,24 @@ namespace Presentacion.Marcas_Internacionales
         {
             SeleccionarMarcaOposicion.LimpiarMarcaOposicion();
             this.Close();
+        }
+
+        private void CentrarPanel(Panel panel)
+        {
+            int anchoMinimo = panel.Width + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                panel.Anchor = AnchorStyles.Top;
+                int x = (this.ClientSize.Width - panel.Width) / 2;
+                int y = panel.Location.Y;
+                panel.Location = new Point(x, y);
+            }
+            else
+            {
+                panel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panel.Location = new Point(0, panel.Location.Y);
+            }
         }
 
         private async Task LoadMarcas()
@@ -82,9 +108,57 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcas();
             }
         }
+        private void CentrarControles()
+        {
+            int espacioEntreControles = 5;
+
+            int totalWidth = txtBuscar.Width + espacioEntreControles +
+                             btnX.Width + espacioEntreControles +
+                             btnBuscar.Width;
+
+            int startX = (panel1.Width - totalWidth) / 2;
+            int centerY = (panel1.Height - txtBuscar.Height) / 2;
+
+            txtBuscar.Location = new Point(startX, centerY);
+            btnX.Location = new Point(txtBuscar.Right + espacioEntreControles, centerY);
+            btnBuscar.Location = new Point(btnX.Right + espacioEntreControles, centerY);
+        }
+
+
 
         private async void FrmMostrarMarcasLicencias_Load(object sender, EventArgs e)
         {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            if (screenWidth <= 1105 && screenHeight <= 600)
+            {
+                this.Size = new Size(750, 540);
+                this.StartPosition = FormStartPosition.CenterScreen;
+                this.AutoScroll = true;
+
+                panelSuperior.Width = this.ClientSize.Width - 20;
+                panelInferior.Width = this.ClientSize.Width - 20;
+
+                tblLayoutPrincipal.Dock = DockStyle.Fill;
+                panel1.Dock = DockStyle.Fill;
+                panel2.Dock = DockStyle.Fill;
+                panel3.Dock = DockStyle.Fill;
+                CentrarControles();
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+
+                dtgTitulares.DefaultCellStyle.Font = new Font("Century Gothic", 8);
+
+            }
+            else
+            {
+                CentrarControles();
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+                dtgTitulares.DefaultCellStyle.Font = new Font("Century Gothic", 10);
+                // Pantalla grande → centrar los paneles
+                CentrarPanel(panelSuperior);
+                CentrarPanel(panelInferior);
+            }
             // Cargar usuarios en segundo plano
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -114,12 +188,12 @@ namespace Presentacion.Marcas_Internacionales
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
             filtrar();
-            
+
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            
+
             if (dtgTitulares.RowCount <= 0)
             {
                 MessageBox.Show("No hay datos para seleccionar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -148,7 +222,7 @@ namespace Presentacion.Marcas_Internacionales
 
 
                     this.Close();
-                    
+
                 }
             }
             else
@@ -179,7 +253,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnFirst_Click(object sender, EventArgs e)
         {
             currentPageIndex = 1;
-            if (buscando==true)
+            if (buscando == true)
             {
                 filtrar();
             }
@@ -245,6 +319,23 @@ namespace Presentacion.Marcas_Internacionales
             buscando = false;
             txtBuscar.Text = "";
             filtrar();
+        }
+
+        private void panelSuperior_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }
