@@ -26,6 +26,10 @@ namespace Presentacion.Marcas_Nacionales
         //valores
         byte[] defaultImage = Properties.Resources.logoImage;
         System.Drawing.Image documento;
+        // Estas variables las declaras en el formulario (nivel de clase)
+        private string rutaArchivoLocal = null;
+        private string nombreArchivo = null;
+        private bool archivoSeleccionado = false;
         public void convertirImagen()
         {
 
@@ -45,9 +49,8 @@ namespace Presentacion.Marcas_Nacionales
             checkBox1.Checked = false;
             checkBox1.Enabled = false;
             this.Load += FrmTramiteIn_Load;
-            checkBox1.Checked = false;
             mostrarPanelRegistro();
-            dateTimePFecha_Registro.PreviewKeyDown += dateTimePFecha_Registro_PreviewKeyDown;
+            archivoSeleccionado = false;
 
         }
         private void ActualizarFechaVencimiento()
@@ -138,7 +141,59 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        public void GuardarMarcaInternacional()
+        public bool SubirArchivoPorPhp(int idMarca)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var form = new MultipartFormDataContent())
+                    {
+                        // Agregamos el ID de la marca
+                        form.Add(new StringContent(idMarca.ToString()), "idMarca");
+
+                        // Agregamos el archivo (mejor con FileStream)
+                        using (var fileStream = new FileStream(rutaArchivoLocal, FileMode.Open, FileAccess.Read))
+                        {
+                            var streamContent = new StreamContent(fileStream);
+                            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                            form.Add(streamContent, "archivo", nombreArchivo);
+
+                            // URL de tu PHP
+                            string url = "https://bpa.com.es/subir_archivo_marca_internacional_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
+
+                            // Realizamos la solicitud
+                            var responseTask = client.PostAsync(url, form);
+                            responseTask.Wait();
+
+                            var response = responseTask.Result;
+                            var responseContent = response.Content.ReadAsStringAsync().Result;
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                //FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
+                                //alerta.ShowDialog();
+                                return true;
+                            }
+                            else
+                            {
+                                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + response.StatusCode.ToString() + "\n" + responseContent, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alerta.ShowDialog();
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return false;
+            }
+        }
+
+        public async Task GuardarMarcaInternacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -211,11 +266,25 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (idMarca > 0)
                 {
+
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
                         historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
                     }
+
+
+                    // Subir archivo si fue seleccionado
+                    if (archivoSeleccionado)
+                    {
+                        bool exito = SubirArchivoPorPhp(idMarca);
+                        if (!exito)
+                        {
+                            FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alertaError.ShowDialog();
+                        }
+                    }
+
                     FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -264,8 +333,8 @@ namespace Presentacion.Marcas_Nacionales
             SeleccionarPersona.idPersonaT = 0;
             SeleccionarPersona.idPersonaA = 0;
             SeleccionarPersona.idPersonaC = 0;
-            //btnGuardarM.Location = new Point(105, 950);
-            //btnCancelarM.Location = new Point(413, 950);
+            btnAdjuntarT.Visible = false;
+            archivoSeleccionado = false;
         }
 
         public void mostrarPanelRegistro()
@@ -287,7 +356,7 @@ namespace Presentacion.Marcas_Nacionales
                 tableLayoutPanel1.RowStyles[0].Height = 64.69f;
                 tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[1].Height = 35.31f;
-
+                btnAdjuntarT.Visible = true;
 
             }
             else
@@ -296,7 +365,7 @@ namespace Presentacion.Marcas_Nacionales
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
-
+                btnAdjuntarT.Visible = false;
             }
         }
 
@@ -476,12 +545,21 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void btnGuardarM_Click(object sender, EventArgs e)
+        private async void btnGuardarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                GuardarMarcaInternacional();
+                if(archivoSeleccionado==false && checkBox1.Checked)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    await GuardarMarcaInternacional();
+                }
+                    
             }
             else
             {
@@ -497,7 +575,7 @@ namespace Presentacion.Marcas_Nacionales
             if (this.ClientSize.Width > panel1.Width)
             {
                 // Solo si no está ya centrado
-                if (panel1.Anchor != AnchorStyles.Top ||  panel1.Dock != DockStyle.None)
+                if (panel1.Anchor != AnchorStyles.Top || panel1.Dock != DockStyle.None)
                 {
                     panel1.Anchor = AnchorStyles.Top;
                     panel1.Dock = DockStyle.None;
@@ -665,6 +743,42 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmTramiteIn_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Todos los archivos (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                rutaArchivoLocal = openFileDialog.FileName;
+                nombreArchivo = Path.GetFileName(rutaArchivoLocal);
+
+                // Validamos el tamaño máximo (20 MB)
+                FileInfo fileInfo = new FileInfo(rutaArchivoLocal);
+                long tamanioEnBytes = fileInfo.Length;
+                long maxTamanio = 20 * 1024 * 1024; // 20 MB
+
+                if (tamanioEnBytes > maxTamanio)
+                {
+                    FrmAlerta alerta = new FrmAlerta("EL archivo seleccionado supera el tamaño máximo permitido de 20 MB.",
+                        "Archivo demasiado grande", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+
+                    // Reiniciar selección
+                    rutaArchivoLocal = null;
+                    nombreArchivo = null;
+                    archivoSeleccionado = false;
+                    return;
+                }
+
+                archivoSeleccionado = true;
+
+                FrmAlerta alerta2 = new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta2.ShowDialog();
+
+            }
         }
     }
 }

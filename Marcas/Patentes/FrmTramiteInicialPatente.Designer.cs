@@ -77,6 +77,7 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel2I.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(dateTimePFecha_vencimiento);
@@ -160,7 +162,7 @@
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
             dateTimePFecha_Registro.Location = new Point(343, 132);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(275, 28);
+            dateTimePFecha_Registro.Size = new Size(275, 24);
             dateTimePFecha_Registro.TabIndex = 15;
             // 
             // label18
@@ -168,7 +170,7 @@
             label18.AutoSize = true;
             label18.Location = new Point(343, 108);
             label18.Name = "label18";
-            label18.Size = new Size(155, 21);
+            label18.Size = new Size(128, 19);
             label18.TabIndex = 38;
             label18.Text = "Fecha de registro";
             // 
@@ -176,7 +178,7 @@
             // 
             txtRegistro.Location = new Point(13, 53);
             txtRegistro.Name = "txtRegistro";
-            txtRegistro.Size = new Size(259, 28);
+            txtRegistro.Size = new Size(259, 24);
             txtRegistro.TabIndex = 12;
             txtRegistro.TextChanged += txtRegistro_TextChanged;
             // 
@@ -185,7 +187,7 @@
             label17.AutoSize = true;
             label17.Location = new Point(11, 28);
             label17.Name = "label17";
-            label17.Size = new Size(75, 21);
+            label17.Size = new Size(62, 19);
             label17.TabIndex = 38;
             label17.Text = "Registro";
             // 
@@ -193,7 +195,7 @@
             // 
             txtFolio.Location = new Point(343, 53);
             txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(275, 28);
+            txtFolio.Size = new Size(275, 24);
             txtFolio.TabIndex = 13;
             txtFolio.TextChanged += txtFolio_TextChanged;
             // 
@@ -202,7 +204,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(343, 29);
             label7.Name = "label7";
-            label7.Size = new Size(46, 21);
+            label7.Size = new Size(40, 19);
             label7.TabIndex = 8;
             label7.Text = "Folio";
             // 
@@ -210,7 +212,7 @@
             // 
             txtLibro.Location = new Point(13, 135);
             txtLibro.Name = "txtLibro";
-            txtLibro.Size = new Size(259, 28);
+            txtLibro.Size = new Size(259, 24);
             txtLibro.TabIndex = 14;
             txtLibro.TextChanged += txtLibro_TextChanged;
             // 
@@ -219,7 +221,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(13, 111);
             label6.Name = "label6";
-            label6.Size = new Size(55, 21);
+            label6.Size = new Size(45, 19);
             label6.TabIndex = 10;
             label6.Text = "Tomo";
             // 
@@ -375,7 +377,7 @@
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(527, 357);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(293, 26);
+            dateTimePFecha_vencimiento.Size = new Size(293, 22);
             dateTimePFecha_vencimiento.TabIndex = 41;
             // 
             // lblVencimiento
@@ -383,7 +385,7 @@
             lblVencimiento.AutoSize = true;
             lblVencimiento.Location = new Point(525, 334);
             lblVencimiento.Name = "lblVencimiento";
-            lblVencimiento.Size = new Size(175, 20);
+            lblVencimiento.Size = new Size(143, 17);
             lblVencimiento.TabIndex = 40;
             lblVencimiento.Text = "Fecha de vencimiento";
             // 
@@ -395,7 +397,7 @@
             checkBox1.Font = new Font("Century Gothic", 10F);
             checkBox1.Location = new Point(184, 981);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(103, 25);
+            checkBox1.Size = new Size(86, 23);
             checkBox1.TabIndex = 205;
             checkBox1.Text = "Registrar";
             checkBox1.UseVisualStyleBackColor = true;
@@ -411,7 +413,7 @@
             comboBoxAnualidades.Items.AddRange(new object[] { "1", "2", "3", "4", "5" });
             comboBoxAnualidades.Location = new Point(184, 279);
             comboBoxAnualidades.Name = "comboBoxAnualidades";
-            comboBoxAnualidades.Size = new Size(185, 28);
+            comboBoxAnualidades.Size = new Size(185, 25);
             comboBoxAnualidades.TabIndex = 5;
             // 
             // label5
@@ -420,7 +422,7 @@
             label5.Font = new Font("Century Gothic", 9F);
             label5.Location = new Point(184, 255);
             label5.Name = "label5";
-            label5.Size = new Size(185, 20);
+            label5.Size = new Size(150, 17);
             label5.TabIndex = 203;
             label5.Text = "Número de anualidades";
             // 
@@ -433,7 +435,7 @@
             checkedListBoxDocumentos.Items.AddRange(new object[] { "Comprobante de pagos", "Descripción (original y 1 copia)", "Reivindicaciones (original y 1 copia)", "Dibujo(s) o fórmula (original y 1 copia)", "Resumen (original y 1 copia)", "Documento de cesión", "Poder o nombramiento" });
             checkedListBoxDocumentos.Location = new Point(184, 806);
             checkedListBoxDocumentos.Name = "checkedListBoxDocumentos";
-            checkedListBoxDocumentos.Size = new Size(374, 176);
+            checkedListBoxDocumentos.Size = new Size(374, 162);
             checkedListBoxDocumentos.TabIndex = 11;
             // 
             // txtNombreAgente
@@ -443,7 +445,7 @@
             txtNombreAgente.Location = new Point(184, 759);
             txtNombreAgente.Name = "txtNombreAgente";
             txtNombreAgente.ReadOnly = true;
-            txtNombreAgente.Size = new Size(280, 26);
+            txtNombreAgente.Size = new Size(280, 22);
             txtNombreAgente.TabIndex = 200;
             // 
             // label12
@@ -452,7 +454,7 @@
             label12.Font = new Font("Century Gothic", 9F);
             label12.Location = new Point(184, 733);
             label12.Name = "label12";
-            label12.Size = new Size(68, 20);
+            label12.Size = new Size(56, 17);
             label12.TabIndex = 199;
             label12.Text = "Nombre";
             // 
@@ -483,7 +485,7 @@
             txtDireccionTitular.Location = new Point(527, 591);
             txtDireccionTitular.Name = "txtDireccionTitular";
             txtDireccionTitular.ReadOnly = true;
-            txtDireccionTitular.Size = new Size(293, 26);
+            txtDireccionTitular.Size = new Size(293, 22);
             txtDireccionTitular.TabIndex = 197;
             // 
             // label10
@@ -492,7 +494,7 @@
             label10.Font = new Font("Century Gothic", 9F);
             label10.Location = new Point(527, 567);
             label10.Name = "label10";
-            label10.Size = new Size(80, 20);
+            label10.Size = new Size(66, 17);
             label10.TabIndex = 196;
             label10.Text = "Dirección";
             // 
@@ -503,7 +505,7 @@
             txtNombreTitular.Location = new Point(184, 591);
             txtNombreTitular.Name = "txtNombreTitular";
             txtNombreTitular.ReadOnly = true;
-            txtNombreTitular.Size = new Size(280, 26);
+            txtNombreTitular.Size = new Size(280, 22);
             txtNombreTitular.TabIndex = 195;
             // 
             // label9
@@ -512,7 +514,7 @@
             label9.Font = new Font("Century Gothic", 9F);
             label9.Location = new Point(184, 565);
             label9.Name = "label9";
-            label9.Size = new Size(68, 20);
+            label9.Size = new Size(56, 17);
             label9.TabIndex = 194;
             label9.Text = "Nombre";
             // 
@@ -541,7 +543,7 @@
             checkBoxPCT.AutoSize = true;
             checkBoxPCT.Location = new Point(600, 282);
             checkBoxPCT.Name = "checkBoxPCT";
-            checkBoxPCT.Size = new Size(18, 17);
+            checkBoxPCT.Size = new Size(15, 14);
             checkBoxPCT.TabIndex = 6;
             checkBoxPCT.UseVisualStyleBackColor = true;
             // 
@@ -550,7 +552,7 @@
             label20.AutoSize = true;
             label20.Location = new Point(527, 279);
             label20.Name = "label20";
-            label20.Size = new Size(35, 20);
+            label20.Size = new Size(29, 17);
             label20.TabIndex = 191;
             label20.Text = "PCT";
             // 
@@ -581,7 +583,7 @@
             textBoxEstatus.Location = new Point(527, 426);
             textBoxEstatus.Name = "textBoxEstatus";
             textBoxEstatus.ReadOnly = true;
-            textBoxEstatus.Size = new Size(293, 26);
+            textBoxEstatus.Size = new Size(293, 22);
             textBoxEstatus.TabIndex = 189;
             // 
             // label14
@@ -590,7 +592,7 @@
             label14.Font = new Font("Century Gothic", 9F);
             label14.Location = new Point(525, 401);
             label14.Name = "label14";
-            label14.Size = new Size(109, 20);
+            label14.Size = new Size(90, 17);
             label14.TabIndex = 188;
             label14.Text = "Estado actual";
             // 
@@ -604,7 +606,7 @@
             comboBoxTipo.Items.AddRange(new object[] { "Invención", "Modelos de utilidad", "Diseños industriales" });
             comboBoxTipo.Location = new Point(527, 193);
             comboBoxTipo.Name = "comboBoxTipo";
-            comboBoxTipo.Size = new Size(293, 28);
+            comboBoxTipo.Size = new Size(293, 25);
             comboBoxTipo.TabIndex = 4;
             // 
             // label26
@@ -613,7 +615,7 @@
             label26.Font = new Font("Century Gothic", 9F);
             label26.Location = new Point(527, 169);
             label26.Name = "label26";
-            label26.Size = new Size(37, 20);
+            label26.Size = new Size(32, 17);
             label26.TabIndex = 187;
             label26.Text = "Tipo";
             // 
@@ -621,7 +623,7 @@
             // 
             txtNombre.Location = new Point(184, 193);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(280, 26);
+            txtNombre.Size = new Size(280, 22);
             txtNombre.TabIndex = 3;
             // 
             // label4
@@ -629,7 +631,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(184, 170);
             label4.Name = "label4";
-            label4.Size = new Size(48, 20);
+            label4.Size = new Size(41, 17);
             label4.TabIndex = 184;
             label4.Text = "Signo";
             // 
@@ -639,7 +641,7 @@
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
             datePickerFechaSolicitud.Location = new Point(184, 357);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
-            datePickerFechaSolicitud.Size = new Size(280, 26);
+            datePickerFechaSolicitud.Size = new Size(280, 22);
             datePickerFechaSolicitud.TabIndex = 7;
             datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
@@ -647,7 +649,7 @@
             // 
             txtExpediente.Location = new Point(527, 112);
             txtExpediente.Name = "txtExpediente";
-            txtExpediente.Size = new Size(293, 26);
+            txtExpediente.Size = new Size(293, 22);
             txtExpediente.TabIndex = 2;
             txtExpediente.TextChanged += txtExpediente_TextChanged;
             // 
@@ -655,7 +657,7 @@
             // 
             txtCaso.Location = new Point(184, 112);
             txtCaso.Name = "txtCaso";
-            txtCaso.Size = new Size(280, 26);
+            txtCaso.Size = new Size(280, 22);
             txtCaso.TabIndex = 1;
             // 
             // label3
@@ -663,7 +665,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(184, 89);
             label3.Name = "label3";
-            label3.Size = new Size(47, 20);
+            label3.Size = new Size(38, 17);
             label3.TabIndex = 2;
             label3.Text = "Caso";
             // 
@@ -672,7 +674,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(527, 89);
             label2.Name = "label2";
-            label2.Size = new Size(91, 20);
+            label2.Size = new Size(75, 17);
             label2.TabIndex = 1;
             label2.Text = "Expediente";
             // 
@@ -681,13 +683,36 @@
             label1.AutoSize = true;
             label1.Location = new Point(184, 334);
             label1.Name = "label1";
-            label1.Size = new Size(69, 20);
+            label1.Size = new Size(60, 17);
             label1.TabIndex = 0;
             label1.Text = "Solicitud";
             // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(830, 1016);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(238, 58);
+            btnAdjuntarT.TabIndex = 208;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
+            // 
             // FrmTramiteInicialPatente
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
@@ -764,5 +789,6 @@
         private Clases.RoundedButton roundedButton2;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel2;
+        private FontAwesome.Sharp.IconButton btnAdjuntarT;
     }
 }

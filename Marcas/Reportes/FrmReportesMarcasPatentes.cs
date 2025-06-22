@@ -367,7 +367,7 @@ namespace Presentacion.Reportes
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.5); // Ajustar tamaño
+                                .Scale(0.15); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)

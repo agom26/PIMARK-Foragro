@@ -212,6 +212,7 @@ namespace Presentacion.Marcas_Internacionales
                 this.AutoScroll = true;
 
                 panelSuperior.Width = this.ClientSize.Width - 20;
+                BtnSalir.Dock = DockStyle.Right;
                 panelInferior.Width = this.ClientSize.Width - 20;
 
                 tblLayoutPrincipal.Dock = DockStyle.Fill;

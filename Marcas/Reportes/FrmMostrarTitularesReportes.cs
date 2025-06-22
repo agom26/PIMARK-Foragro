@@ -2,6 +2,7 @@
 using Dominio;
 using Presentacion.Alertas;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace Presentacion.Reportes
 {
@@ -12,6 +13,12 @@ namespace Presentacion.Reportes
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        public static extern void ReleaseCapture();
+
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public FrmMostrarTitularesReportes()
         {
             InitializeComponent();
@@ -81,8 +88,75 @@ namespace Presentacion.Reportes
                 await LoadTitulares();
             }
         }
+
+        private void CentrarPanel(Panel panel)
+        {
+            int anchoMinimo = panel.Width + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                panel.Anchor = AnchorStyles.Top;
+                int x = (this.ClientSize.Width - panel.Width) / 2;
+                int y = panel.Location.Y;
+                panel.Location = new Point(x, y);
+            }
+            else
+            {
+                panel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panel.Location = new Point(0, panel.Location.Y);
+            }
+        }
+
+        private void CentrarControles()
+        {
+            int espacioEntreControles = 5;
+
+            int totalWidth = txtBuscar.Width + espacioEntreControles +
+                             btnX.Width + espacioEntreControles +
+                             btnBuscar.Width;
+
+            int startX = (panel1.Width - totalWidth) / 2;
+            int centerY = (panel1.Height - txtBuscar.Height) / 2;
+
+            txtBuscar.Location = new Point(startX, centerY);
+            btnX.Location = new Point(txtBuscar.Right + espacioEntreControles, centerY);
+            btnBuscar.Location = new Point(btnX.Right + espacioEntreControles, centerY);
+        }
         private async void FrmMostrarTitularesReportes_Load(object sender, EventArgs e)
         {
+
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
+            if (screenWidth <= 1105 && screenHeight <= 600)
+            {
+                this.Size = new Size(750, 540);
+                this.StartPosition = FormStartPosition.CenterScreen;
+                this.AutoScroll = true;
+
+                panelSuperior.Width = this.ClientSize.Width - 20;
+                panelInferior.Width = this.ClientSize.Width - 20;
+
+                tblLayoutPrincipal.Dock = DockStyle.Fill;
+                panel1.Dock = DockStyle.Fill;
+                panel2.Dock = DockStyle.Fill;
+                panel3.Dock = DockStyle.Fill;
+                CentrarControles();
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 8, FontStyle.Bold);
+
+                dtgTitulares.DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 8);
+
+            }
+            else
+            {
+                CentrarControles();
+                dtgTitulares.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Bold);
+                dtgTitulares.DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 10);
+                // Pantalla grande → centrar los paneles
+                CentrarPanel(panelSuperior);
+                CentrarPanel(panelInferior);
+            }
+
             // Cargar usuarios en segundo plano
             await Task.Run(() => LoadTitulares());
             currentPageIndex = 1;
@@ -228,6 +302,23 @@ namespace Presentacion.Reportes
             }
 
             lblCurrentPage.Text = currentPageIndex.ToString();
+        }
+
+        private void panelSuperior_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xF012, 0);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCCALCSIZE = 0x83;
+            if (m.Msg == WM_NCCALCSIZE && m.WParam.ToInt32() == 1)
+            {
+                m.Result = new IntPtr(0xF0);   // Align client area to all borders
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }

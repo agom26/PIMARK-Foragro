@@ -60,6 +60,7 @@
             comboBoxSignoDistintivo = new ComboBox();
             comboBoxTipoSigno = new ComboBox();
             panel1 = new Panel();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel4 = new Panel();
             iconButton3 = new FontAwesome.Sharp.IconButton();
@@ -466,6 +467,7 @@
             // 
             panel1.Anchor = AnchorStyles.Top;
             panel1.AutoScroll = true;
+            panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(comboBoxTipoSigno);
             panel1.Controls.Add(comboBoxSignoDistintivo);
@@ -498,11 +500,34 @@
             panel1.Controls.Add(txtClase);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(20, 28);
+            panel1.Location = new Point(4, 28);
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1362);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(743, 1050);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(276, 58);
+            btnAdjuntarT.TabIndex = 179;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -859,5 +884,6 @@
         private Panel panel3;
         private Panel panel17;
         private Clases.RoundedButton roundedButton5;
+        private FontAwesome.Sharp.IconButton btnAdjuntarT;
     }
 }

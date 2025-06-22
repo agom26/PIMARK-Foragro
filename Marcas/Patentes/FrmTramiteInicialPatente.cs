@@ -20,11 +20,17 @@ namespace Presentacion.Patentes
         PatenteModel patenteModel = new PatenteModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
         private Form1 _form1;
+        // Estas variables las declaras en el formulario (nivel de clase)
+        private string rutaArchivoLocal = null;
+        private string nombreArchivo = null;
+        private bool archivoSeleccionado = false;
+
         public FrmTramiteInicialPatente(Form1 form1)
         {
             InitializeComponent();
             _form1 = form1;
-
+            archivoSeleccionado = false;
+            btnAdjuntarT.Visible = false;
             panel2I.Visible = false;
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
@@ -121,6 +127,9 @@ namespace Presentacion.Patentes
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
             checkedListBoxDocumentos.ClearSelected();
+            DatosRegistro.peligro = false;
+            archivoSeleccionado = false;
+            btnAdjuntarT.Visible = false;
         }
 
         public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
@@ -138,7 +147,59 @@ namespace Presentacion.Patentes
 
 
 
-        public void IngresarPatente()
+        public bool SubirArchivoPorPhp(int idPatente)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var form = new MultipartFormDataContent())
+                    {
+                        // Agregamos el ID de la marca
+                        form.Add(new StringContent(idPatente.ToString()), "idPatente");
+
+                        // Agregamos el archivo (mejor con FileStream)
+                        using (var fileStream = new FileStream(rutaArchivoLocal, FileMode.Open, FileAccess.Read))
+                        {
+                            var streamContent = new StreamContent(fileStream);
+                            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                            form.Add(streamContent, "archivo", nombreArchivo);
+
+                            // URL de tu PHP
+                            string url = "https://bpa.com.es/subir_archivo_patente_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
+
+                            // Realizamos la solicitud
+                            var responseTask = client.PostAsync(url, form);
+                            responseTask.Wait();
+
+                            var response = responseTask.Result;
+                            var responseContent = response.Content.ReadAsStringAsync().Result;
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                //FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
+                                //alerta.ShowDialog();
+                                return true;
+                            }
+                            else
+                            {
+                                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + response.StatusCode.ToString() + "\n" + responseContent, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alerta.ShowDialog();
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+                return false;
+            }
+        }
+
+        public async Task IngresarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -244,11 +305,28 @@ namespace Presentacion.Patentes
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, int.Parse(anualidad), pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
-                        GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                            , AgregarEtapaPatente.usuario, null, idPatente);
-                        FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        LimpiarFomulario();
+
+                        if (idPatente > 0)
+                        {
+                            GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                           , AgregarEtapaPatente.usuario, null, idPatente);
+
+                            // Subir archivo si fue seleccionado
+                            if (archivoSeleccionado)
+                            {
+                                bool exito = SubirArchivoPorPhp(idPatente);
+                                if (!exito)
+                                {
+                                    FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    alertaError.ShowDialog();
+                                }
+                            }
+
+                            FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+                            LimpiarFomulario();
+                        }
+                       
                     }
                     catch (Exception ex)
                     {
@@ -311,6 +389,7 @@ namespace Presentacion.Patentes
                 tableLayoutPanel1.RowStyles[0].Height = 62.5f;
                 tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[1].Height = 37.5f;
+                btnAdjuntarT.Visible = true;
                 //btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
                 //btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
             }
@@ -322,6 +401,7 @@ namespace Presentacion.Patentes
                 checkBox1.Checked = false;
                 panel2I.Visible = false;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
+                btnAdjuntarT.Visible = false;
                 //btnGuardarM.Location = new Point(197, 1050);
                 //btnCancelarM.Location = new Point(525, 1050);
             }
@@ -392,13 +472,21 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        private void btnGuardarM_Click(object sender, EventArgs e)
+        private async void btnGuardarM_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-
-                IngresarPatente();
+                if(archivoSeleccionado==false && checkBox1.Checked)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    await IngresarPatente();
+                }
+                    
             }
             else
             {
@@ -429,14 +517,14 @@ namespace Presentacion.Patentes
                 alerta.ShowDialog();
                 LimpiarFomulario();
                 _form1.cargarDashboard();
-               
+
             }
 
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
@@ -474,6 +562,42 @@ namespace Presentacion.Patentes
             else
             {
                 DatosRegistro.peligro = false;
+
+            }
+        }
+
+        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Todos los archivos (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                rutaArchivoLocal = openFileDialog.FileName;
+                nombreArchivo = Path.GetFileName(rutaArchivoLocal);
+
+                // Validamos el tamaño máximo (20 MB)
+                FileInfo fileInfo = new FileInfo(rutaArchivoLocal);
+                long tamanioEnBytes = fileInfo.Length;
+                long maxTamanio = 20 * 1024 * 1024; // 20 MB
+
+                if (tamanioEnBytes > maxTamanio)
+                {
+                    FrmAlerta alerta = new FrmAlerta("EL archivo seleccionado supera el tamaño máximo permitido de 20 MB.",
+                        "Archivo demasiado grande", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+
+                    // Reiniciar selección
+                    rutaArchivoLocal = null;
+                    nombreArchivo = null;
+                    archivoSeleccionado = false;
+                    return;
+                }
+
+                archivoSeleccionado = true;
+
+                FrmAlerta alerta2 = new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta2.ShowDialog();
 
             }
         }

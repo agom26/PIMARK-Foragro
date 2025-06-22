@@ -33,7 +33,7 @@
             dateTimePicker1 = new DateTimePicker();
             richTextBox1 = new RichTextBox();
             lblUser = new Label();
-            roundedButton1 = new Clases.RoundedButton();
+            roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
             button2 = new Button();
             button1 = new Button();
@@ -58,9 +58,9 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(188, 130);
+            label1.Location = new Point(107, 106);
             label1.Name = "label1";
-            label1.Size = new Size(55, 20);
+            label1.Size = new Size(45, 17);
             label1.TabIndex = 0;
             label1.Text = "Fecha";
             // 
@@ -68,9 +68,9 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(188, 209);
+            label3.Location = new Point(107, 185);
             label3.Name = "label3";
-            label3.Size = new Size(102, 20);
+            label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
@@ -78,9 +78,9 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(188, 153);
+            dateTimePicker1.Location = new Point(107, 129);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(192, 26);
+            dateTimePicker1.Size = new Size(192, 22);
             dateTimePicker1.TabIndex = 3;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -88,7 +88,7 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(188, 232);
+            richTextBox1.Location = new Point(107, 208);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(431, 102);
             richTextBox1.TabIndex = 5;
@@ -98,9 +98,9 @@
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(188, 78);
+            lblUser.Location = new Point(107, 75);
             lblUser.Name = "lblUser";
-            lblUser.Size = new Size(55, 20);
+            lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
             lblUser.Text = "Fecha";
             // 
@@ -116,7 +116,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(261, 9);
+            roundedButton1.Location = new Point(180, 6);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -132,8 +132,9 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(779, 34);
+            panel2.Size = new Size(642, 34);
             panel2.TabIndex = 8;
+            panel2.MouseDown += panel2_MouseDown;
             // 
             // button2
             // 
@@ -142,7 +143,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(728, 0);
+            button2.Location = new Point(591, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 1;
@@ -210,7 +211,7 @@
             // 
             txtNoExpedienteRT.Location = new Point(138, 43);
             txtNoExpedienteRT.Name = "txtNoExpedienteRT";
-            txtNoExpedienteRT.Size = new Size(154, 26);
+            txtNoExpedienteRT.Size = new Size(154, 22);
             txtNoExpedienteRT.TabIndex = 11;
             // 
             // lblNoExpediente
@@ -218,7 +219,7 @@
             lblNoExpediente.AutoSize = true;
             lblNoExpediente.Location = new Point(138, 20);
             lblNoExpediente.Name = "lblNoExpediente";
-            lblNoExpediente.Size = new Size(99, 20);
+            lblNoExpediente.Size = new Size(80, 17);
             lblNoExpediente.TabIndex = 12;
             lblNoExpediente.Text = "Renovación";
             // 
@@ -245,17 +246,18 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
-            panel1.Size = new Size(779, 542);
+            panel1.Size = new Size(642, 542);
             panel1.TabIndex = 14;
             panel1.Paint += panel1_Paint;
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel4, 0, 1);
             tableLayoutPanel1.Controls.Add(panel3, 0, 0);
-            tableLayoutPanel1.Location = new Point(169, 350);
+            tableLayoutPanel1.Location = new Point(88, 326);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 63.3333321F));
@@ -282,14 +284,13 @@
             // 
             // FrmAgregarEtapaRegistradaV
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(779, 576);
+            ClientSize = new Size(642, 576);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmAgregarEtapaRegistradaV";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmAgregarEtapaRegistradaV";

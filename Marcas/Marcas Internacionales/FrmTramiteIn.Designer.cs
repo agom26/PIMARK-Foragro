@@ -88,6 +88,7 @@
             txtExpediente = new TextBox();
             label2 = new Label();
             txtNombreCliente = new TextBox();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -102,6 +103,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(label21);
             panel1.Controls.Add(btnAgregarCliente);
             panel1.Controls.Add(groupBox1);
@@ -858,6 +860,29 @@
             txtNombreCliente.TabIndex = 183;
             txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
             // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(714, 1059);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(276, 58);
+            btnAdjuntarT.TabIndex = 184;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
+            // 
             // FrmTramiteIn
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
@@ -955,5 +980,6 @@
         private TextBox txtNombreCliente;
         private Label label21;
         private Clases.RoundedButton btnAgregarCliente;
+        private FontAwesome.Sharp.IconButton btnAdjuntarT;
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -168,7 +168,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1090, 34);
+            panel2.Size = new Size(1053, 34);
             panel2.TabIndex = 8;
             // 
             // button2
@@ -178,7 +178,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(1039, 0);
+            button2.Location = new Point(1002, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
             button2.TabIndex = 5;
@@ -352,7 +352,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1090, 566);
+            tabControl1.Size = new Size(1053, 566);
             tabControl1.TabIndex = 22;
             // 
             // tabPageRenovarMarca
@@ -368,7 +368,7 @@
             tabPageRenovarMarca.Location = new Point(4, 26);
             tabPageRenovarMarca.Name = "tabPageRenovarMarca";
             tabPageRenovarMarca.Padding = new Padding(3);
-            tabPageRenovarMarca.Size = new Size(1082, 536);
+            tabPageRenovarMarca.Size = new Size(1045, 536);
             tabPageRenovarMarca.TabIndex = 0;
             // 
             // iconButton1
@@ -403,7 +403,7 @@
             tabPageListarLicencias.Location = new Point(4, 26);
             tabPageListarLicencias.Name = "tabPageListarLicencias";
             tabPageListarLicencias.Padding = new Padding(3);
-            tabPageListarLicencias.Size = new Size(1082, 536);
+            tabPageListarLicencias.Size = new Size(779, 536);
             tabPageListarLicencias.TabIndex = 1;
             tabPageListarLicencias.UseVisualStyleBackColor = true;
             // 
@@ -476,14 +476,14 @@
             dtgLicencias.BorderStyle = BorderStyle.None;
             dtgLicencias.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgLicencias.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgLicencias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgLicencias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgLicencias.ColumnHeadersHeight = 40;
             dtgLicencias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgLicencias.EnableHeadersVisualStyles = false;
@@ -504,7 +504,7 @@
             tabPageRenovarLicencia.Controls.Add(panel4);
             tabPageRenovarLicencia.Location = new Point(4, 26);
             tabPageRenovarLicencia.Name = "tabPageRenovarLicencia";
-            tabPageRenovarLicencia.Size = new Size(1082, 536);
+            tabPageRenovarLicencia.Size = new Size(779, 536);
             tabPageRenovarLicencia.TabIndex = 2;
             tabPageRenovarLicencia.UseVisualStyleBackColor = true;
             // 
@@ -515,7 +515,7 @@
             panel4.Controls.Add(panel5);
             panel4.Location = new Point(77, 63);
             panel4.Name = "panel4";
-            panel4.Size = new Size(911, 409);
+            panel4.Size = new Size(608, 409);
             panel4.TabIndex = 0;
             // 
             // panel5
@@ -666,7 +666,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1090, 566);
+            panel1.Size = new Size(1053, 566);
             panel1.TabIndex = 23;
             // 
             // FrmAgregarRenovacionIntConcedida
@@ -675,7 +675,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1090, 600);
+            ClientSize = new Size(1070, 581);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);
