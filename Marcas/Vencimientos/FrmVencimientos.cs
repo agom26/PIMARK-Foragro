@@ -188,22 +188,22 @@ namespace Presentacion.Vencimientos
 
 
 
-        public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox)
+        public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox, string logoUrl = null)
         {
+            // 1. Convierte el texto RTF a HTML
+            string rtfHtml = RtfToHtml(richTextBox.Rtf, richTextBox)
+                             .Replace("\r\n", "<br>").Replace("\n", "<br>");
 
-            string logoUrl = "https://www.blita.com/hubfs/uXsa_Xqw-1.jpeg";
-            string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' style='max-width: 250px; height: auto; display: block; margin-top: 20px;' />";
-            string rtfContent = richTextBox.Rtf;
+            // 2. Construye el fragmento del logo solo si logoUrl no está vacío
+            string logoHtml = "";
+            if (!string.IsNullOrWhiteSpace(logoUrl))
+            {
+                logoHtml = $"<br/><img src='{logoUrl}' alt='Logo' " +
+                           "style='max-width:250px;height:auto;display:block;margin-top:20px;' />";
+            }
 
-            string htmlContent = RtfToHtml(rtfContent, richTextBox);
-
-            // Asegúrate de reemplazar saltos de línea por <br>
-            htmlContent = htmlContent.Replace("\r\n", "<br>").Replace("\n", "<br>");
-
-            // Armar el cuerpo completo
-            string finalHtml = "<html><body>" + htmlContent + "<br/><br/>" + logoHtml + "</body></html>";
-
-            return finalHtml;
+            // 3. Arma el HTML completo
+            return $"<html><body>{rtfHtml}{logoHtml}</body></html>";
         }
 
         public string RtfToHtml(string rtf, System.Windows.Forms.RichTextBox richTextBox)
@@ -266,6 +266,23 @@ namespace Presentacion.Vencimientos
                 message.From.Add(new MailboxAddress("Berger Pemueller y Asociados", "avisos@bpa.com.es"));
                 message.To.Add(new MailboxAddress("Destinatario", receptor));
                 message.Subject = subject;
+
+                // ─── 1) Determinar si existe el logo en el servidor ─────────────────────────
+                string urlLogo = null;
+                try
+                {
+                    // hacemos un HEAD o un GET muy ligero para ver si existe
+                    using var client = new HttpClient();
+                    var head = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png"));
+                    if (head.IsSuccessStatusCode)
+                        urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                }
+                catch
+                {
+                    // si da cualquier error, dejamos urlLogo = null
+                }
+
+                // ─── 2) Generar el HTML del mensaje usando la URL del logo ──────────────────
                 string htmlMessage = null;
 
                 string mensajeCuerpo = htmlMessage;
@@ -277,12 +294,12 @@ namespace Presentacion.Vencimientos
                     {
                         richTextBoxMensajeP.Invoke((MethodInvoker)(() =>
                         {
-                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP);
+                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP,urlLogo);
                         }));
                     }
                     else
                     {
-                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP);
+                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP, urlLogo);
                     }
                     mensajeCuerpo = htmlMessage
                                     ;
@@ -293,12 +310,12 @@ namespace Presentacion.Vencimientos
                     {
                         richTextBoxMensajeM.Invoke((MethodInvoker)(() =>
                         {
-                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM);
+                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM, urlLogo);
                         }));
                     }
                     else
                     {
-                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM);
+                        htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM, urlLogo);
                     }
                     mensajeCuerpo = htmlMessage;
                 }
@@ -2426,7 +2443,7 @@ namespace Presentacion.Vencimientos
         {
             // 1. Mostrar diálogo de confirmación
             var result = MessageBox.Show(
-                "¿Deseas eliminar el logo actual? Esta acción no se puede deshacer.",
+                "¿Desea eliminar el logo actual? Esta acción no se puede deshacer.",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -2447,6 +2464,8 @@ namespace Presentacion.Vencimientos
 
                     // Aquí podrías además actualizar la UI, p. ej. deshabilitar el botón de eliminar
                     btnEliminarLogo.Enabled = false;
+                    string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                    await MostrarLogoDesdeUrlAsync(urlLogo);
                 }
                 catch (Exception ex)
                 {
