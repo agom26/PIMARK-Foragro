@@ -35,6 +35,16 @@ namespace Presentacion.Vencimientos
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        System.Drawing.Image documento;
+        byte[] defaultImage = Properties.Resources.logoImage;
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
         public FrmVencimientos()
         {
             InitializeComponent();
@@ -43,6 +53,8 @@ namespace Presentacion.Vencimientos
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPagePatenteDetail);
             this.Load += FrmVencimientos_Load;
+            toolTip1.SetToolTip(pictureBoxInfo, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
+    "El sistema las reemplazará automáticamente al enviar el mensaje.");
 
         }
 
@@ -62,9 +74,22 @@ namespace Presentacion.Vencimientos
                 fontSizeComboBox.Items.Add(i.ToString());
             }
 
+            foreach (FontFamily font in FontFamily.Families)
+            {
+                fontComboBox2.Items.Add(font.Name);
+            }
+
+            // Poblar el ComboBox con tamaños de fuente
+            for (int i = 8; i <= 72; i++)
+            {
+                fontSizeComboBox2.Items.Add(i.ToString());
+            }
+
             // Seleccionar fuente y tamaño por defecto
             fontComboBox.SelectedItem = "Arial";
             fontSizeComboBox.SelectedItem = "12";
+            fontComboBox2.SelectedItem = "Arial";
+            fontSizeComboBox2.SelectedItem = "12";
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
@@ -122,21 +147,63 @@ namespace Presentacion.Vencimientos
             }
         }
 
+
+        public async Task<string> SubirLogoAsync(string rutaArchivoLocal)
+        {
+            string urlApi = "https://bpa.com.es/logoCorreo/subirLogo.php"; // Reemplaza por tu dominio real
+
+            using (var client = new HttpClient())
+            using (var content = new MultipartFormDataContent())
+            {
+                using (var fileStream = File.OpenRead(rutaArchivoLocal))
+                {
+                    var fileContent = new StreamContent(fileStream);
+                    fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+
+                    content.Add(fileContent, "archivo", Path.GetFileName(rutaArchivoLocal));
+
+                    HttpResponseMessage response = await client.PostAsync(urlApi, content);
+                    string respuesta = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                        return respuesta;
+                    else
+                        throw new Exception($"Error al subir imagen: {response.StatusCode} - {respuesta}");
+                }
+            }
+        }
+
+
+        public async Task<string> EliminarLogoAsync()
+        {
+            string urlApi = "https://bpa.com.es/logoCorreo/eliminarLogo.php";
+            using var client = new HttpClient();
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>());
+            var response = await client.PostAsync(urlApi, content);
+            var json = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"[{response.StatusCode}] {json}");
+            return json;
+        }
+
+
+
         public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox)
         {
 
             string logoUrl = "https://www.blita.com/hubfs/uXsa_Xqw-1.jpeg";
-            string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' width='400' height='200' />";
+            string logoHtml = $"<img src='{logoUrl}' alt='Logo de la Empresa' style='max-width: 250px; height: auto; display: block; margin-top: 20px;' />";
             string rtfContent = richTextBox.Rtf;
 
+            string htmlContent = RtfToHtml(rtfContent, richTextBox);
 
-            string htmlContent = "<html><body>";
+            // Asegúrate de reemplazar saltos de línea por <br>
+            htmlContent = htmlContent.Replace("\r\n", "<br>").Replace("\n", "<br>");
 
-            htmlContent += RtfToHtml(rtfContent, richTextBox);
-            htmlContent += $"<br/><br/>{logoHtml}";
-            htmlContent += "</body></html>";
+            // Armar el cuerpo completo
+            string finalHtml = "<html><body>" + htmlContent + "<br/><br/>" + logoHtml + "</body></html>";
 
-            return htmlContent;
+            return finalHtml;
         }
 
         public string RtfToHtml(string rtf, System.Windows.Forms.RichTextBox richTextBox)
@@ -249,9 +316,7 @@ namespace Presentacion.Vencimientos
                     try
                     {
                         vencimientoModel.ActualizarNotificado(id, tipo);
-                        LoadVencimientos();
-                        FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
+
 
                     }
                     catch (Exception updateEx)
@@ -1053,6 +1118,8 @@ namespace Presentacion.Vencimientos
             await Task.Yield();
 
             AnadirTabPage(tabPageMensajeMarca);
+            string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+            await MostrarLogoDesdeUrlAsync(urlLogo);
 
             await CargarCorreoMarca();
 
@@ -1092,8 +1159,10 @@ namespace Presentacion.Vencimientos
                     finally
                     {
                         iconButton1.Enabled = true;
-                        LoadVencimientos();
-                        tabControl1.SelectedTab = tabPageVencimientosList;
+                        AnadirTabPage(tabPageVencimientosList);
+                        await LoadVencimientos();
+                        EliminarTabPage(tabPageMensajeMarca);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     isSendingEmail = false;
                 }
@@ -1178,6 +1247,14 @@ namespace Presentacion.Vencimientos
             string mensaje = richTextBoxMensajeM.Rtf;
             string receptor = SeleccionarMarca.correoAgente;
             int marcaId = 0;
+
+            if (mensaje != "" && !richTextBoxMensajeM.Text.Contains("SIGNO") && !richTextBoxMensajeM.Text.Contains("F_VENCIMIENTO"))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL MENSAJE DEBE CONTENER LAS PALABRAS CLAVE",
+                     "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
             if (SeleccionarMarca.idN > 0)
             {
                 marcaId = SeleccionarMarca.idN;
@@ -1187,6 +1264,7 @@ namespace Presentacion.Vencimientos
                 marcaId = SeleccionarMarca.idInt;
             }
 
+
             string nombre = SeleccionarMarca.nombre;
             DateTime fechaV = SeleccionarMarca.fechaVencimiento.Value;
 
@@ -1194,6 +1272,7 @@ namespace Presentacion.Vencimientos
 
             if (richTextBoxMensajeM.Text != "" && receptor != "" && txtAsuntoM.Text != "" && marcaId > 0)
             {
+
                 try
                 {
                     if (isSendingEmail) return;
@@ -1213,8 +1292,10 @@ namespace Presentacion.Vencimientos
                     {
                         iconButton1.Enabled = true;
                         AnadirTabPage(tabPageVencimientosList);
-                        EliminarTabPage(tabPageMensajeMarca);
                         await LoadVencimientos();
+                        FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        EliminarTabPage(tabPageMensajeMarca);
                     }
                     isSendingEmail = false;
                 }
@@ -1222,7 +1303,6 @@ namespace Presentacion.Vencimientos
                 {
                     MessageBox.Show(ex.Message);
                 }
-
 
 
             }
@@ -1275,13 +1355,73 @@ namespace Presentacion.Vencimientos
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void ActualizarEstadoBotonCursiva()
         {
             if (richTextBoxMensajeM.SelectionFont != null)
             {
+                if (richTextBoxMensajeM.SelectionFont.Italic)
+                {
+                    button3.BackColor = Color.LightGray; // activo
+                }
+                else
+                {
+                    button3.BackColor = Color.FromArgb(222, 227, 234); // normal
+                }
+            }
+        }
+
+        private void ActualizarEstadoBotonSubrayado()
+        {
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                if (richTextBoxMensajeM.SelectionFont.Underline)
+                {
+                    button2.BackColor = Color.LightGray; // activo
+                }
+                else
+                {
+                    button2.BackColor = Color.FromArgb(222, 227, 234); // normal
+                }
+            }
+        }
+
+
+        private void ActualizarEstadoBotonNegrita()
+        {
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                if (richTextBoxMensajeM.SelectionFont.Bold)
+                {
+                    button4.BackColor = Color.LightGray; // se ve "activo"
+                }
+                else
+                {
+                    button4.BackColor = Color.FromArgb(222, 227, 234);
+                }
+            }
+        }
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
                 Font currentFont = richTextBoxMensajeM.SelectionFont;
-                FontStyle newFontStyle = currentFont.Style ^ FontStyle.Bold;
+                FontStyle newFontStyle;
+
+                // Alternar negrita
+                if (currentFont.Bold)
+                {
+                    newFontStyle = currentFont.Style & ~FontStyle.Bold; // quitar negrita
+                }
+                else
+                {
+                    newFontStyle = currentFont.Style | FontStyle.Bold; // poner negrita
+                }
+
                 richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonNegrita(); // actualizar visualmente el botón
             }
         }
 
@@ -1292,6 +1432,7 @@ namespace Presentacion.Vencimientos
                 Font currentFont = richTextBoxMensajeM.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Italic;
                 richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonCursiva(); // actualiza visualmente el botón
             }
         }
 
@@ -1302,19 +1443,42 @@ namespace Presentacion.Vencimientos
                 Font currentFont = richTextBoxMensajeM.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Underline;
                 richTextBoxMensajeM.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonSubrayado(); // actualiza visualmente el botón
             }
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedFont = fontComboBox.SelectedItem.ToString();
-            richTextBoxMensajeM.SelectionFont = new Font(selectedFont, richTextBoxMensajeM.SelectionFont.Size);
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                string selectedFont = fontComboBox2.SelectedItem.ToString();
+                Font currentFont = richTextBoxMensajeM.SelectionFont;
+
+                richTextBoxMensajeM.SelectionFont = new Font(
+                    selectedFont,
+                    currentFont.Size,
+                    currentFont.Style
+                );
+
+                ActualizarEstadoBotonNegrita(); // opcional si quieres que el botón se actualice
+            }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            float selectedSize = float.Parse(fontSizeComboBox.SelectedItem.ToString());
-            richTextBoxMensajeM.SelectionFont = new Font(richTextBoxMensajeM.SelectionFont.FontFamily, selectedSize);
+            if (richTextBoxMensajeM.SelectionFont != null)
+            {
+                float selectedSize = float.Parse(fontSizeComboBox2.SelectedItem.ToString());
+                Font currentFont = richTextBoxMensajeM.SelectionFont;
+
+                richTextBoxMensajeM.SelectionFont = new Font(
+                    currentFont.FontFamily,
+                    selectedSize,
+                    currentFont.Style
+                );
+
+                ActualizarEstadoBotonNegrita(); // opcional
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -2174,6 +2338,129 @@ namespace Presentacion.Vencimientos
         private void FrmVencimientos_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void richTextBoxMensajeM_SelectionChanged(object sender, EventArgs e)
+        {
+            ActualizarEstadoBotonNegrita();
+            ActualizarEstadoBotonCursiva();
+            ActualizarEstadoBotonSubrayado();
+        }
+
+
+        private void roundedButton21_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+        private async Task MostrarLogoDesdeUrlAsync(string url)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var response = await client.GetAsync(url);
+                convertirImagen();
+                if (response.IsSuccessStatusCode)
+                {
+                   
+                    byte[] bytes = await response.Content.ReadAsByteArrayAsync();
+                    using var ms = new MemoryStream(bytes);
+                    var img = System.Drawing.Image.FromStream(ms);
+                    pictureBoxLogo.Image = img;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // Si 404, muestro el icono de documento por defecto
+                    pictureBoxLogo.Image = documento;
+                }
+                else
+                {
+                    // Para cualquier otro error también muestro el icono por defecto
+                    pictureBoxLogo.Image = documento;
+                }
+            }
+            catch
+            {
+                // Si hay cualquier excepción de red, muestro el icono por defecto
+                pictureBoxLogo.Image = documento;
+            }
+            finally
+            {
+                pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
+
+
+
+        private async void btnSubirLogo_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Archivos de imagen|*.png;*.jpg;*.jpeg";
+                ofd.Title = "Selecciona el logo para subir";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivo = ofd.FileName;
+
+                    try
+                    {
+                        // Llama al método para subir el logo
+                        string resultado = await SubirLogoAsync(rutaArchivo);
+                        MessageBox.Show("Logo subido correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnEliminarLogo.Enabled = true;
+                        string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                        await MostrarLogoDesdeUrlAsync(urlLogo);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al subir logo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private async void iconButton16_Click(object sender, EventArgs e)
+        {
+            // 1. Mostrar diálogo de confirmación
+            var result = MessageBox.Show(
+                "¿Deseas eliminar el logo actual? Esta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // 2. Llamar al método que elimina el logo en el servidor
+                    string respuestaJson = await EliminarLogoAsync();
+
+                    // 3. Parsear la respuesta si quieres, o simplemente mostrarla
+                    MessageBox.Show(
+                        "Logo eliminado correctamente.",
+                        "Éxito",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    // Aquí podrías además actualizar la UI, p. ej. deshabilitar el botón de eliminar
+                    btnEliminarLogo.Enabled = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error al eliminar el logo:\n{ex.Message}",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // El usuario canceló: no hacemos nada
+            }
         }
     }
 }
