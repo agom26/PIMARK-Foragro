@@ -53,9 +53,16 @@ namespace Presentacion.Vencimientos
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPagePatenteDetail);
             this.Load += FrmVencimientos_Load;
-            toolTip1.SetToolTip(pictureBoxInfo, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
-    "El sistema las reemplazará automáticamente al enviar el mensaje.");
 
+
+            toolTip1.SetToolTip(pictureBoxInfo, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
+            "El sistema las reemplazará automáticamente al enviar el mensaje.");
+            toolTip2.SetToolTip(pictureBoxInfo2, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
+            "El sistema las reemplazará automáticamente al enviar el mensaje.");
+            toolTip1.SetToolTip(pictureBoxInfoLogo, "Si usted sube aquí una imagen,\n" +
+                "ésta será insertada al final de todos los correos.");
+            toolTip2.SetToolTip(pictureBoxInfoLogo2, "Si usted sube aquí una imagen,\n" +
+                "ésta será insertada al final de todos los correos.");
         }
 
         private async void FrmVencimientos_Load(object sender, EventArgs e)
@@ -294,7 +301,7 @@ namespace Presentacion.Vencimientos
                     {
                         richTextBoxMensajeP.Invoke((MethodInvoker)(() =>
                         {
-                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP,urlLogo);
+                            htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP, urlLogo);
                         }));
                     }
                     else
@@ -1029,6 +1036,8 @@ namespace Presentacion.Vencimientos
             await Task.Yield();
 
             AnadirTabPage(tabPageMensajePatente);
+            string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+            await MostrarLogoDesdeUrlAsync(urlLogo);
 
             await CargarCorreoPatente();
 
@@ -1059,17 +1068,33 @@ namespace Presentacion.Vencimientos
                 Font currentFont = richTextBoxMensajeP.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Italic;
                 richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonCursiva(); // actualiza visualmente el botón
             }
+
         }
 
         private void boldButton_Click(object sender, EventArgs e)
         {
+
             if (richTextBoxMensajeP.SelectionFont != null)
             {
                 Font currentFont = richTextBoxMensajeP.SelectionFont;
-                FontStyle newFontStyle = currentFont.Style ^ FontStyle.Bold;
+                FontStyle newFontStyle;
+
+                // Alternar negrita
+                if (currentFont.Bold)
+                {
+                    newFontStyle = currentFont.Style & ~FontStyle.Bold; // quitar negrita
+                }
+                else
+                {
+                    newFontStyle = currentFont.Style | FontStyle.Bold; // poner negrita
+                }
+
                 richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonNegrita(); // actualizar visualmente el botón
             }
+
         }
 
         private void underlineButton_Click(object sender, EventArgs e)
@@ -1079,7 +1104,9 @@ namespace Presentacion.Vencimientos
                 Font currentFont = richTextBoxMensajeP.SelectionFont;
                 FontStyle newFontStyle = currentFont.Style ^ FontStyle.Underline;
                 richTextBoxMensajeP.SelectionFont = new Font(currentFont, newFontStyle);
+                ActualizarEstadoBotonSubrayado(); // actualiza visualmente el botón
             }
+
         }
 
         private void colorButton_Click(object sender, EventArgs e)
@@ -1385,6 +1412,18 @@ namespace Presentacion.Vencimientos
                     button3.BackColor = Color.FromArgb(222, 227, 234); // normal
                 }
             }
+
+            if (richTextBoxMensajeP.SelectionFont != null)
+            {
+                if (richTextBoxMensajeP.SelectionFont.Italic)
+                {
+                    button3.BackColor = Color.LightGray; // activo
+                }
+                else
+                {
+                    button3.BackColor = Color.FromArgb(222, 227, 234); // normal
+                }
+            }
         }
 
         private void ActualizarEstadoBotonSubrayado()
@@ -1392,6 +1431,18 @@ namespace Presentacion.Vencimientos
             if (richTextBoxMensajeM.SelectionFont != null)
             {
                 if (richTextBoxMensajeM.SelectionFont.Underline)
+                {
+                    button2.BackColor = Color.LightGray; // activo
+                }
+                else
+                {
+                    button2.BackColor = Color.FromArgb(222, 227, 234); // normal
+                }
+            }
+
+            if (richTextBoxMensajeP.SelectionFont != null)
+            {
+                if (richTextBoxMensajeP.SelectionFont.Underline)
                 {
                     button2.BackColor = Color.LightGray; // activo
                 }
@@ -1408,6 +1459,18 @@ namespace Presentacion.Vencimientos
             if (richTextBoxMensajeM.SelectionFont != null)
             {
                 if (richTextBoxMensajeM.SelectionFont.Bold)
+                {
+                    button4.BackColor = Color.LightGray; // se ve "activo"
+                }
+                else
+                {
+                    button4.BackColor = Color.FromArgb(222, 227, 234);
+                }
+            }
+
+            if (richTextBoxMensajeP.SelectionFont != null)
+            {
+                if (richTextBoxMensajeP.SelectionFont.Bold)
                 {
                     button4.BackColor = Color.LightGray; // se ve "activo"
                 }
@@ -2380,31 +2443,36 @@ namespace Presentacion.Vencimientos
                 convertirImagen();
                 if (response.IsSuccessStatusCode)
                 {
-                   
+
                     byte[] bytes = await response.Content.ReadAsByteArrayAsync();
                     using var ms = new MemoryStream(bytes);
                     var img = System.Drawing.Image.FromStream(ms);
                     pictureBoxLogo.Image = img;
+                    pictureBoxLogo2.Image = img;
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     // Si 404, muestro el icono de documento por defecto
                     pictureBoxLogo.Image = documento;
+                    pictureBoxLogo2.Image = documento;
                 }
                 else
                 {
                     // Para cualquier otro error también muestro el icono por defecto
                     pictureBoxLogo.Image = documento;
+                    pictureBoxLogo2.Image = documento;
                 }
             }
             catch
             {
                 // Si hay cualquier excepción de red, muestro el icono por defecto
                 pictureBoxLogo.Image = documento;
+                pictureBoxLogo2.Image = documento;
             }
             finally
             {
                 pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxLogo2.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
@@ -2480,6 +2548,89 @@ namespace Presentacion.Vencimientos
             {
                 // El usuario canceló: no hacemos nada
             }
+        }
+
+        private async void iconButton16_Click_1(object sender, EventArgs e)
+        {
+            // 1. Mostrar diálogo de confirmación
+            var result = MessageBox.Show(
+                "¿Desea eliminar el logo actual? Esta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // 2. Llamar al método que elimina el logo en el servidor
+                    string respuestaJson = await EliminarLogoAsync();
+
+                    // 3. Parsear la respuesta si quieres, o simplemente mostrarla
+                    MessageBox.Show(
+                        "Logo eliminado correctamente.",
+                        "Éxito",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    // Aquí podrías además actualizar la UI, p. ej. deshabilitar el botón de eliminar
+                    btnEliminarLogo.Enabled = false;
+                    string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                    await MostrarLogoDesdeUrlAsync(urlLogo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error al eliminar el logo:\n{ex.Message}",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // El usuario canceló: no hacemos nada
+            }
+        }
+
+        private async void btnSubirLogo2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Archivos de imagen|*.png;*.jpg;*.jpeg";
+                ofd.Title = "Selecciona el logo para subir";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivo = ofd.FileName;
+
+                    try
+                    {
+                        // Llama al método para subir el logo
+                        string resultado = await SubirLogoAsync(rutaArchivo);
+                        MessageBox.Show("Logo subido correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnEliminarLogo.Enabled = true;
+                        string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                        await MostrarLogoDesdeUrlAsync(urlLogo);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al subir logo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void pictureBoxInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBoxMensajeP_SelectionChanged(object sender, EventArgs e)
+        {
+            ActualizarEstadoBotonNegrita();
+            ActualizarEstadoBotonCursiva();
+            ActualizarEstadoBotonSubrayado();
         }
     }
 }
