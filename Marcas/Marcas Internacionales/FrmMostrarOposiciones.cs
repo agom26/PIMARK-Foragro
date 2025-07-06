@@ -851,7 +851,7 @@ namespace Presentacion.Marcas_Nacionales
                         cmbSignoDAO.Enabled = false;
                         txtClaseAO.Enabled = false;
                         txtSignoAO.Enabled = false;
-                        var marca = marcaModel.GetMarcaInternacionalById(SeleccionarOposicion.idMarca);
+                        var marca = await marcaModel.GetMarcaInternacionalById(SeleccionarOposicion.idMarca);
                         if (marca.Rows.Count > 0)
                         {
                             DataRow dataRow = marca.Rows[0];
@@ -999,7 +999,7 @@ namespace Presentacion.Marcas_Nacionales
                 dtgReportesOp.ClearSelection();
             }*/
         }
-        public void ActualizarMarcaInternacional()
+        public async void ActualizarMarcaInternacional()
         {
 
             string expediente = txtExpediente.Text;
@@ -1059,17 +1059,17 @@ namespace Presentacion.Marcas_Nacionales
                 // Verificar si la marca está registrada
                 if (registroChek)
                 {
-                    esActualizado = marcaModel.EditMarcaInternacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaInternacionalRegistrada(
                         SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,
                         paisRegistro, tiene_poder, null, registro, folio, libro, fecha_registro, fecha_vencimiento, null, null);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,
+                    esActualizado = await marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud,
                         paisRegistro, tiene_poder, null);
                 }
 
-                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
+                DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
 
                 if (esActualizado)
                 {
@@ -1211,7 +1211,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
-        public void EditarHistorial()
+        public async void EditarHistorial()
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
@@ -1228,7 +1228,7 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                        DataTable historial = historialModel.GetHistorialById(id);
+                        DataTable historial = await historialModel.GetHistorialById(id);
 
                         if (historial.Rows.Count > 0)
                         {
@@ -1258,7 +1258,7 @@ namespace Presentacion.Marcas_Nacionales
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                        DataTable historial = historialOposicionModel.ObtenerHistorialPorId(id);
+                        DataTable historial = await historialOposicionModel.ObtenerHistorialPorId(id);
 
                         if (historial.Rows.Count > 0)
                         {
@@ -1303,15 +1303,15 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -1324,7 +1324,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string fechaSinHora = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {
@@ -1334,7 +1334,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
                 if (actualizar == true)
                 {
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1458,7 +1458,7 @@ namespace Presentacion.Marcas_Nacionales
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono,
+                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
@@ -1496,7 +1496,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton4_Click_1(object sender, EventArgs e)
+        private async void iconButton4_Click_1(object sender, EventArgs e)
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
@@ -1507,7 +1507,7 @@ namespace Presentacion.Marcas_Nacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorial.id = id;
 
-                    DataTable historial = historialModel.GetHistorialById(id);
+                    DataTable historial = await historialModel.GetHistorialById(id);
 
                     if (historial.Rows.Count > 0)
                     {
@@ -1720,7 +1720,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string fechaSinHora = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {
@@ -1733,13 +1733,13 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (SeleccionarOposicion.idMarca > 0)
                 {
-                    actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
 
                 }
                 else if (SeleccionarOposicion.idMarca == 0)
                 {
                     HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    actualizar = historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
                 }
 
                 if (actualizar == true)
@@ -1784,12 +1784,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePickerFechaH_ValueChanged_1(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void btnCancelarU_Click(object sender, EventArgs e)
@@ -1805,7 +1805,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (txtBuscar.Text != "")
             {
-                DataTable marcas = marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
+                DataTable marcas = await marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
                 if (marcas.Rows.Count > 0)
                 {
                     dtgMarcasOp.DataSource = marcas;

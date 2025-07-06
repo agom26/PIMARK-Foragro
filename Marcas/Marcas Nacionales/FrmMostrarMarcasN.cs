@@ -34,10 +34,10 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadMarcas()
         {
-            totalRows = marcaModel.GetTotalMarcasNacionales();
+            totalRows = await marcaModel.GetTotalMarcasNacionales();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var marcas = await Task.Run(() => marcaModel.GetAllMarcasNacionales(currentPageIndex, pageSize));
+            var marcas = await marcaModel.GetAllMarcasNacionales(currentPageIndex, pageSize);
 
             Invoke(new Action(() =>
             {
@@ -60,11 +60,11 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = marcaModel.FiltrarMarcasNacionales(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await marcaModel.FiltrarMarcasNacionales(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgTitulares.DataSource = titulares;
@@ -158,11 +158,11 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
+            totalRows = await marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -293,13 +293,13 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasNacionalesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();

@@ -1,4 +1,132 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class HistorialOposicionDao
+    {
+        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_oposicion.php";
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(urlApi, content);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return JsonDocument.Parse(responseBody);
+        }
+
+        public async Task InsertarHistorialOposicion(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, string origen, int idOposicion)
+        {
+            var data = new
+            {
+                action = "insertar_historial",
+                fecha = fecha.ToString("yyyy-MM-dd"),
+                etapa,
+                anotaciones,
+                usuario,
+                usuarioEdicion,
+                origen,
+                idOposicion
+            };
+
+            var jsonDoc = await PostAsync(data);
+            // Opcional: puedes checar respuesta success aquí
+        }
+
+        public async Task<DataTable> ObtenerHistorialOposicion(int idOposicion)
+        {
+            var data = new
+            {
+                action = "obtener_historial_por_oposicion",
+                idOposicion
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                            tabla.Columns.Add(prop.Name);
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                        row[prop.Name] = prop.Value.ToString();
+
+                    tabla.Rows.Add(row);
+                }
+            }
+            return tabla;
+        }
+
+        public async Task<DataTable> ObtenerHistorialOposicionPorId(int historialId)
+        {
+            var data = new
+            {
+                action = "obtener_historial_por_id",
+                historialId
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                            tabla.Columns.Add(prop.Name);
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                        row[prop.Name] = prop.Value.ToString();
+
+                    tabla.Rows.Add(row);
+                }
+            }
+            return tabla;
+        }
+
+        public async Task<bool> EditarHistorialOposicion(int historialId, string nuevaEtapa, DateTime nuevaFecha, string nuevasAnotaciones, string nuevoUsuario, string nuevoUsuarioEdicion)
+        {
+            var data = new
+            {
+                action = "editar_historial",
+                historialId,
+                nuevaEtapa,
+                nuevaFecha = nuevaFecha.ToString("yyyy-MM-dd"),
+                nuevasAnotaciones,
+                nuevoUsuario,
+                nuevoUsuarioEdicion
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+    }
+}
+
+
+/*
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -121,4 +249,4 @@ namespace AccesoDatos.Entidades
         }
 
     }
-}
+}*/

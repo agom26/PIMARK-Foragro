@@ -1,5 +1,6 @@
 ﻿using Comun.Cache;
 using Dominio;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Properties;
 using System;
@@ -30,12 +31,12 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
 
             this.Load += FrmAdministrarClientes_Load;
-            /*
+            
             if (UsuarioActivo.isAdmin == false)
             {
-                ibtnEditar.Visible = false;
+                btnEliminar.Visible = false;
 
-            }*/
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -372,7 +373,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 // Pantalla pequeña → top-left
                 panelTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelTitulo.Location = new Point(0,0); // o donde quieras
+                panelTitulo.Location = new Point(0, 0); // o donde quieras
             }
         }
         private void iconButton1_Click(object sender, EventArgs e)
@@ -650,6 +651,93 @@ namespace Presentacion.Marcas_Internacionales
         {
             CentrarTitulo();
             CentrarPanel();
+        }
+
+        public async Task EliminarCliente()
+        {
+            if (dtgClientes.SelectedRows.Count > 0)
+            {
+                btnEliminar.Enabled = false;
+
+                try
+                {
+                    int idPersona = EditarPersona.idPersona;
+
+                    // Obtener detalles de la persona
+                    var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
+
+                    if (clienteDetails.Count == 0)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL CLIENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                        return;
+                    }
+
+                    string nombrePersona = clienteDetails[0].nombre;
+
+                    DialogResult result = MessageBox.Show(
+                        $"{UsuarioActivo.usuario}, ¿Está seguro de que desea eliminar al cliente '{nombrePersona}'?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        string usuario = UsuarioActivo.usuario;
+
+                        // Intentar eliminar
+                        bool eliminado = await Task.Run(() =>
+                        {
+                            try
+                            {
+                                return personaModel.DeleteAgente(idPersona, nombrePersona, usuario); // O DeleteCliente si corresponde
+                            }
+                            catch (MySqlException ex)
+                            {
+                                FrmAlerta alerta = new FrmAlerta($"No se puede eliminar al cliente: { ex.Message }", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                alerta.ShowDialog();
+                                
+                                return false;
+                            }
+                            catch (Exception ex)
+                            {
+                                // Manejar mensajes del SIGNAL del procedimiento almacenado
+                                FrmAlerta alerta=new FrmAlerta($"Error: {ex.Message}+\nEs posible que este relacionado a una marca/patente", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alerta.ShowDialog();
+                                return false;
+                            }
+                        });
+
+                        if (eliminado)
+                        {
+                            FrmAlerta alerta = new FrmAlerta("CLIENTE ELIMINADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            alerta.ShowDialog();
+
+                            await LoadClientes(); // Recargar la tabla
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar eliminar el cliente: " + ex.Message);
+                }
+                finally
+                {
+                    btnEliminar.Enabled = true;
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN CLIENTE PARA ELIMINAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+            }
+        }
+
+
+        private async void btnEliminar_Click(object sender, EventArgs e)
+        {
+            await EliminarCliente();
         }
     }
 }

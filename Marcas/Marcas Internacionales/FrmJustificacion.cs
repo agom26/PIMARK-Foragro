@@ -36,14 +36,22 @@ namespace Presentacion.Marcas_Nacionales
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
+            fecha = dateTimePicker1.Value;
             Justificacion = richTextBoxJustificacion.Text.Trim();
-            fecha=dateTimePicker1.Value;
+
             if (string.IsNullOrEmpty(Justificacion))
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR UNA JUSTIFICACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("Por favor ingrese una justificación.", "Justificación requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            // Agrega la fecha con texto si aún no está en la justificación
+            string fechaSinHora = fecha.ToString("dd/MM/yyyy");
+            string formato = fechaSinHora + " Abandono";
+            if (!Justificacion.Contains(formato))
+            {
+                Justificacion = formato + " " + Justificacion;
             }
 
             DialogResult = DialogResult.OK;
@@ -52,9 +60,16 @@ namespace Presentacion.Marcas_Nacionales
 
         private void FrmJustificacion_Load(object sender, EventArgs e)
         {
-            labelUsuarioAbandono.Text=UsuarioActivo.usuario;
+            labelUsuarioAbandono.Text = UsuarioActivo.usuario;
             labelUsuarioAbandono.Visible = false;
             usuarioAbandono = UsuarioActivo.usuario;
+
+            richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
         }
     }
 }

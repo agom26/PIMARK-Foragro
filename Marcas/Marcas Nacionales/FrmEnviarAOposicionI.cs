@@ -214,7 +214,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (txtSolicitante.Text != "" && txtNombreOpositor.Text != "")
             {
-                string fechaSinHora = dateTimePickerFecha.Value.ToShortDateString();
+                string fechaSinHora = dateTimePickerFecha.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + "Oposición";
                 if (anotaciones.Contains(formato))
                 {
@@ -262,7 +262,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToShortDateString() + " " + "Oposición";
+            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + "Oposición";
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

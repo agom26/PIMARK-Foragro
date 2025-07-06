@@ -657,7 +657,7 @@ namespace Presentacion.Marcas_Internacionales
                         txtSignoAO.Enabled = false;
                         txtSignoOpositor.Enabled = true;
                         txtNombreTitularAO.Enabled = true;
-                        var marca = marcaModel.GetMarcaNacionalById(SeleccionarOposicion.idMarca);
+                        var marca = await marcaModel.GetMarcaNacionalById(SeleccionarOposicion.idMarca);
                         if (marca.Rows.Count > 0)
                         {
                             DataRow dataRow = marca.Rows[0];
@@ -804,7 +804,7 @@ namespace Presentacion.Marcas_Internacionales
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono,
+                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
@@ -988,7 +988,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        public void EditarHistorial()
+        public async void EditarHistorial()
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
@@ -1003,7 +1003,7 @@ namespace Presentacion.Marcas_Internacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                        DataTable historial = historialModel.GetHistorialById(id);
+                        DataTable historial = await historialModel.GetHistorialById(id);
 
                         if (historial.Rows.Count > 0)
                         {
@@ -1033,7 +1033,7 @@ namespace Presentacion.Marcas_Internacionales
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                        DataTable historial = historialOposicionModel.ObtenerHistorialPorId(id);
+                        DataTable historial = await historialOposicionModel.ObtenerHistorialPorId(id);
 
                         if (historial.Rows.Count > 0)
                         {
@@ -1041,7 +1041,7 @@ namespace Presentacion.Marcas_Internacionales
                             // Asignar los valores obtenidos a la clase SeleccionarPersona
                             SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                             SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"]);
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1156,7 +1156,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
+                string fechaSinHora = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {
@@ -1169,13 +1169,13 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (SeleccionarOposicion.idMarca > 0)
                 {
-                    actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
 
                 }
                 else if (SeleccionarOposicion.idMarca == 0)
                 {
                     HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    actualizar = historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
                 }
 
                 if (actualizar == true)
@@ -1221,17 +1221,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)

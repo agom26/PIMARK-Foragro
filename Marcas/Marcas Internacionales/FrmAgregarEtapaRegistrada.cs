@@ -98,7 +98,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (tramite && estadoSeleccionado)
             {
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
 
                 if (anotaciones.Contains(formato))

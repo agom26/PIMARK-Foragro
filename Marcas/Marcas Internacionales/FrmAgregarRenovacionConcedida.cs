@@ -49,14 +49,14 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Construcción de anotaciones
-            string fechaSinHora = fecha.ToShortDateString();
+            string fechaSinHora = fecha.ToString("dd/MM/yyyy");
             string formato = fechaSinHora + " " + etapa;
             string anotacionesFinales = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
 
             try
             {
-                bool resultado = await Task.Run(() =>
-                    marcaModel.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotacionesFinales, usuario)
+                bool resultado = await
+                    marcaModel.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotacionesFinales, usuario
                 );
 
                 if (resultado)
@@ -99,6 +99,9 @@ namespace Presentacion.Marcas_Nacionales
             txtNoExpediente.Text = SeleccionarMarca.erenov;
             dateFechVencAnt.Value = AgregarRenovacion.fechaVencimientoAntigua;
             ActualizarFechaVencimientoNueva();
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
+            //EliminarTabPage(tabPageListarLicencias);
+            //EliminarTabPage(tabPageRenovarLicencia);
 
         }
 

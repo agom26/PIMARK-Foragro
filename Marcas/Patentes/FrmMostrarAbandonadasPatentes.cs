@@ -896,7 +896,7 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -908,7 +908,7 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorialPatente.id = id;
 
-                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+                    DataTable historial = await historialPatenteModel.ObtenerHistorialPorId(id);
 
                     if (historial.Rows.Count > 0)
                     {
@@ -916,7 +916,7 @@ namespace Presentacion.Patentes
 
                         SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"]);
                         SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -997,7 +997,7 @@ namespace Presentacion.Patentes
             }
         }
 
-        private void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
+        private async void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -1009,7 +1009,7 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorialPatente.id = id;
 
-                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+                    DataTable historial = await historialPatenteModel.ObtenerHistorialPorId(id);
 
                     if (historial.Rows.Count > 0)
                     {

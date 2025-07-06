@@ -18,28 +18,28 @@ namespace Dominio
             licenciaDao = new LicenciaUso();
         }
 
-        public bool RenovarLicenciaUso(int idLicencia, string numExpediente, DateTime fechaAntigua, DateTime fechaNueva)
+        public Task<bool> RenovarLicenciaUso(int idLicencia, string numExpediente, DateTime fechaAntigua, DateTime fechaNueva)
         {
             return licenciaDao.RenovarLicenciaUso(idLicencia, numExpediente, fechaAntigua, fechaNueva);
         }
 
-        public DataTable ObtenerDatosRenovacionLicencia(int idLicencia)
+        public Task<DataTable> ObtenerDatosRenovacionLicencia(int idLicencia)
         {
             return licenciaDao.ObtenerDatosRenovacionLicencia(idLicencia);
         }
 
-        public DataTable ObtenerLicenciasPorMarca(int idMarca)
+        public Task<DataTable> ObtenerLicenciasPorMarca(int idMarca)
         {
             return licenciaDao.ObtenerLicenciasPorMarca(idMarca);
         }
 
-        public bool EliminarLicenciaUso(int idLicencia, string usuario)
+        public Task<bool> EliminarLicenciaUso(int idLicencia, string usuario)
         {
             return licenciaDao.EliminarLicenciaUsoConLog(idLicencia, usuario);
         }
 
 
-        public DataTable FiltrarLicenciasUso(
+        public async Task<DataTable> FiltrarLicenciasUso(
             string tipoLicencia,
             string expediente,
             string titulo,
@@ -51,7 +51,7 @@ namespace Dominio
             string nombreRazonSocial,
             string titular)
         {
-            return licenciaDao.FiltrarLicenciasUso(
+            return await licenciaDao.FiltrarLicenciasUso(
                 tipoLicencia,
                 expediente,
                 titulo,
@@ -65,7 +65,7 @@ namespace Dominio
             );
         }
 
-        public bool InsertarLicenciaUso(
+        public Task<bool> InsertarLicenciaUso(
             int idMarca,
             int idTitular,
             string titulo,
@@ -90,7 +90,7 @@ namespace Dominio
             );
         }
 
-        public bool EditarLicenciaUso(
+        public Task<bool> EditarLicenciaUso(
             int id,
             int idMarca,
             int idTitular,
@@ -116,78 +116,77 @@ namespace Dominio
             );
         }
 
-        public bool ExisteOtraLicenciaUsoNoExclusiva(int idMarca, int idLicenciaExcluir, string origen)
+        public Task<bool> ExisteOtraLicenciaUsoNoExclusiva(int idMarca, int idLicenciaExcluir, string origen)
         {
             return licenciaDao.ExisteOtraLicenciaUsoNoExclusiva(idMarca, idLicenciaExcluir, origen);
         }
 
 
-        public DataTable ObtenerLicenciasUsoNacionalesExclusivas(string estadoFiltro, int pageSize, int registrosOmitidos)
+        public Task<DataTable> ObtenerLicenciasUsoNacionalesExclusivas(string estadoFiltro, int pageSize, int registrosOmitidos)
         {
             return licenciaDao.ObtenerLicenciasUsoNacionalesExclusivas(estadoFiltro, pageSize, registrosOmitidos);
         }
 
-        public int GetTotalLicenciasUsoNacionalesExclusivas(string situacion)
+        public Task<int> GetTotalLicenciasUsoNacionalesExclusivas(string situacion)
         {
             return licenciaDao.GetTotalLicenciasUsoNacionalesExclusivas(situacion);
         }
 
-        public DataTable FiltrarLicenciasUsoNacionalesExclusivas(string valor, int pageSize, int registrosOmitidos)
+        public Task<DataTable> FiltrarLicenciasUsoNacionalesExclusivas(string valor, int pageSize, int registrosOmitidos)
         {
             return licenciaDao.FiltrarLicenciasUsoNacionalesExclusivas(valor, pageSize, registrosOmitidos);
         }
 
-        public int GetFilteredLicenciasUsoNacionalesExclusivasCount(string valor)
+        public Task<int> GetFilteredLicenciasUsoNacionalesExclusivasCount(string valor)
         {
-            return licenciaDao.GetFilteredLicenciasUsoNacionalesExclusivasCount(valor);
+            return licenciaDao.ObtenerCantidadFiltradaLicenciasUsoNacionalesExclusivas(valor);
         }
 
         //no exclusivas
-        public DataTable ObtenerLicenciasUsoNacionalesNoExclusivas(string estadoFiltro, int pageSize, int registrosOmitidos)
+        public Task<DataTable> ObtenerLicenciasUsoNacionalesNoExclusivas(string estadoFiltro, int pageSize, int registrosOmitidos)
         {
-            DataTable tabla = new DataTable();
-            tabla=licenciaDao.ObtenerLicenciasUsoNacionalesNoExclusivas(estadoFiltro, pageSize, registrosOmitidos);
-            return tabla;
+           
+            return licenciaDao.ObtenerLicenciasUsoNacionalesNoExclusivas(estadoFiltro, pageSize, registrosOmitidos);
+           
         }
 
-        public int GetTotalLicenciasUsoNacionalesNoExclusivas(string situacion)
+        public Task<int> GetTotalLicenciasUsoNacionalesNoExclusivas(string situacion)
         {
-            return licenciaDao.GetTotalLicenciasUsoNacionalesNoExclusivas(situacion);
+            return licenciaDao.ObtenerTotalLicenciasUsoNacionalesNoExclusivas(situacion);
         }
 
-        public DataTable FiltrarLicenciasUsoNacionalesNoExclusivas(string valor, int pageSize, int registrosOmitidos)
+        public Task<DataTable> FiltrarLicenciasUsoNacionalesNoExclusivas(string valor, int pageSize, int registrosOmitidos)
         {
             return licenciaDao.FiltrarLicenciasUsoNacionalesNoExclusivas(valor, pageSize, registrosOmitidos);
         }
 
-        public int GetFilteredLicenciasUsoNacionalesNoExclusivasCount(string valor)
+        public Task<int> GetFilteredLicenciasUsoNacionalesNoExclusivasCount(string valor)
         {
-            return licenciaDao.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(valor);
+            return licenciaDao.ObtenerCantidadFiltradaLicenciasUsoNacionalesNoExclusivas(valor);
         }
-        public bool VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
+
+        public Task<bool> VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
         {
             return licenciaDao.VerificarCompatibilidadLicenciaUso(idMarca, tipoLicencia, origen);
         }
 
 
-        public DataTable ObtenerLicenciaUsoPorId(int idLicencia)
+        public Task<DataTable> ObtenerLicenciaUsoPorId(int idLicencia)
         {
-            DataTable tabla = new DataTable();
-            tabla=licenciaDao.ObtenerLicenciaUsoPorId(idLicencia);
-            return tabla;
+            return licenciaDao.ObtenerLicenciaUsoPorId(idLicencia);
         }
 
-        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        public Task<(int total, DataTable data)> ObtenerLicenciasUsoNacionalesExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
         {
-            return licenciaDao.ObtenerLicenciasUsoNacionalesExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
+            return licenciaDao.GetLicenciasUsoNacionalesExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
         }
 
-        public (int total, DataTable datos) ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
+        public Task<(int total, DataTable datos)> ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(string estadoFiltro, int currentPageIndex, int pageSize)
         {
-            return licenciaDao.ObtenerLicenciasUsoNacionalesNoExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
+            return licenciaDao.GetLicenciasUsoNacionalesNoExclusivasCombinado(estadoFiltro, currentPageIndex, pageSize);
         }
 
-        public string FinalizarLicencia(int idLicencia)
+        public Task<string> FinalizarLicencia(int idLicencia)
         {
             return licenciaDao.CambiarEstadoLicencia(idLicencia);
         }

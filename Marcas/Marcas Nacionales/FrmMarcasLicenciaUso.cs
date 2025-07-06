@@ -57,7 +57,6 @@ namespace Presentacion.Marcas_Internacionales
         public FrmMarcasLicenciaUso()
         {
             InitializeComponent();
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             this.Load += FrmMarcasLicenciaUso_Load;
             verificarBotones();
             comboBoxEstado.SelectedItem = "En Trámite";
@@ -87,32 +86,34 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadLicenciasUsoExclusivas(string situacionActual)
         {
-            var resultado = await Task.Run(() => licenciaUso.ObtenerLicenciasUsoNacionalesExclusivasCombinado(situacionActual, currentPageIndex, pageSize))
-                                       .ConfigureAwait(false);
-
+            var resultado = await licenciaUso.ObtenerLicenciasUsoNacionalesExclusivasCombinado(situacionActual, currentPageIndex, pageSize);
 
             totalRows = resultado.total;
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            var marcasN = resultado.datos;
+            var marcasN = resultado.data;
 
 
             if (this.IsHandleCreated && !this.IsDisposed)
             {
-                this.Invoke(new Action(() =>
+                this.Invoke(() =>
                 {
                     lblTotalPages.Text = totalPages.ToString();
                     lblTotalRows.Text = totalRows.ToString();
+
                     dtgLicenciasExclusivas.DataSource = marcasN;
 
-                    if (dtgLicenciasExclusivas.Columns["id"] != null)
-                    {
+                    if (dtgLicenciasExclusivas.Columns["IdMarca"] != null)
                         dtgLicenciasExclusivas.Columns["IdMarca"].Visible = false;
+
+                    if (dtgLicenciasExclusivas.Columns["id"] != null)
                         dtgLicenciasExclusivas.Columns["id"].Visible = false;
-                        dtgLicenciasExclusivas.ClearSelection();
-                    }
-                }));
+
+                    dtgLicenciasExclusivas.ClearSelection();
+                    dtgLicenciasExclusivas.Refresh();
+                });
             }
         }
+
 
 
         private async Task LoadLicenciasUsoNoExclusivas(string situacionActual)
@@ -148,11 +149,11 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
+                totalRows = await licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = licenciaUso.FiltrarLicenciasUsoNacionalesExclusivas(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await licenciaUso.FiltrarLicenciasUsoNacionalesExclusivas(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgLicenciasExclusivas.DataSource = titulares;
@@ -333,7 +334,7 @@ namespace Presentacion.Marcas_Internacionales
                         btnDatosLicenciante.Enabled = true;
 
 
-                        var marca = marcaModel.GetMarcaNacionalById(SeleccionarLicencia.idMarca);
+                        var marca = await marcaModel.GetMarcaNacionalById(SeleccionarLicencia.idMarca);
                         if (marca.Rows.Count > 0)
                         {
                             DataRow dataRow = marca.Rows[0];
@@ -381,15 +382,19 @@ namespace Presentacion.Marcas_Internacionales
 
         private void ProcesarSeleccion(DataGridView dataGridView)
         {
-            var filaSeleccionada = dataGridView.SelectedRows[0];
+            var filaSeleccionada = dataGridView.CurrentRow;
+
+            if (filaSeleccionada == null)
+            {
+                MostrarAlerta("SELECCIONE UNA LICENCIA", "ERROR");
+                return;
+            }
 
             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
             {
-                int? id = dataRowView["id"] as int?;
-
-                if (id.HasValue)
+                if (int.TryParse(dataRowView["id"]?.ToString(), out int id))
                 {
-                    SeleccionarLicencia.idLicencia = id.Value;
+                    SeleccionarLicencia.idLicencia = id;
                     AnadirTabPage(tabPageAgregarOposicion);
                 }
                 else
@@ -398,6 +403,8 @@ namespace Presentacion.Marcas_Internacionales
                 }
             }
         }
+
+
 
         private void MostrarAlerta(string mensaje, string titulo)
         {
@@ -529,7 +536,7 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
-                if (licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
+                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
                 {
                     string mensaje = "";
 
@@ -673,11 +680,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void dtgMarcasOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            buscando1 = false;
-            Editar();
-        }
+
         public async Task FiltrarExclusivasPorSituacionActual()
         {
 
@@ -829,7 +832,7 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
-                if (licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
+                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
                 {
                     string mensaje = "";
 
@@ -896,14 +899,14 @@ namespace Presentacion.Marcas_Internacionales
             }
 
         }
-        public void TerminarLicencia()
+        public async void TerminarLicencia()
         {
             DialogResult resultado = MessageBox.Show("¿Está seguro de que desea terminar esta licencia?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
             {
                 int idLicencia = SeleccionarLicencia.idLicencia;
-                string mensaje = licenciaUso.FinalizarLicencia(idLicencia);
+                string mensaje = await licenciaUso.FinalizarLicencia(idLicencia);
 
                 string titulo = mensaje.StartsWith("Estado actualizado") ? "ÉXITO" : "ERROR";
 
@@ -1105,7 +1108,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (valor != "")
             {
-                totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(valor);
+                totalRows2 = await licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(valor);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
                 lblTotalPages2.Text = totalPages2.ToString();
                 lblTotalRows2.Text = totalRows2.ToString();
@@ -1171,12 +1174,12 @@ namespace Presentacion.Marcas_Internacionales
                 panelBusqueda2.Location = new System.Drawing.Point(0, panelBusqueda2.Location.Y); // o donde quieras
             }
         }
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             //filtrarMarcas();
             buscando1 = true;
             currentPageIndex = 1;
-            totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
+            totalRows = await licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1303,13 +1306,13 @@ namespace Presentacion.Marcas_Internacionales
             filtrarNoExclusivas();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando1 = true;
                 currentPageIndex = 1;
-                totalRows = licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
+                totalRows = await licenciaUso.GetFilteredLicenciasUsoNacionalesExclusivasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1319,11 +1322,11 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void ibtnBuscar2_Click(object sender, EventArgs e)
+        private async void ibtnBuscar2_Click(object sender, EventArgs e)
         {
             buscando2 = true;
             currentPageIndex2 = 1;
-            totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
+            totalRows2 = await licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1332,13 +1335,13 @@ namespace Presentacion.Marcas_Internacionales
             filtrarNoExclusivas();
         }
 
-        private void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando2 = true;
                 currentPageIndex2 = 1;
-                totalRows2 = licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
+                totalRows2 = await licenciaUso.GetFilteredLicenciasUsoNacionalesNoExclusivasCount(txtBuscar2.Text);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -1353,11 +1356,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void dtgOpI_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            buscando2 = false;
-            Editar();
-        }
+
 
         private void dtgMarcasOp_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1395,7 +1394,7 @@ namespace Presentacion.Marcas_Internacionales
             EliminarTabPage(tabPageReportes);
         }
 
-        public void Filtrar()
+        public async void Filtrar()
         {
             string tipoLicencia = null;
             string expediente = null;
@@ -1462,7 +1461,7 @@ namespace Presentacion.Marcas_Internacionales
             else { titular = null; }
 
 
-            dtgReportesOp.DataSource = licenciaUso.FiltrarLicenciasUso(tipoLicencia, expediente, tituloVerifica, signo, signoDistintivo,
+            dtgReportesOp.DataSource = await licenciaUso.FiltrarLicenciasUso(tipoLicencia, expediente, tituloVerifica, signo, signoDistintivo,
                 estado, clase, "nacional", nombreRazonSocial, titular);
             dtgReportesOp.ClearSelection();
 
@@ -2496,7 +2495,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 try
                 {
-                    eliminado = licenciaUso.EliminarLicenciaUso(idLicencia, UsuarioActivo.usuario);
+                    eliminado = await licenciaUso.EliminarLicenciaUso(idLicencia, UsuarioActivo.usuario);
                 }
                 catch (Exception ex)
                 {
@@ -2507,11 +2506,12 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (eliminado)
                 {
-                    FrmAlerta exito = new FrmAlerta("LICENCIA DE USO ELIMINADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    exito.ShowDialog();
                     cmbSituacionActual.SelectedIndex = 0;
                     cmbSituacionActual2.SelectedIndex = 0;
                     await CargarDatosLicenciasUsoAsync();
+                    FrmAlerta exito = new FrmAlerta("LICENCIA DE USO ELIMINADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    exito.ShowDialog();
+                   
                 }
                 else
                 {
@@ -2581,7 +2581,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void CentrarDataGridView()
         {
-            panelDataGridView.Visible = false;
+            //panelDataGridView.Visible = false;
 
             int anchoMinimo = tableLayoutPanelReportes.Width + 100;
 
@@ -2600,10 +2600,7 @@ namespace Presentacion.Marcas_Internacionales
                 panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
             }
 
-            this.BeginInvoke((MethodInvoker)(() =>
-            {
-                panelDataGridView.Visible = true;
-            }));
+          
         }
 
 
@@ -2634,6 +2631,18 @@ namespace Presentacion.Marcas_Internacionales
         private void lblTotalPages_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtgLicenciasNoEx_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            buscando2 = false;
+            Editar();
+        }
+
+        private void dtgLicenciasExclusivas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            buscando1 = false;
+            Editar();
         }
     }
 }

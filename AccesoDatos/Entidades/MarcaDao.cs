@@ -1,4 +1,1505 @@
-﻿using System;
+﻿
+using System;
+using System.Data;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class MarcaDao
+    {
+        private readonly string urlApi = "https://bpa.com.es/peticiones/marcas.php";
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(urlApi, content);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return JsonDocument.Parse(responseBody);
+        }
+
+        private DataTable ConvertToDataTable(JsonElement root)
+        {
+            var table = new DataTable();
+            if (root.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var element in root.EnumerateArray())
+                {
+                    if (table.Columns.Count == 0)
+                    {
+                        foreach (var prop in element.EnumerateObject())
+                        {
+                            if (!table.Columns.Contains(prop.Name))
+                                table.Columns.Add(prop.Name);
+                        }
+                    }
+                    var row = table.NewRow();
+                    foreach (var prop in element.EnumerateObject())
+                    {
+                        row[prop.Name] = prop.Value.ToString();
+                    }
+                    table.Rows.Add(row);
+                }
+            }
+            return table;
+        }
+
+        public DataTable ConvertSingleObjectToDataTable(JsonElement jsonObject)
+        {
+            DataTable table = new DataTable();
+
+            foreach (JsonProperty prop in jsonObject.EnumerateObject())
+            {
+                table.Columns.Add(prop.Name, typeof(string)); // o inferir tipos si querés ser más preciso
+            }
+
+            DataRow row = table.NewRow();
+
+            foreach (JsonProperty prop in jsonObject.EnumerateObject())
+            {
+                row[prop.Name] = prop.Value.ValueKind switch
+                {
+                    JsonValueKind.String => prop.Value.GetString(),
+                    JsonValueKind.Number => prop.Value.GetRawText(),
+                    JsonValueKind.True => true,
+                    JsonValueKind.False => false,
+                    JsonValueKind.Null => DBNull.Value,
+                    _ => prop.Value.ToString()
+                };
+            }
+
+            table.Rows.Add(row);
+            return table;
+        }
+
+
+        public async Task<bool> EliminarMarcaConLog(int idMarca, string usuario)
+        {
+            var data = new
+            {
+                action = "eliminar_marca_con_log",
+                idMarca,
+                usuario
+            };
+
+            JsonDocument jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<DataTable> ObtenerMarcasNacionalesParaLicencia(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_nacionales_para_licencia",
+                pageSize,
+                currentPageIndex
+            };
+
+            JsonDocument jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesParaLicencia(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_para_licencia",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            JsonDocument jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> ObtenerTotalMarcasNacionalesParaLicencia()
+        {
+            var data = new
+            {
+                action = "get_total_marcas_nacionales_para_licencia"
+            };
+
+            JsonDocument jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> ObtenerTotalFiltradoMarcasNacionalesParaLicencia(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_nacionales_para_licencia_count",
+                value
+            };
+
+            JsonDocument jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<bool> TieneEtapaRegistrada(int idMarca)
+        {
+            var data = new
+            {
+                action = "tiene_etapa_registrada",
+                idMarca
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("tiene", out var tiene) && tiene.GetBoolean();
+        }
+
+        public async Task<bool> InsertarTraspasoYHistorial(
+            string numExpediente,
+            int idMarca,
+            int idTitularAnterior,
+            int idTitularNuevo,
+            string fecha,
+            string etapa,
+            string anotaciones,
+            string usuario,
+            string origen)
+        {
+            var data = new
+            {
+                action = "insertar_traspaso_y_historial",
+                numExpediente,
+                idMarca,
+                idTitularAnterior,
+                idTitularNuevo,
+                fecha,
+                etapa,
+                anotaciones,
+                usuario,
+                origen
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<bool> RenovarMarca(
+            string noExpediente,
+            int idMarca,
+            DateTime fechaVencAnt,
+            DateTime fechaVencNueva,
+            DateTime fecha,
+            string etapa,
+            string anotaciones,
+            string usuario)
+        {
+            var data = new
+            {
+                action = "renovar_marca",
+                noExpediente,
+                idMarca,
+                fechaVencAnt,
+                fechaVencNueva,
+                fecha,
+                etapa,
+                anotaciones,
+                usuario
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<bool> ExisteRegistro(string registro, int? idMarcaActual)
+        {
+            var data = new
+            {
+                action = "existe_registro",
+                registro,
+                idMarcaActual
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("exists", out var exists) && exists.GetBoolean();
+        }
+
+        public async Task<bool> InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
+        {
+            var data = new
+            {
+                action = "insertar_expediente_marca",
+                numExpediente,
+                idMarca,
+                tipo
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<DataTable> ObtenerMarcaNacionalPorId(int id)
+        {
+            var data = new { action = "get_marca_nacional_by_id", id };
+            var jsonDoc = await PostAsync(data);
+
+            return ConvertSingleObjectToDataTable(jsonDoc.RootElement);
+        }
+
+
+        public async Task<byte[]> ObtenerLogoMarcaPorId(int id)
+        {
+            using var client = new HttpClient();
+
+            try
+            {
+                string url = $"https://bpa.com.es/peticiones/get_logo.php?id={id}";
+                byte[] logoBytes = await client.GetByteArrayAsync(url);
+                return logoBytes;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error al obtener el logo: {ex.Message}");
+                return null;
+            }
+        }
+
+
+        /*
+        public async Task<bool> EditarMarcaNacionalRegistrada(
+            int id,
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            string folio,
+            string libro,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            string fecha_solicitud,
+            string registro,
+            string fechaRegistro,
+            string fechaVencimiento,
+            string erenov,
+            string etrasp,
+            int? idCliente)
+        {
+            var data = new
+            {
+                action = "edit_marca_nacional_registrada",
+                id,
+                expediente,
+                nombre,
+                signoDistintivo,
+                tipoSigno,
+                clase,
+                folio,
+                libro,
+                logo,
+                idPersonaTitular,
+                idPersonaAgente,
+                fecha_solicitud,
+                registro,
+                fechaRegistro,
+                fechaVencimiento,
+                erenov,
+                etrasp,
+                idCliente
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }*/
+
+
+
+        public async Task<bool> EditMarcaInternacionalRegistrada(
+           int id, string expediente,
+           string nombre,
+           string signoDistintivo, 
+           string tipoSigno, 
+           string clase, 
+           byte[] logo, 
+           int idPersonaTitular, 
+           int idPersonaAgente, 
+           DateTime fecha_solicitud, 
+           string paisRegistro, 
+           string tiene_poder, 
+           int? idCliente, 
+           string registro, 
+           string folio, 
+           string libro, 
+           DateTime fechaRegistro, 
+           DateTime fechaVencimiento, 
+           string erenov, 
+           string etrasp)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_internacional_registrada"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fecha_solicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisRegistro), "pais_registro");
+            form.Add(new StringContent(tiene_poder), "tiene_poder");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
+            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(etrasp ?? ""), "etrasp");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+        public async Task<DataTable> ObtenerMarcaInternacionalPorId(int id)
+        {
+            var data = new { action = "get_marca_internacional_by_id", id };
+            var jsonDoc = await PostAsync(data);
+
+            return ConvertSingleObjectToDataTable(jsonDoc.RootElement);
+        }
+       
+
+        public async Task<int> GetTotalMarcasSinRegistro()
+        {
+            var data = new { action = "get_total_marcas_sin_registro" };
+            var jsonDoc = await PostAsync(data);
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+            return 0;
+        }
+
+        public async Task<int> GetFilteredMarcasSinRegistroCount(string value)
+        {
+            var data = new { action = "get_filtered_marcas_sin_registro_count", value };
+            var jsonDoc = await PostAsync(data);
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+            return 0;
+        }
+
+        public async Task<bool> ActualizarExpedienteMarca(
+            int id,
+            string expediente,
+            string fecha,
+            string estado,
+            string anotaciones,
+            string usuario)
+        {
+            var data = new
+            {
+                action = "actualizar_expediente_marca",
+                p_id = id,
+                p_expediente = expediente,
+                p_fecha = fecha,
+                estado,
+                anotaciones,
+                usuario
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<DataTable> FiltrarMarcas(
+        string tipo_filtro,
+        string estado ,
+        string nombre ,
+        string pais,
+        string folio,
+        string libro,
+        string registro,
+        string clase,
+        string fechaSolicitudInicio,
+        string fechaSolicitudFin,
+        string fechaRegistroInicio,
+        string fechaRegistroFin,
+        string fechaVencimientoInicio,
+        string fechaVencimientoFin,
+        string titular,
+        string agente,
+        string cliente)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas",
+                tipo_filtro,
+                estado,
+                nombre,
+                pais,
+                folio,
+                libro,
+                registro,
+                clase,
+                fechaSolicitudInicio,
+                fechaSolicitudFin,
+                fechaRegistroInicio,
+                fechaRegistroFin,
+                fechaVencimientoInicio,
+                fechaVencimientoFin,
+                titular,
+                agente,
+                cliente
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            if (jsonDoc.RootElement.TryGetProperty("data", out var dataArray))
+            {
+                return ConvertToDataTable(dataArray);
+            }
+            return new DataTable();
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnTramite(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_en_tramite",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnTramite(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_tramite",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnOposicion(string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_en_oposicion",
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnOposicionInterpuestas(string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_en_oposicion_interpuestas",
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> filtrarMarcasInternacionalesRecibidasEnOposicion(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_oposicion",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnOposicionInterpuestas(string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_oposicion_interpuestas",
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesRegistradas(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_registradas",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesRegistradas(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_registradas",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnTramiteDeRenovacion(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_en_tramite_de_renovacion",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnTramiteDeTraspaso(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales_en_tramite_de_traspaso",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerTodasMarcasInternacionales(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_internacionales",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionales(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_nacionales",
+                filtro,
+                pageSize,
+                currentPageIndex
+                
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionales(int pageSize, int currentPageIndex, string filtro)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales",
+                pageSize,
+                currentPageIndex,
+                filtro
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasNacionales()
+        {
+            var data = new { action = "get_total_marcas_nacionales" };
+            var jsonDoc = await PostAsync(data);
+
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+
+            return 0;
+        }
+
+        public async Task<int> GetTotalMarcasInternacionales()
+        {
+            var data = new { action = "get_total_marcas_internacionales" };
+            var jsonDoc = await PostAsync(data);
+
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+
+            return 0;
+        }
+
+        public async Task<int> GetFilteredMarcasNacionalesCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_nacionales_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+
+            return 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+
+            return 0;
+        }
+
+        public async Task<DataTable> ObtenerTodasMarcasNacionales(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_nacionales",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasNacionalesEnTramite(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_nacionales_en_tramite",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesSinRegistro()
+        {
+            var data = new { action = "get_total_marcas_internacionales_sin_registro" };
+
+            var jsonDoc = await PostAsync(data);
+            if (jsonDoc.RootElement.TryGetProperty("total", out var totalProp))
+                return totalProp.GetInt32();
+
+            return 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesSinRegistroCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_sin_registro_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesSinRegistro(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_internacionales_ingresadas",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasNacionalesEnOposicion()
+        {
+            var data = new { action = "get_all_marcas_nacionales_en_oposicion" };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesEnOposicionRecibidas(string situacionActual, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_total_marcas_internacionales_en_oposicion_recibidas",
+                situacionActual,
+                pageSize
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnOposicionRecibidasCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_oposicion_recibidas_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesRecibidasCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_recibidas_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesEnOposicionRecibidas(string situacionActual, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_internacionales_en_oposicion",
+                situacionActual,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesEnOposicionInterpuestas()
+        {
+            var data = new
+            {
+                action = "get_all_marcas_internacionales_en_oposicion_interpuestas"
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasRegistradas()
+        {
+            var data = new { action = "get_total_marcas_registradas" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasRegistradasCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_registradas_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasNacionalesRegistradas(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_nacionales_registradas",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesRegistradas(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "get_all_marcas_internacionales_registradas",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasEnTramiteDeRenovacion()
+        {
+            var data = new { action = "get_total_marcas_en_tramite_de_renovacion" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasEnTramiteDeRenovacionCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_en_tramite_de_renovacion_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetTotalMarcasEnTramiteDeTraspaso()
+        {
+            var data = new { action = "get_total_marcas_en_tramite_de_traspaso" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasEnTramiteDeTraspasoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_en_tramite_de_traspaso_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+        public async Task<int> GetTotalMarcasInternacionalesEnTramiteDeRenovacion()
+        {
+            var data = new { action = "get_total_marcas_internacionales_en_tramite_de_renovacion" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_tramite_de_renovacion_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesEnTramiteDeTraspaso()
+        {
+            var data = new { action = "get_total_marcas_internacionales_en_tramite_de_traspaso" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_tramite_de_traspaso_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesRegistradas()
+        {
+            var data = new { action = "get_total_marcas_internacionales_registradas" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesRegistradasCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_registradas_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetTotalMarcasEnAbandono()
+        {
+            var data = new { action = "get_total_marcas_en_abandono" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasEnAbandonoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_en_abandono_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasEnAbandono(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_en_abandono",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasEnAbandono(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_en_abandono",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesEnAbandono()
+        {
+            var data = new { action = "get_total_marcas_internacionales_en_abandono" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnAbandonoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_abandono_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesEnAbandono(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_internacionales_en_abandono",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnAbandono(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_abandono",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasRegistradasRenovaciones(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_registradas_renovaciones",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnRenovacion(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_renovacion",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasRegistradasEnTramiteDeTraspaso(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_registradas_en_traspaso",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> FiltrarMarcaInternacionalEnTramiteDeTraspaso(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marca_internacional_en_traspaso",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesRegistradasRenovaciones(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_internacionales_renovaciones",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_internacionales_traspaso",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<DataTable> ObtenerTipoMarca(int id)
+        {
+            var data = new
+            {
+                action = "obtener_tipo_marca",
+                id
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> AddMarcaNacional(
+    string expediente,
+    string nombre,
+    string signoDistintivo,
+    string tipoSigno,
+    string clase,
+    byte[] logo,
+    int idPersonaTitular,
+    int idPersonaAgente,
+    DateTime fechaSolicitud,
+    int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_nacional"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
+        public async Task<int> AddMarcaInternacional(
+    string expediente,
+    string nombre,
+    string signoDistintivo,
+    string tipoSigno,
+    string clase,
+    byte[] logo,
+    int idPersonaTitular,
+    int idPersonaAgente,
+    DateTime fechaSolicitud,
+    string paisDeRegistro,
+    string tienePoder,
+    int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_internacional"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisDeRegistro), "pais_de_registro");
+            form.Add(new StringContent(tienePoder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
+        public async Task<int> AddMarcaNacionalRegistrada(
+    string expediente,
+    string nombre,
+    string signoDistintivo,
+    string tipoSigno,
+    string clase,
+    string folio,
+    string libro,
+    byte[] logo,
+    int idPersonaTitular,
+    int idPersonaAgente,
+    DateTime fechaSolicitud,
+    string registro,
+    DateTime fechaRegistro,
+    DateTime fechaVencimiento,
+    int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_nacional_registrada"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
+        public async Task<int> AddMarcaInternacionalRegistrada(
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string paisRegistro,
+            string tienePoder,
+            int? idCliente,
+            string registro,
+            string folio,
+            string libro,
+            DateTime fechaRegistro,
+            DateTime fechaVencimiento)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_internacional_registrada"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisRegistro), "pais_de_registro");
+            form.Add(new StringContent(tienePoder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
+        public async Task<bool> EditMarcaNacional(
+            int id,
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_nacional"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+        public async Task<bool> EditMarcaNacionalRegistrada(
+           int id,
+           string expediente,
+           string nombre,
+           string signoDistintivo,
+           string tipoSigno,
+           string clase,
+           string folio,
+           string libro,
+           byte[] logo,
+           int idPersonaTitular,
+           int idPersonaAgente,
+           DateTime fechaSolicitud,
+           string registro,
+           DateTime fechaRegistro,
+           DateTime fechaVencimiento,
+           string erenov,
+           string etrasp,
+           int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_nacional_registrada"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
+            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(etrasp ?? ""), "etrasp");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+
+        public async Task<bool> EditMarcaInternacional(
+            int id,
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string pais, 
+            string tiene_poder,
+            int? idCliente)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_internacional"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(pais), "pais_registro");
+            form.Add(new StringContent(tiene_poder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+
+
+
+    }
+}
+
+
+/*
+using System;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Linq;
@@ -366,50 +1867,50 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public DataTable Filtrar(string tipo_filtro,
-        string? estado, string? nombre, string? pais, string? folio, string? libro,
-        string? registro, string? clase, 
-        string? fechaSolicitudInicio, string? fechaSolicitudFin,
-        string? fechaRegistroInicio, string? fechaRegistroFin,
-        string? fechaVencimientoInicio, string? fechaVencimientoFin,
-        string? titular, string? agente,string? cliente)
-        {
-            DataTable dataTable = new DataTable();
-
-            using (MySqlConnection conexion = GetConnection())
+            public DataTable Filtrar(string tipo_filtro,
+            string? estado, string? nombre, string? pais, string? folio, string? libro,
+            string? registro, string? clase, 
+            string? fechaSolicitudInicio, string? fechaSolicitudFin,
+            string? fechaRegistroInicio, string? fechaRegistroFin,
+            string? fechaVencimientoInicio, string? fechaVencimientoFin,
+            string? titular, string? agente,string? cliente)
             {
-                conexion.Open();
-                using (MySqlCommand cmd = new MySqlCommand("Filtrar", conexion))
+                DataTable dataTable = new DataTable();
+
+                using (MySqlConnection conexion = GetConnection())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("tipo_filtro", tipo_filtro);
-                    cmd.Parameters.AddWithValue("estado_filtro", estado ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_nombre", nombre ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_pais", pais ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_folio", folio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_tomo", libro ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_registro", registro ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("P_solicitud_inicio", fechaSolicitudInicio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_solicitud_fin", fechaSolicitudFin ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_registro_inicio", fechaRegistroInicio?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_registro_fin", fechaRegistroFin?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_vencimiento_inicio", fechaVencimientoInicio ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_vencimiento_fin", fechaVencimientoFin ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_agente", agente ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("p_cliente", cliente ?? (object)DBNull.Value);
-
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    conexion.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("Filtrar", conexion))
                     {
-                        adapter.Fill(dataTable);  
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("tipo_filtro", tipo_filtro);
+                        cmd.Parameters.AddWithValue("estado_filtro", estado ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_nombre", nombre ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_pais", pais ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_folio", folio ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_tomo", libro ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_registro", registro ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_clase", clase ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("P_solicitud_inicio", fechaSolicitudInicio ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_solicitud_fin", fechaSolicitudFin ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_registro_inicio", fechaRegistroInicio?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_registro_fin", fechaRegistroFin?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_vencimiento_inicio", fechaVencimientoInicio ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_vencimiento_fin", fechaVencimientoFin ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_titular", titular ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_agente", agente ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("p_cliente", cliente ?? (object)DBNull.Value);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dataTable);  
+                        }
                     }
                 }
-            }
 
-            return dataTable; 
-        }
+                return dataTable; 
+            }
         
 
 
@@ -2375,8 +3876,6 @@ namespace AccesoDatos.Entidades
             return dataTable;
         }
 
-
-
-
     }
 }
+*/

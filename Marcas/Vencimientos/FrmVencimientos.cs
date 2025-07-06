@@ -725,7 +725,7 @@ namespace Presentacion.Vencimientos
             try
             {
                 tabControl1.Visible = false;
-                DataTable detallesMarcaInter = await Task.Run(() => marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN));
+                DataTable detallesMarcaInter = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                 if (detallesMarcaInter.Rows.Count > 0)
                 {
@@ -739,7 +739,7 @@ namespace Presentacion.Vencimientos
                         SeleccionarMarca.estado = row["estado"].ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
                         SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
-                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        //SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
                         SeleccionarMarca.idPersonaTitular = row["idTitular"] != DBNull.Value ? Convert.ToInt32(row["idTitular"]) : 0;
                         SeleccionarMarca.idPersonaAgente = row["idAgente"] != DBNull.Value ? Convert.ToInt32(row["idAgente"]) : 0;
                         SeleccionarMarca.idPersonaCliente = row["idCliente"] != DBNull.Value ? Convert.ToInt32(row["idCliente"]) : 0;
@@ -796,8 +796,22 @@ namespace Presentacion.Vencimientos
                         txtERenovacionM.Text = SeleccionarMarca.erenov;
                         txtETraspasoM.Text = SeleccionarMarca.etraspaso;
 
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
 
-                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
+                        if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
+                            {
+                                pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
+
+                        bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -870,13 +884,28 @@ namespace Presentacion.Vencimientos
                         SeleccionarMarca.estado = row["estado"].ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
                         SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
-                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        //SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
                         SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
+
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idInt);
+
+                        if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
+                            {
+                                pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         if (row["Erenov"] != DBNull.Value)
                         {
@@ -929,7 +958,7 @@ namespace Presentacion.Vencimientos
                         richTextBox1M.Text = SeleccionarMarca.observaciones;
 
 
-                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
+                        bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
 
                         if (contieneRegistrada)
                         {
@@ -1205,8 +1234,10 @@ namespace Presentacion.Vencimientos
                         iconButton1.Enabled = true;
                         AnadirTabPage(tabPageVencimientosList);
                         await LoadVencimientos();
-                        EliminarTabPage(tabPageMensajeMarca);
-                        EliminarTabPage(tabPageMarcaDetail);
+                        FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        EliminarTabPage(tabPageMensajePatente);
+                        EliminarTabPage(tabPagePatenteDetail);
                     }
                     isSendingEmail = false;
                 }
@@ -1340,6 +1371,7 @@ namespace Presentacion.Vencimientos
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         EliminarTabPage(tabPageMensajeMarca);
+                        EliminarTabPage(tabPageMarcaDetail);
                     }
                     isSendingEmail = false;
                 }

@@ -90,7 +90,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (txtSolicitante.Text != "" && txtNombreOpositor.Text != "")
             {
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + "Oposición";
                 if (anotaciones.Contains(formato))
                 {
@@ -138,7 +138,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + "Oposición";
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Oposición";
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

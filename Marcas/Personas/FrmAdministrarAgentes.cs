@@ -28,7 +28,7 @@ namespace Presentacion.Personas
             if (UsuarioActivo.isAdmin == false)
             {
                 ibtnEditar.Visible = false;
-
+                btnEliminarAgente.Visible = false;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -151,7 +151,7 @@ namespace Presentacion.Personas
                     FrmAlerta alerta = new FrmAlerta("POR FAVOR SELECCIONE UN AGENTE", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    EditarUsuario.idUser = 0;
+                    EditarPersona.idPersona= 0;
                 }
             }
 
@@ -228,11 +228,6 @@ namespace Presentacion.Personas
             VerificarSeleccion();
             await Editar();
 
-
-        }
-
-        private void dtgAgentes_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
 
         }
 
@@ -640,6 +635,49 @@ namespace Presentacion.Personas
         private void FrmAdministrarAgentes_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private async void iconButton2_Click_1(object sender, EventArgs e)
+        {
+            VerificarSeleccion();
+            // Verificar si hay un agente seleccionado
+            if (dtgAgentes.SelectedRows.Count > 0)
+            {
+                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+
+
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al agente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+
+                        string currentUser = UsuarioActivo.usuario;
+                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
+
+                        if (isDeleted)
+                        {
+                            FrmAlerta alerta = new FrmAlerta("AGENTE ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
+                                alerta.ShowDialog();
+                                await LoadAgentes();
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("ERROR AL ELIMINAR AL AGENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al intentar eliminar el agente: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un agente para eliminar.");
+            }
         }
     }
 }

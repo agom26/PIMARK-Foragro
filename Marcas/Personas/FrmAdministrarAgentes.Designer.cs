@@ -35,6 +35,7 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageListado = new TabPage();
+            btnEliminarAgente = new FontAwesome.Sharp.IconButton();
             lblTotalPages = new Label();
             label10 = new Label();
             lblCurrentPage = new Label();
@@ -102,6 +103,7 @@
             // tabPageListado
             // 
             tabPageListado.AutoScroll = true;
+            tabPageListado.Controls.Add(btnEliminarAgente);
             tabPageListado.Controls.Add(lblTotalPages);
             tabPageListado.Controls.Add(label10);
             tabPageListado.Controls.Add(lblCurrentPage);
@@ -123,6 +125,28 @@
             tabPageListado.TabIndex = 0;
             tabPageListado.UseVisualStyleBackColor = true;
             tabPageListado.Click += tabPageListado_Click;
+            // 
+            // btnEliminarAgente
+            // 
+            btnEliminarAgente.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminarAgente.BackColor = Color.FromArgb(229, 115, 115);
+            btnEliminarAgente.FlatAppearance.BorderSize = 0;
+            btnEliminarAgente.FlatStyle = FlatStyle.Flat;
+            btnEliminarAgente.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnEliminarAgente.ForeColor = Color.White;
+            btnEliminarAgente.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            btnEliminarAgente.IconColor = Color.White;
+            btnEliminarAgente.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminarAgente.IconSize = 25;
+            btnEliminarAgente.ImageAlign = ContentAlignment.MiddleRight;
+            btnEliminarAgente.Location = new Point(686, 340);
+            btnEliminarAgente.Name = "btnEliminarAgente";
+            btnEliminarAgente.Size = new Size(160, 49);
+            btnEliminarAgente.TabIndex = 84;
+            btnEliminarAgente.Text = "ELIMINAR";
+            btnEliminarAgente.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEliminarAgente.UseVisualStyleBackColor = false;
+            btnEliminarAgente.Click += iconButton2_Click_1;
             // 
             // lblTotalPages
             // 
@@ -317,6 +341,7 @@
             dtgAgentes.EnableHeadersVisualStyles = false;
             dtgAgentes.GridColor = Color.LightGray;
             dtgAgentes.Location = new Point(17, 14);
+            dtgAgentes.MultiSelect = false;
             dtgAgentes.Name = "dtgAgentes";
             dtgAgentes.ReadOnly = true;
             dtgAgentes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -334,7 +359,7 @@
             dtgAgentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgAgentes.Size = new Size(640, 374);
             dtgAgentes.TabIndex = 14;
-            dtgAgentes.CellClick += dtgAgentes_CellClick;
+            dtgAgentes.CellClick += dtgAgentes_CellContentClick;
             dtgAgentes.CellContentClick += dtgAgentes_CellContentClick;
             dtgAgentes.CellDoubleClick += dtgAgentes_CellDoubleClick;
             dtgAgentes.DoubleClick += dtgAgentes_DoubleClick;
@@ -544,6 +569,7 @@
             btnGuardarU.Size = new Size(174, 49);
             btnGuardarU.TabIndex = 152;
             btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnGuardarU.UseVisualStyleBackColor = false;
             btnGuardarU.Click += btnGuardarU_Click;
@@ -565,6 +591,7 @@
             btnCancelarU.Size = new Size(174, 49);
             btnCancelarU.TabIndex = 151;
             btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarU.UseVisualStyleBackColor = false;
             btnCancelarU.Click += btnCancelarU_Click;
@@ -877,5 +904,6 @@
         private Label lblTotalRows;
         private Label label2;
         private Label label1;
+        private FontAwesome.Sharp.IconButton btnEliminarAgente;
     }
 }

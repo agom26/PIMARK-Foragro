@@ -17,7 +17,7 @@ namespace Dominio
             historialPatenteDao = new HistorialPatenteDao();
         }
 
-        public void CrearHistorialPatente(
+        public async void CrearHistorialPatente(
             DateTime fecha,
             string etapa,
             string anotaciones,
@@ -25,7 +25,7 @@ namespace Dominio
             string usuarioEdicion,
             int idPatente)
         {
-            historialPatenteDao.InsertarHistorialPatente(
+            await historialPatenteDao.InsertarHistorialPatente(
                 fecha,
                 etapa,
                 anotaciones,
@@ -34,16 +34,16 @@ namespace Dominio
                 idPatente);
         }
 
-        public DataTable ObtenerHistorialPorIdPatente(int idPatente)
+        public Task<DataTable> ObtenerHistorialPorIdPatente(int idPatente)
         {
-            return historialPatenteDao.GetAllEstadosByIdPatente(idPatente);
+            return historialPatenteDao.ObtenerHistorialPatentePorIdPatente(idPatente);
         }
 
-        public DataTable ObtenerHistorialPorId(int idHistorial)
+        public Task<DataTable> ObtenerHistorialPorId(int idHistorial)
         {
-            return historialPatenteDao.GetHistorialById(idHistorial);  // Llamada al DAO
+            return historialPatenteDao.ObtenerHistorialPatentePorId(idHistorial);  // Llamada al DAO
         }
-        public void EditarHistorialPatente(
+        public async void EditarHistorialPatente(
             int idHistorial,
             DateTime fecha,
             string etapa,
@@ -51,7 +51,7 @@ namespace Dominio
             string usuario,
             string usuarioEdicion)
         {
-            historialPatenteDao.EditarHistorialPatente(
+            await historialPatenteDao.EditarHistorialPatente(
                 idHistorial,
                 fecha,
                 etapa,

@@ -64,12 +64,11 @@ namespace Presentacion.Marcas_Internacionales
         }
         private async Task LoadMarcas()
         {
-            totalRows = marcaModel.GetTotalMarcasEnAbandono();
+            totalRows = await marcaModel.GetTotalMarcasEnAbandono();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             // Obtiene las marcas
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnAbandono(currentPageIndex, pageSize))
-                                       .ConfigureAwait(false);
+            var marcasN = await  marcaModel.GetAllMarcasNacionalesEnAbandono(currentPageIndex, pageSize);
 
             if (this.IsHandleCreated && !this.IsDisposed)
             {
@@ -267,7 +266,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.estado = row["estado"].ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"].ToString();
                         SeleccionarMarca.tipoSigno = row["Tipo"].ToString();
-                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        //SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
                         SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.idPersonaCliente = row["idCliente"] is DBNull ? 0 : Convert.ToInt32(row["idCliente"]);
@@ -275,6 +274,21 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
+
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+
+                        if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
+                            {
+                                pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         // Cargar datos del titular y agente 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
@@ -323,13 +337,13 @@ namespace Presentacion.Marcas_Internacionales
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
-                        if (row["logo"] is DBNull)
+                        /*if (row["logo"] is DBNull)
                         {
                             convertirImagen();
                             pictureBox1.Image = documento;
-                        }
+                        }*/
 
-                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
+                        bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -590,15 +604,25 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
-            DatosRegistro.peligro = false;
-            agregoEstado = false;
-            AnadirTabPage(tabPageAbandonadasList);
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            EliminarTabPage(tabPageListaArchivos);
-            tabControl1.SelectedTab = tabPageAbandonadasList;
-            SeleccionarMarca.idN = 0;
-            LimpiarFormulario();
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                DatosRegistro.peligro = false;
+                agregoEstado = false;
+                AnadirTabPage(tabPageAbandonadasList);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageListaArchivos);
+                tabControl1.SelectedTab = tabPageAbandonadasList;
+                SeleccionarMarca.idN = 0;
+                LimpiarFormulario();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+                
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
@@ -619,11 +643,11 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = marcaModel.FiltrarMarcasEnAbandono(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await marcaModel.FiltrarMarcasEnAbandono(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgMarcasAban.DataSource = titulares;
@@ -670,11 +694,11 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
+            totalRows = await marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -683,13 +707,13 @@ namespace Presentacion.Marcas_Internacionales
             filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasEnAbandonoCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1045,7 +1069,7 @@ namespace Presentacion.Marcas_Internacionales
             return true; // Todas las validaciones pasaron
         }
 
-        public void ActualizarMarcaInternacional()
+        public async void ActualizarMarcaInternacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -1115,15 +1139,15 @@ namespace Presentacion.Marcas_Internacionales
                 // Verificar si la marca está registrada
                 if (registroChek)
                 {
-                    esActualizado = marcaModel.EditMarcaNacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaNacionalRegistrada(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
                 }
 
-                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
+                DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                 if (esActualizado)
                 {

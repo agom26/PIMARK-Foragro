@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabListTitulares = new TabPage();
+            btnEliminarTitular = new FontAwesome.Sharp.IconButton();
             btnLast = new FontAwesome.Sharp.IconButton();
             btnNext = new FontAwesome.Sharp.IconButton();
             btnPrev = new FontAwesome.Sharp.IconButton();
@@ -103,6 +104,7 @@
             // tabListTitulares
             // 
             tabListTitulares.AutoScroll = true;
+            tabListTitulares.Controls.Add(btnEliminarTitular);
             tabListTitulares.Controls.Add(btnLast);
             tabListTitulares.Controls.Add(btnNext);
             tabListTitulares.Controls.Add(btnPrev);
@@ -125,6 +127,28 @@
             tabListTitulares.TabIndex = 0;
             tabListTitulares.UseVisualStyleBackColor = true;
             // 
+            // btnEliminarTitular
+            // 
+            btnEliminarTitular.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminarTitular.BackColor = Color.FromArgb(229, 115, 115);
+            btnEliminarTitular.FlatAppearance.BorderSize = 0;
+            btnEliminarTitular.FlatStyle = FlatStyle.Flat;
+            btnEliminarTitular.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnEliminarTitular.ForeColor = Color.White;
+            btnEliminarTitular.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            btnEliminarTitular.IconColor = Color.White;
+            btnEliminarTitular.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminarTitular.IconSize = 25;
+            btnEliminarTitular.ImageAlign = ContentAlignment.MiddleRight;
+            btnEliminarTitular.Location = new Point(657, 305);
+            btnEliminarTitular.Name = "btnEliminarTitular";
+            btnEliminarTitular.Size = new Size(160, 49);
+            btnEliminarTitular.TabIndex = 85;
+            btnEliminarTitular.Text = "ELIMINAR";
+            btnEliminarTitular.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEliminarTitular.UseVisualStyleBackColor = false;
+            btnEliminarTitular.Click += btnEliminarAgente_Click;
+            // 
             // btnLast
             // 
             btnLast.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -138,7 +162,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(563, 589);
+            btnLast.Location = new Point(560, 591);
             btnLast.Margin = new Padding(3, 2, 3, 2);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(91, 33);
@@ -160,7 +184,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(458, 590);
+            btnNext.Location = new Point(455, 592);
             btnNext.Margin = new Padding(3, 2, 3, 2);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(91, 33);
@@ -182,7 +206,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(351, 591);
+            btnPrev.Location = new Point(348, 593);
             btnPrev.Margin = new Padding(3, 2, 3, 2);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(91, 33);
@@ -204,7 +228,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(228, 591);
+            btnFirst.Location = new Point(225, 593);
             btnFirst.Margin = new Padding(3, 2, 3, 2);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
@@ -218,7 +242,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(623, 161);
+            lblTotalPages.Location = new Point(620, 161);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 69;
@@ -230,7 +254,7 @@
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 9F);
-            label10.Location = new Point(593, 161);
+            label10.Location = new Point(590, 161);
             label10.Name = "label10";
             label10.Size = new Size(24, 17);
             label10.TabIndex = 68;
@@ -241,7 +265,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(562, 161);
+            lblCurrentPage.Location = new Point(559, 161);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 67;
@@ -262,7 +286,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(506, 161);
+            label2.Location = new Point(503, 161);
             label2.Name = "label2";
             label2.Size = new Size(49, 17);
             label2.TabIndex = 65;
@@ -400,7 +424,7 @@
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
             ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(659, 242);
+            ibtnEditar.Location = new Point(657, 242);
             ibtnEditar.Margin = new Padding(3, 2, 3, 2);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(160, 49);
@@ -423,7 +447,7 @@
             ibtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnAgregar.IconSize = 25;
             ibtnAgregar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnAgregar.Location = new Point(660, 180);
+            ibtnAgregar.Location = new Point(658, 180);
             ibtnAgregar.Margin = new Padding(3, 2, 3, 2);
             ibtnAgregar.Name = "ibtnAgregar";
             ibtnAgregar.Size = new Size(160, 49);
@@ -441,7 +465,7 @@
             panel1.Location = new Point(7, 180);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(647, 404);
+            panel1.Size = new Size(644, 404);
             panel1.TabIndex = 62;
             // 
             // dtgTitulares
@@ -449,32 +473,32 @@
             dtgTitulares.AllowUserToAddRows = false;
             dtgTitulares.AllowUserToDeleteRows = false;
             dtgTitulares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 10F);
-            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 10F);
+            dtgTitulares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dtgTitulares.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgTitulares.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgTitulares.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgTitulares.BorderStyle = BorderStyle.None;
             dtgTitulares.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgTitulares.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dtgTitulares.ColumnHeadersHeight = 40;
             dtgTitulares.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dtgTitulares.DefaultCellStyle = dataGridViewCellStyle3;
             dtgTitulares.EnableHeadersVisualStyles = false;
             dtgTitulares.GridColor = Color.LightGray;
             dtgTitulares.Location = new Point(15, 11);
@@ -482,19 +506,19 @@
             dtgTitulares.Name = "dtgTitulares";
             dtgTitulares.ReadOnly = true;
             dtgTitulares.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Control;
-            dataGridViewCellStyle9.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgTitulares.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgTitulares.RowHeadersWidth = 51;
-            dataGridViewCellStyle10.Font = new Font("Century Gothic", 10F);
-            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 10F);
+            dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgTitulares.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgTitulares.Size = new Size(616, 378);
+            dtgTitulares.Size = new Size(613, 378);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
             dtgTitulares.CellContentClick += dtgTitulares_CellContentClick;
@@ -604,12 +628,12 @@
             btnGuardarU.BackColor = Color.FromArgb(96, 149, 241);
             btnGuardarU.FlatAppearance.BorderSize = 0;
             btnGuardarU.FlatStyle = FlatStyle.Flat;
-            btnGuardarU.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnGuardarU.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             btnGuardarU.ForeColor = Color.White;
             btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Check;
             btnGuardarU.IconColor = Color.White;
             btnGuardarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnGuardarU.IconSize = 30;
+            btnGuardarU.IconSize = 25;
             btnGuardarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnGuardarU.Location = new Point(171, 425);
             btnGuardarU.Margin = new Padding(3, 2, 3, 2);
@@ -617,6 +641,7 @@
             btnGuardarU.Size = new Size(153, 37);
             btnGuardarU.TabIndex = 160;
             btnGuardarU.Text = "GUARDAR";
+            btnGuardarU.TextAlign = ContentAlignment.MiddleRight;
             btnGuardarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnGuardarU.UseVisualStyleBackColor = false;
             btnGuardarU.Click += btnGuardarU_Click;
@@ -627,11 +652,11 @@
             btnCancelarU.BackColor = Color.White;
             btnCancelarU.FlatAppearance.BorderSize = 0;
             btnCancelarU.FlatStyle = FlatStyle.Flat;
-            btnCancelarU.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
+            btnCancelarU.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             btnCancelarU.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelarU.IconColor = Color.Black;
             btnCancelarU.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCancelarU.IconSize = 30;
+            btnCancelarU.IconSize = 25;
             btnCancelarU.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelarU.Location = new Point(397, 425);
             btnCancelarU.Margin = new Padding(3, 2, 3, 2);
@@ -639,6 +664,7 @@
             btnCancelarU.Size = new Size(153, 37);
             btnCancelarU.TabIndex = 159;
             btnCancelarU.Text = "CANCELAR";
+            btnCancelarU.TextAlign = ContentAlignment.MiddleRight;
             btnCancelarU.TextImageRelation = TextImageRelation.TextBeforeImage;
             btnCancelarU.UseVisualStyleBackColor = false;
             btnCancelarU.Click += btnCancelarU_Click;
@@ -896,5 +922,6 @@
         private FontAwesome.Sharp.IconButton btnNext;
         private FontAwesome.Sharp.IconButton btnPrev;
         private FontAwesome.Sharp.IconButton btnFirst;
+        private FontAwesome.Sharp.IconButton btnEliminarTitular;
     }
 }

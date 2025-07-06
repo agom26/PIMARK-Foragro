@@ -1,4 +1,130 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class HistorialPatenteDao
+    {
+        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_patente.php";
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(urlApi, content);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return JsonDocument.Parse(responseBody);
+        }
+
+        public async Task InsertarHistorialPatente(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
+        {
+            var data = new
+            {
+                action = "insertar_historial_patente",
+                fecha = fecha.ToString("yyyy-MM-dd"),
+                etapa,
+                anotaciones,
+                usuario,
+                usuarioEdicion,
+                idPatente
+            };
+
+            await PostAsync(data);
+        }
+
+        public async Task<DataTable> ObtenerHistorialPatentePorIdPatente(int idPatente)
+        {
+            var data = new
+            {
+                action = "obtener_historial_por_patente",
+                idPatente
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                            tabla.Columns.Add(prop.Name);
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                        row[prop.Name] = prop.Value.ToString();
+
+                    tabla.Rows.Add(row);
+                }
+            }
+            return tabla;
+        }
+
+        public async Task<DataTable> ObtenerHistorialPatentePorId(int idHistorial)
+        {
+            var data = new
+            {
+                action = "obtener_historial_por_id",
+                idHistorial
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                            tabla.Columns.Add(prop.Name);
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                        row[prop.Name] = prop.Value.ToString();
+
+                    tabla.Rows.Add(row);
+                }
+            }
+            return tabla;
+        }
+
+        public async Task<bool> EditarHistorialPatente(int idHistorial, DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion)
+        {
+            var data = new
+            {
+                action = "editar_historial_patente",
+                idHistorial,
+                fecha = fecha.ToString("yyyy-MM-dd"),
+                etapa,
+                anotaciones,
+                usuario,
+                usuarioEdicion
+            };
+
+            var jsonDoc = await PostAsync(data);
+
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+    }
+}
+
+
+/*
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 
@@ -106,4 +232,4 @@ namespace AccesoDatos.Entidades
 
 
     }
-}
+}*/

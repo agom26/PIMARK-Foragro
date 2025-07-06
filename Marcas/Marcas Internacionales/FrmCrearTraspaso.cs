@@ -67,6 +67,7 @@ namespace Presentacion.Marcas_Nacionales
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
             txtNombreTitularA.Text = AgregarTraspaso.nombreTitulara;
+            textAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -88,9 +89,9 @@ namespace Presentacion.Marcas_Nacionales
             // Instancias de modelos
             MarcaModel marcaModel = new MarcaModel();
 
-            string anotaciones = richTextBox1.Text;
+            string anotaciones = textAnotaciones.Text;
             AgregarEtapa.etapa = txtEstado.Text;
-            AgregarEtapa.fecha = dateTimePicker1.Value;
+            AgregarEtapa.fecha = dateTimePickerFecha.Value;
             AgregarEtapa.usuario = UsuarioActivo.usuario;
 
             // Datos del traspaso
@@ -103,7 +104,7 @@ namespace Presentacion.Marcas_Nacionales
                 if (!string.IsNullOrEmpty(nuevoTitular))
                 {
                     // Formatear anotaciones con fecha y etapa
-                    string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                    string fechaSinHora = dateTimePickerFecha.Value.ToString("dd/MM/yyyy");
                     string formato = fechaSinHora + " " + txtEstado.Text;
                     AgregarEtapa.anotaciones = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
 
@@ -149,7 +150,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            textAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

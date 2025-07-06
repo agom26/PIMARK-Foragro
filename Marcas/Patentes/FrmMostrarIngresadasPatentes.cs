@@ -769,7 +769,7 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -781,7 +781,7 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorialPatente.id = id;
 
-                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+                    DataTable historial = await historialPatenteModel.ObtenerHistorialPorId(id);
 
                     if (historial.Rows.Count > 0)
                     {
@@ -870,7 +870,7 @@ namespace Presentacion.Patentes
             }
         }
 
-        private void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
+        private async void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -882,14 +882,14 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorialPatente.id = id;
 
-                    DataTable historial = historialPatenteModel.ObtenerHistorialPorId(id);
+                    DataTable historial = await historialPatenteModel.ObtenerHistorialPorId(id);
 
                     if (historial.Rows.Count > 0)
                     {
                         DataRow fila = historial.Rows[0];
                         SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"]);
                         SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1084,11 +1084,18 @@ namespace Presentacion.Patentes
 
                                 int idPatente = Convert.ToInt32(dataRowView["id"]);
 
-                                historialPatenteModel.CrearHistorialPatente(
+                                // Validar si la justificación ya contiene la fecha con "Abandono"
+                                string fechaSinHora = fechaAbandono.ToString("dd/MM/yyyy");
+                                string formato = fechaSinHora + " Abandono";
+                                if (!justificacion.Contains(formato))
+                                {
+                                    justificacion = formato + " " + justificacion;
+                                }
 
+                                historialPatenteModel.CrearHistorialPatente(
                                     fechaAbandono,
                                     "Abandono",
-                                    fechaAbandono.ToShortDateString() + " Abandono " + justificacion,
+                                    justificacion,
                                     usuarioAbandono,
                                     null,
                                     idPatente
@@ -1158,16 +1165,31 @@ namespace Presentacion.Patentes
 
         private async void iconButton2_Click(object sender, EventArgs e)
         {
-
-            LimpiarFomulario();
-            DatosRegistro.peligro = false;
-            //agregoEstado = false;
-            AnadirTabPage(tabPageIngresadasList);
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageListaArchivos);
-            EliminarTabPage(tabPageHistorialMarca);
-            tabControl1.SelectedTab = tabPageIngresadasList;
-            await LoadPatentes();
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                LimpiarFomulario();
+                DatosRegistro.peligro = false;
+                AnadirTabPage(tabPageIngresadasList);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageListaArchivos);
+                EliminarTabPage(tabPageHistorialMarca);
+                await LoadPatentes();
+            }
+            else
+            {
+                if (!archivoSubido)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO Y SU TÍTULO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+            }
+                
 
         }
 

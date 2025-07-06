@@ -55,7 +55,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (comboBox1.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {
@@ -77,12 +77,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)

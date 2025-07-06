@@ -263,7 +263,7 @@ namespace Presentacion.Marcas_Internacionales
             }
 
 
-            if (registroChek && marcaModel.ExisteRegistro(registro, null))
+            if (registroChek && await marcaModel.ExisteRegistro(registro, null))
             {
                 FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
@@ -276,8 +276,8 @@ namespace Presentacion.Marcas_Internacionales
             {
 
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
-                    marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    await marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
+                    await marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -528,9 +528,9 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarPersona.idPersonaC = null;
         }
 
-        private void btnGuardarM_Click(object sender, EventArgs e)
+        private async void btnGuardarM_Click(object sender, EventArgs e)
         {
-            GuardarMarcaInter();
+            await GuardarMarcaInter();
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)

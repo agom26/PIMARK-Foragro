@@ -225,6 +225,7 @@
             // 
             // txtEstado
             // 
+            txtEstado.BorderStyle = BorderStyle.FixedSingle;
             txtEstado.Location = new Point(265, 95);
             txtEstado.Name = "txtEstado";
             txtEstado.ReadOnly = true;

@@ -16,396 +16,408 @@ namespace Dominio
             marcaDao = new MarcaDao();
         }
 
-        public bool EliminarMarcaConLog(int idMarca, string usuario)
+        public async Task<bool> EliminarMarcaConLog(int idMarca, string usuario)
         {
-            return marcaDao.EliminarMarcaConLog(idMarca, usuario);
+            return await marcaDao.EliminarMarcaConLog(idMarca, usuario);
         }
-        public DataTable GetAllMarcasNacionalesParaLicencia(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllMarcasNacionalesParaLicencia(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesParaLicencia(currentPage, pageSize);
-            return tabla;
+           return await marcaDao.ObtenerMarcasNacionalesParaLicencia(currentPage, pageSize);
+            
         }
-        public DataTable FiltrarMarcasNacionalesParaLicencia(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarMarcasNacionalesParaLicencia(string filtro, int currentPageIndex, int pageSize)
         {
-            return marcaDao.filtrarMarcasNacionalesParaLicencia(filtro, currentPageIndex, pageSize);
-        }
-
-        public int GetTotalMarcasNacionalesParaLicencia()
-        {
-            return marcaDao.GetTotalMarcasNacionalesParaLicencia();
+            return await marcaDao.FiltrarMarcasNacionalesParaLicencia(filtro, currentPageIndex, pageSize);
         }
 
-        public int GetFilteredMarcasNacionalesParaLicenciaCount(string value)
+        public async Task<int> GetTotalMarcasNacionalesParaLicencia()
         {
-            return marcaDao.GetFilteredMarcasNacionalesParaLicenciaCount(value);
+            return await marcaDao.ObtenerTotalMarcasNacionalesParaLicencia();
         }
 
-        public bool TieneEtapaRegistrada(int idMarca)
+        public async Task<int> GetFilteredMarcasNacionalesParaLicenciaCount(string value)
         {
-            return marcaDao.TieneEtapaRegistrada(idMarca);
+            return await marcaDao.ObtenerTotalFiltradoMarcasNacionalesParaLicencia(value);
         }
 
-        public void InsertarTraspasoYHistorialMarca(
-       string numExpediente,
-       int idMarca,
-       int idTitularAnterior,
-       int idTitularNuevo,
-       DateTime fecha,
-       string etapa,
-       string anotaciones,
-       string usuario)
+        public async Task<bool> TieneEtapaRegistrada(int idMarca)
         {
-            marcaDao.InsertarTraspasoYHistorialMarca(numExpediente, idMarca, idTitularAnterior,
-                idTitularNuevo, fecha, etapa, anotaciones, usuario, "TRÁMITE");
+            return await marcaDao.TieneEtapaRegistrada(idMarca);
         }
-        public bool RenovarMarca(string noExpediente, int idMarca, DateTime fechaVencAnt, DateTime fechaVencNueva,
+
+        public async void InsertarTraspasoYHistorialMarca(
+           string numExpediente,
+           int idMarca,
+           int idTitularAnterior,
+           int idTitularNuevo,
+           DateTime fecha,
+           string etapa,
+           string anotaciones,
+           string usuario)
+        {
+            await marcaDao.InsertarTraspasoYHistorial(numExpediente, idMarca, idTitularAnterior,
+                idTitularNuevo, fecha.ToString(), etapa, anotaciones, usuario, "TRÁMITE");
+        }
+
+        public async Task<bool> RenovarMarca(string noExpediente, int idMarca, DateTime fechaVencAnt, DateTime fechaVencNueva,
                                 DateTime fecha, string etapa, string anotaciones, string usuario)
         {
-            return marcaDao.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
+            return await marcaDao.RenovarMarca(noExpediente, idMarca, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
         }
 
         //todas las marcas nacionales
-        public DataTable FiltrarMarcasNacionales(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarMarcasNacionales(string filtro, int pageSize,int currentPageIndex )
         {
-            return marcaDao.filtrarMarcasNacionales(filtro, currentPageIndex, pageSize);
-        }
-        public DataTable FiltrarMarcasInternacionales(string filtro, int currentPageIndex, int pageSize)
-        {
-            return marcaDao.filtrarMarcasInternacionales(filtro, currentPageIndex, pageSize);
-        }
-        public bool ExisteRegistro(string registro, int? idMarcaActual)
-        {
-            return marcaDao.ExisteRegistro(registro, idMarcaActual);
-        }
-        public int GetTotalMarcasNacionales()
-        {
-            return marcaDao.GetTotalMarcasNacionales();
-        }
-        public int GetTotalMarcasInternacionales()
-        {
-            return marcaDao.GetTotalMarcasInternacionales();
-        }
-        public int GetFilteredMarcasNacionalesCount(string value)
-        {
-            return marcaDao.GetFilteredMarcasNacionalesCount(value);
-        }
-        public int GetFilteredMarcasInternacionalesCount(string value)
-        {
-            return marcaDao.GetFilteredMarcasInternacionalesCount(value);
+            return await marcaDao.FiltrarMarcasNacionales(filtro, pageSize, currentPageIndex);
         }
 
-        public DataTable GetAllMarcasNacionales(int currentPage, int pageSize)
+        public async Task<DataTable> FiltrarMarcasInternacionales(int pageSize, int currentPageIndex,string filtro)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionales(currentPage, pageSize);
-            return tabla;
-        }
-        public void InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
-        {
-            marcaDao.InsertarExpedienteMarca(numExpediente, idMarca, tipo);
+            return await marcaDao.FiltrarMarcasInternacionales(pageSize, currentPageIndex,  filtro);
         }
 
-        public DataTable GetAllMarcasInternacionales(int currentPage, int pageSize)
+        public async Task<bool> ExisteRegistro(string registro, int? idMarcaActual)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionales(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ExisteRegistro(registro, idMarcaActual);
         }
 
-
-        public int GetTotalMarcasSinRegistro()
+        public async Task<int> GetTotalMarcasNacionales()
         {
-            return marcaDao.GetTotalMarcasSinRegistro();
-        }
-        public int GetFilteredMarcasSinRegistroCount(string value)
-        {
-            return marcaDao.GetFilteredMarcasSinRegistroCount(value);
-        }
-        public DataTable GetAllMarcasNacionalesEnTramite(int currentPageIndex, int pageSize)
-        {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize);
-            return tabla;
-        }
-        public DataTable FiltrarMarcasNacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
-        {
-            return marcaDao.FiltrarMarcasNacionalesEnTramite(filtro, currentPageIndex, pageSize);
-        }
-        public DataTable FiltrarMarcasInternacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
-        {
-            return marcaDao.FiltrarMarcasInternacionalesEnTramite(filtro, currentPageIndex, pageSize);
-        }
-        public DataTable FiltrarMarcasNacionalesEnOposicion(string filtro)
-        {
-            return marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro);
-        }
-        public DataTable FiltrarMarcasNacionalesInterpuestasEnOposicion(string filtro)
-        {
-            return marcaDao.FiltrarMarcasNacionalesEnOposicionInterpuestas(filtro);
+            return await marcaDao.GetTotalMarcasNacionales();
         }
 
-        public DataTable FiltrarMarcasInternacionalesEnOposicion(string filtro, int currentPage, int pageSize)
+        public async Task<int> GetTotalMarcasInternacionales()
         {
-            return marcaDao.FiltrarMarcasInternacionalesEnOposicion(filtro, currentPage, pageSize);
-        }
-        public DataTable FiltrarMarcasInternacionalesInterpuestasEnOposicion(string filtro)
-        {
-            return marcaDao.FiltrarMarcasInternacionalesEnOposicionInterpuestas(filtro);
-        }
-        public DataTable FiltrarMarcasNacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
-        {
-            return marcaDao.FiltrarMarcasNacionalesRegistradas(filtro, currentPageIndex, pageSize);
-        }
-        public int GetTotalMarcasEnTramiteDeRenovacion()
-        {
-            return marcaDao.GetTotalMarcasEnTramiteDeRenovacion();
-        }
-        public int GetFilteredMarcasEnTramiteDeRenovacionCount(string value)
-        {
-            return marcaDao.GetFilteredMarcasEnTramiteDeRenovacionCount(value);
-        }
-        public DataTable FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPage, int pageSize)
-        {
-            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeRenovacion(filtro, currentPage, pageSize);
-        }
-        public DataTable FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro, int currentPage, int pageSize)
-        {
-            return marcaDao.FiltrarMarcasNacionalesEnTramiteDeTraspaso(filtro, currentPage, pageSize);
-        }
-        public int GetTotalMarcasInternacionalesSinRegistro()
-        {
-            return marcaDao.GetTotalMarcasInternacionalesSinRegistro();
-        }
-        public int GetFilteredMarcasInternacionalesSinRegistroCount(string value)
-        {
-            return marcaDao.GetFilteredMarcasInternacionalesSinRegistroCount(value);
-        }
-        public DataTable GetAllMarcasInternacionalesIngresadas(int currentPage, int pageSize)
-        {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionalesIngresadas(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.GetTotalMarcasInternacionales();
         }
 
-        public DataTable GetAllMarcasNacionalesEnOposicionRecibidas()
+        public async Task<int> GetFilteredMarcasNacionalesCount(string value)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesEnOposicion();
-            return tabla;
+            return await marcaDao.GetFilteredMarcasNacionalesCount(value);
         }
-        public int GetTotalMarcasInternacionalesEnOposicionRecibidas(string situacionA, int currentPage, int pageSize)
+
+        public async Task<int> GetFilteredMarcasInternacionalesCount(string value)
         {
-            return marcaDao.GetTotalMarcasInternacionalesEnOposicionRecibidas(situacionA, currentPage, pageSize);
+            return await marcaDao.GetFilteredMarcasInternacionalesCount(value);
         }
-        public int GetFilteredMarcasInternacionalesRecibidasCount(string value)
+
+        public async Task<DataTable> GetAllMarcasNacionales(int currentPage, int pageSize)
         {
-            return marcaDao.GetFilteredMarcasInternacionalesRecibidasCount(value);
+            return await marcaDao.ObtenerTodasMarcasNacionales( pageSize, currentPage);
+            
         }
-        public DataTable GetAllMarcasInternacionalesEnOposicion(string situacion,int currentPage, int pageSize)
+
+        public async void InsertarExpedienteMarca(string numExpediente, int idMarca, string tipo)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionalesEnOposicion(situacion,currentPage, pageSize);
-            return tabla;
+            await marcaDao.InsertarExpedienteMarca(numExpediente, idMarca, tipo);
         }
-        public int GetTotalMarcasRegistradas()
+
+        public async Task<DataTable> GetAllMarcasInternacionales(int currentPage, int pageSize)
         {
-            return marcaDao.GetTotalMarcasRegistradas();
+            return await marcaDao.ObtenerTodasMarcasInternacionales( pageSize, currentPage);
         }
-        public int GetFilteredMarcasRegistradasCount(string value)
+        public async Task<int> GetTotalMarcasSinRegistro()
         {
-            return marcaDao.GetFilteredMarcasRegistradasCount(value);
+            return await marcaDao.GetTotalMarcasSinRegistro();
         }
-        public DataTable GetAllMarcasNacionalesRegistradas(int currentPage, int pageSize)
+
+        public async Task<int> GetFilteredMarcasSinRegistroCount(string value)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesRegistradas(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.GetFilteredMarcasSinRegistroCount(value);
         }
+
+        public async Task<DataTable> GetAllMarcasNacionalesEnTramite(int currentPageIndex, int pageSize)
+        {
+            return await marcaDao.ObtenerMarcasNacionalesEnTramite(pageSize, currentPageIndex);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesEnTramite(pageSize, currentPageIndex, filtro  );
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        {
+            return await marcaDao.FiltrarMarcasInternacionalesEnTramite(pageSize,  currentPageIndex, filtro);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnOposicion(string filtro)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesEnOposicion(filtro);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesInterpuestasEnOposicion(string filtro)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesEnOposicionInterpuestas(filtro);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnOposicion(string filtro, int currentPage, int pageSize)
+        {
+            return await marcaDao.filtrarMarcasInternacionalesRecibidasEnOposicion(pageSize, currentPage, filtro);
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesInterpuestasEnOposicion(string filtro)
+        {
+            return await marcaDao.FiltrarMarcasInternacionalesEnOposicionInterpuestas(filtro);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesRegistradas(pageSize,currentPageIndex, filtro);
+        }
+
+        public async Task<int> GetTotalMarcasEnTramiteDeRenovacion()
+        {
+            return await marcaDao.GetTotalMarcasEnTramiteDeRenovacion();
+        }
+
+        public async Task<int> GetFilteredMarcasEnTramiteDeRenovacionCount(string value)
+        {
+            return await marcaDao.GetFilteredMarcasEnTramiteDeRenovacionCount(value);
+        }
+
+        public async Task<DataTable> FiltrarMarcasNacionalesEnTramiteDeRenovacion(string filtro, int currentPage, int pageSize)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesEnTramiteDeRenovacion(pageSize, currentPage, filtro);
+        }
+
+        public async  Task<DataTable> FiltrarMarcasNacionalesEnTramiteDeTraspaso(string filtro, int currentPage, int pageSize)
+        {
+            return await marcaDao.FiltrarMarcasNacionalesEnTramiteDeTraspaso(pageSize, currentPage, filtro);
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesSinRegistro()
+        {
+            return await marcaDao.GetTotalMarcasInternacionalesSinRegistro();
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesSinRegistroCount(string value)
+        {
+            return await marcaDao.GetFilteredMarcasInternacionalesSinRegistroCount(value);
+        }
+
+        public async Task<DataTable> GetAllMarcasInternacionalesIngresadas(int currentPage, int pageSize)
+        {
+            
+            return await marcaDao.ObtenerMarcasInternacionalesSinRegistro(pageSize, currentPage);
+            
+        }
+
+        public async Task<DataTable> GetAllMarcasNacionalesEnOposicionRecibidas()
+        {
+            return await marcaDao.ObtenerMarcasNacionalesEnOposicion();
+            
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesEnOposicionRecibidas(string situacionA, int pageSize)
+        {
+            return await marcaDao.GetTotalMarcasInternacionalesEnOposicionRecibidas(situacionA, pageSize);
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesRecibidasCount(string value)
+        {
+            return await marcaDao.GetFilteredMarcasInternacionalesRecibidasCount(value);
+        }
+        public async Task<DataTable> GetAllMarcasInternacionalesEnOposicion(string situacion,int currentPage, int pageSize)
+        {
+            return await marcaDao.ObtenerMarcasInternacionalesEnOposicionRecibidas(situacion,pageSize, currentPage);
+            
+        }
+        public async Task<int> GetTotalMarcasRegistradas()
+        {
+            return await marcaDao.GetTotalMarcasRegistradas();
+        }
+
+        public async Task<int> GetFilteredMarcasRegistradasCount(string value)
+        {
+            return await marcaDao.GetFilteredMarcasRegistradasCount(value);
+        }
+
+        public async Task<DataTable> GetAllMarcasNacionalesRegistradas(int currentPage, int pageSize)
+        {
+            return await marcaDao.ObtenerMarcasNacionalesRegistradas( pageSize, currentPage);
+        }
+
         //internacionales registradas
-        public DataTable FiltrarMarcasInternacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarMarcasInternacionalesRegistradas(string filtro, int currentPageIndex, int pageSize)
         {
-            return marcaDao.FiltrarMarcasInternacionalesRegistradas(filtro, currentPageIndex, pageSize);
+            return await marcaDao.FiltrarMarcasInternacionalesRegistradas(pageSize, currentPageIndex, filtro);
         }
-        public int GetTotalMarcasInternacionalesRegistradas()
+
+        public async Task<int> GetTotalMarcasInternacionalesRegistradas()
         {
-            return marcaDao.GetTotalMarcasInternacionalesRegistradas();
+            return await marcaDao.GetTotalMarcasInternacionalesRegistradas();
         }
-        public int GetFilteredMarcasInternacionalesRegistradasCount(string value)
+
+        public async Task<int> GetFilteredMarcasInternacionalesRegistradasCount(string value)
         {
-            return marcaDao.GetFilteredMarcasInternacionalesRegistradasCount(value);
+            return await marcaDao.GetFilteredMarcasInternacionalesRegistradasCount(value);
         }
-        public DataTable GetAllMarcasInternacionalesRegistradas(int currentPage, int pageSize)
+
+        public async Task<DataTable> GetAllMarcasInternacionalesRegistradas(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionalesRegistradas(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasInternacionalesRegistradas(pageSize, currentPage);
+            
         }
-        public int GetTotalMarcasEnAbandono()
+        public async Task<int> GetTotalMarcasEnAbandono()
         {
-            return marcaDao.GetTotalMarcasEnAbandono();
+            return await marcaDao.GetTotalMarcasEnAbandono();
         }
-        public int GetFilteredMarcasEnAbandonoCount(string value)
+
+        public async Task<int> GetFilteredMarcasEnAbandonoCount(string value)
         {
-            return marcaDao.GetFilteredMarcasEnAbandonoCount(value);
+            return await marcaDao.GetFilteredMarcasEnAbandonoCount(value);
         }
-        public DataTable GetAllMarcasNacionalesEnAbandono(int currentPage, int pageSize)
+
+        public async Task<DataTable> GetAllMarcasNacionalesEnAbandono(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasNacionalesEnAbandono(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasEnAbandono( pageSize, currentPage);
         }
-        public DataTable FiltrarMarcasEnAbandono(string filtro, int currentPage, int pageSize)
+
+        public async Task<DataTable> FiltrarMarcasEnAbandono(string filtro, int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.FiltrarMarcasNacionalesEnAbandono(filtro, currentPage, pageSize);
-            return tabla;
+            return await marcaDao.FiltrarMarcasEnAbandono(filtro, pageSize, currentPage );
+         
         }
         //internacionales en abandono
-        public int GetTotalMarcasInternacionalesEnAbandono()
+        public async Task<int> GetTotalMarcasInternacionalesEnAbandono()
         {
-            return marcaDao.GetTotalMarcasInternacionalesEnAbandono();
+            return await marcaDao.GetTotalMarcasInternacionalesEnAbandono();
         }
-        public int GetFilteredMarcasInternacionalesEnAbandonoCount(string value)
+        public async Task<int> GetFilteredMarcasInternacionalesEnAbandonoCount(string value)
         {
-            return marcaDao.GetFilteredMarcasInternacionalesEnAbandonoCount(value);
+            return await marcaDao.GetFilteredMarcasInternacionalesEnAbandonoCount(value);
         }
-        public DataTable GetAllMarcasInternacionalesEnAbandono(int currentPage, int pageSize)
+
+        public async Task<DataTable> GetAllMarcasInternacionalesEnAbandono(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetAllMarcasInternacionalesEnAbandono(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasInternacionalesEnAbandono(pageSize,currentPage);
         }
-        public DataTable FiltrarMarcasInternacionalesEnAbandono(string filtro, int currentPage, int pageSize)
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnAbandono(string filtro, int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.FiltrarMarcasInternacionalesEnAbandono(filtro, currentPage, pageSize);
-            return tabla;
+            return await marcaDao.FiltrarMarcasInternacionalesEnAbandono(filtro,pageSize,currentPage);
         }
-        public DataTable GetAllMarcasNacionalesEnTramiteDeRenovacion(int currentPage, int pageSize)
+
+        public async Task<DataTable> GetAllMarcasNacionalesEnTramiteDeRenovacion(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasRegistradasRenovaciones( pageSize, currentPage);
         }
-        public int GetTotalMarcasEnTramiteDeTraspaso()
+        public async Task<int> GetTotalMarcasEnTramiteDeTraspaso()
         {
-            return marcaDao.GetTotalMarcasEnTramiteDeTraspaso();
+            return await marcaDao.GetTotalMarcasEnTramiteDeTraspaso();
         }
-        public int GetFilteredMarcasEnTramiteDeTraspasoCount(string value)
+        public async Task<int> GetFilteredMarcasEnTramiteDeTraspasoCount(string value)
         {
-            return marcaDao.GetFilteredMarcasEnTramiteDeTraspasoCount(value);
+            return await marcaDao.GetFilteredMarcasEnTramiteDeTraspasoCount(value);
         }
-        public DataTable GetAllMarcasNacionalesEnTramiteDeTraspaso(int currentPage, int pageSize)
+
+        public async Task<DataTable> GetAllMarcasNacionalesEnTramiteDeTraspaso(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasRegistradasEnTramiteDeTraspaso(pageSize, currentPage);
         }
         //internacionales en renovacion
-        public int GetTotalMarcasInternacionalesEnTramiteDeRenovacion()
+        public async Task<int> GetTotalMarcasInternacionalesEnTramiteDeRenovacion()
         {
-            return marcaDao.GetTotalMarcasInternacionalesEnTramiteDeRenovacion();
+            return await marcaDao.GetTotalMarcasInternacionalesEnTramiteDeRenovacion();
         }
-        public int GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(string value)
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(string value)
         {
-            return marcaDao.GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(value);
+            return await marcaDao.GetFilteredMarcasInternacionalesEnTramiteDeRenovacionCount(value);
         }
-        public DataTable FiltrarMarcasInternacionalesEnTramiteDeRenovacion(string filtro, int currentPage, int pageSize)
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnTramiteDeRenovacion(string filtro, int currentPage, int pageSize)
         {
-            return marcaDao.FiltrarMarcasInternacionalesEnTramiteDeRenovacion(filtro, currentPage, pageSize);
+            return await marcaDao.FiltrarMarcasInternacionalesEnRenovacion(filtro,  pageSize, currentPage);
         }
-        public DataTable GetAllMarcasInternacionalesEnTramiteDeRenovacion(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllMarcasInternacionalesEnTramiteDeRenovacion(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasInternacionalesRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasInternacionalesRegistradasRenovaciones(pageSize,currentPage);
         }
         //internacional en traspaso
-        public DataTable FiltrarMarcasInternacionalesEnTramiteDeTraspaso(string filtro, int currentPage, int pageSize)
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnTramiteDeTraspaso(string filtro, int currentPage, int pageSize)
         {
-            return marcaDao.FiltrarMarcasInternacionalesEnTramiteDeTraspaso(filtro, currentPage, pageSize);
+            return await marcaDao.FiltrarMarcaInternacionalEnTramiteDeTraspaso(filtro,  pageSize, currentPage);
         }
-        public int GetTotalMarcasInternacionalesEnTramiteDeTraspaso()
+        public async Task<int> GetTotalMarcasInternacionalesEnTramiteDeTraspaso()
         {
-            return marcaDao.GetTotalMarcasInternacionalesEnTramiteDeTraspaso();
+            return await marcaDao.GetTotalMarcasInternacionalesEnTramiteDeTraspaso();
         }
-        public int GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(string value)
+        public async Task<int> GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(string value)
         {
-            return marcaDao.GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(value);
+            return await marcaDao.GetFilteredMarcasInternacionalesEnTramiteDeTraspasoCount(value);
         }
-        public DataTable GetAllMarcasInternacionalesEnTramiteDeTraspaso(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllMarcasInternacionalesEnTramiteDeTraspaso(int currentPage, int pageSize)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
-            return tabla;
+            return await marcaDao.ObtenerMarcasInternacionalesRegistradasEnTramiteDeTraspaso( pageSize, currentPage);
         }
 
-
-        public DataTable GetMarcaNacionalById(int id)
+        public async Task<DataTable> GetMarcaNacionalById(int id)
         {
-            return marcaDao.GetMarcaNacionalById(id);
+            return await marcaDao.ObtenerMarcaNacionalPorId(id);
         }
-        public DataTable GetMarcaInternacionalById(int id)
+        public async Task<byte[]> ObtenerLogoMarcaPorId(int id)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.GetMarcaInternacionalById(id);
-            return tabla;
+            return await marcaDao.ObtenerLogoMarcaPorId(id);
         }
 
-        public DataTable ObtenerTipoMarca(int id)
+        public async Task<DataTable> GetMarcaInternacionalById(int id)
         {
-            DataTable tabla = new DataTable();
-            tabla = marcaDao.ObtenerTipoMarca(id);
-            return tabla;
+            return await marcaDao.ObtenerMarcaInternacionalPorId(id);
         }
 
-        public int AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
+        public async Task<DataTable> ObtenerTipoMarca(int id)
         {
-            return marcaDao.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud,idCliente);
-        }
-        public int AddMarcaInternacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int? idCliente)
-        {
-            return marcaDao.AddMarcaInternacional(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, pais_de_registro, tiene_poder,idCliente);
-        }
-        public int AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, int? idCliente)
-        {
-            return marcaDao.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, idCliente);
-        }
-        public int AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud,  string pais_de_registro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fecha_de_registro, DateTime fecha_vencimiento)
-        {
-            return marcaDao.AddMarcaInternacionalRegistrada(expediente,nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, pais_de_registro, tiene_poder, idCliente, registro, folio, libro, fecha_de_registro, fecha_vencimiento);
+            return await marcaDao.ObtenerTipoMarca(id);
         }
 
-        public bool EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
+        public async Task<int> AddMarcaNacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
         {
-            return marcaDao.EditMarcaNacional(id, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud,idCliente);
+            return await marcaDao.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud,idCliente);
         }
-        public bool EditMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)
+        public async Task<int> AddMarcaInternacional(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string pais_de_registro, string tiene_poder, int? idCliente)
         {
-            return marcaDao.EditarMarcaInternacional(id, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente);
+            return await marcaDao.AddMarcaInternacional(expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, pais_de_registro, tiene_poder,idCliente);
         }
-
-        public bool EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp, int? idCliente)
+        public async Task<int> AddMarcaNacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, int? idCliente)
         {
-            return marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, erenov, etrasp, idCliente);
+            return await marcaDao.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, idCliente);
         }
-
-        public bool EditMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
+        public async Task<int> AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud,  string pais_de_registro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fecha_de_registro, DateTime fecha_vencimiento)
         {
-            return marcaDao.EditarMarcaInternacionalRegistrada(id, expediente, nombre, signoDistintivo,tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fechaRegistro, fechaVencimiento, erenov, etrasp);
+            return await marcaDao.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, pais_de_registro, tiene_poder, idCliente, registro, folio, libro, fecha_de_registro, fecha_vencimiento);
         }
 
-        public DataTable Filtrar(
-        string tipo_filtro,
-        string? estado, string? nombre, string? pais, string? folio, string? libro,
-        string? registro, string? clase,
-        string? fechaSolicitudInicio, string? fechaSolicitudFin,
-        string? fechaRegistroInicio, string? fechaRegistroFin,
-        string? fechaVencimientoInicio, string? fechaVencimientoFin,
-        string? titular, string? agente, string? cliente)
+        public async Task<bool> EditMarcaNacional(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, int? idCliente)
         {
-            return marcaDao.Filtrar(
+            return await marcaDao.EditMarcaNacional(id, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, idCliente);
+        }
+
+        public async Task<bool> EditMarcaInternacional(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente)
+        {
+            return await marcaDao.EditMarcaInternacional(id, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente);
+        }
+
+        public async Task<bool> EditMarcaNacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp, int? idCliente)
+        {
+            return await marcaDao.EditMarcaNacionalRegistrada(id, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, erenov, etrasp, idCliente);
+        }
+
+        public async Task<bool> EditMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento, string erenov, string etrasp)
+        {
+            return await marcaDao.EditMarcaInternacionalRegistrada(id, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fechaRegistro, fechaVencimiento, erenov, etrasp);
+        }
+
+        public async Task<DataTable> Filtrar(
+            string tipo_filtro,
+            string? estado, string? nombre, string? pais, string? folio, string? libro,
+            string? registro, string? clase,
+            string? fechaSolicitudInicio, string? fechaSolicitudFin,
+            string? fechaRegistroInicio, string? fechaRegistroFin,
+            string? fechaVencimientoInicio, string? fechaVencimientoFin,
+            string? titular, string? agente, string? cliente)
+        {
+            return await marcaDao.FiltrarMarcas(
                 tipo_filtro, estado, nombre, pais, folio, libro, registro, clase,
                 fechaSolicitudInicio, fechaSolicitudFin,
                 fechaRegistroInicio, fechaRegistroFin,
@@ -414,10 +426,10 @@ namespace Dominio
         }
 
 
-        public void ActualizarExpedienteMarca(int p_id, string p_expediente, DateTime fecha, string estado, 
+        public async void ActualizarExpedienteMarca(int p_id, string p_expediente, DateTime fecha, string estado, 
             string anotaciones, string usuario)
         {
-            marcaDao.ActualizarExpedienteMarca(p_id, p_expediente, fecha, estado, anotaciones, usuario);
+            await marcaDao.ActualizarExpedienteMarca(p_id, p_expediente, fecha.ToString(), estado, anotaciones, usuario);
         }
 
 

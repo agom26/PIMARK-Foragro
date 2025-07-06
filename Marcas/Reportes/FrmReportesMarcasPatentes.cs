@@ -401,7 +401,7 @@ namespace Presentacion.Reportes
 
 
 
-        public void Filtrar()
+        public async void Filtrar()
         {
             string objeto = null;
             string? estado = null;
@@ -589,7 +589,7 @@ namespace Presentacion.Reportes
                 fechaVencimientoFinal = null;
             }
 
-            dtgReportes.DataSource = marcamodel.Filtrar(objeto, estado, nombre, pais,
+            dtgReportes.DataSource = await marcamodel.Filtrar(objeto, estado, nombre, pais,
                 folio, tomo, numRegistro, clase, fechaSolicitudInicio, fechaSolicitudFin,
                 fechaRegistroInicio, fechaRegistroFin, fechaVencimientoInicio, fechaVencimientoFinal,
                 titular, agente, cliente

@@ -17,7 +17,7 @@ namespace Dominio
             historialOposicionDao = new HistorialOposicionDao();
         }
 
-        public void CrearHistorialOposicion(
+        public async void CrearHistorialOposicion(
             DateTime fecha,
             string etapa,
             string anotaciones,
@@ -26,7 +26,7 @@ namespace Dominio
             string origen,
             int idOposicion)
         {
-            historialOposicionDao.InsertarHistorialOposicion(
+            await historialOposicionDao.InsertarHistorialOposicion(
                 fecha,
                 etapa,
                 anotaciones,
@@ -36,17 +36,17 @@ namespace Dominio
                 idOposicion);
         }
 
-        public DataTable ObtenerHistorial(int idOposicion)
+        public Task<DataTable> ObtenerHistorial(int idOposicion)
         {
             return historialOposicionDao.ObtenerHistorialOposicion(idOposicion);
         }
 
-        public DataTable ObtenerHistorialPorId(int idOposicion)
+        public Task<DataTable> ObtenerHistorialPorId(int idOposicion)
         {
             return historialOposicionDao.ObtenerHistorialOposicionPorId(idOposicion);
         }
 
-        public bool EditarHistorialOposicion(
+        public Task<bool> EditarHistorialOposicion(
             int historialId,
             string nuevaEtapa,
             DateTime nuevaFecha,

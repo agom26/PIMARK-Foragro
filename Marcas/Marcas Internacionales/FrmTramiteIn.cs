@@ -261,8 +261,8 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 int idMarca = registroChek ?
-                    marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
-                    marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
+                    await marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
 
                 if (idMarca > 0)
                 {

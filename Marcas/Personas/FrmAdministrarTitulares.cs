@@ -31,6 +31,7 @@ namespace Presentacion.Personas
             if (UsuarioActivo.isAdmin == false)
             {
                 ibtnEditar.Visible = false;
+                btnEliminarTitular.Visible = false;
 
             }
         }
@@ -623,6 +624,48 @@ namespace Presentacion.Personas
         private void FrmAdministrarTitulares_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private async void btnEliminarAgente_Click(object sender, EventArgs e)
+        {
+            VerificarSeleccion();
+            if (dtgTitulares.SelectedRows.Count > 0)
+            {
+                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+
+
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al titular'{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+
+                        string currentUser = UsuarioActivo.usuario;
+                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
+
+                        if (isDeleted)
+                        {
+                            FrmAlerta alerta = new FrmAlerta("TITULAR ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            alerta.ShowDialog();
+                            await LoadTitulares();
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("ERROR AL ELIMINAR AL TITULAR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al intentar eliminar el titular: " + ex.Message+"\nEs posible que se encuentre asociada a una marca/patente.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un agente para eliminar.");
+            }
         }
     }
 }

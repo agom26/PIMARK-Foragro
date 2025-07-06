@@ -399,22 +399,33 @@ namespace AccesoDatos.Entidades
                             logCommand.ExecuteNonQuery();
                         }
 
-                        using (var deleteCommand = new MySqlCommand("DELETE FROM Personas WHERE id=@personaId", connection, transaction))
+                        using (var deleteCommand = new MySqlCommand("EliminarPersonaSiNoTieneAsociaciones", connection, transaction))
                         {
-                            deleteCommand.Parameters.AddWithValue("@personaId", personaId);
-                            int rowsAffected = deleteCommand.ExecuteNonQuery();
-                            transaction.Commit();
-                            return rowsAffected > 0;
+                            deleteCommand.CommandType = CommandType.StoredProcedure;
+                            deleteCommand.Parameters.AddWithValue("@p_persona_id", personaId);
+
+                            deleteCommand.ExecuteNonQuery();
                         }
+
+                        transaction.Commit();
+                        return true;
                     }
-                    catch (Exception ex)
+                    catch (MySqlException ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error al eliminar el la persona: " + ex.Message);
+
+                        // Detecta error por SIGNAL SQLSTATE
+                        if (ex.Number == 1644) // SIGNAL SQLSTATE '45000'
+                        {
+                            throw new Exception("No se puede eliminar la persona: " + ex.Message);
+                        }
+
+                        throw new Exception("Error general al eliminar la persona: " + ex.Message);
                     }
                 }
             }
         }
+
 
         public bool RemoveAgente(int personaId, string deletedUser, string deletedBy)
         {
@@ -432,21 +443,75 @@ namespace AccesoDatos.Entidades
                             logCommand.ExecuteNonQuery();
                         }
 
-                        using (var deleteCommand = new MySqlCommand("DELETE FROM Personas WHERE id=@personaId", connection, transaction))
+                        using (var deleteCommand = new MySqlCommand("EliminarPersonaSiNoTieneAsociaciones", connection, transaction))
                         {
-                            deleteCommand.Parameters.AddWithValue("@personaId", personaId);
-                            int rowsAffected = deleteCommand.ExecuteNonQuery();
-                            transaction.Commit();
-                            return rowsAffected > 0;
+                            deleteCommand.CommandType = CommandType.StoredProcedure;
+                            deleteCommand.Parameters.AddWithValue("@p_persona_id", personaId);
+
+                            deleteCommand.ExecuteNonQuery();
                         }
+
+                        transaction.Commit();
+                        return true;
                     }
-                    catch (Exception ex)
+                    catch (MySqlException ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error al eliminar el la persona: " + ex.Message);
+
+                        // Detecta error por SIGNAL SQLSTATE
+                        if (ex.Number == 1644) // SIGNAL SQLSTATE '45000'
+                        {
+                            throw new Exception("No se puede eliminar la persona: " + ex.Message);
+                        }
+
+                        throw new Exception("Error general al eliminar la persona: " + ex.Message);
                     }
                 }
             }
         }
+
+        public bool RemoveCliente(int personaId, string deletedUser, string deletedBy)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var logCommand = new MySqlCommand("INSERT INTO PersonaDeletionLog (persona, tipo, deleted_by) VALUES (@persona, 'cliente', @deletedBy)", connection, transaction))
+                        {
+                            logCommand.Parameters.AddWithValue("@persona", deletedUser);
+                            logCommand.Parameters.AddWithValue("@deletedBy", deletedBy);
+                            logCommand.ExecuteNonQuery();
+                        }
+
+                        using (var deleteCommand = new MySqlCommand("EliminarPersonaSiNoTieneAsociaciones", connection, transaction))
+                        {
+                            deleteCommand.CommandType = CommandType.StoredProcedure;
+                            deleteCommand.Parameters.AddWithValue("@p_persona_id", personaId);
+
+                            deleteCommand.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        transaction.Rollback();
+
+                        // Detecta error por SIGNAL SQLSTATE
+                        if (ex.Number == 1644) // SIGNAL SQLSTATE '45000'
+                        {
+                            throw new Exception("No se puede eliminar la persona: " + ex.Message);
+                        }
+
+                        throw new Exception("Error general al eliminar la persona: " + ex.Message);
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -57,7 +57,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (comboBox1.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
                 if (anotaciones.Contains(formato))
                 {

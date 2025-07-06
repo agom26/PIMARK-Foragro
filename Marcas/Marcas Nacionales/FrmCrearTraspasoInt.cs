@@ -336,7 +336,7 @@ namespace Presentacion.Marcas_Internacionales
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarMarca.etraspaso;
             txtNombreTitularA.Text = AgregarTraspaso.nombreTitulara;
-            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToShortDateString() + " " + txtEstado.Text;
+            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -373,7 +373,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (!string.IsNullOrEmpty(nuevoTitular))
                 {
                     // Formatear anotaciones con fecha y etapa
-                    string fechaSinHora = dateTimePickerFecha.Value.ToShortDateString();
+                    string fechaSinHora = dateTimePickerFecha.Value.ToString("dd/MM/yyyy");
                     string formato = fechaSinHora + " " + txtEstado.Text;
                     AgregarEtapa.anotaciones = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
 
@@ -420,7 +420,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToShortDateString() + " " + txtEstado.Text;
+            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

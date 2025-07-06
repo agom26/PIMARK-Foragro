@@ -31,8 +31,8 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            richTextBox1 = new RichTextBox();
+            dateTimePickerFecha = new DateTimePicker();
+            textAnotaciones = new RichTextBox();
             lblUser = new Label();
             roundedButton1 = new Presentacion.Clases.RoundedButton();
             panel2 = new Panel();
@@ -85,23 +85,23 @@
             label3.TabIndex = 2;
             label3.Text = "Anotaciones";
             // 
-            // dateTimePicker1
+            // dateTimePickerFecha
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(31, 93);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(154, 22);
-            dateTimePicker1.TabIndex = 1;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            dateTimePickerFecha.Format = DateTimePickerFormat.Short;
+            dateTimePickerFecha.Location = new Point(31, 93);
+            dateTimePickerFecha.Name = "dateTimePickerFecha";
+            dateTimePickerFecha.Size = new Size(154, 22);
+            dateTimePickerFecha.TabIndex = 1;
+            dateTimePickerFecha.ValueChanged += dateTimePicker1_ValueChanged;
             // 
-            // richTextBox1
+            // textAnotaciones
             // 
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(31, 172);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 70);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            textAnotaciones.BorderStyle = BorderStyle.None;
+            textAnotaciones.Location = new Point(31, 172);
+            textAnotaciones.Name = "textAnotaciones";
+            textAnotaciones.Size = new Size(431, 70);
+            textAnotaciones.TabIndex = 2;
+            textAnotaciones.Text = "";
             // 
             // lblUser
             // 
@@ -308,12 +308,12 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dateTimePicker1);
+            groupBox1.Controls.Add(dateTimePickerFecha);
             groupBox1.Controls.Add(txtEstado);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(richTextBox1);
+            groupBox1.Controls.Add(textAnotaciones);
             groupBox1.Controls.Add(lblUser);
             groupBox1.Location = new Point(26, 77);
             groupBox1.Name = "groupBox1";
@@ -374,8 +374,8 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private RichTextBox richTextBox1;
+        private DateTimePicker dateTimePickerFecha;
+        private RichTextBox textAnotaciones;
         private Label lblUser;
         private Clases.RoundedButton roundedButton1;
         private Panel panel2;

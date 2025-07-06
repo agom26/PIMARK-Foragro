@@ -83,12 +83,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadMarcas()
         {
-            totalRows = marcaModel.GetTotalMarcasEnTramiteDeRenovacion();
+            totalRows = await marcaModel.GetTotalMarcasEnTramiteDeRenovacion();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             // Obtiene las marcas
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasNacionalesEnTramiteDeRenovacion(currentPageIndex, pageSize))
-                                       .ConfigureAwait(false);
+            var marcasN = await marcaModel.GetAllMarcasNacionalesEnTramiteDeRenovacion(currentPageIndex, pageSize);
 
             if (this.IsHandleCreated && !this.IsDisposed)
             {
@@ -301,7 +300,7 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
-            if (registroChek && marcaModel.ExisteRegistro(registro, SeleccionarMarca.idN))
+            if (registroChek && await marcaModel.ExisteRegistro(registro, SeleccionarMarca.idN))
             {
                 FrmAlerta alerta = new FrmAlerta("ESTE REGISTRO YA EXISTE EN LA BASE DE DATOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
@@ -315,16 +314,16 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (registroChek)
                 {
-                    esActualizado = marcaModel.EditMarcaNacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaNacionalRegistrada(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente,
                         solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
                 }
                 else
                 {
-                    esActualizado = marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
                 }
 
-                DataTable marcaActualizada = marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
+                DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                 if (esActualizado)
                 {
@@ -446,12 +445,28 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.estado = row["estado"]?.ToString();
                         SeleccionarMarca.signoDistintivo = row["signoDistintivo"]?.ToString();
                         SeleccionarMarca.tipoSigno = row["Tipo"]?.ToString();
-                        SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                        //SeleccionarMarca.logo = row["logo"] is DBNull ? null : (byte[])row["logo"];
                         SeleccionarMarca.idPersonaTitular = Convert.ToInt32(row["idTitular"]);
                         SeleccionarMarca.idPersonaAgente = Convert.ToInt32(row["idAgente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"]?.ToString();
                         SeleccionarMarca.erenov = row["Erenov"]?.ToString();
+
+
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+
+                        if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
+                            {
+                                pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            convertirImagen();
+                            pictureBox1.Image = documento;
+                        }
 
                         var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaTitular));
                         var agenteTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarMarca.idPersonaAgente));
@@ -486,13 +501,15 @@ namespace Presentacion.Marcas_Internacionales
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
 
+
+                        /*
                         if (row["logo"] == DBNull.Value)
                         {
                             convertirImagen();
                             pictureBox1.Image = documento;
-                        }
+                        }*/
 
-                        bool contieneRegistrada = marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
+                        bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
                         if (contieneRegistrada)
                         {
@@ -666,7 +683,7 @@ namespace Presentacion.Marcas_Internacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToShortDateString() + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE");
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE");
                                 FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 alerta.ShowDialog();
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -776,7 +793,7 @@ namespace Presentacion.Marcas_Internacionales
         {
 
         }
-        public void VerEditarHistorial()
+        public async void VerEditarHistorial()
         {
             if (dtgHistorialR.SelectedRows.Count > 0)
             {
@@ -787,7 +804,7 @@ namespace Presentacion.Marcas_Internacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorial.id = id;
 
-                    DataTable historial = historialModel.GetHistorialById(id);
+                    DataTable historial = await historialModel.GetHistorialById(id);
 
                     if (historial.Rows.Count > 0)
                     {
@@ -902,7 +919,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
@@ -912,15 +929,15 @@ namespace Presentacion.Marcas_Internacionales
                etapa == "Recurso de revocatoria" || etapa == "Resolución Ministerio de Economía(MINECO)" ||
                etapa == "Contencioso administrativo")
             {
-                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " Por objeción-" + comboBoxEstatusH.SelectedItem;
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " Por objeción-" + comboBoxEstatusH.SelectedItem;
             }
             else
             {
-                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+                richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy") + " " + comboBoxEstatusH.SelectedItem;
             }
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
             //Editar historial por id
             string etapa = comboBoxEstatusH.SelectedItem.ToString();
@@ -929,7 +946,7 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarHistorial.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
-            bool actualizar = historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+            bool actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, anotaciones, usuario, usuarioEditor);
 
             if (actualizar == true)
             {
@@ -1114,14 +1131,24 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton4_Click_1(object sender, EventArgs e)
         {
-            DatosRegistro.peligro = false;
-            AnadirTabPage(tabPageRegistradasList);
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageListaArchivos);
-            EliminarTabPage(tabPageHistorialMarca);
-            await LoadMarcas();
-            SeleccionarMarca.idN = 0;
-            LimpiarFormulario();
+            VerificarDatosRegistro();
+            if (DatosRegistro.peligro == false)
+            {
+                DatosRegistro.peligro = false;
+                AnadirTabPage(tabPageRegistradasList);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageListaArchivos);
+                EliminarTabPage(tabPageHistorialMarca);
+                await LoadMarcas();
+                SeleccionarMarca.idN = 0;
+                LimpiarFormulario();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+                
         }
 
         private void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1135,11 +1162,11 @@ namespace Presentacion.Marcas_Internacionales
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = marcaModel.FiltrarMarcasNacionalesEnTramiteDeRenovacion(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await marcaModel.FiltrarMarcasNacionalesEnTramiteDeRenovacion(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgMarcasRenov.DataSource = titulares;
@@ -1224,11 +1251,11 @@ namespace Presentacion.Marcas_Internacionales
             filtrar();
         }
 
-        private void ibtnBuscar_Click_1(object sender, EventArgs e)
+        private async void ibtnBuscar_Click_1(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
+            totalRows = await marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1303,13 +1330,13 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalRows = await marcaModel.GetFilteredMarcasEnTramiteDeRenovacionCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();

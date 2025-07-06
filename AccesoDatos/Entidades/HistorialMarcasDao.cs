@@ -1,4 +1,160 @@
-﻿using MySql.Data.MySqlClient;
+﻿
+
+
+using System;
+using System.Data;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class HistorialMarcasDao
+    {
+        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_marcas.php";
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(urlApi, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Error HTTP {response.StatusCode}: {errorContent}");
+            }
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrWhiteSpace(responseBody))
+                throw new Exception("Respuesta vacía del servidor.");
+
+            return JsonDocument.Parse(responseBody);
+        }
+
+        public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
+        {
+            var data = new
+            {
+                action = "editar",
+                id,
+                etapa,
+                fecha = fecha.ToString("yyyy-MM-dd"),
+                anotaciones,
+                usuario,
+                usuarioEditor
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<DataTable> GetHistorialById(int id)
+        {
+            var data = new { action = "obtener_por_id", id };
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                        {
+                            // Agrega columna si no existe aún
+                            if (!tabla.Columns.Contains(prop.Name))
+                                tabla.Columns.Add(prop.Name);
+                        }
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                    {
+                        if (tabla.Columns.Contains(prop.Name))
+                            row[prop.Name] = prop.Value.ToString();
+                    }
+                    tabla.Rows.Add(row);
+                }
+            }
+
+            return tabla;
+        }
+
+
+
+
+        public async Task<DataTable> GetAllEtapasByIdMarca(int idMarca)
+        {
+            var data = new { action = "obtener_etapas", idMarca };
+            var jsonDoc = await PostAsync(data);
+
+            var tabla = new DataTable();
+
+            if (jsonDoc.RootElement.TryGetProperty("historial", out var historialArray) &&
+                historialArray.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var elem in historialArray.EnumerateArray())
+                {
+                    if (tabla.Columns.Count == 0)
+                    {
+                        foreach (var prop in elem.EnumerateObject())
+                            tabla.Columns.Add(prop.Name);
+                    }
+
+                    var row = tabla.NewRow();
+                    foreach (var prop in elem.EnumerateObject())
+                        row[prop.Name] = prop.Value.ToString();
+
+                    tabla.Rows.Add(row);
+                }
+            }
+
+            return tabla;
+        }
+
+
+        public async Task<bool> GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario, string origen)
+        {
+            var data = new
+            {
+                action = "guardar",
+                idMarca,
+                fecha = fecha.ToString("yyyy-MM-dd"),
+                etapa,
+                anotaciones,
+                usuario,
+                origen
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+
+        public async Task<bool> EliminarRegistroHistorialYLog(int idHistorial, string deletedBy)
+        {
+            var data = new
+            {
+                action = "eliminar",
+                idHistorial,
+                deletedBy
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
+        }
+    }
+}
+
+
+/*
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +166,7 @@ namespace AccesoDatos.Entidades
 {
     public class HistorialMarcasDao:ConnectionSQL
     {
-
+        
         public bool EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
         {
             using (var connection = GetConnection())
@@ -142,6 +298,6 @@ namespace AccesoDatos.Entidades
         }
 
 
-
+        
     }
-}
+}*/

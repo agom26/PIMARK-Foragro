@@ -144,7 +144,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -226,7 +226,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        private void EdicionLicencia()
+        private async void EdicionLicencia()
         {
             if (dtgLicencias.SelectedRows.Count == 0)
             {
@@ -255,7 +255,7 @@ namespace Presentacion.Marcas_Internacionales
             int idLicencia = Convert.ToInt32(dataRowView["id"]);
 
             var licenciaModel = new LicenciaUsoModel();
-            DataTable dtDatosRenovacion = licenciaModel.ObtenerDatosRenovacionLicencia(idLicencia);
+            DataTable dtDatosRenovacion = await licenciaModel.ObtenerDatosRenovacionLicencia(idLicencia);
 
             if (dtDatosRenovacion == null || dtDatosRenovacion.Rows.Count == 0)
             {
@@ -322,7 +322,7 @@ namespace Presentacion.Marcas_Internacionales
             DateTime fechaAntigua = dtpFechaFinAntigua.Value;
             DateTime fechaNueva = dtpFechaFinNueva.Value;
             var licenciaModel = new LicenciaUsoModel();
-            bool renovada = licenciaModel.RenovarLicenciaUso(idLicencia, numExpediente, fechaAntigua, fechaNueva);
+            bool renovada = await licenciaModel.RenovarLicenciaUso(idLicencia, numExpediente, fechaAntigua, fechaNueva);
 
             if (renovada)
             {
