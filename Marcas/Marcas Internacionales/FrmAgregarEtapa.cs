@@ -103,18 +103,18 @@ namespace Presentacion.Marcas_Nacionales
                 etapa == "Recurso de revocatoria" || etapa == "Resolución Ministerio de Economía (MINECO)"
                 || etapa == "Contencioso administrativo")
             {
-                richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " Por objeción-" + comboBox1.SelectedItem;
+                richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " Por objeción-" + comboBox1.SelectedItem;
             }
             else
             {
-                richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+                richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
             }
 
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
         }
 
 

@@ -80,6 +80,10 @@ namespace Dominio
         {
             return await marcaDao.ExisteRegistro(registro, idMarcaActual);
         }
+        public async Task<bool> ExisteRegistroMarcaIngresada(string registro, int? idMarcaActual)
+        {
+            return await marcaDao.ExisteRegistromarcaIngresada(registro, idMarcaActual);
+        }
 
         public async Task<int> GetTotalMarcasNacionales()
         {

@@ -211,6 +211,19 @@ namespace AccesoDatos.Entidades
             var jsonDoc = await PostAsync(data);
             return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
         }
+        public async Task<bool> ExisteRegistromarcaIngresada(string registro, int? idMarca)
+        {
+            var data = new
+            {
+                action = "existe_registro_marca",
+                registro,
+                idMarca
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("existe", out var existe) && existe.GetBoolean();
+        }
+
 
         public async Task<bool> ExisteRegistro(string registro, int? idMarcaActual)
         {
@@ -266,53 +279,10 @@ namespace AccesoDatos.Entidades
         }
 
 
-        /*
-        public async Task<bool> EditarMarcaNacionalRegistrada(
-            int id,
-            string expediente,
-            string nombre,
-            string signoDistintivo,
-            string tipoSigno,
-            string clase,
-            string folio,
-            string libro,
-            byte[] logo,
-            int idPersonaTitular,
-            int idPersonaAgente,
-            string fecha_solicitud,
-            string registro,
-            string fechaRegistro,
-            string fechaVencimiento,
-            string erenov,
-            string etrasp,
-            int? idCliente)
-        {
-            var data = new
-            {
-                action = "edit_marca_nacional_registrada",
-                id,
-                expediente,
-                nombre,
-                signoDistintivo,
-                tipoSigno,
-                clase,
-                folio,
-                libro,
-                logo,
-                idPersonaTitular,
-                idPersonaAgente,
-                fecha_solicitud,
-                registro,
-                fechaRegistro,
-                fechaVencimiento,
-                erenov,
-                etrasp,
-                idCliente
-            };
+       
 
-            var jsonDoc = await PostAsync(data);
-            return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
-        }*/
+
+
 
 
 

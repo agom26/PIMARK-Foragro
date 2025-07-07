@@ -544,17 +544,28 @@ namespace Presentacion.Marcas_Internacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if (archivoSeleccionado == false && checkBox1.Checked)
+                bool existeRegistro= await marcaModel.ExisteRegistroMarcaIngresada(txtRegistro.Text.Trim(),0);
+                if (existeRegistro)
                 {
-
-                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
+                    return;
                 }
                 else
                 {
-                    await GuardarMarcaInter();
+                    if (archivoSeleccionado == false && checkBox1.Checked)
+                    {
 
+                        FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                    else
+                    {
+                        await GuardarMarcaInter();
+
+                    }
                 }
+                
                
             }
             else

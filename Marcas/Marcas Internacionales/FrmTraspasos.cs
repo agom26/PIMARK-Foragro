@@ -987,7 +987,18 @@ namespace Presentacion.Marcas_Nacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                await ActualizarMarcaNacional();
+                bool existeRegistro = await marcaModel.ExisteRegistro(txtRegistro.Text.Trim(), SeleccionarMarca.idN);
+                if (existeRegistro)
+                {
+                    FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    await ActualizarMarcaNacional();
+                }
+                    
             }
             else
             {
