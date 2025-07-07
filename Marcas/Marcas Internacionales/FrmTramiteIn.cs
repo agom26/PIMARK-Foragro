@@ -595,6 +595,8 @@ namespace Presentacion.Marcas_Nacionales
         }
         private void btnCancelarM_Click(object sender, EventArgs e)
         {
+            DatosRegistro.peligro = false;
+            /*
             if (DatosRegistro.peligro == true)
             {
                 FrmAlerta alerta = new FrmAlerta("LA MARCA NO FUE INGRESADA", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -603,7 +605,9 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
 
-            }
+            }*/
+            FrmAlerta alerta = new FrmAlerta("LA MARCA NO FUE INGRESADA", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            alerta.ShowDialog();
             LimpiarFormulario();
             DatosRegistro.peligro = false;
             //llamar a DashboardPrincipal

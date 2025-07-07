@@ -189,7 +189,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                pictureBox1.Image = null;
+                pictureBox1.Image = documento;
             }
         }
 
@@ -381,7 +381,12 @@ namespace Presentacion.Marcas_Nacionales
                 // Verificar si la actualización fue exitosa
                 if (esActualizado)
                 {
+                    if (agregoEstado == true)
+                    {
+                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                        agregoEstado = false;
 
+                    }
                     FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -733,10 +738,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
+                    await refrescarMarca();
                     agregoEstado = true;
                     richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                     textBoxEstatus.Text = AgregarEtapa.etapa;
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    //historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -1279,7 +1285,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
         private async void btnCancelarM_Click(object sender, EventArgs e)
-        {
+        {/*
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
@@ -1305,8 +1311,16 @@ namespace Presentacion.Marcas_Nacionales
                     FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                 }
-            }
+            }*/
+            DatosRegistro.peligro = false;
+            await LoadMarcas();
+            AnadirTabPage(tabPageListaMarcas);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageHistorialMarca);
             
+            SeleccionarMarca.idInt = 0;
+            LimpiarFormulario();
         }
 
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

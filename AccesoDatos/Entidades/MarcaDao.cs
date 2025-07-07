@@ -327,8 +327,8 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(registro), "registro");
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
             form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
-            form.Add(new StringContent(erenov ?? ""), "erenov");
-            form.Add(new StringContent(etrasp ?? ""), "etrasp");
+            form.Add(new StringContent(erenov ), "erenov");
+            form.Add(new StringContent(etrasp ), "etrasp");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
 
             if (logo != null && logo.Length > 0)

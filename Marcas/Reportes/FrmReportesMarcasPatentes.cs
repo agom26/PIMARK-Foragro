@@ -29,6 +29,8 @@ namespace Presentacion.Reportes
         public FrmReportesMarcasPatentes()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             this.Load += FrmReportesMarcasPatentes_Load;
             this.Resize += FrmReportesMarcasPatentes_Resize;
             SeleccionarPersonaReportes.LimpiarCliente();
@@ -588,6 +590,7 @@ namespace Presentacion.Reportes
                 fechaVencimientoInicio = null;
                 fechaVencimientoFinal = null;
             }
+            dtgReportes.SuspendLayout();
 
             dtgReportes.DataSource = await marcamodel.Filtrar(objeto, estado, nombre, pais,
                 folio, tomo, numRegistro, clase, fechaSolicitudInicio, fechaSolicitudFin,
@@ -595,6 +598,8 @@ namespace Presentacion.Reportes
                 titular, agente, cliente
                 );
             dtgReportes.ClearSelection();
+            dtgReportes.ResumeLayout();
+
 
         }
         private void tabPage1_Click(object sender, EventArgs e)
@@ -665,10 +670,7 @@ namespace Presentacion.Reportes
 
         private async void FrmReportesMarcasPatentes_Load(object sender, EventArgs e)
         {
-            tabControl1.Visible = false;
-            comboBoxObjeto.SelectedIndex = 0;
-            await Task.Delay(800);
-            tabControl1.Visible = true;
+           
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -853,8 +855,6 @@ namespace Presentacion.Reportes
 
         private void CentrarDataGridView()
         {
-            panelDataGridView.Visible = false;
-
             int anchoMinimo = tableLayoutPanelReportes.Width + 100;
 
             if (this.ClientSize.Width >= anchoMinimo)
@@ -862,8 +862,7 @@ namespace Presentacion.Reportes
                 panelDataGridView.Width = tableLayoutPanelReportes.Width;
                 panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 int x = (this.ClientSize.Width - panelDataGridView.Width) / 2;
-                int y = panelDataGridView.Location.Y;
-                panelDataGridView.Location = new System.Drawing.Point(x, y);
+                panelDataGridView.Location = new System.Drawing.Point(x, panelDataGridView.Location.Y);
             }
             else
             {
@@ -871,12 +870,8 @@ namespace Presentacion.Reportes
                 panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
             }
-
-            this.BeginInvoke((MethodInvoker)(() =>
-            {
-                panelDataGridView.Visible = true;
-            }));
         }
+
 
 
         private void PosicionarPanelDebajoDerecha()
@@ -897,6 +892,18 @@ namespace Presentacion.Reportes
 
         private void FrmReportesMarcasPatentes_Resize(object sender, EventArgs e)
         {
+            CentrarTableLayoutReporte();
+            CentrarDataGridView();
+            PosicionarPanelDebajoDerecha();
+        }
+
+        private async void FrmReportesMarcasPatentes_Shown(object sender, EventArgs e)
+        {
+            tabControl1.Visible = false;
+            comboBoxObjeto.SelectedIndex = 0;
+            await Task.Delay(800);
+            tabControl1.Visible = true;
+            
             CentrarTableLayoutReporte();
             CentrarDataGridView();
             PosicionarPanelDebajoDerecha();

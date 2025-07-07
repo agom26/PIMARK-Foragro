@@ -633,6 +633,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logobpa1 {
+            get {
+                object obj = ResourceManager.GetObject("logobpa1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logoBPA2 {
             get {
                 object obj = ResourceManager.GetObject("logoBPA2", resourceCulture);
@@ -696,6 +706,56 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap pdf_1_ {
             get {
                 object obj = ResourceManager.GetObject("pdf(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PimarkN {
+            get {
+                object obj = ResourceManager.GetObject("PimarkN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PimarkN2 {
+            get {
+                object obj = ResourceManager.GetObject("PimarkN2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PimarkN3 {
+            get {
+                object obj = ResourceManager.GetObject("PimarkN3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PimarkNormal {
+            get {
+                object obj = ResourceManager.GetObject("PimarkNormal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PimarkP {
+            get {
+                object obj = ResourceManager.GetObject("PimarkP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

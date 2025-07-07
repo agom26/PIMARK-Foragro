@@ -136,7 +136,7 @@
             tableLayoutPanelReportes.Name = "tableLayoutPanelReportes";
             tableLayoutPanelReportes.RowCount = 1;
             tableLayoutPanelReportes.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelReportes.Size = new Size(753, 534);
+            tableLayoutPanelReportes.Size = new Size(736, 534);
             tableLayoutPanelReportes.TabIndex = 242;
             tableLayoutPanelReportes.Paint += tableLayoutPanel1_Paint;
             // 
@@ -163,7 +163,7 @@
             panel6.Controls.Add(checkBoxReigstro);
             panel6.Controls.Add(checkBoxTitular);
             panel6.Controls.Add(checkBoxVencimiento);
-            panel6.Location = new Point(379, 3);
+            panel6.Location = new Point(371, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(344, 528);
             panel6.TabIndex = 244;
@@ -414,7 +414,7 @@
             panel5.Controls.Add(checkBoxFolio);
             panel5.Controls.Add(comboBoxPais);
             panel5.Controls.Add(checkBoxPais);
-            panel5.Location = new Point(30, 3);
+            panel5.Location = new Point(22, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(343, 528);
             panel5.TabIndex = 243;
@@ -597,7 +597,7 @@
             panel1.Location = new Point(7, 1158);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(30, 36);
+            panel1.Size = new Size(13, 36);
             panel1.TabIndex = 236;
             // 
             // roundedButton6
@@ -614,7 +614,7 @@
             roundedButton6.ForeColor = Color.Black;
             roundedButton6.Image = Properties.Resources.simbolo_de_interfaz_grafica_de_tres_barras;
             roundedButton6.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton6.Location = new Point(185, 4);
+            roundedButton6.Location = new Point(176, 4);
             roundedButton6.Margin = new Padding(3, 2, 3, 2);
             roundedButton6.Name = "roundedButton6";
             roundedButton6.Size = new Size(416, 47);
@@ -633,7 +633,7 @@
             panelDataGridView.Location = new Point(36, 724);
             panelDataGridView.Margin = new Padding(3, 2, 3, 2);
             panelDataGridView.Name = "panelDataGridView";
-            panelDataGridView.Size = new Size(753, 387);
+            panelDataGridView.Size = new Size(736, 387);
             panelDataGridView.TabIndex = 216;
             // 
             // dtgReportes
@@ -670,7 +670,7 @@
             dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
             dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportes.Size = new Size(738, 371);
+            dtgReportes.Size = new Size(721, 371);
             dtgReportes.TabIndex = 7;
             // 
             // panelBotones
@@ -799,6 +799,7 @@
             Name = "FrmReportesMarcasPatentes";
             Text = "FrmReportesMarcasPatentes";
             Load += FrmReportesMarcasPatentes_Load;
+            Shown += FrmReportesMarcasPatentes_Shown;
             Click += FrmReportesMarcasPatentes_Click;
             Resize += FrmReportesMarcasPatentes_Resize;
             tabControl1.ResumeLayout(false);

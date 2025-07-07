@@ -23,6 +23,7 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using Presentacion.Properties;
 
 namespace Presentacion
 {
@@ -1281,6 +1282,8 @@ namespace Presentacion
 
         private void CollapseMenu()
         {
+           
+
             // Oculta durante los cambios para evitar parpadeos
             panel2.Visible = false;
 
@@ -1297,6 +1300,7 @@ namespace Presentacion
                 panel2.Width = 100;
 
                 // Minimizar botones
+                iconButton1.BackgroundImage = Resources.PimarkP;
                 foreach (var panel in new[] {
             panel2, panelSubMenuMarcasNacionales,
             panelSubMenuMarcasInter, panelSubMenuPatentes })
@@ -1313,6 +1317,7 @@ namespace Presentacion
             {
                 panel2.Width = 260;
 
+                iconButton1.BackgroundImage = Resources.PimarkN3;
                 foreach (var panel in new[] {
             panel2, panelSubMenuMarcasNacionales,
             panelSubMenuMarcasInter, panelSubMenuPatentes })

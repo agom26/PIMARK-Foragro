@@ -1085,6 +1085,7 @@ namespace Presentacion.Marcas_Nacionales
         }
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
+            /*
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
@@ -1103,8 +1104,16 @@ namespace Presentacion.Marcas_Nacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-
-                
+            */
+            DatosRegistro.peligro = false;
+            await LoadMarcas();
+            AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            EliminarTabPage(tabPageListaArchivos);
+           
+            SeleccionarMarca.idInt = 0;
+            LimpiarFormulario();
         }
 
         private async void ibtnBuscar_Click(object sender, EventArgs e)

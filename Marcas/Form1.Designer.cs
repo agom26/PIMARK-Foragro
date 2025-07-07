@@ -871,7 +871,7 @@
             // 
             iconButton1.AutoSize = true;
             iconButton1.BackColor = Color.FromArgb(34, 77, 112);
-            iconButton1.BackgroundImage = (Image)resources.GetObject("iconButton1.BackgroundImage");
+            iconButton1.BackgroundImage = Properties.Resources.PimarkN3;
             iconButton1.BackgroundImageLayout = ImageLayout.Stretch;
             iconButton1.Dock = DockStyle.Top;
             iconButton1.Enabled = false;
@@ -929,7 +929,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Image = Properties.Resources.logobpa1;
             pictureBox1.Location = new Point(48, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(63, 59);

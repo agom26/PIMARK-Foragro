@@ -1041,7 +1041,7 @@ namespace Presentacion.Marcas_Nacionales
         }
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
-        {
+        {/*
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
@@ -1058,7 +1058,14 @@ namespace Presentacion.Marcas_Nacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-               
+               */
+            DatosRegistro.peligro = false;
+            await LoadMarcas();
+            AnadirTabPage(tabPageRegistradasList);
+            EliminarTabPage(tabPageListaArchivos);
+            EliminarTabPage(tabPageMarcaDetail);
+            EliminarTabPage(tabPageHistorialMarca);
+            LimpiarFormulario();
 
         }
 
