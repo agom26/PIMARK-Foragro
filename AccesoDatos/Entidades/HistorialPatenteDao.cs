@@ -9,7 +9,7 @@ namespace AccesoDatos.Entidades
 {
     public class HistorialPatenteDao
     {
-        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_patente.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/historial_patente.php";
 
         private async Task<JsonDocument> PostAsync(object data)
         {
@@ -24,12 +24,13 @@ namespace AccesoDatos.Entidades
             return JsonDocument.Parse(responseBody);
         }
 
-        public async Task InsertarHistorialPatente(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
+        public async Task InsertarHistorialPatente(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, int idPatente, DateTime? fechaVencimiento)
         {
             var data = new
             {
                 action = "insertar_historial_patente",
                 fecha = fecha.ToString("yyyy-MM-dd"),
+                fechaVencimiento = fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : null,
                 etapa,
                 anotaciones,
                 usuario,
@@ -102,13 +103,14 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-        public async Task<bool> EditarHistorialPatente(int idHistorial, DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion)
+        public async Task<bool> EditarHistorialPatente(int idHistorial, DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, DateTime? fechaVencimiento)
         {
             var data = new
             {
                 action = "editar_historial_patente",
                 idHistorial,
                 fecha = fecha.ToString("yyyy-MM-dd"),
+                fechaVencimiento = fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : null,
                 etapa,
                 anotaciones,
                 usuario,

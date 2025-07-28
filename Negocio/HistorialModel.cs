@@ -17,9 +17,9 @@ namespace Dominio
             historialMarcasDao = new HistorialMarcasDao();
         }
 
-        public async void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario,string origen)
+        public async void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario,string origen, DateTime? fechaVencimiento)
         {
-            await historialMarcasDao.GuardarEtapa(idMarca, fecha, etapa, anotaciones, usuario, origen);
+            await historialMarcasDao.GuardarEtapa(idMarca, fecha, etapa, anotaciones, usuario, origen,fechaVencimiento);
         }
 
         public async Task<DataTable> GetHistorialMarcaById(int id)
@@ -33,9 +33,9 @@ namespace Dominio
             return await historialMarcasDao.GetHistorialById(id);
         }
 
-        public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
+        public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor, DateTime? fechaVencimiento)
         {
-            return await historialMarcasDao.EditHistorialById(id, etapa, fecha, anotaciones, usuario, usuarioEditor);
+            return await historialMarcasDao.EditHistorialById(id, etapa, fecha, anotaciones, usuario, usuarioEditor, fechaVencimiento);
         }
 
 

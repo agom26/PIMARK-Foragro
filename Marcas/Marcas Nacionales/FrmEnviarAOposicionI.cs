@@ -177,6 +177,7 @@ namespace Presentacion.Marcas_Internacionales
             CentrarBotonesEnPanel();
             lblUser.Text = UsuarioActivo.usuario;
             lblUser.Visible = false;
+            textBoxAnotaciones.Text = dateTimePickerFecha.Value.ToString("dd/MM/yyyy") + " " + "Oposición";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -231,9 +232,9 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.signoDistintivo, SeleccionarMarca.clase,
                         solicitante, SeleccionarMarca.idPersonaTitular, null, opositor, signoOpositor,
                         situacion_actual, idMarca, null, SeleccionarMarca.logo, "nacional", "recibida");
-                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                     string nuevaAnotacion = fechaSinHora + " Oposición presentada";
-                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, "Oposición presentada", nuevaAnotacion, AgregarEtapa.usuario, "OPOSICIÓN");
+                    historialModel.GuardarEtapa(idMarca, (DateTime)AgregarEtapa.fecha, "Oposición presentada", nuevaAnotacion, AgregarEtapa.usuario, "OPOSICIÓN", null);
 
                     AgregarEtapa.enviadoAOposicion = true;
                     this.Close();

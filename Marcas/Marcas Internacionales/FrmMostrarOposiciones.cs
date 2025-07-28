@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using ClosedXML.Excel;
 using Presentacion.Marcas_Internacionales;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Reflection;
 
 
 namespace Presentacion.Marcas_Nacionales
@@ -66,7 +67,15 @@ namespace Presentacion.Marcas_Nacionales
             this.Resize += FrmMostrarOposiciones_Resize;
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idInt = 0;
+            SetDoubleBuffering(this, true);
+            SetDoubleBuffering(dtgReportesOp, true);
+        }
 
+        private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -695,7 +704,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -921,6 +930,27 @@ namespace Presentacion.Marcas_Nacionales
             Editar();
         }
 
+        private void CentrarControlSinExpandir(System.Windows.Forms.Control control, int anchoMinimo)
+        {
+            control.AutoSize = false;
+            control.Dock = DockStyle.None;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                control.Anchor = AnchorStyles.Top;
+
+                int x = (this.ClientSize.Width - control.Width) / 2;
+                int y = control.Location.Y;
+                control.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                control.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                control.Location = new System.Drawing.Point(0, control.Location.Y);
+            }
+        }
+
+
         private async void FrmMostrarOposiciones_Load(object sender, EventArgs e)
         {
             //tabControl1.Visible = false;
@@ -951,7 +981,16 @@ namespace Presentacion.Marcas_Nacionales
 
             currentPageIndex2 = 1;
             lblCurrentPage2.Text = currentPageIndex2.ToString();
+
+            //AjustarLayout();
         }
+
+        private void AjustarLayout()
+        {
+            CentrarControlSinExpandir(tableLayoutPanelReportes, 862);
+            CentrarControlSinExpandir(panelDataGridView, 862);
+        }
+
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {/*
@@ -999,6 +1038,7 @@ namespace Presentacion.Marcas_Nacionales
                 dtgReportesOp.ClearSelection();
             }*/
         }
+        /*
         public async void ActualizarMarcaInternacional()
         {
 
@@ -1115,7 +1155,7 @@ namespace Presentacion.Marcas_Nacionales
                 //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LimpiarFormulario();
             }
-        }
+        }*/
 
         public void Habilitar()
         {
@@ -1334,7 +1374,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor,null);
                 if (actualizar == true)
                 {
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1555,7 +1595,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void btnActualizarM_Click(object sender, EventArgs e)
         {
-            ActualizarMarcaInternacional();
+            //ActualizarMarcaInternacional();
             EliminarTabPage(tabPageHistorialMarca);
         }
 
@@ -1733,7 +1773,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (SeleccionarOposicion.idMarca > 0)
                 {
-                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor,null);
 
                 }
                 else if (SeleccionarOposicion.idMarca == 0)
@@ -1903,7 +1943,7 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                           AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                           AgregarEtapaOposicion.usuario, "OPOSICIÓN", null);
                     }
                     agregoEstado = false;
                 }
@@ -2193,7 +2233,7 @@ namespace Presentacion.Marcas_Nacionales
                         {
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones,
-                            AgregarEtapa.usuario, "TRÁMITE");
+                            AgregarEtapa.usuario, "TRÁMITE", null);
                             TerminarOposicion();
 
                             //MessageBox.Show("Etapa agregada con éxito");
@@ -2501,6 +2541,13 @@ namespace Presentacion.Marcas_Nacionales
         {
             dtgReportesOp.DataSource = null;
             dtgReportesOp.ClearSelection();
+
+            AnadirTabPage(tabPageListaMarcas);
+            EliminarTabPage(tabPageReportes);
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex2 = 1;
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
 
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
@@ -2587,7 +2634,7 @@ namespace Presentacion.Marcas_Nacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -2603,7 +2650,7 @@ namespace Presentacion.Marcas_Nacionales
                           table {{ border-collapse: collapse; width: 100%; }}
                           th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
                           th {{ background-color: #f2f2f2; font-weight: bold; }}
-                          img {{ width: 200px; height: auto; }}
+                          img {{ width: 100px; height: auto; }}
                           @page {{ size: legal landscape; margin: 25mm; }}
                           table {{ page-break-inside: auto; }}
                           tr {{ page-break-inside: avoid; }}
@@ -2694,7 +2741,7 @@ namespace Presentacion.Marcas_Nacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA2.Save(tempLogoPath);
+                    Properties.Resources.logoForagro1.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -2719,7 +2766,7 @@ namespace Presentacion.Marcas_Nacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posición del logo
-                                .Scale(0.25); // Ajustar tamaño
+                                .Scale(0.08); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo
@@ -2802,8 +2849,11 @@ namespace Presentacion.Marcas_Nacionales
         private void btnIrAReportes_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageReportes);
-            PosicionarPanelDebajoDerecha();
-        
+            //AjustarLayout();
+
+            //CentrarPanel(); // si esto es algo distinto, mantenlo
+            FrmMostrarOposiciones_Resize(sender, e);
+
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
@@ -3001,6 +3051,29 @@ namespace Presentacion.Marcas_Nacionales
 
         private void CentrarTableLayoutReporte()
         {
+            int anchoMinimo = 862;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                // NO dejar que se estire: solo centramos sin anclar a ambos lados
+                tableLayoutPanelReportes.Anchor = AnchorStyles.Top;
+
+                int x = (this.ClientSize.Width - tableLayoutPanelReportes.Width) / 2;
+                int y = tableLayoutPanelReportes.Location.Y;
+
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla más pequeña → alineado a la izquierda
+                tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
+            }
+        }
+
+        /*
+        private void CentrarTableLayoutReporte()
+        {
             int anchoMinimo = 762 + 100;
 
             if (this.ClientSize.Width >= anchoMinimo)
@@ -3019,11 +3092,12 @@ namespace Presentacion.Marcas_Nacionales
                 tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
             }
-        }
+        }*/
 
+        /*
         private void CentrarDataGridView()
         {
-            panelDataGridView.Visible = false;
+            //panelDataGridView.Visible = false;
 
             int anchoMinimo = 762 + 100;
 
@@ -3040,35 +3114,100 @@ namespace Presentacion.Marcas_Nacionales
                 panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
             }
 
-            this.BeginInvoke((MethodInvoker)(() =>
+        }*/
+
+        private void CentrarDataGridView()
+        {
+            int anchoMinimo = 862; // mismo valor que usas en el otro método
+
+            // Evitar crecimiento automático
+            panelDataGridView.AutoSize = false;
+            panelDataGridView.Dock = DockStyle.None;
+
+            if (this.ClientSize.Width >= anchoMinimo)
             {
-                panelDataGridView.Visible = true;
-            }));
+                // Anclaje fijo: sin derecha para que no se estire
+                panelDataGridView.Anchor = AnchorStyles.Top;
+
+                // Centrar horizontalmente
+                int x = (this.ClientSize.Width - panelDataGridView.Width) / 2;
+                int y = panelDataGridView.Location.Y;
+                panelDataGridView.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Pantalla pequeña → alinear a la izquierda
+                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
+            }
         }
 
 
         private void PosicionarPanelDebajoDerecha()
         {
+            // Obtener posición absoluta de tableLayoutPanel2
+            System.Drawing.Point punto1 = tableLayoutPanelReportes.Location;
+            int x1 = punto1.X + tableLayoutPanelReportes.Width - panelBotones.Width;
+            int y1 = punto1.Y + tableLayoutPanelReportes.Height + 10; // separacion de 10 px abajo
+            panelBotones.Location = new System.Drawing.Point(x1, y1);
 
-            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
-            int x = tableLayoutPanelReportes.Right - panelBotones.Width; // Alineado a la derecha de panelA
-            int y = tableLayoutPanelReportes.Bottom; // Justo debajo de panelA
-
-            panelBotones.Location = new System.Drawing.Point(x, y);
-
-            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
-            int x2 = panelDataGridView.Right - panelBotones2.Width; // Alineado a la derecha de panelA
-            int y2 = panelDataGridView.Bottom; // Justo debajo de panelA
-
+            // Obtener posición absoluta de panel23
+            System.Drawing.Point punto2 = panelDataGridView.Location;
+            int x2 = punto2.X + panelDataGridView.Width - panelBotones2.Width;
+            int y2 = punto2.Y + panelDataGridView.Height + 10;
             panelBotones2.Location = new System.Drawing.Point(x2, y2);
         }
 
         private void FrmMostrarOposiciones_Resize(object sender, EventArgs e)
         {
-            CentrarPanel();
-            CentrarDataGridView();
-            CentrarTableLayoutReporte();
-            PosicionarPanelDebajoDerecha();
+            //AjustarLayout(); // esto ya cubre CentrarDataGridView y CentrarTableLayoutReporte
+
+            CentrarPanel(); // si esto es algo distinto, mantenlo
+            PosicionarPanelDebajoDerecha(); // para ubicar botones
+        }
+
+        private async void btnDesistir_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacionDesistimiento justificacionForm = new FrmJustificacionDesistimiento())
+            {
+
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+
+                    try
+                    {
+
+                        if (dtgMarcasOp.SelectedRows.Count > 0)
+                        {
+                            var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento", justificacion, usuarioAbandono, "TRÁMITE", null);
+                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                await FiltrarPorSituacionActual();
+                                await FiltrarPorSituacionActualInterpuestas();
+                            }
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA MARCA PARA DESISTIR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

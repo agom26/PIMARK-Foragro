@@ -184,6 +184,26 @@ namespace Dominio
             tabla = patenteDao.GetAllPatentesEnAbandono(currentPage, pageSize);
             return tabla;
         }
+
+        //desistimiento
+        public DataTable FiltrarPatentesEnDesistimiento(string filtro, int currentPageIndex, int pageSize)
+        {
+            return patenteDao.FiltrarPatentesEnDesistimiento(filtro, currentPageIndex, pageSize);
+        }
+        public int GetTotalPatentesEnDesistimiento()
+        {
+            return patenteDao.GetTotalPatentesEnDesistimiento();
+        }
+        public int GetFilteredPatentesEnDesistimientoCount(string value)
+        {
+            return patenteDao.GetFilteredPatentesEnDesistimientoCount(value);
+        }
+        public DataTable GetAllPatentesEnDesistimiento(int currentPage, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            tabla = patenteDao.GetAllPatentesEnDesistimiento(currentPage, pageSize);
+            return tabla;
+        }
         public DataTable ObtenerPatentePorId(int idPatente)
         {
             return patenteDao.ObtenerPatentePorId(idPatente);

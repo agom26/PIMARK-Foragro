@@ -72,20 +72,24 @@ namespace Presentacion.Personas
             // Obtiene los usuarios
             var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
 
-            Invoke(new Action(() =>
+            if(this.IsHandleCreated && !this.IsDisposed)
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgTitulares.DataSource = titulares;
-
-                if (dtgTitulares.Columns["id"] != null)
+                Invoke(new Action(() =>
                 {
-                    dtgTitulares.Columns["id"].Visible = false;
-                    dtgTitulares.ClearSelection();
-                }
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgTitulares.DataSource = titulares;
+
+                    if (dtgTitulares.Columns["id"] != null)
+                    {
+                        dtgTitulares.Columns["id"].Visible = false;
+                        dtgTitulares.ClearSelection();
+                    }
 
 
-            }));
+                }));
+            }
+           
         }
 
         public void Habilitar()

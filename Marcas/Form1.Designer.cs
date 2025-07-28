@@ -33,6 +33,7 @@
             panelChildForm = new Panel();
             btnMarcasNacionales = new Button();
             panelSubMenuPatentes = new Panel();
+            btnDesistidasPatentes = new Button();
             btnAbandonadasPatentes = new Button();
             btnTramiteTraspPatentes = new Button();
             btnTramiteRenovPatentes = new Button();
@@ -40,11 +41,14 @@
             btnTramiteInicialPatente = new Button();
             btnIngresarPatente = new Button();
             panel2 = new Panel();
-            btnCerrarSesion = new Button();
+            btnUsers = new Button();
             btnVencimientos = new Button();
             btnReportes = new Button();
+            btnPlazos = new Button();
+            btnCerrarSesion = new Button();
             btnPatentes = new Button();
             panelSubMenuMarcasNacionales = new Panel();
+            btnDesistidasInter = new Button();
             btnAbandonadas = new Button();
             btnTramiteTraspaso = new Button();
             btnTramiteRenovacion = new Button();
@@ -56,6 +60,7 @@
             button1 = new Button();
             btnMInternacionales = new Button();
             panelSubMenuMarcasInter = new Panel();
+            btnDesistidasNacionales = new Button();
             btnAbandonadasInter = new Button();
             btnTraspasoInter = new Button();
             btnRenovInter = new Button();
@@ -64,10 +69,11 @@
             btnOpoInter = new Button();
             btnIngresadasInt = new Button();
             btnTramiteInicialInter = new Button();
-            btnClientes2 = new Button();
-            btnAgentes = new Button();
+            panelTitularesRepresentantes = new Panel();
+            btnGrupos2 = new Button();
+            btnAgentes2 = new Button();
+            btnTitulares2 = new Button();
             btnTitulares = new Button();
-            btnUsers = new Button();
             btnInicio = new Button();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
@@ -87,6 +93,7 @@
             tRDERENOVACIÓNToolStripMenuItem = new ToolStripMenuItem();
             tRDETRASPASOToolStripMenuItem = new ToolStripMenuItem();
             aBANDONADASToolStripMenuItem = new ToolStripMenuItem();
+            dESISTIDASToolStripMenuItem = new ToolStripMenuItem();
             rDropDownMenu2 = new Presentacion.Clases.RDropDownMenu(components);
             iNGRESARMARCAToolStripMenuItem1 = new ToolStripMenuItem();
             tRÁMITEINICIALToolStripMenuItem1 = new ToolStripMenuItem();
@@ -95,6 +102,7 @@
             tRDETRASPASOToolStripMenuItem1 = new ToolStripMenuItem();
             aBANDONADASToolStripMenuItem1 = new ToolStripMenuItem();
             aBANDONADASToolStripMenuItem3 = new ToolStripMenuItem();
+            dESISTIDASToolStripMenuItem1 = new ToolStripMenuItem();
             rDropDownMenu3 = new Presentacion.Clases.RDropDownMenu(components);
             iNGRESARPATENTEToolStripMenuItem = new ToolStripMenuItem();
             tRÁMITEINICIALToolStripMenuItem2 = new ToolStripMenuItem();
@@ -102,17 +110,24 @@
             tRDERENOVACIÓNToolStripMenuItem1 = new ToolStripMenuItem();
             tRDETRASPASOToolStripMenuItem2 = new ToolStripMenuItem();
             aBANDONADASToolStripMenuItem2 = new ToolStripMenuItem();
+            dESISTIDASToolStripMenuItem2 = new ToolStripMenuItem();
+            rDropDownMenu4 = new Presentacion.Clases.RDropDownMenu(components);
+            tITULARESToolStripMenuItem = new ToolStripMenuItem();
+            aGENTESToolStripMenuItem = new ToolStripMenuItem();
+            gRUPOSToolStripMenuItem = new ToolStripMenuItem();
             panelSubMenuPatentes.SuspendLayout();
             panel2.SuspendLayout();
             panelSubMenuMarcasNacionales.SuspendLayout();
             panel3.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
+            panelTitularesRepresentantes.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             rDropDownMenu1.SuspendLayout();
             rDropDownMenu2.SuspendLayout();
             rDropDownMenu3.SuspendLayout();
+            rDropDownMenu4.SuspendLayout();
             SuspendLayout();
             // 
             // panelChildForm
@@ -138,7 +153,7 @@
             btnMarcasNacionales.ForeColor = Color.White;
             btnMarcasNacionales.Image = Properties.Resources.bandera_4_;
             btnMarcasNacionales.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMarcasNacionales.Location = new Point(0, 394);
+            btnMarcasNacionales.Location = new Point(0, 376);
             btnMarcasNacionales.Name = "btnMarcasNacionales";
             btnMarcasNacionales.Size = new Size(243, 61);
             btnMarcasNacionales.TabIndex = 0;
@@ -152,6 +167,7 @@
             // panelSubMenuPatentes
             // 
             panelSubMenuPatentes.BackColor = Color.FromArgb(196, 196, 208);
+            panelSubMenuPatentes.Controls.Add(btnDesistidasPatentes);
             panelSubMenuPatentes.Controls.Add(btnAbandonadasPatentes);
             panelSubMenuPatentes.Controls.Add(btnTramiteTraspPatentes);
             panelSubMenuPatentes.Controls.Add(btnTramiteRenovPatentes);
@@ -160,11 +176,30 @@
             panelSubMenuPatentes.Controls.Add(btnIngresarPatente);
             panelSubMenuPatentes.Dock = DockStyle.Top;
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuPatentes.Location = new Point(0, 1353);
+            panelSubMenuPatentes.Location = new Point(0, 1429);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
-            panelSubMenuPatentes.Size = new Size(243, 310);
+            panelSubMenuPatentes.Size = new Size(243, 357);
             panelSubMenuPatentes.TabIndex = 12;
             panelSubMenuPatentes.Paint += panel5_Paint;
+            // 
+            // btnDesistidasPatentes
+            // 
+            btnDesistidasPatentes.AutoSize = true;
+            btnDesistidasPatentes.Dock = DockStyle.Top;
+            btnDesistidasPatentes.FlatAppearance.BorderSize = 0;
+            btnDesistidasPatentes.FlatStyle = FlatStyle.Flat;
+            btnDesistidasPatentes.Font = new Font("Century Gothic", 9F);
+            btnDesistidasPatentes.ForeColor = Color.Black;
+            btnDesistidasPatentes.Location = new Point(0, 282);
+            btnDesistidasPatentes.Name = "btnDesistidasPatentes";
+            btnDesistidasPatentes.Padding = new Padding(58, 0, 0, 0);
+            btnDesistidasPatentes.Size = new Size(243, 47);
+            btnDesistidasPatentes.TabIndex = 8;
+            btnDesistidasPatentes.Tag = "> DESISTIDAS";
+            btnDesistidasPatentes.Text = "> DESISTIDAS";
+            btnDesistidasPatentes.TextAlign = ContentAlignment.MiddleLeft;
+            btnDesistidasPatentes.UseVisualStyleBackColor = true;
+            btnDesistidasPatentes.Click += button3_Click_4;
             // 
             // btnAbandonadasPatentes
             // 
@@ -255,8 +290,8 @@
             btnTramiteInicialPatente.Padding = new Padding(58, 0, 0, 0);
             btnTramiteInicialPatente.Size = new Size(243, 47);
             btnTramiteInicialPatente.TabIndex = 7;
-            btnTramiteInicialPatente.Tag = "> TRÁMITE INICIAL";
-            btnTramiteInicialPatente.Text = "> TRÁMITE INICIAL";
+            btnTramiteInicialPatente.Tag = "> EN TRÁMITE ";
+            btnTramiteInicialPatente.Text = "> EN TRÁMITE ";
             btnTramiteInicialPatente.TextAlign = ContentAlignment.MiddleLeft;
             btnTramiteInicialPatente.UseVisualStyleBackColor = true;
             btnTramiteInicialPatente.Click += button3_Click;
@@ -285,9 +320,11 @@
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel2.AutoScroll = true;
             panel2.BackColor = Color.FromArgb(34, 77, 112);
-            panel2.Controls.Add(btnCerrarSesion);
+            panel2.Controls.Add(btnUsers);
             panel2.Controls.Add(btnVencimientos);
             panel2.Controls.Add(btnReportes);
+            panel2.Controls.Add(btnPlazos);
+            panel2.Controls.Add(btnCerrarSesion);
             panel2.Controls.Add(panelSubMenuPatentes);
             panel2.Controls.Add(btnPatentes);
             panel2.Controls.Add(panelSubMenuMarcasNacionales);
@@ -295,10 +332,8 @@
             panel2.Controls.Add(btnMInternacionales);
             panel2.Controls.Add(panelSubMenuMarcasInter);
             panel2.Controls.Add(btnMarcasNacionales);
-            panel2.Controls.Add(btnClientes2);
-            panel2.Controls.Add(btnAgentes);
+            panel2.Controls.Add(panelTitularesRepresentantes);
             panel2.Controls.Add(btnTitulares);
-            panel2.Controls.Add(btnUsers);
             panel2.Controls.Add(btnInicio);
             panel2.Controls.Add(iconButton1);
             panel2.Location = new Point(0, 0);
@@ -307,25 +342,26 @@
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
             // 
-            // btnCerrarSesion
+            // btnUsers
             // 
-            btnCerrarSesion.BackColor = Color.FromArgb(34, 77, 112);
-            btnCerrarSesion.Dock = DockStyle.Bottom;
-            btnCerrarSesion.FlatAppearance.BorderSize = 0;
-            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
-            btnCerrarSesion.Font = new Font("Century Gothic", 9F);
-            btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Image = Properties.Resources.cerrar_sesion_4_;
-            btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCerrarSesion.Location = new Point(0, 1785);
-            btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(243, 61);
-            btnCerrarSesion.TabIndex = 26;
-            btnCerrarSesion.Tag = "CERRAR SESIÓN";
-            btnCerrarSesion.Text = "    CERRAR SESIÓN";
-            btnCerrarSesion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnCerrarSesion.UseVisualStyleBackColor = false;
-            btnCerrarSesion.Click += button10_Click;
+            btnUsers.BackColor = Color.FromArgb(34, 77, 112);
+            btnUsers.Dock = DockStyle.Top;
+            btnUsers.FlatAppearance.BorderSize = 0;
+            btnUsers.FlatStyle = FlatStyle.Flat;
+            btnUsers.Font = new Font("Century Gothic", 9F);
+            btnUsers.ForeColor = Color.White;
+            btnUsers.Image = Properties.Resources.usuario_final;
+            btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
+            btnUsers.Location = new Point(0, 1969);
+            btnUsers.Name = "btnUsers";
+            btnUsers.Size = new Size(243, 61);
+            btnUsers.TabIndex = 19;
+            btnUsers.Tag = "USUARIOS";
+            btnUsers.Text = "     USUARIOS";
+            btnUsers.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsers.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnUsers.UseVisualStyleBackColor = false;
+            btnUsers.Click += button4_Click_1;
             // 
             // btnVencimientos
             // 
@@ -337,7 +373,7 @@
             btnVencimientos.ForeColor = Color.White;
             btnVencimientos.Image = Properties.Resources.reloj_y_calendario;
             btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVencimientos.Location = new Point(0, 1724);
+            btnVencimientos.Location = new Point(0, 1908);
             btnVencimientos.Name = "btnVencimientos";
             btnVencimientos.Size = new Size(243, 61);
             btnVencimientos.TabIndex = 25;
@@ -357,7 +393,7 @@
             btnReportes.ForeColor = Color.White;
             btnReportes.Image = Properties.Resources.grafico_simple_horizontal_1_;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(0, 1663);
+            btnReportes.Location = new Point(0, 1847);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(243, 61);
             btnReportes.TabIndex = 24;
@@ -366,6 +402,46 @@
             btnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnReportes.UseVisualStyleBackColor = false;
             btnReportes.Click += button8_Click_1;
+            // 
+            // btnPlazos
+            // 
+            btnPlazos.BackColor = Color.FromArgb(34, 77, 112);
+            btnPlazos.Dock = DockStyle.Top;
+            btnPlazos.FlatAppearance.BorderSize = 0;
+            btnPlazos.FlatStyle = FlatStyle.Flat;
+            btnPlazos.Font = new Font("Century Gothic", 9F);
+            btnPlazos.ForeColor = Color.White;
+            btnPlazos.Image = Properties.Resources.hourglass;
+            btnPlazos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPlazos.Location = new Point(0, 1786);
+            btnPlazos.Name = "btnPlazos";
+            btnPlazos.Size = new Size(243, 61);
+            btnPlazos.TabIndex = 29;
+            btnPlazos.Tag = "PLAZOS";
+            btnPlazos.Text = "    PLAZOS";
+            btnPlazos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPlazos.UseVisualStyleBackColor = false;
+            btnPlazos.Click += btnPlazos_Click;
+            // 
+            // btnCerrarSesion
+            // 
+            btnCerrarSesion.BackColor = Color.FromArgb(34, 77, 112);
+            btnCerrarSesion.Dock = DockStyle.Bottom;
+            btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
+            btnCerrarSesion.Font = new Font("Century Gothic", 9F);
+            btnCerrarSesion.ForeColor = Color.White;
+            btnCerrarSesion.Image = Properties.Resources.cerrar_sesion_4_;
+            btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCerrarSesion.Location = new Point(0, 2030);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(243, 61);
+            btnCerrarSesion.TabIndex = 26;
+            btnCerrarSesion.Tag = "CERRAR SESIÓN";
+            btnCerrarSesion.Text = "    CERRAR SESIÓN";
+            btnCerrarSesion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCerrarSesion.UseVisualStyleBackColor = false;
+            btnCerrarSesion.Click += button10_Click;
             // 
             // btnPatentes
             // 
@@ -377,7 +453,7 @@
             btnPatentes.ForeColor = Color.White;
             btnPatentes.Image = Properties.Resources.bahai;
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatentes.Location = new Point(0, 1292);
+            btnPatentes.Location = new Point(0, 1368);
             btnPatentes.Name = "btnPatentes";
             btnPatentes.Size = new Size(243, 61);
             btnPatentes.TabIndex = 23;
@@ -390,6 +466,7 @@
             // panelSubMenuMarcasNacionales
             // 
             panelSubMenuMarcasNacionales.BackColor = Color.FromArgb(196, 196, 208);
+            panelSubMenuMarcasNacionales.Controls.Add(btnDesistidasInter);
             panelSubMenuMarcasNacionales.Controls.Add(btnAbandonadas);
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteTraspaso);
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteRenovacion);
@@ -399,10 +476,31 @@
             panelSubMenuMarcasNacionales.Controls.Add(btnTramiteInicial);
             panelSubMenuMarcasNacionales.Dock = DockStyle.Top;
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasNacionales.Location = new Point(0, 946);
+            panelSubMenuMarcasNacionales.Location = new Point(0, 975);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
-            panelSubMenuMarcasNacionales.Size = new Size(243, 346);
+            panelSubMenuMarcasNacionales.Size = new Size(243, 393);
             panelSubMenuMarcasNacionales.TabIndex = 8;
+            // 
+            // btnDesistidasInter
+            // 
+            btnDesistidasInter.AutoSize = true;
+            btnDesistidasInter.BackColor = Color.FromArgb(196, 196, 208);
+            btnDesistidasInter.Dock = DockStyle.Top;
+            btnDesistidasInter.FlatAppearance.BorderSize = 0;
+            btnDesistidasInter.FlatStyle = FlatStyle.Flat;
+            btnDesistidasInter.Font = new Font("Century Gothic", 9F);
+            btnDesistidasInter.ForeColor = Color.Black;
+            btnDesistidasInter.Location = new Point(0, 329);
+            btnDesistidasInter.Margin = new Padding(0);
+            btnDesistidasInter.Name = "btnDesistidasInter";
+            btnDesistidasInter.Padding = new Padding(58, 0, 0, 0);
+            btnDesistidasInter.Size = new Size(243, 47);
+            btnDesistidasInter.TabIndex = 7;
+            btnDesistidasInter.Tag = "> DESISTIDAS";
+            btnDesistidasInter.Text = "> DESISTIDAS";
+            btnDesistidasInter.TextAlign = ContentAlignment.MiddleLeft;
+            btnDesistidasInter.UseVisualStyleBackColor = false;
+            btnDesistidasInter.Click += btnDesistidasInter_Click;
             // 
             // btnAbandonadas
             // 
@@ -522,8 +620,8 @@
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
             btnEnTramite.Size = new Size(243, 47);
             btnEnTramite.TabIndex = 6;
-            btnEnTramite.Tag = "> TRÁMITE INICIAL";
-            btnEnTramite.Text = "> TRÁMITE INICIAL";
+            btnEnTramite.Tag = "> EN TRÁMITE ";
+            btnEnTramite.Text = "> EN TRÁMITE ";
             btnEnTramite.TextAlign = ContentAlignment.MiddleLeft;
             btnEnTramite.UseVisualStyleBackColor = false;
             btnEnTramite.Click += button4_Click;
@@ -553,7 +651,7 @@
             // 
             panel3.Controls.Add(button1);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 1846);
+            panel3.Location = new Point(0, 2091);
             panel3.Name = "panel3";
             panel3.Size = new Size(243, 54);
             panel3.TabIndex = 18;
@@ -584,7 +682,7 @@
             btnMInternacionales.ForeColor = Color.White;
             btnMInternacionales.Image = (Image)resources.GetObject("btnMInternacionales.Image");
             btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMInternacionales.Location = new Point(0, 885);
+            btnMInternacionales.Location = new Point(0, 914);
             btnMInternacionales.Name = "btnMInternacionales";
             btnMInternacionales.Size = new Size(243, 61);
             btnMInternacionales.TabIndex = 22;
@@ -598,6 +696,7 @@
             // panelSubMenuMarcasInter
             // 
             panelSubMenuMarcasInter.BackColor = Color.FromArgb(196, 196, 208);
+            panelSubMenuMarcasInter.Controls.Add(btnDesistidasNacionales);
             panelSubMenuMarcasInter.Controls.Add(btnAbandonadasInter);
             panelSubMenuMarcasInter.Controls.Add(btnTraspasoInter);
             panelSubMenuMarcasInter.Controls.Add(btnRenovInter);
@@ -608,10 +707,29 @@
             panelSubMenuMarcasInter.Controls.Add(btnTramiteInicialInter);
             panelSubMenuMarcasInter.Dock = DockStyle.Top;
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
-            panelSubMenuMarcasInter.Location = new Point(0, 455);
+            panelSubMenuMarcasInter.Location = new Point(0, 437);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
-            panelSubMenuMarcasInter.Size = new Size(243, 430);
+            panelSubMenuMarcasInter.Size = new Size(243, 477);
             panelSubMenuMarcasInter.TabIndex = 10;
+            // 
+            // btnDesistidasNacionales
+            // 
+            btnDesistidasNacionales.AutoSize = true;
+            btnDesistidasNacionales.Dock = DockStyle.Top;
+            btnDesistidasNacionales.FlatAppearance.BorderSize = 0;
+            btnDesistidasNacionales.FlatStyle = FlatStyle.Flat;
+            btnDesistidasNacionales.Font = new Font("Century Gothic", 9F);
+            btnDesistidasNacionales.ForeColor = Color.Black;
+            btnDesistidasNacionales.Location = new Point(0, 402);
+            btnDesistidasNacionales.Name = "btnDesistidasNacionales";
+            btnDesistidasNacionales.Padding = new Padding(58, 0, 0, 0);
+            btnDesistidasNacionales.Size = new Size(243, 47);
+            btnDesistidasNacionales.TabIndex = 13;
+            btnDesistidasNacionales.Tag = "> DESISTIDAS";
+            btnDesistidasNacionales.Text = "> DESISTIDAS";
+            btnDesistidasNacionales.TextAlign = ContentAlignment.MiddleLeft;
+            btnDesistidasNacionales.UseVisualStyleBackColor = true;
+            btnDesistidasNacionales.Click += button3_Click_3;
             // 
             // btnAbandonadasInter
             // 
@@ -740,8 +858,8 @@
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
             btnIngresadasInt.Size = new Size(243, 47);
             btnIngresadasInt.TabIndex = 10;
-            btnIngresadasInt.Tag = "> TRÁMITE INICIAL";
-            btnIngresadasInt.Text = "> TRÁMITE INICIAL";
+            btnIngresadasInt.Tag = "> EN TRÁMITE ";
+            btnIngresadasInt.Text = "> EN TRÁMITE ";
             btnIngresadasInt.TextAlign = ContentAlignment.MiddleLeft;
             btnIngresadasInt.UseVisualStyleBackColor = true;
             btnIngresadasInt.Click += button5_Click_1;
@@ -765,45 +883,84 @@
             btnTramiteInicialInter.UseVisualStyleBackColor = true;
             btnTramiteInicialInter.Click += button29_Click;
             // 
-            // btnClientes2
+            // panelTitularesRepresentantes
             // 
-            btnClientes2.BackColor = Color.FromArgb(34, 77, 112);
-            btnClientes2.Dock = DockStyle.Top;
-            btnClientes2.FlatAppearance.BorderSize = 0;
-            btnClientes2.FlatStyle = FlatStyle.Flat;
-            btnClientes2.Font = new Font("Century Gothic", 9F);
-            btnClientes2.ForeColor = Color.White;
-            btnClientes2.Image = (Image)resources.GetObject("btnClientes2.Image");
-            btnClientes2.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClientes2.Location = new Point(0, 333);
-            btnClientes2.Name = "btnClientes2";
-            btnClientes2.Size = new Size(243, 61);
-            btnClientes2.TabIndex = 27;
-            btnClientes2.Tag = "CLIENTES";
-            btnClientes2.Text = "     CLIENTES";
-            btnClientes2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnClientes2.UseVisualStyleBackColor = false;
-            btnClientes2.Click += button3_Click_2;
+            panelTitularesRepresentantes.BackColor = Color.FromArgb(196, 196, 208);
+            panelTitularesRepresentantes.Controls.Add(btnGrupos2);
+            panelTitularesRepresentantes.Controls.Add(btnAgentes2);
+            panelTitularesRepresentantes.Controls.Add(btnTitulares2);
+            panelTitularesRepresentantes.Dock = DockStyle.Top;
+            panelTitularesRepresentantes.Font = new Font("Microsoft Sans Serif", 12F);
+            panelTitularesRepresentantes.Location = new Point(0, 211);
+            panelTitularesRepresentantes.Name = "panelTitularesRepresentantes";
+            panelTitularesRepresentantes.Size = new Size(243, 165);
+            panelTitularesRepresentantes.TabIndex = 28;
             // 
-            // btnAgentes
+            // btnGrupos2
             // 
-            btnAgentes.BackColor = Color.FromArgb(34, 77, 112);
-            btnAgentes.Dock = DockStyle.Top;
-            btnAgentes.FlatAppearance.BorderSize = 0;
-            btnAgentes.FlatStyle = FlatStyle.Flat;
-            btnAgentes.Font = new Font("Century Gothic", 9F);
-            btnAgentes.ForeColor = Color.White;
-            btnAgentes.Image = Properties.Resources.empresario;
-            btnAgentes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgentes.Location = new Point(0, 272);
-            btnAgentes.Name = "btnAgentes";
-            btnAgentes.Size = new Size(243, 61);
-            btnAgentes.TabIndex = 20;
-            btnAgentes.Tag = "AGENTES";
-            btnAgentes.Text = "     AGENTES";
-            btnAgentes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnAgentes.UseVisualStyleBackColor = false;
-            btnAgentes.Click += button4_Click_2;
+            btnGrupos2.AutoSize = true;
+            btnGrupos2.Dock = DockStyle.Top;
+            btnGrupos2.FlatAppearance.BorderSize = 0;
+            btnGrupos2.FlatStyle = FlatStyle.Flat;
+            btnGrupos2.Font = new Font("Century Gothic", 9F);
+            btnGrupos2.ForeColor = Color.Black;
+            btnGrupos2.Image = Properties.Resources.customer_11325750__1_;
+            btnGrupos2.ImageAlign = ContentAlignment.MiddleLeft;
+            btnGrupos2.Location = new Point(0, 106);
+            btnGrupos2.Name = "btnGrupos2";
+            btnGrupos2.Padding = new Padding(58, 0, 0, 0);
+            btnGrupos2.Size = new Size(243, 47);
+            btnGrupos2.TabIndex = 5;
+            btnGrupos2.Tag = "> GRUPOS";
+            btnGrupos2.Text = "> GRUPOS";
+            btnGrupos2.TextAlign = ContentAlignment.MiddleLeft;
+            btnGrupos2.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnGrupos2.UseVisualStyleBackColor = true;
+            btnGrupos2.Click += btnGrupos2_Click;
+            // 
+            // btnAgentes2
+            // 
+            btnAgentes2.AutoSize = true;
+            btnAgentes2.Dock = DockStyle.Top;
+            btnAgentes2.FlatAppearance.BorderSize = 0;
+            btnAgentes2.FlatStyle = FlatStyle.Flat;
+            btnAgentes2.Font = new Font("Century Gothic", 9F);
+            btnAgentes2.ForeColor = Color.Black;
+            btnAgentes2.Image = Properties.Resources.businessman;
+            btnAgentes2.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAgentes2.Location = new Point(0, 59);
+            btnAgentes2.Name = "btnAgentes2";
+            btnAgentes2.Padding = new Padding(58, 0, 0, 0);
+            btnAgentes2.Size = new Size(243, 47);
+            btnAgentes2.TabIndex = 7;
+            btnAgentes2.Tag = "> AGENTES";
+            btnAgentes2.Text = "> AGENTES";
+            btnAgentes2.TextAlign = ContentAlignment.MiddleLeft;
+            btnAgentes2.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnAgentes2.UseVisualStyleBackColor = true;
+            btnAgentes2.Click += btnAgentes2_Click;
+            // 
+            // btnTitulares2
+            // 
+            btnTitulares2.AutoSize = true;
+            btnTitulares2.Dock = DockStyle.Top;
+            btnTitulares2.FlatAppearance.BorderSize = 0;
+            btnTitulares2.FlatStyle = FlatStyle.Flat;
+            btnTitulares2.Font = new Font("Century Gothic", 9F);
+            btnTitulares2.ForeColor = Color.Black;
+            btnTitulares2.Image = Properties.Resources.legal__1_;
+            btnTitulares2.ImageAlign = ContentAlignment.MiddleLeft;
+            btnTitulares2.Location = new Point(0, 0);
+            btnTitulares2.Name = "btnTitulares2";
+            btnTitulares2.Padding = new Padding(58, 0, 0, 0);
+            btnTitulares2.Size = new Size(243, 59);
+            btnTitulares2.TabIndex = 0;
+            btnTitulares2.Tag = "> TITULARES";
+            btnTitulares2.Text = "> TITULARES";
+            btnTitulares2.TextAlign = ContentAlignment.MiddleLeft;
+            btnTitulares2.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnTitulares2.UseVisualStyleBackColor = true;
+            btnTitulares2.Click += button9_Click_1;
             // 
             // btnTitulares
             // 
@@ -813,38 +970,17 @@
             btnTitulares.FlatStyle = FlatStyle.Flat;
             btnTitulares.Font = new Font("Century Gothic", 9F);
             btnTitulares.ForeColor = Color.White;
-            btnTitulares.Image = Properties.Resources.legal;
+            btnTitulares.Image = (Image)resources.GetObject("btnTitulares.Image");
             btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTitulares.Location = new Point(0, 211);
+            btnTitulares.Location = new Point(0, 150);
             btnTitulares.Name = "btnTitulares";
             btnTitulares.Size = new Size(243, 61);
             btnTitulares.TabIndex = 21;
-            btnTitulares.Tag = "TITULARES";
-            btnTitulares.Text = "     TITULARES";
+            btnTitulares.Tag = "TITULARES Y REPRESENTANTES";
+            btnTitulares.Text = "     TITULARES Y REPRESENTANTES";
             btnTitulares.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnTitulares.UseVisualStyleBackColor = false;
             btnTitulares.Click += button5_Click_2;
-            // 
-            // btnUsers
-            // 
-            btnUsers.BackColor = Color.FromArgb(34, 77, 112);
-            btnUsers.Dock = DockStyle.Top;
-            btnUsers.FlatAppearance.BorderSize = 0;
-            btnUsers.FlatStyle = FlatStyle.Flat;
-            btnUsers.Font = new Font("Century Gothic", 9F);
-            btnUsers.ForeColor = Color.White;
-            btnUsers.Image = Properties.Resources.usuario_final;
-            btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUsers.Location = new Point(0, 150);
-            btnUsers.Name = "btnUsers";
-            btnUsers.Size = new Size(243, 61);
-            btnUsers.TabIndex = 19;
-            btnUsers.Tag = "USUARIOS";
-            btnUsers.Text = "     USUARIOS";
-            btnUsers.TextAlign = ContentAlignment.MiddleLeft;
-            btnUsers.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnUsers.UseVisualStyleBackColor = false;
-            btnUsers.Click += button4_Click_1;
             // 
             // btnInicio
             // 
@@ -929,7 +1065,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.logobpa1;
+            pictureBox1.Image = Properties.Resources.blancoForagro;
             pictureBox1.Location = new Point(48, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(63, 59);
@@ -1013,12 +1149,12 @@
             // rDropDownMenu1
             // 
             rDropDownMenu1.IsMainMenu = false;
-            rDropDownMenu1.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem, oPOSICIONESToolStripMenuItem, rEGISTRADASToolStripMenuItem, lICENCIASDEUSOToolStripMenuItem, tRDERENOVACIÓNToolStripMenuItem, tRDETRASPASOToolStripMenuItem, aBANDONADASToolStripMenuItem });
+            rDropDownMenu1.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem, oPOSICIONESToolStripMenuItem, rEGISTRADASToolStripMenuItem, lICENCIASDEUSOToolStripMenuItem, tRDERENOVACIÓNToolStripMenuItem, tRDETRASPASOToolStripMenuItem, aBANDONADASToolStripMenuItem, dESISTIDASToolStripMenuItem });
             rDropDownMenu1.MenuItemHeight = 25;
             rDropDownMenu1.MenuItemTextColor = Color.Empty;
             rDropDownMenu1.Name = "rDropDownMenu1";
             rDropDownMenu1.PrimaryColor = Color.Empty;
-            rDropDownMenu1.Size = new Size(186, 180);
+            rDropDownMenu1.Size = new Size(186, 202);
             // 
             // iNGRESARMARCAToolStripMenuItem
             // 
@@ -1076,15 +1212,22 @@
             aBANDONADASToolStripMenuItem.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem.Click += aBANDONADASToolStripMenuItem_Click;
             // 
+            // dESISTIDASToolStripMenuItem
+            // 
+            dESISTIDASToolStripMenuItem.Name = "dESISTIDASToolStripMenuItem";
+            dESISTIDASToolStripMenuItem.Size = new Size(185, 22);
+            dESISTIDASToolStripMenuItem.Text = "DESISTIDAS";
+            dESISTIDASToolStripMenuItem.Click += dESISTIDASToolStripMenuItem_Click;
+            // 
             // rDropDownMenu2
             // 
             rDropDownMenu2.IsMainMenu = false;
-            rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1, aBANDONADASToolStripMenuItem3 });
+            rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1, aBANDONADASToolStripMenuItem3, dESISTIDASToolStripMenuItem1 });
             rDropDownMenu2.MenuItemHeight = 25;
             rDropDownMenu2.MenuItemTextColor = Color.Empty;
             rDropDownMenu2.Name = "rDropDownMenu2";
             rDropDownMenu2.PrimaryColor = Color.Empty;
-            rDropDownMenu2.Size = new Size(186, 158);
+            rDropDownMenu2.Size = new Size(186, 180);
             // 
             // iNGRESARMARCAToolStripMenuItem1
             // 
@@ -1135,15 +1278,23 @@
             aBANDONADASToolStripMenuItem3.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem3.Click += aBANDONADASToolStripMenuItem3_Click;
             // 
+            // dESISTIDASToolStripMenuItem1
+            // 
+            dESISTIDASToolStripMenuItem1.Name = "dESISTIDASToolStripMenuItem1";
+            dESISTIDASToolStripMenuItem1.Size = new Size(185, 22);
+            dESISTIDASToolStripMenuItem1.Text = "DESISTIDAS";
+            dESISTIDASToolStripMenuItem1.Click += dESISTIDASToolStripMenuItem1_Click;
+            // 
             // rDropDownMenu3
             // 
             rDropDownMenu3.IsMainMenu = false;
-            rDropDownMenu3.Items.AddRange(new ToolStripItem[] { iNGRESARPATENTEToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem2, rEGISTRADASToolStripMenuItem1, tRDERENOVACIÓNToolStripMenuItem1, tRDETRASPASOToolStripMenuItem2, aBANDONADASToolStripMenuItem2 });
+            rDropDownMenu3.Items.AddRange(new ToolStripItem[] { iNGRESARPATENTEToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem2, rEGISTRADASToolStripMenuItem1, tRDERENOVACIÓNToolStripMenuItem1, tRDETRASPASOToolStripMenuItem2, aBANDONADASToolStripMenuItem2, dESISTIDASToolStripMenuItem2 });
             rDropDownMenu3.MenuItemHeight = 25;
             rDropDownMenu3.MenuItemTextColor = Color.Empty;
             rDropDownMenu3.Name = "rDropDownMenu3";
             rDropDownMenu3.PrimaryColor = Color.Empty;
-            rDropDownMenu3.Size = new Size(186, 136);
+            rDropDownMenu3.Size = new Size(186, 158);
+            rDropDownMenu3.Opening += rDropDownMenu3_Opening;
             // 
             // iNGRESARPATENTEToolStripMenuItem
             // 
@@ -1187,6 +1338,48 @@
             aBANDONADASToolStripMenuItem2.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem2.Click += aBANDONADASToolStripMenuItem2_Click;
             // 
+            // dESISTIDASToolStripMenuItem2
+            // 
+            dESISTIDASToolStripMenuItem2.Name = "dESISTIDASToolStripMenuItem2";
+            dESISTIDASToolStripMenuItem2.Size = new Size(185, 22);
+            dESISTIDASToolStripMenuItem2.Text = "DESISTIDAS";
+            dESISTIDASToolStripMenuItem2.Click += dESISTIDASToolStripMenuItem2_Click;
+            // 
+            // rDropDownMenu4
+            // 
+            rDropDownMenu4.IsMainMenu = false;
+            rDropDownMenu4.Items.AddRange(new ToolStripItem[] { tITULARESToolStripMenuItem, aGENTESToolStripMenuItem, gRUPOSToolStripMenuItem });
+            rDropDownMenu4.MenuItemHeight = 25;
+            rDropDownMenu4.MenuItemTextColor = Color.Empty;
+            rDropDownMenu4.Name = "rDropDownMenu4";
+            rDropDownMenu4.PrimaryColor = Color.Empty;
+            rDropDownMenu4.Size = new Size(133, 70);
+            // 
+            // tITULARESToolStripMenuItem
+            // 
+            tITULARESToolStripMenuItem.BackgroundImageLayout = ImageLayout.Center;
+            tITULARESToolStripMenuItem.Image = Properties.Resources.legal__1_;
+            tITULARESToolStripMenuItem.Name = "tITULARESToolStripMenuItem";
+            tITULARESToolStripMenuItem.Size = new Size(132, 22);
+            tITULARESToolStripMenuItem.Text = "TITULARES";
+            tITULARESToolStripMenuItem.Click += tITULARESToolStripMenuItem_Click;
+            // 
+            // aGENTESToolStripMenuItem
+            // 
+            aGENTESToolStripMenuItem.Image = Properties.Resources.businessman;
+            aGENTESToolStripMenuItem.Name = "aGENTESToolStripMenuItem";
+            aGENTESToolStripMenuItem.Size = new Size(132, 22);
+            aGENTESToolStripMenuItem.Text = "AGENTES";
+            aGENTESToolStripMenuItem.Click += aGENTESToolStripMenuItem_Click;
+            // 
+            // gRUPOSToolStripMenuItem
+            // 
+            gRUPOSToolStripMenuItem.Image = Properties.Resources.customer_11325750__1_;
+            gRUPOSToolStripMenuItem.Name = "gRUPOSToolStripMenuItem";
+            gRUPOSToolStripMenuItem.Size = new Size(132, 22);
+            gRUPOSToolStripMenuItem.Text = "GRUPOS";
+            gRUPOSToolStripMenuItem.Click += gRUPOSToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AllowDrop = true;
@@ -1218,6 +1411,8 @@
             panel3.ResumeLayout(false);
             panelSubMenuMarcasInter.ResumeLayout(false);
             panelSubMenuMarcasInter.PerformLayout();
+            panelTitularesRepresentantes.ResumeLayout(false);
+            panelTitularesRepresentantes.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -1225,6 +1420,7 @@
             rDropDownMenu1.ResumeLayout(false);
             rDropDownMenu2.ResumeLayout(false);
             rDropDownMenu3.ResumeLayout(false);
+            rDropDownMenu4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1268,7 +1464,6 @@
         private Button btnMarcasNacionales;
         private Button btnInicio;
         private Button btnUsers;
-        private Button btnAgentes;
         private Button btnTitulares;
         private Button btnMInternacionales;
         private Button btnPatentes;
@@ -1276,7 +1471,6 @@
         private Button btnVencimientos;
         private Button btnCerrarSesion;
         private Button button2;
-        private Button btnClientes2;
         private FontAwesome.Sharp.IconButton iconButton5;
         private Clases.RDropDownMenu rDropDownMenu1;
         private ToolStripMenuItem iNGRESARMARCAToolStripMenuItem;
@@ -1302,6 +1496,21 @@
         private ToolStripMenuItem tRDETRASPASOToolStripMenuItem2;
         private ToolStripMenuItem aBANDONADASToolStripMenuItem2;
         private ToolStripMenuItem aBANDONADASToolStripMenuItem3;
+        private ToolStripMenuItem dESISTIDASToolStripMenuItem;
+        private ToolStripMenuItem dESISTIDASToolStripMenuItem1;
+        private ToolStripMenuItem dESISTIDASToolStripMenuItem2;
+        private Button btnDesistidasNacionales;
+        private Button btnDesistidasInter;
+        private Button btnDesistidasPatentes;
+        private Clases.RDropDownMenu rDropDownMenu4;
+        private ToolStripMenuItem tITULARESToolStripMenuItem;
+        private ToolStripMenuItem aGENTESToolStripMenuItem;
+        private ToolStripMenuItem gRUPOSToolStripMenuItem;
+        private Panel panelTitularesRepresentantes;
+        private Button btnGrupos2;
+        private Button btnAgentes2;
+        private Button btnTitulares2;
+        private Button btnPlazos;
     }
 }
 

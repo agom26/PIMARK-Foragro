@@ -124,17 +124,14 @@
   <data name="logoBPA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logoBPA.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="legal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\legal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="guatemala (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\guatemala (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="caducado(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\caducado(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="agregar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\agregar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PimarkN3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PimarkN3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="grafico-de-barras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-de-barras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,11 +151,11 @@
   <data name="usuario-del-hospital(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-del-hospital(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PimarkP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PimarkP.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="blancoForagro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blancoForagro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="usuario-final(3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\usuario-final(3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="legal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\legal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PimarkN" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PimarkN.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,8 +163,14 @@
   <data name="grafico-ascendente(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-ascendente(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="success" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\success.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cerrar-sesion(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cerrar-sesion(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="businessman" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\businessman.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bandera(6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bandera(6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bahai" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bahai.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,6 +187,12 @@
   <data name="usuarios" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuarios.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="customer_11325750" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customer_11325750.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="people_15402031" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\people_15402031.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="reloj-y-calendario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reloj-y-calendario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -192,6 +201,9 @@
   </data>
   <data name="excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\excel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="customer (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customer (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuario-final(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-final(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,11 +232,17 @@
   <data name="grupo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grupo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FORAGRO LOGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FORAGRO LOGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="suc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\suc.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="warning2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pregunta-artguru-artguru" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pregunta-artguru-artguru.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -238,8 +256,8 @@
   <data name="ok1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ok1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="caducado" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\caducado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="customer_11325750 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\customer_11325750 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="casa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\casa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,8 +268,8 @@
   <data name="warning3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="guatemala (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\guatemala (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="agregar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agregar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logobpa1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logobpa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -265,20 +283,23 @@
   <data name="warning-sign (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning-sign (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hogar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hogar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="guatemala(3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\guatemala(3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PimarkN2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PimarkN2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="usuario-final(3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuario-final(3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="hogar(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hogar(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuario-final(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-final(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logoForagro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logoForagro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="error-pica (2)-pica" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error-pica (2)-pica.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,14 +310,17 @@
   <data name="simbolo-de-interfaz-grafica-de-tres-barras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\simbolo-de-interfaz-grafica-de-tres-barras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cerrar-sesion(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cerrar-sesion(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FORAGRO LOGO1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FORAGRO LOGO1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guatemala (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\guatemala (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cerrar-sesion(4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cerrar-sesion(4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="usuario-hospitalario" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\usuario-hospitalario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PimarkP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PimarkP.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="caducado(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\caducado(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -325,6 +349,9 @@
   <data name="grafico-simple-horizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-simple-horizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="success" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\success.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="guatemala" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\guatemala.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -334,8 +361,8 @@
   <data name="color" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="warning1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="legal (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\legal (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="question" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -343,17 +370,23 @@
   <data name="iconWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconWarning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ForagroBlanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ForagroBlanco.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="casa(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\casa(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuario-del-hospital" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-del-hospital.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\error.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bandera(6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bandera(6).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hogar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hogar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="reloj-y-calendario(1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reloj-y-calendario(1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -366,6 +399,9 @@
   </data>
   <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close_16273642.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="usuario-hospitalario" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuario-hospitalario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Globe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Globe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -382,11 +418,14 @@
   <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\info.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="warning2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warning1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="caducado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\caducado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="grafico-ascendente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-ascendente.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logoForagro1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logoForagro1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cerrar-sesion(3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cerrar-sesion(3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -394,8 +433,8 @@
   <data name="bandera(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bandera(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="warning1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ok.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -409,7 +448,10 @@
   <data name="warning-sign" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning-sign1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PimarkN3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PimarkN3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hourglass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hourglass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hourglass (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hourglass (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

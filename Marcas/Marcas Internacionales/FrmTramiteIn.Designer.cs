@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            txtUbicacion = new TextBox();
+            label10 = new Label();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             label21 = new Label();
             btnAgregarCliente = new Presentacion.Clases.RoundedButton();
             groupBox1 = new GroupBox();
@@ -88,7 +91,7 @@
             txtExpediente = new TextBox();
             label2 = new Label();
             txtNombreCliente = new TextBox();
-            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
+            checkBoxMulticlase = new CheckBox();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -103,6 +106,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(checkBoxMulticlase);
+            panel1.Controls.Add(txtUbicacion);
+            panel1.Controls.Add(label10);
             panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(label21);
             panel1.Controls.Add(btnAgregarCliente);
@@ -144,9 +150,51 @@
             panel1.Controls.Add(txtNombreCliente);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1011, 1379);
+            panel1.Size = new Size(1011, 1405);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // txtUbicacion
+            // 
+            txtUbicacion.Font = new Font("Century Gothic", 9F);
+            txtUbicacion.Location = new Point(410, 272);
+            txtUbicacion.Multiline = true;
+            txtUbicacion.Name = "txtUbicacion";
+            txtUbicacion.Size = new Size(292, 23);
+            txtUbicacion.TabIndex = 186;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Century Gothic", 9F);
+            label10.Location = new Point(410, 248);
+            label10.Name = "label10";
+            label10.Size = new Size(103, 17);
+            label10.TabIndex = 185;
+            label10.Text = "Ubicación física";
+            // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(714, 1059);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(276, 58);
+            btnAdjuntarT.TabIndex = 184;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
             // 
             // label21
             // 
@@ -173,7 +221,7 @@
             btnAgregarCliente.Name = "btnAgregarCliente";
             btnAgregarCliente.Size = new Size(638, 56);
             btnAgregarCliente.TabIndex = 181;
-            btnAgregarCliente.Text = "+ CLIENTE";
+            btnAgregarCliente.Text = "+ GRUPO";
             btnAgregarCliente.TextColor = Color.Black;
             btnAgregarCliente.UseVisualStyleBackColor = false;
             btnAgregarCliente.Click += btnAgregarCliente_Click;
@@ -786,7 +834,7 @@
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 10F);
-            label5.Location = new Point(1046, 32695);
+            label5.Location = new Point(1046, 32708);
             label5.Name = "label5";
             label5.Size = new Size(110, 19);
             label5.TabIndex = 6;
@@ -797,7 +845,7 @@
             txtClase.Font = new Font("Century Gothic", 9F);
             txtClase.Location = new Point(64, 272);
             txtClase.Name = "txtClase";
-            txtClase.Size = new Size(280, 22);
+            txtClase.Size = new Size(168, 22);
             txtClase.TabIndex = 5;
             // 
             // label4
@@ -860,28 +908,17 @@
             txtNombreCliente.TabIndex = 183;
             txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
             // 
-            // btnAdjuntarT
+            // checkBoxMulticlase
             // 
-            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
-            btnAdjuntarT.FlatAppearance.BorderSize = 0;
-            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
-            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            btnAdjuntarT.ForeColor = Color.White;
-            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnAdjuntarT.IconColor = Color.White;
-            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAdjuntarT.IconSize = 30;
-            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
-            btnAdjuntarT.Location = new Point(714, 1059);
-            btnAdjuntarT.Name = "btnAdjuntarT";
-            btnAdjuntarT.Size = new Size(276, 58);
-            btnAdjuntarT.TabIndex = 184;
-            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
-            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
-            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnAdjuntarT.UseVisualStyleBackColor = false;
-            btnAdjuntarT.Click += btnAdjuntarT_Click;
+            checkBoxMulticlase.AutoSize = true;
+            checkBoxMulticlase.CheckAlign = ContentAlignment.MiddleRight;
+            checkBoxMulticlase.Font = new Font("Century Gothic", 9F);
+            checkBoxMulticlase.Location = new Point(256, 274);
+            checkBoxMulticlase.Name = "checkBoxMulticlase";
+            checkBoxMulticlase.Size = new Size(88, 21);
+            checkBoxMulticlase.TabIndex = 187;
+            checkBoxMulticlase.Text = "Multiclase";
+            checkBoxMulticlase.UseVisualStyleBackColor = true;
             // 
             // FrmTramiteIn
             // 
@@ -981,5 +1018,8 @@
         private Label label21;
         private Clases.RoundedButton btnAgregarCliente;
         private FontAwesome.Sharp.IconButton btnAdjuntarT;
+        private TextBox txtUbicacion;
+        private Label label10;
+        private CheckBox checkBoxMulticlase;
     }
 }

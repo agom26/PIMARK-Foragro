@@ -71,7 +71,7 @@ namespace Presentacion.Vencimientos
             tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
             tableLayoutPanel1.RowStyles[1].Height = 36.67f;
             AgregarEtapa.etapa = "Trámite de renovación";
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + AgregarEtapa.etapa;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + AgregarEtapa.etapa;
 
         }
 
@@ -101,7 +101,7 @@ namespace Presentacion.Vencimientos
 
             if (tramite)
             {
-                string fechaSinHora = dateTimePicker1.Value.ToShortDateString();
+                string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
                 string formato = fechaSinHora + " " + "Trámite de renovación";
 
                 if (anotaciones.Contains(formato))
@@ -140,7 +140,7 @@ namespace Presentacion.Vencimientos
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + AgregarEtapa.etapa;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + AgregarEtapa.etapa;
             if (AgregarEtapa.etapa == "Trámite de renovación")
             {
                 lblNoExpediente.Text = "Renovación";
@@ -159,7 +159,7 @@ namespace Presentacion.Vencimientos
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + AgregarEtapa.etapa;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + AgregarEtapa.etapa;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

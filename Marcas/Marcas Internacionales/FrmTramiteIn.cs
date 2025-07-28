@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -71,11 +72,19 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        private bool ValidarCampos(string pais, string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
-    ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+        private bool EsAlfanumerico(string texto)
+        {
+            // Permite letras, números, guiones
+            return Regex.IsMatch(texto, @"^[a-zA-Z0-9\-_]+$");
+
+        }
+
+
+        private bool ValidarCampos(string pais, string expediente, string nombre, ref string clase, string signoDistintivo, string tipo, string estado,
+   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
-            if (!ValidarCampo(expediente, "Por favor, ingrese un pais.") ||
+            if (!ValidarCampo(pais, "Por favor, ingrese un pais.") ||
                 !ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
                 !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
@@ -86,20 +95,69 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
 
-            // Validar que el expediente, clase, folio, registro y libro sean enteros
-            if (
-                !int.TryParse(clase, out _) ||
-                (registroChek && !int.TryParse(folio, out _)) ||
-                (registroChek && !int.TryParse(libro, out _)))
+            // Normalizar clase quitando espacios extra
+            clase = string.Join(",", clase.Split(',')
+                                          .Select(c => c.Trim())
+                                          .Where(c => !string.IsNullOrWhiteSpace(c)));
+
+            if (checkBoxMulticlase.Checked)
             {
-                FrmAlerta alerta = new FrmAlerta("LA CLASE, FOLIO Y TOMO\n DEBEN SER VALORES NUMÉRICOS ENTEROS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string[] clases = clase.Split(',');
+
+                foreach (string c in clases)
+                {
+                    if (!int.TryParse(c, out _))
+                    {
+                        FrmAlerta alerta = new FrmAlerta("SI EL MODO MULTICLASE ESTÁ ACTIVO,\nLA CLASE DEBE CONTENER SOLO NÚMEROS ENTEROS SEPARADOS POR COMAS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                // Solo permitir un número entero
+                if (!int.TryParse(clase, out _))
+                {
+                    FrmAlerta alerta = new FrmAlerta("LA CLASE DEBE SER UN VALOR NUMÉRICO ENTERO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
+                }
+            }
+
+
+            // ✅ Nuevo bloque para validar campos alfanuméricos
+            if (!string.IsNullOrWhiteSpace(folio) && !EsAlfanumerico(folio))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL FOLIO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("El expediente, clase, folio, registro y libro deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
-              comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            if (!string.IsNullOrWhiteSpace(libro) && !EsAlfanumerico(libro))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL TOMO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return false;
+            }
+
+            if (registroChek && !string.IsNullOrWhiteSpace(registro) && !EsAlfanumerico(registro))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL REGISTRO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return false;
+            }
+
+
+            if ((comboBoxSignoDistintivo.Text == "Marca" &&
+              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+              (comboBoxSignoDistintivo.Text == "Marca" &&
+              comboBoxTipoSigno.Text == "Mixta") ||
+              (comboBoxSignoDistintivo.Text == "Emblema" &&
+              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+               (comboBoxSignoDistintivo.Text == "Emblema" &&
+              comboBoxTipoSigno.Text == "Mixta")
+              )
             {
                 // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
@@ -123,15 +181,13 @@ namespace Presentacion.Marcas_Nacionales
                 logo = null;
             }
 
-
-
             // Si está registrada, se verifica la información del registro
             if (registroChek)
             {
                 // Validar campos adicionales para marcas registradas
-                if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
-                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
+                if (
+                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.")
+
                     )
                 {
                     return false;
@@ -160,7 +216,7 @@ namespace Presentacion.Marcas_Nacionales
                             form.Add(streamContent, "archivo", nombreArchivo);
 
                             // URL de tu PHP
-                            string url = "https://bpa.com.es/subir_archivo_marca_internacional_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
+                            string url = "https://foragro.com.es/subir_archivo_marca_internacional_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
 
                             // Realizamos la solicitud
                             var responseTask = client.PostAsync(url, form);
@@ -198,9 +254,9 @@ namespace Presentacion.Marcas_Nacionales
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string paisRegistro = comboBox1.SelectedItem?.ToString();
-            string signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString(); // Suponiendo que esto es un ComboBox
-            string tipo = comboBoxTipoSigno.SelectedItem?.ToString(); // Suponiendo que esto es un ComboBox
+            string paisRegistro = comboBox1.Text;
+            string signoDistintivo = comboBoxSignoDistintivo.Text; // Suponiendo que esto es un ComboBox
+            string tipo = comboBoxTipoSigno.Text; // Suponiendo que esto es un ComboBox
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -210,13 +266,14 @@ namespace Presentacion.Marcas_Nacionales
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
             string tiene_poder = "no";
-
+            int multiclase = 0;
 
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            string ubicacionF = txtUbicacion.Text;
 
             if (checkBoxTienePoder.Checked)
             {
@@ -225,6 +282,15 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 tiene_poder = "no";
+            }
+
+            if (checkBoxMulticlase.Checked)
+            {
+                multiclase= 1;
+            }
+            else
+            {
+                multiclase= 0;
             }
 
             // Validaciones
@@ -250,7 +316,7 @@ namespace Presentacion.Marcas_Nacionales
             }
 
             // Validar campos 
-            if (!ValidarCampos(paisRegistro, expediente, nombre, clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(paisRegistro, expediente, nombre, ref clase, signoDistintivo, tipo, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -261,8 +327,8 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento) :
-                    await marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase,multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
+                    await marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
 
                 if (idMarca > 0)
                 {
@@ -270,7 +336,7 @@ namespace Presentacion.Marcas_Nacionales
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                     }
 
 
@@ -287,8 +353,6 @@ namespace Presentacion.Marcas_Nacionales
 
                     FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Marca nacional " + (registroChek ? "registrada" : "guardada") + " con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     LimpiarFormulario();
                 }
                 else
@@ -314,7 +378,7 @@ namespace Presentacion.Marcas_Nacionales
             txtFolio.Text = "";
             txtLibro.Text = "";
             pictureBox1.Image = documento;
-
+            checkBoxMulticlase.Checked = false;
             txtNombreTitular.Text = "";
             txtNombreAgente.Text = "";
             datePickerFechaSolicitud.Value = DateTime.Now;
@@ -333,6 +397,7 @@ namespace Presentacion.Marcas_Nacionales
             SeleccionarPersona.idPersonaT = 0;
             SeleccionarPersona.idPersonaA = 0;
             SeleccionarPersona.idPersonaC = 0;
+            SeleccionarMarca.idInt = 0;
             btnAdjuntarT.Visible = false;
             archivoSeleccionado = false;
         }
@@ -340,7 +405,7 @@ namespace Presentacion.Marcas_Nacionales
         public void mostrarPanelRegistro()
         {
 
-            int espaciadoBotones = 20;
+            //int espaciadoBotones = 20;
 
             if (textBoxEstatus.Text == "Registrada")
             {
@@ -381,8 +446,7 @@ namespace Presentacion.Marcas_Nacionales
             if (SeleccionarPersona.idPersonaT != 0)
             {
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
-                //txtDireccionTitular.Text = SeleccionarPersona.direccion;
-                //txtEntidadTitular.Text = SeleccionarPersona.pais;
+               
             }
             else
             {
@@ -421,7 +485,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            //Borrar foto del usuario
+           
             convertirImagen();
             pictureBox1.Image = documento;
         }
@@ -476,9 +540,11 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
+
         public void VerificarDatosRegistro()
         {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) 
+                ))
             {
                 DatosRegistro.peligro = true;
             }
@@ -499,6 +565,12 @@ namespace Presentacion.Marcas_Nacionales
                 mostrarPanelRegistro();
                 richTextBox1.Text = AgregarEtapa.anotaciones;
                 VerificarDatosRegistro();
+
+
+                if (comboBoxSignoDistintivo.Text.ToString() == "Nombre comercial" && comboBox1.Text.ToString() == "Guatemala" && textBoxEstatus.Text == "Registrada")
+                {
+                    dateTimePFecha_vencimiento.Value = new DateTime(5000, 1, 1); // Año 5000
+                }
 
                 if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
                 {
@@ -702,13 +774,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePFecha_Registro_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (int)Keys.Tab)
-            {
-
-                SendKeys.Send("{RIGHT}");
-
-                MessageBox.Show("Hola");
-            }
+            
 
         }
 
@@ -729,6 +795,36 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBoxSignoDistintivo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxSignoDistintivo.Text.ToString() == "Nombre comercial" && comboBox1.Text.ToString() == "Guatemala" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Value = new DateTime(5000, 1, 1); // Año 5000
+            }
+
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+            else
+            {
+                if (UsuarioActivo.isAdmin)
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                }
+                    
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSignoDistintivo.Text == "Nombre comercial" && comboBox1.Text.ToString() == "Guatemala" && textBoxEstatus.Text == "Registrada")
+            {
+                dateTimePFecha_vencimiento.Value = new DateTime(5000, 1, 1); // Año 5000
+            }
+
             if (comboBoxSignoDistintivo.Text == "Nombre comercial" && textBoxEstatus.Text == "Registrada")
             {
                 dateTimePFecha_vencimiento.Enabled = true;
@@ -737,11 +833,6 @@ namespace Presentacion.Marcas_Nacionales
             {
                 dateTimePFecha_vencimiento.Enabled = false;
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void FrmTramiteIn_Resize(object sender, EventArgs e)

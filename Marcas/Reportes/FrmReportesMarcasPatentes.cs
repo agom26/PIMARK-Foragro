@@ -16,6 +16,7 @@ using System.Diagnostics;
 using PuppeteerSharp.Media;
 using System.Security.RightsManagement;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace Presentacion.Reportes
 {
@@ -30,14 +31,20 @@ namespace Presentacion.Reportes
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             this.Load += FrmReportesMarcasPatentes_Load;
             this.Resize += FrmReportesMarcasPatentes_Resize;
             SeleccionarPersonaReportes.LimpiarCliente();
             SeleccionarPersonaReportes.LimpiarTitular();
             SeleccionarPersonaReportes.LimpiarAgente();
+            SetDoubleBuffering(this, true);
+            SetDoubleBuffering(dtgReportes, true);
+        }
 
-
+        private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
         }
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
@@ -130,7 +137,7 @@ namespace Presentacion.Reportes
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -148,7 +155,7 @@ namespace Presentacion.Reportes
              th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
              th {{ background-color: #f2f2f2; font-weight: bold; }}
              img {{
-                 width: 200px;
+                 width: 100px;
                  height: auto;
              }}
              @page {{
@@ -340,7 +347,7 @@ namespace Presentacion.Reportes
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA2.Save(tempLogoPath);
+                    Properties.Resources.logoForagro1.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -369,7 +376,7 @@ namespace Presentacion.Reportes
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.15); // Ajustar tamaño
+                                .Scale(0.08); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)
@@ -670,7 +677,7 @@ namespace Presentacion.Reportes
 
         private async void FrmReportesMarcasPatentes_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -837,6 +844,25 @@ namespace Presentacion.Reportes
 
             if (this.ClientSize.Width >= anchoMinimo)
             {
+                int x = (this.ClientSize.Width - tableLayoutPanelReportes.Width) / 2;
+                int y = tableLayoutPanelReportes.Location.Y;
+
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
+            }
+        }
+
+
+        /*
+        private void CentrarTableLayoutReporte()
+        {
+            int anchoMinimo = 862 + 100;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
                 // Centrar horizontalmente
                 tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
@@ -851,8 +877,8 @@ namespace Presentacion.Reportes
                 tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
             }
-        }
-
+        }*/
+        /*
         private void CentrarDataGridView()
         {
             int anchoMinimo = tableLayoutPanelReportes.Width + 100;
@@ -860,7 +886,7 @@ namespace Presentacion.Reportes
             if (this.ClientSize.Width >= anchoMinimo)
             {
                 panelDataGridView.Width = tableLayoutPanelReportes.Width;
-                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
                 int x = (this.ClientSize.Width - panelDataGridView.Width) / 2;
                 panelDataGridView.Location = new System.Drawing.Point(x, panelDataGridView.Location.Y);
             }
@@ -870,30 +896,27 @@ namespace Presentacion.Reportes
                 panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
             }
-        }
-
-
-
-        private void PosicionarPanelDebajoDerecha()
+        }*/
+        private void CentrarDataGridView()
         {
+            panelDataGridView.Width = tableLayoutPanelReportes.Width;
 
-            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
-            int x = tableLayoutPanelReportes.Right - panelBotones.Width; // Alineado a la derecha de panelA
-            int y = tableLayoutPanelReportes.Bottom; // Justo debajo de panelA
+            int x = tableLayoutPanelReportes.Location.X;
+            int y = panelDataGridView.Location.Y;
 
-            panelBotones.Location = new System.Drawing.Point(x, y);
-
-            // Asumiendo que quieres que panelB esté debajo y alineado a la derecha de panelA
-            int x2 = panelDataGridView.Right - panelBotones2.Width; // Alineado a la derecha de panelA
-            int y2 = panelDataGridView.Bottom; // Justo debajo de panelA
-
-            panelBotones2.Location = new System.Drawing.Point(x2, y2);
+            panelDataGridView.Location = new System.Drawing.Point(x, y);
         }
+
+
+
+
 
         private void FrmReportesMarcasPatentes_Resize(object sender, EventArgs e)
         {
             CentrarTableLayoutReporte();
             CentrarDataGridView();
+            CentrarDataGridDentroDelPanel(); // <<--- Agregado
+
             PosicionarPanelDebajoDerecha();
         }
 
@@ -903,10 +926,128 @@ namespace Presentacion.Reportes
             comboBoxObjeto.SelectedIndex = 0;
             await Task.Delay(800);
             tabControl1.Visible = true;
-            
+
             CentrarTableLayoutReporte();
             CentrarDataGridView();
+            CentrarDataGridDentroDelPanel(); // <<--- Agregado
+
             PosicionarPanelDebajoDerecha();
+        }
+
+        private void btnConsultar_Click_1(object sender, EventArgs e)
+        {
+            Filtrar();
+        }
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            dtgReportes.DataSource = null;
+            dtgReportes.ClearSelection();
+        }
+
+        private void btnExportarPDF_Click(object sender, EventArgs e)
+        {
+            DataTable datos = dtgReportes.DataSource as DataTable;
+
+            if (datos != null)
+            {
+                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            DataTable datos = dtgReportes.DataSource as DataTable;
+
+            if (datos != null)
+            {
+                ExportarDataTableAExcel(datos);
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("NO HAY DATOS PARA EXPORTAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void btnTitularReporte_Click(object sender, EventArgs e)
+        {
+            FrmMostrarTitularesReportes frmMostrarTitulares = new FrmMostrarTitularesReportes();
+            frmMostrarTitulares.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreTitular != "")
+            {
+                richTextBoxTitular.Text = SeleccionarPersonaReportes.nombreTitular;
+            }
+            else
+            {
+                richTextBoxTitular.Text = "";
+            }
+        }
+
+        private void btnAgenteReporte_Click(object sender, EventArgs e)
+        {
+            FrmMostrarAgentesReportes frmMostrarAgentes = new FrmMostrarAgentesReportes();
+            frmMostrarAgentes.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreAgente != "")
+            {
+                richTextBoxAgente.Text = SeleccionarPersonaReportes.nombreAgente;
+            }
+            else
+            {
+                richTextBoxAgente.Text = "";
+            }
+        }
+
+        private void PosicionarPanelDebajoDerecha()
+        {
+            // Obtener posición absoluta de tableLayoutPanel2
+            System.Drawing.Point punto1 = tableLayoutPanelReportes.Location;
+            int x1 = punto1.X + tableLayoutPanelReportes.Width - panelBotones.Width;
+            int y1 = punto1.Y + tableLayoutPanelReportes.Height + 10; // separacion de 10 px abajo
+            panelBotones.Location = new System.Drawing.Point(x1, y1);
+
+            // Obtener posición absoluta de panel23
+            System.Drawing.Point punto2 = panelDataGridView.Location;
+            int x2 = punto2.X + panelDataGridView.Width - panelBotones2.Width;
+            int y2 = punto2.Y + panelDataGridView.Height + 10;
+            panelBotones2.Location = new System.Drawing.Point(x2, y2);
+        }
+        private void CentrarDataGridDentroDelPanel()
+        {
+            if (panelDataGridView.Width > dtgReportes.Width)
+            {
+                int x = (panelDataGridView.Width - dtgReportes.Width) / 2;
+                int y = dtgReportes.Location.Y;
+                dtgReportes.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Si el DataGridView ocupa todo el ancho, alinearlo a la izquierda
+                dtgReportes.Location = new System.Drawing.Point(0, dtgReportes.Location.Y);
+            }
+        }
+
+
+        private void roundedButton1_Click_1(object sender, EventArgs e)
+        {
+            FrmMostrarClientesReportes frmMostrarClientes = new FrmMostrarClientesReportes();
+            frmMostrarClientes.ShowDialog();
+
+            if (SeleccionarPersonaReportes.nombreCliente != "")
+            {
+                richTextBoxCliente.Text = SeleccionarPersonaReportes.nombreCliente;
+            }
+            else
+            {
+                richTextBoxCliente.Text = "";
+            }
         }
     }
 }

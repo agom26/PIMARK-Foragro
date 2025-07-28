@@ -30,10 +30,10 @@ namespace Presentacion.Patentes
         private bool buscando = false;
         private bool archivoSubido = false;
         //ftp
-        private string host = "ftp.bpa.com.es"; // Tu host FTP
-        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
-        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
-        private string directorioBase = "/bpa.com.es/test/marcas/patentes";
+        private string host = "ftp.foragro.com.es"; // Tu host FTP
+        private string usuario = "foragro"; // Tu usuario FTP
+        private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
+        private string directorioBase = "/foragro.com.es/marcas/patentes";
         public FrmMostrarTramiteTraspasoPatente()
         {
             InitializeComponent();
@@ -654,14 +654,14 @@ namespace Presentacion.Patentes
 
         public void Habilitar()
         {
-            dateTimePickerFechaH.Enabled = true;
+            dateTimePickerFechaIngreso.Enabled = true;
             comboBoxEstatusH.Enabled = true;
             richTextBoxAnotacionesH.Enabled = true;
             btnEditarH.Enabled = true;
         }
         public void Deshabilitar()
         {
-            dateTimePickerFechaH.Enabled = false;
+            dateTimePickerFechaIngreso.Enabled = false;
             comboBoxEstatusH.Enabled = false;
             richTextBoxAnotacionesH.Enabled = true;
             richTextBoxAnotacionesH.ReadOnly = true;
@@ -844,11 +844,26 @@ namespace Presentacion.Patentes
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
 
                         comboBoxEstatusH.SelectedItem = SeleccionarHistorialPatente.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorialPatente.fecha;
+                        dateTimePickerFechaIngreso.Value = SeleccionarHistorialPatente.fecha;
                         richTextBoxAnotacionesH.Text = SeleccionarHistorialPatente.anotaciones;
                         labelUserEditor.Text = UsuarioActivo.usuario;
                         lblUser.Text = SeleccionarHistorialPatente.usuario;
 
+
+                        if (fila["fechaVencimiento"] != DBNull.Value)
+                        {
+                            labelVenc.Visible = true;
+                            dateTimePickerVencimiento.Visible = true;
+                            if (fila["fechaVencimiento"] != DBNull.Value && !string.IsNullOrWhiteSpace(fila["fechaVencimiento"].ToString()))
+                            {
+                                dateTimePickerVencimiento.Value = Convert.ToDateTime(fila["fechaVencimiento"]);
+                            }
+                        }
+                        else
+                        {
+                            labelVenc.Visible = false;
+                            dateTimePickerVencimiento.Visible = false;
+                        }
                         AnadirTabPage(tabPageHistorialDetail);
                     }
                     else
@@ -870,52 +885,144 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageHistorialMarca;
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
 
-            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
-            DateTime fecha = dateTimePickerFechaH.Value;
-            string anotaciones = richTextBoxAnotacionesH.Text;
-            SeleccionarHistorialPatente.anotaciones = anotaciones;
             string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
+            string etapa = comboBoxEstatusH.Text;
+            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+            DateTime fechaVencimiento = fechaIngreso;
 
+            // Calcular vencimiento automático según etapa
+            switch (etapa)
+            {
+                case "Examen de fondo":
+                case "Objeción":
+                case "Publicación":
+                    fechaVencimiento = fechaIngreso.AddMonths(2);
+                    break;
+
+                case "Requerimiento":
+                case "Orden de pago":
+                    fechaVencimiento = fechaIngreso.AddMonths(1);
+                    break;
+
+                case "Resolución RPI desfavorable":
+                    fechaVencimiento = fechaIngreso.AddDays(5);
+                    break;
+            }
+
+            // Mostrar u ocultar controles de vencimiento
+            bool requiereVencimiento = etapa == "Examen de fondo" ||
+                                        etapa == "Requerimiento" ||
+                                        etapa == "Objeción" ||
+                                        etapa == "Publicación" ||
+                                        etapa == "Orden de pago" ||
+                                        etapa == "Resolución RPI desfavorable";
+
+            // Asignar valores a AgregarEtapa
+            AgregarEtapaPatente.etapa = etapa;
+            AgregarEtapaPatente.fecha = fechaIngreso;
+            AgregarEtapaPatente.usuario = usuarioEditor;
+            AgregarEtapaPatente.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
 
             if (comboBoxEstatusH.SelectedIndex != -1)
             {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
-                if (anotaciones.Contains(formato))
+                string anotaciones = richTextBoxAnotacionesH.Text;
+                string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                string venc = fechaVencimiento.ToString("dd/MM/yyyy");
+                string anotacionFinal = "";
+
+                if (etapa == "Resolución RPI desfavorable")
                 {
-                    AgregarEtapaPatente.anotaciones = anotaciones;
+                    anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                }
+                else if (requiereVencimiento)
+                {
+                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                }
+                else if (etapa == "Resolución RPI favorable" ||
+                         etapa == "Recurso de revocatoria" ||
+                         etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                         etapa == "Contencioso administrativo")
+                {
+                    anotacionFinal = $"{fecha} Por objeción - {etapa}";
                 }
                 else
                 {
-                    AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
+                    anotacionFinal = $"{fecha} {etapa}";
                 }
 
-                try
+                if (!anotaciones.Contains(anotacionFinal))
                 {
-                    historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fecha, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor);
-                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
-                    SeleccionarHistorialPatente.LimpiarHistorial();
-                    refrescarMarca();
+                    AgregarEtapaPatente.anotaciones = anotacionFinal + " " + anotaciones;
                 }
-                catch (Exception ex)
+                else
                 {
-                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AgregarEtapaPatente.anotaciones = anotaciones;
                 }
 
+
+                historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fechaIngreso, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor, requiereVencimiento ? fechaVencimiento : (DateTime?)null);
+                FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                alerta.ShowDialog();
+                EliminarTabPage(tabPageHistorialDetail);
+                AnadirTabPage(tabPageMarcaDetail);
+                SeleccionarHistorialPatente.LimpiarHistorial();
+                await refrescarPatente();
 
 
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("No ha seleccionado ningun estado");
+            }
+        }
+
+        private async Task refrescarPatente()
+        {
+            if (SeleccionarPatente.id > 0)
+            {
+                try
+                {
+                    DataTable detallesPatente = await Task.Run(() => patenteModel.ObtenerPatentePorId(SeleccionarPatente.id));
+
+                    if (detallesPatente.Rows.Count > 0)
+                    {
+                        DataRow row = detallesPatente.Rows[0];
+
+                        if (row["estado"] != DBNull.Value)
+                        {
+                            SeleccionarPatente.estado = row["estado"].ToString();
+                            textBoxEstatus.Text = row["estado"].ToString();
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se encontró la marca seleccionada.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                        bool contieneRegistrada = SeleccionarPatente.estado.Contains("Registro/concesión", StringComparison.OrdinalIgnoreCase);
+
+                        if (contieneRegistrada)
+                        {
+                            mostrarPanelRegistro("si");
+                        }
+                        else
+                        {
+                            mostrarPanelRegistro("no");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles de la marca.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al refrescar los datos de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -944,10 +1051,25 @@ namespace Presentacion.Patentes
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
 
                         comboBoxEstatusH.SelectedItem = SeleccionarHistorialPatente.etapa;
-                        dateTimePickerFechaH.Value = SeleccionarHistorialPatente.fecha;
+                        dateTimePickerFechaIngreso.Value = SeleccionarHistorialPatente.fecha;
                         richTextBoxAnotacionesH.Text = SeleccionarHistorialPatente.anotaciones;
                         labelUserEditor.Text = UsuarioActivo.usuario;
                         lblUser.Text = SeleccionarHistorialPatente.usuario;
+
+                        if (fila["fechaVencimiento"] != DBNull.Value)
+                        {
+                            labelVenc.Visible = true;
+                            dateTimePickerVencimiento.Visible = true;
+                            if (fila["fechaVencimiento"] != DBNull.Value && !string.IsNullOrWhiteSpace(fila["fechaVencimiento"].ToString()))
+                            {
+                                dateTimePickerVencimiento.Value = Convert.ToDateTime(fila["fechaVencimiento"]);
+                            }
+                        }
+                        else
+                        {
+                            labelVenc.Visible = false;
+                            dateTimePickerVencimiento.Visible = false;
+                        }
 
                         AnadirTabPage(tabPageHistorialDetail);
                     }
@@ -967,12 +1089,76 @@ namespace Presentacion.Patentes
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            if (labelVenc.Visible)
+            {
+                comboBoxEstatusH_SelectedIndexChanged(sender, e);
+            }
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBoxAnotacionesH.Text = dateTimePickerFechaH.Value.ToShortDateString() + " " + comboBoxEstatusH.SelectedItem;
+            string etapa = comboBoxEstatusH.Text;
+            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+            DateTime fechaVencimiento = fechaIngreso;
+
+            // Calcular fecha de vencimiento según la etapa
+            switch (etapa)
+            {
+                case "Examen de fondo":
+                case "Objeción":
+                case "Publicación":
+                    fechaVencimiento = fechaIngreso.AddMonths(2);
+                    break;
+
+                case "Requerimiento":
+                case "Orden de pago":
+                    fechaVencimiento = fechaIngreso.AddMonths(1);
+                    break;
+
+                case "Resolución RPI desfavorable":
+                    fechaVencimiento = fechaIngreso.AddDays(5);
+                    break;
+            }
+
+            // Mostrar u ocultar controles de vencimiento
+            bool mostrarVencimiento = etapa == "Examen de fondo" ||
+                                       etapa == "Requerimiento" ||
+                                       etapa == "Objeción" ||
+                                       etapa == "Publicación" ||
+                                       etapa == "Orden de pago" ||
+                                       etapa == "Resolución RPI desfavorable";
+
+            labelVenc.Visible = mostrarVencimiento;
+            dateTimePickerVencimiento.Visible = mostrarVencimiento;
+
+            if (mostrarVencimiento)
+            {
+                dateTimePickerVencimiento.Value = fechaVencimiento;
+            }
+
+            // Mostrar anotación en el RichTextBox
+            string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+            string venc = fechaVencimiento.ToString("dd/MM/yyyy");
+
+            if (etapa == "Resolución RPI desfavorable")
+            {
+                richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else if (mostrarVencimiento)
+            {
+                richTextBoxAnotacionesH.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else if (etapa == "Resolución RPI favorable" ||
+                     etapa == "Recurso de revocatoria" ||
+                     etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                     etapa == "Contencioso administrativo")
+            {
+                richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa}";
+            }
+            else
+            {
+                richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
+            }
         }
         public void VerificarDatosRegistro()
         {
@@ -1008,7 +1194,7 @@ namespace Presentacion.Patentes
             {
                 try
                 {
-                    historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id);
+                    historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
 
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
@@ -1082,7 +1268,7 @@ namespace Presentacion.Patentes
         private async void btnTraspasar_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
-            
+
             if (!archivoSubido)
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE TRASPASO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1176,7 +1362,8 @@ namespace Presentacion.Patentes
                                     justificacion,
                                     usuarioAbandono,
                                     null,
-                                    idPatente
+                                    idPatente,
+                                    null
                                 );
 
                                 FrmAlerta alerta = new FrmAlerta("LA PATENTE HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1741,6 +1928,65 @@ namespace Presentacion.Patentes
             else
             {
                 archivoSubido = true;
+            }
+        }
+
+        private async void btnDesistir_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacionDesistimiento justificacionForm = new FrmJustificacionDesistimiento())
+            {
+
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+
+                    try
+                    {
+
+                        if (dtgPatentes.SelectedRows.Count > 0)
+                        {
+                            var filaSeleccionada = dtgPatentes.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idPatente = Convert.ToInt32(dataRowView["id"]);
+
+                                historialPatenteModel.CrearHistorialPatente(
+                                   fechaAbandono,
+                                   "Desistimiento",
+                                   justificacion,
+                                   usuarioAbandono,
+                                   null,
+                                   idPatente,
+                                   null
+                               );
+                                FrmAlerta alerta = new FrmAlerta("LA PATENTE HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                await LoadPatentes();
+                            }
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA PATENTE PARA DESISTIR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la patente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void dateTimePickerVencimiento_ValueChanged(object sender, EventArgs e)
+        {
+            if (labelVenc.Visible)
+            {
+                comboBoxEstatusH_SelectedIndexChanged(sender, e);
             }
         }
     }

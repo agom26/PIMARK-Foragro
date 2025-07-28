@@ -894,6 +894,120 @@ namespace AccesoDatos.Entidades
         }
 
 
+        public DataTable GetAllPatentesEnDesistimiento(int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("ObtenerPatentesEnDesistimiento", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+                        // Agregar parámetros de entrada
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes: {ex.Message}");
+            }
+            return tabla;
+        }
+        public DataTable FiltrarPatentesEnDesistimiento(string filtro, int currentPageIndex, int pageSize)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection conexion = GetConnection())
+                {
+                    using (MySqlCommand comando = new MySqlCommand("FiltrarPatentesEnDesistimiento", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        int registrosOmitidos = (currentPageIndex - 1) * pageSize;
+
+                        comando.Parameters.AddWithValue("pageSize", pageSize);
+                        comando.Parameters.AddWithValue("registrosOmitidos", registrosOmitidos);
+                        comando.Parameters.AddWithValue("@p_valor", string.IsNullOrEmpty(filtro) ? DBNull.Value : (object)filtro);
+
+                        conexion.Open();
+                        using (MySqlDataReader leer = comando.ExecuteReader())
+                        {
+                            tabla.Load(leer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las patentes sin registro: {ex.Message}");
+            }
+            return tabla;
+        }
+
+        public int GetTotalPatentesEnDesistimiento()
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetTotalPatentesEnDesistimiento", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter paramTotalMarcas = new MySqlParameter("totalMarcas", MySqlDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    comando.Parameters.Add(paramTotalMarcas);
+
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    totalMarcas = Convert.ToInt32(paramTotalMarcas.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+        public int GetFilteredPatentesEnDesistimientoCount(string value)
+        {
+            int totalMarcas = 0;
+
+            using (MySqlConnection conexion = GetConnection())
+            {
+                using (MySqlCommand comando = new MySqlCommand("GetFilteredPatentesEnDesistimientoCount", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    comando.Parameters.AddWithValue("@value", value);
+
+                    // Parámetro de salida
+                    MySqlParameter totalMarcasParam = new MySqlParameter("@totalMarcas", MySqlDbType.Int32);
+                    totalMarcasParam.Direction = ParameterDirection.Output;
+                    comando.Parameters.Add(totalMarcasParam);
+
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+
+                    totalMarcas = Convert.ToInt32(totalMarcasParam.Value);
+                }
+            }
+
+            return totalMarcas;
+        }
+
+
 
     }
 }

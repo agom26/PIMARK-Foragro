@@ -8,7 +8,7 @@ namespace AccesoDatos.MySqlServer
         public ConnectionSQL()
         {
             
-            connectionString = "server=mysql.bpa.com.es;port=3306;uid=bpaes_bpaes_registrador;pwd=X*r@$Vh6VF@_;database=bpaes_bpaes_marcas;";
+            connectionString = "server=mysql.foragro.com.es;port=3306;user=foragro_registrador;pwd=H*V#GjVX1N8?;database=foragro_pimark;";
         }
 
         protected MySqlConnection GetConnection()

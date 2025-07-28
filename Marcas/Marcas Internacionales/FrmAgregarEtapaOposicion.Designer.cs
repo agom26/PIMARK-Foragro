@@ -50,17 +50,17 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(65, 109);
+            label1.Location = new Point(65, 91);
             label1.Name = "label1";
-            label1.Size = new Size(45, 17);
+            label1.Size = new Size(110, 17);
             label1.TabIndex = 0;
-            label1.Text = "Fecha";
+            label1.Text = "Fecha de Ingreso";
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(65, 170);
+            label2.Location = new Point(65, 152);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
@@ -70,7 +70,7 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(65, 233);
+            label3.Location = new Point(65, 216);
             label3.Name = "label3";
             label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(65, 132);
+            dateTimePicker1.Location = new Point(65, 114);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 1;
@@ -94,9 +94,9 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Oposición presentada", "Contestación de oposición", "Apertura a prueba", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Desestimiento/Abandono" });
-            comboBox1.Location = new Point(65, 193);
+            comboBox1.Location = new Point(65, 175);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(372, 25);
+            comboBox1.Size = new Size(382, 25);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -104,17 +104,17 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(65, 256);
+            richTextBox1.Location = new Point(65, 239);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 102);
-            richTextBox1.TabIndex = 3;
+            richTextBox1.Size = new Size(431, 89);
+            richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             // 
             // lblUser
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(335, 132);
+            lblUser.Location = new Point(335, 114);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
@@ -132,7 +132,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(138, 33);
+            roundedButton1.Location = new Point(138, 15);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -162,7 +162,7 @@
             button2.Location = new Point(501, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
-            button2.TabIndex = 6;
+            button2.TabIndex = 7;
             button2.Text = "X";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
@@ -193,10 +193,10 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(96, 384);
+            iconButton3.Location = new Point(96, 347);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 34);
-            iconButton3.TabIndex = 4;
+            iconButton3.TabIndex = 5;
             iconButton3.Text = "SELECCIONAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -215,10 +215,10 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(301, 384);
+            iconButton2.Location = new Point(301, 347);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(160, 34);
-            iconButton2.TabIndex = 5;
+            iconButton2.TabIndex = 6;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -241,7 +241,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
-            panel1.Size = new Size(552, 447);
+            panel1.Size = new Size(552, 420);
             panel1.TabIndex = 9;
             // 
             // FrmAgregarEtapaOposicion
@@ -250,7 +250,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(552, 493);
+            ClientSize = new Size(552, 457);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);

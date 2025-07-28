@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAdministrarClientes));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabClientesList = new TabPage();
+            btnEliminar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
             btnLast = new FontAwesome.Sharp.IconButton();
             btnNext = new FontAwesome.Sharp.IconButton();
@@ -81,7 +83,6 @@
             roundedButton4 = new Presentacion.Clases.RoundedButton();
             roundedButton1 = new Presentacion.Clases.RoundedButton();
             btnCambios = new Presentacion.Clases.RoundedButton();
-            btnEliminar = new FontAwesome.Sharp.IconButton();
             tabControl1.SuspendLayout();
             tabClientesList.SuspendLayout();
             panelTitulo.SuspendLayout();
@@ -132,6 +133,30 @@
             tabClientesList.Padding = new Padding(3);
             tabClientesList.Size = new Size(892, 709);
             tabClientesList.TabIndex = 0;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminar.AutoSize = true;
+            btnEliminar.BackColor = Color.FromArgb(229, 115, 115);
+            btnEliminar.FlatAppearance.BorderSize = 0;
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            btnEliminar.IconColor = Color.White;
+            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.IconSize = 25;
+            btnEliminar.ImageAlign = ContentAlignment.MiddleRight;
+            btnEliminar.Location = new Point(692, 336);
+            btnEliminar.Margin = new Padding(3, 2, 3, 2);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(160, 49);
+            btnEliminar.TabIndex = 201;
+            btnEliminar.Text = "ELIMINAR";
+            btnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // panel4
             // 
@@ -339,7 +364,7 @@
             roundedButton5.Name = "roundedButton5";
             roundedButton5.Size = new Size(494, 63);
             roundedButton5.TabIndex = 167;
-            roundedButton5.Text = "CLIENTES";
+            roundedButton5.Text = "GRUPOS";
             roundedButton5.TextAlign = ContentAlignment.MiddleLeft;
             roundedButton5.TextColor = Color.Black;
             roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -406,33 +431,48 @@
             dtgClientes.AllowUserToAddRows = false;
             dtgClientes.AllowUserToDeleteRows = false;
             dtgClientes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
-            dtgClientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             dtgClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgClientes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgClientes.BorderStyle = BorderStyle.None;
             dtgClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 12F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dtgClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dtgClientes.ColumnHeadersHeight = 40;
             dtgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dtgClientes.DefaultCellStyle = dataGridViewCellStyle2;
             dtgClientes.EnableHeadersVisualStyles = false;
             dtgClientes.GridColor = Color.LightGray;
             dtgClientes.Location = new Point(18, 19);
+            dtgClientes.MultiSelect = false;
             dtgClientes.Name = "dtgClientes";
             dtgClientes.ReadOnly = true;
             dtgClientes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 11F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgClientes.RowHeadersWidth = 51;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 10F);
-            dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
+            dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dtgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgClientes.Size = new Size(646, 501);
             dtgClientes.TabIndex = 13;
@@ -454,10 +494,10 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
-            txtBuscar.Font = new Font("Century Gothic", 12F);
+            txtBuscar.Font = new Font("Century Gothic", 9F);
             txtBuscar.Location = new Point(172, 26);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(264, 27);
+            txtBuscar.Size = new Size(264, 22);
             txtBuscar.TabIndex = 50;
             txtBuscar.KeyDown += txtBuscar_KeyDown;
             // 
@@ -827,30 +867,6 @@
             btnCambios.TextColor = Color.Black;
             btnCambios.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCambios.UseVisualStyleBackColor = false;
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnEliminar.AutoSize = true;
-            btnEliminar.BackColor = Color.FromArgb(229, 115, 115);
-            btnEliminar.FlatAppearance.BorderSize = 0;
-            btnEliminar.FlatStyle = FlatStyle.Flat;
-            btnEliminar.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            btnEliminar.ForeColor = Color.White;
-            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            btnEliminar.IconColor = Color.White;
-            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnEliminar.IconSize = 25;
-            btnEliminar.ImageAlign = ContentAlignment.MiddleRight;
-            btnEliminar.Location = new Point(692, 336);
-            btnEliminar.Margin = new Padding(3, 2, 3, 2);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(160, 49);
-            btnEliminar.TabIndex = 201;
-            btnEliminar.Text = "ELIMINAR";
-            btnEliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnEliminar.UseVisualStyleBackColor = false;
-            btnEliminar.Click += btnEliminar_Click;
             // 
             // FrmAdministrarClientes
             // 

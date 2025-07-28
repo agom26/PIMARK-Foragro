@@ -49,14 +49,15 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton3_Click(object sender, EventArgs e)
         {
             string anotaciones = richTextBox1.Text;
-            AgregarEtapaOposicion.etapa = comboBox1.SelectedItem?.ToString();
+            AgregarEtapaOposicion.etapa = comboBox1.Text;
             AgregarEtapaOposicion.fecha = dateTimePicker1.Value;
             AgregarEtapaOposicion.usuario = UsuarioActivo.usuario;
+            //AgregarEtapaOposicion.fechaVencimiento = dateTimePickerVencimiento.Value;
 
             if (comboBox1.SelectedIndex != -1)
             {
                 string fechaSinHora = dateTimePicker1.Value.ToString("dd/MM/yyyy");
-                string formato = fechaSinHora + " " + comboBox1.SelectedItem.ToString();
+                string formato = fechaSinHora + " " + comboBox1.Text;
                 if (anotaciones.Contains(formato))
                 {
                     AgregarEtapaOposicion.anotaciones = anotaciones;

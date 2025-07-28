@@ -157,7 +157,7 @@ namespace Presentacion.Vencimientos
 
         public async Task<string> SubirLogoAsync(string rutaArchivoLocal)
         {
-            string urlApi = "https://bpa.com.es/logoCorreo/subirLogo.php"; // Reemplaza por tu dominio real
+            string urlApi = "https://foragro.com.es/logoCorreo/subirLogo.php"; // Reemplaza por tu dominio real
 
             using (var client = new HttpClient())
             using (var content = new MultipartFormDataContent())
@@ -183,7 +183,7 @@ namespace Presentacion.Vencimientos
 
         public async Task<string> EliminarLogoAsync()
         {
-            string urlApi = "https://bpa.com.es/logoCorreo/eliminarLogo.php";
+            string urlApi = "https://foragro.com.es/logoCorreo/eliminarLogo.php";
             using var client = new HttpClient();
             var content = new FormUrlEncodedContent(new Dictionary<string, string>());
             var response = await client.PostAsync(urlApi, content);
@@ -270,7 +270,7 @@ namespace Presentacion.Vencimientos
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Berger Pemueller y Asociados", "avisos@bpa.com.es"));
+                message.From.Add(new MailboxAddress("Foragro", "avisos@foragro.com.es"));
                 message.To.Add(new MailboxAddress("Destinatario", receptor));
                 message.Subject = subject;
 
@@ -280,9 +280,9 @@ namespace Presentacion.Vencimientos
                 {
                     // hacemos un HEAD o un GET muy ligero para ver si existe
                     using var client = new HttpClient();
-                    var head = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png"));
+                    var head = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png"));
                     if (head.IsSuccessStatusCode)
-                        urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                        urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
                 }
                 catch
                 {
@@ -332,8 +332,8 @@ namespace Presentacion.Vencimientos
 
                 using (var client = new SmtpClient())
                 {
-                    client.Connect("mail.bpa.com.es", 465, true);
-                    client.Authenticate("avisos@bpa.com.es", "Berger*Pemueller*2024");
+                    client.Connect("mail.foragro.com.es", 465, true);
+                    client.Authenticate("avisos@foragro.com.es", "agroindustria*2025*");
                     await client.SendAsync(message);
                     client.Disconnect(true);
 
@@ -1065,7 +1065,7 @@ namespace Presentacion.Vencimientos
             await Task.Yield();
 
             AnadirTabPage(tabPageMensajePatente);
-            string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+            string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
             await MostrarLogoDesdeUrlAsync(urlLogo);
 
             await CargarCorreoPatente();
@@ -1191,7 +1191,7 @@ namespace Presentacion.Vencimientos
             await Task.Yield();
 
             AnadirTabPage(tabPageMensajeMarca);
-            string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+            string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
             await MostrarLogoDesdeUrlAsync(urlLogo);
 
             await CargarCorreoMarca();
@@ -1232,8 +1232,9 @@ namespace Presentacion.Vencimientos
                     finally
                     {
                         iconButton1.Enabled = true;
-                        AnadirTabPage(tabPageVencimientosList);
+                        
                         await LoadVencimientos();
+                        AnadirTabPage(tabPageVencimientosList);
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         EliminarTabPage(tabPageMensajePatente);
@@ -1366,8 +1367,9 @@ namespace Presentacion.Vencimientos
                     finally
                     {
                         iconButton1.Enabled = true;
-                        AnadirTabPage(tabPageVencimientosList);
                         await LoadVencimientos();
+                        AnadirTabPage(tabPageVencimientosList);
+                        
                         FrmAlerta alerta = new FrmAlerta("CORREO ENVIADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         EliminarTabPage(tabPageMensajeMarca);
@@ -2066,25 +2068,25 @@ namespace Presentacion.Vencimientos
         private void ActualizarEstadoMarca(int idMarca, DateTime fechaAbandono, string justificacion, string usuarioAbandono)
         {
             // Actualizar el estado y la justificación de la marca
-            historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE");
+            historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", justificacion, usuarioAbandono, "TRÁMITE", null);
         }
 
         private void ActualizarEstadoPatente(int idPatente, DateTime fechaAbandono, string justificacion, string usuarioAbandono)
         {
             // Actualizar el estado y la justificación de la patente
-            historialPatenteModel.CrearHistorialPatente(fechaAbandono, "Abandono", justificacion, usuarioAbandono, null, idPatente);
+            historialPatenteModel.CrearHistorialPatente(fechaAbandono, "Abandono", justificacion, usuarioAbandono, null, idPatente, null);
         }
 
         private void ActualizarEstadoMarca2(int idMarca, DateTime fechaAbandono, string estado, string anotaciones, string usuario)
         {
             // Actualizar el estado y la justificación de la marca
-            historialModel.GuardarEtapa(idMarca, fechaAbandono, estado, anotaciones, usuario, "TRÁMITE");
+            historialModel.GuardarEtapa(idMarca, fechaAbandono, estado, anotaciones, usuario, "TRÁMITE", null);
         }
 
         private void ActualizarEstadoPatente2(int idPatente, DateTime fechaAbandono, string estado, string anotaciones, string usuario)
         {
             // Actualizar el estado y la justificación de la patente
-            historialPatenteModel.CrearHistorialPatente(fechaAbandono, estado, anotaciones, usuario, null, idPatente);
+            historialPatenteModel.CrearHistorialPatente(fechaAbandono, estado, anotaciones, usuario, null, idPatente, null);
         }
 
         private void MostrarAlerta(string mensaje)
@@ -2528,7 +2530,7 @@ namespace Presentacion.Vencimientos
                         string resultado = await SubirLogoAsync(rutaArchivo);
                         MessageBox.Show("Logo subido correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         btnEliminarLogo.Enabled = true;
-                        string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                        string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
                         await MostrarLogoDesdeUrlAsync(urlLogo);
                     }
                     catch (Exception ex)
@@ -2564,7 +2566,7 @@ namespace Presentacion.Vencimientos
 
                     // Aquí podrías además actualizar la UI, p. ej. deshabilitar el botón de eliminar
                     btnEliminarLogo.Enabled = false;
-                    string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                    string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
                     await MostrarLogoDesdeUrlAsync(urlLogo);
                 }
                 catch (Exception ex)
@@ -2607,7 +2609,7 @@ namespace Presentacion.Vencimientos
 
                     // Aquí podrías además actualizar la UI, p. ej. deshabilitar el botón de eliminar
                     btnEliminarLogo.Enabled = false;
-                    string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                    string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
                     await MostrarLogoDesdeUrlAsync(urlLogo);
                 }
                 catch (Exception ex)
@@ -2642,7 +2644,7 @@ namespace Presentacion.Vencimientos
                         string resultado = await SubirLogoAsync(rutaArchivo);
                         MessageBox.Show("Logo subido correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         btnEliminarLogo.Enabled = true;
-                        string urlLogo = "https://bpa.com.es/logoCorreo/logoCorreo/logoCorreo.png";
+                        string urlLogo = "https://foragro.com.es/logoCorreo/logoCorreo/logoCorreo.png";
                         await MostrarLogoDesdeUrlAsync(urlLogo);
                     }
                     catch (Exception ex)

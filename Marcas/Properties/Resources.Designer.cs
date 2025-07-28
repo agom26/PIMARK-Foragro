@@ -153,9 +153,29 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blancoForagro {
+            get {
+                object obj = ResourceManager.GetObject("blancoForagro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap boton_de_inicio {
             get {
                 object obj = ResourceManager.GetObject("boton-de-inicio", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap businessman {
+            get {
+                object obj = ResourceManager.GetObject("businessman", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -281,6 +301,36 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap customer__1_ {
+            get {
+                object obj = ResourceManager.GetObject("customer (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap customer_11325750 {
+            get {
+                object obj = ResourceManager.GetObject("customer_11325750", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap customer_11325750__1_ {
+            get {
+                object obj = ResourceManager.GetObject("customer_11325750 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
         internal static byte[] documento {
@@ -366,6 +416,36 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap excel {
             get {
                 object obj = ResourceManager.GetObject("excel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FORAGRO_LOGO {
+            get {
+                object obj = ResourceManager.GetObject("FORAGRO LOGO", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FORAGRO_LOGO1 {
+            get {
+                object obj = ResourceManager.GetObject("FORAGRO LOGO1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ForagroBlanco {
+            get {
+                object obj = ResourceManager.GetObject("ForagroBlanco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -551,6 +631,26 @@ namespace Presentacion.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hourglass {
+            get {
+                object obj = ResourceManager.GetObject("hourglass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hourglass__2_ {
+            get {
+                object obj = ResourceManager.GetObject("hourglass (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
         internal static byte[] iconWarning {
@@ -613,6 +713,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap legal__1_ {
+            get {
+                object obj = ResourceManager.GetObject("legal (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap legal_1_ {
             get {
                 object obj = ResourceManager.GetObject("legal(1)", resourceCulture);
@@ -646,6 +756,26 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap logoBPA2 {
             get {
                 object obj = ResourceManager.GetObject("logoBPA2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logoForagro {
+            get {
+                object obj = ResourceManager.GetObject("logoForagro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logoForagro1 {
+            get {
+                object obj = ResourceManager.GetObject("logoForagro1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -706,6 +836,16 @@ namespace Presentacion.Properties {
         internal static System.Drawing.Bitmap pdf_1_ {
             get {
                 object obj = ResourceManager.GetObject("pdf(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap people_15402031 {
+            get {
+                object obj = ResourceManager.GetObject("people_15402031", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

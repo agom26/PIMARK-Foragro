@@ -23,7 +23,7 @@ namespace Dominio
             string anotaciones,
             string usuario,
             string usuarioEdicion,
-            int idPatente)
+            int idPatente, DateTime? fechaVencimiento)
         {
             await historialPatenteDao.InsertarHistorialPatente(
                 fecha,
@@ -31,7 +31,8 @@ namespace Dominio
                 anotaciones,
                 usuario,
                 usuarioEdicion,
-                idPatente);
+                idPatente,
+                fechaVencimiento);
         }
 
         public Task<DataTable> ObtenerHistorialPorIdPatente(int idPatente)
@@ -49,7 +50,7 @@ namespace Dominio
             string etapa,
             string anotaciones,
             string usuario,
-            string usuarioEdicion)
+            string usuarioEdicion, DateTime? fechaVencimiento)
         {
             await historialPatenteDao.EditarHistorialPatente(
                 idHistorial,
@@ -57,7 +58,8 @@ namespace Dominio
                 etapa,
                 anotaciones,
                 usuario,
-                usuarioEdicion);
+                usuarioEdicion,
+                fechaVencimiento);
         }
     }
 }

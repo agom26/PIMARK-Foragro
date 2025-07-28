@@ -45,7 +45,7 @@ namespace Presentacion.Patentes
             }
 
             // Construcción de anotaciones
-            string fechaSinHora = fecha.ToShortDateString();
+            string fechaSinHora = fecha.ToString("dd/MM/yyyy");
             string formato = fechaSinHora + " " + etapa;
             string anotacionesFinales = anotaciones.Contains(formato) ? anotaciones : formato + " " + anotaciones;
 
@@ -82,6 +82,7 @@ namespace Presentacion.Patentes
             txtNoExpediente.Text = SeleccionarPatente.Erenov;
             dateFechVencAnt.Value = AgregarRenovacionPatente.fechaVencimientoAntigua;
             ActualizarFechaVencimientoNueva();
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
 
         }
 
@@ -98,18 +99,14 @@ namespace Presentacion.Patentes
             AgregarEtapaPatente.LimpiarEtapa();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             FrmAlerta alerta = new FrmAlerta("¿ESTÁ SEGURO DE RENOVAR LA MARCA?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
             DialogResult resultado = alerta.ShowDialog();
             if (resultado == DialogResult.Yes)
             {
-                RenovarMarca();
-            }
-            else
-            {
-
+                await RenovarMarca();
             }
             
         }
@@ -121,7 +118,7 @@ namespace Presentacion.Patentes
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

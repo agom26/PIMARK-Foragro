@@ -12,7 +12,7 @@ namespace AccesoDatos.Entidades
 {
     public class HistorialMarcasDao
     {
-        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_marcas.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/historial_marcas.php";
 
         private async Task<JsonDocument> PostAsync(object data)
         {
@@ -36,7 +36,7 @@ namespace AccesoDatos.Entidades
             return JsonDocument.Parse(responseBody);
         }
 
-        public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor)
+        public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor, DateTime? fechaVencimiento)
         {
             var data = new
             {
@@ -46,7 +46,8 @@ namespace AccesoDatos.Entidades
                 fecha = fecha.ToString("yyyy-MM-dd"),
                 anotaciones,
                 usuario,
-                usuarioEditor
+                usuarioEditor,
+                fechaVencimiento = fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : null
             };
 
             var jsonDoc = await PostAsync(data);
@@ -120,7 +121,7 @@ namespace AccesoDatos.Entidades
         }
 
 
-        public async Task<bool> GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario, string origen)
+        public async Task<bool> GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario, string origen, DateTime? fechaVencimiento)
         {
             var data = new
             {
@@ -130,7 +131,8 @@ namespace AccesoDatos.Entidades
                 etapa,
                 anotaciones,
                 usuario,
-                origen
+                origen,
+                fechaVencimiento = fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : null
             };
 
             var jsonDoc = await PostAsync(data);

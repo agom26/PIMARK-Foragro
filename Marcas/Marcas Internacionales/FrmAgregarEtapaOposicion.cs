@@ -79,12 +79,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + comboBox1.SelectedItem;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + comboBox1.SelectedItem;
         }
 
         protected override void WndProc(ref Message m)

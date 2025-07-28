@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using Presentacion.Reportes;
+using System.Reflection;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -50,13 +51,22 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
-        
+
 
         public FrmMarcasIntOposiciones()
         {
             InitializeComponent();
             this.Load += FrmMarcasIntOposiciones_Load;
             this.Resize += FrmMarcasIntOposiciones_Resize;
+            SetDoubleBuffering(this, true);
+            SetDoubleBuffering(dtgReportesOp, true);
+        }
+
+        private void SetDoubleBuffering(Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -480,7 +490,7 @@ namespace Presentacion.Marcas_Internacionales
 
             Cursor = Cursors.Default;
 
-            tabControl1.SelectedTab = tabPageOposicionesList;
+            AnadirTabPage(tabPageOposicionesList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
@@ -846,7 +856,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -967,7 +977,8 @@ namespace Presentacion.Marcas_Internacionales
                 "Registrada",
                 "Licencia de uso",
                 "Trámite de renovación",
-                "Trámite de traspaso"
+                "Trámite de traspaso",
+                "Desistimiento"
                 });
             }
             else if (origen == "OPOSICIÓN")
@@ -1169,7 +1180,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (SeleccionarOposicion.idMarca > 0)
                 {
-                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
+                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor,null);
 
                 }
                 else if (SeleccionarOposicion.idMarca == 0)
@@ -1253,7 +1264,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 EliminarTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageOposicionesList;
+                AnadirTabPage( tabPageOposicionesList);
             }
             else
             {
@@ -1444,7 +1455,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                           AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                           AgregarEtapaOposicion.usuario, "OPOSICIÓN", null);
                     }
                     agregoEstado = false;
                 }
@@ -1590,7 +1601,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapa.fecha,
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones,
-                            AgregarEtapa.usuario, "TRÁMITE");
+                            AgregarEtapa.usuario, "TRÁMITE", null);
                             TerminarOposicion();
 
                             //MessageBox.Show("Etapa agregada con éxito");
@@ -1704,7 +1715,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
                             AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
-                            AgregarEtapaOposicion.usuario, "OPOSICIÓN");
+                            AgregarEtapaOposicion.usuario, "OPOSICIÓN", null);
                             FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             await recargarDatosOposicion();
@@ -2060,7 +2071,9 @@ namespace Presentacion.Marcas_Internacionales
         private void btnIrAReportes_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageReportes);
-            PosicionarPanelDebajoDerecha();
+            FrmMarcasIntOposiciones_Resize(sender, e);
+            //AjustarLayout();
+            //PosicionarPanelDebajoDerecha();
 
         }
 
@@ -2172,10 +2185,17 @@ namespace Presentacion.Marcas_Internacionales
             Filtrar();
         }
 
-        private void btnCancelar_Click_1(object sender, EventArgs e)
+        private async void btnCancelar_Click_1(object sender, EventArgs e)
         {
             dtgReportesOp.DataSource = null;
             dtgReportesOp.ClearSelection();
+            currentPageIndex = 1;
+            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex2 = 1;
+            lblCurrentPage2.Text = currentPageIndex2.ToString();
+            AnadirTabPage(tabPageOposicionesList);
+            EliminarTabPage(tabPageReportes);
+
         }
 
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
@@ -2255,7 +2275,7 @@ namespace Presentacion.Marcas_Internacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -2270,7 +2290,7 @@ namespace Presentacion.Marcas_Internacionales
         table {{ border-collapse: collapse; width: 100%; }}
         th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
         th {{ background-color: #f2f2f2; font-weight: bold; }}
-        img {{ width: 200px; height: auto; }}
+        img {{ width: 100px; height: auto; }}
         @page {{ size: legal landscape; margin: 25mm; }}
         table {{ page-break-inside: auto; }}
         tr {{ page-break-inside: avoid; }}
@@ -2408,6 +2428,31 @@ namespace Presentacion.Marcas_Internacionales
             }
         }*/
 
+        private void CentrarControlSinExpandir(System.Windows.Forms.Control control, int anchoMinimo)
+        {
+            control.AutoSize = false;
+            control.Dock = DockStyle.None;
+
+            if (this.ClientSize.Width >= anchoMinimo)
+            {
+                control.Anchor = AnchorStyles.Top;
+
+                int x = (this.ClientSize.Width - control.Width) / 2;
+                int y = control.Location.Y;
+                control.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                control.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                control.Location = new System.Drawing.Point(0, control.Location.Y);
+            }
+        }
+
+        private void AjustarLayout()
+        {
+            CentrarControlSinExpandir(tableLayoutPanel2, 862);
+            CentrarControlSinExpandir(panel23, 862);
+        }
         public void ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
@@ -2432,7 +2477,7 @@ namespace Presentacion.Marcas_Internacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA2.Save(tempLogoPath);
+                    Properties.Resources.logoForagro1.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -2461,7 +2506,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.25); // Ajustar tamaño
+                                .Scale(0.08); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)
@@ -2759,7 +2804,7 @@ namespace Presentacion.Marcas_Internacionales
             if (this.ClientSize.Width >= anchoMinimo)
             {
                 // Centrar horizontalmente
-                tableLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left| AnchorStyles.Right;
+                tableLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
                 int x = (this.ClientSize.Width - tableLayoutPanel2.Width) / 2;
                 int y = tableLayoutPanel2.Location.Y; // mantener posición vertical
@@ -2776,7 +2821,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void CentrarDataGridView()
         {
-            panel23.Visible = false;
+            //panel23.Visible = false;
 
             int anchoMinimo = 762 + 100;
 
@@ -2793,13 +2838,24 @@ namespace Presentacion.Marcas_Internacionales
                 panel23.Location = new System.Drawing.Point(0, panel23.Location.Y);
             }
 
-            this.BeginInvoke((MethodInvoker)(() =>
-            {
-                panel23.Visible = true;
-            }));
+
         }
 
+        private void PosicionarPanelDebajoDerecha()
+        {
+            // Obtener posición absoluta de tableLayoutPanel2
+            System.Drawing.Point punto1 = tableLayoutPanel2.Location;
+            int x1 = punto1.X + tableLayoutPanel2.Width - panelBotones.Width;
+            int y1 = punto1.Y + tableLayoutPanel2.Height + 10; // separacion de 10 px abajo
+            panelBotones.Location = new System.Drawing.Point(x1, y1);
 
+            // Obtener posición absoluta de panel23
+            System.Drawing.Point punto2 = panel23.Location;
+            int x2 = punto2.X + panel23.Width - panelBotones2.Width;
+            int y2 = punto2.Y + panel23.Height + 10;
+            panelBotones2.Location = new System.Drawing.Point(x2, y2);
+        }
+        /*
         private void PosicionarPanelDebajoDerecha()
         {
 
@@ -2814,15 +2870,60 @@ namespace Presentacion.Marcas_Internacionales
             int y2 = panel23.Bottom; // Justo debajo de panelA
 
             panelBotones2.Location = new System.Drawing.Point(x2, y2);
-        }
+        }*/
 
 
         private void FrmMarcasIntOposiciones_Resize(object sender, EventArgs e)
         {
+            //AjustarLayout();
             CentrarPanel();
-            CentrarDataGridView();
-            CentrarTableLayoutReporte();
+            //CentrarDataGridView();
+            //CentrarTableLayoutReporte();
             PosicionarPanelDebajoDerecha();
+        }
+
+        private async void btnDesistir_Click(object sender, EventArgs e)
+        {
+            using (FrmJustificacionDesistimiento justificacionForm = new FrmJustificacionDesistimiento())
+            {
+
+                if (justificacionForm.ShowDialog() == DialogResult.OK)
+                {
+                    string justificacion = justificacionForm.Justificacion;
+                    DateTime fechaAbandono = justificacionForm.fecha;
+                    string usuarioAbandono = justificacionForm.usuarioAbandono;
+
+                    try
+                    {
+
+                        if (dtgMarcasOp.SelectedRows.Count > 0)
+                        {
+                            var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
+                            if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                            {
+                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+
+                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento", justificacion, usuarioAbandono, "TRÁMITE", null);
+                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                await FiltrarPorSituacionActual();
+                                await FiltrarPorSituacionActualInterpuestas();
+                            }
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO UNA MARCA PARA DESISTIR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            alerta.ShowDialog();
+                            //MessageBox.Show("No hay marca seleccionada para abandonar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el estado de la marca: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

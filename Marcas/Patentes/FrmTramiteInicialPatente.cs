@@ -114,7 +114,6 @@ namespace Presentacion.Patentes
             AgregarEtapaPatente.LimpiarEtapa();
             textBoxEstatus.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
-            checkedListBoxDocumentos.ClearSelected();
             txtFolio.Text = "";
             txtLibro.Text = "";
             txtRegistro.Text = "";
@@ -126,10 +125,15 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
-            checkedListBoxDocumentos.ClearSelected();
             DatosRegistro.peligro = false;
             archivoSeleccionado = false;
             btnAdjuntarT.Visible = false;
+
+            for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
+            {
+                checkedListBoxDocumentos.SetItemChecked(i, false);
+            }
+
         }
 
         public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
@@ -137,7 +141,7 @@ namespace Presentacion.Patentes
             try
             {
                 historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario, usuarioEdicion
-                    , idPatente);
+                    , idPatente,null);
             }
             catch (Exception ex)
             {
@@ -166,7 +170,7 @@ namespace Presentacion.Patentes
                             form.Add(streamContent, "archivo", nombreArchivo);
 
                             // URL de tu PHP
-                            string url = "https://bpa.com.es/subir_archivo_patente_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
+                            string url = "https://foragro.com.es/subir_archivo_patente_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
 
                             // Realizamos la solicitud
                             var responseTask = client.PostAsync(url, form);

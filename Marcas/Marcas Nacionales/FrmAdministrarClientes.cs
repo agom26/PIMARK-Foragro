@@ -122,7 +122,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN CLIENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN GRUPOS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
 
                     await LoadClientes();
@@ -264,7 +264,7 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL CLIENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL GRUPO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
                         //MessageBox.Show("No se encontró el cliente.");
                     }
@@ -272,7 +272,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al cargar los datos del cliente: " + ex.Message);
+                    MessageBox.Show("Error al cargar los datos del grupo: " + ex.Message);
                 }
                 finally
                 {
@@ -282,7 +282,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN CLIENTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN GRUPO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, selecciona un cliente.");
             }
@@ -300,7 +300,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
 
-                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿ESTÁ SEGURO DE ELIMINAR AL CLIENTE '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿ESTÁ SEGURO DE ELIMINAR AL GRUPO '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -313,23 +313,23 @@ namespace Presentacion.Marcas_Internacionales
                         if (isDeleted)
                         {
 
-                            MessageBox.Show("Cliente eliminado correctamente.");
+                            MessageBox.Show("Grupo eliminado correctamente.");
                             await LoadClientes();
                         }
                         else
                         {
-                            MessageBox.Show("Error al eliminar el cliente.");
+                            MessageBox.Show("Error al eliminar el grupo.");
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error al intentar eliminar el cliente: " + ex.Message);
+                        MessageBox.Show("Error al intentar eliminar el grupo: " + ex.Message);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
+                MessageBox.Show("Por favor, selecciona un grupo para eliminar.");
             }
         }
 
@@ -423,12 +423,12 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró el cliente.");
+                    MessageBox.Show("No se encontró el grupo.");
                 }
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN GRUPO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor, seleccione una fila de cliente.");
             }
@@ -475,7 +475,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
 
                         await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
-                        FrmAlerta alerta = new FrmAlerta("CLIENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        FrmAlerta alerta = new FrmAlerta("GRUPO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         //MessageBox.Show("Cliente agregado exitosamente");
                         dtgClientes.ClearSelection();
@@ -493,7 +493,7 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (update)
                         {
-                            FrmAlerta alerta = new FrmAlerta("CLIENTE ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("GRUPO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Cliente actualizado exitosamente");
                             dtgClientes.ClearSelection();
@@ -501,7 +501,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            FrmAlerta alerta = new FrmAlerta("CLIENTE NO ACTUALIZADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            FrmAlerta alerta = new FrmAlerta("GRUPO NO ACTUALIZADO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             alerta.ShowDialog();
                             //MessageBox.Show("Error al actualizar el cliente.");
                         }
@@ -513,7 +513,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR AL CLIENTE POR:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR AL GRUPO POR:\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                     //MessageBox.Show("No se pudo ingresar el cliente por :" + ex.Message);
                 }
@@ -668,7 +668,7 @@ namespace Presentacion.Marcas_Internacionales
 
                     if (clienteDetails.Count == 0)
                     {
-                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL CLIENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FrmAlerta alerta = new FrmAlerta("NO SE ENCONTRÓ AL GRUPO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
                         return;
                     }
@@ -676,7 +676,7 @@ namespace Presentacion.Marcas_Internacionales
                     string nombrePersona = clienteDetails[0].nombre;
 
                     DialogResult result = MessageBox.Show(
-                        $"{UsuarioActivo.usuario}, ¿Está seguro de que desea eliminar al cliente '{nombrePersona}'?",
+                        $"{UsuarioActivo.usuario}, ¿Está seguro de que desea eliminar al grupo '{nombrePersona}'?",
                         "Confirmar eliminación",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning
@@ -695,7 +695,7 @@ namespace Presentacion.Marcas_Internacionales
                             }
                             catch (MySqlException ex)
                             {
-                                FrmAlerta alerta = new FrmAlerta($"No se puede eliminar al cliente: { ex.Message }", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                FrmAlerta alerta = new FrmAlerta($"No se puede eliminar al grupo: { ex.Message }", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 alerta.ShowDialog();
                                 
                                 return false;
@@ -711,7 +711,7 @@ namespace Presentacion.Marcas_Internacionales
 
                         if (eliminado)
                         {
-                            FrmAlerta alerta = new FrmAlerta("CLIENTE ELIMINADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FrmAlerta alerta = new FrmAlerta("GRUPO ELIMINADO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
 
                             await LoadClientes(); // Recargar la tabla
@@ -720,7 +720,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al intentar eliminar el cliente: " + ex.Message);
+                    MessageBox.Show("Error al intentar eliminar el grupo: " + ex.Message);
                 }
                 finally
                 {
@@ -729,7 +729,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN CLIENTE PARA ELIMINAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN GRUPO PARA ELIMINAR", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
             }
         }

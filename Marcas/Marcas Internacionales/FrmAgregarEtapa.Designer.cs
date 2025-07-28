@@ -42,6 +42,8 @@
             iconButton3 = new FontAwesome.Sharp.IconButton();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
+            dateTimePickerVencimiento = new DateTimePicker();
+            labelVenc = new Label();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -50,17 +52,17 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(65, 149);
+            label1.Location = new Point(93, 172);
             label1.Name = "label1";
-            label1.Size = new Size(45, 17);
+            label1.Size = new Size(110, 17);
             label1.TabIndex = 0;
-            label1.Text = "Fecha";
+            label1.Text = "Fecha de Ingreso";
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(246, 151);
+            label2.Location = new Point(93, 92);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
@@ -70,7 +72,7 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(65, 228);
+            label3.Location = new Point(93, 242);
             label3.Name = "label3";
             label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
@@ -80,7 +82,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(65, 172);
+            dateTimePicker1.Location = new Point(93, 195);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 1;
@@ -95,9 +97,9 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Orden de pago", "Registrada", "Licencia de uso" });
-            comboBox1.Location = new Point(246, 174);
+            comboBox1.Location = new Point(93, 121);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(250, 25);
+            comboBox1.Size = new Size(358, 25);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -105,17 +107,17 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(65, 251);
+            richTextBox1.Location = new Point(93, 262);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 102);
-            richTextBox1.TabIndex = 3;
+            richTextBox1.Size = new Size(358, 102);
+            richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             // 
             // lblUser
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(246, 107);
+            lblUser.Location = new Point(432, 47);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
@@ -163,7 +165,7 @@
             button2.Location = new Point(514, 0);
             button2.Name = "button2";
             button2.Size = new Size(51, 34);
-            button2.TabIndex = 6;
+            button2.TabIndex = 7;
             button2.Text = "X";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
@@ -194,10 +196,10 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(99, 379);
+            iconButton3.Location = new Point(87, 386);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 38);
-            iconButton3.TabIndex = 4;
+            iconButton3.TabIndex = 5;
             iconButton3.Text = "SELECCIONAR";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -216,10 +218,10 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(304, 379);
+            iconButton2.Location = new Point(291, 386);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(160, 38);
-            iconButton2.TabIndex = 5;
+            iconButton2.TabIndex = 6;
             iconButton2.Text = "CANCELAR";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -229,6 +231,8 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(dateTimePickerVencimiento);
+            panel1.Controls.Add(labelVenc);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(lblUser);
             panel1.Controls.Add(iconButton2);
@@ -237,13 +241,33 @@
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(dateTimePicker1);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
             panel1.Size = new Size(565, 436);
             panel1.TabIndex = 9;
+            // 
+            // dateTimePickerVencimiento
+            // 
+            dateTimePickerVencimiento.Anchor = AnchorStyles.Top;
+            dateTimePickerVencimiento.Format = DateTimePickerFormat.Short;
+            dateTimePickerVencimiento.Location = new Point(297, 195);
+            dateTimePickerVencimiento.Name = "dateTimePickerVencimiento";
+            dateTimePickerVencimiento.Size = new Size(154, 22);
+            dateTimePickerVencimiento.TabIndex = 3;
+            dateTimePickerVencimiento.ValueChanged += dateTimePickerVencimiento_ValueChanged;
+            // 
+            // labelVenc
+            // 
+            labelVenc.Anchor = AnchorStyles.Top;
+            labelVenc.AutoSize = true;
+            labelVenc.Location = new Point(297, 172);
+            labelVenc.Name = "labelVenc";
+            labelVenc.Size = new Size(144, 17);
+            labelVenc.TabIndex = 8;
+            labelVenc.Text = "Fecha de Vencimiento";
             // 
             // FrmAgregarEtapa
             // 
@@ -281,5 +305,7 @@
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private Panel panel1;
+        private DateTimePicker dateTimePickerVencimiento;
+        private Label labelVenc;
     }
 }

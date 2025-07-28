@@ -299,7 +299,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 9F);
-            label1.Location = new Point(655, 170);
+            label1.Location = new Point(757, 171);
             label1.Name = "label1";
             label1.Size = new Size(24, 17);
             label1.TabIndex = 230;
@@ -311,7 +311,7 @@
             label31.AutoSize = true;
             label31.BackColor = Color.FromArgb(236, 236, 238);
             label31.Font = new Font("Century Gothic", 9F);
-            label31.Location = new Point(-549, 608);
+            label31.Location = new Point(-558, 608);
             label31.Name = "label31";
             label31.Size = new Size(0, 17);
             label31.TabIndex = 226;
@@ -322,7 +322,7 @@
             label28.AutoSize = true;
             label28.BackColor = Color.FromArgb(236, 236, 238);
             label28.Font = new Font("Century Gothic", 9F);
-            label28.Location = new Point(-561, 103);
+            label28.Location = new Point(-570, 103);
             label28.Name = "label28";
             label28.Size = new Size(0, 17);
             label28.TabIndex = 225;
@@ -340,7 +340,7 @@
             btnLast2.IconColor = Color.White;
             btnLast2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast2.IconSize = 25;
-            btnLast2.Location = new Point(625, 1044);
+            btnLast2.Location = new Point(727, 1044);
             btnLast2.Name = "btnLast2";
             btnLast2.Size = new Size(104, 33);
             btnLast2.TabIndex = 224;
@@ -361,7 +361,7 @@
             btnNext2.IconColor = Color.White;
             btnNext2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext2.IconSize = 25;
-            btnNext2.Location = new Point(515, 1044);
+            btnNext2.Location = new Point(617, 1044);
             btnNext2.Name = "btnNext2";
             btnNext2.Size = new Size(104, 33);
             btnNext2.TabIndex = 223;
@@ -382,7 +382,7 @@
             btnPrev2.IconColor = Color.White;
             btnPrev2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev2.IconSize = 25;
-            btnPrev2.Location = new Point(405, 1044);
+            btnPrev2.Location = new Point(507, 1044);
             btnPrev2.Name = "btnPrev2";
             btnPrev2.Size = new Size(104, 33);
             btnPrev2.TabIndex = 222;
@@ -403,7 +403,7 @@
             btnFirst2.IconColor = Color.White;
             btnFirst2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst2.IconSize = 25;
-            btnFirst2.Location = new Point(295, 1044);
+            btnFirst2.Location = new Point(397, 1044);
             btnFirst2.Name = "btnFirst2";
             btnFirst2.Size = new Size(104, 33);
             btnFirst2.TabIndex = 221;
@@ -424,7 +424,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(625, 532);
+            btnLast.Location = new Point(727, 532);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 220;
@@ -445,7 +445,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(515, 532);
+            btnNext.Location = new Point(617, 532);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 219;
@@ -466,7 +466,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(405, 532);
+            btnPrev.Location = new Point(507, 532);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 218;
@@ -487,7 +487,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(295, 532);
+            btnFirst.Location = new Point(397, 532);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 217;
@@ -500,7 +500,7 @@
             lblTotalPages2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages2.AutoSize = true;
             lblTotalPages2.Font = new Font("Century Gothic", 9F);
-            lblTotalPages2.Location = new Point(698, 687);
+            lblTotalPages2.Location = new Point(800, 686);
             lblTotalPages2.Name = "lblTotalPages2";
             lblTotalPages2.Size = new Size(15, 17);
             lblTotalPages2.TabIndex = 216;
@@ -511,7 +511,7 @@
             label29.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label29.AutoSize = true;
             label29.Font = new Font("Century Gothic", 9F);
-            label29.Location = new Point(655, 687);
+            label29.Location = new Point(757, 686);
             label29.Name = "label29";
             label29.Size = new Size(24, 17);
             label29.TabIndex = 215;
@@ -522,7 +522,7 @@
             lblCurrentPage2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage2.AutoSize = true;
             lblCurrentPage2.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage2.Location = new Point(629, 687);
+            lblCurrentPage2.Location = new Point(731, 686);
             lblCurrentPage2.Name = "lblCurrentPage2";
             lblCurrentPage2.Size = new Size(15, 17);
             lblCurrentPage2.TabIndex = 214;
@@ -543,7 +543,7 @@
             label41.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label41.AutoSize = true;
             label41.Font = new Font("Century Gothic", 9F);
-            label41.Location = new Point(550, 686);
+            label41.Location = new Point(652, 685);
             label41.Name = "label41";
             label41.Size = new Size(49, 17);
             label41.TabIndex = 212;
@@ -564,7 +564,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(698, 171);
+            lblTotalPages.Location = new Point(800, 172);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 210;
@@ -576,7 +576,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(606, 170);
+            lblCurrentPage.Location = new Point(708, 171);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 208;
@@ -597,7 +597,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(527, 170);
+            label2.Location = new Point(629, 171);
             label2.Name = "label2";
             label2.Size = new Size(49, 17);
             label2.TabIndex = 206;
@@ -626,7 +626,7 @@
             btnIrAReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnIrAReportes.IconSize = 25;
             btnIrAReportes.ImageAlign = ContentAlignment.MiddleRight;
-            btnIrAReportes.Location = new Point(735, 324);
+            btnIrAReportes.Location = new Point(837, 324);
             btnIrAReportes.Name = "btnIrAReportes";
             btnIrAReportes.Size = new Size(160, 49);
             btnIrAReportes.TabIndex = 204;
@@ -650,7 +650,7 @@
             panel12.Controls.Add(dtgLicenciasNoEx);
             panel12.Location = new Point(48, 707);
             panel12.Name = "panel12";
-            panel12.Size = new Size(681, 331);
+            panel12.Size = new Size(783, 331);
             panel12.TabIndex = 197;
             // 
             // dtgLicenciasNoEx
@@ -682,7 +682,7 @@
             dtgLicenciasNoEx.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgLicenciasNoEx.RowHeadersWidth = 51;
             dtgLicenciasNoEx.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgLicenciasNoEx.Size = new Size(652, 305);
+            dtgLicenciasNoEx.Size = new Size(754, 305);
             dtgLicenciasNoEx.TabIndex = 41;
             dtgLicenciasNoEx.CellClick += dtgOpI_CellClick;
             dtgLicenciasNoEx.CellContentClick += dtgOpI_CellContentClick;
@@ -793,7 +793,7 @@
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 25;
             iconButton6.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton6.Location = new Point(735, 195);
+            iconButton6.Location = new Point(837, 195);
             iconButton6.Name = "iconButton6";
             iconButton6.Size = new Size(160, 49);
             iconButton6.TabIndex = 191;
@@ -816,7 +816,7 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton3.Location = new Point(735, 455);
+            iconButton3.Location = new Point(837, 455);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 49);
             iconButton3.TabIndex = 45;
@@ -840,7 +840,7 @@
             ibtnEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnEditar.IconSize = 25;
             ibtnEditar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnEditar.Location = new Point(735, 260);
+            ibtnEditar.Location = new Point(837, 260);
             ibtnEditar.Name = "ibtnEditar";
             ibtnEditar.Size = new Size(160, 49);
             ibtnEditar.TabIndex = 43;
@@ -857,7 +857,7 @@
             panel4.Controls.Add(dtgLicenciasExclusivas);
             panel4.Location = new Point(48, 195);
             panel4.Name = "panel4";
-            panel4.Size = new Size(681, 331);
+            panel4.Size = new Size(783, 331);
             panel4.TabIndex = 42;
             // 
             // dtgLicenciasExclusivas
@@ -890,7 +890,7 @@
             dtgLicenciasExclusivas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgLicenciasExclusivas.RowHeadersWidth = 51;
             dtgLicenciasExclusivas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgLicenciasExclusivas.Size = new Size(652, 305);
+            dtgLicenciasExclusivas.Size = new Size(754, 305);
             dtgLicenciasExclusivas.TabIndex = 41;
             dtgLicenciasExclusivas.CellClick += dtgMarcasOp_CellClick;
             dtgLicenciasExclusivas.CellContentClick += dtgMarcasOp_CellContentClick;
@@ -909,7 +909,7 @@
             btnEliminarLicencia.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEliminarLicencia.IconSize = 25;
             btnEliminarLicencia.ImageAlign = ContentAlignment.MiddleRight;
-            btnEliminarLicencia.Location = new Point(735, 390);
+            btnEliminarLicencia.Location = new Point(837, 390);
             btnEliminarLicencia.Name = "btnEliminarLicencia";
             btnEliminarLicencia.Size = new Size(160, 49);
             btnEliminarLicencia.TabIndex = 227;
@@ -2001,7 +2001,7 @@
             panelDataGridView.Controls.Add(dtgReportesOp);
             panelDataGridView.Location = new Point(105, 785);
             panelDataGridView.Name = "panelDataGridView";
-            panelDataGridView.Size = new Size(794, 516);
+            panelDataGridView.Size = new Size(777, 516);
             panelDataGridView.TabIndex = 248;
             // 
             // dtgReportesOp
@@ -2037,7 +2037,7 @@
             dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
             dtgReportesOp.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dtgReportesOp.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgReportesOp.Size = new Size(776, 495);
+            dtgReportesOp.Size = new Size(759, 495);
             dtgReportesOp.TabIndex = 7;
             // 
             // tableLayoutPanelReportes
@@ -2054,7 +2054,7 @@
             tableLayoutPanelReportes.Name = "tableLayoutPanelReportes";
             tableLayoutPanelReportes.RowCount = 1;
             tableLayoutPanelReportes.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelReportes.Size = new Size(801, 588);
+            tableLayoutPanelReportes.Size = new Size(784, 588);
             tableLayoutPanelReportes.TabIndex = 243;
             // 
             // panel20
@@ -2084,13 +2084,13 @@
             panel20.Location = new Point(3, 4);
             panel20.Margin = new Padding(3, 4, 3, 4);
             panel20.Name = "panel20";
-            panel20.Size = new Size(795, 580);
+            panel20.Size = new Size(778, 580);
             panel20.TabIndex = 243;
             // 
             // txtNombreRazonSOCIAL
             // 
             txtNombreRazonSOCIAL.Anchor = AnchorStyles.Top;
-            txtNombreRazonSOCIAL.Location = new Point(430, 297);
+            txtNombreRazonSOCIAL.Location = new Point(422, 297);
             txtNombreRazonSOCIAL.Name = "txtNombreRazonSOCIAL";
             txtNombreRazonSOCIAL.Size = new Size(260, 22);
             txtNombreRazonSOCIAL.TabIndex = 244;
@@ -2100,7 +2100,7 @@
             chckNombreRazonSocial.Anchor = AnchorStyles.Top;
             chckNombreRazonSocial.AutoSize = true;
             chckNombreRazonSocial.BackColor = Color.FromArgb(222, 227, 234);
-            chckNombreRazonSocial.Location = new Point(431, 267);
+            chckNombreRazonSocial.Location = new Point(423, 267);
             chckNombreRazonSocial.Name = "chckNombreRazonSocial";
             chckNombreRazonSocial.Size = new Size(155, 21);
             chckNombreRazonSocial.TabIndex = 243;
@@ -2112,7 +2112,7 @@
             chckTipoLicenciaReporte.Anchor = AnchorStyles.Top;
             chckTipoLicenciaReporte.AutoSize = true;
             chckTipoLicenciaReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckTipoLicenciaReporte.Location = new Point(114, 29);
+            chckTipoLicenciaReporte.Location = new Point(106, 29);
             chckTipoLicenciaReporte.Name = "chckTipoLicenciaReporte";
             chckTipoLicenciaReporte.Size = new Size(121, 21);
             chckTipoLicenciaReporte.TabIndex = 239;
@@ -2128,7 +2128,7 @@
             cmbSignoDistintivoReporte.Font = new Font("Century Gothic", 9F);
             cmbSignoDistintivoReporte.FormattingEnabled = true;
             cmbSignoDistintivoReporte.Items.AddRange(new object[] { "", "Marca", "Nombre comercial", "Señal de publicidad", "Emblema", "Indicación geográfica", "Denominación de origen" });
-            cmbSignoDistintivoReporte.Location = new Point(113, 217);
+            cmbSignoDistintivoReporte.Location = new Point(105, 217);
             cmbSignoDistintivoReporte.Name = "cmbSignoDistintivoReporte";
             cmbSignoDistintivoReporte.Size = new Size(260, 25);
             cmbSignoDistintivoReporte.TabIndex = 238;
@@ -2142,7 +2142,7 @@
             comboBoxTipoLicenciaReporte.Font = new Font("Century Gothic", 9F);
             comboBoxTipoLicenciaReporte.FormattingEnabled = true;
             comboBoxTipoLicenciaReporte.Items.AddRange(new object[] { "EXCLUSIVA", "NO EXCLUSIVA" });
-            comboBoxTipoLicenciaReporte.Location = new Point(115, 59);
+            comboBoxTipoLicenciaReporte.Location = new Point(107, 59);
             comboBoxTipoLicenciaReporte.Name = "comboBoxTipoLicenciaReporte";
             comboBoxTipoLicenciaReporte.Size = new Size(260, 25);
             comboBoxTipoLicenciaReporte.TabIndex = 237;
@@ -2150,7 +2150,7 @@
             // txtTituloReporte
             // 
             txtTituloReporte.Anchor = AnchorStyles.Top;
-            txtTituloReporte.Location = new Point(115, 139);
+            txtTituloReporte.Location = new Point(107, 139);
             txtTituloReporte.Name = "txtTituloReporte";
             txtTituloReporte.Size = new Size(260, 22);
             txtTituloReporte.TabIndex = 229;
@@ -2167,7 +2167,7 @@
             btnTitularReporte.FlatStyle = FlatStyle.Flat;
             btnTitularReporte.Font = new Font("Century Gothic", 10F);
             btnTitularReporte.ForeColor = Color.Black;
-            btnTitularReporte.Location = new Point(159, 384);
+            btnTitularReporte.Location = new Point(151, 384);
             btnTitularReporte.Name = "btnTitularReporte";
             btnTitularReporte.Size = new Size(194, 35);
             btnTitularReporte.TabIndex = 230;
@@ -2180,7 +2180,7 @@
             // 
             richTextBoxtTitularReporte.Anchor = AnchorStyles.Top;
             richTextBoxtTitularReporte.BackColor = Color.White;
-            richTextBoxtTitularReporte.Location = new Point(136, 425);
+            richTextBoxtTitularReporte.Location = new Point(128, 425);
             richTextBoxtTitularReporte.Name = "richTextBoxtTitularReporte";
             richTextBoxtTitularReporte.Size = new Size(241, 47);
             richTextBoxtTitularReporte.TabIndex = 232;
@@ -2191,7 +2191,7 @@
             chckTituloPorElQueSeVerificaReporte.Anchor = AnchorStyles.Top;
             chckTituloPorElQueSeVerificaReporte.AutoSize = true;
             chckTituloPorElQueSeVerificaReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckTituloPorElQueSeVerificaReporte.Location = new Point(115, 104);
+            chckTituloPorElQueSeVerificaReporte.Location = new Point(107, 104);
             chckTituloPorElQueSeVerificaReporte.Name = "chckTituloPorElQueSeVerificaReporte";
             chckTituloPorElQueSeVerificaReporte.Size = new Size(189, 21);
             chckTituloPorElQueSeVerificaReporte.TabIndex = 204;
@@ -2201,7 +2201,7 @@
             // txtClaseReporte
             // 
             txtClaseReporte.Anchor = AnchorStyles.Top;
-            txtClaseReporte.Location = new Point(114, 297);
+            txtClaseReporte.Location = new Point(106, 297);
             txtClaseReporte.Name = "txtClaseReporte";
             txtClaseReporte.Size = new Size(260, 22);
             txtClaseReporte.TabIndex = 228;
@@ -2211,7 +2211,7 @@
             chckTitularReporte.Anchor = AnchorStyles.Top;
             chckTitularReporte.AutoSize = true;
             chckTitularReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckTitularReporte.Location = new Point(113, 350);
+            chckTitularReporte.Location = new Point(105, 350);
             chckTitularReporte.Name = "chckTitularReporte";
             chckTitularReporte.Size = new Size(62, 21);
             chckTitularReporte.TabIndex = 202;
@@ -2223,7 +2223,7 @@
             chckClaseReporte.Anchor = AnchorStyles.Top;
             chckClaseReporte.AutoSize = true;
             chckClaseReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckClaseReporte.Location = new Point(115, 267);
+            chckClaseReporte.Location = new Point(107, 267);
             chckClaseReporte.Name = "chckClaseReporte";
             chckClaseReporte.Size = new Size(60, 21);
             chckClaseReporte.TabIndex = 201;
@@ -2233,7 +2233,7 @@
             // txtExpedienteReporte
             // 
             txtExpedienteReporte.Anchor = AnchorStyles.Top;
-            txtExpedienteReporte.Location = new Point(431, 61);
+            txtExpedienteReporte.Location = new Point(423, 61);
             txtExpedienteReporte.Multiline = true;
             txtExpedienteReporte.Name = "txtExpedienteReporte";
             txtExpedienteReporte.Size = new Size(261, 26);
@@ -2244,7 +2244,7 @@
             chckSignoDistintivoReporte.Anchor = AnchorStyles.Top;
             chckSignoDistintivoReporte.AutoSize = true;
             chckSignoDistintivoReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckSignoDistintivoReporte.Location = new Point(114, 190);
+            chckSignoDistintivoReporte.Location = new Point(106, 190);
             chckSignoDistintivoReporte.Name = "chckSignoDistintivoReporte";
             chckSignoDistintivoReporte.Size = new Size(118, 21);
             chckSignoDistintivoReporte.TabIndex = 200;
@@ -2256,7 +2256,7 @@
             chckExpedienteReporte.Anchor = AnchorStyles.Top;
             chckExpedienteReporte.AutoSize = true;
             chckExpedienteReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckExpedienteReporte.Location = new Point(431, 31);
+            chckExpedienteReporte.Location = new Point(423, 31);
             chckExpedienteReporte.Name = "chckExpedienteReporte";
             chckExpedienteReporte.Size = new Size(94, 21);
             chckExpedienteReporte.TabIndex = 197;
@@ -2266,7 +2266,7 @@
             // txtSignoReporte
             // 
             txtSignoReporte.Anchor = AnchorStyles.Top;
-            txtSignoReporte.Location = new Point(431, 134);
+            txtSignoReporte.Location = new Point(423, 134);
             txtSignoReporte.Name = "txtSignoReporte";
             txtSignoReporte.Size = new Size(260, 22);
             txtSignoReporte.TabIndex = 226;
@@ -2276,7 +2276,7 @@
             chckSignoRepo.Anchor = AnchorStyles.Top;
             chckSignoRepo.AutoSize = true;
             chckSignoRepo.BackColor = Color.FromArgb(222, 227, 234);
-            chckSignoRepo.Location = new Point(431, 104);
+            chckSignoRepo.Location = new Point(423, 104);
             chckSignoRepo.Name = "chckSignoRepo";
             chckSignoRepo.Size = new Size(60, 21);
             chckSignoRepo.TabIndex = 199;
@@ -2292,7 +2292,7 @@
             cmbEstadolReporte.Font = new Font("Century Gothic", 9F);
             cmbEstadolReporte.FormattingEnabled = true;
             cmbEstadolReporte.Items.AddRange(new object[] { "EN TRÁMITE", "EN USO", "TERMINADA" });
-            cmbEstadolReporte.Location = new Point(431, 220);
+            cmbEstadolReporte.Location = new Point(423, 220);
             cmbEstadolReporte.Name = "cmbEstadolReporte";
             cmbEstadolReporte.Size = new Size(260, 25);
             cmbEstadolReporte.TabIndex = 218;
@@ -2302,7 +2302,7 @@
             chckEstadoReporte.Anchor = AnchorStyles.Top;
             chckEstadoReporte.AutoSize = true;
             chckEstadoReporte.BackColor = Color.FromArgb(222, 227, 234);
-            chckEstadoReporte.Location = new Point(431, 190);
+            chckEstadoReporte.Location = new Point(423, 190);
             chckEstadoReporte.Name = "chckEstadoReporte";
             chckEstadoReporte.Size = new Size(67, 21);
             chckEstadoReporte.TabIndex = 198;

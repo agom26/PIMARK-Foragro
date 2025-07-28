@@ -99,7 +99,7 @@ namespace Presentacion.Marcas_Internacionales
             txtNoExpediente.Text = SeleccionarMarca.erenov;
             dateFechVencAnt.Value = AgregarRenovacion.fechaVencimientoAntigua;
             ActualizarFechaVencimientoNueva();
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
             EliminarTabPage(tabPageListarLicencias);
             EliminarTabPage(tabPageRenovarLicencia);
         }

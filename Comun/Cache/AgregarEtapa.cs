@@ -12,6 +12,7 @@ namespace Comun.Cache
         public static int idMarca;
         public static string etapa;
         public static DateTime? fecha;
+        public static DateTime? fechaVencimiento;
         public static string usuario;
         public static string anotaciones;
         public static string numExpediente;
@@ -23,10 +24,12 @@ namespace Comun.Cache
             idMarca = 0;
             etapa = "";
             fecha = null;
+            fechaVencimiento = null;
             usuario = "";
             anotaciones = "";
-            numExpediente = null;
+            numExpediente = "";
             solicitante = "";
+
         }
     }
 }

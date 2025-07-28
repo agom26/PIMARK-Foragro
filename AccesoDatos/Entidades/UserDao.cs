@@ -12,12 +12,12 @@ namespace AccesoDatos.Usuarios
     public class UserDao : ConnectionSQL
     {
         
-        public bool AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo)
+        public bool AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool soloLectura)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand("INSERT INTO USERS (usuario, contrasena, nombres, apellidos, isAdmin, correo) VALUES (@usuario, @contrasena, @nombres, @apellidos, @isAdmin, @correo)", connection))
+                using (var command = new MySqlCommand("INSERT INTO USERS (usuario, contrasena, nombres, apellidos, isAdmin, correo, solo_lectura) VALUES (@usuario, @contrasena, @nombres, @apellidos, @isAdmin, @correo, @lectura)", connection))
                 {
                     command.Parameters.AddWithValue("@usuario", usuario);
                     string hash = BCrypt.Net.BCrypt.HashPassword(contrasena);
@@ -25,6 +25,7 @@ namespace AccesoDatos.Usuarios
                     command.Parameters.AddWithValue("@nombres", nombres);
                     command.Parameters.AddWithValue("@apellidos", apellidos);
                     command.Parameters.AddWithValue("@isAdmin", isAdmin);
+                    command.Parameters.AddWithValue("@lectura", soloLectura);
                     command.Parameters.AddWithValue("@correo", correo);
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -34,7 +35,7 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-        public bool UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena)
+        public bool UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena, bool soloLectura)
         {
             using (var connection = GetConnection())
             {
@@ -52,6 +53,7 @@ namespace AccesoDatos.Usuarios
                     command.Parameters.AddWithValue("@p_nombres", nombres);
                     command.Parameters.AddWithValue("@p_apellidos", apellidos);
                     command.Parameters.AddWithValue("@p_isAdmin", isAdmin);
+                    command.Parameters.AddWithValue("@p_soloLectura", soloLectura);
                     command.Parameters.AddWithValue("@p_correo", correo);
 
                     command.ExecuteNonQuery();
@@ -124,6 +126,18 @@ namespace AccesoDatos.Usuarios
                         }
 
                         tabla.Columns.Remove("isAdmin");
+
+
+                        tabla.Columns.Add("SÓLO LECTURA", typeof(string));
+
+                        foreach (DataRow row in tabla.Rows)
+                        {
+                            var soloLecturaValue = row["solo_lectura"];
+                            bool soloLectura = Convert.ToUInt64(soloLecturaValue) == 1;
+                            row["SÓLO LECTURA"] = soloLectura ? "SI" : "NO";
+                        }
+
+                        tabla.Columns.Remove("solo_lectura");
                     }
 
                 }
@@ -238,6 +252,18 @@ namespace AccesoDatos.Usuarios
 
             tabla.Columns.Remove("isAdmin");
 
+
+            tabla.Columns.Add("SÓLO LECTURA", typeof(string));
+
+            foreach (DataRow row in tabla.Rows)
+            {
+                var soloLecturaValue = row["solo_lectura"];
+                bool soloLectura = Convert.ToUInt64(soloLecturaValue) == 1;
+                row["SÓLO LECTURA"] = soloLectura ? "SI" : "NO";
+            }
+
+            tabla.Columns.Remove("solo_lectura");
+
             return tabla;
         }
 
@@ -270,7 +296,7 @@ namespace AccesoDatos.Usuarios
                 {
                     connection.Open();
 
-                    using (var command = new MySqlCommand("SELECT contrasena, isAdmin, id, usuario, nombres, apellidos, correo FROM USERS WHERE usuario=@user", connection))
+                    using (var command = new MySqlCommand("SELECT contrasena, isAdmin, id, usuario, nombres, apellidos, correo, solo_lectura FROM USERS WHERE usuario=@user", connection))
                     {
                         command.Parameters.AddWithValue("@user", user);
 
@@ -317,7 +343,7 @@ namespace AccesoDatos.Usuarios
                                 UsuarioActivo.nombres = reader.GetString(4);
                                 UsuarioActivo.apellidos = reader.GetString(5);
                                 UsuarioActivo.correo = reader.GetString(6);
-
+                                UsuarioActivo.soloLectura = reader.GetBoolean(7);
                                 return (true, UsuarioActivo.isAdmin);
                             }
                             else

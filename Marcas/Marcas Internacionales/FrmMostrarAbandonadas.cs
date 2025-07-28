@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -35,10 +36,10 @@ namespace Presentacion.Marcas_Nacionales
         private bool buscando = false;
 
         //ftp
-        private string host = "ftp.bpa.com.es"; // Tu host FTP
-        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
-        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
-        private string directorioBase = "/bpa.com.es/test/marcas/internacionales";
+        private string host = "ftp.foragro.com.es"; // Tu host FTP
+        private string usuario = "foragro"; // Tu usuario FTP
+        private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
+        private string directorioBase = "/foragro.com.es/marcas/internacionales";
         public FrmMostrarAbandonadas()
         {
             InitializeComponent();
@@ -144,7 +145,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                pictureBox1.Image = null;
+                pictureBox1.Image = documento;
             }
         }
         public void mostrarPanelRegistro(string isRegistrada)
@@ -308,12 +309,15 @@ namespace Presentacion.Marcas_Nacionales
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
-                        /*
-                        if (row["logo"] is DBNull)
+
+                        if (row["multiclase"] != DBNull.Value && int.TryParse(row["multiclase"].ToString(), out int multiclaseInt))
                         {
-                            convertirImagen();
-                            pictureBox1.Image = documento;
-                        }*/
+                            checkBoxMulticlase.Checked = multiclaseInt == 1;
+                        }
+                        else
+                        {
+                            checkBoxMulticlase.Checked = false; // o lo que quieras por defecto
+                        }
 
                         bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idInt);
 
@@ -617,7 +621,10 @@ namespace Presentacion.Marcas_Nacionales
 
         public void VerificarDatosRegistro()
         {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) || string.IsNullOrEmpty(txtFolio.Text) || string.IsNullOrEmpty(txtLibro.Text)))
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) 
+                //|| string.IsNullOrEmpty(txtFolio.Text) 
+                //|| string.IsNullOrEmpty(txtLibro.Text)
+                ))
             {
                 DatosRegistro.peligro = true;
             }
@@ -1201,12 +1208,13 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
-    ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+        private bool ValidarCampos(string pais, string expediente, string nombre, ref string clase, string signoDistintivo, string tipo, string estado,
+   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
-            if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
-                !ValidarCampo(nombre, "Por favor, ingrese el nombre.") ||
+            if (!ValidarCampo(pais, "Por favor, ingrese un pais.") ||
+                !ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
+                !ValidarCampo(nombre, "Por favor, ingrese el signo.") ||
                 !ValidarCampo(clase, "Por favor, ingrese la clase.") ||
                 !ValidarCampo(signoDistintivo, "Por favor, seleccione un signo distintivo.") ||
                 !ValidarCampo(tipo, "Por favor, seleccione un tipo.") ||
@@ -1215,21 +1223,71 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
 
-            // Validar que el expediente, clase, folio, registro y libro sean enteros
-            if (
-                !int.TryParse(clase, out _) ||
-                (registroChek && !int.TryParse(folio, out _)) ||
-                (registroChek && !int.TryParse(libro, out _)))
+            // Normalizar clase quitando espacios extra
+            clase = string.Join(",", clase.Split(',')
+                                          .Select(c => c.Trim())
+                                          .Where(c => !string.IsNullOrWhiteSpace(c)));
+
+            if (checkBoxMulticlase.Checked)
             {
-                FrmAlerta alerta = new FrmAlerta("LA CLASE, FOLIO Y TOMO\nDEBEN SER VALORES NUMÉRICOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string[] clases = clase.Split(',');
+
+                foreach (string c in clases)
+                {
+                    if (!int.TryParse(c, out _))
+                    {
+                        FrmAlerta alerta = new FrmAlerta("SI EL MODO MULTICLASE ESTÁ ACTIVO,\nLA CLASE DEBE CONTENER SOLO NÚMEROS ENTEROS SEPARADOS POR COMAS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                // Solo permitir un número entero
+                if (!int.TryParse(clase, out _))
+                {
+                    FrmAlerta alerta = new FrmAlerta("LA CLASE DEBE SER UN VALOR NUMÉRICO ENTERO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
+                }
+            }
+
+
+            // ✅ Nuevo bloque para validar campos alfanuméricos
+            if (!string.IsNullOrWhiteSpace(folio) && !EsAlfanumerico(folio))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL FOLIO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("El expediente, clase, folio, registro y tomo deben ser valores numéricos enteros.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
-              comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            if (!string.IsNullOrWhiteSpace(libro) && !EsAlfanumerico(libro))
             {
+                FrmAlerta alerta = new FrmAlerta("EL TOMO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return false;
+            }
+
+            if (registroChek && !string.IsNullOrWhiteSpace(registro) && !EsAlfanumerico(registro))
+            {
+                FrmAlerta alerta = new FrmAlerta("EL REGISTRO DEBE SER UN VALOR ALFANUMÉRICO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return false;
+            }
+
+
+            if ((comboBoxSignoDistintivo.Text == "Marca" &&
+              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+              (comboBoxSignoDistintivo.Text == "Marca" &&
+              comboBoxTipoSigno.Text == "Mixta") ||
+              (comboBoxSignoDistintivo.Text == "Emblema" &&
+              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+               (comboBoxSignoDistintivo.Text == "Emblema" &&
+              comboBoxTipoSigno.Text == "Mixta")
+              )
+            {
+                // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
                 {
                     using (var ms = new System.IO.MemoryStream())
@@ -1251,30 +1309,35 @@ namespace Presentacion.Marcas_Nacionales
                 logo = null;
             }
 
-
-
             // Si está registrada, se verifica la información del registro
             if (registroChek)
             {
                 // Validar campos adicionales para marcas registradas
-                if (!ValidarCampo(folio, "Por favor, ingrese el número de folio.") ||
-                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.") ||
-                    !ValidarCampo(libro, "Por favor, ingrese el número de tomo.")
+                if (
+                    !ValidarCampo(registro, "Por favor, ingrese el número de registro.")
+
                     )
                 {
                     return false;
                 }
             }
 
-            return true; // Todas las validaciones pasaron
+            return true;
+        }
+
+        private bool EsAlfanumerico(string texto)
+        {
+            // Permite letras, números, guiones
+            return Regex.IsMatch(texto, @"^[a-zA-Z0-9\-_]+$");
+
         }
         public async Task ActualizarMarcaNacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
             string clase = txtClase.Text;
-            string? signoDistintivo = comboBoxSignoDistintivo.SelectedItem?.ToString();
-            string? tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
+            string? signoDistintivo = comboBoxSignoDistintivo.Text;
+            string? tipoSigno = comboBoxTipoSigno.Text;
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
             byte[] logo = null;
@@ -1287,15 +1350,15 @@ namespace Presentacion.Marcas_Nacionales
             string etrasp = txtETraspaso.Text;
             string erenov = txtERenovacion.Text;
 
-            string? paisRegistro = comboBox1.SelectedItem?.ToString();
+            string? paisRegistro = comboBox1.Text;
             string tiene_poder = "no";
-
+            int multiclase = 0;
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-
+            string ubicacionF = txtUbicacion.Text;
 
             if (checkBoxTienePoder.Checked)
             {
@@ -1305,6 +1368,16 @@ namespace Presentacion.Marcas_Nacionales
             {
                 tiene_poder = "no";
             }
+
+            if (checkBoxMulticlase.Checked)
+            {
+                multiclase = 1;
+            }
+            else
+            {
+                multiclase = 0;
+            }
+
 
             // Validaciones
             if (idTitular <= 0)
@@ -1325,7 +1398,7 @@ namespace Presentacion.Marcas_Nacionales
 
 
             // Validar campos 
-            if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
+            if (!ValidarCampos(paisRegistro, expediente, nombre, ref clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
             }
@@ -1350,19 +1423,19 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (agregoEstado == true)
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     agregoEstado = false;
                 }
 
                 if (registroChek)
                 {
                     esActualizado = await marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase,multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp,ubicacionF);
                 }
                 else
                 {
                     esActualizado = await marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
-                        , tipoSigno, clase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente);
+                        , tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente,ubicacionF);
                 }
 
                 DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
@@ -1385,7 +1458,7 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                         FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         AnadirTabPage(tabPageAbandonadasList);

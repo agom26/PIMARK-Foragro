@@ -192,7 +192,7 @@ namespace Presentacion.Marcas_Internacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarMarcaOposicion.idMarca = id;
                     SeleccionarMarcaOposicion.nombreSigno = dataRowView["SIGNO"].ToString();
-                    SeleccionarMarcaOposicion.idTitularMarca = (int)dataRowView["IdTitular"];
+                    SeleccionarMarcaOposicion.idTitularMarca = Convert.ToInt32(dataRowView["IdTitular"]);
                     SeleccionarMarcaOposicion.nombreTitular = dataRowView["TITULAR"].ToString();
                     this.Close();
                     /*

@@ -138,7 +138,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

@@ -29,6 +29,7 @@ namespace Presentacion.Patentes
             lblUser.Visible = false;
             txtNoExpediente.Text = SeleccionarPatente.Etrasp;
             txtNombreTitularA.Text = AgregarTraspasoPatente.nombreTitulara;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace Presentacion.Patentes
                 if (!string.IsNullOrEmpty(nuevoTitular)) // Verifica si hay un titular nuevo
                 {
                     // Formatear anotaciones con fecha y etapa
-                    string fechaSinHora = fecha.ToShortDateString();
+                    string fechaSinHora = fecha.ToString("dd/MM/yyyy");
                     string formato = fechaSinHora + " " + etapa;
                     if (!anotaciones.Contains(formato))
                     {
@@ -106,7 +107,7 @@ namespace Presentacion.Patentes
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = dateTimePicker1.Value.ToShortDateString() + " " + txtEstado.Text;
+            richTextBox1.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + txtEstado.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

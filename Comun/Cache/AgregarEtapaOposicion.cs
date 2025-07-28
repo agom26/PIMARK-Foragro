@@ -21,6 +21,8 @@ namespace Comun.Cache
             fecha = null;
             usuario = "";
             anotaciones = "";
+            usuario = "";
+            anotaciones = "";
         }
     }
 }

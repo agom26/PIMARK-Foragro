@@ -50,17 +50,17 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(88, 115);
+            label1.Location = new Point(88, 94);
             label1.Name = "label1";
-            label1.Size = new Size(45, 17);
+            label1.Size = new Size(110, 17);
             label1.TabIndex = 0;
-            label1.Text = "Fecha";
+            label1.Text = "Fecha de Ingreso";
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(88, 176);
+            label2.Location = new Point(88, 155);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 1;
@@ -70,7 +70,7 @@
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(88, 239);
+            label3.Location = new Point(88, 228);
             label3.Name = "label3";
             label3.Size = new Size(84, 17);
             label3.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             dateTimePicker1.Anchor = AnchorStyles.Top;
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(88, 138);
+            dateTimePicker1.Location = new Point(88, 117);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(154, 22);
             dateTimePicker1.TabIndex = 1;
@@ -94,9 +94,9 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Oposición presentada", "Contestación de oposición", "Apertura a prueba", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Desestimiento/Abandono" });
-            comboBox1.Location = new Point(88, 199);
+            comboBox1.Location = new Point(88, 178);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(372, 25);
+            comboBox1.Size = new Size(387, 25);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -104,9 +104,9 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top;
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(88, 262);
+            richTextBox1.Location = new Point(88, 251);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(431, 102);
+            richTextBox1.Size = new Size(431, 93);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
@@ -114,7 +114,7 @@
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(336, 129);
+            lblUser.Location = new Point(336, 108);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 6;
@@ -132,7 +132,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 13F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(161, 39);
+            roundedButton1.Location = new Point(161, 18);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(270, 50);
             roundedButton1.TabIndex = 7;
@@ -194,7 +194,7 @@
             iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton3.IconSize = 25;
             iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton3.Location = new Point(121, 390);
+            iconButton3.Location = new Point(120, 361);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(160, 44);
             iconButton3.TabIndex = 4;
@@ -216,7 +216,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 25;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(326, 390);
+            iconButton2.Location = new Point(325, 361);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(160, 44);
             iconButton2.TabIndex = 5;
@@ -242,7 +242,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 34);
             panel1.Name = "panel1";
-            panel1.Size = new Size(615, 500);
+            panel1.Size = new Size(615, 442);
             panel1.TabIndex = 9;
             // 
             // FrmAgregarEtapaOposicionI
@@ -250,7 +250,7 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(615, 534);
+            ClientSize = new Size(615, 476);
             Controls.Add(panel1);
             Controls.Add(panel2);
             Font = new Font("Century Gothic", 9F);

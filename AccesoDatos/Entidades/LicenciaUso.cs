@@ -10,7 +10,7 @@ namespace AccesoDatos.Entidades
 {
     public class LicenciaUso
     {
-        private readonly string urlApi = "https://bpa.com.es/peticiones/licencias_uso.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/licencias_uso.php";
 
         private async Task<JsonDocument> PostAsync(object data)
         {

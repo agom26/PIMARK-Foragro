@@ -33,10 +33,10 @@ namespace Presentacion.Marcas_Internacionales
         bool agregoEstado = false;
         private bool buscando = false;
         //ftp
-        private string host = "ftp.bpa.com.es"; // Tu host FTP
-        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
-        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
-        private string directorioBase = "/bpa.com.es/test/marcas/nacionales";
+        private string host = "ftp.foragro.com.es"; // Tu host FTP
+        private string usuario = "foragro"; // Tu usuario FTP
+        private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
+        private string directorioBase = "/foragro.com.es/marcas/nacionales";
         public FrmMarcasIntAbandonadas()
         {
             InitializeComponent();
@@ -272,9 +272,9 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.idPersonaCliente = row["idCliente"] is DBNull ? 0 : Convert.ToInt32(row["idCliente"]);
                         SeleccionarMarca.fecha_solicitud = Convert.ToDateTime(row["fechaSolicitud"]);
                         SeleccionarMarca.observaciones = row["observaciones"].ToString();
-                        SeleccionarMarca.erenov = row["Erenov"].ToString();
+                        SeleccionarMarca.erenov = row["Erenov"] != DBNull.Value ? row["Erenov"].ToString() : string.Empty;
                         SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
-
+                        txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
                         SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
@@ -1092,7 +1092,7 @@ namespace Presentacion.Marcas_Internacionales
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-
+            string ubicacionF = txtUbicacion.Text;
             // Validaciones
             if (idTitular <= 0)
             {
@@ -1132,7 +1132,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (agregoEstado == true)
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
 
                 }
 
@@ -1140,11 +1140,11 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = await marcaModel.EditMarcaNacionalRegistrada(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente,ubicacionF);
                 }
                 else
                 {
-                    esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
                 }
 
                 DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
@@ -1168,7 +1168,7 @@ namespace Presentacion.Marcas_Internacionales
                         else
                         {
 
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                             FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -1,11 +1,4 @@
-﻿using Marcas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using Comun.Cache;
 using Presentacion.Personas;
 using Presentacion.Marcas_Nacionales;
@@ -17,13 +10,8 @@ using Presentacion.Patentes;
 using System.Diagnostics;
 using Presentacion.Alertas;
 using System.Runtime.InteropServices;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using FontAwesome.Sharp;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Packaging;
-using System.Windows;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Presentacion.Properties;
+using Presentacion.Plazos;
 
 namespace Presentacion
 {
@@ -46,11 +34,8 @@ namespace Presentacion
             this.BackColor = Color.FromArgb(34, 77, 112);
             this.isAdmin = isAdmin;
 
-
-
             this.Resize += Form1_Resize;
             CustomizeDesign();
-
             if (isAdmin)
             {
                 btnUsers.Visible = true;
@@ -70,16 +55,20 @@ namespace Presentacion
             panelSubMenuMarcasNacionales.Visible = false;
             panelSubMenuMarcasInter.Visible = false;
             panelSubMenuPatentes.Visible = false;
+            panelTitularesRepresentantes.Visible = false;
         }
 
         private void hideSubMenu()
         {
+            if (panelTitularesRepresentantes.Visible == true)
+                panelTitularesRepresentantes.Visible = false;
             if (panelSubMenuMarcasInter.Visible == true)
                 panelSubMenuMarcasInter.Visible = false;
             if (panelSubMenuPatentes.Visible == true)
                 panelSubMenuPatentes.Visible = false;
             if (panelSubMenuMarcasNacionales.Visible == true)
                 panelSubMenuMarcasNacionales.Visible = false;
+
         }
 
         private void hideSubMenusTodos()
@@ -90,6 +79,7 @@ namespace Presentacion
 
             panelSubMenuMarcasNacionales.Visible = false;
 
+            panelTitularesRepresentantes.Visible = false;
         }
 
         private void ShowSubMenu(Panel subMenu)
@@ -141,14 +131,14 @@ namespace Presentacion
 
             //marcas nacionales
             btnIngresadasInt.Enabled = false;
-            btnClientes2.Enabled = false;
+            btnGrupos2.Enabled = false;
             btnTramiteInicialInter.Enabled = false;
             btnOpoInter.Enabled = false;
             btnRegInter.Enabled = false;
             btnRenovInter.Enabled = false;
             btnTraspasoInter.Enabled = false;
             btnAbandonadasInter.Enabled = false;
-
+            btnDesistidasNacionales.Enabled = false;
 
             //internacionales
             btnTramiteInicial.Enabled = false;
@@ -158,7 +148,7 @@ namespace Presentacion
             btnTramiteRenovacion.Enabled = false;
             btnTramiteTraspaso.Enabled = false;
             btnAbandonadas.Enabled = false;
-
+            btnDesistidasInter.Enabled = false;
             //patentes
             btnIngresarPatente.Enabled = false;
             btnTramiteInicialPatente.Enabled = false;
@@ -166,12 +156,14 @@ namespace Presentacion
             btnTramiteRenovPatentes.Enabled = false;
             btnTramiteTraspPatentes.Enabled = false;
             btnAbandonadasPatentes.Enabled = false;
+            btnDesistidasPatentes.Enabled = false;
             //otros
-
+            btnPlazos.Enabled = false;
+            btnTitulares.Enabled = false;
             btnInicio.Enabled = false;
             btnUsers.Enabled = false;
-            btnAgentes.Enabled = false;
-            btnTitulares.Enabled = false;
+            btnAgentes2.Enabled = false;
+            btnTitulares2.Enabled = false;
             btnMarcasNacionales.Enabled = false;
             btnMInternacionales.Enabled = false;
             btnPatentes.Enabled = false;
@@ -187,14 +179,14 @@ namespace Presentacion
         {
             //marcas nacionales
             btnIngresadasInt.Enabled = true;
-            btnClientes2.Enabled = true;
+            btnGrupos2.Enabled = true;
             btnTramiteInicialInter.Enabled = true;
             btnOpoInter.Enabled = true;
             btnRegInter.Enabled = true;
             btnRenovInter.Enabled = true;
             btnTraspasoInter.Enabled = true;
             btnAbandonadasInter.Enabled = true;
-
+            btnDesistidasNacionales.Enabled = true;
 
             //internacionales
             btnTramiteInicial.Enabled = true;
@@ -204,7 +196,7 @@ namespace Presentacion
             btnTramiteRenovacion.Enabled = true;
             btnTramiteTraspaso.Enabled = true;
             btnAbandonadas.Enabled = true;
-
+            btnDesistidasInter.Enabled = true;
             //patentes
             btnIngresarPatente.Enabled = true;
             btnTramiteInicialPatente.Enabled = true;
@@ -212,12 +204,14 @@ namespace Presentacion
             btnTramiteRenovPatentes.Enabled = true;
             btnTramiteTraspPatentes.Enabled = true;
             btnAbandonadasPatentes.Enabled = true;
-
+            btnDesistidasPatentes.Enabled = true;
             //otros
+            btnPlazos.Enabled = true;
+            btnTitulares.Enabled = true;
             btnInicio.Enabled = true;
             btnUsers.Enabled = true;
-            btnAgentes.Enabled = true;
-            btnTitulares.Enabled = true;
+            btnAgentes2.Enabled = true;
+            btnTitulares2.Enabled = true;
             btnMarcasNacionales.Enabled = true;
             btnMInternacionales.Enabled = true;
             btnPatentes.Enabled = true;
@@ -504,7 +498,7 @@ namespace Presentacion
             }
         }
 
-        private async void button30_Click(object sender, EventArgs e)
+        private void button30_Click(object sender, EventArgs e)
         {
 
         }
@@ -886,7 +880,7 @@ namespace Presentacion
 
         }
 
-        private async void panel3_Click_1(object sender, EventArgs e)
+        private void panel3_Click_1(object sender, EventArgs e)
         {
 
         }
@@ -1127,8 +1121,18 @@ namespace Presentacion
             }
         }
 
-        private async void button5_Click_2(object sender, EventArgs e)
+        private void button5_Click_2(object sender, EventArgs e)
         {
+            if (panel2.Width == 100)
+            {
+                hideSubMenusTodos();
+                rDropDownMenu4.Show(btnTitulares, btnTitulares.Width, 0);
+            }
+            else
+            {
+                ShowSubMenu(panelTitularesRepresentantes);
+            }
+            /*
             if (DatosRegistro.peligro == false)
             {
                 DisableButtons();
@@ -1140,7 +1144,7 @@ namespace Presentacion
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
-            }
+            }*/
         }
 
         private void button6_Click_2(object sender, EventArgs e)
@@ -1282,7 +1286,7 @@ namespace Presentacion
 
         private void CollapseMenu()
         {
-           
+
 
             // Oculta durante los cambios para evitar parpadeos
             panel2.Visible = false;
@@ -1292,6 +1296,7 @@ namespace Presentacion
             panelSubMenuMarcasNacionales.SuspendLayout();
             panelSubMenuMarcasInter.SuspendLayout();
             panelSubMenuPatentes.SuspendLayout();
+            panelTitularesRepresentantes.SuspendLayout();
 
             bool esExpandido = panel2.Width > 250;
 
@@ -1303,7 +1308,7 @@ namespace Presentacion
                 iconButton1.BackgroundImage = Resources.PimarkP;
                 foreach (var panel in new[] {
             panel2, panelSubMenuMarcasNacionales,
-            panelSubMenuMarcasInter, panelSubMenuPatentes })
+            panelSubMenuMarcasInter, panelSubMenuPatentes, panelTitularesRepresentantes })
                 {
                     foreach (Button btn in panel.Controls.OfType<Button>())
                     {
@@ -1320,7 +1325,7 @@ namespace Presentacion
                 iconButton1.BackgroundImage = Resources.PimarkN3;
                 foreach (var panel in new[] {
             panel2, panelSubMenuMarcasNacionales,
-            panelSubMenuMarcasInter, panelSubMenuPatentes })
+            panelSubMenuMarcasInter, panelSubMenuPatentes, panelTitularesRepresentantes })
                 {
                     foreach (Button btn in panel.Controls.OfType<Button>())
                     {
@@ -1337,6 +1342,7 @@ namespace Presentacion
             panelSubMenuMarcasInter.ResumeLayout();
             panelSubMenuMarcasNacionales.ResumeLayout();
             panel2.ResumeLayout();
+            panelTitularesRepresentantes.ResumeLayout();
 
             // Mostrar con cambios ya aplicados
             panel2.Visible = true;
@@ -1792,6 +1798,219 @@ namespace Presentacion
         private void Form1_Shown(object sender, EventArgs e)
         {
             CollapseMenu();
+        }
+
+        private async void dESISTIDASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasDesistidas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void dESISTIDASToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarDesistidas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private void rDropDownMenu3_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private async void dESISTIDASToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarDesistidasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void button3_Click_3(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMarcasDesistidas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void btnDesistidasInter_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarDesistidas());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void button3_Click_4(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmMostrarDesistidasPatentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void tITULARESToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarTitulares());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void aGENTESToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarAgentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void gRUPOSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarClientes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void button9_Click_1(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarTitulares());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void btnAgentes2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarAgentes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void btnGrupos2_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmAdministrarClientes());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void btnPlazos_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                DisableButtons();
+                openChildForm(new FrmPlazos());
+                await Task.Delay(1000);
+                EnableButtons();
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
         }
     }
 }

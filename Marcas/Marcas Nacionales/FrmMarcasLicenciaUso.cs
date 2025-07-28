@@ -50,10 +50,10 @@ namespace Presentacion.Marcas_Internacionales
         private bool buscando2 = false;
         private bool archivoSubido = false;
         //ftp
-        private string host = "ftp.bpa.com.es"; // Tu host FTP
-        private string usuario = "test@bpa.com.es"; // Tu usuario FTP
-        private string contraseña = "2O1VsAbUGbUo"; // Tu contraseña FTP
-        private string directorioBase = "/bpa.com.es/test/licencias/nacionales"; // La ruta base de tu servidor
+        private string host = "ftp.foragro.com.es"; // Tu host FTP
+        private string usuario = "foragro"; // Tu usuario FTP
+        private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
+        private string directorioBase = "/foragro.com.es/licencias/nacionales"; // La ruta base de tu servidor
         public FrmMarcasLicenciaUso()
         {
             InitializeComponent();
@@ -1568,7 +1568,7 @@ namespace Presentacion.Marcas_Internacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -1583,7 +1583,7 @@ namespace Presentacion.Marcas_Internacionales
                         table {{ border-collapse: collapse; width: 98%; }}
                         th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
                         th {{ background-color: #f2f2f2; font-weight: bold; }}
-                        img {{ width: 200px; height: auto; }}
+                        img {{ width: 100px; height: auto; }}
                         @page {{ size: legal landscape; margin: 25mm; }}
                         table {{ page-break-inside: auto; }}
                         tr {{ page-break-inside: avoid; }}
@@ -1666,7 +1666,7 @@ namespace Presentacion.Marcas_Internacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoBPA2.Save(tempLogoPath);
+                    Properties.Resources.logoForagro1.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -1695,7 +1695,7 @@ namespace Presentacion.Marcas_Internacionales
                         {
                             var image = worksheet.AddPicture(tempLogoPath)
                                 .MoveTo(worksheet.Cell(3, 1)) // Posicionar el logo en la celda 3, 1
-                                .Scale(0.25); // Ajustar tamaño
+                                .Scale(0.08); // Ajustar tamaño
                         }
 
                         // Insertar tabla después del logo (a partir de la fila 10)

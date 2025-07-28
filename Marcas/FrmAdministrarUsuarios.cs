@@ -396,7 +396,7 @@ namespace Presentacion
             string apellidos = txtApellidos.Text;
             string correo = txtCorreo.Text;
             bool isAdmin = chckbIsAdmin.Checked;
-
+            bool soloLectura = checkBoxLectura.Checked;
 
             if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtCont.Text) ||
@@ -420,14 +420,14 @@ namespace Presentacion
 
                         if (btnGuardarU.Text == "AGREGAR")
                         {
-                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
+                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo, soloLectura));
                             FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                         }
                         else if (btnGuardarU.Text == "EDITAR")
                         {
                             bool cambiarContra = chkCambiarContrasena.Checked;
-                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra));
+                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra,soloLectura));
 
                             FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
@@ -481,66 +481,78 @@ namespace Presentacion
             string apellidos = txtApellidos.Text;
             string correo = txtCorreo.Text;
             bool isAdmin = chckbIsAdmin.Checked;
+            bool soloLectura = checkBoxLectura.Checked;
 
-
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
-                string.IsNullOrWhiteSpace(txtCont.Text) ||
-                string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
-                string.IsNullOrWhiteSpace(txtCorreo.Text) ||
-                string.IsNullOrWhiteSpace(txtNombres.Text) ||
-                string.IsNullOrWhiteSpace(txtApellidos.Text))
+            if(isAdmin && soloLectura)
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FrmAlerta alerta = new FrmAlerta("EL USUARIO NO PUEDE SER ADMINISTRADOR Y DE SÓLO LECTURA\n" +
+                    "A LA VEZ", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("Los campos no pueden estar vacíos.");
             }
             else
             {
-
-                if (txtCont.Text == txtConfirmarCont.Text)
+                if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+               //string.IsNullOrWhiteSpace(txtCont.Text) ||
+               //string.IsNullOrWhiteSpace(txtConfirmarCont.Text) ||
+               string.IsNullOrWhiteSpace(txtCorreo.Text) ||
+               string.IsNullOrWhiteSpace(txtNombres.Text) ||
+               string.IsNullOrWhiteSpace(txtApellidos.Text))
                 {
-                    try
-                    {
-                        contrasena = txtConfirmarCont.Text;
-                        btnGuardarU.Enabled = false;
-
-                        if (btnGuardarU.Text == "AGREGAR")
-                        {
-                            await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo));
-                            FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                        }
-                        else if (btnGuardarU.Text == "EDITAR")
-                        {
-                            bool cambiarContra = chkCambiarContrasena.Checked;
-                            await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra));
-
-                            FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                        }
-
-
-                        await LoadUsers();
-                        AnadirTabPage(tabPage1);
-                    }
-                    catch (Exception ex)
-                    {
-                        FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-
-                    }
-                    finally
-                    {
-                        btnGuardarU.Enabled = true;
-                    }
+                    FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Los campos no pueden estar vacíos.");
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
 
+                    if (txtCont.Text == txtConfirmarCont.Text)
+                    {
+                        try
+                        {
+                            contrasena = txtConfirmarCont.Text;
+                            btnGuardarU.Enabled = false;
+
+                            if (btnGuardarU.Text == "AGREGAR")
+                            {
+                                await Task.Run(() => UserModel.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo, soloLectura));
+                                FrmAlerta alerta = new FrmAlerta("USUARIO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                            }
+                            else if (btnGuardarU.Text == "EDITAR")
+                            {
+                                bool cambiarContra = chkCambiarContrasena.Checked;
+                                await Task.Run(() => UserModel.UpdateUserSecure(EditarUsuario.idUser, txtUsername.Text, contrasena, nombres, apellidos, isAdmin, correo, cambiarContra, soloLectura));
+
+                                FrmAlerta alerta = new FrmAlerta("USUARIO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                            }
+
+
+                            await LoadUsers();
+                            AnadirTabPage(tabPage1);
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO SE PUDO INGRESAR EL USUARIO POR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+
+                        }
+                        finally
+                        {
+                            btnGuardarU.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("LAS CONTRASEÑAS NO COINCIDEN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+
+                    }
                 }
             }
+
+
+           
         }
 
         private void btnCancelarU_Click_1(object sender, EventArgs e)
@@ -751,6 +763,11 @@ namespace Presentacion
         private void FrmAdministrarUsuarios_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void checkBoxLectura_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

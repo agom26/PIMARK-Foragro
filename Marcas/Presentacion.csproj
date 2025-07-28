@@ -63,6 +63,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Marcas Internacionales\FrmJustificacionDesistimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Marcas Internacionales\FrmMostrarDesistidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Nacionales\FrmAgregarEtapaOposicionI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Marcas Nacionales\FrmEnviarAOposicionI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Marcas Nacionales\FrmMarcasDesistidas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Marcas Nacionales\FrmMarcasLicenciaUso.cs">
@@ -138,6 +147,9 @@
     <Compile Update="Patentes\FrmCrearTraspasoPatente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Patentes\FrmMostrarDesistidasPatentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Patentes\FrmMostrarAgentesPatente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +172,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Patentes\FrmMostrarTitularesPatentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Plazos\FrmPlazos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -9,7 +9,7 @@ namespace AccesoDatos.Entidades
 {
     public class HistorialOposicionDao
     {
-        private readonly string urlApi = "https://bpa.com.es/peticiones/historial_oposicion.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/historial_oposicion.php";
 
         private async Task<JsonDocument> PostAsync(object data)
         {

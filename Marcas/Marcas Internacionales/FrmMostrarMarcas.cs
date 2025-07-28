@@ -46,8 +46,7 @@ namespace Presentacion.Marcas_Nacionales
             var marcas = await Task.Run(() => marcaModel.GetAllMarcasInternacionales(currentPageIndex, pageSize));
             if (this.IsHandleCreated && !this.IsDisposed)
             {
-                this.Invoke(new Action(() =>
-                {
+                
                     lblTotalPages.Text = totalPages.ToString();
                     lblTotalRows.Text = totalRows.ToString();
                     dtgTitulares.DataSource = marcas;
@@ -58,8 +57,6 @@ namespace Presentacion.Marcas_Nacionales
                         dtgTitulares.Columns["id"].Visible = false;
                     }
 
-
-                }));
             }
 
         }
@@ -195,7 +192,7 @@ namespace Presentacion.Marcas_Nacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarMarcaOposicion.idMarca = id;
                     SeleccionarMarcaOposicion.nombreSigno = dataRowView["SIGNO"].ToString();
-                    SeleccionarMarcaOposicion.idTitularMarca = (int)dataRowView["IdTitular"];
+                    SeleccionarMarcaOposicion.idTitularMarca = Convert.ToInt32(dataRowView["IdTitular"]);
                     SeleccionarMarcaOposicion.nombreTitular = dataRowView["TITULAR"].ToString();
                     this.Close();
                     /*

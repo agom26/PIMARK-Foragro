@@ -11,7 +11,7 @@ namespace AccesoDatos.Entidades
 {
     public class MarcaDao
     {
-        private readonly string urlApi = "https://bpa.com.es/peticiones/marcas.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/marcas.php";
 
         private async Task<JsonDocument> PostAsync(object data)
         {
@@ -267,7 +267,7 @@ namespace AccesoDatos.Entidades
 
             try
             {
-                string url = $"https://bpa.com.es/peticiones/get_logo.php?id={id}";
+                string url = $"https://foragro.com.es/peticiones/get_logo.php?id={id}";
                 byte[] logoBytes = await client.GetByteArrayAsync(url);
                 return logoBytes;
             }
@@ -292,6 +292,7 @@ namespace AccesoDatos.Entidades
            string signoDistintivo, 
            string tipoSigno, 
            string clase, 
+           int multiclase,
            byte[] logo, 
            int idPersonaTitular, 
            int idPersonaAgente, 
@@ -304,8 +305,9 @@ namespace AccesoDatos.Entidades
            string libro, 
            DateTime fechaRegistro, 
            DateTime fechaVencimiento, 
-           string erenov, 
-           string etrasp)
+           string? erenov, 
+           string? etrasp,
+           string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -317,8 +319,9 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(signoDistintivo), "signoDistintivo");
             form.Add(new StringContent(tipoSigno), "tipoSigno");
             form.Add(new StringContent(clase), "clase");
-            form.Add(new StringContent(folio), "folio");
-            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
+            form.Add(new StringContent(folio ?? ""), "folio");
+            form.Add(new StringContent(libro ?? ""), "libro");
             form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fecha_solicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
@@ -327,9 +330,10 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(registro), "registro");
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
             form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
-            form.Add(new StringContent(erenov ), "erenov");
-            form.Add(new StringContent(etrasp ), "etrasp");
+            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(etrasp ?? ""), "etrasp");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -338,7 +342,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
@@ -995,6 +999,100 @@ namespace AccesoDatos.Entidades
             return ConvertToDataTable(jsonDoc.RootElement);
         }
 
+        public async Task<DataTable> ObtenerMarcasEnDesistimiento(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_en_desistimiento",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasEnDesistimiento()
+        {
+            var data = new { action = "get_total_marcas_en_desistimiento" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> FiltrarMarcasEnDesistimiento(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_en_desistimiento",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetFilteredMarcasEnDesistimientoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_desistimiento_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> ObtenerMarcasInternacionalesEnDesistimiento(int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "obtener_marcas_internacionales_en_desistimiento",
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetTotalMarcasInternacionalesEnDesistimiento()
+        {
+            var data = new { action = "get_total_marcas_internacionales_en_desistimiento" };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
+        public async Task<DataTable> FiltrarMarcasInternacionalesEnDesistimiento(string filtro, int pageSize, int currentPageIndex)
+        {
+            var data = new
+            {
+                action = "filtrar_marcas_internacionales_en_desistimiento",
+                filtro,
+                pageSize,
+                currentPageIndex
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return ConvertToDataTable(jsonDoc.RootElement);
+        }
+
+        public async Task<int> GetFilteredMarcasInternacionalesEnDesistimientoCount(string value)
+        {
+            var data = new
+            {
+                action = "get_filtered_marcas_internacionales_en_desistimiento_count",
+                value
+            };
+
+            var jsonDoc = await PostAsync(data);
+            return jsonDoc.RootElement.TryGetProperty("total", out var total) ? total.GetInt32() : 0;
+        }
+
         public async Task<int> GetTotalMarcasInternacionalesEnAbandono()
         {
             var data = new { action = "get_total_marcas_internacionales_en_abandono" };
@@ -1144,7 +1242,8 @@ namespace AccesoDatos.Entidades
     int idPersonaTitular,
     int idPersonaAgente,
     DateTime fechaSolicitud,
-    int? idCliente)
+    int? idCliente,
+    string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1159,6 +1258,7 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF?.ToString() ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1167,7 +1267,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1180,13 +1280,15 @@ namespace AccesoDatos.Entidades
     string signoDistintivo,
     string tipoSigno,
     string clase,
+    int multiclase,
     byte[] logo,
     int idPersonaTitular,
     int idPersonaAgente,
     DateTime fechaSolicitud,
     string paisDeRegistro,
     string tienePoder,
-    int? idCliente)
+    int? idCliente,
+    string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1197,13 +1299,14 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(signoDistintivo), "signoDistintivo");
             form.Add(new StringContent(tipoSigno), "tipoSigno");
             form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
             form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(paisDeRegistro), "pais_de_registro");
             form.Add(new StringContent(tienePoder), "tiene_poder");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
-
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
             if (logo != null && logo.Length > 0)
             {
                 var logoContent = new ByteArrayContent(logo);
@@ -1211,7 +1314,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1233,7 +1336,8 @@ namespace AccesoDatos.Entidades
     string registro,
     DateTime fechaRegistro,
     DateTime fechaVencimiento,
-    int? idCliente)
+    int? idCliente,
+    string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1253,6 +1357,7 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
             form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1261,7 +1366,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1274,6 +1379,7 @@ namespace AccesoDatos.Entidades
             string signoDistintivo,
             string tipoSigno,
             string clase,
+            int multiclase,
             byte[] logo,
             int idPersonaTitular,
             int idPersonaAgente,
@@ -1285,7 +1391,8 @@ namespace AccesoDatos.Entidades
             string folio,
             string libro,
             DateTime fechaRegistro,
-            DateTime fechaVencimiento)
+            DateTime fechaVencimiento,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1296,6 +1403,7 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(signoDistintivo), "signoDistintivo");
             form.Add(new StringContent(tipoSigno), "tipoSigno");
             form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
             form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
@@ -1303,10 +1411,11 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(tienePoder), "tiene_poder");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
             form.Add(new StringContent(registro), "registro");
-            form.Add(new StringContent(folio), "folio");
-            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(folio ?? ""), "folio");
+            form.Add(new StringContent(libro ?? ""), "libro");
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
             form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1315,7 +1424,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1333,7 +1442,8 @@ namespace AccesoDatos.Entidades
             int idPersonaTitular,
             int idPersonaAgente,
             DateTime fechaSolicitud,
-            int? idCliente)
+            int? idCliente,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1349,6 +1459,7 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1357,7 +1468,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
@@ -1378,9 +1489,10 @@ namespace AccesoDatos.Entidades
            string registro,
            DateTime fechaRegistro,
            DateTime fechaVencimiento,
-           string erenov,
-           string etrasp,
-           int? idCliente)
+           string? erenov,
+           string? etrasp,
+           int? idCliente,
+           string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1403,6 +1515,7 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(erenov ?? ""), "erenov");
             form.Add(new StringContent(etrasp ?? ""), "etrasp");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1411,7 +1524,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
@@ -1424,13 +1537,15 @@ namespace AccesoDatos.Entidades
             string signoDistintivo,
             string tipoSigno,
             string clase,
+            int multiclase,
             byte[] logo,
             int idPersonaTitular,
             int idPersonaAgente,
             DateTime fechaSolicitud,
             string pais, 
             string tiene_poder,
-            int? idCliente)
+            int? idCliente,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1442,12 +1557,14 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(signoDistintivo), "signoDistintivo");
             form.Add(new StringContent(tipoSigno), "tipoSigno");
             form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
             form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
             form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(pais), "pais_registro");
             form.Add(new StringContent(tiene_poder), "tiene_poder");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
             if (logo != null && logo.Length > 0)
             {
@@ -1456,7 +1573,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://bpa.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }

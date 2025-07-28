@@ -19,6 +19,7 @@ using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Internacionales
 {
+
     public partial class FrmTramiteInicialInternacional : Form
     {
         MarcaModel marcaModel = new MarcaModel();
@@ -102,8 +103,10 @@ namespace Presentacion.Marcas_Internacionales
             }
 
 
-            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
-                comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            if ((comboBoxSignoDistintivo.Text == "Marca" &&
+                comboBoxTipoSigno.Text == "Gráfica/Figurativa" || comboBoxTipoSigno.Text == "Mixta")
+                || (comboBoxSignoDistintivo.Text == "Emblema"  && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
+                )
             {
                 // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
@@ -166,7 +169,7 @@ namespace Presentacion.Marcas_Internacionales
                             form.Add(streamContent, "archivo", nombreArchivo);
 
                             // URL de tu PHP
-                            string url = "https://bpa.com.es/subir_archivo_marca_nacional_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
+                            string url = "https://foragro.com.es/subir_archivo_marca_nacional_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
 
                             // Realizamos la solicitud
                             var responseTask = client.PostAsync(url, form);
@@ -224,7 +227,7 @@ namespace Presentacion.Marcas_Internacionales
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
             DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
-
+            string ubicacionFisica = txtUbicacionF.Text;
 
 
             // Validaciones
@@ -276,8 +279,8 @@ namespace Presentacion.Marcas_Internacionales
             {
 
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente) :
-                    await marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente);
+                    await marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente,ubicacionFisica) :
+                    await marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente,ubicacionFisica);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -285,7 +288,7 @@ namespace Presentacion.Marcas_Internacionales
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE");
+                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                     }
 
                     // Subir archivo si fue seleccionado
@@ -553,6 +556,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
+                     
                     if (archivoSeleccionado == false && checkBox1.Checked)
                     {
 
@@ -564,6 +568,7 @@ namespace Presentacion.Marcas_Internacionales
                         await GuardarMarcaInter();
 
                     }
+
                 }
                 
                
