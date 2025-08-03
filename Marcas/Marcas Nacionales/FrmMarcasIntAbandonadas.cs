@@ -48,11 +48,24 @@ namespace Presentacion.Marcas_Internacionales
             {
                 btnAgregarEstado.Enabled = true;
                 btnEditar.Enabled = true;
+                btnAgregarEstado.Visible = true;
+                btnEditar.Visible = true;
             }
             else
             {
-                btnAgregarEstado.Enabled = false;
-                btnEditar.Enabled = false;
+                if (UsuarioActivo.soloLectura)
+                {
+                    btnAgregarEstado.Visible = false;
+                    btnEditar.Visible = false;
+                    
+                }
+                else
+                {
+                    btnAgregarEstado.Visible= false;
+                    btnEditar.Visible = false;
+                }
+
+                   
             }
         }
         private void EliminarTabPage(TabPage nombre)

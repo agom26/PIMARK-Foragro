@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            checkBoxMulticlase = new CheckBox();
             txtUbicacion = new TextBox();
             label10 = new Label();
             btnAdjuntarT = new FontAwesome.Sharp.IconButton();
@@ -91,7 +92,6 @@
             txtExpediente = new TextBox();
             label2 = new Label();
             txtNombreCliente = new TextBox();
-            checkBoxMulticlase = new CheckBox();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -153,6 +153,19 @@
             panel1.Size = new Size(1011, 1405);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // checkBoxMulticlase
+            // 
+            checkBoxMulticlase.AutoSize = true;
+            checkBoxMulticlase.CheckAlign = ContentAlignment.MiddleRight;
+            checkBoxMulticlase.Font = new Font("Century Gothic", 9F);
+            checkBoxMulticlase.Location = new Point(256, 274);
+            checkBoxMulticlase.Name = "checkBoxMulticlase";
+            checkBoxMulticlase.Size = new Size(88, 21);
+            checkBoxMulticlase.TabIndex = 187;
+            checkBoxMulticlase.Text = "Multiclase";
+            checkBoxMulticlase.UseVisualStyleBackColor = true;
+            checkBoxMulticlase.CheckedChanged += checkBoxMulticlase_CheckedChanged;
             // 
             // txtUbicacion
             // 
@@ -907,18 +920,6 @@
             txtNombreCliente.Size = new Size(483, 22);
             txtNombreCliente.TabIndex = 183;
             txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
-            // 
-            // checkBoxMulticlase
-            // 
-            checkBoxMulticlase.AutoSize = true;
-            checkBoxMulticlase.CheckAlign = ContentAlignment.MiddleRight;
-            checkBoxMulticlase.Font = new Font("Century Gothic", 9F);
-            checkBoxMulticlase.Location = new Point(256, 274);
-            checkBoxMulticlase.Name = "checkBoxMulticlase";
-            checkBoxMulticlase.Size = new Size(88, 21);
-            checkBoxMulticlase.TabIndex = 187;
-            checkBoxMulticlase.Text = "Multiclase";
-            checkBoxMulticlase.UseVisualStyleBackColor = true;
             // 
             // FrmTramiteIn
             // 

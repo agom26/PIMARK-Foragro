@@ -23,6 +23,7 @@ using System.Reflection;
 
 namespace Presentacion.Marcas_Nacionales
 {
+
     public partial class FrmMostrarOposiciones : Form
     {
         OposicionModel oposicionModel = new OposicionModel();
@@ -68,7 +69,8 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmMostrarOposiciones_Load;
             SeleccionarMarca.idInt = 0;
             SetDoubleBuffering(this, true);
-            SetDoubleBuffering(dtgReportesOp, true);
+            SetDoubleBuffering(dtgReportesOp, true); 
+            dateTimePFecha_vencimiento.Enabled = true;
         }
 
         private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
@@ -330,9 +332,19 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
 
-            if (logos == true)
+            if (logos)
             {
-                if (pictureBoxOpositor.Image != null && pictureBoxOpositor.Image != documento)
+                bool tieneOpositor = pictureBoxOpositor.Image != null && pictureBoxOpositor.Image != documento;
+                bool tienePretendido = pictureBoxSignoPretendido.Image != null && pictureBoxSignoPretendido.Image != documento;
+
+                if (!tieneOpositor && !tienePretendido)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE AGREGAR AL MENOS UNA IMAGEN: OPOSITOR O SIGNO PRETENDIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
+                }
+
+                if (tieneOpositor)
                 {
                     using (var ms = new System.IO.MemoryStream())
                     {
@@ -342,14 +354,10 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    logoOpositor = null;/*
-                    FrmAlerta alerta = new FrmAlerta("INGRESE EL LOGO DEL OPOSITOR ", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return false;*/
+                    logoOpositor = null;
                 }
 
-
-                if (pictureBoxSignoPretendido.Image != null && pictureBoxSignoPretendido.Image != documento)
+                if (tienePretendido)
                 {
                     using (var ms2 = new System.IO.MemoryStream())
                     {
@@ -360,11 +368,7 @@ namespace Presentacion.Marcas_Nacionales
                 else
                 {
                     logoSignoPretendido = null;
-                    FrmAlerta alerta = new FrmAlerta("INGRESE EL LOGO DEL SIGNO PRETENDIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return false;
                 }
-
             }
 
             return true;
@@ -2550,7 +2554,7 @@ namespace Presentacion.Marcas_Nacionales
             lblCurrentPage2.Text = currentPageIndex2.ToString();
         }
 
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
+        private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
             // Buscar la ruta de Chrome automáticamente
             string chromePath = "chrome"; // Intentará usar Chrome desde PATH
@@ -2634,7 +2638,7 @@ namespace Presentacion.Marcas_Nacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -2695,6 +2699,8 @@ namespace Presentacion.Marcas_Nacionales
 
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -2707,7 +2713,11 @@ namespace Presentacion.Marcas_Nacionales
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                Func<Task> tarea = () => CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
             }
             else
             {
@@ -2716,7 +2726,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public void ExportarDataTableAExcel(DataTable dataTable)
+        public async Task ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
@@ -2741,7 +2751,7 @@ namespace Presentacion.Marcas_Nacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoForagro1.Save(tempLogoPath);
+                    Properties.Resources.logo_comprimido_foragro.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -2786,6 +2796,8 @@ namespace Presentacion.Marcas_Nacionales
 
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+
+                    System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(saveFileDialog.FileName));
                 }
                 catch (Exception ex)
                 {
@@ -2800,7 +2812,11 @@ namespace Presentacion.Marcas_Nacionales
 
             if (datos != null)
             {
-                ExportarDataTableAExcel(datos);
+                Func<Task> tarea = () => ExportarDataTableAExcel(datos);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
             }
             else
             {

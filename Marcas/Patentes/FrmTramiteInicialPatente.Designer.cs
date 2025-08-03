@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2I = new Panel();
             dateTimePFecha_Registro = new DateTimePicker();
@@ -77,7 +78,6 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel2I.SuspendLayout();
@@ -126,6 +126,29 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
+            // 
+            // btnAdjuntarT
+            // 
+            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
+            btnAdjuntarT.FlatAppearance.BorderSize = 0;
+            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
+            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAdjuntarT.ForeColor = Color.White;
+            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAdjuntarT.IconColor = Color.White;
+            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdjuntarT.IconSize = 30;
+            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdjuntarT.Location = new Point(830, 1016);
+            btnAdjuntarT.Name = "btnAdjuntarT";
+            btnAdjuntarT.Size = new Size(238, 58);
+            btnAdjuntarT.TabIndex = 208;
+            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
+            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
+            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdjuntarT.UseVisualStyleBackColor = false;
+            btnAdjuntarT.Click += btnAdjuntarT_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -373,7 +396,6 @@
             // dateTimePFecha_vencimiento
             // 
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
-            dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(527, 357);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
@@ -686,29 +708,6 @@
             label1.Size = new Size(60, 17);
             label1.TabIndex = 0;
             label1.Text = "Solicitud";
-            // 
-            // btnAdjuntarT
-            // 
-            btnAdjuntarT.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdjuntarT.BackColor = Color.FromArgb(50, 164, 115);
-            btnAdjuntarT.FlatAppearance.BorderSize = 0;
-            btnAdjuntarT.FlatStyle = FlatStyle.Flat;
-            btnAdjuntarT.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            btnAdjuntarT.ForeColor = Color.White;
-            btnAdjuntarT.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnAdjuntarT.IconColor = Color.White;
-            btnAdjuntarT.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAdjuntarT.IconSize = 30;
-            btnAdjuntarT.ImageAlign = ContentAlignment.MiddleRight;
-            btnAdjuntarT.Location = new Point(830, 1016);
-            btnAdjuntarT.Name = "btnAdjuntarT";
-            btnAdjuntarT.Size = new Size(238, 58);
-            btnAdjuntarT.TabIndex = 208;
-            btnAdjuntarT.Text = "ADJUNTAR TÍTULO";
-            btnAdjuntarT.TextAlign = ContentAlignment.MiddleLeft;
-            btnAdjuntarT.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnAdjuntarT.UseVisualStyleBackColor = false;
-            btnAdjuntarT.Click += btnAdjuntarT_Click;
             // 
             // FrmTramiteInicialPatente
             // 

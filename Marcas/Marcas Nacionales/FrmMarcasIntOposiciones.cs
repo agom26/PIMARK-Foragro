@@ -60,6 +60,36 @@ namespace Presentacion.Marcas_Internacionales
             this.Resize += FrmMarcasIntOposiciones_Resize;
             SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgReportesOp, true);
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnAgregarOp.Visible = false;
+                btnAgregarEstadoAO.Visible = false;
+                btnAbandonar.Visible = false;
+                btnDesistir.Visible = false;
+                btnEditarH.Visible = false;
+                btnAgregarOpositorAO.Visible = false;
+                btnGuardarU.Visible = false;
+                btnEnviarATramite.Visible = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+
+            }
+            else
+            {
+
+                btnAgregarOp.Visible = true;
+                btnEnviarATramite.Visible = false;
+                btnGuardarU.Visible = true;
+                btnAgregarEstadoAO.Visible = true;
+                btnAbandonar.Visible = true;
+                btnDesistir.Visible = true;
+                btnEditarH.Visible = true;
+                btnAgregarOpositorAO.Visible = true;
+
+                dateTimePFecha_vencimiento.Enabled = true;
+                
+            }
+
         }
 
         private void SetDoubleBuffering(Control control, bool enable)
@@ -321,9 +351,19 @@ namespace Presentacion.Marcas_Internacionales
                 return false;
             }
 
-            if (logos == true)
+            if (logos)
             {
-                if (pictureBoxOpositor.Image != null && pictureBoxOpositor.Image != documento)
+                bool tieneOpositor = pictureBoxOpositor.Image != null && pictureBoxOpositor.Image != documento;
+                bool tienePretendido = pictureBoxSignoPretendido.Image != null && pictureBoxSignoPretendido.Image != documento;
+
+                if (!tieneOpositor && !tienePretendido)
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE AGREGAR AL MENOS UNA IMAGEN: OPOSITOR O SIGNO PRETENDIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return false;
+                }
+
+                if (tieneOpositor)
                 {
                     using (var ms = new System.IO.MemoryStream())
                     {
@@ -333,14 +373,10 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    logoOpositor = null;/*
-                    FrmAlerta alerta = new FrmAlerta("INGRESE EL LOGO DEL OPOSITOR ", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return false;*/
+                    logoOpositor = null;
                 }
 
-
-                if (pictureBoxSignoPretendido.Image != null && pictureBoxSignoPretendido.Image != documento)
+                if (tienePretendido)
                 {
                     using (var ms2 = new System.IO.MemoryStream())
                     {
@@ -351,15 +387,7 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     logoSignoPretendido = null;
-                    FrmAlerta alerta = new FrmAlerta("INGRESE EL LOGO DEL SIGNO PRETENDIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return false;
                 }
-
-            }
-            else
-            {
-
             }
 
             return true;
@@ -2198,7 +2226,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
+        private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
             // Buscar la ruta de Chrome automáticamente
             string chromePath = "chrome"; // Intentará usar Chrome desde PATH
@@ -2275,7 +2303,7 @@ namespace Presentacion.Marcas_Internacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -2325,6 +2353,8 @@ namespace Presentacion.Marcas_Internacionales
                 await browser.CloseAsync();
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -2341,7 +2371,12 @@ namespace Presentacion.Marcas_Internacionales
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                Func<Task> tarea = () => CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
+                
             }
             else
             {
@@ -2453,7 +2488,7 @@ namespace Presentacion.Marcas_Internacionales
             CentrarControlSinExpandir(tableLayoutPanel2, 862);
             CentrarControlSinExpandir(panel23, 862);
         }
-        public void ExportarDataTableAExcel(DataTable dataTable)
+        public async Task ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
@@ -2477,7 +2512,7 @@ namespace Presentacion.Marcas_Internacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoForagro1.Save(tempLogoPath);
+                    Properties.Resources.logo_comprimido_foragro.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -2527,6 +2562,9 @@ namespace Presentacion.Marcas_Internacionales
                     // Mostrar mensaje de éxito
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+
+                    System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(saveFileDialog.FileName));
+
                 }
                 catch (Exception ex)
                 {
@@ -2560,7 +2598,11 @@ namespace Presentacion.Marcas_Internacionales
 
             if (datos != null)
             {
-                ExportarDataTableAExcel(datos);
+                Func<Task> tarea = () => ExportarDataTableAExcel(datos);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
             }
             else
             {

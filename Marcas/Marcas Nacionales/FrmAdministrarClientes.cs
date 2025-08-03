@@ -32,10 +32,38 @@ namespace Presentacion.Marcas_Internacionales
 
             this.Load += FrmAdministrarClientes_Load;
             
-            if (UsuarioActivo.isAdmin == false)
+            if (UsuarioActivo.isAdmin)
+            {
+                btnEliminar.Visible = true;
+
+            }
+            else if (UsuarioActivo.soloLectura)
             {
                 btnEliminar.Visible = false;
+                btnGuardarU.Visible = false;
+                ibtnAgregar.Visible = false;
 
+                txtCorreoContacto.ReadOnly = true;
+                txtDireccionCliente.ReadOnly = true;
+                txtNitCliente.ReadOnly = true;
+                txtNombreCliente.ReadOnly = true;
+                txtNombreContacto.ReadOnly = true;
+                txtTelefonoContacto.ReadOnly = true;
+                comboBox1.Enabled = false;
+            }
+            else
+            {
+                btnEliminar.Visible = false;
+                btnGuardarU.Visible = true;
+                ibtnAgregar.Visible = true;
+
+                txtCorreoContacto.ReadOnly = false;
+                txtDireccionCliente.ReadOnly = false;
+                txtNitCliente.ReadOnly = false;
+                txtNombreCliente.ReadOnly = false;
+                txtNombreContacto.ReadOnly = false;
+                txtTelefonoContacto.ReadOnly = false;
+                comboBox1.Enabled = true;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -186,7 +214,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
-            Habilitar();
+           
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             if (!tabControl1.TabPages.Contains(tabClienteDetail))
@@ -221,7 +249,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public async void EditarCliente()
         {
-            Habilitar();
+            
             if (dtgClientes.SelectedRows.Count > 0)
             {
 
@@ -418,7 +446,7 @@ namespace Presentacion.Marcas_Internacionales
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    Deshabilitar();
+                    
                     AnadirTabPage(tabClienteDetail);
                 }
                 else

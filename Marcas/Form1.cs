@@ -12,6 +12,7 @@ using Presentacion.Alertas;
 using System.Runtime.InteropServices;
 using Presentacion.Properties;
 using Presentacion.Plazos;
+using Presentacion.BusquedasRetrospectivas;
 
 namespace Presentacion
 {
@@ -44,6 +45,28 @@ namespace Presentacion
             {
                 btnUsers.Visible = false;
             }
+
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnTramiteInicialInter.Visible = false;
+                btnTramiteInicial.Visible = false;
+                btnIngresarPatente.Visible = false;
+                iNGRESARMARCAToolStripMenuItem.Enabled = false;
+                iNGRESARMARCAToolStripMenuItem1.Enabled = false;
+                iNGRESARPATENTEToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                btnTramiteInicialInter.Visible = true;
+                btnTramiteInicial.Visible = true;
+                btnIngresarPatente.Visible = true;
+
+                iNGRESARMARCAToolStripMenuItem.Enabled = true;
+                iNGRESARMARCAToolStripMenuItem1.Enabled = true;
+                iNGRESARPATENTEToolStripMenuItem.Enabled = true;
+            }
+
             VencimientoModel.EjecutarProcedimiento();
 
 
@@ -126,101 +149,9 @@ namespace Presentacion
             ShowSubMenu(panelSubMenuPatentes);
         }
 
-        public void DisableButtons()
-        {
+        
 
-            //marcas nacionales
-            btnIngresadasInt.Enabled = false;
-            btnGrupos2.Enabled = false;
-            btnTramiteInicialInter.Enabled = false;
-            btnOpoInter.Enabled = false;
-            btnRegInter.Enabled = false;
-            btnRenovInter.Enabled = false;
-            btnTraspasoInter.Enabled = false;
-            btnAbandonadasInter.Enabled = false;
-            btnDesistidasNacionales.Enabled = false;
-
-            //internacionales
-            btnTramiteInicial.Enabled = false;
-            btnEnTramite.Enabled = false;
-            btnOposiciones.Enabled = false;
-            btnRegistradas.Enabled = false;
-            btnTramiteRenovacion.Enabled = false;
-            btnTramiteTraspaso.Enabled = false;
-            btnAbandonadas.Enabled = false;
-            btnDesistidasInter.Enabled = false;
-            //patentes
-            btnIngresarPatente.Enabled = false;
-            btnTramiteInicialPatente.Enabled = false;
-            btnPatentesRegistradas.Enabled = false;
-            btnTramiteRenovPatentes.Enabled = false;
-            btnTramiteTraspPatentes.Enabled = false;
-            btnAbandonadasPatentes.Enabled = false;
-            btnDesistidasPatentes.Enabled = false;
-            //otros
-            btnPlazos.Enabled = false;
-            btnTitulares.Enabled = false;
-            btnInicio.Enabled = false;
-            btnUsers.Enabled = false;
-            btnAgentes2.Enabled = false;
-            btnTitulares2.Enabled = false;
-            btnMarcasNacionales.Enabled = false;
-            btnMInternacionales.Enabled = false;
-            btnPatentes.Enabled = false;
-            btnReportes.Enabled = false;
-            btnVencimientos.Enabled = false;
-            btnCerrarSesion.Enabled = false;
-            //btnReportes.Enabled = false;
-            //iconButtonLogout.Enabled = false;
-            //iconButtonVencimientos.Enabled = false;
-        }
-
-        public void EnableButtons()
-        {
-            //marcas nacionales
-            btnIngresadasInt.Enabled = true;
-            btnGrupos2.Enabled = true;
-            btnTramiteInicialInter.Enabled = true;
-            btnOpoInter.Enabled = true;
-            btnRegInter.Enabled = true;
-            btnRenovInter.Enabled = true;
-            btnTraspasoInter.Enabled = true;
-            btnAbandonadasInter.Enabled = true;
-            btnDesistidasNacionales.Enabled = true;
-
-            //internacionales
-            btnTramiteInicial.Enabled = true;
-            btnEnTramite.Enabled = true;
-            btnOposiciones.Enabled = true;
-            btnRegistradas.Enabled = true;
-            btnTramiteRenovacion.Enabled = true;
-            btnTramiteTraspaso.Enabled = true;
-            btnAbandonadas.Enabled = true;
-            btnDesistidasInter.Enabled = true;
-            //patentes
-            btnIngresarPatente.Enabled = true;
-            btnTramiteInicialPatente.Enabled = true;
-            btnPatentesRegistradas.Enabled = true;
-            btnTramiteRenovPatentes.Enabled = true;
-            btnTramiteTraspPatentes.Enabled = true;
-            btnAbandonadasPatentes.Enabled = true;
-            btnDesistidasPatentes.Enabled = true;
-            //otros
-            btnPlazos.Enabled = true;
-            btnTitulares.Enabled = true;
-            btnInicio.Enabled = true;
-            btnUsers.Enabled = true;
-            btnAgentes2.Enabled = true;
-            btnTitulares2.Enabled = true;
-            btnMarcasNacionales.Enabled = true;
-            btnMInternacionales.Enabled = true;
-            btnPatentes.Enabled = true;
-            btnReportes.Enabled = true;
-            btnVencimientos.Enabled = true;
-            btnCerrarSesion.Enabled = true;
-        }
-
-
+        
 
         private Form activeForm = null;
         private void FormResize()
@@ -439,10 +370,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmRenovaciones());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -455,10 +385,10 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmTraspasos());
-                await Task.Delay(1000);
-                EnableButtons();
+               
+               
             }
             else
             {
@@ -486,10 +416,10 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarTramiteRenovacionPatente());
-                await Task.Delay(1000);
-                EnableButtons();
+               
+               
             }
             else
             {
@@ -507,10 +437,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTramiteInicialInternacional(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -523,10 +452,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmMostrarTramiteTraspasoPatente());
-                await Task.Delay(1000);
-                EnableButtons();
+               
                 //openChildForm(new PatentesForm());
             }
             else
@@ -546,10 +474,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmReportesMarcasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -566,10 +493,10 @@ namespace Presentacion
 
             //labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
-            DisableButtons();
+           
             openChildForm(new FrmDashboard3(this));
-            await Task.Delay(1000);
-            EnableButtons();
+           
+           
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -614,10 +541,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarUsuarios());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -630,10 +556,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarAgentes());
-                await Task.Delay(1000);
-                EnableButtons();
+              
             }
             else
             {
@@ -647,10 +572,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarTitulares());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -699,10 +623,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTramiteIn(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -725,10 +648,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmVencimientos());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -751,10 +673,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarTodas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -767,10 +688,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmMostrarOposiciones());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -783,10 +703,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarAbandonadas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -799,10 +718,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmRegistradas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -815,10 +733,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntIngresadas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -831,10 +748,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntRegistradas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -847,10 +763,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntOposiciones());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -863,10 +778,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntAbandonadas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -889,10 +803,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmDashboard3(this));
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -905,10 +818,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmDashboard3(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -921,10 +833,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmRenovacionesInt());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -937,10 +848,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTraspasosInt());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -953,10 +863,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTramiteInicialPatente(this));
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -969,10 +878,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmMostrarIngresadasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1023,10 +931,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarRegistradasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1039,10 +946,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarAbandonadasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1075,10 +981,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmDashboard3(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1092,10 +997,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarUsuarios());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1109,10 +1013,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarAgentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1180,10 +1083,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmReportesMarcasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1197,10 +1099,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmVencimientos());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1230,10 +1131,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasLicenciaUso());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1246,10 +1146,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmAdministrarClientes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1463,10 +1362,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmRegistradas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1479,10 +1377,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTramiteInicialInternacional(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1495,10 +1392,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntIngresadas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1511,10 +1407,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntOposiciones());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1527,10 +1422,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntRegistradas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1543,10 +1437,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasLicenciaUso());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1559,10 +1452,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmRenovacionesInt());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1575,10 +1467,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTraspasosInt());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1591,10 +1482,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasIntAbandonadas());
-                await Task.Delay(1000);
-                EnableButtons();
+              
             }
             else
             {
@@ -1607,10 +1497,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmTramiteIn(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1623,10 +1512,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarTodas());
-                await Task.Delay(1000);
-                EnableButtons();
+              
             }
             else
             {
@@ -1639,10 +1527,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmMostrarOposiciones());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1655,10 +1542,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmRenovaciones());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1671,10 +1557,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmTraspasos());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1687,10 +1572,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarAbandonadas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1703,10 +1587,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarIngresadasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+              
             }
             else
             {
@@ -1719,10 +1602,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarTramiteRenovacionPatente());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1735,10 +1617,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmTramiteInicialPatente(this));
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1751,10 +1632,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarRegistradasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1767,10 +1647,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarTramiteTraspasoPatente());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1783,10 +1662,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarAbandonadasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1804,10 +1682,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasDesistidas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1820,10 +1697,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarDesistidas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1841,10 +1717,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarDesistidasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1857,10 +1732,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMarcasDesistidas());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1873,10 +1747,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarDesistidas());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1889,10 +1762,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmMostrarDesistidasPatentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1905,10 +1777,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmAdministrarTitulares());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1921,10 +1792,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarAgentes());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1937,10 +1807,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmAdministrarClientes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1953,10 +1822,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+               
                 openChildForm(new FrmAdministrarTitulares());
-                await Task.Delay(1000);
-                EnableButtons();
+                
             }
             else
             {
@@ -1969,10 +1837,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarAgentes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -1985,10 +1852,9 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmAdministrarClientes());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
@@ -2001,16 +1867,46 @@ namespace Presentacion
         {
             if (DatosRegistro.peligro == false)
             {
-                DisableButtons();
+                
                 openChildForm(new FrmPlazos());
-                await Task.Delay(1000);
-                EnableButtons();
+               
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
+        }
+
+        private async void button3_Click_5(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                
+                openChildForm(new FrmBusquedas());
+                
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+        }
+
+        private async void bÚSQUEDASRETROSPECTIVASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DatosRegistro.peligro == false)
+            {
+                
+                openChildForm(new FrmBusquedas());
+                
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                alerta.ShowDialog();
+            }
+
         }
     }
 }

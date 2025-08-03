@@ -25,11 +25,44 @@ namespace Presentacion.Personas
         {
             InitializeComponent();
             this.Load += FrmAdministrarAgentes_Load; // Mueve la lógica de carga aquí
-            if (UsuarioActivo.isAdmin == false)
+            if (UsuarioActivo.isAdmin)
             {
-                ibtnEditar.Visible = false;
-                btnEliminarAgente.Visible = false;
+
+                btnEliminarAgente.Visible = true;
             }
+            else
+            {
+                btnEliminarAgente.Visible = false;
+
+            }
+
+            if (UsuarioActivo.soloLectura)
+            {
+                txtNitAgente.ReadOnly = true;
+                txtDireccionAgente.ReadOnly= true;
+                txtCorreoContacto.ReadOnly = true;
+                txtNombreAgente.ReadOnly = true;
+                txtNombreContacto.ReadOnly = true;
+                comboBox1.Enabled = false;
+                txtTelefonoContacto.ReadOnly = true;
+                ibtnAgregar.Visible = false;
+                btnGuardarU.Visible = false;
+            }
+            else
+            {
+                txtNitAgente.ReadOnly = false;
+                txtDireccionAgente.ReadOnly = false;
+                txtCorreoContacto.ReadOnly = false;
+                txtNombreAgente.ReadOnly = false;
+                txtNombreContacto.ReadOnly = false;
+                comboBox1.Enabled = true;
+                txtTelefonoContacto.ReadOnly = false;
+                ibtnAgregar.Visible = true;
+                btnGuardarU.Visible = true;
+            }
+
+
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -113,7 +146,7 @@ namespace Presentacion.Personas
 
         private async void ibtnAgregar_Click(object sender, EventArgs e)
         {
-            Habilitar();
+            
             tabControl1.Visible = false;
             LimpiarCampos();
             await AnadirTabPage(tabPageAgenteDetail);
@@ -161,7 +194,7 @@ namespace Presentacion.Personas
         public async Task Editar()
         {
 
-            Habilitar();
+            
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 tabControl1.Visible = false;
@@ -388,7 +421,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    Deshabilitar();
+                   
 
                 }
                 else

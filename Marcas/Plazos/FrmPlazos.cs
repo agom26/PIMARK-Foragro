@@ -51,6 +51,23 @@ namespace Presentacion.Plazos
             EliminarTabPage(tabPageReportes);
             SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgReportes, true);
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnEditar.Visible = false;
+                comboBoxEstado.Enabled = false;
+                dateTimePickerFechaIngreso.Enabled = false;
+                dateTimePickerVencimiento.Enabled = false;
+                richTextBoxAnotaciones.Enabled = false;
+            }
+            else
+            {
+                btnEditar.Visible = true;
+                comboBoxEstado.Enabled = true;
+                dateTimePickerFechaIngreso.Enabled = true;
+                dateTimePickerVencimiento.Enabled = true;
+                richTextBoxAnotaciones.Enabled = true;
+            }
         }
 
         private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
@@ -627,7 +644,7 @@ namespace Presentacion.Plazos
 
 
 
-        public void ExportarDataTableAExcel(DataTable dataTable)
+        public async Task ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
@@ -651,7 +668,7 @@ namespace Presentacion.Plazos
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoForagro1.Save(tempLogoPath);
+                    Properties.Resources.logo_comprimido_foragro.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -701,6 +718,9 @@ namespace Presentacion.Plazos
                     // Mostrar mensaje de éxito
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+
+                    System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(saveFileDialog.FileName));
+
                 }
                 catch (Exception ex)
                 {
@@ -881,7 +901,7 @@ namespace Presentacion.Plazos
         }
 */
 
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
+        private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
         {
             // Buscar la ruta de Chrome automáticamente
             string chromePath = "chrome"; // Intentará usar Chrome desde PATH
@@ -963,10 +983,11 @@ namespace Presentacion.Plazos
                     {
                         headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
                     }
+
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoBPA2.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -1022,6 +1043,8 @@ namespace Presentacion.Plazos
 
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -1045,7 +1068,12 @@ namespace Presentacion.Plazos
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala);
+                Func<Task> tarea = () => CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
+                
             }
             else
             {
@@ -1713,10 +1741,9 @@ namespace Presentacion.Plazos
             dtgReportes.ClearSelection();
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
-            //AnadirTabPage(tabPageVencimientosList);
+            AnadirTabPage(tabPageVencimientosList);
             comboBoxTipoFiltro.SelectedIndex = 0;
-            cmbFiltro.SelectedIndex = 0;
-            //EliminarTabPage(tabPageReportes);
+            EliminarTabPage(tabPageReportes);
         }
 
 
@@ -1827,13 +1854,17 @@ namespace Presentacion.Plazos
             EliminarTabPage(tabPageReportes);
         }
 
-        private void btnExportarPDF_Click(object sender, EventArgs e)
-        {
+            private void btnExportarPDF_Click(object sender, EventArgs e)
+            {
             DataTable datos = dtgReportes.DataSource as DataTable;
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                Func<Task> tarea = () => CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
             }
             else
             {
@@ -1842,10 +1873,14 @@ namespace Presentacion.Plazos
             }
         }
 
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
+        
+
+        private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
-            // Buscar la ruta de Chrome automáticamente
-            string chromePath = "chrome"; // Intentará usar Chrome desde PATH
+
+           
+                // Buscar la ruta de Chrome automáticamente
+                string chromePath = "chrome"; // Intentará usar Chrome desde PATH
 
             string[] possiblePaths = {
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Google\\Chrome\\Application\\chrome.exe"),
@@ -1919,7 +1954,7 @@ namespace Presentacion.Plazos
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -1969,6 +2004,9 @@ namespace Presentacion.Plazos
                 await browser.CloseAsync();
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+
+                System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -1983,7 +2021,12 @@ namespace Presentacion.Plazos
 
             if (datos != null)
             {
-                ExportarDataTableAExcel(datos);
+                Func<Task> tarea = () => ExportarDataTableAExcel(datos);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
+                
             }
             else
             {

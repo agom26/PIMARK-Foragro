@@ -55,6 +55,7 @@ namespace Presentacion.Marcas_Internacionales
             mostrarPanelRegistro();
             btnAdjuntarT.Visible = false;
             archivoSeleccionado = false;
+            dateTimePFecha_vencimiento.Enabled = true;
         }
 
         private void ActualizarFechaVencimiento()
@@ -493,15 +494,10 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    if (UsuarioActivo.isAdmin)
-                    {
+                   
                         dateTimePFecha_vencimiento.Enabled = true;
-                    }
-                    else
-                    {
-                        dateTimePFecha_vencimiento.Enabled = false;
-
-                    }
+                    
+                   
                 }
 
             }
@@ -645,38 +641,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+           
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+           
         }
 
         private void dateTimePFecha_Registro_ValueChanged_1(object sender, EventArgs e)
@@ -730,7 +705,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                dateTimePFecha_vencimiento.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
 

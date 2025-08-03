@@ -63,6 +63,80 @@ namespace Presentacion.Marcas_Internacionales
             {
                 btnEliminarMarca.Visible = false;
             }
+
+
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnAbandonar.Visible = false;
+                btnDesistir.Visible = false;
+                btnEditar2.Visible = false;
+                btnAgregarEstado.Visible = false;
+                btnAgregarAgente.Enabled = false;
+                btnAgregarCliente.Enabled = false;
+                btnAgregarTitular.Enabled = false;
+                btnEditarHistorial2.Visible = false;
+
+                btnAdjuntarArchivo.Visible = false;
+                btnEliminarArchivo.Visible = false;
+
+                btnQuitarImagen.Visible = false;
+                btnSubirImagen.Visible = false;
+
+                txtExpediente.ReadOnly = true;
+                txtNombre.ReadOnly = true;
+                txtLibro.ReadOnly = true;
+                txtRegistro.ReadOnly = true;
+                txtFolio.ReadOnly = true;
+                txtClase.ReadOnly = true;
+                txtERenovacion.ReadOnly = true;
+                txtETraspaso.ReadOnly = true;
+                txtNombreAgente.ReadOnly = true;
+                txtNombreCliente.ReadOnly = true;
+                txtNombreTitular.ReadOnly = true;
+                txtUbicacion.ReadOnly = true;
+                richTextBox1.ReadOnly = true;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+            }
+            else
+            {
+                btnAbandonar.Visible = true;
+                btnDesistir.Visible = true;
+                btnEditar2.Visible = true;
+                btnAgregarEstado.Visible = true;
+                btnAgregarAgente.Enabled = true;
+                btnAgregarCliente.Enabled = true;
+                btnAgregarTitular.Enabled = true;
+                btnEditarHistorial2.Visible = true;
+
+                
+                btnAdjuntarArchivo.Visible = true;
+                btnEliminarArchivo.Visible = true;
+
+                btnQuitarImagen.Visible = true;
+                btnSubirImagen.Visible = true;
+
+                txtExpediente.ReadOnly = false;
+                txtNombre.ReadOnly = false;
+                txtLibro.ReadOnly = false;
+                txtRegistro.ReadOnly = false;
+                txtFolio.ReadOnly = false;
+                txtClase.ReadOnly = false;
+                txtERenovacion.ReadOnly = false;
+                txtETraspaso.ReadOnly = false;
+                txtNombreAgente.ReadOnly = false;
+                txtNombreCliente.ReadOnly = false;
+                txtNombreTitular.ReadOnly = false;
+                txtUbicacion.ReadOnly = false;
+                richTextBox1.ReadOnly = false;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -2010,38 +2084,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+           
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         public void CrearCarpetaMarca(string idMarca)

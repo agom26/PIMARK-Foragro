@@ -161,7 +161,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(560, 593);
+            btnLast.Location = new Point(543, 593);
             btnLast.Margin = new Padding(3, 2, 3, 2);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(91, 33);
@@ -183,7 +183,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(455, 594);
+            btnNext.Location = new Point(438, 594);
             btnNext.Margin = new Padding(3, 2, 3, 2);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(91, 33);
@@ -205,7 +205,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(348, 595);
+            btnPrev.Location = new Point(331, 595);
             btnPrev.Margin = new Padding(3, 2, 3, 2);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(91, 33);
@@ -227,7 +227,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(225, 595);
+            btnFirst.Location = new Point(208, 595);
             btnFirst.Margin = new Padding(3, 2, 3, 2);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
@@ -241,7 +241,7 @@
             lblTotalPages.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalPages.AutoSize = true;
             lblTotalPages.Font = new Font("Century Gothic", 9F);
-            lblTotalPages.Location = new Point(619, 161);
+            lblTotalPages.Location = new Point(602, 161);
             lblTotalPages.Name = "lblTotalPages";
             lblTotalPages.Size = new Size(15, 17);
             lblTotalPages.TabIndex = 69;
@@ -253,7 +253,7 @@
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 9F);
-            label10.Location = new Point(589, 161);
+            label10.Location = new Point(572, 161);
             label10.Name = "label10";
             label10.Size = new Size(24, 17);
             label10.TabIndex = 68;
@@ -264,7 +264,7 @@
             lblCurrentPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblCurrentPage.AutoSize = true;
             lblCurrentPage.Font = new Font("Century Gothic", 9F);
-            lblCurrentPage.Location = new Point(558, 161);
+            lblCurrentPage.Location = new Point(541, 161);
             lblCurrentPage.Name = "lblCurrentPage";
             lblCurrentPage.Size = new Size(15, 17);
             lblCurrentPage.TabIndex = 67;
@@ -285,7 +285,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 9F);
-            label2.Location = new Point(502, 161);
+            label2.Location = new Point(485, 161);
             label2.Name = "label2";
             label2.Size = new Size(49, 17);
             label2.TabIndex = 65;
@@ -464,7 +464,7 @@
             panel1.Location = new Point(7, 180);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(644, 404);
+            panel1.Size = new Size(627, 404);
             panel1.TabIndex = 62;
             // 
             // dtgTitulares
@@ -516,7 +516,7 @@
             dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
             dtgTitulares.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dtgTitulares.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgTitulares.Size = new Size(613, 378);
+            dtgTitulares.Size = new Size(596, 378);
             dtgTitulares.TabIndex = 7;
             dtgTitulares.CellClick += dtgTitulares_CellClick;
             dtgTitulares.CellContentClick += dtgTitulares_CellContentClick;

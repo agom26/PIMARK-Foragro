@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 
 namespace Presentacion.Marcas_Nacionales
 {
+
     public partial class FrmMostrarTodas : Form
     {
         public bool enviadaOposicion = false;
@@ -84,6 +85,14 @@ namespace Presentacion.Marcas_Nacionales
                 //btnVerH.Visible = true;
                 labelUserEditor.Visible = false;
                 lblUser.Visible = false;
+                dateTimePFecha_vencimiento.Enabled = true;
+                if (UsuarioActivo.soloLectura)
+                {
+
+                    dateTimePFecha_vencimiento.Enabled = false;
+                }
+
+                
             }
             else if (UsuarioActivo.isAdmin == true)
             {
@@ -109,6 +118,7 @@ namespace Presentacion.Marcas_Nacionales
                 //btnEditarEstadoHistorial.Location = btnVerH.Location;
                 labelUserEditor.Visible = false;
                 lblUser.Visible = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
 
@@ -786,6 +796,7 @@ namespace Presentacion.Marcas_Nacionales
         {
 
         }
+
         public void VerificarDatosRegistro()
         {
             if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text)
@@ -840,7 +851,7 @@ namespace Presentacion.Marcas_Nacionales
                         }
                         else
                         {
-                            dateTimePFecha_vencimiento.Enabled = false;
+                            dateTimePFecha_vencimiento.Enabled = true;
                         }
                     }
                     else
@@ -1498,49 +1509,12 @@ namespace Presentacion.Marcas_Nacionales
             }
 
         }
-        public void VerificarDatosIngresados()
-        {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(SeleccionarMarca.registro)
-                //|| string.IsNullOrEmpty(SeleccionarMarca.libro) 
-                //|| string.IsNullOrEmpty(SeleccionarMarca.folio)
-                ))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
-        }
-        private async void btnCancelarM_Click(object sender, EventArgs e)
-        {/*
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
-            {
-                DatosRegistro.peligro = false;
-                AnadirTabPage(tabPageListaMarcas);
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageListaArchivos);
-                EliminarTabPage(tabPageHistorialMarca);
-                tabControl1.SelectedTab = tabPageListaMarcas;
-                await LoadMarcas();
-                SeleccionarMarca.idInt = 0;
-                LimpiarFormulario();
-            }
-            else
-            {
-                if (!archivoSubido)
-                {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO Y SU TÍTULO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
-                }
-            }*/
 
+        
+
+        private async void btnCancelarM_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
             DatosRegistro.peligro = false;
             await LoadMarcas();
             AnadirTabPage(tabPageListaMarcas);
@@ -1549,7 +1523,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             SeleccionarMarca.idInt = 0;
-            LimpiarFormulario();
+            
         }
 
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1730,46 +1704,21 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+          
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+           
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
         }
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
+           
         }
 
         private void roundedButton2_Click_1(object sender, EventArgs e)
@@ -2131,7 +2080,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                dateTimePFecha_vencimiento.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
 

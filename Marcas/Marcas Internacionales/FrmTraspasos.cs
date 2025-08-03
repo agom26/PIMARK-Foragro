@@ -54,7 +54,7 @@ namespace Presentacion.Marcas_Nacionales
             archivoSubido = false;
             SeleccionarMarca.idInt = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
-
+            dateTimePFecha_vencimiento.Enabled = true;
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -1474,53 +1474,22 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtETraspaso_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtETraspaso.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+           
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
         private List<string> ListarNombresDeArchivos(string idMarca)
         {

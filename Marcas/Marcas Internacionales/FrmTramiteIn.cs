@@ -52,7 +52,7 @@ namespace Presentacion.Marcas_Nacionales
             this.Load += FrmTramiteIn_Load;
             mostrarPanelRegistro();
             archivoSeleccionado = false;
-
+            dateTimePFecha_vencimiento.Enabled = true;
         }
         private void ActualizarFechaVencimiento()
         {
@@ -286,11 +286,11 @@ namespace Presentacion.Marcas_Nacionales
 
             if (checkBoxMulticlase.Checked)
             {
-                multiclase= 1;
+                multiclase = 1;
             }
             else
             {
-                multiclase= 0;
+                multiclase = 0;
             }
 
             // Validaciones
@@ -327,7 +327,7 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase,multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
+                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
                     await marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
 
                 if (idMarca > 0)
@@ -446,7 +446,7 @@ namespace Presentacion.Marcas_Nacionales
             if (SeleccionarPersona.idPersonaT != 0)
             {
                 txtNombreTitular.Text = SeleccionarPersona.nombre;
-               
+
             }
             else
             {
@@ -485,7 +485,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-           
+
             convertirImagen();
             pictureBox1.Image = documento;
         }
@@ -543,7 +543,7 @@ namespace Presentacion.Marcas_Nacionales
 
         public void VerificarDatosRegistro()
         {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) 
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text)
                 ))
             {
                 DatosRegistro.peligro = true;
@@ -584,7 +584,7 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        dateTimePFecha_vencimiento.Enabled = false;
+                        dateTimePFecha_vencimiento.Enabled = true;
 
                     }
                 }
@@ -622,7 +622,7 @@ namespace Presentacion.Marcas_Nacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if(archivoSeleccionado==false && checkBox1.Checked)
+                if (archivoSeleccionado == false && checkBox1.Checked)
                 {
                     FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
@@ -631,7 +631,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     await GuardarMarcaInternacional();
                 }
-                    
+
             }
             else
             {
@@ -704,45 +704,22 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
 
-            }
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
 
-            }
         }
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
+
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
@@ -774,7 +751,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void dateTimePFecha_Registro_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
 
         }
 
@@ -814,7 +791,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     dateTimePFecha_vencimiento.Enabled = false;
                 }
-                    
+
             }
         }
 
@@ -831,7 +808,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                dateTimePFecha_vencimiento.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
 
@@ -874,6 +851,11 @@ namespace Presentacion.Marcas_Nacionales
                 alerta2.ShowDialog();
 
             }
+        }
+
+        private void checkBoxMulticlase_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

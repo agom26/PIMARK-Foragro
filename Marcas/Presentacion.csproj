@@ -63,6 +63,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="BusquedasRetrospectivas\FrmEditarPais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BusquedasRetrospectivas\FrmAgregarPais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="BusquedasRetrospectivas\FrmBusquedas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Marcas Internacionales\FrmJustificacionDesistimiento.cs">
       <SubType>Form</SubType>
     </Compile>

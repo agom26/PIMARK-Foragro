@@ -60,10 +60,12 @@ namespace Presentacion.Marcas_Nacionales
             if (UsuarioActivo.isAdmin)
             {
                 btnEliminarMarca.Visible = true;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
             else
             {
                 btnEliminarMarca.Visible = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
         private void EliminarTabPage(TabPage nombre)
@@ -2012,41 +2014,17 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+           
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void iconButton10_Click(object sender, EventArgs e)

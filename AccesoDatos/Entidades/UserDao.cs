@@ -40,7 +40,7 @@ namespace AccesoDatos.Usuarios
             using (var connection = GetConnection())
             {
                 connection.Open();
-                using (var command = new MySqlCommand("UpdateUser", connection))
+                using (var command = new MySqlCommand("UpdateUser2", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -99,7 +99,7 @@ namespace AccesoDatos.Usuarios
 
             using (MySqlConnection conexion = GetConnection())
             {
-                using (MySqlCommand comando = new MySqlCommand("GetAllUsers", conexion))
+                using (MySqlCommand comando = new MySqlCommand("GetAllUsers2", conexion))
                 {
                     comando.CommandType = CommandType.StoredProcedure;
                     int registrosOmitidos = (currentPageIndex - 1) * pageSize;

@@ -70,6 +70,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 btnEliminarLicencia.Visible = false;
             }
+            
+            dateTimePFecha_vencimiento.Enabled = true;
             EliminarTabPage(tabPageReportes);
             EliminarTabPage(tabPageArchivos);
             EliminarTabPage(tabPageAgregarOposicion);
@@ -1381,8 +1383,10 @@ namespace Presentacion.Marcas_Internacionales
         private void btnIrAReportes_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageReportes);
-            CentrarDataGridView();
             CentrarTableLayoutReporte();
+            CentrarDataGridView();
+            CentrarDataGridDentroDelPanel(); // <<--- Agregado
+
             PosicionarPanelDebajoDerecha();
         }
 
@@ -1487,6 +1491,12 @@ namespace Presentacion.Marcas_Internacionales
         {
             dtgReportesOp.DataSource = null;
             dtgReportesOp.ClearSelection();
+            AnadirTabPage(tabPageOposicionesList);
+            comboBoxEstado.SelectedItem = "En Trámite";
+            cmbSituacionActual.SelectedIndex = 0;
+            cmbSituacionActual2.SelectedIndex = 0;
+            verificarBotones();
+            EliminarTabPage(tabPageReportes);
         }
 
         private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
@@ -1568,7 +1578,7 @@ namespace Presentacion.Marcas_Internacionales
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -1618,6 +1628,8 @@ namespace Presentacion.Marcas_Internacionales
                 await browser.CloseAsync();
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                System.Diagnostics.Process.Start("explorer.exe", System.IO.Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -1629,9 +1641,8 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnExportarPDF_Click(object sender, EventArgs e)
         {
-            DataTable datos = dtgReportesOp.DataSource as DataTable;
 
-            if (datos != null)
+            if (dtgReportesOp.DataSource is DataTable datos && datos.Rows.Count > 0)
             {
                 CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
             }
@@ -1666,7 +1677,7 @@ namespace Presentacion.Marcas_Internacionales
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoForagro1.Save(tempLogoPath);
+                    Properties.Resources.logo_comprimido_foragro.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -1716,6 +1727,8 @@ namespace Presentacion.Marcas_Internacionales
                     // Mostrar mensaje de éxito
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    System.Diagnostics.Process.Start("explorer.exe", System.IO.Path.GetDirectoryName(saveFileDialog.FileName));
+
                 }
                 catch (Exception ex)
                 {
@@ -2511,7 +2524,7 @@ namespace Presentacion.Marcas_Internacionales
                     await CargarDatosLicenciasUsoAsync();
                     FrmAlerta exito = new FrmAlerta("LICENCIA DE USO ELIMINADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     exito.ShowDialog();
-                   
+
                 }
                 else
                 {
@@ -2578,7 +2591,20 @@ namespace Presentacion.Marcas_Internacionales
                 tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
             }
         }
-
+        private void CentrarDataGridDentroDelPanel()
+        {
+            if (panelDataGridView.Width > dtgReportesOp.Width)
+            {
+                int x = (panelDataGridView.Width - dtgReportesOp.Width) / 2;
+                int y = dtgReportesOp.Location.Y;
+                dtgReportesOp.Location = new System.Drawing.Point(x, y);
+            }
+            else
+            {
+                // Si el DataGridView ocupa todo el ancho, alinearlo a la izquierda
+                dtgReportesOp.Location = new System.Drawing.Point(0, dtgReportesOp.Location.Y);
+            }
+        }
         private void CentrarDataGridView()
         {
             //panelDataGridView.Visible = false;
@@ -2600,7 +2626,7 @@ namespace Presentacion.Marcas_Internacionales
                 panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
             }
 
-          
+
         }
 
 
@@ -2625,6 +2651,7 @@ namespace Presentacion.Marcas_Internacionales
             CentrarPanel();
             CentrarTableLayoutReporte();
             CentrarDataGridView();
+            CentrarDataGridDentroDelPanel(); // <<--- Agregado
             PosicionarPanelDebajoDerecha();
         }
 
@@ -2643,6 +2670,17 @@ namespace Presentacion.Marcas_Internacionales
         {
             buscando1 = false;
             Editar();
+        }
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            AnadirTabPage(tabPageOposicionesList);
+            comboBoxEstado.SelectedItem = "En Trámite";
+            cmbSituacionActual.SelectedIndex = 0;
+            cmbSituacionActual2.SelectedIndex = 0;
+
+            verificarBotones();
+            EliminarTabPage(tabPageReportes);
         }
     }
 }

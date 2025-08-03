@@ -41,6 +41,7 @@ namespace Presentacion.Patentes
             InitializeComponent();
             archivoSubido = false;
             this.Load += FrmMostrarTramiteRenovacionPatente_Load;
+            dateTimePFecha_vencimiento.Enabled = true;
         }
         private async Task LoadPatentes()
         {
@@ -525,6 +526,21 @@ namespace Presentacion.Patentes
             // Validar campos 
             if (!ValidarCampos(caso, expediente, nombre, tipo, anualidad, estado, registroChek, registro, folio, libro))
             {
+                return;
+            }
+
+            if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
+            {
+                FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE RENOVACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+                return;
+            }
+
+            if (estado == "Trámite de traspaso" && string.IsNullOrEmpty(etrasp))
+            {
+                FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE TRASPASO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                alerta.ShowDialog();
+
                 return;
             }
 
@@ -1482,53 +1498,22 @@ namespace Presentacion.Patentes
 
         private void txtERenovacion_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtERenovacion.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+           
         }
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+           
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
 
-            }
         }
         private List<string> ListarNombresDeArchivos(string idMarca)
         {

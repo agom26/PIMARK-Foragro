@@ -56,6 +56,81 @@ namespace Presentacion.Marcas_Internacionales
             btnAdjuntarT.Visible = false;
             dtgMarcasIn.DataBindingComplete += dtgMarcasIn_DataBindingComplete;
 
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnAbandonar.Visible = false;
+                btnDesistir.Visible = false;
+                btnEditar2.Visible = false;
+                btnOposicion.Visible = false;
+                btnAgregarAgente.Enabled = false;
+                btnAgregarCliente.Enabled = false;
+                btnAgregarTitular.Enabled = false;
+                btnEditarEstadoHistorial.Visible = false;
+
+                btnAdjuntarT.Visible = false;
+                btnAdjuntarArchivo.Visible = false;
+                btnEliminarArchivo.Visible = false;
+
+                btnQuitarImagen.Visible = false;
+                btnSubirImagen.Visible = false;
+
+                txtExpediente.ReadOnly = true;
+                txtNombre.ReadOnly = true;
+                txtLibro.ReadOnly = true;
+                txtRegistro.ReadOnly = true;
+                txtFolio.ReadOnly = true;
+                txtClase.ReadOnly = true;
+                //txtERenovacion.ReadOnly = true;
+                //txtETraspaso.ReadOnly = true;
+                txtNombreAgente.ReadOnly = true;
+                txtNombreCliente.ReadOnly = true;
+                txtNombreTitular.ReadOnly = true;
+                txtUbicacion.ReadOnly = true;
+                richTextBox1.ReadOnly = true;
+                comboBoxTipoSigno.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+
+                dateTimePFecha_vencimiento.Enabled = false;
+            }
+            else
+            {
+                btnAbandonar.Visible = true;
+                btnDesistir.Visible = true;
+                btnEditar2.Visible = true;
+                btnOposicion.Visible = true;
+                btnAgregarAgente.Enabled = true;
+                btnAgregarCliente.Enabled = true;
+                btnAgregarTitular.Enabled = true;
+                btnEditarEstadoHistorial.Visible = true;
+
+                btnAdjuntarT.Visible = true;
+                btnAdjuntarArchivo.Visible = true;
+                btnEliminarArchivo.Visible = true;
+
+                btnQuitarImagen.Visible = true;
+                btnSubirImagen.Visible = true;
+
+                txtExpediente.ReadOnly = false;
+                txtNombre.ReadOnly = false;
+                txtLibro.ReadOnly = false;
+                txtRegistro.ReadOnly = false;
+                txtFolio.ReadOnly = false;
+                txtClase.ReadOnly = false;
+                //txtERenovacion.ReadOnly = false;
+                //txtETraspaso.ReadOnly = false;
+                txtNombreAgente.ReadOnly = false;
+                txtNombreCliente.ReadOnly = false;
+                txtNombreTitular.ReadOnly = false;
+                txtUbicacion.ReadOnly = false;
+                richTextBox1.ReadOnly = false;
+                comboBoxTipoSigno.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+            }
+
         }
 
         private void EliminarTabPage(TabPage nombre)
@@ -269,6 +344,8 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     return;
                 }
+
+
                 /*
                 if (logo == null)
                 {
@@ -308,16 +385,27 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                         agregoEstado = false;
-
+                        FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmAlerta.ShowDialog();
+                        SeleccionarMarca.idN = 0;
+                        EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageListaArchivos);
+                        await LoadMarcas();
+                        AnadirTabPage(tabPageIngresadasList);
+                        LimpiarControles();
                     }
-                    FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    frmAlerta.ShowDialog();
-                    SeleccionarMarca.idN = 0;
-                    EliminarTabPage(tabPageHistorialMarca);
-                    EliminarTabPage(tabPageListaArchivos);
-                    await LoadMarcas();
-                    AnadirTabPage(tabPageIngresadasList);
-                    LimpiarControles();
+                    else
+                    {
+                        FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmAlerta.ShowDialog();
+                        SeleccionarMarca.idN = 0;
+                        EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageListaArchivos);
+                        await LoadMarcas();
+                        AnadirTabPage(tabPageIngresadasList);
+                        LimpiarControles();
+                    }
+                        
                 }
                 else
                 {
@@ -745,7 +833,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Enabled = true;
                 }
             }
             else
@@ -792,7 +880,7 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            dateTimePFecha_vencimiento.Enabled = false;
+                            dateTimePFecha_vencimiento.Enabled = true;
                         }
                     }
                     else
@@ -1596,38 +1684,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-            }
+            
         }
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)
@@ -1966,7 +2033,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                dateTimePFecha_vencimiento.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = true;
             }
         }
 

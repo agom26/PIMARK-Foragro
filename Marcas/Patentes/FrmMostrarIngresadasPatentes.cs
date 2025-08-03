@@ -43,7 +43,7 @@ namespace Presentacion.Patentes
             btnAdjuntarT.Visible = false;
             this.Load += FrmMostrarIngresadasPatentes_Load;
             archivoSubido = false;
-
+            dateTimePFecha_vencimiento.Enabled = true;
         }
         private async Task LoadPatentes()
         {
@@ -1476,41 +1476,17 @@ namespace Presentacion.Patentes
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+           
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)

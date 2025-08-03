@@ -63,10 +63,8 @@ namespace Presentacion
 
         private async void roundedButton3_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
             mainForm.openChildForm(new FrmVencimientos());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private void FrmDashboard3_Load(object sender, EventArgs e)
@@ -76,98 +74,86 @@ namespace Presentacion
 
         private async void iconPictureBox2_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void roundedButton4_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void iconPictureBox1_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void label1_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void panel5_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void roundedButton5_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void panel6_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void label2_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmMarcasIntRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+          
         }
 
         private async void iconPictureBox3_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmMarcasIntRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void label3_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmMarcasIntRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void panel8_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmMarcasIntRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private void panel8_Paint(object sender, PaintEventArgs e)

@@ -248,7 +248,6 @@
             // 
             // dateFechVencNueva
             // 
-            dateFechVencNueva.Enabled = false;
             dateFechVencNueva.Format = DateTimePickerFormat.Short;
             dateFechVencNueva.Location = new Point(264, 172);
             dateFechVencNueva.Name = "dateFechVencNueva";

@@ -46,7 +46,7 @@ namespace Presentacion.Reportes
             typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
                            .SetValue(control, enable, null);
         }
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
+        private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas, string titulo)
         {
             // Buscar la ruta de Chrome automáticamente
             string chromePath = "chrome"; // Intentará usar Chrome desde PATH
@@ -137,7 +137,7 @@ namespace Presentacion.Reportes
                     string base64Logo;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Properties.Resources.logoForagro1.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Properties.Resources.logo_comprimido_foragro.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byte[] imageBytes = ms.ToArray();
                         base64Logo = Convert.ToBase64String(imageBytes);
                     }
@@ -234,6 +234,8 @@ namespace Presentacion.Reportes
                 // Confirmar que el PDF se ha generado
                 FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
+                System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(pdfFilePath));
+
             }
             else
             {
@@ -323,7 +325,7 @@ namespace Presentacion.Reportes
             }
         }
         */
-        public void ExportarDataTableAExcel(DataTable dataTable)
+        public async Task ExportarDataTableAExcel(DataTable dataTable)
         {
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
@@ -347,7 +349,7 @@ namespace Presentacion.Reportes
                     string tempLogoPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "temp_logo.png");
 
                     // Guardar el recurso de imagen en un archivo temporal
-                    Properties.Resources.logoForagro1.Save(tempLogoPath);
+                    Properties.Resources.logo_comprimido_foragro.Save(tempLogoPath);
 
                     using (var workbook = new XLWorkbook())
                     {
@@ -397,6 +399,8 @@ namespace Presentacion.Reportes
                     // Mostrar mensaje de éxito
                     FrmAlerta alerta = new FrmAlerta("ARCHIVO GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
+                    System.Diagnostics.Process.Start("explorer.exe", Path.GetDirectoryName(saveFileDialog.FileName));
+
                 }
                 catch (Exception ex)
                 {
@@ -951,7 +955,12 @@ namespace Presentacion.Reportes
 
             if (datos != null)
             {
-                CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                Func<Task> tarea = () => CrearPdfDesdeHtmlConLogoYDataTable(datos, numRegistros, escala, titulo);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
+                
             }
             else
             {
@@ -966,7 +975,11 @@ namespace Presentacion.Reportes
 
             if (datos != null)
             {
-                ExportarDataTableAExcel(datos);
+                Func<Task> tarea = () => ExportarDataTableAExcel(datos);
+                using (FrmLoading frm = new FrmLoading(tarea))
+                {
+                    frm.ShowDialog();
+                }
             }
             else
             {

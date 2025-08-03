@@ -24,16 +24,50 @@ namespace Presentacion.Personas
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+
+        public void Permisos()
+        {
+            if (UsuarioActivo.isAdmin)
+            {
+                Habilitar();
+                btnEliminarTitular.Visible = true;
+
+                ibtnAgregar.Visible = true;
+            }
+            else if (UsuarioActivo.soloLectura)
+            {
+                btnEliminarTitular.Visible = false;
+                ibtnAgregar.Visible = false;
+                btnGuardarU.Visible = false;
+
+
+                txtCorreoContacto.ReadOnly = true;
+                txtDireccionTitular.ReadOnly = true;
+                txtNitTitular.ReadOnly = true;
+                txtNombreContacto.ReadOnly = true;
+                txtNombreTitular.ReadOnly = true;
+                comboBox1.Enabled = false;
+                txtTelefonoContacto.ReadOnly = true;
+            }
+            else if(UsuarioActivo.soloLectura==false)
+            {
+                btnEliminarTitular.Visible = false;
+                ibtnAgregar.Visible = true;
+                btnGuardarU.Visible = true;
+                txtCorreoContacto.ReadOnly = false;
+                txtDireccionTitular.ReadOnly = false;
+                txtNitTitular.ReadOnly = false;
+                txtNombreContacto.ReadOnly = false;
+                txtNombreTitular.ReadOnly = false;
+                comboBox1.Enabled = true;
+                txtTelefonoContacto.ReadOnly = false;
+            }
+        }
         public FrmAdministrarTitulares()
         {
             InitializeComponent();
             this.Load += FrmAdministrarTitulares_Load; // Mueve la lógica de carga aquí
-            if (UsuarioActivo.isAdmin == false)
-            {
-                ibtnEditar.Visible = false;
-                btnEliminarTitular.Visible = false;
-
-            }
+            Permisos();
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -104,6 +138,7 @@ namespace Presentacion.Personas
             txtNombreContacto.Enabled = true;
             btnGuardarU.Visible = true;
         }
+
         public void Deshabilitar()
         {
             txtNombreTitular.Enabled = false;
@@ -151,7 +186,7 @@ namespace Presentacion.Personas
 
         public async Task Editar()
         {
-            Habilitar();
+            
             if (dtgTitulares.SelectedRows.Count > 0)
             {
                 tabControl1.Visible = false;
@@ -201,7 +236,7 @@ namespace Presentacion.Personas
 
         private void ibtnAgregar_Click(object sender, EventArgs e)
         {
-            Habilitar();
+            
             LimpiarCampos();
             // Asegúrate de que el tabPageUserDetail esté agregado al TabControl (solo si no está ya agregado)
             AnadirTabPage(tabTitularDetail);
@@ -251,6 +286,7 @@ namespace Presentacion.Personas
 
             // Eliminar la tabPage de detalle
             tabControl1.TabPages.Remove(tabTitularDetail);
+            Permisos();
         }
 
         private async void ibtnEliminar_Click(object sender, EventArgs e)
@@ -379,7 +415,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                    Deshabilitar();
+                    
                     AnadirTabPage(tabTitularDetail);
                 }
                 else

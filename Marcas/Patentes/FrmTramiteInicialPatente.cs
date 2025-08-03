@@ -35,7 +35,8 @@ namespace Presentacion.Patentes
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
             ActualizarFechaVencimiento();
-            mostrarPanelRegistro("no");
+            mostrarPanelRegistro("no"); 
+            dateTimePFecha_vencimiento.Enabled = true;
         }
 
         private bool ValidarCampo(string campo)
@@ -533,41 +534,17 @@ namespace Presentacion.Patentes
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtRegistro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtFolio.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true && string.IsNullOrEmpty(txtLibro.Text))
-            {
-                DatosRegistro.peligro = true;
-            }
-            else
-            {
-                DatosRegistro.peligro = false;
-
-            }
+            
         }
 
         private void btnAdjuntarT_Click(object sender, EventArgs e)

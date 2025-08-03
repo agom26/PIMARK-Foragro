@@ -65,10 +65,9 @@ namespace Presentacion
 
         private async void roundedButton5_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmVencimientos());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void roundedButton2_MouseDown(object sender, MouseEventArgs e)
@@ -81,74 +80,61 @@ namespace Presentacion
 
         private async void panel10_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             //mainForm.openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void iconPictureBox1_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
-           // mainForm.openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void label1_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
-            //mainForm.openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void panel11_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmReportes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void iconPictureBox2_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmReportes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void label2_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmReportes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void panel12_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void iconPictureBox3_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+            
             mainForm.openChildForm(new FrmRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+          
         }
 
         private async void label3_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private void FrmDashboard_Load(object sender, EventArgs e)
@@ -158,34 +144,29 @@ namespace Presentacion
 
         private async void panel14_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             mainForm.openChildForm(new FrmReportes());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void panel15_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
             mainForm.openChildForm(new FrmRegistradas());
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+            
         }
 
         private async void panel13_Click(object sender, EventArgs e)
         {
-            mainForm.DisableButtons();
+           
             //mainForm.openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
 
         private async void panel10_Paint(object sender, PaintEventArgs e)
         {
-            mainForm.DisableButtons();
+           
             //mainForm.openChildForm(new FrmTramiteIn(this));
-            await Task.Delay(1000);
-            mainForm.EnableButtons();
+           
         }
     }
 }

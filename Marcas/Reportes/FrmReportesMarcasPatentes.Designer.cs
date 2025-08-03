@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel24 = new Panel();
@@ -131,7 +131,7 @@
             panel24.Controls.Add(panel27);
             panel24.Location = new Point(8, 5);
             panel24.Name = "panel24";
-            panel24.Size = new Size(758, 52);
+            panel24.Size = new Size(809, 75);
             panel24.TabIndex = 245;
             // 
             // panel25
@@ -140,7 +140,7 @@
             panel25.Dock = DockStyle.Left;
             panel25.Location = new Point(0, 0);
             panel25.Name = "panel25";
-            panel25.Size = new Size(0, 52);
+            panel25.Size = new Size(0, 75);
             panel25.TabIndex = 170;
             // 
             // panel27
@@ -148,9 +148,9 @@
             panel27.Anchor = AnchorStyles.Top;
             panel27.AutoSize = true;
             panel27.Controls.Add(roundedButton10);
-            panel27.Location = new Point(228, 0);
+            panel27.Location = new Point(253, 0);
             panel27.Name = "panel27";
-            panel27.Size = new Size(343, 49);
+            panel27.Size = new Size(343, 67);
             panel27.TabIndex = 169;
             // 
             // roundedButton10
@@ -170,7 +170,7 @@
             roundedButton10.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton10.Location = new Point(0, 0);
             roundedButton10.Name = "roundedButton10";
-            roundedButton10.Size = new Size(343, 49);
+            roundedButton10.Size = new Size(343, 67);
             roundedButton10.TabIndex = 164;
             roundedButton10.Text = "REPORTES";
             roundedButton10.TextColor = Color.Black;
@@ -248,7 +248,7 @@
             tableLayoutPanelReportes.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanelReportes.Controls.Add(panel6, 1, 0);
             tableLayoutPanelReportes.Controls.Add(panel5, 0, 0);
-            tableLayoutPanelReportes.Location = new Point(36, 56);
+            tableLayoutPanelReportes.Location = new Point(44, 86);
             tableLayoutPanelReportes.MinimumSize = new Size(747, 534);
             tableLayoutPanelReportes.Name = "tableLayoutPanelReportes";
             tableLayoutPanelReportes.RowCount = 1;
@@ -280,9 +280,9 @@
             panel6.Controls.Add(checkBoxReigstro);
             panel6.Controls.Add(checkBoxTitular);
             panel6.Controls.Add(checkBoxVencimiento);
-            panel6.Location = new Point(376, 3);
+            panel6.Location = new Point(376, 13);
             panel6.Name = "panel6";
-            panel6.Size = new Size(364, 528);
+            panel6.Size = new Size(364, 507);
             panel6.TabIndex = 244;
             // 
             // roundedButton1
@@ -297,7 +297,7 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Century Gothic", 10F);
             roundedButton1.ForeColor = Color.Black;
-            roundedButton1.Location = new Point(106, 394);
+            roundedButton1.Location = new Point(130, 339);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(194, 35);
             roundedButton1.TabIndex = 244;
@@ -318,7 +318,7 @@
             btnAgenteReporte.FlatStyle = FlatStyle.Flat;
             btnAgenteReporte.Font = new Font("Century Gothic", 10F);
             btnAgenteReporte.ForeColor = Color.Black;
-            btnAgenteReporte.Location = new Point(106, 302);
+            btnAgenteReporte.Location = new Point(130, 247);
             btnAgenteReporte.Name = "btnAgenteReporte";
             btnAgenteReporte.Size = new Size(194, 35);
             btnAgenteReporte.TabIndex = 243;
@@ -339,7 +339,7 @@
             btnTitularReporte.FlatStyle = FlatStyle.Flat;
             btnTitularReporte.Font = new Font("Century Gothic", 10F);
             btnTitularReporte.ForeColor = Color.Black;
-            btnTitularReporte.Location = new Point(106, 210);
+            btnTitularReporte.Location = new Point(130, 155);
             btnTitularReporte.Name = "btnTitularReporte";
             btnTitularReporte.Size = new Size(194, 35);
             btnTitularReporte.TabIndex = 242;
@@ -350,7 +350,7 @@
             // 
             // richTextBoxCliente
             // 
-            richTextBoxCliente.Location = new Point(76, 434);
+            richTextBoxCliente.Location = new Point(91, 379);
             richTextBoxCliente.Margin = new Padding(3, 2, 3, 2);
             richTextBoxCliente.Name = "richTextBoxCliente";
             richTextBoxCliente.ReadOnly = true;
@@ -363,7 +363,7 @@
             // 
             checkBoxSolicitud.AutoSize = true;
             checkBoxSolicitud.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxSolicitud.Location = new Point(3, 81);
+            checkBoxSolicitud.Location = new Point(18, 26);
             checkBoxSolicitud.Margin = new Padding(3, 2, 3, 2);
             checkBoxSolicitud.Name = "checkBoxSolicitud";
             checkBoxSolicitud.Size = new Size(97, 23);
@@ -374,7 +374,7 @@
             // dtpFechaRegistroFinal
             // 
             dtpFechaRegistroFinal.Format = DateTimePickerFormat.Short;
-            dtpFechaRegistroFinal.Location = new Point(218, 127);
+            dtpFechaRegistroFinal.Location = new Point(233, 72);
             dtpFechaRegistroFinal.Margin = new Padding(3, 2, 3, 2);
             dtpFechaRegistroFinal.Name = "dtpFechaRegistroFinal";
             dtpFechaRegistroFinal.Size = new Size(103, 24);
@@ -385,7 +385,7 @@
             // 
             checkBoxCliente.AutoSize = true;
             checkBoxCliente.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxCliente.Location = new Point(3, 403);
+            checkBoxCliente.Location = new Point(18, 348);
             checkBoxCliente.Margin = new Padding(3, 2, 3, 2);
             checkBoxCliente.Name = "checkBoxCliente";
             checkBoxCliente.Size = new Size(72, 23);
@@ -396,7 +396,7 @@
             // dtpFRegistroInicial
             // 
             dtpFRegistroInicial.Format = DateTimePickerFormat.Short;
-            dtpFRegistroInicial.Location = new Point(106, 127);
+            dtpFRegistroInicial.Location = new Point(121, 72);
             dtpFRegistroInicial.Margin = new Padding(3, 2, 3, 2);
             dtpFRegistroInicial.Name = "dtpFRegistroInicial";
             dtpFRegistroInicial.Size = new Size(103, 24);
@@ -405,7 +405,7 @@
             // 
             // richTextBoxAgente
             // 
-            richTextBoxAgente.Location = new Point(76, 342);
+            richTextBoxAgente.Location = new Point(91, 287);
             richTextBoxAgente.Margin = new Padding(3, 2, 3, 2);
             richTextBoxAgente.Name = "richTextBoxAgente";
             richTextBoxAgente.ReadOnly = true;
@@ -416,7 +416,7 @@
             // dtpSolicitudFinal
             // 
             dtpSolicitudFinal.Format = DateTimePickerFormat.Short;
-            dtpSolicitudFinal.Location = new Point(218, 84);
+            dtpSolicitudFinal.Location = new Point(233, 29);
             dtpSolicitudFinal.Margin = new Padding(3, 2, 3, 2);
             dtpSolicitudFinal.Name = "dtpSolicitudFinal";
             dtpSolicitudFinal.Size = new Size(103, 24);
@@ -425,7 +425,7 @@
             // dtpVencimientoInicial
             // 
             dtpVencimientoInicial.Format = DateTimePickerFormat.Short;
-            dtpVencimientoInicial.Location = new Point(106, 173);
+            dtpVencimientoInicial.Location = new Point(121, 118);
             dtpVencimientoInicial.Margin = new Padding(3, 2, 3, 2);
             dtpVencimientoInicial.Name = "dtpVencimientoInicial";
             dtpVencimientoInicial.Size = new Size(103, 24);
@@ -435,7 +435,7 @@
             // dtpSolicitudInicial
             // 
             dtpSolicitudInicial.Format = DateTimePickerFormat.Short;
-            dtpSolicitudInicial.Location = new Point(106, 84);
+            dtpSolicitudInicial.Location = new Point(121, 29);
             dtpSolicitudInicial.Margin = new Padding(3, 2, 3, 2);
             dtpSolicitudInicial.Name = "dtpSolicitudInicial";
             dtpSolicitudInicial.Size = new Size(103, 24);
@@ -444,7 +444,7 @@
             // 
             // richTextBoxTitular
             // 
-            richTextBoxTitular.Location = new Point(76, 250);
+            richTextBoxTitular.Location = new Point(91, 195);
             richTextBoxTitular.Margin = new Padding(3, 2, 3, 2);
             richTextBoxTitular.Name = "richTextBoxTitular";
             richTextBoxTitular.ReadOnly = true;
@@ -456,7 +456,7 @@
             // dtpVencimientoFinal
             // 
             dtpVencimientoFinal.Format = DateTimePickerFormat.Short;
-            dtpVencimientoFinal.Location = new Point(218, 173);
+            dtpVencimientoFinal.Location = new Point(233, 118);
             dtpVencimientoFinal.Margin = new Padding(3, 2, 3, 2);
             dtpVencimientoFinal.Name = "dtpVencimientoFinal";
             dtpVencimientoFinal.Size = new Size(103, 24);
@@ -467,7 +467,7 @@
             // 
             checkBoxAgente.AutoSize = true;
             checkBoxAgente.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxAgente.Location = new Point(3, 311);
+            checkBoxAgente.Location = new Point(18, 256);
             checkBoxAgente.Margin = new Padding(3, 2, 3, 2);
             checkBoxAgente.Name = "checkBoxAgente";
             checkBoxAgente.Size = new Size(78, 23);
@@ -479,7 +479,7 @@
             // 
             checkBoxReigstro.AutoSize = true;
             checkBoxReigstro.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxReigstro.Location = new Point(3, 127);
+            checkBoxReigstro.Location = new Point(18, 72);
             checkBoxReigstro.Margin = new Padding(3, 2, 3, 2);
             checkBoxReigstro.Name = "checkBoxReigstro";
             checkBoxReigstro.Size = new Size(92, 23);
@@ -491,7 +491,7 @@
             // 
             checkBoxTitular.AutoSize = true;
             checkBoxTitular.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxTitular.Location = new Point(3, 219);
+            checkBoxTitular.Location = new Point(18, 164);
             checkBoxTitular.Margin = new Padding(3, 2, 3, 2);
             checkBoxTitular.Name = "checkBoxTitular";
             checkBoxTitular.Size = new Size(67, 23);
@@ -503,7 +503,7 @@
             // 
             checkBoxVencimiento.AutoSize = true;
             checkBoxVencimiento.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxVencimiento.Location = new Point(3, 174);
+            checkBoxVencimiento.Location = new Point(18, 119);
             checkBoxVencimiento.Margin = new Padding(3, 2, 3, 2);
             checkBoxVencimiento.Name = "checkBoxVencimiento";
             checkBoxVencimiento.Size = new Size(75, 23);
@@ -531,9 +531,9 @@
             panel5.Controls.Add(checkBoxFolio);
             panel5.Controls.Add(comboBoxPais);
             panel5.Controls.Add(checkBoxPais);
-            panel5.Location = new Point(8, 3);
+            panel5.Location = new Point(8, 13);
             panel5.Name = "panel5";
-            panel5.Size = new Size(362, 528);
+            panel5.Size = new Size(362, 508);
             panel5.TabIndex = 243;
             panel5.Paint += panel5_Paint;
             // 
@@ -545,7 +545,7 @@
             comboBoxObjeto.Font = new Font("Century Gothic", 9F);
             comboBoxObjeto.FormattingEnabled = true;
             comboBoxObjeto.Items.AddRange(new object[] { "Marcas nacionales", "Marcas internacionales", "Marcas nacionales e internacionales", "Patentes", "Vencimientos marcas internacionales", "Vencimientos marcas nacionales", "Vencimientos marcas nacionales e internacionales", "Vencimientos patentes" });
-            comboBoxObjeto.Location = new Point(8, 83);
+            comboBoxObjeto.Location = new Point(19, 26);
             comboBoxObjeto.Margin = new Padding(3, 2, 3, 2);
             comboBoxObjeto.Name = "comboBoxObjeto";
             comboBoxObjeto.Size = new Size(305, 25);
@@ -554,7 +554,7 @@
             // 
             // txtClase
             // 
-            txtClase.Location = new Point(85, 405);
+            txtClase.Location = new Point(96, 348);
             txtClase.Margin = new Padding(3, 2, 3, 2);
             txtClase.Name = "txtClase";
             txtClase.Size = new Size(228, 24);
@@ -564,7 +564,7 @@
             // 
             checkBoxEstado.AutoSize = true;
             checkBoxEstado.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxEstado.Location = new Point(3, 127);
+            checkBoxEstado.Location = new Point(14, 70);
             checkBoxEstado.Margin = new Padding(3, 2, 3, 2);
             checkBoxEstado.Name = "checkBoxEstado";
             checkBoxEstado.Size = new Size(75, 23);
@@ -576,7 +576,7 @@
             // 
             checkBoxClase.AutoSize = true;
             checkBoxClase.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxClase.Location = new Point(3, 406);
+            checkBoxClase.Location = new Point(14, 349);
             checkBoxClase.Margin = new Padding(3, 2, 3, 2);
             checkBoxClase.Name = "checkBoxClase";
             checkBoxClase.Size = new Size(66, 23);
@@ -586,7 +586,7 @@
             // 
             // txtRegistro
             // 
-            txtRegistro.Location = new Point(85, 359);
+            txtRegistro.Location = new Point(96, 302);
             txtRegistro.Margin = new Padding(3, 2, 3, 2);
             txtRegistro.Name = "txtRegistro";
             txtRegistro.Size = new Size(228, 24);
@@ -601,7 +601,7 @@
             comboBoxEstado.Font = new Font("Century Gothic", 9F);
             comboBoxEstado.FormattingEnabled = true;
             comboBoxEstado.Items.AddRange(new object[] { "", "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Orden de pago", "Abandono", "Registrada", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso" });
-            comboBoxEstado.Location = new Point(85, 129);
+            comboBoxEstado.Location = new Point(96, 72);
             comboBoxEstado.Margin = new Padding(3, 2, 3, 2);
             comboBoxEstado.Name = "comboBoxEstado";
             comboBoxEstado.Size = new Size(228, 25);
@@ -611,7 +611,7 @@
             // 
             checkBoxRegistro.AutoSize = true;
             checkBoxRegistro.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxRegistro.Location = new Point(3, 360);
+            checkBoxRegistro.Location = new Point(14, 303);
             checkBoxRegistro.Margin = new Padding(3, 2, 3, 2);
             checkBoxRegistro.Name = "checkBoxRegistro";
             checkBoxRegistro.Size = new Size(81, 23);
@@ -621,7 +621,7 @@
             // 
             // txtTomo
             // 
-            txtTomo.Location = new Point(85, 313);
+            txtTomo.Location = new Point(96, 256);
             txtTomo.Margin = new Padding(3, 2, 3, 2);
             txtTomo.Name = "txtTomo";
             txtTomo.Size = new Size(228, 24);
@@ -629,7 +629,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(85, 221);
+            txtNombre.Location = new Point(96, 164);
             txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.Multiline = true;
             txtNombre.Name = "txtNombre";
@@ -640,7 +640,7 @@
             // 
             checkBoxTomo.AutoSize = true;
             checkBoxTomo.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxTomo.Location = new Point(3, 311);
+            checkBoxTomo.Location = new Point(14, 254);
             checkBoxTomo.Margin = new Padding(3, 2, 3, 2);
             checkBoxTomo.Name = "checkBoxTomo";
             checkBoxTomo.Size = new Size(64, 23);
@@ -652,7 +652,7 @@
             // 
             checkBoxNombre.AutoSize = true;
             checkBoxNombre.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxNombre.Location = new Point(3, 222);
+            checkBoxNombre.Location = new Point(14, 165);
             checkBoxNombre.Margin = new Padding(3, 2, 3, 2);
             checkBoxNombre.Name = "checkBoxNombre";
             checkBoxNombre.Size = new Size(83, 23);
@@ -662,7 +662,7 @@
             // 
             // txtFolio
             // 
-            txtFolio.Location = new Point(85, 267);
+            txtFolio.Location = new Point(96, 210);
             txtFolio.Margin = new Padding(3, 2, 3, 2);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(228, 24);
@@ -673,7 +673,7 @@
             // 
             checkBoxFolio.AutoSize = true;
             checkBoxFolio.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxFolio.Location = new Point(3, 268);
+            checkBoxFolio.Location = new Point(14, 211);
             checkBoxFolio.Margin = new Padding(3, 2, 3, 2);
             checkBoxFolio.Name = "checkBoxFolio";
             checkBoxFolio.Size = new Size(59, 23);
@@ -689,7 +689,7 @@
             comboBoxPais.Font = new Font("Century Gothic", 9F);
             comboBoxPais.FormattingEnabled = true;
             comboBoxPais.Items.AddRange(new object[] { "", "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Baréin", "Bangladés", "Barbados", "Bielorrusia", "Birmania (Myanmar)", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo (Congo-Brazzaville)", "Corea del Norte", "Corea del Sur", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Eswatini", "Etiopía", "Fiyi", "Filipinas", "Finlandia", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Grecia", "Granada", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "Islandia", "India", "Indonesia", "Irán", "Irak", "Irlanda", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kosovo", "Kuwait", "Laos", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Pakistán", "Palaos", "Palestina", "Panamá", "Paraguay", "Perú", "Polonia", "Portugal", "Qatar", "República Centroafricana", "República Checa", "República del Congo (Congo-Kinshasa)", "República Dominicana", "Rumania", "Rusia", "Ruanda", "San Cristóbal y Nieves", "San Marino", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turquía", "Turkmenistán", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabue" });
-            comboBoxPais.Location = new Point(85, 175);
+            comboBoxPais.Location = new Point(96, 118);
             comboBoxPais.Margin = new Padding(3, 2, 3, 2);
             comboBoxPais.Name = "comboBoxPais";
             comboBoxPais.Size = new Size(228, 25);
@@ -699,7 +699,7 @@
             // 
             checkBoxPais.AutoSize = true;
             checkBoxPais.BackColor = Color.FromArgb(222, 227, 234);
-            checkBoxPais.Location = new Point(3, 176);
+            checkBoxPais.Location = new Point(14, 119);
             checkBoxPais.Margin = new Padding(3, 2, 3, 2);
             checkBoxPais.Name = "checkBoxPais";
             checkBoxPais.Size = new Size(54, 23);
@@ -711,7 +711,7 @@
             // 
             panelBotones.Controls.Add(btnCancelar);
             panelBotones.Controls.Add(btnConsultar);
-            panelBotones.Location = new Point(233, 596);
+            panelBotones.Location = new Point(233, 641);
             panelBotones.Name = "panelBotones";
             panelBotones.Size = new Size(550, 68);
             panelBotones.TabIndex = 243;
@@ -775,22 +775,22 @@
             dtgReportes.AllowUserToAddRows = false;
             dtgReportes.AllowUserToDeleteRows = false;
             dtgReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtgReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             dtgReportes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dtgReportes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgReportes.BorderStyle = BorderStyle.None;
             dtgReportes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgReportes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = SystemColors.Control;
+            dataGridViewCellStyle11.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dtgReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dtgReportes.ColumnHeadersHeight = 40;
             dtgReportes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgReportes.EnableHeadersVisualStyles = false;
@@ -802,8 +802,8 @@
             dtgReportes.ReadOnly = true;
             dtgReportes.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgReportes.RowHeadersWidth = 51;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Font = new Font("Century Gothic", 9F);
+            dtgReportes.RowsDefaultCellStyle = dataGridViewCellStyle12;
             dtgReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgReportes.Size = new Size(732, 519);
             dtgReportes.TabIndex = 7;
