@@ -157,7 +157,7 @@
             btnMarcasNacionales.ImageAlign = ContentAlignment.MiddleLeft;
             btnMarcasNacionales.Location = new Point(0, 376);
             btnMarcasNacionales.Name = "btnMarcasNacionales";
-            btnMarcasNacionales.Size = new Size(243, 61);
+            btnMarcasNacionales.Size = new Size(234, 61);
             btnMarcasNacionales.TabIndex = 0;
             btnMarcasNacionales.Tag = "MARCAS NACIONALES";
             btnMarcasNacionales.Text = "     MARCAS NACIONALES";
@@ -180,7 +180,7 @@
             panelSubMenuPatentes.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuPatentes.Location = new Point(0, 1491);
             panelSubMenuPatentes.Name = "panelSubMenuPatentes";
-            panelSubMenuPatentes.Size = new Size(243, 357);
+            panelSubMenuPatentes.Size = new Size(234, 357);
             panelSubMenuPatentes.TabIndex = 12;
             panelSubMenuPatentes.Paint += panel5_Paint;
             // 
@@ -195,7 +195,7 @@
             btnDesistidasPatentes.Location = new Point(0, 282);
             btnDesistidasPatentes.Name = "btnDesistidasPatentes";
             btnDesistidasPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnDesistidasPatentes.Size = new Size(243, 47);
+            btnDesistidasPatentes.Size = new Size(234, 47);
             btnDesistidasPatentes.TabIndex = 8;
             btnDesistidasPatentes.Tag = "> DESISTIDAS";
             btnDesistidasPatentes.Text = "> DESISTIDAS";
@@ -214,7 +214,7 @@
             btnAbandonadasPatentes.Location = new Point(0, 235);
             btnAbandonadasPatentes.Name = "btnAbandonadasPatentes";
             btnAbandonadasPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadasPatentes.Size = new Size(243, 47);
+            btnAbandonadasPatentes.Size = new Size(234, 47);
             btnAbandonadasPatentes.TabIndex = 6;
             btnAbandonadasPatentes.Tag = "> ABANDONADAS";
             btnAbandonadasPatentes.Text = "> ABANDONADAS";
@@ -233,7 +233,7 @@
             btnTramiteTraspPatentes.Location = new Point(0, 188);
             btnTramiteTraspPatentes.Name = "btnTramiteTraspPatentes";
             btnTramiteTraspPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteTraspPatentes.Size = new Size(243, 47);
+            btnTramiteTraspPatentes.Size = new Size(234, 47);
             btnTramiteTraspPatentes.TabIndex = 4;
             btnTramiteTraspPatentes.Tag = "> TR. DE TRASPASO";
             btnTramiteTraspPatentes.Text = "> TR. DE TRASPASO";
@@ -252,7 +252,7 @@
             btnTramiteRenovPatentes.Location = new Point(0, 141);
             btnTramiteRenovPatentes.Name = "btnTramiteRenovPatentes";
             btnTramiteRenovPatentes.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenovPatentes.Size = new Size(243, 47);
+            btnTramiteRenovPatentes.Size = new Size(234, 47);
             btnTramiteRenovPatentes.TabIndex = 3;
             btnTramiteRenovPatentes.Tag = "> TR. DE RENOVACIÓN";
             btnTramiteRenovPatentes.Text = "> TR. DE RENOVACIÓN";
@@ -271,7 +271,7 @@
             btnPatentesRegistradas.Location = new Point(0, 94);
             btnPatentesRegistradas.Name = "btnPatentesRegistradas";
             btnPatentesRegistradas.Padding = new Padding(58, 0, 0, 0);
-            btnPatentesRegistradas.Size = new Size(243, 47);
+            btnPatentesRegistradas.Size = new Size(234, 47);
             btnPatentesRegistradas.TabIndex = 5;
             btnPatentesRegistradas.Tag = "> REGISTRADAS";
             btnPatentesRegistradas.Text = "> REGISTRADAS";
@@ -290,7 +290,7 @@
             btnTramiteInicialPatente.Location = new Point(0, 47);
             btnTramiteInicialPatente.Name = "btnTramiteInicialPatente";
             btnTramiteInicialPatente.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialPatente.Size = new Size(243, 47);
+            btnTramiteInicialPatente.Size = new Size(234, 47);
             btnTramiteInicialPatente.TabIndex = 7;
             btnTramiteInicialPatente.Tag = "> EN TRÁMITE ";
             btnTramiteInicialPatente.Text = "> EN TRÁMITE ";
@@ -309,7 +309,7 @@
             btnIngresarPatente.Location = new Point(0, 0);
             btnIngresarPatente.Name = "btnIngresarPatente";
             btnIngresarPatente.Padding = new Padding(58, 0, 0, 0);
-            btnIngresarPatente.Size = new Size(243, 47);
+            btnIngresarPatente.Size = new Size(234, 47);
             btnIngresarPatente.TabIndex = 0;
             btnIngresarPatente.Tag = "> INGRESAR PATENTE";
             btnIngresarPatente.Text = "> INGRESAR PATENTE";
@@ -356,7 +356,7 @@
             btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
             btnUsers.Location = new Point(0, 2031);
             btnUsers.Name = "btnUsers";
-            btnUsers.Size = new Size(243, 61);
+            btnUsers.Size = new Size(234, 61);
             btnUsers.TabIndex = 19;
             btnUsers.Tag = "USUARIOS";
             btnUsers.Text = "     USUARIOS";
@@ -377,7 +377,7 @@
             btnVencimientos.ImageAlign = ContentAlignment.MiddleLeft;
             btnVencimientos.Location = new Point(0, 1970);
             btnVencimientos.Name = "btnVencimientos";
-            btnVencimientos.Size = new Size(243, 61);
+            btnVencimientos.Size = new Size(234, 61);
             btnVencimientos.TabIndex = 25;
             btnVencimientos.Tag = "VENCIMIENTOS";
             btnVencimientos.Text = "    VENCIMIENTOS";
@@ -397,7 +397,7 @@
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
             btnReportes.Location = new Point(0, 1909);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(243, 61);
+            btnReportes.Size = new Size(234, 61);
             btnReportes.TabIndex = 24;
             btnReportes.Tag = "REPORTES";
             btnReportes.Text = "     REPORTES";
@@ -417,7 +417,7 @@
             btnPlazos.ImageAlign = ContentAlignment.MiddleLeft;
             btnPlazos.Location = new Point(0, 1848);
             btnPlazos.Name = "btnPlazos";
-            btnPlazos.Size = new Size(243, 61);
+            btnPlazos.Size = new Size(234, 61);
             btnPlazos.TabIndex = 29;
             btnPlazos.Tag = "PLAZOS";
             btnPlazos.Text = "    PLAZOS";
@@ -437,7 +437,7 @@
             btnCerrarSesion.ImageAlign = ContentAlignment.MiddleLeft;
             btnCerrarSesion.Location = new Point(0, 2092);
             btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Size = new Size(243, 61);
+            btnCerrarSesion.Size = new Size(234, 61);
             btnCerrarSesion.TabIndex = 26;
             btnCerrarSesion.Tag = "CERRAR SESIÓN";
             btnCerrarSesion.Text = "    CERRAR SESIÓN";
@@ -457,7 +457,7 @@
             btnPatentes.ImageAlign = ContentAlignment.MiddleLeft;
             btnPatentes.Location = new Point(0, 1430);
             btnPatentes.Name = "btnPatentes";
-            btnPatentes.Size = new Size(243, 61);
+            btnPatentes.Size = new Size(234, 61);
             btnPatentes.TabIndex = 23;
             btnPatentes.Tag = "PATENTES";
             btnPatentes.Text = "     PATENTES";
@@ -481,7 +481,7 @@
             panelSubMenuMarcasNacionales.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasNacionales.Location = new Point(0, 975);
             panelSubMenuMarcasNacionales.Name = "panelSubMenuMarcasNacionales";
-            panelSubMenuMarcasNacionales.Size = new Size(243, 455);
+            panelSubMenuMarcasNacionales.Size = new Size(234, 455);
             panelSubMenuMarcasNacionales.TabIndex = 8;
             // 
             // btnBusquedaR
@@ -497,7 +497,7 @@
             btnBusquedaR.Margin = new Padding(0);
             btnBusquedaR.Name = "btnBusquedaR";
             btnBusquedaR.Padding = new Padding(58, 0, 0, 0);
-            btnBusquedaR.Size = new Size(243, 47);
+            btnBusquedaR.Size = new Size(234, 47);
             btnBusquedaR.TabIndex = 8;
             btnBusquedaR.Tag = "> BÚSQUEDA RETROSPECTIVA";
             btnBusquedaR.Text = "> BÚSQUEDA RETROSPECTIVA";
@@ -518,7 +518,7 @@
             btnDesistidasInter.Margin = new Padding(0);
             btnDesistidasInter.Name = "btnDesistidasInter";
             btnDesistidasInter.Padding = new Padding(58, 0, 0, 0);
-            btnDesistidasInter.Size = new Size(243, 47);
+            btnDesistidasInter.Size = new Size(234, 47);
             btnDesistidasInter.TabIndex = 7;
             btnDesistidasInter.Tag = "> DESISTIDAS";
             btnDesistidasInter.Text = "> DESISTIDAS";
@@ -539,7 +539,7 @@
             btnAbandonadas.Margin = new Padding(0);
             btnAbandonadas.Name = "btnAbandonadas";
             btnAbandonadas.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadas.Size = new Size(243, 47);
+            btnAbandonadas.Size = new Size(234, 47);
             btnAbandonadas.TabIndex = 5;
             btnAbandonadas.Tag = "> ABANDONADAS";
             btnAbandonadas.Text = "> ABANDONADAS";
@@ -559,7 +559,7 @@
             btnTramiteTraspaso.Location = new Point(0, 235);
             btnTramiteTraspaso.Name = "btnTramiteTraspaso";
             btnTramiteTraspaso.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteTraspaso.Size = new Size(243, 47);
+            btnTramiteTraspaso.Size = new Size(234, 47);
             btnTramiteTraspaso.TabIndex = 4;
             btnTramiteTraspaso.Tag = "> TR. DE TRASPASO";
             btnTramiteTraspaso.Text = "> TR. DE TRASPASO";
@@ -580,7 +580,7 @@
             btnTramiteRenovacion.Margin = new Padding(0);
             btnTramiteRenovacion.Name = "btnTramiteRenovacion";
             btnTramiteRenovacion.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteRenovacion.Size = new Size(243, 47);
+            btnTramiteRenovacion.Size = new Size(234, 47);
             btnTramiteRenovacion.TabIndex = 3;
             btnTramiteRenovacion.Tag = "> TR. DE RENOVACIÓN";
             btnTramiteRenovacion.Text = "> TR. DE RENOVACIÓN";
@@ -600,7 +600,7 @@
             btnRegistradas.Location = new Point(0, 141);
             btnRegistradas.Name = "btnRegistradas";
             btnRegistradas.Padding = new Padding(58, 0, 0, 0);
-            btnRegistradas.Size = new Size(243, 47);
+            btnRegistradas.Size = new Size(234, 47);
             btnRegistradas.TabIndex = 2;
             btnRegistradas.Tag = "> REGISTRADAS";
             btnRegistradas.Text = "> REGISTRADAS";
@@ -621,7 +621,7 @@
             btnOposiciones.Margin = new Padding(0);
             btnOposiciones.Name = "btnOposiciones";
             btnOposiciones.Padding = new Padding(58, 0, 0, 0);
-            btnOposiciones.Size = new Size(243, 47);
+            btnOposiciones.Size = new Size(234, 47);
             btnOposiciones.TabIndex = 1;
             btnOposiciones.Tag = "> OPOSICIONES";
             btnOposiciones.Text = "> OPOSICIONES";
@@ -642,7 +642,7 @@
             btnEnTramite.Margin = new Padding(0);
             btnEnTramite.Name = "btnEnTramite";
             btnEnTramite.Padding = new Padding(58, 0, 0, 0);
-            btnEnTramite.Size = new Size(243, 47);
+            btnEnTramite.Size = new Size(234, 47);
             btnEnTramite.TabIndex = 6;
             btnEnTramite.Tag = "> EN TRÁMITE ";
             btnEnTramite.Text = "> EN TRÁMITE ";
@@ -663,7 +663,7 @@
             btnTramiteInicial.Margin = new Padding(0);
             btnTramiteInicial.Name = "btnTramiteInicial";
             btnTramiteInicial.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicial.Size = new Size(243, 47);
+            btnTramiteInicial.Size = new Size(234, 47);
             btnTramiteInicial.TabIndex = 0;
             btnTramiteInicial.Tag = "> INGRESAR MARCA";
             btnTramiteInicial.Text = "> INGRESAR MARCA";
@@ -677,7 +677,7 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 2153);
             panel3.Name = "panel3";
-            panel3.Size = new Size(243, 54);
+            panel3.Size = new Size(234, 54);
             panel3.TabIndex = 18;
             // 
             // button1
@@ -690,7 +690,7 @@
             button1.ForeColor = Color.White;
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
-            button1.Size = new Size(243, 54);
+            button1.Size = new Size(234, 54);
             button1.TabIndex = 0;
             button1.Text = "Desarrollado por Sitios en Red";
             button1.UseVisualStyleBackColor = false;
@@ -708,7 +708,7 @@
             btnMInternacionales.ImageAlign = ContentAlignment.MiddleLeft;
             btnMInternacionales.Location = new Point(0, 914);
             btnMInternacionales.Name = "btnMInternacionales";
-            btnMInternacionales.Size = new Size(243, 61);
+            btnMInternacionales.Size = new Size(234, 61);
             btnMInternacionales.TabIndex = 22;
             btnMInternacionales.Tag = "M.INTERNACIONALES";
             btnMInternacionales.Text = "     M. INTERNACIONALES";
@@ -733,7 +733,7 @@
             panelSubMenuMarcasInter.Font = new Font("Microsoft Sans Serif", 12F);
             panelSubMenuMarcasInter.Location = new Point(0, 437);
             panelSubMenuMarcasInter.Name = "panelSubMenuMarcasInter";
-            panelSubMenuMarcasInter.Size = new Size(243, 477);
+            panelSubMenuMarcasInter.Size = new Size(234, 477);
             panelSubMenuMarcasInter.TabIndex = 10;
             // 
             // btnDesistidasNacionales
@@ -747,7 +747,7 @@
             btnDesistidasNacionales.Location = new Point(0, 402);
             btnDesistidasNacionales.Name = "btnDesistidasNacionales";
             btnDesistidasNacionales.Padding = new Padding(58, 0, 0, 0);
-            btnDesistidasNacionales.Size = new Size(243, 47);
+            btnDesistidasNacionales.Size = new Size(234, 47);
             btnDesistidasNacionales.TabIndex = 13;
             btnDesistidasNacionales.Tag = "> DESISTIDAS";
             btnDesistidasNacionales.Text = "> DESISTIDAS";
@@ -766,7 +766,7 @@
             btnAbandonadasInter.Location = new Point(0, 355);
             btnAbandonadasInter.Name = "btnAbandonadasInter";
             btnAbandonadasInter.Padding = new Padding(58, 0, 0, 0);
-            btnAbandonadasInter.Size = new Size(243, 47);
+            btnAbandonadasInter.Size = new Size(234, 47);
             btnAbandonadasInter.TabIndex = 9;
             btnAbandonadasInter.Tag = "> ABANDONADAS";
             btnAbandonadasInter.Text = "> ABANDONADAS";
@@ -785,7 +785,7 @@
             btnTraspasoInter.Location = new Point(0, 308);
             btnTraspasoInter.Name = "btnTraspasoInter";
             btnTraspasoInter.Padding = new Padding(58, 0, 0, 0);
-            btnTraspasoInter.Size = new Size(243, 47);
+            btnTraspasoInter.Size = new Size(234, 47);
             btnTraspasoInter.TabIndex = 5;
             btnTraspasoInter.Tag = "> TR. DE TRASPASO";
             btnTraspasoInter.Text = "> TR. DE TRASPASO\r\n";
@@ -804,7 +804,7 @@
             btnRenovInter.Location = new Point(0, 248);
             btnRenovInter.Name = "btnRenovInter";
             btnRenovInter.Padding = new Padding(58, 0, 0, 0);
-            btnRenovInter.Size = new Size(243, 60);
+            btnRenovInter.Size = new Size(234, 60);
             btnRenovInter.TabIndex = 7;
             btnRenovInter.Tag = "> TR. DE RENOVACIÓN";
             btnRenovInter.Text = "> TR. DE RENOVACIÓN";
@@ -823,7 +823,7 @@
             button2.Location = new Point(0, 201);
             button2.Name = "button2";
             button2.Padding = new Padding(58, 0, 0, 0);
-            button2.Size = new Size(243, 47);
+            button2.Size = new Size(234, 47);
             button2.TabIndex = 12;
             button2.Tag = "> LICENCIAS DE USO";
             button2.Text = "> LICENCIAS DE USO";
@@ -842,7 +842,7 @@
             btnRegInter.Location = new Point(0, 154);
             btnRegInter.Name = "btnRegInter";
             btnRegInter.Padding = new Padding(58, 0, 0, 0);
-            btnRegInter.Size = new Size(243, 47);
+            btnRegInter.Size = new Size(234, 47);
             btnRegInter.TabIndex = 11;
             btnRegInter.Tag = "> REGISTRADAS";
             btnRegInter.Text = "> REGISTRADAS";
@@ -861,7 +861,7 @@
             btnOpoInter.Location = new Point(0, 94);
             btnOpoInter.Name = "btnOpoInter";
             btnOpoInter.Padding = new Padding(58, 0, 0, 0);
-            btnOpoInter.Size = new Size(243, 60);
+            btnOpoInter.Size = new Size(234, 60);
             btnOpoInter.TabIndex = 8;
             btnOpoInter.Tag = "> OPOSICIONES";
             btnOpoInter.Text = "> OPOSICIONES";
@@ -880,7 +880,7 @@
             btnIngresadasInt.Location = new Point(0, 47);
             btnIngresadasInt.Name = "btnIngresadasInt";
             btnIngresadasInt.Padding = new Padding(58, 0, 0, 0);
-            btnIngresadasInt.Size = new Size(243, 47);
+            btnIngresadasInt.Size = new Size(234, 47);
             btnIngresadasInt.TabIndex = 10;
             btnIngresadasInt.Tag = "> EN TRÁMITE ";
             btnIngresadasInt.Text = "> EN TRÁMITE ";
@@ -899,7 +899,7 @@
             btnTramiteInicialInter.Location = new Point(0, 0);
             btnTramiteInicialInter.Name = "btnTramiteInicialInter";
             btnTramiteInicialInter.Padding = new Padding(58, 0, 0, 0);
-            btnTramiteInicialInter.Size = new Size(243, 47);
+            btnTramiteInicialInter.Size = new Size(234, 47);
             btnTramiteInicialInter.TabIndex = 4;
             btnTramiteInicialInter.Tag = "> INGRESAR MARCA";
             btnTramiteInicialInter.Text = "> INGRESAR MARCA";
@@ -917,7 +917,7 @@
             panelTitularesRepresentantes.Font = new Font("Microsoft Sans Serif", 12F);
             panelTitularesRepresentantes.Location = new Point(0, 211);
             panelTitularesRepresentantes.Name = "panelTitularesRepresentantes";
-            panelTitularesRepresentantes.Size = new Size(243, 165);
+            panelTitularesRepresentantes.Size = new Size(234, 165);
             panelTitularesRepresentantes.TabIndex = 28;
             // 
             // btnGrupos2
@@ -933,7 +933,7 @@
             btnGrupos2.Location = new Point(0, 106);
             btnGrupos2.Name = "btnGrupos2";
             btnGrupos2.Padding = new Padding(58, 0, 0, 0);
-            btnGrupos2.Size = new Size(243, 47);
+            btnGrupos2.Size = new Size(234, 47);
             btnGrupos2.TabIndex = 5;
             btnGrupos2.Tag = "> GRUPOS";
             btnGrupos2.Text = "> GRUPOS";
@@ -955,7 +955,7 @@
             btnAgentes2.Location = new Point(0, 59);
             btnAgentes2.Name = "btnAgentes2";
             btnAgentes2.Padding = new Padding(58, 0, 0, 0);
-            btnAgentes2.Size = new Size(243, 47);
+            btnAgentes2.Size = new Size(234, 47);
             btnAgentes2.TabIndex = 7;
             btnAgentes2.Tag = "> AGENTES";
             btnAgentes2.Text = "> AGENTES";
@@ -977,7 +977,7 @@
             btnTitulares2.Location = new Point(0, 0);
             btnTitulares2.Name = "btnTitulares2";
             btnTitulares2.Padding = new Padding(58, 0, 0, 0);
-            btnTitulares2.Size = new Size(243, 59);
+            btnTitulares2.Size = new Size(234, 59);
             btnTitulares2.TabIndex = 0;
             btnTitulares2.Tag = "> TITULARES";
             btnTitulares2.Text = "> TITULARES";
@@ -998,7 +998,7 @@
             btnTitulares.ImageAlign = ContentAlignment.MiddleLeft;
             btnTitulares.Location = new Point(0, 150);
             btnTitulares.Name = "btnTitulares";
-            btnTitulares.Size = new Size(243, 61);
+            btnTitulares.Size = new Size(234, 61);
             btnTitulares.TabIndex = 21;
             btnTitulares.Tag = "TITULARES Y REPRESENTANTES";
             btnTitulares.Text = "     TITULARES Y REPRESENTANTES";
@@ -1018,10 +1018,10 @@
             btnInicio.ImageAlign = ContentAlignment.MiddleLeft;
             btnInicio.Location = new Point(0, 89);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(243, 61);
+            btnInicio.Size = new Size(234, 61);
             btnInicio.TabIndex = 5;
-            btnInicio.Tag = "INICIO";
-            btnInicio.Text = "     INICIO";
+            btnInicio.Tag = "INICIO1";
+            btnInicio.Text = "     INICIO1";
             btnInicio.TextAlign = ContentAlignment.MiddleRight;
             btnInicio.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnInicio.UseVisualStyleBackColor = false;
@@ -1047,7 +1047,7 @@
             iconButton1.Margin = new Padding(0);
             iconButton1.Name = "iconButton1";
             iconButton1.Padding = new Padding(9, 0, 0, 0);
-            iconButton1.Size = new Size(243, 89);
+            iconButton1.Size = new Size(234, 89);
             iconButton1.TabIndex = 16;
             iconButton1.Tag = ".";
             iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -1120,7 +1120,7 @@
             labelUsername.ForeColor = Color.White;
             labelUsername.Location = new Point(183, 32);
             labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(52, 19);
+            labelUsername.Size = new Size(72, 23);
             labelUsername.TabIndex = 3;
             labelUsername.Text = "label1";
             labelUsername.Click += labelUsername_Click;
@@ -1172,226 +1172,230 @@
             // 
             // rDropDownMenu1
             // 
+            rDropDownMenu1.ImageScalingSize = new Size(24, 24);
             rDropDownMenu1.IsMainMenu = false;
             rDropDownMenu1.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem, oPOSICIONESToolStripMenuItem, rEGISTRADASToolStripMenuItem, lICENCIASDEUSOToolStripMenuItem, tRDERENOVACIÓNToolStripMenuItem, tRDETRASPASOToolStripMenuItem, aBANDONADASToolStripMenuItem, dESISTIDASToolStripMenuItem });
             rDropDownMenu1.MenuItemHeight = 25;
             rDropDownMenu1.MenuItemTextColor = Color.Empty;
             rDropDownMenu1.Name = "rDropDownMenu1";
             rDropDownMenu1.PrimaryColor = Color.Empty;
-            rDropDownMenu1.Size = new Size(186, 202);
+            rDropDownMenu1.Size = new Size(253, 292);
             // 
             // iNGRESARMARCAToolStripMenuItem
             // 
             iNGRESARMARCAToolStripMenuItem.Name = "iNGRESARMARCAToolStripMenuItem";
-            iNGRESARMARCAToolStripMenuItem.Size = new Size(185, 22);
+            iNGRESARMARCAToolStripMenuItem.Size = new Size(252, 32);
             iNGRESARMARCAToolStripMenuItem.Text = "INGRESAR MARCA";
             iNGRESARMARCAToolStripMenuItem.Click += iNGRESARMARCAToolStripMenuItem_Click;
             // 
             // tRÁMITEINICIALToolStripMenuItem
             // 
             tRÁMITEINICIALToolStripMenuItem.Name = "tRÁMITEINICIALToolStripMenuItem";
-            tRÁMITEINICIALToolStripMenuItem.Size = new Size(185, 22);
+            tRÁMITEINICIALToolStripMenuItem.Size = new Size(252, 32);
             tRÁMITEINICIALToolStripMenuItem.Text = "EN TRÁMITE";
             tRÁMITEINICIALToolStripMenuItem.Click += tRÁMITEINICIALToolStripMenuItem_Click;
             // 
             // oPOSICIONESToolStripMenuItem
             // 
             oPOSICIONESToolStripMenuItem.Name = "oPOSICIONESToolStripMenuItem";
-            oPOSICIONESToolStripMenuItem.Size = new Size(185, 22);
+            oPOSICIONESToolStripMenuItem.Size = new Size(252, 32);
             oPOSICIONESToolStripMenuItem.Text = "OPOSICIONES";
             oPOSICIONESToolStripMenuItem.Click += oPOSICIONESToolStripMenuItem_Click;
             // 
             // rEGISTRADASToolStripMenuItem
             // 
             rEGISTRADASToolStripMenuItem.Name = "rEGISTRADASToolStripMenuItem";
-            rEGISTRADASToolStripMenuItem.Size = new Size(185, 22);
+            rEGISTRADASToolStripMenuItem.Size = new Size(252, 32);
             rEGISTRADASToolStripMenuItem.Text = "REGISTRADAS";
             rEGISTRADASToolStripMenuItem.Click += rEGISTRADASToolStripMenuItem_Click_1;
             // 
             // lICENCIASDEUSOToolStripMenuItem
             // 
             lICENCIASDEUSOToolStripMenuItem.Name = "lICENCIASDEUSOToolStripMenuItem";
-            lICENCIASDEUSOToolStripMenuItem.Size = new Size(185, 22);
+            lICENCIASDEUSOToolStripMenuItem.Size = new Size(252, 32);
             lICENCIASDEUSOToolStripMenuItem.Text = "LICENCIAS DE USO";
             lICENCIASDEUSOToolStripMenuItem.Click += lICENCIASDEUSOToolStripMenuItem_Click;
             // 
             // tRDERENOVACIÓNToolStripMenuItem
             // 
             tRDERENOVACIÓNToolStripMenuItem.Name = "tRDERENOVACIÓNToolStripMenuItem";
-            tRDERENOVACIÓNToolStripMenuItem.Size = new Size(185, 22);
+            tRDERENOVACIÓNToolStripMenuItem.Size = new Size(252, 32);
             tRDERENOVACIÓNToolStripMenuItem.Text = "TR. DE RENOVACIÓN";
             tRDERENOVACIÓNToolStripMenuItem.Click += tRDERENOVACIÓNToolStripMenuItem_Click;
             // 
             // tRDETRASPASOToolStripMenuItem
             // 
             tRDETRASPASOToolStripMenuItem.Name = "tRDETRASPASOToolStripMenuItem";
-            tRDETRASPASOToolStripMenuItem.Size = new Size(185, 22);
+            tRDETRASPASOToolStripMenuItem.Size = new Size(252, 32);
             tRDETRASPASOToolStripMenuItem.Text = "TR. DE TRASPASO";
             tRDETRASPASOToolStripMenuItem.Click += tRDETRASPASOToolStripMenuItem_Click;
             // 
             // aBANDONADASToolStripMenuItem
             // 
             aBANDONADASToolStripMenuItem.Name = "aBANDONADASToolStripMenuItem";
-            aBANDONADASToolStripMenuItem.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem.Size = new Size(252, 32);
             aBANDONADASToolStripMenuItem.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem.Click += aBANDONADASToolStripMenuItem_Click;
             // 
             // dESISTIDASToolStripMenuItem
             // 
             dESISTIDASToolStripMenuItem.Name = "dESISTIDASToolStripMenuItem";
-            dESISTIDASToolStripMenuItem.Size = new Size(185, 22);
+            dESISTIDASToolStripMenuItem.Size = new Size(252, 32);
             dESISTIDASToolStripMenuItem.Text = "DESISTIDAS";
             dESISTIDASToolStripMenuItem.Click += dESISTIDASToolStripMenuItem_Click;
             // 
             // rDropDownMenu2
             // 
+            rDropDownMenu2.ImageScalingSize = new Size(24, 24);
             rDropDownMenu2.IsMainMenu = false;
             rDropDownMenu2.Items.AddRange(new ToolStripItem[] { iNGRESARMARCAToolStripMenuItem1, tRÁMITEINICIALToolStripMenuItem1, oPOSICIONESToolStripMenuItem1, tRDERENOVACIÓToolStripMenuItem, tRDETRASPASOToolStripMenuItem1, aBANDONADASToolStripMenuItem1, aBANDONADASToolStripMenuItem3, dESISTIDASToolStripMenuItem1, bÚSQUEDASRETROSPECTIVASToolStripMenuItem });
             rDropDownMenu2.MenuItemHeight = 25;
             rDropDownMenu2.MenuItemTextColor = Color.Empty;
             rDropDownMenu2.Name = "rDropDownMenu2";
             rDropDownMenu2.PrimaryColor = Color.Empty;
-            rDropDownMenu2.Size = new Size(237, 202);
+            rDropDownMenu2.Size = new Size(332, 292);
             // 
             // iNGRESARMARCAToolStripMenuItem1
             // 
             iNGRESARMARCAToolStripMenuItem1.Name = "iNGRESARMARCAToolStripMenuItem1";
-            iNGRESARMARCAToolStripMenuItem1.Size = new Size(236, 22);
+            iNGRESARMARCAToolStripMenuItem1.Size = new Size(331, 32);
             iNGRESARMARCAToolStripMenuItem1.Text = "INGRESAR MARCA";
             iNGRESARMARCAToolStripMenuItem1.Click += iNGRESARMARCAToolStripMenuItem1_Click;
             // 
             // tRÁMITEINICIALToolStripMenuItem1
             // 
             tRÁMITEINICIALToolStripMenuItem1.Name = "tRÁMITEINICIALToolStripMenuItem1";
-            tRÁMITEINICIALToolStripMenuItem1.Size = new Size(236, 22);
+            tRÁMITEINICIALToolStripMenuItem1.Size = new Size(331, 32);
             tRÁMITEINICIALToolStripMenuItem1.Text = "EN TRÁMITE";
             tRÁMITEINICIALToolStripMenuItem1.Click += tRÁMITEINICIALToolStripMenuItem1_Click;
             // 
             // oPOSICIONESToolStripMenuItem1
             // 
             oPOSICIONESToolStripMenuItem1.Name = "oPOSICIONESToolStripMenuItem1";
-            oPOSICIONESToolStripMenuItem1.Size = new Size(236, 22);
+            oPOSICIONESToolStripMenuItem1.Size = new Size(331, 32);
             oPOSICIONESToolStripMenuItem1.Text = "OPOSICIONES";
             oPOSICIONESToolStripMenuItem1.Click += oPOSICIONESToolStripMenuItem1_Click;
             // 
             // tRDERENOVACIÓToolStripMenuItem
             // 
             tRDERENOVACIÓToolStripMenuItem.Name = "tRDERENOVACIÓToolStripMenuItem";
-            tRDERENOVACIÓToolStripMenuItem.Size = new Size(236, 22);
+            tRDERENOVACIÓToolStripMenuItem.Size = new Size(331, 32);
             tRDERENOVACIÓToolStripMenuItem.Text = "REGISTRADAS";
             tRDERENOVACIÓToolStripMenuItem.Click += tRDERENOVACIÓToolStripMenuItem_Click;
             // 
             // tRDETRASPASOToolStripMenuItem1
             // 
             tRDETRASPASOToolStripMenuItem1.Name = "tRDETRASPASOToolStripMenuItem1";
-            tRDETRASPASOToolStripMenuItem1.Size = new Size(236, 22);
+            tRDETRASPASOToolStripMenuItem1.Size = new Size(331, 32);
             tRDETRASPASOToolStripMenuItem1.Text = "TR. DE RENOVACIÓN";
             tRDETRASPASOToolStripMenuItem1.Click += tRDETRASPASOToolStripMenuItem1_Click;
             // 
             // aBANDONADASToolStripMenuItem1
             // 
             aBANDONADASToolStripMenuItem1.Name = "aBANDONADASToolStripMenuItem1";
-            aBANDONADASToolStripMenuItem1.Size = new Size(236, 22);
+            aBANDONADASToolStripMenuItem1.Size = new Size(331, 32);
             aBANDONADASToolStripMenuItem1.Text = "TR. DE TRASPASO";
             aBANDONADASToolStripMenuItem1.Click += aBANDONADASToolStripMenuItem1_Click;
             // 
             // aBANDONADASToolStripMenuItem3
             // 
             aBANDONADASToolStripMenuItem3.Name = "aBANDONADASToolStripMenuItem3";
-            aBANDONADASToolStripMenuItem3.Size = new Size(236, 22);
+            aBANDONADASToolStripMenuItem3.Size = new Size(331, 32);
             aBANDONADASToolStripMenuItem3.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem3.Click += aBANDONADASToolStripMenuItem3_Click;
             // 
             // dESISTIDASToolStripMenuItem1
             // 
             dESISTIDASToolStripMenuItem1.Name = "dESISTIDASToolStripMenuItem1";
-            dESISTIDASToolStripMenuItem1.Size = new Size(236, 22);
+            dESISTIDASToolStripMenuItem1.Size = new Size(331, 32);
             dESISTIDASToolStripMenuItem1.Text = "DESISTIDAS";
             dESISTIDASToolStripMenuItem1.Click += dESISTIDASToolStripMenuItem1_Click;
             // 
             // bÚSQUEDASRETROSPECTIVASToolStripMenuItem
             // 
             bÚSQUEDASRETROSPECTIVASToolStripMenuItem.Name = "bÚSQUEDASRETROSPECTIVASToolStripMenuItem";
-            bÚSQUEDASRETROSPECTIVASToolStripMenuItem.Size = new Size(236, 22);
+            bÚSQUEDASRETROSPECTIVASToolStripMenuItem.Size = new Size(331, 32);
             bÚSQUEDASRETROSPECTIVASToolStripMenuItem.Text = "BÚSQUEDAS RETROSPECTIVAS";
             bÚSQUEDASRETROSPECTIVASToolStripMenuItem.Click += bÚSQUEDASRETROSPECTIVASToolStripMenuItem_Click;
             // 
             // rDropDownMenu3
             // 
+            rDropDownMenu3.ImageScalingSize = new Size(24, 24);
             rDropDownMenu3.IsMainMenu = false;
             rDropDownMenu3.Items.AddRange(new ToolStripItem[] { iNGRESARPATENTEToolStripMenuItem, tRÁMITEINICIALToolStripMenuItem2, rEGISTRADASToolStripMenuItem1, tRDERENOVACIÓNToolStripMenuItem1, tRDETRASPASOToolStripMenuItem2, aBANDONADASToolStripMenuItem2, dESISTIDASToolStripMenuItem2 });
             rDropDownMenu3.MenuItemHeight = 25;
             rDropDownMenu3.MenuItemTextColor = Color.Empty;
             rDropDownMenu3.Name = "rDropDownMenu3";
             rDropDownMenu3.PrimaryColor = Color.Empty;
-            rDropDownMenu3.Size = new Size(186, 158);
+            rDropDownMenu3.Size = new Size(253, 228);
             rDropDownMenu3.Opening += rDropDownMenu3_Opening;
             // 
             // iNGRESARPATENTEToolStripMenuItem
             // 
             iNGRESARPATENTEToolStripMenuItem.Name = "iNGRESARPATENTEToolStripMenuItem";
-            iNGRESARPATENTEToolStripMenuItem.Size = new Size(185, 22);
+            iNGRESARPATENTEToolStripMenuItem.Size = new Size(252, 32);
             iNGRESARPATENTEToolStripMenuItem.Text = "INGRESAR PATENTE";
             iNGRESARPATENTEToolStripMenuItem.Click += iNGRESARPATENTEToolStripMenuItem_Click;
             // 
             // tRÁMITEINICIALToolStripMenuItem2
             // 
             tRÁMITEINICIALToolStripMenuItem2.Name = "tRÁMITEINICIALToolStripMenuItem2";
-            tRÁMITEINICIALToolStripMenuItem2.Size = new Size(185, 22);
+            tRÁMITEINICIALToolStripMenuItem2.Size = new Size(252, 32);
             tRÁMITEINICIALToolStripMenuItem2.Text = "EN TRÁMITE";
             tRÁMITEINICIALToolStripMenuItem2.Click += tRÁMITEINICIALToolStripMenuItem2_Click;
             // 
             // rEGISTRADASToolStripMenuItem1
             // 
             rEGISTRADASToolStripMenuItem1.Name = "rEGISTRADASToolStripMenuItem1";
-            rEGISTRADASToolStripMenuItem1.Size = new Size(185, 22);
+            rEGISTRADASToolStripMenuItem1.Size = new Size(252, 32);
             rEGISTRADASToolStripMenuItem1.Text = "REGISTRADAS";
             rEGISTRADASToolStripMenuItem1.Click += rEGISTRADASToolStripMenuItem1_Click;
             // 
             // tRDERENOVACIÓNToolStripMenuItem1
             // 
             tRDERENOVACIÓNToolStripMenuItem1.Name = "tRDERENOVACIÓNToolStripMenuItem1";
-            tRDERENOVACIÓNToolStripMenuItem1.Size = new Size(185, 22);
+            tRDERENOVACIÓNToolStripMenuItem1.Size = new Size(252, 32);
             tRDERENOVACIÓNToolStripMenuItem1.Text = "TR. DE RENOVACIÓN";
             tRDERENOVACIÓNToolStripMenuItem1.Click += tRDERENOVACIÓNToolStripMenuItem1_Click;
             // 
             // tRDETRASPASOToolStripMenuItem2
             // 
             tRDETRASPASOToolStripMenuItem2.Name = "tRDETRASPASOToolStripMenuItem2";
-            tRDETRASPASOToolStripMenuItem2.Size = new Size(185, 22);
+            tRDETRASPASOToolStripMenuItem2.Size = new Size(252, 32);
             tRDETRASPASOToolStripMenuItem2.Text = "TR. DE TRASPASO";
             tRDETRASPASOToolStripMenuItem2.Click += tRDETRASPASOToolStripMenuItem2_Click;
             // 
             // aBANDONADASToolStripMenuItem2
             // 
             aBANDONADASToolStripMenuItem2.Name = "aBANDONADASToolStripMenuItem2";
-            aBANDONADASToolStripMenuItem2.Size = new Size(185, 22);
+            aBANDONADASToolStripMenuItem2.Size = new Size(252, 32);
             aBANDONADASToolStripMenuItem2.Text = "ABANDONADAS";
             aBANDONADASToolStripMenuItem2.Click += aBANDONADASToolStripMenuItem2_Click;
             // 
             // dESISTIDASToolStripMenuItem2
             // 
             dESISTIDASToolStripMenuItem2.Name = "dESISTIDASToolStripMenuItem2";
-            dESISTIDASToolStripMenuItem2.Size = new Size(185, 22);
+            dESISTIDASToolStripMenuItem2.Size = new Size(252, 32);
             dESISTIDASToolStripMenuItem2.Text = "DESISTIDAS";
             dESISTIDASToolStripMenuItem2.Click += dESISTIDASToolStripMenuItem2_Click;
             // 
             // rDropDownMenu4
             // 
+            rDropDownMenu4.ImageScalingSize = new Size(24, 24);
             rDropDownMenu4.IsMainMenu = false;
             rDropDownMenu4.Items.AddRange(new ToolStripItem[] { tITULARESToolStripMenuItem, aGENTESToolStripMenuItem, gRUPOSToolStripMenuItem });
             rDropDownMenu4.MenuItemHeight = 25;
             rDropDownMenu4.MenuItemTextColor = Color.Empty;
             rDropDownMenu4.Name = "rDropDownMenu4";
             rDropDownMenu4.PrimaryColor = Color.Empty;
-            rDropDownMenu4.Size = new Size(133, 70);
+            rDropDownMenu4.Size = new Size(179, 100);
             // 
             // tITULARESToolStripMenuItem
             // 
             tITULARESToolStripMenuItem.BackgroundImageLayout = ImageLayout.Center;
             tITULARESToolStripMenuItem.Image = Properties.Resources.legal__1_;
             tITULARESToolStripMenuItem.Name = "tITULARESToolStripMenuItem";
-            tITULARESToolStripMenuItem.Size = new Size(132, 22);
+            tITULARESToolStripMenuItem.Size = new Size(178, 32);
             tITULARESToolStripMenuItem.Text = "TITULARES";
             tITULARESToolStripMenuItem.Click += tITULARESToolStripMenuItem_Click;
             // 
@@ -1399,7 +1403,7 @@
             // 
             aGENTESToolStripMenuItem.Image = Properties.Resources.businessman;
             aGENTESToolStripMenuItem.Name = "aGENTESToolStripMenuItem";
-            aGENTESToolStripMenuItem.Size = new Size(132, 22);
+            aGENTESToolStripMenuItem.Size = new Size(178, 32);
             aGENTESToolStripMenuItem.Text = "AGENTES";
             aGENTESToolStripMenuItem.Click += aGENTESToolStripMenuItem_Click;
             // 
@@ -1407,14 +1411,14 @@
             // 
             gRUPOSToolStripMenuItem.Image = Properties.Resources.customer_11325750__1_;
             gRUPOSToolStripMenuItem.Name = "gRUPOSToolStripMenuItem";
-            gRUPOSToolStripMenuItem.Size = new Size(132, 22);
+            gRUPOSToolStripMenuItem.Size = new Size(178, 32);
             gRUPOSToolStripMenuItem.Text = "GRUPOS";
             gRUPOSToolStripMenuItem.Click += gRUPOSToolStripMenuItem_Click;
             // 
             // Form1
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(11F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
