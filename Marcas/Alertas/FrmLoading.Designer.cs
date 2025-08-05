@@ -34,7 +34,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Spin_1x_1_0s_200px_200px;
+            pictureBox1.Image = Properties.Resources.spinner1;
             pictureBox1.Location = new Point(58, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(131, 130);
@@ -53,6 +53,7 @@
             Name = "FrmLoading";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmLoading";
+            TransparencyKey = Color.White;
             Load += FrmLoading_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

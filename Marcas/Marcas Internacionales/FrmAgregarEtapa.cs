@@ -6,6 +6,8 @@ namespace Presentacion.Marcas_Nacionales
 {
     public partial class FrmAgregarEtapa : Form
     {
+        private bool _actualizando; // evita reentradas
+
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         public static extern void ReleaseCapture();
 
@@ -119,6 +121,31 @@ namespace Presentacion.Marcas_Nacionales
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _actualizando = true;
+
+            string etapa = comboBox1.Text;
+            DateTime fechaIngreso = dateTimePicker1.Value;
+
+            bool mostrarVencimiento =
+                etapa == "Examen de fondo" ||
+                etapa == "Requerimiento" ||
+                etapa == "Objeción" ||
+                etapa == "Publicación" ||
+                etapa == "Orden de pago" ||
+                etapa == "Resolución RPI desfavorable";
+
+            labelVenc.Visible = mostrarVencimiento;
+            dateTimePickerVencimiento.Visible = mostrarVencimiento;
+
+            if (mostrarVencimiento)
+            {
+                dateTimePickerVencimiento.Value = CalcularVencimiento(etapa, fechaIngreso); // prefill
+            }
+
+            ActualizarResumen(); // arma el texto según valores actuales
+            _actualizando = false;
+
+            /* antes
             string etapa = comboBox1.Text;
             DateTime fechaIngreso = dateTimePicker1.Value;
             DateTime fechaVencimiento = fechaIngreso; // valor por defecto
@@ -180,13 +207,33 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 richTextBox1.Text = $"{fecha} {etapa}";
-            }
+            }*/
 
         }
 
+        private DateTime CalcularVencimiento(string etapa, DateTime fechaIngreso)
+        {
+            return etapa switch
+            {
+                "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
+                "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
+                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                _ => fechaIngreso
+            };
+        }
+
+
+
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            comboBox1_SelectedIndexChanged(sender, e);
+            // antes comboBox1_SelectedIndexChanged(sender, e);
+            if (!_actualizando && dateTimePickerVencimiento.Visible)
+            {
+                _actualizando = true;
+                dateTimePickerVencimiento.Value = CalcularVencimiento(comboBox1.Text, dateTimePicker1.Value);
+                _actualizando = false;
+            }
+            ActualizarResumen();
         }
 
 
@@ -218,12 +265,39 @@ namespace Presentacion.Marcas_Nacionales
             base.WndProc(ref m);
         }
 
+        private void ActualizarResumen()
+        {
+            string etapa = comboBox1.Text;
+            string fecha = dateTimePicker1.Value.ToString("dd/MM/yyyy");
+            if (dateTimePickerVencimiento.Visible)
+            {
+                string venc = dateTimePickerVencimiento.Value.ToString("dd/MM/yyyy");
+                if (etapa == "Resolución RPI desfavorable")
+                    richTextBox1.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                else
+                    richTextBox1.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else
+            {
+                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    richTextBox1.Text = $"{fecha} Por objeción - {etapa}";
+                else
+                    richTextBox1.Text = $"{fecha} {etapa}";
+            }
+        }
+
         private void dateTimePickerVencimiento_ValueChanged(object sender, EventArgs e)
         {
+            if (_actualizando) return; // ignore cambios programáticos
+                                       // NO recalcules aquí; respeta la edición manual
+            ActualizarResumen();
+
+            /* antes
             if (labelVenc.Visible)
             {
                 comboBox1_SelectedIndexChanged(sender, e);
-            }
+            }*/
         }
     }
 }

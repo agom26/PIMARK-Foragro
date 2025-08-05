@@ -1,24 +1,15 @@
-﻿using AccesoDatos.ServiciosEmail;
-using Dominio;
-using MailKit.Net.Smtp;
-using MailKit;
-using MimeKit;
-using System;
-using System.Data;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using ClosedXML.Excel;
 using Comun.Cache;
+using Dominio;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
-using System.Text;
-using System.Windows.Controls;
-using Mysqlx.Datatypes;
-using ClosedXML.Excel;
-using PuppeteerSharp.Media;
-using PuppeteerSharp;
 using Presentacion.Marcas_Nacionales;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Presentacion.Reportes;
+using PuppeteerSharp;
+using PuppeteerSharp.Media;
+using System.Data;
 using System.Reflection;
+using System.Text;
 
 namespace Presentacion.Plazos
 {
@@ -39,13 +30,14 @@ namespace Presentacion.Plazos
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        private bool _cargandoUI;
 
+        private bool _actualizando; // evita reentradas
         string titulo;
 
         public FrmPlazos()
         {
             InitializeComponent();
-            this.Load += FrmPlazos_Load;
             comboBoxTipoFiltro.SelectedIndex = 0;
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageReportes);
@@ -79,28 +71,74 @@ namespace Presentacion.Plazos
 
         private void FrmPlazos_Load(object sender, EventArgs e)
         {
+            
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private async Task LoadPlazos(string tipoRegistro)
         {
-            // Obtener total y tabla 
-            var (totalRows, datos) = await plazosModel.ObtenerPlazosAsync(tipoRegistro, pageSize, currentPageIndex);
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-            if (this.IsHandleCreated && !this.IsDisposed)
+            try
             {
-                this.Invoke(new Action(() =>
+                
+                var (totalRows, datos) = await plazosModel.ObtenerPlazosAsync(tipoRegistro, pageSize, currentPageIndex);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                // Como estás modificando la UI, necesitas volver al hilo principal
+                if (this.IsHandleCreated && !this.IsDisposed)
                 {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgPlazos.DataSource = datos;
-                }));
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgPlazos.DataSource = datos;
+                    }));
+                }
+            }
+            catch (MySqlException ex) when (ex.Number == 1042)
+            {
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /*
+        private async Task LoadPlazos(string tipoRegistro)
+        {
+            try
+            {
+                // Obtener total y tabla 
+                var (totalRows, datos) = await plazosModel.ObtenerPlazosAsync(tipoRegistro, pageSize, currentPageIndex);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgPlazos.DataSource = datos;
+                    }));
+                }
+            }
+            catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
+            {
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
+
+        /*
         private async void filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
@@ -145,8 +183,46 @@ namespace Presentacion.Plazos
                     await LoadPlazos("patente");
                 }
             }
-        }
+        }*/
 
+        private async void filtrar()
+        {
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                string tipo = comboBoxTipoFiltro.Text;
+                string tipoRegistro = tipo == "MARCAS" ? "marca" : "patente";
+
+                try
+                {
+                    var (rows, datos) = await plazosModel.ObtenerPlazosFiltradoAsync(tipoRegistro, pageSize, currentPageIndex, buscar);
+                    totalRows = rows;
+                    totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            lblTotalPages.Text = totalPages.ToString();
+                            lblTotalRows.Text = totalRows.ToString();
+                            dtgPlazos.DataSource = datos;
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al filtrar los datos: " + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                string tipo = comboBoxTipoFiltro.Text;
+                string tipoRegistro = tipo == "MARCAS" ? "marca" : "patente";
+                await LoadPlazos(tipoRegistro);
+            }
+        }
 
 
 
@@ -273,17 +349,71 @@ namespace Presentacion.Plazos
 
         public async Task CargarDatosHistorialMarca()
         {
+            var historial = await historialModel.GetHistorialById(IdHistorialMarca);
+            if (historial.Rows.Count == 0) { /* ... */ return; }
+
+            var row = historial.Rows[0];
+
+            _cargandoUI = true;
+            try
+            {
+                if (row["fecha"] != DBNull.Value)
+                    dateTimePickerFechaIngreso.Value = Convert.ToDateTime(row["fecha"]);
+
+                if (row["fechaVencimiento"] != DBNull.Value)
+                {
+                    labelVenc.Visible = true;
+                    dateTimePickerVencimiento.Visible = true;
+                    dateTimePickerVencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"]);
+                }
+                else
+                {
+                    labelVenc.Visible = false;
+                    dateTimePickerVencimiento.Visible = false;
+                }
+
+                richTextBoxAnotaciones.Text = row["anotaciones"]?.ToString();
+
+                var etapa = row["etapa"]?.ToString()?.Trim();
+                int idx = comboBoxEstado.FindStringExact(etapa ?? "");
+                comboBoxEstado.SelectedIndex = idx;  // -1 si no existe
+
+                usuarioCreador = row["usuario"]?.ToString() ?? "";
+            }
+            finally
+            {
+                _cargandoUI = false;
+            }
+
+            AnadirTabPage(tabPageHistorialDetail);
+        }
+
+        /*
+        public async Task CargarDatosHistorialMarca()
+        {
             DataTable historial = await historialModel.GetHistorialById(IdHistorialMarca);
+            if (historial.Rows.Count == 0) {  return; }
 
             if (historial.Rows.Count > 0)
             {
+                _cargandoUI = true;
+
                 DataRow row = historial.Rows[0];
 
                 if (row["fecha"] != DBNull.Value)
                     dateTimePickerFechaIngreso.Value = Convert.ToDateTime(row["fecha"]);
 
                 if (row["fechaVencimiento"] != DBNull.Value)
+                {
+                    labelVenc.Visible = true;
+                    dateTimePickerVencimiento.Visible = true;
                     dateTimePickerVencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"]);
+                }
+                else
+                {
+                    labelVenc.Visible = false;
+                    dateTimePickerVencimiento.Visible = false;
+                }
 
                 if (row["anotaciones"] != DBNull.Value)
                     richTextBoxAnotaciones.Text = row["anotaciones"].ToString();
@@ -292,15 +422,14 @@ namespace Presentacion.Plazos
                     comboBoxEstado.SelectedItem = row["etapa"].ToString();
 
                 if (row["usuario"] != DBNull.Value)
-                    usuarioCreador = row["usuario"].ToString();
-
+                    usuarioCreador = row["usuario"].ToString() ?? "";
                 AnadirTabPage(tabPageHistorialDetail);
             }
             else
             {
                 MessageBox.Show("No se encontraron datos de historial para esta marca.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
+        }*/
 
         public async Task CargarDatosHistorialPatente()
         {
@@ -400,6 +529,7 @@ namespace Presentacion.Plazos
                     comboBoxTipoFiltro.SelectedIndex = 0;
                     IdHistorialMarca = 0;
                     AgregarEtapa.LimpiarEtapa();
+                    await LoadPlazos("marca");
                 }
             }
             else
@@ -470,7 +600,7 @@ namespace Presentacion.Plazos
 
                 try
                 {
-                    historialPatenteModel.EditarHistorialPatente(IdHistorialPatente, Convert.ToDateTime(fecha), etapa, AgregarEtapa.anotaciones, usuarioCreador, usuario, Convert.ToDateTime(venc));
+                    await Task.Run(()=> historialPatenteModel.EditarHistorialPatente(IdHistorialPatente, Convert.ToDateTime(fecha), etapa, AgregarEtapa.anotaciones, usuarioCreador, usuario, Convert.ToDateTime(venc)));
 
                     FrmAlerta alerta = new FrmAlerta("PLAZO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
@@ -1431,14 +1561,13 @@ namespace Presentacion.Plazos
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new System.Drawing.Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+                panelBusqueda.Location = new System.Drawing.Point(0, 0);
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new System.Drawing.Point(0, 0); // o donde quieras
             }
@@ -1569,9 +1698,42 @@ namespace Presentacion.Plazos
             }
         }
 
+        private DateTime CalcularVencimiento(string etapa, DateTime fechaIngreso)
+        {
+            return etapa switch
+            {
+                "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
+                "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
+                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                _ => fechaIngreso
+            };
+        }
+        private void ActualizarResumen()
+        {
+            string etapa = comboBoxEstado.Text;
+            string fecha = dateTimePickerFechaIngreso.Value.ToString("dd/MM/yyyy");
+            if (dateTimePickerVencimiento.Visible)
+            {
+                string venc = dateTimePickerVencimiento.Value.ToString("dd/MM/yyyy");
+                if (etapa == "Resolución RPI desfavorable")
+                    richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                else
+                    richTextBoxAnotaciones.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else
+            {
+                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa}";
+                else
+                    richTextBoxAnotaciones.Text = $"{fecha} {etapa}";
+            }
+        }
 
         private async void comboBoxTipoFiltro_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+            
             string tipoSeleccionado = comboBoxTipoFiltro.Text; // "marca" o "patente"
             if (tipoSeleccionado == "MARCAS")
             {
@@ -1589,78 +1751,52 @@ namespace Presentacion.Plazos
 
         private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cargandoUI) return;              // <- clave
+            _actualizando = true;
+
             string etapa = comboBoxEstado.Text;
             DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-            DateTime fechaVencimiento = fechaIngreso; // valor por defecto
 
-            // Establecer vencimiento automático según la etapa
-            switch (etapa)
-            {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
-
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
-            }
-
-            // Mostrar u ocultar el campo de vencimiento según la etapa
-            bool mostrarVencimiento = etapa == "Examen de fondo" ||
-                                       etapa == "Requerimiento" ||
-                                       etapa == "Objeción" ||
-                                       etapa == "Publicación" ||
-                                       etapa == "Orden de pago" ||
-                                       etapa == "Resolución RPI desfavorable";
+            bool mostrarVencimiento =
+                etapa == "Examen de fondo" ||
+                etapa == "Requerimiento" ||
+                etapa == "Objeción" ||
+                etapa == "Publicación" ||
+                etapa == "Orden de pago" ||
+                etapa == "Resolución RPI desfavorable";
 
             labelVenc.Visible = mostrarVencimiento;
             dateTimePickerVencimiento.Visible = mostrarVencimiento;
 
             if (mostrarVencimiento)
             {
-                dateTimePickerVencimiento.Value = fechaVencimiento;
+                dateTimePickerVencimiento.Value = CalcularVencimiento(etapa, fechaIngreso); // prefill
             }
 
-            // Mostrar resumen en el RichTextBox
-            string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-            string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-
-            if (etapa == "Resolución RPI desfavorable")
-            {
-                richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (mostrarVencimiento)
-            {
-                richTextBoxAnotaciones.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (etapa == "Resolución RPI favorable" ||
-                     etapa == "Recurso de revocatoria" ||
-                     etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                     etapa == "Contencioso administrativo")
-            {
-                richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa}";
-            }
-            else
-            {
-                richTextBoxAnotaciones.Text = $"{fecha} {etapa}";
-            }
+            ActualizarResumen(); // arma el texto según valores actuales
+            _actualizando = false;
         }
 
         private void dateTimePickerFechaIngreso_ValueChanged(object sender, EventArgs e)
         {
-            comboBoxEstado_SelectedIndexChanged(sender, e);
+            if (_cargandoUI) return;              // <- clave
+
+            //comboBoxEstado_SelectedIndexChanged(sender, e);
+            if (!_actualizando && dateTimePickerVencimiento.Visible)
+            {
+                _actualizando = true;
+                dateTimePickerVencimiento.Value = CalcularVencimiento(comboBoxEstado.Text, dateTimePickerFechaIngreso.Value);
+                _actualizando = false;
+            }
+            ActualizarResumen();
         }
 
         private void dateTimePickerVencimiento_ValueChanged(object sender, EventArgs e)
         {
-            comboBoxEstado_SelectedIndexChanged(sender, e);
+            if (_cargandoUI) return;
+            if (_actualizando) return; // ignore cambios programáticos
+                                       // NO recalcules aquí; respeta la edición manual
+            ActualizarResumen();
         }
 
         private void iconButton2_Click(object sender, EventArgs e)

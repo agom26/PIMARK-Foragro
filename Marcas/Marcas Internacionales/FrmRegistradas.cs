@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using FluentFTP;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Internacionales;
 using System;
@@ -12,6 +13,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -78,21 +80,134 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task LoadMarcas()
         {
-            totalRows = await marcaModel.GetTotalMarcasInternacionalesRegistradas();
-            totalPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(totalRows) / pageSize));
-
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesRegistradas(currentPageIndex, pageSize));
-            if (this.IsHandleCreated && !this.IsDisposed)
+            try
             {
-                this.Invoke(() =>
+                totalRows = await marcaModel.GetTotalMarcasInternacionalesRegistradas();
+                totalPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(totalRows) / pageSize));
+
+                var marcasN = await  marcaModel.GetAllMarcasInternacionalesRegistradas(currentPageIndex, pageSize);
+
+                if (this.IsHandleCreated && !this.IsDisposed)
                 {
+                    this.Invoke(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgMarcasR.DataSource = marcasN;
+                    });
+                }
+            }
+            catch (HttpRequestException)
+            {
+                new FrmAlerta(
+                    "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                    "ERROR DE CONEXIÓN",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                    "Ocurrió un error al cargar los datos: " + ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+
+        }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                try
+                {
+                    totalRows = await marcaModel.GetFilteredMarcasInternacionalesRegistradasCount(buscar);
+                    totalPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(totalRows) / pageSize));
+
                     lblTotalPages.Text = totalPages.ToString();
                     lblTotalRows.Text = totalRows.ToString();
-                    dtgMarcasR.DataSource = marcasN;
-                });
+
+                    DataTable titulares = await marcaModel.FiltrarMarcasInternacionalesRegistradas(buscar, currentPageIndex, pageSize);
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
+                    {
+                        this.Invoke(() =>
+                        {
+                            if (titulares.Rows.Count > 0)
+                            {
+                                dtgMarcasR.DataSource = titulares;
+
+                                if (dtgMarcasR.Columns["id"] != null)
+                                {
+                                    dtgMarcasR.Columns["id"].Visible = false;
+                                }
+
+                                dtgMarcasR.ClearSelection();
+                            }
+                            else
+                            {
+                                new FrmAlerta(
+                                    "NO EXISTEN MARCAS CON ESOS DATOS",
+                                    "MENSAJE",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.None
+                                ).ShowDialog();
+
+                                _ = LoadMarcas(); // No await dentro de Invoke
+                            }
+                        });
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo conectar con el servidor. Verifica tu conexión a internet.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+            }
+            else
+            {
+                await LoadMarcas();
             }
         }
 
+
+        /*
         public async void filtrar()
         {
             string buscar = txtBuscar.Text;
@@ -124,7 +239,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 await LoadMarcas();
             }
-        }
+        }*/
 
         private void AnadirTabPage(TabPage nombre)
         {

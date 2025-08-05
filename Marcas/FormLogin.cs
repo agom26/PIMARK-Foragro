@@ -239,6 +239,7 @@ namespace Marcas
                 if(validLogin == true)
                 {
                     Form1 dashboard = new Form1(isAdmin);
+                    dashboard.WindowState = FormWindowState.Maximized;
                     dashboard.Show();
                     dashboard.FormClosed += new FormClosedEventHandler(this.Logout);
                     this.Hide();

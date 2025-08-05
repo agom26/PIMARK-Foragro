@@ -1,24 +1,26 @@
-﻿using Comun.Cache;
+﻿using ClosedXML.Excel;
+using Comun.Cache;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Dominio;
 using Microsoft.VisualBasic.Logging;
+using MySql.Data.MySqlClient;
 using Mysqlx.Datatypes;
 using Presentacion.Alertas;
-using PuppeteerSharp.Media;
+using Presentacion.Marcas_Internacionales;
 using PuppeteerSharp;
+using PuppeteerSharp.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using ClosedXML.Excel;
-using Presentacion.Marcas_Internacionales;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Reflection;
 
 
 namespace Presentacion.Marcas_Nacionales
@@ -87,28 +89,98 @@ namespace Presentacion.Marcas_Nacionales
                 tabControl1.TabPages.Remove(nombre);
             }
         }
+
         private async Task LoadMarcasInterpuestas(string situacionActual)
         {
-            var resultado = await Task.Run(() =>
-                oposicionModel.ObtenerOposicionesInternacionalesInterpuestasCombinado(situacionActual, currentPageIndex2, pageSize2)
-            ).ConfigureAwait(false);
-
-            totalRows2 = resultado.total;
-            totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
-            var marcasN = resultado.datos;
-
-            if (this.IsHandleCreated && !this.IsDisposed)
+            try
             {
-                this.Invoke(new Action(() =>
-                {
-                    lblTotalPages2.Text = totalPages2.ToString();
-                    lblTotalRows2.Text = totalRows2.ToString();
-                    dtgOpI.DataSource = marcasN;
-                    dtgOpI.Refresh();
+                var resultado = await Task.Run(() =>
+                oposicionModel.ObtenerOposicionesInternacionalesInterpuestasCombinado(situacionActual, currentPageIndex2, pageSize2)
+                ).ConfigureAwait(false);
 
-                }));
+                totalRows2 = resultado.total;
+                totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+                var marcasN = resultado.datos;
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages2.Text = totalPages2.ToString();
+                        lblTotalRows2.Text = totalRows2.ToString();
+                        dtgOpI.DataSource = marcasN;
+                        dtgOpI.Refresh();
+
+
+                    }));
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                new FrmAlerta(
+                 "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                 "ERROR DE CONEXIÓN",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException ex)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                     "Ocurrió un error al cargar los datos: " + ex.Message,
+                     "ERROR",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                 ).ShowDialog();
             }
         }
+
+        
+        /*
+        private async Task LoadMarcasInterpuestas(string situacionActual)
+        {
+            try
+            {
+                var resultado = await Task.Run(() =>
+                oposicionModel.ObtenerOposicionesInternacionalesInterpuestasCombinado(situacionActual, currentPageIndex2, pageSize2)
+                ).ConfigureAwait(false);
+
+                totalRows2 = resultado.total;
+                totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
+                var marcasN = resultado.datos;
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages2.Text = totalPages2.ToString();
+                        lblTotalRows2.Text = totalRows2.ToString();
+                        dtgOpI.DataSource = marcasN;
+                        dtgOpI.Refresh();
+
+                    }));
+                }
+            }
+            catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
+            {
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
 
         private void AnadirTabPage(TabPage nombre)
         {
@@ -122,25 +194,140 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task LoadMarcas(string situacionActual)
         {
-            var resultado = await Task.Run(() =>
-                oposicionModel.ObtenerOposicionesInternacionalesRecibidasCombinado(situacionActual, currentPageIndex, pageSize)
-            ).ConfigureAwait(false);
-
-            totalRows = resultado.total;
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            var marcasN = resultado.datos;
-
-            if (this.IsHandleCreated && !this.IsDisposed)
+            try
             {
-                this.Invoke(new Action(() =>
+                var resultado = await Task.Run(() =>
+                oposicionModel.ObtenerOposicionesInternacionalesRecibidasCombinado(situacionActual, currentPageIndex, pageSize)
+                ).ConfigureAwait(false);
+
+                totalRows = resultado.total;
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                var marcasN = resultado.datos;
+
+                if (this.IsHandleCreated && !this.IsDisposed)
                 {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgMarcasOp.DataSource = marcasN;
-                }));
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgMarcasOp.DataSource = marcasN;
+                    }));
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                new FrmAlerta(
+                 "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                 "ERROR DE CONEXIÓN",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException ex)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                     "Ocurrió un error al cargar los datos: " + ex.Message,
+                     "ERROR",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                 ).ShowDialog();
             }
         }
 
+        public async void filtrarRecibidas()
+        {
+            string buscar = txtBuscar.Text;
+
+            if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                try
+                {
+                    int totalLocal = 0;
+                    int totalPagesLocal = 0;
+                    DataTable oposiciones = null;
+
+                    await Task.Run(() =>
+                    {
+                        totalLocal = oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(buscar);
+                        oposiciones = oposicionModel.FiltrarOposicionesInternacionalesRecibidas(buscar, currentPageIndex, pageSize);
+                        totalPagesLocal = (int)Math.Ceiling((double)totalLocal / pageSize);
+                    });
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
+                    {
+                        this.Invoke(new Action(async () =>
+                        {
+                            lblTotalPages.Text = totalPagesLocal.ToString();
+                            lblTotalRows.Text = totalLocal.ToString();
+
+                            if (oposiciones.Rows.Count > 0)
+                            {
+                                dtgMarcasOp.DataSource = oposiciones;
+
+                                if (dtgMarcasOp.Columns["id"] != null)
+                                    dtgMarcasOp.Columns["id"].Visible = false;
+
+                                dtgMarcasOp.ClearSelection();
+                            }
+                            else
+                            {
+                                new FrmAlerta(
+                                    "NO EXISTEN OPOSICIONES CON ESOS DATOS",
+                                    "MENSAJE",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.None
+                                ).ShowDialog();
+
+                                await FiltrarPorSituacionActual();
+                            }
+                        }));
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+            }
+            else
+            {
+                await FiltrarPorSituacionActual();
+            }
+        }
+
+
+        /*
         public async void filtrarRecibidas()
         {
             string buscar = txtBuscar.Text;
@@ -174,7 +361,7 @@ namespace Presentacion.Marcas_Nacionales
                 await FiltrarPorSituacionActual();
             }
         }
-
+        */
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
             if (logo != null && logo.Length > 0)
@@ -1496,13 +1683,13 @@ namespace Presentacion.Marcas_Nacionales
                             var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
-                                int idMarca = Convert.ToInt32(dataRowView["IdMarca"]);
+                                int idMarca = Convert.ToInt32(dataRowView["idMarca"]);
                                 int idOposicion = Convert.ToInt32(dataRowView["id"]);
 
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono,
+                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
@@ -2301,11 +2488,89 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void filtrarMarcasInterpuestas()
         {
+            string valor = txtBuscar2.Text.Trim();
+            string situacion = cmbSituacionActualI.SelectedItem?.ToString() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(valor))
+            {
+                try
+                {
+                    var marcasR = await marcaModel.FiltrarMarcasInternacionalesInterpuestasEnOposicion(valor);
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            if (marcasR.Rows.Count > 0)
+                            {
+                                dtgOpI.DataSource = marcasR;
+                                dtgOpI.Refresh();
+
+                                if (dtgOpI.Columns["id"] != null)
+                                {
+                                    dtgOpI.Columns["id"].Visible = false;
+                                }
+
+                                dtgOpI.ClearSelection();
+                            }
+                            else
+                            {
+                                new FrmAlerta(
+                                    "NO EXISTEN OPOSICIONES INTERPUESTAS CON ESOS DATOS",
+                                    "MENSAJE",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.None
+                                ).ShowDialog();
+
+                                // Llama fuera del Invoke porque es async
+                                _ = LoadMarcasInterpuestas(situacion); // Se ejecuta en segundo plano
+                            }
+                        }));
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo conectar con el servidor. Verifica tu conexión a internet.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+            }
+            else
+            {
+                await LoadMarcasInterpuestas(situacion);
+            }
+        }
+
+
+        /*
+        private async void filtrarMarcasInterpuestas()
+        {
             string valor = txtBuscar2.Text;
             string situacion = cmbSituacionActualI.SelectedItem.ToString();
             if (valor != "")
             {
-                var marcasR = await Task.Run(() => marcaModel.FiltrarMarcasInternacionalesInterpuestasEnOposicion(valor));
+                var marcasR = await marcaModel.FiltrarMarcasInternacionalesInterpuestasEnOposicion(valor);
                 if (marcasR.Rows.Count > 0)
                 {
                     Invoke(new Action(() =>
@@ -2333,7 +2598,7 @@ namespace Presentacion.Marcas_Nacionales
                 await LoadMarcasInterpuestas(situacion);
             }
 
-        }
+        }*/
         private void CentrarPanel()
         {
 
@@ -3201,14 +3466,26 @@ namespace Presentacion.Marcas_Nacionales
                             var filaSeleccionada = dtgMarcasOp.SelectedRows[0];
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
-                                int idMarca = Convert.ToInt32(dataRowView["id"]);
+                                int idMarca = Convert.ToInt32(dataRowView["idMarca"]);
+                                int idOposicion = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento", justificacion, usuarioAbandono, "TRÁMITE", null);
-                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                alerta.ShowDialog();
-                                //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                await FiltrarPorSituacionActual();
-                                await FiltrarPorSituacionActualInterpuestas();
+                                try
+                                {
+                                    //procedimiento para mandar marca a abandono y oposicion a terminada
+                                    oposicionModel.Oposicion_a_desistimiento(fechaAbandono,  justificacion, usuarioAbandono,
+                                        idMarca, idOposicion);
+                                    FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    alerta.ShowDialog();
+                                    //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    await FiltrarPorSituacionActual();
+                                    await FiltrarPorSituacionActualInterpuestas();
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    FrmAlerta alerta = new FrmAlerta(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    alerta.ShowDialog();
+                                }
                             }
                         }
                         else

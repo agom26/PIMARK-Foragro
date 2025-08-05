@@ -1,18 +1,19 @@
-﻿using System.ComponentModel;
+﻿using Comun;
 using Comun.Cache;
-using Presentacion.Personas;
-using Presentacion.Marcas_Nacionales;
-using Presentacion.Marcas_Internacionales;
-using Presentacion.Vencimientos;
 using Dominio;
-using Presentacion.Reportes;
-using Presentacion.Patentes;
-using System.Diagnostics;
 using Presentacion.Alertas;
-using System.Runtime.InteropServices;
-using Presentacion.Properties;
-using Presentacion.Plazos;
 using Presentacion.BusquedasRetrospectivas;
+using Presentacion.Marcas_Internacionales;
+using Presentacion.Marcas_Nacionales;
+using Presentacion.Patentes;
+using Presentacion.Personas;
+using Presentacion.Plazos;
+using Presentacion.Properties;
+using Presentacion.Reportes;
+using Presentacion.Vencimientos;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Presentacion
 {
@@ -23,19 +24,17 @@ namespace Presentacion
         private int borderSize = 8;
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         public static extern void ReleaseCapture();
-
+        private readonly System.Windows.Forms.Timer _resizeTimer = new System.Windows.Forms.Timer { Interval = 120 };
 
         [DllImport("user32.dll", EntryPoint = "SendMessage")]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
         public Form1(bool isAdmin)
         {
             InitializeComponent();
-            this.Shown += Form1_Shown;
             this.Padding = new Padding(borderSize);
             this.BackColor = Color.FromArgb(34, 77, 112);
             this.isAdmin = isAdmin;
 
-            this.Resize += Form1_Resize;
             CustomizeDesign();
             if (isAdmin)
             {
@@ -66,11 +65,147 @@ namespace Presentacion
                 iNGRESARMARCAToolStripMenuItem1.Enabled = true;
                 iNGRESARPATENTEToolStripMenuItem.Enabled = true;
             }
+        }
 
-            VencimientoModel.EjecutarProcedimiento();
+        public async Task OpenChildFormAsync(Form childForm)
+        {
+            if (activeForm != null) activeForm.Close();
 
+            DisableButtons();
 
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
 
+            panelChildForm.Controls.Clear();
+
+            // 👇 Desactiva AutoScroll para formularios a pantalla completa
+            panelChildForm.AutoScroll = false;
+            panelChildForm.Margin = Padding.Empty;
+            panelChildForm.Padding = Padding.Empty;
+            panelChildForm.AutoScrollPosition = new System.Drawing.Point(0, 0);
+
+            panelChildForm.Controls.Add(childForm);
+            childForm.Show();
+
+            // Si el hijo implementa carga pesada
+            if (childForm is IAsyncLoadable loadable)
+            {
+                using (var loading = new FrmLoading(() => loadable.LoadAsync()))
+                {
+                    loading.ShowDialog();
+                }
+            }
+
+            EnableButtons();
+        }
+
+        public void DisableButtons()
+        {
+
+            //marcas nacionales
+            btnTramiteInicialInter.Enabled = false;
+            btnIngresadasInt.Enabled = false;
+            btnGrupos2.Enabled = false;
+            btnTramiteInicialInter.Enabled = false;
+            btnOpoInter.Enabled = false;
+            btnRegInter.Enabled = false;
+            btnRenovInter.Enabled = false;
+            btnTraspasoInter.Enabled = false;
+            btnAbandonadasInter.Enabled = false;
+            btnDesistidasNacionales.Enabled = false;
+            
+            //internacionales
+            btnTramiteInicial.Enabled = false;
+            btnEnTramite.Enabled = false;
+            btnOposiciones.Enabled = false;
+            btnRegistradas.Enabled = false;
+            btnTramiteRenovacion.Enabled = false;
+            btnTramiteTraspaso.Enabled = false;
+            btnAbandonadas.Enabled = false;
+            btnDesistidasInter.Enabled = false;
+
+            //patentes
+            btnIngresarPatente.Enabled = false;
+            btnTramiteInicialPatente.Enabled = false;
+            btnPatentesRegistradas.Enabled = false;
+            btnTramiteRenovPatentes.Enabled = false;
+            btnTramiteTraspPatentes.Enabled = false;
+            btnAbandonadasPatentes.Enabled = false;
+            btnDesistidasPatentes.Enabled = false;
+
+            //otros
+
+            btnInicio.Enabled = false;
+            btnUsers.Enabled = false;
+            btnAgentes2.Enabled = false;
+            btnTitulares.Enabled = false;
+            btnMarcasNacionales.Enabled = false;
+            btnMInternacionales.Enabled = false;
+            btnPatentes.Enabled = false;
+            btnReportes.Enabled = false;
+            btnVencimientos.Enabled = false;
+            btnPlazos.Enabled = false;
+            btnBusquedaR.Enabled = false;
+            btnCerrarSesion.Enabled = false;
+            btnReportes.Enabled = false;
+            //iconButtonLogout.Enabled = false;
+            //iconButtonVencimientos.Enabled = false;
+        }
+
+        public void EnableButtons()
+        {
+
+            //marcas nacionales
+            btnTramiteInicialInter.Enabled = true;
+            btnIngresadasInt.Enabled = true;
+            btnGrupos2.Enabled = true;
+            btnTramiteInicialInter.Enabled = true;
+            btnOpoInter.Enabled = true;
+            btnRegInter.Enabled = true;
+            btnRenovInter.Enabled = true;
+            btnTraspasoInter.Enabled = true;
+            btnAbandonadasInter.Enabled = true;
+            btnDesistidasNacionales.Enabled = true;
+
+            //internacionales
+            btnTramiteInicial.Enabled = true;
+            btnEnTramite.Enabled = true;
+            btnOposiciones.Enabled = true;
+            btnRegistradas.Enabled = true;
+            btnTramiteRenovacion.Enabled = true;
+            btnTramiteTraspaso.Enabled = true;
+            btnAbandonadas.Enabled = true;
+            btnDesistidasInter.Enabled = true;
+
+            //patentes
+            btnIngresarPatente.Enabled = true;
+            btnTramiteInicialPatente.Enabled = true;
+            btnPatentesRegistradas.Enabled = true;
+            btnTramiteRenovPatentes.Enabled = true;
+            btnTramiteTraspPatentes.Enabled = true;
+            btnAbandonadasPatentes.Enabled = true;
+            btnDesistidasPatentes.Enabled = true;
+
+            //otros
+
+            btnInicio.Enabled = true;
+            btnUsers.Enabled = true;
+            btnAgentes2.Enabled = true;
+            btnTitulares.Enabled = true;
+            btnMarcasNacionales.Enabled = true;
+            btnMInternacionales.Enabled = true;
+            btnPatentes.Enabled = true;
+            btnReportes.Enabled = true;
+            btnVencimientos.Enabled = true;
+            btnPlazos.Enabled = true;
+            btnBusquedaR.Enabled = true;
+            btnCerrarSesion.Enabled = true;
+            btnReportes.Enabled = true;
+
+            //iconButtonLogout.Enabled = false;
+            //iconButtonVencimientos.Enabled = false;
         }
 
         private void CustomizeDesign()
@@ -148,10 +283,6 @@ namespace Presentacion
         {
             ShowSubMenu(panelSubMenuPatentes);
         }
-
-        
-
-        
 
         private Form activeForm = null;
         private void FormResize()
@@ -419,7 +550,6 @@ namespace Presentacion
                 
                 openChildForm(new FrmMostrarTramiteRenovacionPatente());
                
-               
             }
             else
             {
@@ -485,8 +615,37 @@ namespace Presentacion
             }
         }
 
+        private void ApplyChildLayoutSafe()
+        {
+            switch (WindowState)
+            {
+                case FormWindowState.Maximized: Padding = new Padding(0, 8, 8, 8); break;
+                case FormWindowState.Normal:
+                    if (Padding.Top != borderSize) Padding = new Padding(borderSize);
+                    break;
+            }
+
+            if (activeForm == null) return;
+
+            panelChildForm.SuspendLayout();
+            activeForm.SuspendLayout();
+
+            activeForm.Dock = DockStyle.Fill;
+            activeForm.Location = new System.Drawing.Point(0, 0);
+
+            activeForm.ResumeLayout(performLayout: true);
+            panelChildForm.ResumeLayout(performLayout: true);
+
+            panelChildForm.Invalidate();
+        }
+
         private async void Form1_Load(object sender, EventArgs e)
         {
+            _resizeTimer.Tick += (s, _) => {
+                _resizeTimer.Stop();
+                ApplyChildLayoutSafe();
+            };
+
             panel1.Dock = DockStyle.Top;     // Primero arriba
             panel2.Dock = DockStyle.Left;    // Luego a la izquierda (debajo del top)
             panelChildForm.Dock = DockStyle.Fill; // Lo que queda
@@ -731,62 +890,54 @@ namespace Presentacion
 
         private async void button5_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntIngresadas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntIngresadas());
         }
 
         private async void button6_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntRegistradas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntRegistradas());
         }
 
         private async void button1_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntOposiciones());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntOposiciones());
         }
 
         private async void button2_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntAbandonadas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntAbandonadas());
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -831,32 +982,28 @@ namespace Presentacion
 
         private async void btnRenovInter_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmRenovacionesInt());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRenovacionesInt());
         }
 
         private async void btnTraspasoInter_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmTraspasosInt());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmTraspasosInt());
         }
 
         private async void button36_Click(object sender, EventArgs e)
@@ -1257,12 +1404,10 @@ namespace Presentacion
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                //cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
                 return cp;
             }
         }
-
-
 
 
         /*
@@ -1390,47 +1535,42 @@ namespace Presentacion
 
         private async void tRÁMITEINICIALToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntIngresadas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntIngresadas());
         }
 
         private async void oPOSICIONESToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntOposiciones());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntOposiciones());
         }
+        
 
         private async void rEGISTRADASToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntRegistradas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntRegistradas());
         }
 
         private async void lICENCIASDEUSOToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1450,47 +1590,41 @@ namespace Presentacion
 
         private async void tRDERENOVACIÓNToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmRenovacionesInt());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRenovacionesInt());
         }
 
         private async void tRDETRASPASOToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmTraspasosInt());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmTraspasosInt());
         }
 
         private async void aBANDONADASToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasIntAbandonadas());
-              
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasIntAbandonadas());
         }
 
         private async void iNGRESARMARCAToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1673,24 +1807,41 @@ namespace Presentacion
             }
         }
 
+        private async Task CargarVencimientosAsync()
+        {
+            try
+            {
+                UseWaitCursor = true;
+                await Task.Run(() => VencimientoModel.EjecutarProcedimiento());
+            }
+            catch (Exception ex)
+            {
+                // log / alerta si aplica
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
+        }
+
         private void Form1_Shown(object sender, EventArgs e)
         {
+            _ = CargarVencimientosAsync();
             CollapseMenu();
         }
 
         private async void dESISTIDASToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasDesistidas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasDesistidas());
         }
 
         private async void dESISTIDASToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1730,17 +1881,15 @@ namespace Presentacion
 
         private async void button3_Click_3(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMarcasDesistidas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMarcasDesistidas());
         }
 
         private async void btnDesistidasInter_Click(object sender, EventArgs e)

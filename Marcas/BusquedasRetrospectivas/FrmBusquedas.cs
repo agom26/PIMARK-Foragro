@@ -1,24 +1,25 @@
 ﻿using AccesoDatos.ServiciosEmail;
+using ClosedXML.Excel;
+using Comun.Cache;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Dominio;
-using MailKit.Net.Smtp;
 using MailKit;
+using MailKit.Net.Smtp;
 using MimeKit;
+using Mysqlx.Datatypes;
+using Presentacion.Alertas;
+using Presentacion.Marcas_Nacionales;
+using Presentacion.Reportes;
+using PuppeteerSharp;
+using PuppeteerSharp.Media;
 using System;
 using System.Data;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Comun.Cache;
-using Presentacion.Alertas;
-using System.Text;
-using System.Windows.Controls;
-using Mysqlx.Datatypes;
-using ClosedXML.Excel;
-using PuppeteerSharp.Media;
-using PuppeteerSharp;
-using Presentacion.Marcas_Nacionales;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using Presentacion.Reportes;
 using System.Reflection;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace Presentacion.BusquedasRetrospectivas
 
@@ -84,6 +85,55 @@ namespace Presentacion.BusquedasRetrospectivas
 
         private async Task LoadBusquedas()
         {
+            try
+            {
+                var (totalRows, datos) = await busquedaRetrospectivaModel.ObtenerBusquedasAsync(pageSize, currentPageIndex);
+                int totalPagesLocal = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPagesLocal.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgPlazos.DataSource = datos;
+                    }));
+                }
+            }
+            catch (HttpRequestException)
+            {
+                new FrmAlerta(
+                    "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                    "ERROR DE CONEXIÓN",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                    "Ocurrió un error al cargar los datos: " + ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+        }
+
+
+
+        /*
+        private async Task LoadBusquedas()
+        {
             // Obtener total y tabla 
             var (totalRows, datos) = await busquedaRetrospectivaModel.ObtenerBusquedasAsync(pageSize, currentPageIndex);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
@@ -97,7 +147,7 @@ namespace Presentacion.BusquedasRetrospectivas
                     dtgPlazos.DataSource = datos;
                 }));
             }
-        }
+        }*/
 
         private void InicializarTablaPaises()
         {
@@ -109,6 +159,65 @@ namespace Presentacion.BusquedasRetrospectivas
             dtgPaises.DataSource = tablaPaises;
         }
 
+        private async void filtrar()
+        {
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                try
+                {
+                    (int totalRowsLocal, DataTable datos) = await busquedaRetrospectivaModel.ObtenerBusquedasFiltradoAsync(buscar, pageSize, currentPageIndex);
+                    int totalPagesLocal = (int)Math.Ceiling((double)totalRowsLocal / pageSize);
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
+                    {
+                        this.Invoke(() =>
+                        {
+                            lblTotalPages.Text = totalPagesLocal.ToString();
+                            lblTotalRows.Text = totalRowsLocal.ToString();
+                            dtgPlazos.DataSource = datos;
+                        });
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+            }
+            else
+            {
+                await LoadBusquedas();
+            }
+        }
+
+
+
+
+        /*
         private async void filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
@@ -135,7 +244,7 @@ namespace Presentacion.BusquedasRetrospectivas
                 await LoadBusquedas();
 
             }
-        }
+        }*/
 
 
 

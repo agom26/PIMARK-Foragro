@@ -1,25 +1,21 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
-using Microsoft.Win32;
-using Presentacion.Alertas;
-using Presentacion.Marcas_Nacionales;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using FluentFTP;
 using Microsoft.VisualBasic.Logging;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
+using Presentacion.Alertas;
+using Presentacion.Marcas_Nacionales;
+using System.Data;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Presentacion.Marcas_Internacionales
 {
-    public partial class FrmMarcasIntIngresadas : Form
+    public partial class FrmMarcasIntIngresadas : Form, IAsyncLoadable
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
@@ -33,11 +29,38 @@ namespace Presentacion.Marcas_Internacionales
         private bool archivoSubido = false;
         private bool buscando = false;
         bool agregoEstado = false;
+        private bool _isLoading;
+        private bool _actualizando; // evita reentradas
+        private bool _cargandoUI;
+        private bool _guardandoHist; // campo de la clase
+
         //ftp
         private string host = "ftp.foragro.com.es"; // Tu host FTP
         private string usuario = "foragro"; // Tu usuario FTP
         private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
         private string directorioBase = "/foragro.com.es/marcas/nacionales"; // La ruta base de tu servidor
+        public async Task LoadAsync()
+        {
+            await LoadMarcas(); // aquí llamas a tu método actual
+        }
+
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void convertirImagen()
         {
 
@@ -46,16 +69,42 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
+
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadMarcas();
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
+
+        private void SetDoubleBuffering(Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
+        }
+
         public FrmMarcasIntIngresadas()
         {
             InitializeComponent();
-            this.Load += FrmMarcasIntIngresadas_Load;
             SeleccionarMarca.idN = 0;
             archivoSubido = false;
             ActualizarFechaVencimiento();
             btnAdjuntarT.Visible = false;
-            dtgMarcasIn.DataBindingComplete += dtgMarcasIn_DataBindingComplete;
-
+            SetDoubleBuffering(this, true);
+            SetDoubleBuffering(dtgMarcasIn, true);
 
             if (UsuarioActivo.soloLectura)
             {
@@ -148,38 +197,42 @@ namespace Presentacion.Marcas_Internacionales
 
             var marcasN = await marcaModel.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize);
 
-
-            if (this.IsHandleCreated && !this.IsDisposed)
+            void Apply()
             {
-                this.Invoke(() =>
-                {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgMarcasIn.DataSource = marcasN;
-                });
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                dtgMarcasIn.DataSource = marcasN;
+            }
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
             }
         }
 
-        public async void filtrar()
+        public async Task filtrar()
         {
-            string buscar = txtBuscar.Text;
-            if (buscar != "")
+            string buscar = txtBuscar.Text?.Trim();
+            if (!string.IsNullOrEmpty(buscar))
             {
+                totalRows = await marcaModel.GetFilteredMarcasSinRegistroCount(buscar);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
 
-                DataTable titulares = await marcaModel.FiltrarMarcasNacionalesEnTramite(buscar, currentPageIndex, pageSize);
-                if (titulares.Rows.Count > 0)
+                DataTable dt = await marcaModel.FiltrarMarcasNacionalesEnTramite(buscar, currentPageIndex, pageSize);
+                if (dt.Rows.Count > 0)
                 {
-                    dtgMarcasIn.DataSource = titulares;
-                    if (dtgMarcasIn.Columns["id"] != null)
-                    {
-                        dtgMarcasIn.Columns["id"].Visible = false;
-                    }
+                    dtgMarcasIn.DataSource = dt;
+                    if (dtgMarcasIn.Columns["id"] != null) dtgMarcasIn.Columns["id"].Visible = false;
                     dtgMarcasIn.ClearSelection();
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
+                    new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE",
+                                  MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
                     await LoadMarcas();
                 }
             }
@@ -188,6 +241,119 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcas();
             }
         }
+
+        /* anterior
+        private async Task LoadMarcas()
+        {
+           
+            try
+            {
+                
+                totalRows = await marcaModel.GetTotalMarcasSinRegistro();
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                var marcasN = await marcaModel.GetAllMarcasNacionalesEnTramite(currentPageIndex, pageSize);
+
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgMarcasIn.DataSource = marcasN;
+                    });
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                new FrmAlerta(
+                 "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                 "ERROR DE CONEXIÓN",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException ex)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                     "Ocurrió un error al cargar los datos: " + ex.Message,
+                     "ERROR",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                 ).ShowDialog();
+            }
+           
+        }
+
+        // anterior
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+            if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                try
+                {
+                    DataTable titulares = await marcaModel.FiltrarMarcasNacionalesEnTramite(buscar, currentPageIndex, pageSize);
+
+                    if (titulares.Rows.Count > 0)
+                    {
+                        dtgMarcasIn.DataSource = titulares;
+
+                        if (dtgMarcasIn.Columns["id"] != null)
+                            dtgMarcasIn.Columns["id"].Visible = false;
+
+                        dtgMarcasIn.ClearSelection();
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        alerta.ShowDialog();
+                        await LoadMarcas();
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    new FrmAlerta(
+                     "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                     "ERROR DE CONEXIÓN",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException ex)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                         "Ocurrió un error al cargar los datos: " + ex.Message,
+                         "ERROR",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Error
+                     ).ShowDialog();
+                }
+            }
+            else
+            {
+                await LoadMarcas();
+            }
+        }*/
 
         private void AnadirTabPage(TabPage nombre)
         {
@@ -321,7 +487,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
 
-        public async void ActualizarMarcaInternacional()
+        public async Task ActualizarMarcaInternacional()
         {
             try
             {
@@ -346,12 +512,6 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
 
-                /*
-                if (logo == null)
-                {
-                    MessageBox.Show("Por favor, cargue un logo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }*/
 
                 bool esActualizado = false;
 
@@ -383,7 +543,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     if (agregoEstado == true)
                     {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                        historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
                         agregoEstado = false;
                         FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         frmAlerta.ShowDialog();
@@ -661,7 +821,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void loadHistorialById()
+        private async Task loadHistorialById()
         {
             try
             {
@@ -690,52 +850,112 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void FrmMarcasIntIngresadas_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => LoadMarcas());
-            SeleccionarMarca.idN = 0;
-            archivoSubido = false;
-            btnAdjuntarT.Visible = false;
-            convertirImagen();
-            pictureBox1.Image = documento;
-            tabControl1.SelectedTab = tabPageIngresadasList;
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            EliminarTabPage(tabPageHistorialDetail);
-            EliminarTabPage(tabPageListaArchivos);
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                SeleccionarMarca.idN = 0;
+                archivoSubido = false;
+                btnAdjuntarT.Visible = false;
+                convertirImagen();
+                pictureBox1.Image = documento;
+
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageListaArchivos);
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgMarcasIn.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadMarcas(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasIn.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasIn.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasIn.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasIn.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
         }
 
-        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {/*
-            if (tabControl1.SelectedTab == tabPageHistorialMarca)
-            {
-                loadHistorialById();
-                EliminarTabPage(tabPageIngresadasList);
-                EliminarTabPage(tabPageListaArchivos);
-                EliminarTabPage(tabPageHistorialDetail);
-            }
-            else if (tabControl1.SelectedTab == tabPageMarcaDetail)
-            {
-                await CargarDatosMarca();
-                EliminarTabPage(tabPageHistorialDetail);
-                EliminarTabPage(tabPageIngresadasList);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageListaArchivos);
-            }
-            else if (tabControl1.SelectedTab == tabPageIngresadasList)
-            {
-                EliminarTabPage(tabPageListaArchivos);
-                EliminarTabPage(tabPageHistorialMarca);
-                await LoadMarcas();
-                SeleccionarMarca.idN = 0;
-            }
-            else if (tabControl1.SelectedTab == tabPageListaArchivos)
-            {
-                EliminarTabPage(tabPageHistorialMarca);
-            }
-            */
-        }
-        public async void Editar()
+        public async Task Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
@@ -746,9 +966,9 @@ namespace Presentacion.Marcas_Internacionales
                 AnadirTabPage(tabPageMarcaDetail);
             }
         }
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private async void iconButton3_Click(object sender, EventArgs e)
@@ -1010,10 +1230,10 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void roundedButton6_Click(object sender, EventArgs e)
+        private async void roundedButton6_Click(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
-            loadHistorialById();
+            await loadHistorialById();
             AnadirTabPage(tabPageHistorialMarca);
 
         }
@@ -1034,7 +1254,7 @@ namespace Presentacion.Marcas_Internacionales
             ActualizarFechaVencimiento();
         }
 
-        public async void EditarVerHistorial()
+        public async Task EditarVerHistorial()
         {
             if (dtgHistorialIn.SelectedRows.Count > 0)
             {
@@ -1049,42 +1269,52 @@ namespace Presentacion.Marcas_Internacionales
 
                     if (historial.Rows.Count > 0)
                     {
+                        _cargandoUI = true;
                         DataRow fila = historial.Rows[0];
                         if (fila["Origen"].ToString() == "TRÁMITE")
                         {
-                            // Asignar los valores obtenidos a la clase SeleccionarPersona
-                            SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
-                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"]);
-                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
-                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
-                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
-
-
-                           
-
-                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
-                            dateTimePickerFechaIngreso.Value = SeleccionarHistorial.fecha;
-                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
-                            labelUserEditor.Text = UsuarioActivo.usuario;
-                            lblUser.Text = SeleccionarHistorial.usuario;
-
-                            if (fila["fechaVencimiento"] != DBNull.Value)
+                            try
                             {
-                                labelVenc.Visible = true;
-                                dateTimePickerFechaVencimiento.Visible = true;
-                                if (fila["fechaVencimiento"] != DBNull.Value && !string.IsNullOrWhiteSpace(fila["fechaVencimiento"].ToString()))
+                                // Asignar los valores obtenidos a la clase SeleccionarPersona
+                                SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
+                                SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                                SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"]);
+                                SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                                SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                                SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+
+
+
+                                comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                                dateTimePickerFechaIngreso.Value = SeleccionarHistorial.fecha;
+                                richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                                labelUserEditor.Text = UsuarioActivo.usuario;
+                                lblUser.Text = SeleccionarHistorial.usuario;
+
+                                if (fila["fechaVencimiento"] != DBNull.Value && fila["fechaVencimiento"].ToString() != string.Empty)
                                 {
-                                    dateTimePickerFechaVencimiento.Value = Convert.ToDateTime(fila["fechaVencimiento"]);
+                                    labelVenc.Visible = true;
+                                    dateTimePickerFechaVencimiento.Visible = true;
+                                    if (fila["fechaVencimiento"] != DBNull.Value && !string.IsNullOrWhiteSpace(fila["fechaVencimiento"].ToString()))
+                                    {
+                                        dateTimePickerFechaVencimiento.Value = Convert.ToDateTime(fila["fechaVencimiento"]);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                labelVenc.Visible = false;
-                                dateTimePickerFechaVencimiento.Visible = false;
-                            }
+                                else
+                                {
+                                    labelVenc.Visible = false;
+                                    dateTimePickerFechaVencimiento.Visible = false;
+                                }
 
-                            AnadirTabPage(tabPageHistorialDetail);
+                                AnadirTabPage(tabPageHistorialDetail);
+
+                            }
+                            finally
+                            {
+                                _cargandoUI = false;
+
+                            }
                         }
                         else
                         {
@@ -1106,9 +1336,9 @@ namespace Presentacion.Marcas_Internacionales
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void iconButton5_Click(object sender, EventArgs e)
+        private async void iconButton5_Click(object sender, EventArgs e)
         {
-            EditarVerHistorial();
+            await EditarVerHistorial();
         }
 
         private async void iconButton4_Click(object sender, EventArgs e)
@@ -1166,7 +1396,7 @@ namespace Presentacion.Marcas_Internacionales
                             }
                         }
 
-                        loadHistorialById();
+                        await loadHistorialById();
                         await refrescarMarca();
                     }
                 }
@@ -1180,14 +1410,83 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            if (labelVenc.Visible)
+            if (_cargandoUI) return;              // <- clave
+
+            //comboBoxEstado_SelectedIndexChanged(sender, e);
+            if (!_actualizando && dateTimePickerFechaVencimiento.Visible)
             {
-                comboBoxEstatusH_SelectedValueChanged(sender, e);
+                _actualizando = true;
+                dateTimePickerFechaVencimiento.Value = CalcularVencimiento(comboBoxEstatusH.Text, dateTimePickerFechaIngreso.Value);
+                _actualizando = false;
+            }
+            ActualizarResumen();
+        }
+
+        private DateTime CalcularVencimiento(string etapa, DateTime fechaIngreso)
+        {
+            return etapa switch
+            {
+                "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
+                "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
+                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                _ => fechaIngreso
+            };
+        }
+
+
+        private void ActualizarResumen()
+        {
+            string etapa = comboBoxEstatusH.Text;
+            string fecha = dateTimePickerFechaIngreso.Value.ToString("dd/MM/yyyy");
+            if (dateTimePickerFechaVencimiento.Visible)
+            {
+                string venc = dateTimePickerFechaVencimiento.Value.ToString("dd/MM/yyyy");
+                if (etapa == "Resolución RPI desfavorable")
+                    richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                else
+                    richTextBoxAnotacionesH.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else
+            {
+                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa}";
+                else
+                    richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
             }
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (_cargandoUI) return;              // <- clave
+
+            _actualizando = true;
+
+            string etapa = comboBoxEstatusH.Text;
+            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+
+            bool mostrarVencimiento =
+                etapa == "Examen de fondo" ||
+                etapa == "Requerimiento" ||
+                etapa == "Objeción" ||
+                etapa == "Publicación" ||
+                etapa == "Orden de pago" ||
+                etapa == "Resolución RPI desfavorable";
+
+            labelVenc.Visible = mostrarVencimiento;
+            dateTimePickerFechaVencimiento.Visible = mostrarVencimiento;
+
+            if (mostrarVencimiento)
+            {
+                if (!dateTimePickerFechaVencimiento.Visible)
+                    dateTimePickerFechaVencimiento.Value = CalcularVencimiento(etapa, fechaIngreso);
+            }
+            labelVenc.Visible = dateTimePickerFechaVencimiento.Visible = mostrarVencimiento;
+
+
+            ActualizarResumen(); // arma el texto según valores actuales
+            _actualizando = false;
+            /*
             string etapa = comboBoxEstatusH.Text;
             DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
             DateTime fechaVencimiento = fechaIngreso;
@@ -1249,12 +1548,114 @@ namespace Presentacion.Marcas_Internacionales
             else
             {
                 richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
-            }
+            }*/
         }
 
         private async void btnEditarH_Click(object sender, EventArgs e)
         {
-            string usuario = lblUser.Text;
+
+       
+            if (_guardandoHist) return;
+            if (comboBoxEstatusH.SelectedIndex == -1)
+            {
+                new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                return;
+            }
+
+            _guardandoHist = true;
+            var btn = sender as Control;
+            if (btn != null) btn.Enabled = false;
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                string usuarioCreador = lblUser.Text;           // quien creó el registro
+                string usuarioEditor = labelUserEditor.Text;    // quien edita ahora
+                string etapa = comboBoxEstatusH.Text;
+                DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+
+                bool requiereVencimiento =
+                       etapa == "Examen de fondo"
+                    || etapa == "Requerimiento"
+                    || etapa == "Objeción"
+                    || etapa == "Publicación"
+                    || etapa == "Orden de pago"
+                    || etapa == "Resolución RPI desfavorable";
+
+                // RESPETAR lo que esté en el picker (si está visible / aplica)
+                DateTime? fechaVencimiento = requiereVencimiento
+                    ? dateTimePickerFechaVencimiento.Value
+                    : (DateTime?)null;
+
+                // Construir anotación
+                string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                string anotacionFinal;
+                if (etapa == "Resolución RPI desfavorable" && fechaVencimiento.HasValue)
+                    anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {fechaVencimiento.Value:dd/MM/yyyy}";
+                else if (fechaVencimiento.HasValue)
+                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {fechaVencimiento.Value:dd/MM/yyyy}";
+                else if (etapa == "Resolución RPI favorable" ||
+                         etapa == "Recurso de revocatoria" ||
+                         etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                         etapa == "Contencioso administrativo")
+                    anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                else
+                    anotacionFinal = $"{fecha} {etapa}";
+
+                // Evitar duplicar la misma línea; usa salto de línea para separar
+                string actuales = richTextBoxAnotacionesH.Text ?? string.Empty;
+                if (!actuales.Contains(anotacionFinal))
+                    AgregarEtapa.anotaciones = string.IsNullOrWhiteSpace(actuales)
+                        ? anotacionFinal
+                        : anotacionFinal + Environment.NewLine + actuales;
+                else
+                    AgregarEtapa.anotaciones = actuales;
+
+                // Guardar (asegúrate que el orden de parámetros coincide con tu modelo)
+                bool ok = await historialModel.EditHistorialById(
+                    SeleccionarHistorial.id,
+                    etapa,
+                    fechaIngreso,
+                    AgregarEtapa.anotaciones,
+                    usuarioCreador,        // mismo orden que usas en otros formularios
+                    usuarioEditor,
+                    fechaVencimiento       // nullable
+                );
+
+                if (ok)
+                {
+                    new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+
+                    // Refresca también el historial para ver el cambio
+                    await loadHistorialById();
+                    await refrescarMarca();
+
+                    EliminarTabPage(tabPageHistorialDetail);
+                    AnadirTabPage(tabPageMarcaDetail);
+                    SeleccionarHistorial.id = 0;
+                }
+                else
+                {
+                    new FrmAlerta("NO SE PUDO ACTUALIZAR LA ETAPA", "ERROR",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta("ERROR AL ACTUALIZAR: " + ex.Message, "ERROR",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                if (btn != null) btn.Enabled = true;
+                _guardandoHist = false;
+            }
+        
+            /* anterior
+        string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
             string etapa = comboBoxEstatusH.Text;
             DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
@@ -1354,7 +1755,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-            }
+            }*/
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
@@ -1398,9 +1799,9 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         public void VerificarDatosRegistro()
@@ -1439,16 +1840,18 @@ namespace Presentacion.Marcas_Internacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 58; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+                //dtgMarcasIn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                
             }
             else
             {
                 // Pantalla pequeña → top-left
+                //dtgMarcasIn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+                //dtgMarcasIn.ScrollBars = ScrollBars.Both;
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelBusqueda.Location = new Point(0, 58); // o donde quieras
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
         private async void ibtnBuscar_Click(object sender, EventArgs e)
@@ -1461,7 +1864,7 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
         private async void iconButton4_Click_1(object sender, EventArgs e)
@@ -1489,14 +1892,14 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            ActualizarMarcaInternacional();
+                            await ActualizarMarcaInternacional();
 
                         }
                     }
                 }
                 else
                 {
-                    ActualizarMarcaInternacional();
+                    await ActualizarMarcaInternacional();
                 }
 
 
@@ -1546,32 +1949,6 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
-            /*
-            VerificarDatosRegistro();
-
-            if (DatosRegistro.peligro == false)
-            {
-                DatosRegistro.peligro = false;
-                AnadirTabPage(tabPageIngresadasList);
-                EliminarTabPage(tabPageMarcaDetail);
-                await LoadMarcas();
-                SeleccionarMarca.idN = 0;
-                LimpiarFormulario();
-            }
-            else
-            {
-                if (!archivoSubido)
-                {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO Y SU TÍTULO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
-                }
-            }*/
-
             DatosRegistro.peligro = false;
             AnadirTabPage(tabPageIngresadasList);
             EliminarTabPage(tabPageMarcaDetail);
@@ -1579,19 +1956,18 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarMarca.idN = 0;
             LimpiarFormulario();
 
-
         }
 
-        private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarVerHistorial();
+            await EditarVerHistorial();
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private async void iconButton6_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
 
         }
 
@@ -1607,74 +1983,88 @@ namespace Presentacion.Marcas_Internacionales
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
+            if (_isLoading) return;
+            _isLoading = true;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex = 1;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
-            {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
+
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -2037,10 +2427,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void panel8_Paint(object sender, PaintEventArgs e)
         {
@@ -2051,6 +2438,10 @@ namespace Presentacion.Marcas_Internacionales
         {
             if (dtgMarcasIn.Columns["id"] != null)
                 dtgMarcasIn.Columns["id"].Visible = false;
+
+            dtgMarcasIn.Columns["CLASE"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgMarcasIn.Columns["CLASE"].Width = 50;      // ancho fijo
+            dtgMarcasIn.Columns["CLASE"].MinimumWidth = 40; // opcional
 
             dtgMarcasIn.ClearSelection();
         }
@@ -2110,10 +2501,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dateTimePickerFechaVencimiento_ValueChanged(object sender, EventArgs e)
         {
-            if (labelVenc.Visible)
-            {
-                comboBoxEstatusH_SelectedValueChanged(sender, e);
-            }
+            if (_cargandoUI) return;
+
+            if (_actualizando) return; // ignore cambios programáticos
+                                       // NO recalcules aquí; respeta la edición manual
+            ActualizarResumen();
         }
     }
 }

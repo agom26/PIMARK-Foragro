@@ -1,25 +1,24 @@
-﻿using AccesoDatos.ServiciosEmail;
+﻿using ClosedXML.Excel;
+using Comun;
+using Comun.Cache;
 using Dominio;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
-using System;
-using System.Data;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Comun.Cache;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
-using System.Text;
-using System.Windows.Controls;
-using Mysqlx.Datatypes;
-using ClosedXML.Excel;
-using PuppeteerSharp.Media;
-using PuppeteerSharp;
 using Presentacion.Marcas_Nacionales;
+using PuppeteerSharp;
+using PuppeteerSharp.Media;
+using System.Data;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Text;
 
 namespace Presentacion.Vencimientos
 {
-    public partial class FrmVencimientos : Form
+
+    public partial class FrmVencimientos : Form, IAsyncLoadable
     {
         VencimientoModel vencimientoModel = new VencimientoModel();
         HistorialModel historialModel = new HistorialModel();
@@ -37,6 +36,30 @@ namespace Presentacion.Vencimientos
         private bool buscando = false;
         System.Drawing.Image documento;
         byte[] defaultImage = Properties.Resources.logoImage;
+        private bool _isLoading;
+
+        public async Task LoadAsync()
+        {
+            await LoadVencimientos(); // aquí llamas a tu método actual
+        }
+
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void convertirImagen()
         {
 
@@ -45,6 +68,32 @@ namespace Presentacion.Vencimientos
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
+
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadVencimientos();
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
+
+        private void SetDoubleBuffering(Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
+        }
         public FrmVencimientos()
         {
             InitializeComponent();
@@ -52,7 +101,6 @@ namespace Presentacion.Vencimientos
             EliminarTabPage(tabPageMensajePatente);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPagePatenteDetail);
-            this.Load += FrmVencimientos_Load;
 
 
             toolTip1.SetToolTip(pictureBoxInfo, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
@@ -92,60 +140,195 @@ namespace Presentacion.Vencimientos
 
         private async void FrmVencimientos_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
-            await Task.Run(() => LoadVencimientos());
-
-            foreach (FontFamily font in FontFamily.Families)
+            try
             {
-                fontComboBox.Items.Add(font.Name);
-            }
+                await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
+                await LoadVencimientos();
 
-            // Poblar el ComboBox con tamaños de fuente
-            for (int i = 8; i <= 72; i++)
+                foreach (FontFamily font in FontFamily.Families)
+                {
+                    fontComboBox.Items.Add(font.Name);
+                }
+
+                // Poblar el ComboBox con tamaños de fuente
+                for (int i = 8; i <= 72; i++)
+                {
+                    fontSizeComboBox.Items.Add(i.ToString());
+                }
+
+                foreach (FontFamily font in FontFamily.Families)
+                {
+                    fontComboBox2.Items.Add(font.Name);
+                }
+
+                // Poblar el ComboBox con tamaños de fuente
+                for (int i = 8; i <= 72; i++)
+                {
+                    fontSizeComboBox2.Items.Add(i.ToString());
+                }
+
+                // Seleccionar fuente y tamaño por defecto
+                fontComboBox.SelectedItem = "Arial";
+                fontSizeComboBox.SelectedItem = "12";
+                fontComboBox2.SelectedItem = "Arial";
+                fontSizeComboBox2.SelectedItem = "12";
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+            }
+            catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
             {
-                fontSizeComboBox.Items.Add(i.ToString());
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            foreach (FontFamily font in FontFamily.Families)
+            catch (Exception ex)
             {
-                fontComboBox2.Items.Add(font.Name);
+                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Poblar el ComboBox con tamaños de fuente
-            for (int i = 8; i <= 72; i++)
-            {
-                fontSizeComboBox2.Items.Add(i.ToString());
-            }
-
-            // Seleccionar fuente y tamaño por defecto
-            fontComboBox.SelectedItem = "Arial";
-            fontSizeComboBox.SelectedItem = "12";
-            fontComboBox2.SelectedItem = "Arial";
-            fontSizeComboBox2.SelectedItem = "12";
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private async Task LoadVencimientos()
         {
             totalRows = vencimientoModel.GetTotalVencimientos();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            var marcasN = await Task.Run(()=> vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize)); // devuelve un DataTable
+            
 
-            var marcasN = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
-            if (this.IsHandleCreated && !this.IsDisposed)
+            void Apply()
             {
-                this.Invoke(new Action(() =>
-                {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-
-                    dtgVencimientos.DataSource = marcasN;
-
-                }));
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                dtgVencimientos.DataSource = marcasN;
             }
 
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
         }
 
+        public async Task filtrar()
+        {
+            string buscar = txtBuscar.Text?.Trim();
+            if (!string.IsNullOrEmpty(buscar))
+            {
+
+                totalRows = vencimientoModel.GetFilteredVencimientosCount(buscar);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+
+                DataTable dt = await Task.Run(()=> vencimientoModel.FiltrarVencimientos(buscar, currentPageIndex, pageSize));
+                if (dt.Rows.Count > 0)
+                {
+                    dtgVencimientos.DataSource = dt;
+                    if (dtgVencimientos.Columns["id"] != null) dtgVencimientos.Columns["id"].Visible = false;
+                    dtgVencimientos.ClearSelection();
+                }
+                else
+                {
+                    new FrmAlerta("NO EXISTEN VENCIMIENTOS CON ESOS DATOS", "MENSAJE",
+                                  MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+                    await LoadVencimientos();
+                }
+            }
+            else
+            {
+                await LoadVencimientos();
+            }
+        }
+
+        /* ANTERIOR
+        private async Task LoadVencimientos()
+        {
+            try
+            {
+                int totalRowsResult = 0;
+                int totalPagesResult = 0;
+                DataTable marcasN = null;
+
+                await Task.Run(() =>
+                {
+                    totalRowsResult = vencimientoModel.GetTotalVencimientos();
+                    totalPagesResult = (int)Math.Ceiling((double)totalRowsResult / pageSize);
+                    marcasN = vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize); // devuelve un DataTable
+                });
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPagesResult.ToString();
+                        lblTotalRows.Text = totalRowsResult.ToString();
+                        dtgVencimientos.DataSource = marcasN;
+                    }));
+                }
+            }
+            catch (MySqlException ex) when (ex.Number == 1042)
+            {
+                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public async void filtrar()
+        {
+            string buscar = txtBuscar.Text;
+
+            if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                int totalRowsResult = 0;
+                int totalPagesResult = 0;
+                DataTable titulares = null;
+
+                await Task.Run(() =>
+                {
+                    totalRowsResult = vencimientoModel.GetFilteredVencimientosCount(buscar);
+                    totalPagesResult = (int)Math.Ceiling((double)totalRowsResult / pageSize);
+                    titulares = vencimientoModel.FiltrarVencimientos(buscar, currentPageIndex, pageSize);
+                });
+
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(async () =>
+                    {
+                        lblTotalPages.Text = totalPagesResult.ToString();
+                        lblTotalRows.Text = totalRowsResult.ToString();
+
+                        if (titulares.Rows.Count > 0)
+                        {
+                            dtgVencimientos.DataSource = titulares;
+
+                            if (dtgVencimientos.Columns["id"] != null)
+                                dtgVencimientos.Columns["id"].Visible = false;
+
+                            dtgVencimientos.ClearSelection();
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta("NO EXISTEN VENCIMIENTOS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            alerta.ShowDialog();
+                            await LoadVencimientos(); // recarga datos normales si no hay resultados
+                        }
+                    }));
+                }
+            }
+            else
+            {
+                await LoadVencimientos(); // recarga si no hay texto para buscar
+            }
+        }*/
+
+
+        /*
         public async void filtrar()
         {
             string buscar = txtBuscar.Text;
@@ -177,7 +360,7 @@ namespace Presentacion.Vencimientos
             {
                 await LoadVencimientos();
             }
-        }
+        }*/
 
 
         public async Task<string> SubirLogoAsync(string rutaArchivoLocal)
@@ -324,7 +507,7 @@ namespace Presentacion.Vencimientos
                 {
                     if (richTextBoxMensajeP.InvokeRequired)
                     {
-                        richTextBoxMensajeP.Invoke((MethodInvoker)(() =>
+                        richTextBoxMensajeP.Invoke((System.Windows.Forms.MethodInvoker)(() =>
                         {
                             htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeP, urlLogo);
                         }));
@@ -340,7 +523,7 @@ namespace Presentacion.Vencimientos
                 {
                     if (richTextBoxMensajeM.InvokeRequired)
                     {
-                        richTextBoxMensajeM.Invoke((MethodInvoker)(() =>
+                        richTextBoxMensajeM.Invoke((System.Windows.Forms.MethodInvoker)(() =>
                         {
                             htmlMessage = ConvertirRichTextBoxAHtml(richTextBoxMensajeM, urlLogo);
                         }));
@@ -387,7 +570,7 @@ namespace Presentacion.Vencimientos
 
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
@@ -397,7 +580,7 @@ namespace Presentacion.Vencimientos
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
         private async Task VerificarSeleccionId()
         {
@@ -2364,14 +2547,14 @@ namespace Presentacion.Vencimientos
             }
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -2383,74 +2566,87 @@ namespace Presentacion.Vencimientos
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadVencimientos();
-            }
+            if (_isLoading) return;
+            _isLoading = true;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex = 1;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadVencimientos();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
-            {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadVencimientos();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadVencimientos();
-            }
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private void dtgVencimientos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -2458,9 +2654,34 @@ namespace Presentacion.Vencimientos
             if (dtgVencimientos.Columns["id"] != null)
             {
                 dtgVencimientos.Columns["id"].Visible = false;
+            }
+
+            if(dtgVencimientos.Columns["marcaID"] != null)
+            {
                 dtgVencimientos.Columns["marcaID"].Visible = false;
+            }
+
+            if (dtgVencimientos.Columns["patenteID"] != null)
+            {
                 dtgVencimientos.Columns["patenteID"].Visible = false;
             }
+
+
+            dtgVencimientos.Columns["CLASE"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgVencimientos.Columns["CLASE"].Width = 50;      // ancho fijo
+            dtgVencimientos.Columns["CLASE"].MinimumWidth = 40; // opcional
+
+            dtgVencimientos.Columns["REGISTRO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgVencimientos.Columns["REGISTRO"].Width = 80;      // ancho fijo
+            dtgVencimientos.Columns["REGISTRO"].MinimumWidth = 60; // opcional
+
+            dtgVencimientos.Columns["TOMO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgVencimientos.Columns["TOMO"].Width = 50;      // ancho fijo
+            dtgVencimientos.Columns["TOMO"].MinimumWidth = 40; // opcional
+
+            dtgVencimientos.Columns["FOLIO"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dtgVencimientos.Columns["FOLIO"].Width = 50;      // ancho fijo
+            dtgVencimientos.Columns["FOLIO"].MinimumWidth = 40; // opcional
             dtgVencimientos.ClearSelection();
             SeleccionarMarca.idInt = 0;
             SeleccionarMarca.idN = 0;

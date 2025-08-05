@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Office2016.Drawing.Charts;
 using Dominio;
 using FluentFTP;
 using FontAwesome.Sharp;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System;
@@ -13,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -45,46 +47,107 @@ namespace Presentacion.Patentes
             archivoSubido = false;
             dateTimePFecha_vencimiento.Enabled = true;
         }
+
         private async Task LoadPatentes()
         {
-            totalRows = patenteModel.GetTotalPatentesSinRegistro();
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize));
-
-            this.Invoke(new Action(() =>
+            try
             {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgPatentes.DataSource = marcasN;
+                totalRows = await Task.Run(()=> patenteModel.GetTotalPatentesSinRegistro());
+                totalPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(totalRows) / pageSize));
+                // Obtiene los usuarios
+                var marcasN = await Task.Run(() => patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize));
+                
+                if (this.IsHandleCreated && !this.IsDisposed)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgPatentes.DataSource = marcasN;
 
-            }));
+                    }));
+                }
+            }
+
+            catch (HttpRequestException ex)
+            {
+                new FrmAlerta(
+                 "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                 "ERROR DE CONEXIÓN",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException ex)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                     "Ocurrió un error al cargar los datos: " + ex.Message,
+                     "ERROR",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                 ).ShowDialog();
+            }
+
         }
         public async void filtrar()
         {
-            string buscar = txtBuscar.Text;
-            if (buscar != "")
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(buscar))
             {
-                totalRows = patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = patenteModel.FiltrarPatentesEnTramite(buscar, currentPageIndex, pageSize);
-                if (titulares.Rows.Count > 0)
+                try
                 {
-                    dtgPatentes.DataSource = titulares;
-                    if (dtgPatentes.Columns["id"] != null)
+                    totalRows = await Task.Run(() =>
+                        patenteModel.GetFilteredPatentesSinRegistroCount(buscar));
+
+                    totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+
+                    DataTable titulares = await Task.Run(() =>
+                        patenteModel.FiltrarPatentesEnTramite(buscar, currentPageIndex, pageSize));
+
+                    if (titulares.Rows.Count > 0)
                     {
-                        dtgPatentes.Columns["id"].Visible = false;
+                        dtgPatentes.DataSource = titulares;
+
+                        if (dtgPatentes.Columns["id"] != null)
+                        {
+                            dtgPatentes.Columns["id"].Visible = false;
+                        }
+
+                        dtgPatentes.ClearSelection();
                     }
-                    dtgPatentes.ClearSelection();
+                    else
+                    {
+                        new FrmAlerta(
+                            "NO EXISTEN PATENTES CON ESOS DATOS",
+                            "MENSAJE",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.None
+                        ).ShowDialog();
+
+                        await LoadPatentes();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN PATENTES CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("No existen titulares con esos datos");
-                    await LoadPatentes();
+                    new FrmAlerta(
+                        "Ocurrió un error al filtrar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
                 }
             }
             else
@@ -92,6 +155,8 @@ namespace Presentacion.Patentes
                 await LoadPatentes();
             }
         }
+
+
 
         private void EliminarTabPage(TabPage nombre)
         {

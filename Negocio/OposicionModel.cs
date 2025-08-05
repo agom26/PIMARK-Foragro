@@ -50,6 +50,13 @@ namespace Dominio
             oposicionDao.MandarMarcaAbandonoOposicionTerminar(fecha, anotaciones, usuario,
                 idMarca, idOposicion);
         }
+
+        public void Oposicion_a_desistimiento(DateTime fecha,
+            string anotaciones, string usuario, int idMarca, int idOposicion)
+        {
+            oposicionDao.MandarMarcaDesistimientoOposicionTerminar(fecha, anotaciones, usuario,
+                idMarca, idOposicion);
+        }
         public DataTable FiltrarOposiciones(
           string tipo_filtro,
           string expediente, string solicitante, string signoPretendido,

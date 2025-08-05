@@ -2,20 +2,9 @@
 using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using PuppeteerSharp;
-using System.Diagnostics;
 using PuppeteerSharp.Media;
-using System.Security.RightsManagement;
-using System.Text.RegularExpressions;
 using System.Reflection;
 
 namespace Presentacion.Reportes
@@ -31,8 +20,6 @@ namespace Presentacion.Reportes
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            this.Load += FrmReportesMarcasPatentes_Load;
-            this.Resize += FrmReportesMarcasPatentes_Resize;
             SeleccionarPersonaReportes.LimpiarCliente();
             SeleccionarPersonaReportes.LimpiarTitular();
             SeleccionarPersonaReportes.LimpiarAgente();
@@ -242,9 +229,6 @@ namespace Presentacion.Reportes
                 MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-
-
 
         /*
         public void ExportarDataTableAExcel(DataTable dataTable)

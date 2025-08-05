@@ -1,6 +1,7 @@
 ﻿using Comun.Cache;
 using Dominio;
 using FluentFTP;
+using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Internacionales;
 using System;
@@ -11,6 +12,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -69,55 +71,129 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task LoadMarcas()
         {
-            totalRows = await marcaModel.GetTotalMarcasInternacionalesEnDesistimiento();
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var marcasN = await Task.Run(() => marcaModel.GetAllMarcasInternacionalesEnDesistimiento(currentPageIndex, pageSize));
-           
-            if (this.IsHandleCreated && !this.IsDisposed)
+            try
             {
-                Invoke(new Action(() =>
-            {
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                dtgMarcasAban.DataSource = marcasN;
+                totalRows = await marcaModel.GetTotalMarcasInternacionalesEnDesistimiento();
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-                if (dtgMarcasAban.Columns["id"] != null)
+                var marcasN = await marcaModel.GetAllMarcasInternacionalesEnDesistimiento(currentPageIndex, pageSize);
+
+                if (this.IsHandleCreated && !this.IsDisposed)
                 {
-                    dtgMarcasAban.Columns["id"].Visible = false;
-                    dtgMarcasAban.ClearSelection();
+                    this.Invoke(() =>
+                    {
+                        lblTotalPages.Text = totalPages.ToString();
+                        lblTotalRows.Text = totalRows.ToString();
+                        dtgMarcasAban.DataSource = marcasN;
+
+                        if (dtgMarcasAban.Columns["id"] != null)
+                        {
+                            dtgMarcasAban.Columns["id"].Visible = false;
+                        }
+
+                        dtgMarcasAban.ClearSelection();
+                    });
                 }
-
-
-            }));
+            }
+            catch (HttpRequestException)
+            {
+                new FrmAlerta(
+                    "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                    "ERROR DE CONEXIÓN",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (JsonException)
+            {
+                new FrmAlerta(
+                    "Hubo un problema al procesar los datos recibidos del servidor.",
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new FrmAlerta(
+                    "Ocurrió un error al cargar los datos: " + ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ).ShowDialog();
             }
         }
 
+
         public async void filtrar()
         {
-            string buscar = txtBuscar.Text;
-            if (buscar != "")
+            string buscar = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(buscar))
             {
-                totalRows = await marcaModel.GetFilteredMarcasInternacionalesEnDesistimientoCount(txtBuscar.Text);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = await marcaModel.FiltrarMarcasInternacionalesEnDesistimiento(buscar, currentPageIndex, pageSize);
-                if (titulares.Rows.Count > 0)
+                try
                 {
-                    dtgMarcasAban.DataSource = titulares;
-                    if (dtgMarcasAban.Columns["id"] != null)
+                    totalRows = await marcaModel.GetFilteredMarcasInternacionalesEnDesistimientoCount(buscar);
+                    totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+
+                    DataTable titulares = await marcaModel.FiltrarMarcasInternacionalesEnDesistimiento(buscar, currentPageIndex, pageSize);
+
+                    if (this.IsHandleCreated && !this.IsDisposed)
                     {
-                        dtgMarcasAban.Columns["id"].Visible = false;
+                        this.Invoke(() =>
+                        {
+                            if (titulares.Rows.Count > 0)
+                            {
+                                dtgMarcasAban.DataSource = titulares;
+                                if (dtgMarcasAban.Columns["id"] != null)
+                                {
+                                    dtgMarcasAban.Columns["id"].Visible = false;
+                                }
+                                dtgMarcasAban.ClearSelection();
+                            }
+                            else
+                            {
+                                new FrmAlerta(
+                                    "NO EXISTEN MARCAS CON ESOS DATOS",
+                                    "MENSAJE",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.None
+                                ).ShowDialog();
+
+                                _ = LoadMarcas(); // sin await porque ya estás en void
+                            }
+                        });
                     }
-                    dtgMarcasAban.ClearSelection();
                 }
-                else
+                catch (HttpRequestException)
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("No existen titulares con esos datos");
-                    await LoadMarcas();
+                    new FrmAlerta(
+                        "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos recibidos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos: " + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
                 }
             }
             else
@@ -125,6 +201,7 @@ namespace Presentacion.Marcas_Nacionales
                 await LoadMarcas();
             }
         }
+
         private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
