@@ -54,8 +54,14 @@ namespace Presentacion.BusquedasRetrospectivas
             this.Load += FrmBusquedas_Load;
             //EliminarTabPage(tabPageHistorialDetail);
             SetDoubleBuffering(this, true);
+            SetDoubleBuffering(dtgPaises, true);
+            SetDoubleBuffering(dataGridViewAgregarPaises, true);
             EliminarTabPage(tabPageBusquedaDetail);
+            EliminarTabPage(tabPageAgregarBusqueda);
+            tabPageVencimientosList.AutoScrollPosition = new System.Drawing.Point(0, 0);
         }
+
+
 
         private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
         {
@@ -368,7 +374,10 @@ namespace Presentacion.BusquedasRetrospectivas
 
         private void dtgVencimientos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
+
             Ver();
+            tabPageBusquedaDetail.AutoScrollPosition = new System.Drawing.Point(0, 0);
         }
 
         private void iconButton13_Click(object sender, EventArgs e)
@@ -2054,7 +2063,7 @@ namespace Presentacion.BusquedasRetrospectivas
             {
                 tablaPaisesOriginal.Clear();
             }
-           
+
 
         }
 
@@ -2236,11 +2245,28 @@ namespace Presentacion.BusquedasRetrospectivas
             }
 
 
+
+
             FrmAgregarPais frm = new FrmAgregarPais();
             frm.ShowDialog();
 
             if (frm.agregoPais)
             {
+
+                string nombrePais = frm.comboBoxPaises.Text.Trim();
+
+                // ✅ Verifica si ya existe
+                bool yaExiste = tablaPaises.AsEnumerable()
+                    .Any(row => row.Field<string>("Pais")?.Trim() == nombrePais);
+
+                if (yaExiste)
+                {
+                    FrmAlerta alerta = new FrmAlerta("YA SE AGREGÓ ESTE PAÍS", "DUPLICADO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    return;
+                }
+
+
                 DataRow nuevaFila = tablaPaises.NewRow();
                 nuevaFila["Pais"] = frm.comboBoxPaises.Text;
                 nuevaFila["Nivel Riesgo"] = frm.comboBoxNivelRiesgo.Text;
@@ -2506,6 +2532,28 @@ namespace Presentacion.BusquedasRetrospectivas
                     EliminarPaisEdicion(e.RowIndex);
                 }
             }
+        }
+
+        private void dtgPlazos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dtgPlazos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dtgPlazos_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+        }
+
+        private void dtgPlazos_MouseEnter(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dtgPlazos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
