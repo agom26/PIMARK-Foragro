@@ -273,7 +273,6 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1169, 743);
             tabControl1.TabIndex = 0;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPageRegistradasList
             // 

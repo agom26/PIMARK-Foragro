@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 
 namespace Presentacion
 {
+
     public partial class Form1 : Form
     {
         VencimientoModel VencimientoModel = new VencimientoModel();
@@ -499,33 +500,28 @@ namespace Presentacion
 
         private async void button23_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmRenovaciones());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRenovaciones());
         }
 
         private async void button22_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmTraspasos());
-               
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmTraspasos());
         }
 
         private void panelChildForm_Paint(object sender, PaintEventArgs e)
@@ -845,17 +841,15 @@ namespace Presentacion
 
         private async void btnOposiciones_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmMostrarOposiciones());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarOposiciones());
         }
 
         private async void btnAbandonadas_Click(object sender, EventArgs e)
@@ -875,17 +869,15 @@ namespace Presentacion
 
         private async void btnRegistradas_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmRegistradas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRegistradas());
         }
 
         private async void button5_Click_1(object sender, EventArgs e)
@@ -1505,17 +1497,15 @@ namespace Presentacion
 
         private async void tRDERENOVACIÓToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmRegistradas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRegistradas());
         }
 
         private async void iNGRESARMARCAToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1659,47 +1649,41 @@ namespace Presentacion
 
         private async void oPOSICIONESToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmMostrarOposiciones());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarOposiciones());
         }
 
         private async void tRDETRASPASOToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmRenovaciones());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmRenovaciones());
         }
 
         private async void aBANDONADASToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmTraspasos());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmTraspasos());
         }
 
         private async void aBANDONADASToolStripMenuItem3_Click(object sender, EventArgs e)

@@ -33,9 +33,6 @@ namespace Presentacion.Marcas_Internacionales
         private bool buscandoRecibidas = false, buscandoInterpuestas = false;
         private bool _isLoadingR, _isLoadingI; // loading por grilla
 
-       
-        private bool buscando1 = false;
-        private bool buscando2 = false;
         public void convertirImagen()
         {
 
@@ -1760,7 +1757,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgMarcasOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            buscando1 = false;
+            buscandoRecibidas = false;
             Editar();
         }
         public async Task FiltrarPorSituacionActual()
@@ -2394,10 +2391,10 @@ namespace Presentacion.Marcas_Internacionales
 
         }*/
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
-            //filtrarMarcas();
-            buscando1 = true;
+            
+            buscandoRecibidas = true;
             currentPageIndex = 1;
             totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
@@ -2405,15 +2402,14 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrarRecibidas();
+            await filtrarRecibidas();
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
-            buscando1 = false;
+            buscandoRecibidas = false;
             txtBuscar.Text = "";
-            //filtrarMarcas();
-            filtrarRecibidas();
+            await filtrarRecibidas();
         }
 
         private void btnAgregarOpositorAO_Click_1(object sender, EventArgs e)
@@ -2529,18 +2525,18 @@ namespace Presentacion.Marcas_Internacionales
             await FiltrarPorSituacionActualInterpuestas();
         }
 
-        private void iconButton8_Click(object sender, EventArgs e)
+        private async void iconButton8_Click(object sender, EventArgs e)
         {
-            buscando2 = false;
+            buscandoInterpuestas = false;
             txtBuscar2.Text = "";
-            filtrarMarcasInterpuestas();
+            await filtrarMarcasInterpuestas();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                buscando1 = true;
+                buscandoRecibidas = true;
                 currentPageIndex = 1;
                 totalRows = oposicionModel.GetFilteredOposicionesNacionalesRecibidasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
@@ -2549,13 +2545,13 @@ namespace Presentacion.Marcas_Internacionales
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
                 //filtrarMarcas();
-                filtrarRecibidas();
+                await filtrarRecibidas();
             }
         }
 
-        private void ibtnBuscar2_Click(object sender, EventArgs e)
+        private async void ibtnBuscar2_Click(object sender, EventArgs e)
         {
-            buscando2 = true;
+            buscandoInterpuestas = true;
             currentPageIndex2 = 1;
             totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
@@ -2563,14 +2559,14 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage2.Text = currentPageIndex2.ToString();
             lblTotalPages2.Text = totalPages2.ToString();
             lblTotalRows2.Text = totalRows2.ToString();
-            filtrarMarcasInterpuestas();
+            await filtrarMarcasInterpuestas();
         }
 
-        private void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                buscando2 = true;
+                buscandoInterpuestas = true;
                 currentPageIndex2 = 1;
                 totalRows2 = oposicionModel.GetFilteredOposicionesNacionalesInterpuestasCount(txtBuscar2.Text);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
@@ -2578,7 +2574,7 @@ namespace Presentacion.Marcas_Internacionales
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
                 lblTotalPages2.Text = totalPages2.ToString();
                 lblTotalRows2.Text = totalRows2.ToString();
-                filtrarMarcasInterpuestas();
+                await filtrarMarcasInterpuestas();
             }
         }
 
@@ -2587,9 +2583,9 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void dtgOpI_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgOpI_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            buscando2 = false;
+            buscandoInterpuestas = false;
             Editar();
         }
 
