@@ -77,6 +77,7 @@ namespace Presentacion.Marcas_Internacionales
             archivoSubido = false;
             SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgMarcasRenov, true);
+
             if (UsuarioActivo.soloLectura)
             {
                 btnAbandonar.Visible = false;
@@ -893,7 +894,7 @@ namespace Presentacion.Marcas_Internacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idN = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = false;
+                btnAdjuntarT.Visible = true;
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -1068,7 +1069,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -1170,7 +1171,7 @@ namespace Presentacion.Marcas_Internacionales
                             // Asignar los valores obtenidos a la clase SeleccionarPersona
                             SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                             SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();

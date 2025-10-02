@@ -844,7 +844,7 @@ namespace Presentacion.Marcas_Nacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idInt = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = false;
+                btnAdjuntarT.Visible = true;
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -982,6 +982,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             Cursor = Cursors.Default;
         }
+
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
             Editar();
@@ -2193,16 +2194,14 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+               
             }
             else
             {
-                // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
 

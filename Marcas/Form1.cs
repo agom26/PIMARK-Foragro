@@ -52,9 +52,9 @@ namespace Presentacion
                 btnTramiteInicialInter.Visible = false;
                 btnTramiteInicial.Visible = false;
                 btnIngresarPatente.Visible = false;
-                iNGRESARMARCAToolStripMenuItem.Enabled = false;
-                iNGRESARMARCAToolStripMenuItem1.Enabled = false;
-                iNGRESARPATENTEToolStripMenuItem.Enabled = false;
+                iNGRESARMARCAToolStripMenuItem.Visible = false;
+                iNGRESARMARCAToolStripMenuItem1.Visible= false;
+                iNGRESARPATENTEToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -62,9 +62,9 @@ namespace Presentacion
                 btnTramiteInicial.Visible = true;
                 btnIngresarPatente.Visible = true;
 
-                iNGRESARMARCAToolStripMenuItem.Enabled = true;
-                iNGRESARMARCAToolStripMenuItem1.Enabled = true;
-                iNGRESARPATENTEToolStripMenuItem.Enabled = true;
+                iNGRESARMARCAToolStripMenuItem.Visible = true;
+                iNGRESARMARCAToolStripMenuItem1.Visible = true;
+                iNGRESARPATENTEToolStripMenuItem.Visible = true;
             }
         }
 
@@ -637,6 +637,7 @@ namespace Presentacion
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            //this.SuspendLayout(); // ❌ Suspender redibujo
             _resizeTimer.Tick += (s, _) => {
                 _resizeTimer.Stop();
                 ApplyChildLayoutSafe();
@@ -648,10 +649,13 @@ namespace Presentacion
 
             //labelName_LN.Text = UsuarioActivo.nombres + " " + UsuarioActivo.apellidos;
             labelUsername.Text = UsuarioActivo.usuario + " - " + UsuarioActivo.correo;
+
+            //this.ResumeLayout(false); // ✅ Reanudar y redibujar todo de golpe
+
            
-            openChildForm(new FrmDashboard3(this));
-           
-           
+
+
+
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -852,7 +856,7 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmMostrarOposiciones());
         }
 
-        private async void btnAbandonadas_Click(object sender, EventArgs e)
+        private void btnAbandonadas_Click(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -942,34 +946,24 @@ namespace Presentacion
 
         }
 
-        public async void cargarDashboard()
+        public async Task cargarDashboard()
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmDashboard3(this));
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmDashboard3(this));
+
+           
         }
 
         private async void btnHome_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
-            {
-               
-                openChildForm(new FrmDashboard3(this));
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+            await cargarDashboard();
         }
 
         private async void btnRenovInter_Click(object sender, EventArgs e)
@@ -1118,17 +1112,7 @@ namespace Presentacion
 
         private async void button3_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
-            {
-               
-                openChildForm(new FrmDashboard3(this));
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+            await cargarDashboard();
 
         }
 
@@ -1809,10 +1793,20 @@ namespace Presentacion
             }
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private async void Form1_Shown(object sender, EventArgs e)
         {
-            _ = CargarVencimientosAsync();
+
+            //this.SuspendLayout();
+            //panelChildForm.Visible=false;
+
+
+            
             CollapseMenu();
+            btnHome_Click(this, EventArgs.Empty);
+            await CargarVencimientosAsync();
+
+            //panelChildForm.Visible=true;
+            //this.ResumeLayout();
         }
 
         private async void dESISTIDASToolStripMenuItem_Click(object sender, EventArgs e)

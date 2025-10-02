@@ -1456,14 +1456,15 @@
             // tabPageHistorialMarca
             // 
             tabPageHistorialMarca.Controls.Add(panel2);
-            tabPageHistorialMarca.Location = new Point(4, 24);
+            tabPageHistorialMarca.Location = new Point(4, 26);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
-            tabPageHistorialMarca.Size = new Size(1020, 673);
+            tabPageHistorialMarca.Size = new Size(1020, 671);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            panel2.AutoScroll = true;
             panel2.Controls.Add(iconButton2);
             panel2.Controls.Add(btnEditarEstadoHistorial);
             panel2.Controls.Add(label22);
@@ -1472,7 +1473,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1020, 673);
+            panel2.Size = new Size(1020, 671);
             panel2.TabIndex = 0;
             // 
             // iconButton2
@@ -1577,6 +1578,7 @@
             // 
             // panel6
             // 
+            panel6.AutoScroll = true;
             panel6.Controls.Add(roundedButton7);
             panel6.Controls.Add(panel7);
             panel6.Dock = DockStyle.Fill;
@@ -1587,6 +1589,7 @@
             // 
             // roundedButton7
             // 
+            roundedButton7.Anchor = AnchorStyles.Top;
             roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
@@ -1597,7 +1600,7 @@
             roundedButton7.FlatStyle = FlatStyle.Flat;
             roundedButton7.Font = new Font("Century Gothic", 13F);
             roundedButton7.ForeColor = Color.Black;
-            roundedButton7.Location = new Point(343, 30);
+            roundedButton7.Location = new Point(326, 25);
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(270, 50);
             roundedButton7.TabIndex = 22;
@@ -1631,9 +1634,9 @@
             panel8.Controls.Add(label23);
             panel8.Controls.Add(richTextBoxAnotacionesH);
             panel8.Controls.Add(label25);
-            panel8.Location = new Point(42, 21);
+            panel8.Location = new Point(20, 21);
             panel8.Name = "panel8";
-            panel8.Size = new Size(805, 369);
+            panel8.Size = new Size(833, 369);
             panel8.TabIndex = 21;
             // 
             // labelVenc
@@ -1641,7 +1644,7 @@
             labelVenc.Anchor = AnchorStyles.Top;
             labelVenc.AutoSize = true;
             labelVenc.BackColor = Color.White;
-            labelVenc.Location = new Point(421, 103);
+            labelVenc.Location = new Point(447, 104);
             labelVenc.Name = "labelVenc";
             labelVenc.Size = new Size(125, 17);
             labelVenc.TabIndex = 23;
@@ -1651,7 +1654,7 @@
             // 
             dateTimePickerFechaVencimiento.Anchor = AnchorStyles.Top;
             dateTimePickerFechaVencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePickerFechaVencimiento.Location = new Point(421, 126);
+            dateTimePickerFechaVencimiento.Location = new Point(447, 127);
             dateTimePickerFechaVencimiento.Name = "dateTimePickerFechaVencimiento";
             dateTimePickerFechaVencimiento.Size = new Size(154, 22);
             dateTimePickerFechaVencimiento.TabIndex = 24;
@@ -1670,9 +1673,9 @@
             btnEditarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarH.IconSize = 30;
             btnEditarH.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditarH.Location = new Point(177, 292);
+            btnEditarH.Location = new Point(203, 304);
             btnEditarH.Name = "btnEditarH";
-            btnEditarH.Size = new Size(174, 49);
+            btnEditarH.Size = new Size(191, 47);
             btnEditarH.TabIndex = 20;
             btnEditarH.Text = "EDITAR";
             btnEditarH.TextAlign = ContentAlignment.MiddleRight;
@@ -1685,7 +1688,7 @@
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
             lblUser.BackColor = Color.White;
-            lblUser.Location = new Point(177, 23);
+            lblUser.Location = new Point(203, 24);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(45, 17);
             lblUser.TabIndex = 17;
@@ -1696,7 +1699,7 @@
             label24.Anchor = AnchorStyles.Top;
             label24.AutoSize = true;
             label24.BackColor = Color.White;
-            label24.Location = new Point(177, 103);
+            label24.Location = new Point(203, 104);
             label24.Name = "label24";
             label24.Size = new Size(91, 17);
             label24.TabIndex = 11;
@@ -1707,7 +1710,7 @@
             labelUserEditor.Anchor = AnchorStyles.Top;
             labelUserEditor.AutoSize = true;
             labelUserEditor.BackColor = Color.White;
-            labelUserEditor.Location = new Point(358, 23);
+            labelUserEditor.Location = new Point(384, 24);
             labelUserEditor.Name = "labelUserEditor";
             labelUserEditor.Size = new Size(45, 17);
             labelUserEditor.TabIndex = 18;
@@ -1717,7 +1720,7 @@
             // 
             dateTimePickerFechaIngreso.Anchor = AnchorStyles.Top;
             dateTimePickerFechaIngreso.Format = DateTimePickerFormat.Short;
-            dateTimePickerFechaIngreso.Location = new Point(177, 126);
+            dateTimePickerFechaIngreso.Location = new Point(203, 127);
             dateTimePickerFechaIngreso.Name = "dateTimePickerFechaIngreso";
             dateTimePickerFechaIngreso.Size = new Size(154, 22);
             dateTimePickerFechaIngreso.TabIndex = 14;
@@ -1731,7 +1734,7 @@
             comboBoxEstatusH.FlatStyle = FlatStyle.Flat;
             comboBoxEstatusH.FormattingEnabled = true;
             comboBoxEstatusH.Items.AddRange(new object[] { "Ingresada", "Examen de forma", "Examen de fondo", "Requerimiento", "Objeción", "Resolución RPI favorable", "Resolución RPI desfavorable", "Recurso de revocatoria", "Resolución Ministerio de Economía (MINECO)", "Contencioso administrativo", "Edicto", "Publicación", "Oposición", "Orden de pago", "Abandono", "Licencia de uso", "Trámite de renovación", "Trámite de traspaso", "Registrada", "Desistimiento" });
-            comboBoxEstatusH.Location = new Point(177, 65);
+            comboBoxEstatusH.Location = new Point(203, 66);
             comboBoxEstatusH.Name = "comboBoxEstatusH";
             comboBoxEstatusH.Size = new Size(398, 25);
             comboBoxEstatusH.TabIndex = 15;
@@ -1749,9 +1752,9 @@
             btnCancelarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarH.IconSize = 30;
             btnCancelarH.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelarH.Location = new Point(401, 292);
+            btnCancelarH.Location = new Point(410, 304);
             btnCancelarH.Name = "btnCancelarH";
-            btnCancelarH.Size = new Size(174, 49);
+            btnCancelarH.Size = new Size(191, 47);
             btnCancelarH.TabIndex = 19;
             btnCancelarH.Text = "CANCELAR";
             btnCancelarH.TextAlign = ContentAlignment.MiddleRight;
@@ -1764,7 +1767,7 @@
             label23.Anchor = AnchorStyles.Top;
             label23.AutoSize = true;
             label23.BackColor = Color.White;
-            label23.Location = new Point(177, 42);
+            label23.Location = new Point(203, 43);
             label23.Name = "label23";
             label23.Size = new Size(48, 17);
             label23.TabIndex = 12;
@@ -1775,7 +1778,7 @@
             richTextBoxAnotacionesH.Anchor = AnchorStyles.Top;
             richTextBoxAnotacionesH.BackColor = Color.White;
             richTextBoxAnotacionesH.BorderStyle = BorderStyle.FixedSingle;
-            richTextBoxAnotacionesH.Location = new Point(177, 184);
+            richTextBoxAnotacionesH.Location = new Point(203, 185);
             richTextBoxAnotacionesH.Name = "richTextBoxAnotacionesH";
             richTextBoxAnotacionesH.Size = new Size(398, 102);
             richTextBoxAnotacionesH.TabIndex = 16;
@@ -1786,7 +1789,7 @@
             label25.Anchor = AnchorStyles.Top;
             label25.AutoSize = true;
             label25.BackColor = Color.White;
-            label25.Location = new Point(177, 161);
+            label25.Location = new Point(203, 162);
             label25.Name = "label25";
             label25.Size = new Size(84, 17);
             label25.TabIndex = 13;

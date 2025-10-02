@@ -197,7 +197,7 @@
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 18;
             ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar.Location = new Point(476, 103);
+            ibtnBuscar.Location = new Point(491, 99);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(107, 27);
             ibtnBuscar.TabIndex = 37;
@@ -211,7 +211,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 9F);
-            txtBuscar.Location = new Point(194, 108);
+            txtBuscar.Location = new Point(209, 108);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(229, 22);
             txtBuscar.TabIndex = 36;
@@ -229,7 +229,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(160, 86);
+            roundedButton3.Location = new Point(175, 86);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(580, 52);
             roundedButton3.TabIndex = 38;
@@ -337,7 +337,7 @@
             comboBoxTipoFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTipoFiltro.FormattingEnabled = true;
             comboBoxTipoFiltro.Items.AddRange(new object[] { "MARCAS", "PATENTES" });
-            comboBoxTipoFiltro.Location = new Point(591, 105);
+            comboBoxTipoFiltro.Location = new Point(604, 101);
             comboBoxTipoFiltro.Name = "comboBoxTipoFiltro";
             comboBoxTipoFiltro.Size = new Size(121, 25);
             comboBoxTipoFiltro.TabIndex = 222;
@@ -357,9 +357,9 @@
             roundedButton5.ForeColor = Color.Black;
             roundedButton5.Image = Properties.Resources.hourglass__2_;
             roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton5.Location = new Point(108, 3);
+            roundedButton5.Location = new Point(220, 3);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(683, 61);
+            roundedButton5.Size = new Size(492, 61);
             roundedButton5.TabIndex = 39;
             roundedButton5.Text = "PLAZOS";
             roundedButton5.TextColor = Color.Black;
@@ -376,7 +376,7 @@
             iconButton7.IconColor = Color.Black;
             iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(429, 108);
+            iconButton7.Location = new Point(444, 108);
             iconButton7.Name = "iconButton7";
             iconButton7.Size = new Size(26, 22);
             iconButton7.TabIndex = 221;
@@ -388,7 +388,7 @@
             label6.Anchor = AnchorStyles.Top;
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(236, 236, 238);
-            label6.Location = new Point(194, 88);
+            label6.Location = new Point(209, 88);
             label6.Name = "label6";
             label6.Size = new Size(122, 17);
             label6.TabIndex = 223;

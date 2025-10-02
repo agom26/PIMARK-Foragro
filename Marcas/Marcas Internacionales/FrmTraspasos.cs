@@ -872,7 +872,7 @@ namespace Presentacion.Marcas_Nacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idInt = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = false;
+                btnAdjuntarT.Visible = true;
                 convertirImagen();
                 pictureBox1.Image = documento;
 

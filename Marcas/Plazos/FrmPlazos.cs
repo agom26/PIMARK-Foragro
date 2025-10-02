@@ -46,6 +46,7 @@ namespace Presentacion.Plazos
 
             if (UsuarioActivo.soloLectura)
             {
+                ibtnEditar.Visible = false;
                 btnEditar.Visible = false;
                 comboBoxEstado.Enabled = false;
                 dateTimePickerFechaIngreso.Enabled = false;

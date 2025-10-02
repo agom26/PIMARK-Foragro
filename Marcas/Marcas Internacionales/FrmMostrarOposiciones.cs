@@ -1107,7 +1107,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -1679,7 +1679,7 @@ namespace Presentacion.Marcas_Nacionales
                             // Asignar los valores obtenidos a la clase SeleccionarPersona
                             SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                             SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1709,7 +1709,7 @@ namespace Presentacion.Marcas_Nacionales
                             // Asignar los valores obtenidos a la clase SeleccionarPersona
                             SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                             SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1958,7 +1958,7 @@ namespace Presentacion.Marcas_Nacionales
 
                         SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                         SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorial.usuario = fila["usuario"].ToString();
                         SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -2338,13 +2338,13 @@ namespace Presentacion.Marcas_Nacionales
                     if (SeleccionarOposicion.idMarca == 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                        historialOposicionModel.CrearHistorialOposicion(Convert.ToDateTime(AgregarEtapaOposicion.fecha), AgregarEtapaOposicion.etapa,
                             AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", SeleccionarOposicion.idInt
                             );
                     }
                     else
                     {
-                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapaOposicion.fecha,
+                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, Convert.ToDateTime(AgregarEtapaOposicion.fecha),
                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
                            AgregarEtapaOposicion.usuario, "OPOSICIÓN", null);
                     }
@@ -2420,7 +2420,7 @@ namespace Presentacion.Marcas_Nacionales
                     if (idOposicion > 0)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                        historialOposicionModel.CrearHistorialOposicion((DateTime)AgregarEtapaOposicion.fecha, AgregarEtapaOposicion.etapa,
+                        historialOposicionModel.CrearHistorialOposicion(Convert.ToDateTime(AgregarEtapaOposicion.fecha), AgregarEtapaOposicion.etapa,
                             AgregarEtapaOposicion.anotaciones, AgregarEtapaOposicion.usuario, null, "OPOSICIÓN", idOposicion
                             );
                     }
@@ -2620,6 +2620,19 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (btnEnviarATramite.Text == "TERMINAR")
             {
+                DialogResult result = MessageBox.Show(
+                   "¿Está seguro que desea enviar a TERMINAR la oposición?",
+                   "Confirmación",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Question
+               );
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+
                 if (SeleccionarOposicion.idMarca == 0)
                 {
                     TerminarOposicion();
@@ -2634,7 +2647,7 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         try
                         {
-                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, (DateTime)AgregarEtapa.fecha,
+                            historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones,
                             AgregarEtapa.usuario, "TRÁMITE", null);
                             TerminarOposicion();

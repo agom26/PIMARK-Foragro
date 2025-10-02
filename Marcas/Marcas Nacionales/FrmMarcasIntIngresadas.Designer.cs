@@ -1623,9 +1623,9 @@
             btnCancelarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarH.IconSize = 25;
             btnCancelarH.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelarH.Location = new Point(462, 306);
+            btnCancelarH.Location = new Point(475, 319);
             btnCancelarH.Name = "btnCancelarH";
-            btnCancelarH.Size = new Size(127, 47);
+            btnCancelarH.Size = new Size(191, 47);
             btnCancelarH.TabIndex = 19;
             btnCancelarH.Text = "CANCELAR";
             btnCancelarH.TextAlign = ContentAlignment.MiddleRight;
@@ -1646,9 +1646,9 @@
             btnEditarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarH.IconSize = 25;
             btnEditarH.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditarH.Location = new Point(329, 306);
+            btnEditarH.Location = new Point(268, 319);
             btnEditarH.Name = "btnEditarH";
-            btnEditarH.Size = new Size(127, 47);
+            btnEditarH.Size = new Size(191, 47);
             btnEditarH.TabIndex = 20;
             btnEditarH.Text = "EDITAR";
             btnEditarH.TextAlign = ContentAlignment.MiddleRight;

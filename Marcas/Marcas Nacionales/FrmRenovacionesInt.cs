@@ -699,9 +699,9 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.registro = row["registro"].ToString();
                             SeleccionarMarca.folio = row["folio"].ToString();
                             SeleccionarMarca.libro = row["libro"].ToString();
-                            SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
-                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
-                            AgregarRenovacion.fechaVencimientoAntigua = (DateTime)SeleccionarMarca.fechaVencimiento;
+                            SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"].ToString());
+                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+                            AgregarRenovacion.fechaVencimientoAntigua = Convert.ToDateTime(SeleccionarMarca.fechaVencimiento);
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
@@ -810,7 +810,7 @@ namespace Presentacion.Marcas_Internacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idN = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = false;
+                btnAdjuntarT.Visible = true;
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -982,7 +982,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 try
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                    historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                     FrmAlerta alerta = new FrmAlerta("ESTADO AGREGADO", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     //MessageBox.Show("Etapa agregada con éxito");
@@ -1083,7 +1083,7 @@ namespace Presentacion.Marcas_Internacionales
                             // Asignar los valores obtenidos a la clase SeleccionarPersona
                             SeleccionarHistorial.id = Convert.ToInt32(fila["id"]);
                             SeleccionarHistorial.etapa = fila["etapa"].ToString();
-                            SeleccionarHistorial.fecha = (DateTime)fila["fecha"];
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                             SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
                             SeleccionarHistorial.usuario = fila["usuario"].ToString();
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();

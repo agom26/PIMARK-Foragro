@@ -64,6 +64,8 @@ namespace Presentacion.Marcas_Nacionales
             bool requiereVencimiento = etapa == "Examen de fondo" ||
                               etapa == "Requerimiento" ||
                               etapa == "Objeción" ||
+                              etapa == "Recurso de revocatoria" ||
+                              etapa == "Resolución RPI desfavorable" ||
                               etapa == "Publicación" ||
                               etapa == "Orden de pago";
 
@@ -86,11 +88,18 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (requiereVencimiento)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    if (etapa == "Recurso de revocatoria" || etapa == "Resolución RPI desfavorable" )
+                    {
+                        anotacionFinal = $"{fecha} Por objeción-{etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+
                 }
                 else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Resolución RPI desfavorable" ||
-                         etapa == "Recurso de revocatoria" ||
+                         //etapa == "Resolución RPI desfavorable" ||
                          etapa == "Resolución Ministerio de Economía (MINECO)" ||
                          etapa == "Contencioso administrativo")
                 {
@@ -130,6 +139,7 @@ namespace Presentacion.Marcas_Nacionales
                 etapa == "Examen de fondo" ||
                 etapa == "Requerimiento" ||
                 etapa == "Objeción" ||
+                etapa == "Recurso de revocatoria" ||
                 etapa == "Publicación" ||
                 etapa == "Orden de pago" ||
                 etapa == "Resolución RPI desfavorable";
@@ -145,70 +155,6 @@ namespace Presentacion.Marcas_Nacionales
             ActualizarResumen(); // arma el texto según valores actuales
             _actualizando = false;
 
-            /* antes
-            string etapa = comboBox1.Text;
-            DateTime fechaIngreso = dateTimePicker1.Value;
-            DateTime fechaVencimiento = fechaIngreso; // valor por defecto
-
-            // Establecer vencimiento automático según la etapa
-            switch (etapa)
-            {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
-
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
-            }
-
-            // Mostrar u ocultar el campo de vencimiento según la etapa
-            bool mostrarVencimiento = etapa == "Examen de fondo" ||
-                                       etapa == "Requerimiento" ||
-                                       etapa == "Objeción" ||
-                                       etapa == "Publicación" ||
-                                       etapa == "Orden de pago" ||
-                                       etapa == "Resolución RPI desfavorable";
-
-            labelVenc.Visible = mostrarVencimiento;
-            dateTimePickerVencimiento.Visible = mostrarVencimiento;
-
-            if (mostrarVencimiento)
-            {
-                dateTimePickerVencimiento.Value = fechaVencimiento;
-            }
-
-            // Mostrar resumen en el RichTextBox
-            string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-            string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-
-            if (etapa == "Resolución RPI desfavorable")
-            {
-                richTextBox1.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (mostrarVencimiento)
-            {
-                richTextBox1.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (etapa == "Resolución RPI favorable" ||
-                     etapa == "Recurso de revocatoria" ||
-                     etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                     etapa == "Contencioso administrativo")
-            {
-                richTextBox1.Text = $"{fecha} Por objeción - {etapa}";
-            }
-            else
-            {
-                richTextBox1.Text = $"{fecha} {etapa}";
-            }*/
-
         }
 
         private DateTime CalcularVencimiento(string etapa, DateTime fechaIngreso)
@@ -217,7 +163,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
                 "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
-                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                "Resolución RPI desfavorable" or "Recurso de revocatoria"=> fechaIngreso.AddDays(5),
                 _ => fechaIngreso
             };
         }
@@ -235,9 +181,7 @@ namespace Presentacion.Marcas_Nacionales
             }
             ActualizarResumen();
         }
-
-
-
+        
 
         private void dateTimePicker1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -272,14 +216,14 @@ namespace Presentacion.Marcas_Nacionales
             if (dateTimePickerVencimiento.Visible)
             {
                 string venc = dateTimePickerVencimiento.Value.ToString("dd/MM/yyyy");
-                if (etapa == "Resolución RPI desfavorable")
+                if (etapa == "Resolución RPI desfavorable" || etapa == "Recurso de revocatoria")
                     richTextBox1.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
                 else
                     richTextBox1.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
             }
             else
             {
-                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                if (etapa is "Resolución RPI favorable"  or
                     "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
                     richTextBox1.Text = $"{fecha} Por objeción - {etapa}";
                 else

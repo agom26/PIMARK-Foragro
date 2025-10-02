@@ -1111,6 +1111,7 @@ namespace Presentacion.Marcas_Nacionales
 
             }
         }
+
         private void ibtnEditar_Click(object sender, EventArgs e)
         {
             Editar();
@@ -1171,7 +1172,6 @@ namespace Presentacion.Marcas_Nacionales
                     agregoEstado = true;
                     richTextBox1.Text += "\n" + AgregarEtapa.anotaciones;
                     textBoxEstatus.Text = AgregarEtapa.etapa;
-                    //historialModel.GuardarEtapa(SeleccionarMarca.idInt, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE");
                     FrmAlerta alerta = new FrmAlerta("ETAPA AGREGADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
 
@@ -1193,36 +1193,14 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                        /*
-                        try
-                        {
-                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "renovacion");
-                            await CargarDatosMarca();
-                        }
-                        catch (Exception ex)
-                        {
-                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alerta2.ShowDialog();
-
-                        }*/
+                       
 
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
-                        /*
-                        try
-                        {
-                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idInt, "traspaso");
-                            await CargarDatosMarca();
-                        }
-                        catch (Exception ex)
-                        {
-                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alerta2.ShowDialog();
-
-                        }*/
+                        
                     }
                     else
                     {
@@ -1784,8 +1762,8 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarRenovacion.idRenovacion = Convert.ToInt32(fila["Id"]);
                         //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
                         //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
-                        SeleccionarRenovacion.Venc_antiguo = Convert.ToDateTime(fila["FechaVencimientoAntigua"]);
-                        SeleccionarRenovacion.Venc_nuevo = Convert.ToDateTime(fila["FechaVencimientoNueva"]);
+                        SeleccionarRenovacion.Venc_antiguo = Convert.ToDateTime(fila["FechaVencimientoAntigua"].ToString());
+                        SeleccionarRenovacion.Venc_nuevo = Convert.ToDateTime(fila["FechaVencimientoNueva"].ToString());
                         SeleccionarRenovacion.NumExpediente = fila["NumExpediente"].ToString();
                         SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
                         //Asignar valores a controles
@@ -2069,26 +2047,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            /*
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
-            {
-                //agregoEstado = false;
-                DatosRegistro.peligro = false;
-                EliminarTabPage(tabPageHistorialMarca);
-                AnadirTabPage(tabPageRegistradasList);
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageListaArchivos);
-                tabControl1.SelectedTab = tabPageRegistradasList;
-                await LoadMarcas();
-                SeleccionarMarca.idInt = 0;
-                LimpiarFormulario();
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }*/
+            
             DatosRegistro.peligro = false;
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageRegistradasList);
@@ -2681,6 +2640,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
         }
+
         private void CentrarPanel()
         {
 
@@ -2690,16 +2650,15 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock= DockStyle.Top;
+              
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
 

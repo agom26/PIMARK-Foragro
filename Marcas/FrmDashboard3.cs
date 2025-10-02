@@ -14,10 +14,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Comun;
 
 namespace Presentacion
 {
-    public partial class FrmDashboard3 : Form
+    public partial class FrmDashboard3 : Form, IAsyncLoadable
     {
         public Form1 mainForm;
         PlazosModel plazosModel = new PlazosModel();
@@ -26,6 +27,13 @@ namespace Presentacion
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
+
+        public async Task LoadAsync()
+        {
+            await LoadPlazos(); // aquí llamas a tu método actual
+            await LoadVencimientos();
+        }
+
         public async void Ejecutar()
         {
             try
@@ -77,7 +85,7 @@ namespace Presentacion
             }
         }
 
-        private async void LoadVencimientos()
+        private async Task LoadVencimientos()
         {
 
             currentPageIndex = 1;
@@ -105,7 +113,6 @@ namespace Presentacion
         public FrmDashboard3(Form1 mainForm)
         {
             InitializeComponent();
-            this.Load += FrmDashboard3_Load;
             this.mainForm = mainForm;
             Ejecutar();
 

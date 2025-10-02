@@ -15,6 +15,7 @@ namespace Comun.Cache
         public static string correo;
         public static string contrasena;
         public static bool isAdmin;
+        public static bool soloLectura;
 
     }
 }

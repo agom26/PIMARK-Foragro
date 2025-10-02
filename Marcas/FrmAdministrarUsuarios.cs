@@ -1,17 +1,7 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Interop;
 using Comun.Cache;
 using Dominio;
-using Org.BouncyCastle.Bcpg.OpenPgp;
 using Presentacion.Alertas;
 
 namespace Presentacion
@@ -19,7 +9,7 @@ namespace Presentacion
     public partial class FrmAdministrarUsuarios : Form
     {
         UserModel UserModel = new UserModel();
-        private const int pageSize = 10;
+        private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;
         private int totalRows = 0;
@@ -29,10 +19,7 @@ namespace Presentacion
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
-            dtgUsuarios.CellDoubleClick += dtgUsuarios_CellDoubleClick;
-
-            this.Load += FrmAdministrarUsuarios_Load; // Mueve la lógica de carga aquí
-
+            
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -56,14 +43,12 @@ namespace Presentacion
         {
 
         }
-
-
-
-        //metodos
+        
         public void SetUserListBindingSource(BindingSource userList)
         {
             dtgUsuarios.DataSource = userList;
         }
+
         public void LimpiarCampos()
         {
             txtUsername.Text = "";
@@ -84,31 +69,40 @@ namespace Presentacion
             if (this.IsHandleCreated && !this.IsDisposed)
             {
                 // Invoca el método para actualizar tanto lblTotalPages como dtgUsuarios en el hilo principal
-                Invoke(new Action(() =>
-            {
-                // Actualizar el texto de lblTotalPages en el hilo principal
-                lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
-                // Obtiene los usuarios
-                var users = UserModel.GetAllUsers(currentPageIndex, pageSize);
-
-                // Actualiza el DataGridView
-                dtgUsuarios.DataSource = users;
-
-                // Oculta la columna 'id'
-                if (dtgUsuarios.Columns["id"] != null)
+                Invoke(new Action(async () =>
                 {
-                    dtgUsuarios.Columns["id"].Visible = false;
-                }
-                dtgUsuarios.ClearSelection();
+                    // Actualizar el texto de lblTotalPages en el hilo principal
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    // Obtiene los usuarios
+                    await Task.Run(() => UserModel.GetAllUsers(currentPageIndex, pageSize));
+                    var users = UserModel.GetAllUsers(currentPageIndex, pageSize);
 
-                // Centrar la columna 'Administrador'
-                if (dtgUsuarios.Columns["Administrador"] != null)
-                {
-                    dtgUsuarios.Columns["Administrador"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    // Actualiza el DataGridView
+                    dtgUsuarios.DataSource = users;
+
+                    // Oculta la columna 'id'
+                    if (dtgUsuarios.Columns["id"] != null)
+                    {
+                        dtgUsuarios.Columns["id"].Visible = false;
+                    }
+                    dtgUsuarios.ClearSelection();
+
+                    // Centrar la columna 'Administrador'
+                    if (dtgUsuarios.Columns["Administrador"] != null)
+                    {
+                        dtgUsuarios.Columns["Administrador"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        dtgUsuarios.Columns["Administrador"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    // Centrar la columna 'SOLO LECTURA'
+                    if (dtgUsuarios.Columns["Sólo lectura"] != null)
+                    {
+                        dtgUsuarios.Columns["Sólo lectura"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        dtgUsuarios.Columns["Sólo lectura"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
                 }
-            }));
+                ));
             }
         }
 
@@ -135,7 +129,7 @@ namespace Presentacion
                     //EditarUsuario.contrasena = row["contrasena"].ToString();
                     EditarUsuario.correo = row["correo"].ToString();
                     EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
-
+                    EditarUsuario.soloLectura = Convert.ToBoolean(row["solo_lectura"]);
 
                     txtNombres.Text = EditarUsuario.nombres;
                     txtUsername.Text = EditarUsuario.usuario;
@@ -146,6 +140,7 @@ namespace Presentacion
                     txtCont.Text = "";
                     txtConfirmarCont.Text = "";
                     chckbIsAdmin.Checked = EditarUsuario.isAdmin;
+                    checkBoxLectura.Checked = EditarUsuario.soloLectura;
                     btnGuardarU.Text = "EDITAR";
                     btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.Pen;
 
@@ -243,7 +238,7 @@ namespace Presentacion
 
         }
 
-        private async void iconButton5_Click(object sender, EventArgs e)
+        private void iconButton5_Click(object sender, EventArgs e)
         {
 
         }
@@ -315,11 +310,9 @@ namespace Presentacion
                     EditarUsuario.idUser = 0;
                 }
             }
-
-
         }
 
-        public async void FiltrarUsuarios()
+        public async Task FiltrarUsuarios()
         {
             if (txtBuscar.Text != "")
             {
@@ -354,9 +347,9 @@ namespace Presentacion
             }
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
-            FiltrarUsuarios();
+            await FiltrarUsuarios();
         }
 
         private void dtgUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -435,7 +428,7 @@ namespace Presentacion
 
 
                         tabControl1.SelectedTab = tabPage1;
-                        LoadUsers();
+                        await LoadUsers();
                         EliminarTabPage(tabPageUserDetail);
                     }
                     catch (Exception ex)
@@ -622,17 +615,17 @@ namespace Presentacion
 
         }
 
-        private void iconButton6_Click_1(object sender, EventArgs e)
+        private async void iconButton6_Click_1(object sender, EventArgs e)
         {
             txtBuscar.Text = "";
-            FiltrarUsuarios();
+            await FiltrarUsuarios();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                FiltrarUsuarios();
+                await FiltrarUsuarios();
             }
 
         }
@@ -645,10 +638,8 @@ namespace Presentacion
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+                
             }
             else
             {
@@ -667,18 +658,18 @@ namespace Presentacion
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            FiltrarUsuarios();
+            await FiltrarUsuarios();
 
         }
 
-        private void iconButton6_Click_2(object sender, EventArgs e)
+        private async void iconButton6_Click_2(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            FiltrarUsuarios();
+            await FiltrarUsuarios();
         }
 
-        private void txtBuscar_KeyDown_1(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -690,7 +681,7 @@ namespace Presentacion
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                FiltrarUsuarios();
+                await FiltrarUsuarios();
             }
         }
 
@@ -699,7 +690,7 @@ namespace Presentacion
             currentPageIndex = 1;
             if (buscando == true)
             {
-                FiltrarUsuarios();
+                await FiltrarUsuarios();
             }
             else
             {
@@ -716,7 +707,7 @@ namespace Presentacion
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    FiltrarUsuarios();
+                    await FiltrarUsuarios();
                 }
                 else
                 {
@@ -734,7 +725,7 @@ namespace Presentacion
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    FiltrarUsuarios();
+                    await FiltrarUsuarios();
                 }
                 else
                 {
@@ -750,7 +741,7 @@ namespace Presentacion
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                FiltrarUsuarios();
+                await FiltrarUsuarios();
             }
             else
             {

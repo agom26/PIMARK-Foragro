@@ -588,19 +588,7 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 bool esActualizado;
-                /*
-                if (agregoEstado)
-                {
-                    historialModel.GuardarEtapa(
-                        SeleccionarMarca.idN,
-                        (DateTime)AgregarEtapa.fecha,
-                        AgregarEtapa.etapa,
-                        AgregarEtapa.anotaciones,
-                        UsuarioActivo.usuario,
-                        "TRÁMITE"
-                    );
-                    agregoEstado = false;
-                }*/
+               
 
                 if (registroChek)
                 {
@@ -624,6 +612,7 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 if (agregoEstado)
                 {
                     await Task.Run(() => historialModel.GuardarEtapa(
@@ -2050,51 +2039,25 @@ namespace Presentacion.Marcas_Internacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                    //await refrescarMarca();
-                    //await CargarDatosMarca();
-                    VerificarDatosRegistro();
+                  
+                 
 
-                    if (AgregarEtapa.etapa == "Trámite de renovación")
+                    if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                        /*
-                        try
-                        {
-                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "renovacion");
-                        }
-                        catch (Exception ex)
-                        {
-                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alerta2.ShowDialog();
-
-                        }*/
-
+                       
                     }
-                    else if (AgregarEtapa.etapa == "Trámite de traspaso")
+                    else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
-                        /*
-                        try
-                        {
-                            marcaModel.InsertarExpedienteMarca(AgregarEtapa.numExpediente, SeleccionarMarca.idN, "traspaso");
-                        }
-                        catch (Exception ex)
-                        {
-                            FrmAlerta alerta2 = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alerta2.ShowDialog();
-
-                        }*/
                     }
                     else
                     {
                         txtERenovacion.Enabled = false;
                         txtETraspaso.Enabled = false;
                     }
-
-
-
                 }
                 catch (Exception ex)
                 {
