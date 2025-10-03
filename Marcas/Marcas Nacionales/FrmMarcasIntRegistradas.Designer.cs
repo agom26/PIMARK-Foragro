@@ -2278,9 +2278,9 @@
             // tabPageTraspasoDetail
             // 
             tabPageTraspasoDetail.Controls.Add(panel16);
-            tabPageTraspasoDetail.Location = new Point(4, 24);
+            tabPageTraspasoDetail.Location = new Point(4, 26);
             tabPageTraspasoDetail.Name = "tabPageTraspasoDetail";
-            tabPageTraspasoDetail.Size = new Size(1161, 673);
+            tabPageTraspasoDetail.Size = new Size(1161, 671);
             tabPageTraspasoDetail.TabIndex = 7;
             tabPageTraspasoDetail.UseVisualStyleBackColor = true;
             // 
@@ -2292,7 +2292,7 @@
             panel16.Dock = DockStyle.Fill;
             panel16.Location = new Point(0, 0);
             panel16.Name = "panel16";
-            panel16.Size = new Size(1161, 673);
+            panel16.Size = new Size(1161, 671);
             panel16.TabIndex = 0;
             // 
             // roundedButton10
@@ -2475,9 +2475,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel24);
-            tabPageListaArchivos.Location = new Point(4, 26);
+            tabPageListaArchivos.Location = new Point(4, 24);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1161, 671);
+            tabPageListaArchivos.Size = new Size(1161, 673);
             tabPageListaArchivos.TabIndex = 8;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -2493,7 +2493,7 @@
             panel24.Dock = DockStyle.Fill;
             panel24.Location = new Point(0, 0);
             panel24.Name = "panel24";
-            panel24.Size = new Size(1161, 671);
+            panel24.Size = new Size(1161, 673);
             panel24.TabIndex = 1;
             // 
             // btnEliminarArchivo

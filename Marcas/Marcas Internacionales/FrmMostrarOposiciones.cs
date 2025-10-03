@@ -110,16 +110,78 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
 
-            txtNombreTitularAO.Enabled = true;
-            txtSignoOpositor.Enabled = true;
 
-            SetDoubleBuffering(this, true);
+            if (!UsuarioActivo.soloLectura)
+            {
+                btnGuardarU.Visible = true;
+                btnAgregarOposicion.Visible = true;
+                btnDesistir.Visible = true;
+                btnAbandonar.Visible = true;
+                btnEnviarATramite.Visible = true;
+                
+
+                btnAgregarOpositorAO.Enabled = true;
+                btnAgregarEstadoAO.Enabled = true;
+                txtEntidadTitular.Enabled = true;
+                txtClaseAO.Enabled = true;
+                txtExpedienteAO.Enabled = true;
+                txtNombreTitularAO.Enabled = true;
+                txtSignoOpositor.Enabled = true;
+                txtSignoAO.Enabled = true;
+                cmbSignoDAO.Enabled = true;
+
+                txtNombreTitularAO.Enabled = true;
+                txtSignoOpositor.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = true;
+                btnEditarH.Visible = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                dateTimePickerFechaH.Enabled = true;
+            }
+            else
+            {
+
+
+                btnGuardarU.Visible = false;
+                btnAgregarOposicion.Visible = false;
+                btnDesistir.Visible = false;
+                btnAbandonar.Visible = false;
+                btnEnviarATramite.Visible = false;
+
+                btnAgregarOpositorAO.Enabled = false;
+                btnAgregarEstadoAO.Enabled = false;
+                txtEntidadTitular.Enabled = false;
+                txtClaseAO.Enabled = false;
+                txtExpedienteAO.Enabled = false;
+                txtNombreTitularAO.Enabled = false;
+                txtSignoOpositor.Enabled=false;
+                txtSignoAO.Enabled = false;
+                cmbSignoDAO.Enabled = false;
+
+                txtNombreTitularAO.Enabled = false;
+                txtSignoOpositor.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = false;
+                btnEditarH.Visible = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                dateTimePickerFechaH.Enabled = false;
+
+            }
+
+
+                SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgReportesOp, true);
             SetDoubleBuffering(dtgMarcasOp, true);
             SetDoubleBuffering(dtgOpI, true);
             SeleccionarMarca.idInt = 0;
+
             
-            dateTimePFecha_vencimiento.Enabled = true;
         }
 
         private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
@@ -573,7 +635,7 @@ namespace Presentacion.Marcas_Nacionales
         }*/
 
 
-       
+
         public void MostrarLogoEnPictureBox(byte[] logo)
         {
             if (logo != null && logo.Length > 0)
@@ -1217,15 +1279,23 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (row["situacion_actual"].ToString().Trim().Equals("TERMINADA", StringComparison.OrdinalIgnoreCase))
                     {
-                        btnEnviarATramite.Visible = false;
-                        btnAgregarEstadoAO.Enabled = false;
-                        btnAgregarOpositorAO.Enabled = false;
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            btnEnviarATramite.Visible = false;
+                            btnAgregarEstadoAO.Enabled = false;
+                            btnAgregarOpositorAO.Enabled = false;
+                        }
+                        
                     }
                     else
                     {
-                        btnEnviarATramite.Visible = true;
-                        btnAgregarEstadoAO.Enabled = true;
-                        btnAgregarOpositorAO.Enabled = true;
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            btnEnviarATramite.Visible = true;
+                            btnAgregarEstadoAO.Enabled = true;
+                            btnAgregarOpositorAO.Enabled = true;
+                        }
+                        
                     }
 
 
@@ -1255,14 +1325,19 @@ namespace Presentacion.Marcas_Nacionales
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                        txtSignoOpositor.Enabled = true;
-                        txtNombreTitularAO.Enabled = true;
-                        btnAgregarOpositorAO.Enabled = false;
-                        txtExpedienteAO.Enabled = false;
-                        txtClaseAO.Enabled = false;
-                        cmbSignoDAO.Enabled = false;
-                        txtClaseAO.Enabled = false;
-                        txtSignoAO.Enabled = false;
+
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            txtSignoOpositor.Enabled = true;
+                            txtNombreTitularAO.Enabled = true;
+                            btnAgregarOpositorAO.Enabled = false;
+                            txtExpedienteAO.Enabled = false;
+                            txtClaseAO.Enabled = false;
+                            cmbSignoDAO.Enabled = false;
+                            txtClaseAO.Enabled = false;
+                            txtSignoAO.Enabled = false;
+                        }
+                        
                         var marca = await marcaModel.GetMarcaInternacionalById(SeleccionarOposicion.idMarca);
                         if (marca.Rows.Count > 0)
                         {
@@ -1291,14 +1366,18 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
-                        txtSignoAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
-                        txtExpedienteAO.Enabled = true;
-                        cmbSignoDAO.Enabled = true;
-                        txtSignoOpositor.Enabled = true;
-                        txtNombreTitularAO.Enabled = true;
-                        txtSolicitanteSignoPretendido.Enabled = true;
-                        btnAgregarOpositorAO.Enabled = true;
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            txtSignoAO.Enabled = true;
+                            txtClaseAO.Enabled = true;
+                            txtExpedienteAO.Enabled = true;
+                            cmbSignoDAO.Enabled = true;
+                            txtSignoOpositor.Enabled = true;
+                            txtNombreTitularAO.Enabled = true;
+                            txtSolicitanteSignoPretendido.Enabled = true;
+                            btnAgregarOpositorAO.Enabled = true;
+                        }
+                        
                     }
 
                     btnGuardarU.Text = "EDITAR";
@@ -1319,9 +1398,13 @@ namespace Presentacion.Marcas_Nacionales
 
         public async void Editar()
         {
-            btnVerHistorial.Visible = true;
-            btnEnviarATramite.Visible = true;
-            VerificarSeleccionEdicion();
+            if (!UsuarioActivo.soloLectura)
+            {
+                btnVerHistorial.Visible = true;
+                btnEnviarATramite.Visible = true;
+            }
+
+                VerificarSeleccionEdicion();
             if (SeleccionarOposicion.idInt > 0)
             {
                 LimpiarCamposOposicion();
@@ -1562,18 +1645,27 @@ namespace Presentacion.Marcas_Nacionales
 
         public void Habilitar()
         {
-            dateTimePickerFechaH.Enabled = true;
-            comboBoxEstatusH.Enabled = true;
-            richTextBoxAnotacionesH.Enabled = true;
-            btnEditarH.Enabled = true;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaH.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Enabled = true;
+            }
+
         }
+
         public void Deshabilitar()
         {
-            dateTimePickerFechaH.Enabled = false;
-            comboBoxEstatusH.Enabled = false;
-            richTextBoxAnotacionesH.Enabled = true;
-            richTextBoxAnotacionesH.ReadOnly = true;
-            btnEditarH.Enabled = false;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaH.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = true;
+                richTextBoxAnotacionesH.ReadOnly = true;
+                btnEditarH.Enabled = false;
+            }
+
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -1777,7 +1869,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     AgregarEtapa.anotaciones = formato + " " + anotaciones;
                 }
-                actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor,null);
+                actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor, null);
                 if (actualizar == true)
                 {
                     FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2092,28 +2184,32 @@ namespace Presentacion.Marcas_Nacionales
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
-            LimpiarCamposOposicion();
-            btnVerHistorial.Visible = false;
-            btnEnviarATramite.Visible = false;
-            AnadirTabPage(tabPageAgregarOposicion);
-            txtExpedienteAO.Enabled = true;
-            txtSolicitanteSignoPretendido.Enabled = true;
-            txtSignoAO.Enabled = true;
-            txtClaseAO.Enabled = true;
-            txtNombreTitularAO.Enabled = true;
-            txtSignoOpositor.Enabled = true;
-            btnAgregarOpositorAO.Enabled = true;
-            cmbSignoDAO.Enabled = true;
-            SeleccionarOposicion.idInt = 0;
-            convertirImagen();
-            pictureBoxOpositor.Image = documento;
-            pictureBoxSignoPretendido.Image = documento;
-            checkBoxAgregarLogos.Checked = false;
-            MostrarLogos();
-            tabControl1.SelectedTab = tabPageAgregarOposicion;
-            btnGuardarU.Text = "AGREGAR";
-            btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            btnGuardarU.BackColor = System.Drawing.Color.FromArgb(50, 164, 115);
+            if (!UsuarioActivo.soloLectura)
+            {
+                LimpiarCamposOposicion();
+                btnVerHistorial.Visible = false;
+                btnEnviarATramite.Visible = false;
+                AnadirTabPage(tabPageAgregarOposicion);
+                txtExpedienteAO.Enabled = true;
+                txtSolicitanteSignoPretendido.Enabled = true;
+                txtSignoAO.Enabled = true;
+                txtClaseAO.Enabled = true;
+                txtNombreTitularAO.Enabled = true;
+                txtSignoOpositor.Enabled = true;
+                btnAgregarOpositorAO.Enabled = true;
+                cmbSignoDAO.Enabled = true;
+                SeleccionarOposicion.idInt = 0;
+                convertirImagen();
+                pictureBoxOpositor.Image = documento;
+                pictureBoxSignoPretendido.Image = documento;
+                checkBoxAgregarLogos.Checked = false;
+                MostrarLogos();
+                tabControl1.SelectedTab = tabPageAgregarOposicion;
+                btnGuardarU.Text = "AGREGAR";
+                btnGuardarU.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+                btnGuardarU.BackColor = System.Drawing.Color.FromArgb(50, 164, 115);
+            }
+           
         }
 
         private void btnAgregarTitularAO_Click(object sender, EventArgs e)
@@ -2152,72 +2248,76 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnEditarH_Click_1(object sender, EventArgs e)
         {
-            //Editar historial por id
-            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
-            DateTime fecha = dateTimePickerFechaH.Value;
-            string anotaciones = richTextBoxAnotacionesH.Text;
-            SeleccionarHistorial.anotaciones = anotaciones;
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-            bool actualizar = false;
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
+            if (!UsuarioActivo.soloLectura)
             {
-                string fechaSinHora = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy");
-                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
-                if (anotaciones.Contains(formato))
-                {
-                    AgregarEtapa.anotaciones = anotaciones;
-                }
-                else
-                {
-                    AgregarEtapa.anotaciones = formato + " " + anotaciones;
-                }
+                //Editar historial por id
+                string etapa = comboBoxEstatusH.SelectedItem?.ToString();
+                DateTime fecha = dateTimePickerFechaH.Value;
+                string anotaciones = richTextBoxAnotacionesH.Text;
+                SeleccionarHistorial.anotaciones = anotaciones;
+                string usuario = lblUser.Text;
+                string usuarioEditor = labelUserEditor.Text;
+                bool actualizar = false;
 
-                if (SeleccionarOposicion.idMarca > 0)
+                if (comboBoxEstatusH.SelectedIndex != -1)
                 {
-                    actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor,null);
-
-                }
-                else if (SeleccionarOposicion.idMarca == 0)
-                {
-                    HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
-                    actualizar = await historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
-                }
-
-                if (actualizar == true)
-                {
+                    string fechaSinHora = dateTimePickerFechaH.Value.ToString("dd/MM/yyyy");
+                    string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
+                    if (anotaciones.Contains(formato))
+                    {
+                        AgregarEtapa.anotaciones = anotaciones;
+                    }
+                    else
+                    {
+                        AgregarEtapa.anotaciones = formato + " " + anotaciones;
+                    }
 
                     if (SeleccionarOposicion.idMarca > 0)
                     {
-                        loadHistorialById();
+                        actualizar = await historialModel.EditHistorialById(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor, null);
+
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
-                        loadHistorialOposicion();
+                        HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
+                        actualizar = await historialOposicionModel.EditarHistorialOposicion(SeleccionarHistorial.id, etapa, fecha, AgregarEtapa.anotaciones, usuario, usuarioEditor);
                     }
 
-                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (actualizar == true)
+                    {
 
-                    SeleccionarHistorial.id = 0;
-                    await recargarDatosOposicion();
+                        if (SeleccionarOposicion.idMarca > 0)
+                        {
+                            loadHistorialById();
+                        }
+                        else if (SeleccionarOposicion.idMarca == 0)
+                        {
+                            loadHistorialOposicion();
+                        }
 
-                    AnadirTabPage(tabPageHistorialMarca);
-                    EliminarTabPage(tabPageHistorialDetalle);
+                        FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Estado actualizado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        SeleccionarHistorial.id = 0;
+                        await recargarDatosOposicion();
+
+                        AnadirTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageHistorialDetalle);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al actualizar el estado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("No ha seleccionado ningun estado");
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGUN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                //MessageBox.Show("No ha seleccionado ningun estado");
-            }
+
         }
 
         private void btnCancelarH_Click_1(object sender, EventArgs e)
@@ -2447,16 +2547,20 @@ namespace Presentacion.Marcas_Nacionales
             }
 
         }
+
         private void btnGuardarU_Click(object sender, EventArgs e)
         {
-            if (btnGuardarU.Text == "AGREGAR")
+            if (!UsuarioActivo.soloLectura)
             {
-                AgregarOposicion();
-            }
-            else if (btnGuardarU.Text == "EDITAR")
-            {
-                //editar
-                EditarOposicion();
+                if (btnGuardarU.Text == "AGREGAR")
+                {
+                    AgregarOposicion();
+                }
+                else if (btnGuardarU.Text == "EDITAR")
+                {
+                    //editar
+                    EditarOposicion();
+                }
             }
 
         }
@@ -2711,10 +2815,10 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        
 
 
-        
+
+
         private void CentrarPanel()
         {
 
@@ -3576,7 +3680,7 @@ namespace Presentacion.Marcas_Nacionales
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_desistimiento(fechaAbandono,  justificacion, usuarioAbandono,
+                                    oposicionModel.Oposicion_a_desistimiento(fechaAbandono, justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
@@ -3605,6 +3709,11 @@ namespace Presentacion.Marcas_Nacionales
                     }
                 }
             }
+        }
+
+        private void tabPageReportes_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

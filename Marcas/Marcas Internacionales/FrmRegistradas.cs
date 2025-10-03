@@ -32,7 +32,7 @@ namespace Presentacion.Marcas_Nacionales
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento=null;
+        System.Drawing.Image documento = null;
         private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;
@@ -82,16 +82,156 @@ namespace Presentacion.Marcas_Nacionales
         {
             InitializeComponent();
             SeleccionarMarca.idInt = 0;
-            if (UsuarioActivo.isAdmin)
+
+
+            if (UsuarioActivo.soloLectura)
             {
-                btnEliminarMarca.Visible = true;
-                dateTimePFecha_vencimiento.Enabled = true;
+                btnDesistir.Visible = false;
+                btnAbandonar.Visible = false;
+                btnEliminarMarca.Visible = false;
+
+                //formulario
+                txtExpediente.Enabled = false;
+                txtNombre.Enabled = false;
+                comboBox1.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                txtClase.Enabled = false;
+                checkBoxMulticlase.Enabled = false;
+                txtUbicacion.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+                btnAgregarEstado.Enabled = false;
+                textBoxEstatus.Enabled = false;
+                btnAgregarTitular.Enabled = false;
+                txtNombreTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                txtNombreAgente.Enabled = false;
+                btnAgregarCliente.Enabled = false;
+                txtNombreCliente.Enabled = false;
+                richTextBox1.Enabled = false;
+                txtRegistro.Enabled = false;
+                txtFolio.Enabled = false;
+                txtLibro.Enabled = false;
+                txtERenovacion.Enabled = false;
+                txtETraspaso.Enabled = false;
+                dateTimePFecha_Registro.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                checkBoxTienePoder.Enabled = false;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = false;
+                btnEditarH.Visible = false;
+                comboBoxEstatusH.Enabled = false;
+                dateTimePickerFechaIngreso.Enabled = false;
+                dateTimePickerFechaVencimiento.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+
+                //archivos
+                btnSubirArchivos.Visible = false;
+                btnEliminarArchivos.Visible = false;
+
+                //renovaciones
+                btnEditarRenovacion.Visible = false;
+                btnEditarRenovacionDetalle.Visible = false;
+                txtNoExpediente.Enabled = false;
+                dateFechVencAnt.Enabled = false;
+                dateFechVencNueva.Enabled = false;
+
+                //traspasos
+                btnEditarTraspaso.Visible = false;
+                btnEditarTraspasoDetalle.Visible = false;
+                txtNumExpedienteTraspaso.Enabled = false;
+                btnAgregarTitularA.Enabled = false;
+                txtNombreTitularA.Enabled = false;
+                btnAgregarTitularN.Enabled = false;
+                txtNombreTitularN.Enabled = false;
+
+
             }
             else
             {
-                btnEliminarMarca.Visible = false;
+                if (UsuarioActivo.isAdmin)
+                {
+                    btnEliminarMarca.Visible = true;
+                }
+                else
+                {
+                    btnEliminarMarca.Visible = false;
+                }
+
+
+                //demas
+                btnDesistir.Visible = true;
+                btnAbandonar.Visible = true;
+                btnEliminarMarca.Visible = true;
+
+                //formulario
+                txtExpediente.Enabled = true;
+                txtNombre.Enabled = true;
+                comboBox1.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                txtClase.Enabled = true;
+                checkBoxMulticlase.Enabled = true;
+                txtUbicacion.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+                btnAgregarEstado.Enabled = true;
+                textBoxEstatus.Enabled = true;
+                btnAgregarTitular.Enabled = true;
+                txtNombreTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                txtNombreAgente.Enabled = true;
+                btnAgregarCliente.Enabled = true;
+                txtNombreCliente.Enabled = true;
+                richTextBox1.Enabled = true;
+                txtRegistro.Enabled = true;
+                txtFolio.Enabled = true;
+                txtLibro.Enabled = true;
+                txtERenovacion.Enabled = true;
+                txtETraspaso.Enabled = true;
+                dateTimePFecha_Registro.Enabled = true;
                 dateTimePFecha_vencimiento.Enabled = true;
+                checkBoxTienePoder.Enabled = true;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = true;
+                btnEditarH.Visible = true;
+                comboBoxEstatusH.Enabled = true;
+                dateTimePickerFechaIngreso.Enabled = true;
+                dateTimePickerFechaVencimiento.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+
+                //archivos
+                btnSubirArchivos.Visible = true;
+                btnEliminarArchivos.Visible = true;
+
+                //archivos
+                btnSubirArchivos.Visible = true;
+                btnEliminarArchivos.Visible = true;
+
+                //renovaciones
+                btnEditarRenovacion.Visible = true;
+                btnEditarRenovacionDetalle.Visible = true;
+                txtNoExpediente.Enabled = true;
+                dateFechVencAnt.Enabled = true;
+                dateFechVencNueva.Enabled = true;
+
+                //traspasos
+                btnEditarTraspaso.Visible = true;
+                btnEditarTraspasoDetalle.Visible = true;
+                txtNumExpedienteTraspaso.Enabled = true;
+                btnAgregarTitularA.Enabled = true;
+                txtNombreTitularA.Enabled = true;
+                btnAgregarTitularN.Enabled = true;
+                txtNombreTitularN.Enabled = true;
             }
+
+
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -125,7 +265,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task filtrar()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string buscar = txtBuscar.Text.Trim();
             if (!string.IsNullOrEmpty(buscar))
             {
                 totalRows = await marcaModel.GetFilteredMarcasInternacionalesRegistradasCount(buscar);
@@ -283,7 +423,7 @@ namespace Presentacion.Marcas_Nacionales
         }*/
 
 
-        
+
 
         private void AnadirTabPage(TabPage nombre)
         {
@@ -955,18 +1095,26 @@ namespace Presentacion.Marcas_Nacionales
 
         public void Habilitar()
         {
-            dateTimePickerFechaIngreso.Enabled = true;
-            comboBoxEstatusH.Enabled = true;
-            richTextBoxAnotacionesH.Enabled = true;
-            btnEditarH.Enabled = true;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaIngreso.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Enabled = true;
+            }
+
         }
         public void Deshabilitar()
         {
-            dateTimePickerFechaIngreso.Enabled = false;
-            comboBoxEstatusH.Enabled = false;
-            richTextBoxAnotacionesH.Enabled = true;
-            richTextBoxAnotacionesH.ReadOnly = true;
-            btnEditarH.Enabled = false;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaIngreso.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = true;
+                richTextBoxAnotacionesH.ReadOnly = true;
+                btnEditarH.Enabled = false;
+            }
+
         }
 
         private async Task<bool> TieneInternetAsync()
@@ -1093,11 +1241,11 @@ namespace Presentacion.Marcas_Nacionales
             {
                 this.Visible = true;
             }
-            
-           
+
+
         }
 
-        
+
         public async void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
@@ -1193,14 +1341,14 @@ namespace Presentacion.Marcas_Nacionales
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                       
+
 
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso")
                     {
                         txtETraspaso.Text = AgregarEtapa.numExpediente.ToString();
                         txtETraspaso.Enabled = true;
-                        
+
                     }
                     else
                     {
@@ -1497,108 +1645,110 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnEditarH_Click(object sender, EventArgs e)
         {
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-            string etapa = comboBoxEstatusH.Text;
-            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-            DateTime fechaVencimiento = fechaIngreso;
-
-            // Calcular vencimiento automático según etapa
-            switch (etapa)
+            if (!UsuarioActivo.soloLectura)
             {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
+                string usuario = lblUser.Text;
+                string usuarioEditor = labelUserEditor.Text;
+                string etapa = comboBoxEstatusH.Text;
+                DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+                DateTime fechaVencimiento = fechaIngreso;
 
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
-            }
-
-            // Mostrar u ocultar controles de vencimiento
-            bool requiereVencimiento = etapa == "Examen de fondo" ||
-                                        etapa == "Requerimiento" ||
-                                        etapa == "Objeción" ||
-                                        etapa == "Publicación" ||
-                                        etapa == "Orden de pago" ||
-                                        etapa == "Resolución RPI desfavorable";
-
-            // Asignar valores a AgregarEtapa
-            AgregarEtapa.etapa = etapa;
-            AgregarEtapa.fecha = fechaIngreso;
-            AgregarEtapa.usuario = usuarioEditor;
-            AgregarEtapa.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
-            {
-                string anotaciones = richTextBoxAnotacionesH.Text;
-                string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-                string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-                string anotacionFinal = "";
-
-                if (etapa == "Resolución RPI desfavorable")
+                // Calcular vencimiento automático según etapa
+                switch (etapa)
                 {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    case "Examen de fondo":
+                    case "Objeción":
+                    case "Publicación":
+                        fechaVencimiento = fechaIngreso.AddMonths(2);
+                        break;
+
+                    case "Requerimiento":
+                    case "Orden de pago":
+                        fechaVencimiento = fechaIngreso.AddMonths(1);
+                        break;
+
+                    case "Resolución RPI desfavorable":
+                        fechaVencimiento = fechaIngreso.AddDays(5);
+                        break;
                 }
-                else if (requiereVencimiento)
+
+                // Mostrar u ocultar controles de vencimiento
+                bool requiereVencimiento = etapa == "Examen de fondo" ||
+                                            etapa == "Requerimiento" ||
+                                            etapa == "Objeción" ||
+                                            etapa == "Publicación" ||
+                                            etapa == "Orden de pago" ||
+                                            etapa == "Resolución RPI desfavorable";
+
+                // Asignar valores a AgregarEtapa
+                AgregarEtapa.etapa = etapa;
+                AgregarEtapa.fecha = fechaIngreso;
+                AgregarEtapa.usuario = usuarioEditor;
+                AgregarEtapa.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
+
+                if (comboBoxEstatusH.SelectedIndex != -1)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-                }
-                else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Recurso de revocatoria" ||
-                         etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                         etapa == "Contencioso administrativo")
-                {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    string anotaciones = richTextBoxAnotacionesH.Text;
+                    string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                    string venc = fechaVencimiento.ToString("dd/MM/yyyy");
+                    string anotacionFinal = "";
+
+                    if (etapa == "Resolución RPI desfavorable")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (requiereVencimiento)
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (etapa == "Resolución RPI favorable" ||
+                             etapa == "Recurso de revocatoria" ||
+                             etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                             etapa == "Contencioso administrativo")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa}";
+                    }
+
+                    if (!anotaciones.Contains(anotacionFinal))
+                    {
+                        AgregarEtapa.anotaciones = anotacionFinal + " " + anotaciones;
+                    }
+                    else
+                    {
+                        AgregarEtapa.anotaciones = anotaciones;
+                    }
+
+                    // Guardar en base de datos
+                    bool actualizado = await historialModel.EditHistorialById(
+                        SeleccionarHistorial.id,
+                        etapa,
+                        fechaIngreso,
+                        AgregarEtapa.anotaciones,
+                        usuario,
+                        usuarioEditor,
+                        requiereVencimiento ? fechaVencimiento : (DateTime?)null
+                    );
+
+                    if (actualizado)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        EliminarTabPage(tabPageHistorialDetail);
+                        AnadirTabPage(tabPageMarcaDetail);
+                        SeleccionarHistorial.id = 0;
+                        await refrescarMarca();
+                    }
                 }
                 else
                 {
-                    anotacionFinal = $"{fecha} {etapa}";
-                }
-
-                if (!anotaciones.Contains(anotacionFinal))
-                {
-                    AgregarEtapa.anotaciones = anotacionFinal + " " + anotaciones;
-                }
-                else
-                {
-                    AgregarEtapa.anotaciones = anotaciones;
-                }
-
-                // Guardar en base de datos
-                bool actualizado = await historialModel.EditHistorialById(
-                    SeleccionarHistorial.id,
-                    etapa,
-                    fechaIngreso,
-                    AgregarEtapa.anotaciones,
-                    usuario,
-                    usuarioEditor,
-                    requiereVencimiento ? fechaVencimiento : (DateTime?)null
-                );
-
-                if (actualizado)
-                {
-                    FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    EliminarTabPage(tabPageHistorialDetail);
-                    AnadirTabPage(tabPageMarcaDetail);
-                    SeleccionarHistorial.id = 0;
-                    await refrescarMarca();
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-            }
-
 
         }
 
@@ -1794,38 +1944,42 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void iconButton1_Click_1(object sender, EventArgs e)
         {
-            string numExpediente = txtNoExpediente.Text;
-
-            DateTime fechaVencimientoA = dateFechVencAnt.Value;
-            DateTime fechaVencimientoN = dateFechVencNueva.Value;
-            int id = SeleccionarRenovacion.idRenovacion;
-            int idMarca = SeleccionarRenovacion.IdMarca;
-
-            if (!string.IsNullOrEmpty(numExpediente))
+            if (!UsuarioActivo.soloLectura)
             {
-                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+                string numExpediente = txtNoExpediente.Text;
 
-                if (actualizado)
+                DateTime fechaVencimientoA = dateFechVencAnt.Value;
+                DateTime fechaVencimientoN = dateFechVencNueva.Value;
+                int id = SeleccionarRenovacion.idRenovacion;
+                int idMarca = SeleccionarRenovacion.IdMarca;
+
+                if (!string.IsNullOrEmpty(numExpediente))
                 {
-                    await loadRenovacionesById();
-                    FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.Show();
-                    AnadirTabPage(tabPageRenovacionesList);
-                    EliminarTabPage(tabPageRenovacionDetail);
+                    bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
 
+                    if (actualizado)
+                    {
+                        await loadRenovacionesById();
+                        FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.Show();
+                        AnadirTabPage(tabPageRenovacionesList);
+                        EliminarTabPage(tabPageRenovacionDetail);
+
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.Show();
+                    }
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.Show();
+                    //MessageBox.Show("El número de expediente no puede estar vacío.");
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.Show();
-                //MessageBox.Show("El número de expediente no puede estar vacío.");
-            }
+
 
         }
 
@@ -1903,7 +2057,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
+        private void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
             EditarTraspaso();
         }
@@ -2047,7 +2201,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
-            
+
             DatosRegistro.peligro = false;
             EliminarTabPage(tabPageHistorialMarca);
             AnadirTabPage(tabPageRegistradasList);
@@ -2202,17 +2356,17 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void iconButton10_Click(object sender, EventArgs e)
@@ -2650,8 +2804,8 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-                panelBusqueda.Dock= DockStyle.Top;
-              
+                panelBusqueda.Dock = DockStyle.Top;
+
             }
             else
             {
@@ -2716,6 +2870,41 @@ namespace Presentacion.Marcas_Nacionales
             {
                 comboBoxEstatusH_SelectedIndexChanged(sender, e);
             }
+        }
+
+        private void btnEditarTraspasoDetalle_Click(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
+                string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
+                string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
+
+
+                int idTraspaso = SeleccionarTraspaso.id;
+                int idMarca = SeleccionarTraspaso.IdMarca;
+                int idTitularAntiguo = SeleccionarTraspaso.idTitularA;
+                int idTitularNuevo = SeleccionarTraspaso.idTitularN;
+
+
+                if (!string.IsNullOrEmpty(numeroExpediente) &&
+                    !string.IsNullOrEmpty(nombreTitularAntiguo) &&
+                    !string.IsNullOrEmpty(nombreTitularNuevo))
+                {
+
+                    traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
+                    FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    tabControl1.SelectedTab = tabPageTraspasosList;
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE LLENAR TODOS LOS CAMPOS", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Debe llenar todos los campos para poder actualizar el traspaso", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            
         }
     }
 }
