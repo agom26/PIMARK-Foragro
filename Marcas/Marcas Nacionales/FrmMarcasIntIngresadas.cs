@@ -108,6 +108,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if (UsuarioActivo.soloLectura)
             {
+                btnAgregarEstado.Visible = false;
                 btnAbandonar.Visible = false;
                 btnDesistir.Visible = false;
                 btnEditar2.Visible = false;
@@ -145,6 +146,7 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
+                btnAgregarEstado.Visible = true;
                 btnAbandonar.Visible = true;
                 btnDesistir.Visible = true;
                 btnEditar2.Visible = true;
