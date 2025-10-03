@@ -1,27 +1,18 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
 using FluentFTP;
 using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
-using Presentacion.Marcas_Internacionales;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Presentacion.Marcas_Nacionales
 {
-    public partial class FrmMostrarAbandonadas : Form
+    public partial class FrmMostrarAbandonadas : Form, IAsyncLoadable
     {
         MarcaModel marcaModel = new MarcaModel();
         PersonaModel personaModel = new PersonaModel();
@@ -33,31 +24,80 @@ namespace Presentacion.Marcas_Nacionales
         private int totalPages = 0;
         private int totalRows = 0;
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento=null;
         bool agregoEstado = false;
         private bool buscando = false;
-
+        private bool _isLoading;
         //ftp
         private string host = "ftp.foragro.com.es"; // Tu host FTP
         private string usuario = "foragro"; // Tu usuario FTP
         private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
         private string directorioBase = "/foragro.com.es/marcas/internacionales";
+
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadMarcas();
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
+        public async Task LoadAsync()
+        {
+            await LoadMarcas();
+        }
+
+        public void convertirImagen()
+        {
+
+            using (MemoryStream ms = new MemoryStream(defaultImage))
+            {
+                documento = System.Drawing.Image.FromStream(ms);
+            }
+        }
+
         public FrmMostrarAbandonadas()
         {
             InitializeComponent();
-            this.Load += FrmMostrarAbandonadas_Load;
             SeleccionarMarca.idInt = 0;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+
 
             if (UsuarioActivo.isAdmin)
             {
                 btnAgregarEstado.Enabled = true;
                 btnEditar.Enabled = true;
+                btnAgregarEstado.Visible = true;
+                btnEditar.Visible = true;
             }
             else
             {
-                btnAgregarEstado.Enabled = false;
-                btnEditar.Enabled = false;
+                if (UsuarioActivo.soloLectura)
+                {
+                    btnAgregarEstado.Visible = false;
+                    btnEditar.Visible = false;
+
+                    btnAdjuntarArchivo.Visible = false;
+                    btnEliminarArchivo.Visible = false;
+
+                }
+                else
+                {
+                    btnAgregarEstado.Visible = false;
+                    btnEditar.Visible = false;
+
+                    btnAdjuntarArchivo.Enabled = false;
+                    btnEliminarArchivo.Enabled = false;
+                }
             }
 
         }
@@ -69,6 +109,77 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        private async Task LoadMarcas()
+        {
+            totalRows = await marcaModel.GetTotalMarcasInternacionalesEnAbandono();
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            var marcas = await marcaModel.GetAllMarcasInternacionalesEnAbandono(currentPageIndex, pageSize);
+
+            void Apply()
+            {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgMarcasAban.DataSource = marcas;
+
+                if (dtgMarcasAban.Columns["id"] != null)
+                {
+                    dtgMarcasAban.Columns["id"].Visible = false;
+                }
+
+                dtgMarcasAban.ClearSelection();
+            }
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
+        }
+        public async Task filtrar()
+        {
+            string buscar = txtBuscar.Text.Trim();
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                totalRows = await marcaModel.GetFilteredMarcasInternacionalesEnAbandonoCount(buscar);
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+
+                DataTable dt = await marcaModel.FiltrarMarcasInternacionalesEnAbandono(buscar, currentPageIndex, pageSize);
+                if (dt.Rows.Count > 0)
+                {
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        dtgMarcasAban.DataSource = dt;
+
+                        if (dtgMarcasAban.Columns["id"] != null)
+                        {
+                            dtgMarcasAban.Columns["id"].Visible = false;
+                        }
+
+                        dtgMarcasAban.ClearSelection();
+                    }
+                    else
+                    {
+                        new FrmAlerta("NO EXISTEN MARCAS CON ESOS DATOS", "MENSAJE",
+                                      MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+                        await LoadMarcas();
+                    }
+                }
+                else
+                {
+                    await LoadMarcas();
+                }
+            }
+        }
+
+
+
+        /* anterior
         private async Task LoadMarcas()
         {
             try
@@ -211,7 +322,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 await LoadMarcas();
             }
-        }
+        }*/
 
         private void AnadirTabPage(TabPage nombre)
         {
@@ -289,14 +400,7 @@ namespace Presentacion.Marcas_Nacionales
             comboBox1.SelectedIndex = -1;
             checkBoxTienePoder.Checked = false;
         }
-        public void convertirImagen()
-        {
-
-            using (MemoryStream ms = new MemoryStream(defaultImage))
-            {
-                documento = System.Drawing.Image.FromStream(ms);
-            }
-        }
+        
 
         private async Task CargarDatosMarca()
         {
@@ -541,16 +645,130 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private async void FrmMostrarAbandonadas_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => LoadMarcas());
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            EliminarTabPage(tabPageRenovacionesList);
-            EliminarTabPage(tabPageTraspasosList);
-            EliminarTabPage(tabPageListaArchivos);
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
+
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                SeleccionarMarca.idN = 0;
+
+                convertirImagen();
+                pictureBox1.Image = documento;
+
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageListaArchivos);
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgMarcasAban.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadMarcas(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasAban.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasAban.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasAban.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgMarcasAban.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
+            
+           
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -922,68 +1140,81 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
+            if (_isLoading) return;
+            _isLoading = true;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex = 1;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
-            {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
         private List<string> ListarNombresDeArchivos(string idMarca)
         {
@@ -1643,14 +1874,13 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock= DockStyle.Top;
+                
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock=DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
             }

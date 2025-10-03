@@ -850,19 +850,17 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmMostrarOposiciones());
         }
 
-        private void btnAbandonadas_Click(object sender, EventArgs e)
+        private async void btnAbandonadas_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarAbandonadas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarAbandonadas());
         }
 
         private async void btnRegistradas_Click(object sender, EventArgs e)
@@ -1649,17 +1647,18 @@ namespace Presentacion
 
         private async void aBANDONADASToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarAbandonadas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarAbandonadas());
+
+           
         }
 
         private async void tRÁMITEINICIALToolStripMenuItem2_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace Presentacion.Marcas_Internacionales
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento=null;
         private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;

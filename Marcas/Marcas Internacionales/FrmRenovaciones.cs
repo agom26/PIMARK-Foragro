@@ -1,5 +1,6 @@
 ﻿using Comun;
 using Comun.Cache;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 using Dominio;
 using FluentFTP;
 using Presentacion.Alertas;
@@ -69,6 +70,112 @@ namespace Presentacion.Marcas_Nacionales
             archivoSubido = false;
             SeleccionarMarca.idInt = 0;
             dateTimePFecha_vencimiento.Enabled = true;
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnDesistir.Visible = false;
+                btnAbandonar.Visible = false;
+
+                //formulario
+                txtExpediente.Enabled = false;
+                txtNombre.Enabled = false;
+                comboBox1.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                txtClase.Enabled = false;
+                checkBoxMulticlase.Enabled = false;
+                txtUbicacion.Enabled = false;
+                comboBoxSignoDistintivo.Enabled = false;
+                comboBoxTipoSigno.Enabled = false;
+                btnSubirImagen.Enabled = false;
+                btnQuitarImagen.Enabled = false;
+                
+                textBoxEstatus.Enabled = false;
+                btnAgregarTitular.Enabled = false;
+                txtNombreTitular.Enabled = false;
+                btnAgregarAgente.Enabled = false;
+                txtNombreAgente.Enabled = false;
+                btnAgregarCliente.Enabled = false;
+                txtNombreCliente.Enabled = false;
+                richTextBox1.Enabled = false;
+                txtRegistro.Enabled = false;
+                txtFolio.Enabled = false;
+                txtLibro.Enabled = false;
+                txtERenovacion.Enabled = false;
+                txtETraspaso.Enabled = false;
+                dateTimePFecha_Registro.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                checkBoxTienePoder.Enabled = false;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = false;
+                btnEditarH.Visible = false;
+                comboBoxEstatusH.Enabled = false;
+                dateTimePickerFechaIngreso.Enabled = false;
+                dateTimePickerFechaVencimiento.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+
+                //archivos
+                btnSubirArchivos.Visible = false;
+                btnEliminarArchivos.Visible = false;
+
+                //botones
+                btnTraspasar.Visible = false;
+                btnAdjuntarT.Visible = false;
+                btnActualizarM.Visible = false;
+            }
+            else
+            {
+                btnDesistir.Visible = true;
+                btnAbandonar.Visible = true;
+
+                //formulario
+                txtExpediente.Enabled = true;
+                txtNombre.Enabled = true;
+                comboBox1.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                txtClase.Enabled = true;
+                checkBoxMulticlase.Enabled = true;
+                txtUbicacion.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                btnSubirImagen.Enabled = true;
+                btnQuitarImagen.Enabled = true;
+
+                textBoxEstatus.Enabled = true;
+                btnAgregarTitular.Enabled = true;
+                txtNombreTitular.Enabled = true;
+                btnAgregarAgente.Enabled = true;
+                txtNombreAgente.Enabled = true;
+                btnAgregarCliente.Enabled = true;
+                txtNombreCliente.Enabled = true;
+                richTextBox1.Enabled = true;
+                txtRegistro.Enabled = true;
+                txtFolio.Enabled = true;
+                txtLibro.Enabled = true;
+                txtERenovacion.Enabled = true;
+                txtETraspaso.Enabled = true;
+                dateTimePFecha_Registro.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+                checkBoxTienePoder.Enabled = true;
+
+                //historial
+                btnEditarEstadoHistorial.Visible = true;
+                btnEditarH.Visible = true;
+                comboBoxEstatusH.Enabled = true;
+                dateTimePickerFechaIngreso.Enabled = true;
+                dateTimePickerFechaVencimiento.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+
+                //archivos
+                btnSubirArchivos.Visible = true;
+                btnEliminarArchivos.Visible = true;
+
+                //botones
+                btnTraspasar.Visible = true;
+                btnAdjuntarT.Visible = true;
+                btnActualizarM.Visible = true;
+            }
+
         }
         private void EliminarTabPage(TabPage nombre)
         {
@@ -844,7 +951,12 @@ namespace Presentacion.Marcas_Nacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idInt = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = true;
+
+                if (!UsuarioActivo.soloLectura)
+                {
+                    btnAdjuntarT.Visible = true;
+                }
+                
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -1509,27 +1621,31 @@ namespace Presentacion.Marcas_Nacionales
 
         private async void btnActualizarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
+            if (!UsuarioActivo.soloLectura)
             {
-                bool existeRegistro = await marcaModel.ExisteRegistro(txtRegistro.Text.Trim(), SeleccionarMarca.idN);
-                if (existeRegistro)
+                VerificarDatosRegistro();
+                if (DatosRegistro.peligro == false)
                 {
-                    FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return;
+                    bool existeRegistro = await marcaModel.ExisteRegistro(txtRegistro.Text.Trim(), SeleccionarMarca.idN);
+                    if (existeRegistro)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        return;
+                    }
+                    else
+                    {
+                        ActualizarMarcaNacional();
+
+                    }
                 }
                 else
                 {
-                    ActualizarMarcaNacional();
-
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+            
 
         }
 

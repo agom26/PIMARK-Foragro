@@ -149,6 +149,10 @@ namespace Presentacion.Marcas_Nacionales
                 txtNombreTitularN.Enabled = false;
 
 
+                //botones
+                btnAbandonar.Visible = false;
+                
+
             }
             else
             {

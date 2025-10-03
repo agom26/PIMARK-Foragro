@@ -19,7 +19,7 @@ namespace Presentacion.Marcas_Internacionales
         RenovacionesMarcaModel renovacionesModel = new RenovacionesMarcaModel();
         TraspasosMarcaModel traspasosModel = new TraspasosMarcaModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento=null;
         private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;
@@ -65,6 +65,7 @@ namespace Presentacion.Marcas_Internacionales
                 documento = System.Drawing.Image.FromStream(ms);
             }
         }
+
         public FrmMarcasDesistidas()
         {
             InitializeComponent();
@@ -131,7 +132,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public async Task filtrar()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string buscar = txtBuscar.Text.Trim();
             if (!string.IsNullOrEmpty(buscar))
             {
                 totalRows = await marcaModel.GetFilteredMarcasEnDesistimientoCount(buscar);
@@ -970,69 +971,83 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
+            if (_isLoading) return;
+            _isLoading = true;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex = 1;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
-            {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadMarcas();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadMarcas();
-            }
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
+
         public void VerificarDatosRegistro()
         {
             if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text)
