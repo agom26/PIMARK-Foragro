@@ -28,29 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAdministrarClientes));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAdministrarClientes));
             tabControl1 = new TabControl();
             tabClientesList = new TabPage();
             btnEliminar = new FontAwesome.Sharp.IconButton();
             panel4 = new Panel();
             btnLast = new FontAwesome.Sharp.IconButton();
-            btnNext = new FontAwesome.Sharp.IconButton();
-            btnPrev = new FontAwesome.Sharp.IconButton();
             btnFirst = new FontAwesome.Sharp.IconButton();
+            btnPrev = new FontAwesome.Sharp.IconButton();
+            btnNext = new FontAwesome.Sharp.IconButton();
             lblTotalPages = new Label();
             label10 = new Label();
             lblCurrentPage = new Label();
             lblTotalRows = new Label();
             label2 = new Label();
             label1 = new Label();
-            panelTitulo = new Panel();
-            panel11 = new Panel();
-            panel12 = new Panel();
-            roundedButton5 = new Presentacion.Clases.RoundedButton();
             ibtnEditar = new FontAwesome.Sharp.IconButton();
             ibtnAgregar = new FontAwesome.Sharp.IconButton();
             panel1 = new Panel();
@@ -60,6 +56,10 @@
             iconButton1 = new FontAwesome.Sharp.IconButton();
             btnX = new FontAwesome.Sharp.IconButton();
             roundedButton3 = new Presentacion.Clases.RoundedButton();
+            panelTitulo = new Panel();
+            panel11 = new Panel();
+            panel12 = new Panel();
+            roundedButton5 = new Presentacion.Clases.RoundedButton();
             tabClienteDetail = new TabPage();
             panel3 = new Panel();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
@@ -85,11 +85,12 @@
             btnCambios = new Presentacion.Clases.RoundedButton();
             tabControl1.SuspendLayout();
             tabClientesList.SuspendLayout();
-            panelTitulo.SuspendLayout();
-            panel11.SuspendLayout();
+            panel4.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgClientes).BeginInit();
             panelBusqueda.SuspendLayout();
+            panelTitulo.SuspendLayout();
+            panel11.SuspendLayout();
             tabClienteDetail.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -113,17 +114,12 @@
             tabClientesList.BackColor = Color.White;
             tabClientesList.Controls.Add(btnEliminar);
             tabClientesList.Controls.Add(panel4);
-            tabClientesList.Controls.Add(btnLast);
-            tabClientesList.Controls.Add(btnNext);
-            tabClientesList.Controls.Add(btnPrev);
-            tabClientesList.Controls.Add(btnFirst);
             tabClientesList.Controls.Add(lblTotalPages);
             tabClientesList.Controls.Add(label10);
             tabClientesList.Controls.Add(lblCurrentPage);
             tabClientesList.Controls.Add(lblTotalRows);
             tabClientesList.Controls.Add(label2);
             tabClientesList.Controls.Add(label1);
-            tabClientesList.Controls.Add(panelTitulo);
             tabClientesList.Controls.Add(ibtnEditar);
             tabClientesList.Controls.Add(ibtnAgregar);
             tabClientesList.Controls.Add(panel1);
@@ -160,9 +156,14 @@
             // 
             // panel4
             // 
-            panel4.Location = new Point(471, 801);
+            panel4.Controls.Add(btnLast);
+            panel4.Controls.Add(btnFirst);
+            panel4.Controls.Add(btnPrev);
+            panel4.Controls.Add(btnNext);
+            panel4.Dock = DockStyle.Bottom;
+            panel4.Location = new Point(3, 657);
             panel4.Name = "panel4";
-            panel4.Size = new Size(161, 41);
+            panel4.Size = new Size(886, 49);
             panel4.TabIndex = 199;
             // 
             // btnLast
@@ -178,55 +179,13 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(599, 754);
+            btnLast.Location = new Point(599, 3);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 198;
             btnLast.Text = "ÚLTIMA";
             btnLast.UseVisualStyleBackColor = false;
             btnLast.Click += btnLast_Click;
-            // 
-            // btnNext
-            // 
-            btnNext.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnNext.AutoSize = true;
-            btnNext.BackColor = Color.FromArgb(158, 158, 158);
-            btnNext.FlatAppearance.BorderSize = 0;
-            btnNext.FlatStyle = FlatStyle.Flat;
-            btnNext.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            btnNext.ForeColor = Color.White;
-            btnNext.IconChar = FontAwesome.Sharp.IconChar.None;
-            btnNext.IconColor = Color.White;
-            btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnNext.IconSize = 25;
-            btnNext.Location = new Point(489, 754);
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(104, 33);
-            btnNext.TabIndex = 197;
-            btnNext.Text = ">>";
-            btnNext.UseVisualStyleBackColor = false;
-            btnNext.Click += btnNext_Click;
-            // 
-            // btnPrev
-            // 
-            btnPrev.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnPrev.AutoSize = true;
-            btnPrev.BackColor = Color.FromArgb(158, 158, 158);
-            btnPrev.FlatAppearance.BorderSize = 0;
-            btnPrev.FlatStyle = FlatStyle.Flat;
-            btnPrev.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            btnPrev.ForeColor = Color.White;
-            btnPrev.IconChar = FontAwesome.Sharp.IconChar.None;
-            btnPrev.IconColor = Color.White;
-            btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(379, 754);
-            btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(104, 33);
-            btnPrev.TabIndex = 196;
-            btnPrev.Text = "<<";
-            btnPrev.UseVisualStyleBackColor = false;
-            btnPrev.Click += btnPrev_Click;
             // 
             // btnFirst
             // 
@@ -241,13 +200,55 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(269, 754);
+            btnFirst.Location = new Point(269, 3);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 195;
             btnFirst.Text = "PRIMERA";
             btnFirst.UseVisualStyleBackColor = false;
             btnFirst.Click += btnFirst_Click;
+            // 
+            // btnPrev
+            // 
+            btnPrev.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPrev.AutoSize = true;
+            btnPrev.BackColor = Color.FromArgb(158, 158, 158);
+            btnPrev.FlatAppearance.BorderSize = 0;
+            btnPrev.FlatStyle = FlatStyle.Flat;
+            btnPrev.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnPrev.ForeColor = Color.White;
+            btnPrev.IconChar = FontAwesome.Sharp.IconChar.None;
+            btnPrev.IconColor = Color.White;
+            btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPrev.IconSize = 25;
+            btnPrev.Location = new Point(379, 3);
+            btnPrev.Name = "btnPrev";
+            btnPrev.Size = new Size(104, 33);
+            btnPrev.TabIndex = 196;
+            btnPrev.Text = "<<";
+            btnPrev.UseVisualStyleBackColor = false;
+            btnPrev.Click += btnPrev_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNext.AutoSize = true;
+            btnNext.BackColor = Color.FromArgb(158, 158, 158);
+            btnNext.FlatAppearance.BorderSize = 0;
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnNext.ForeColor = Color.White;
+            btnNext.IconChar = FontAwesome.Sharp.IconChar.None;
+            btnNext.IconColor = Color.White;
+            btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnNext.IconSize = 25;
+            btnNext.Location = new Point(489, 3);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(104, 33);
+            btnNext.TabIndex = 197;
+            btnNext.Text = ">>";
+            btnNext.UseVisualStyleBackColor = false;
+            btnNext.Click += btnNext_Click;
             // 
             // lblTotalPages
             // 
@@ -314,62 +315,6 @@
             label1.TabIndex = 189;
             label1.Text = "Total de registros: ";
             // 
-            // panelTitulo
-            // 
-            panelTitulo.AutoSize = true;
-            panelTitulo.Controls.Add(panel11);
-            panelTitulo.Location = new Point(8, 6);
-            panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(861, 66);
-            panelTitulo.TabIndex = 187;
-            // 
-            // panel11
-            // 
-            panel11.Anchor = AnchorStyles.Top;
-            panel11.Controls.Add(panel12);
-            panel11.Controls.Add(roundedButton5);
-            panel11.Location = new Point(137, 0);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(494, 63);
-            panel11.TabIndex = 170;
-            // 
-            // panel12
-            // 
-            panel12.AutoSize = true;
-            panel12.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel12.BackColor = Color.FromArgb(175, 192, 218);
-            panel12.Location = new Point(3, 14);
-            panel12.Margin = new Padding(0);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(0, 0);
-            panel12.TabIndex = 175;
-            // 
-            // roundedButton5
-            // 
-            roundedButton5.AutoSize = true;
-            roundedButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
-            roundedButton5.BorderRadius = 40;
-            roundedButton5.BorderSize = 0;
-            roundedButton5.Dock = DockStyle.Fill;
-            roundedButton5.FlatAppearance.BorderSize = 0;
-            roundedButton5.FlatStyle = FlatStyle.Flat;
-            roundedButton5.Font = new Font("Century Gothic", 15F);
-            roundedButton5.ForeColor = Color.Black;
-            roundedButton5.Image = (Image)resources.GetObject("roundedButton5.Image");
-            roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
-            roundedButton5.Location = new Point(0, 0);
-            roundedButton5.Name = "roundedButton5";
-            roundedButton5.Size = new Size(494, 63);
-            roundedButton5.TabIndex = 167;
-            roundedButton5.Text = "GRUPOS";
-            roundedButton5.TextAlign = ContentAlignment.MiddleLeft;
-            roundedButton5.TextColor = Color.Black;
-            roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            roundedButton5.UseVisualStyleBackColor = false;
-            // 
             // ibtnEditar
             // 
             ibtnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -418,12 +363,12 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(192, 202, 212);
             panel1.Controls.Add(dtgClientes);
             panel1.Location = new Point(8, 209);
             panel1.Name = "panel1";
-            panel1.Size = new Size(695, 539);
+            panel1.Size = new Size(695, 451);
             panel1.TabIndex = 56;
             // 
             // dtgClientes
@@ -431,7 +376,7 @@
             dtgClientes.AllowUserToAddRows = false;
             dtgClientes.AllowUserToDeleteRows = false;
             dtgClientes.AllowUserToResizeRows = false;
-            dtgClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dtgClientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgClientes.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgClientes.BorderStyle = BorderStyle.None;
@@ -474,7 +419,7 @@
             dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
             dtgClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dtgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgClientes.Size = new Size(663, 501);
+            dtgClientes.Size = new Size(663, 413);
             dtgClientes.TabIndex = 13;
             dtgClientes.CellClick += dtgClientes_CellClick;
             dtgClientes.CellContentClick += dtgClientes_CellContentClick;
@@ -486,16 +431,18 @@
             panelBusqueda.Controls.Add(iconButton1);
             panelBusqueda.Controls.Add(btnX);
             panelBusqueda.Controls.Add(roundedButton3);
-            panelBusqueda.Location = new Point(8, 96);
+            panelBusqueda.Controls.Add(panelTitulo);
+            panelBusqueda.Dock = DockStyle.Top;
+            panelBusqueda.Location = new Point(3, 3);
             panelBusqueda.Name = "panelBusqueda";
-            panelBusqueda.Size = new Size(861, 90);
+            panelBusqueda.Size = new Size(886, 168);
             panelBusqueda.TabIndex = 200;
             // 
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 9F);
-            txtBuscar.Location = new Point(172, 26);
+            txtBuscar.Location = new Point(188, 120);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(264, 22);
             txtBuscar.TabIndex = 50;
@@ -514,7 +461,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 18;
             iconButton1.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton1.Location = new Point(474, 26);
+            iconButton1.Location = new Point(490, 120);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(107, 27);
             iconButton1.TabIndex = 51;
@@ -534,7 +481,7 @@
             btnX.IconColor = Color.Black;
             btnX.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnX.IconSize = 25;
-            btnX.Location = new Point(442, 23);
+            btnX.Location = new Point(458, 117);
             btnX.Name = "btnX";
             btnX.Size = new Size(26, 32);
             btnX.TabIndex = 188;
@@ -553,21 +500,78 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(137, 3);
+            roundedButton3.Location = new Point(153, 97);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(494, 68);
             roundedButton3.TabIndex = 52;
             roundedButton3.TextColor = Color.White;
             roundedButton3.UseVisualStyleBackColor = false;
             // 
+            // panelTitulo
+            // 
+            panelTitulo.AutoSize = true;
+            panelTitulo.Controls.Add(panel11);
+            panelTitulo.Dock = DockStyle.Top;
+            panelTitulo.Location = new Point(0, 0);
+            panelTitulo.Name = "panelTitulo";
+            panelTitulo.Size = new Size(886, 66);
+            panelTitulo.TabIndex = 187;
+            // 
+            // panel11
+            // 
+            panel11.Anchor = AnchorStyles.Top;
+            panel11.Controls.Add(panel12);
+            panel11.Controls.Add(roundedButton5);
+            panel11.Location = new Point(150, 0);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(494, 63);
+            panel11.TabIndex = 170;
+            // 
+            // panel12
+            // 
+            panel12.AutoSize = true;
+            panel12.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel12.BackColor = Color.FromArgb(175, 192, 218);
+            panel12.Location = new Point(3, 14);
+            panel12.Margin = new Padding(0);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(0, 0);
+            panel12.TabIndex = 175;
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.AutoSize = true;
+            roundedButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            roundedButton5.BackColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BackgroundColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderColor = Color.FromArgb(175, 192, 218);
+            roundedButton5.BorderRadius = 40;
+            roundedButton5.BorderSize = 0;
+            roundedButton5.Dock = DockStyle.Fill;
+            roundedButton5.FlatAppearance.BorderSize = 0;
+            roundedButton5.FlatStyle = FlatStyle.Flat;
+            roundedButton5.Font = new Font("Century Gothic", 15F);
+            roundedButton5.ForeColor = Color.Black;
+            roundedButton5.Image = (Image)resources.GetObject("roundedButton5.Image");
+            roundedButton5.ImageAlign = ContentAlignment.MiddleRight;
+            roundedButton5.Location = new Point(0, 0);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.Size = new Size(494, 63);
+            roundedButton5.TabIndex = 167;
+            roundedButton5.Text = "GRUPOS";
+            roundedButton5.TextAlign = ContentAlignment.MiddleLeft;
+            roundedButton5.TextColor = Color.Black;
+            roundedButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            roundedButton5.UseVisualStyleBackColor = false;
+            // 
             // tabClienteDetail
             // 
             tabClienteDetail.BackColor = Color.White;
             tabClienteDetail.Controls.Add(panel3);
-            tabClienteDetail.Location = new Point(4, 24);
+            tabClienteDetail.Location = new Point(4, 30);
             tabClienteDetail.Name = "tabClienteDetail";
             tabClienteDetail.Padding = new Padding(3);
-            tabClienteDetail.Size = new Size(892, 715);
+            tabClienteDetail.Size = new Size(892, 709);
             tabClienteDetail.TabIndex = 1;
             // 
             // panel3
@@ -580,7 +584,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(886, 709);
+            panel3.Size = new Size(886, 703);
             panel3.TabIndex = 194;
             // 
             // iconPictureBox3
@@ -885,13 +889,15 @@
             tabControl1.ResumeLayout(false);
             tabClientesList.ResumeLayout(false);
             tabClientesList.PerformLayout();
-            panelTitulo.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgClientes).EndInit();
             panelBusqueda.ResumeLayout(false);
             panelBusqueda.PerformLayout();
+            panelTitulo.ResumeLayout(false);
+            panel11.ResumeLayout(false);
+            panel11.PerformLayout();
             tabClienteDetail.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).EndInit();

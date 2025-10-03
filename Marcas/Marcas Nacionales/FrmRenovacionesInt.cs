@@ -53,7 +53,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             await LoadMarcas();
         }
-
+        
         public void convertirImagen()
         {
 
@@ -198,7 +198,7 @@ namespace Presentacion.Marcas_Internacionales
                 else Apply();
             }
         }
-
+        
         public async Task filtrar()
         {
             string buscar = txtBuscar.Text?.Trim();

@@ -1,4 +1,5 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
 using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Internacionales
 {
-    public partial class FrmAdministrarClientes : Form
+    public partial class FrmAdministrarClientes : Form, IAsyncLoadable
     {
 
         PersonaModel personaModel = new PersonaModel();
@@ -26,11 +27,15 @@ namespace Presentacion.Marcas_Internacionales
         private int totalRows = 0;
         private bool buscando = false;
 
+        public async Task LoadAsync()
+        {
+            await LoadClientes();
+        }
+
         public FrmAdministrarClientes()
         {
             InitializeComponent();
 
-            this.Load += FrmAdministrarClientes_Load;
             
             if (UsuarioActivo.isAdmin)
             {
@@ -94,33 +99,33 @@ namespace Presentacion.Marcas_Internacionales
             tabControl1.SelectedTab = nombre;
         }
 
-
         private async Task LoadClientes()
         {
-            totalRows = personaModel.GetTotalClientes();
+            totalRows = await Task.Run(() => personaModel.GetTotalClientes());
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             // Obtiene los clientes
-            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize))
-                                       .ConfigureAwait(false);
-
-            // Verifica si el handle está creado y si el formulario no ha sido desechado
-            if (this.IsHandleCreated && !this.IsDisposed)
+            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
+            void Apply()
             {
-                this.Invoke(new Action(() =>
-                {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgClientes.DataSource = titulares;
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgClientes.DataSource = titulares;
 
-                    if (dtgClientes.Columns["id"] != null)
-                    {
-                        dtgClientes.Columns["id"].Visible = false;
-                        dtgClientes.ClearSelection();
-                    }
-                }));
+                if (dtgClientes.Columns["id"] != null)
+                {
+                    dtgClientes.Columns["id"].Visible = false;
+                    dtgClientes.ClearSelection();
+                }
+            }
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
             }
         }
+       
 
         public async void filtrar()
         {
@@ -370,16 +375,15 @@ namespace Presentacion.Marcas_Internacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = panelBusqueda.Height; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock= DockStyle.Top;
+               
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
 
@@ -404,6 +408,7 @@ namespace Presentacion.Marcas_Internacionales
                 panelTitulo.Location = new Point(0, 0); // o donde quieras
             }
         }
+
         private void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
@@ -677,7 +682,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private void FrmAdministrarClientes_Resize(object sender, EventArgs e)
         {
-            CentrarTitulo();
+            //CentrarTitulo();
             CentrarPanel();
         }
 

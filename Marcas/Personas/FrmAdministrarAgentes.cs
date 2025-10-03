@@ -1,4 +1,5 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
 using System;
@@ -7,13 +8,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Presentacion.Personas
 {
-    public partial class FrmAdministrarAgentes : Form
+    public partial class FrmAdministrarAgentes : Form, IAsyncLoadable
     {
         PersonaModel personaModel = new PersonaModel();
         private const int pageSize = 20;
@@ -21,10 +25,15 @@ namespace Presentacion.Personas
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
+        
+        public async Task LoadAsync()
+        {
+            await LoadAgentes();
+        }
+
         public FrmAdministrarAgentes()
         {
-            InitializeComponent();
-            this.Load += FrmAdministrarAgentes_Load; // Mueve la lógica de carga aquí
+            InitializeComponent(); // Mueve la lógica de carga aquí
             if (UsuarioActivo.isAdmin)
             {
 
@@ -35,11 +44,11 @@ namespace Presentacion.Personas
                 btnEliminarAgente.Visible = false;
 
             }
-
+            
             if (UsuarioActivo.soloLectura)
             {
                 txtNitAgente.ReadOnly = true;
-                txtDireccionAgente.ReadOnly= true;
+                txtDireccionAgente.ReadOnly = true;
                 txtCorreoContacto.ReadOnly = true;
                 txtNombreAgente.ReadOnly = true;
                 txtNombreContacto.ReadOnly = true;
@@ -81,33 +90,33 @@ namespace Presentacion.Personas
             txtTelefonoContacto.Text = "";
             txtNombreContacto.Text = "";
         }
-
         private async Task LoadAgentes()
         {
-            totalRows = personaModel.GetTotalAgentes();
+            totalRows = await Task.Run(() => personaModel.GetTotalAgentes());
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
-            if (this.IsHandleCreated && !this.IsDisposed)
+
+            var agentes = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
+            void Apply()
             {
-                Invoke(new Action(() =>
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgAgentes.DataSource = agentes;
+                if (dtgAgentes.Columns["id"] != null)
                 {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgAgentes.DataSource = titulares;
-
-                    if (dtgAgentes.Columns["id"] != null)
-                    {
-                        dtgAgentes.Columns["id"].Visible = false;
-                        dtgAgentes.ClearSelection();
-                    }
-
-
-                }));
+                    dtgAgentes.Columns["id"].Visible = false;
+                    dtgAgentes.ClearSelection();
+                }
             }
 
-
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
         }
+        
+
+       
         private async Task AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
@@ -146,7 +155,7 @@ namespace Presentacion.Personas
 
         private async void ibtnAgregar_Click(object sender, EventArgs e)
         {
-            
+
             tabControl1.Visible = false;
             LimpiarCampos();
             await AnadirTabPage(tabPageAgenteDetail);
@@ -184,7 +193,7 @@ namespace Presentacion.Personas
                     FrmAlerta alerta = new FrmAlerta("POR FAVOR SELECCIONE UN AGENTE", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    EditarPersona.idPersona= 0;
+                    EditarPersona.idPersona = 0;
                 }
             }
 
@@ -194,7 +203,7 @@ namespace Presentacion.Personas
         public async Task Editar()
         {
 
-            
+
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 tabControl1.Visible = false;
@@ -245,22 +254,130 @@ namespace Presentacion.Personas
 
         }
 
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         private async void FrmAdministrarAgentes_Load(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
-            tabControl1.Visible = false;
-            await LoadAgentes();
-            EliminarTabPage(tabPageAgenteDetail);
-            tabControl1.Visible = true;
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                SeleccionarPersona.idPersonaA = 0;
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                tabControl1.Visible = false;
+               
+
+                tabControl1.Visible = true;
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgAgentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadAgentes(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgAgentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgAgentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgAgentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgAgentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
+           
         }
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
             VerificarSeleccion();
             await Editar();
-
 
         }
 
@@ -366,14 +483,13 @@ namespace Presentacion.Personas
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+              
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
@@ -421,7 +537,7 @@ namespace Presentacion.Personas
                     txtCorreoContacto.Text = EditarPersona.correo;
                     txtTelefonoContacto.Text = EditarPersona.telefono;
                     txtNombreContacto.Text = EditarPersona.contacto;
-                   
+
 
                 }
                 else
@@ -692,8 +808,8 @@ namespace Presentacion.Personas
                         if (isDeleted)
                         {
                             FrmAlerta alerta = new FrmAlerta("AGENTE ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
-                                alerta.ShowDialog();
-                                await LoadAgentes();
+                            alerta.ShowDialog();
+                            await LoadAgentes();
                         }
                         else
                         {
@@ -711,6 +827,11 @@ namespace Presentacion.Personas
             {
                 MessageBox.Show("Por favor, selecciona un agente para eliminar.");
             }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

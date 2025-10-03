@@ -1,4 +1,5 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
 using FontAwesome.Sharp;
 using Presentacion.Alertas;
@@ -8,15 +9,18 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace Presentacion.Personas
 {
-    public partial class FrmAdministrarTitulares : Form
+    public partial class FrmAdministrarTitulares : Form, IAsyncLoadable
     {
         PersonaModel personaModel = new PersonaModel();
         private const int pageSize = 20;
@@ -25,13 +29,17 @@ namespace Presentacion.Personas
         private int totalRows = 0;
         private bool buscando = false;
 
+        public async Task LoadAsync()
+        {
+            await LoadTitulares();
+        }
+
         public void Permisos()
         {
             if (UsuarioActivo.isAdmin)
             {
                 Habilitar();
                 btnEliminarTitular.Visible = true;
-
                 ibtnAgregar.Visible = true;
             }
             else if (UsuarioActivo.soloLectura)
@@ -63,10 +71,10 @@ namespace Presentacion.Personas
                 txtTelefonoContacto.ReadOnly = false;
             }
         }
+
         public FrmAdministrarTitulares()
         {
             InitializeComponent();
-            this.Load += FrmAdministrarTitulares_Load; // Mueve la lógica de carga aquí
             Permisos();
         }
         private void EliminarTabPage(TabPage nombre)
@@ -98,33 +106,33 @@ namespace Presentacion.Personas
             tabControl1.SelectedTab = nombre;
         }
 
-
         private async Task LoadTitulares()
         {
-            totalRows = personaModel.GetTotalTitulares();
+            totalRows = await Task.Run(() => personaModel.GetTotalTitulares());
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
             var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
-
-            if(this.IsHandleCreated && !this.IsDisposed)
+            void Apply()
             {
-                Invoke(new Action(() =>
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgTitulares.DataSource = titulares;
+
+                if (dtgTitulares.Columns["id"] != null)
                 {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgTitulares.DataSource = titulares;
-
-                    if (dtgTitulares.Columns["id"] != null)
-                    {
-                        dtgTitulares.Columns["id"].Visible = false;
-                        dtgTitulares.ClearSelection();
-                    }
-
-
-                }));
+                    dtgTitulares.Columns["id"].Visible = false;
+                    dtgTitulares.ClearSelection();
+                }
             }
-           
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
         }
+        
+        
 
         public void Habilitar()
         {
@@ -277,15 +285,123 @@ namespace Presentacion.Personas
             }
         }
 
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private async void FrmAdministrarTitulares_Load(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
-            // Cargar titulares en segundo plano
-            await Task.Run(() => LoadTitulares());
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                SeleccionarPersona.idPersonaA = 0;
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                tabControl1.Visible = false;
+                EliminarTabPage(tabTitularDetail);
 
-            // Eliminar la tabPage de detalle
-            tabControl1.TabPages.Remove(tabTitularDetail);
+                tabControl1.Visible = true;
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgTitulares.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadTitulares(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgTitulares.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgTitulares.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgTitulares.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgTitulares.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
             Permisos();
         }
 
@@ -646,14 +762,13 @@ namespace Presentacion.Personas
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new Point(x, y);
+                panelBusqueda.Dock= DockStyle.Top;
+                
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }

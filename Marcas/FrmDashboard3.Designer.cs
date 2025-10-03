@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel2 = new Panel();
             roundedButton3 = new Presentacion.Clases.RoundedButton();
@@ -52,10 +52,10 @@
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             roundedButton5 = new Presentacion.Clases.RoundedButton();
             panel4 = new Panel();
-            panel5 = new Panel();
-            label1 = new Label();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            roundedButton4 = new Presentacion.Clases.RoundedButton();
+            panelIngresar = new Panel();
+            labelIngresar = new Label();
+            iconPictureBoxIngresar = new FontAwesome.Sharp.IconPictureBox();
+            roundedButtonIngresar = new Presentacion.Clases.RoundedButton();
             panel7 = new Panel();
             panel8 = new Panel();
             label3 = new Label();
@@ -72,8 +72,8 @@
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panel4.SuspendLayout();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panelIngresar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIngresar).BeginInit();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox3).BeginInit();
@@ -85,7 +85,7 @@
             panel1.BackColor = Color.FromArgb(196, 205, 218);
             panel1.Location = new Point(26, 15);
             panel1.Name = "panel1";
-            panel1.Size = new Size(778, 5);
+            panel1.Size = new Size(761, 5);
             panel1.TabIndex = 0;
             // 
             // panel2
@@ -97,7 +97,7 @@
             panel2.Controls.Add(roundedButton1);
             panel2.Location = new Point(26, 40);
             panel2.Name = "panel2";
-            panel2.Size = new Size(778, 371);
+            panel2.Size = new Size(761, 371);
             panel2.TabIndex = 1;
             // 
             // roundedButton3
@@ -112,7 +112,7 @@
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             roundedButton3.ForeColor = Color.Black;
-            roundedButton3.Location = new Point(295, 316);
+            roundedButton3.Location = new Point(286, 316);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(188, 50);
             roundedButton3.TabIndex = 2;
@@ -133,14 +133,14 @@
             dtgVencimientos.BorderStyle = BorderStyle.None;
             dtgVencimientos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgVencimientos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtgVencimientos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dtgVencimientos.ColumnHeadersHeight = 40;
             dtgVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgVencimientos.EnableHeadersVisualStyles = false;
@@ -151,7 +151,7 @@
             dtgVencimientos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgVencimientos.RowHeadersWidth = 40;
             dtgVencimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgVencimientos.Size = new Size(632, 245);
+            dtgVencimientos.Size = new Size(615, 245);
             dtgVencimientos.TabIndex = 6;
             // 
             // roundedButton2
@@ -170,7 +170,7 @@
             roundedButton2.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton2.Location = new Point(0, 0);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(778, 62);
+            roundedButton2.Size = new Size(761, 62);
             roundedButton2.TabIndex = 1;
             roundedButton2.Text = "PRÓXIMOS VENCIMIENTOS";
             roundedButton2.TextColor = Color.Black;
@@ -191,7 +191,7 @@
             roundedButton1.ForeColor = Color.White;
             roundedButton1.Location = new Point(0, 0);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(778, 371);
+            roundedButton1.Size = new Size(761, 371);
             roundedButton1.TabIndex = 0;
             roundedButton1.TextColor = Color.White;
             roundedButton1.UseVisualStyleBackColor = false;
@@ -231,7 +231,7 @@
             panel10.Controls.Add(roundedButton9);
             panel10.Location = new Point(26, 471);
             panel10.Name = "panel10";
-            panel10.Size = new Size(778, 371);
+            panel10.Size = new Size(761, 371);
             panel10.TabIndex = 11;
             // 
             // roundedButton7
@@ -246,7 +246,7 @@
             roundedButton7.FlatStyle = FlatStyle.Flat;
             roundedButton7.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
             roundedButton7.ForeColor = Color.Black;
-            roundedButton7.Location = new Point(295, 318);
+            roundedButton7.Location = new Point(286, 318);
             roundedButton7.Name = "roundedButton7";
             roundedButton7.Size = new Size(188, 50);
             roundedButton7.TabIndex = 2;
@@ -267,14 +267,14 @@
             dtgPlazos.BorderStyle = BorderStyle.None;
             dtgPlazos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgPlazos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgPlazos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 10F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgPlazos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgPlazos.ColumnHeadersHeight = 40;
             dtgPlazos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgPlazos.EnableHeadersVisualStyles = false;
@@ -285,7 +285,7 @@
             dtgPlazos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgPlazos.RowHeadersWidth = 40;
             dtgPlazos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgPlazos.Size = new Size(632, 245);
+            dtgPlazos.Size = new Size(615, 245);
             dtgPlazos.TabIndex = 6;
             dtgPlazos.DataBindingComplete += dtgPlazos_DataBindingComplete;
             // 
@@ -305,7 +305,7 @@
             roundedButton8.ImageAlign = ContentAlignment.MiddleRight;
             roundedButton8.Location = new Point(0, 0);
             roundedButton8.Name = "roundedButton8";
-            roundedButton8.Size = new Size(778, 62);
+            roundedButton8.Size = new Size(761, 62);
             roundedButton8.TabIndex = 1;
             roundedButton8.Text = "PLAZOS";
             roundedButton8.TextColor = Color.Black;
@@ -326,7 +326,7 @@
             roundedButton9.ForeColor = Color.White;
             roundedButton9.Location = new Point(0, 0);
             roundedButton9.Name = "roundedButton9";
-            roundedButton9.Size = new Size(778, 371);
+            roundedButton9.Size = new Size(761, 371);
             roundedButton9.TabIndex = 0;
             roundedButton9.TextColor = Color.White;
             roundedButton9.UseVisualStyleBackColor = false;
@@ -337,7 +337,7 @@
             panel11.BackColor = Color.FromArgb(196, 205, 218);
             panel11.Location = new Point(26, 868);
             panel11.Name = "panel11";
-            panel11.Size = new Size(815, 5);
+            panel11.Size = new Size(798, 5);
             panel11.TabIndex = 12;
             // 
             // panel9
@@ -346,7 +346,7 @@
             panel9.BackColor = Color.FromArgb(196, 205, 218);
             panel9.Location = new Point(26, 437);
             panel9.Name = "panel9";
-            panel9.Size = new Size(815, 5);
+            panel9.Size = new Size(798, 5);
             panel9.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -363,7 +363,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(873, 274);
+            tableLayoutPanel1.Size = new Size(856, 274);
             tableLayoutPanel1.TabIndex = 10;
             // 
             // panel3
@@ -372,7 +372,7 @@
             panel3.Controls.Add(panel6);
             panel3.Controls.Add(iconPictureBox2);
             panel3.Controls.Add(roundedButton5);
-            panel3.Location = new Point(324, 13);
+            panel3.Location = new Point(317, 13);
             panel3.Name = "panel3";
             panel3.Size = new Size(221, 248);
             panel3.TabIndex = 13;
@@ -443,77 +443,77 @@
             // panel4
             // 
             panel4.Anchor = AnchorStyles.None;
-            panel4.Controls.Add(panel5);
-            panel4.Controls.Add(iconPictureBox1);
-            panel4.Controls.Add(roundedButton4);
-            panel4.Location = new Point(34, 13);
+            panel4.Controls.Add(panelIngresar);
+            panel4.Controls.Add(iconPictureBoxIngresar);
+            panel4.Controls.Add(roundedButtonIngresar);
+            panel4.Location = new Point(32, 13);
             panel4.Name = "panel4";
             panel4.Size = new Size(221, 248);
             panel4.TabIndex = 12;
             // 
-            // panel5
+            // panelIngresar
             // 
-            panel5.Anchor = AnchorStyles.None;
-            panel5.BackColor = Color.FromArgb(60, 120, 172);
-            panel5.Controls.Add(label1);
-            panel5.Location = new Point(0, 188);
-            panel5.Margin = new Padding(3, 4, 3, 4);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(221, 37);
-            panel5.TabIndex = 7;
-            panel5.Click += panel5_Click;
-            panel5.Paint += panel5_Paint;
+            panelIngresar.Anchor = AnchorStyles.None;
+            panelIngresar.BackColor = Color.FromArgb(60, 120, 172);
+            panelIngresar.Controls.Add(labelIngresar);
+            panelIngresar.Location = new Point(0, 188);
+            panelIngresar.Margin = new Padding(3, 4, 3, 4);
+            panelIngresar.Name = "panelIngresar";
+            panelIngresar.Size = new Size(221, 37);
+            panelIngresar.TabIndex = 7;
+            panelIngresar.Click += panel5_Click;
+            panelIngresar.Paint += panel5_Paint;
             // 
-            // label1
+            // labelIngresar
             // 
-            label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(60, 120, 172);
-            label1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(10, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(164, 16);
-            label1.TabIndex = 1;
-            label1.Text = "INGRESAR TRÁMITE INICIAL";
-            label1.Click += label1_Click;
+            labelIngresar.Anchor = AnchorStyles.None;
+            labelIngresar.AutoSize = true;
+            labelIngresar.BackColor = Color.FromArgb(60, 120, 172);
+            labelIngresar.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            labelIngresar.ForeColor = Color.White;
+            labelIngresar.Location = new Point(10, 9);
+            labelIngresar.Name = "labelIngresar";
+            labelIngresar.Size = new Size(164, 16);
+            labelIngresar.TabIndex = 1;
+            labelIngresar.Text = "INGRESAR TRÁMITE INICIAL";
+            labelIngresar.Click += label1_Click;
             // 
-            // iconPictureBox1
+            // iconPictureBoxIngresar
             // 
-            iconPictureBox1.Anchor = AnchorStyles.None;
-            iconPictureBox1.BackColor = Color.FromArgb(201, 211, 221);
-            iconPictureBox1.ForeColor = Color.FromArgb(60, 120, 172);
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.FileContract;
-            iconPictureBox1.IconColor = Color.FromArgb(60, 120, 172);
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 169;
-            iconPictureBox1.Location = new Point(26, 39);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(169, 170);
-            iconPictureBox1.TabIndex = 4;
-            iconPictureBox1.TabStop = false;
-            iconPictureBox1.UseGdi = true;
-            iconPictureBox1.Click += iconPictureBox1_Click;
+            iconPictureBoxIngresar.Anchor = AnchorStyles.None;
+            iconPictureBoxIngresar.BackColor = Color.FromArgb(201, 211, 221);
+            iconPictureBoxIngresar.ForeColor = Color.FromArgb(60, 120, 172);
+            iconPictureBoxIngresar.IconChar = FontAwesome.Sharp.IconChar.FileContract;
+            iconPictureBoxIngresar.IconColor = Color.FromArgb(60, 120, 172);
+            iconPictureBoxIngresar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBoxIngresar.IconSize = 169;
+            iconPictureBoxIngresar.Location = new Point(26, 39);
+            iconPictureBoxIngresar.Name = "iconPictureBoxIngresar";
+            iconPictureBoxIngresar.Size = new Size(169, 170);
+            iconPictureBoxIngresar.TabIndex = 4;
+            iconPictureBoxIngresar.TabStop = false;
+            iconPictureBoxIngresar.UseGdi = true;
+            iconPictureBoxIngresar.Click += iconPictureBox1_Click;
             // 
-            // roundedButton4
+            // roundedButtonIngresar
             // 
-            roundedButton4.AutoSize = true;
-            roundedButton4.BackColor = Color.FromArgb(222, 227, 234);
-            roundedButton4.BackgroundColor = Color.FromArgb(222, 227, 234);
-            roundedButton4.BorderColor = Color.Empty;
-            roundedButton4.BorderRadius = 40;
-            roundedButton4.BorderSize = 0;
-            roundedButton4.Dock = DockStyle.Fill;
-            roundedButton4.FlatAppearance.BorderSize = 0;
-            roundedButton4.FlatStyle = FlatStyle.Flat;
-            roundedButton4.ForeColor = Color.White;
-            roundedButton4.Location = new Point(0, 0);
-            roundedButton4.Name = "roundedButton4";
-            roundedButton4.Size = new Size(221, 248);
-            roundedButton4.TabIndex = 1;
-            roundedButton4.TextColor = Color.White;
-            roundedButton4.UseVisualStyleBackColor = false;
-            roundedButton4.Click += roundedButton4_Click;
+            roundedButtonIngresar.AutoSize = true;
+            roundedButtonIngresar.BackColor = Color.FromArgb(222, 227, 234);
+            roundedButtonIngresar.BackgroundColor = Color.FromArgb(222, 227, 234);
+            roundedButtonIngresar.BorderColor = Color.Empty;
+            roundedButtonIngresar.BorderRadius = 40;
+            roundedButtonIngresar.BorderSize = 0;
+            roundedButtonIngresar.Dock = DockStyle.Fill;
+            roundedButtonIngresar.FlatAppearance.BorderSize = 0;
+            roundedButtonIngresar.FlatStyle = FlatStyle.Flat;
+            roundedButtonIngresar.ForeColor = Color.White;
+            roundedButtonIngresar.Location = new Point(0, 0);
+            roundedButtonIngresar.Name = "roundedButtonIngresar";
+            roundedButtonIngresar.Size = new Size(221, 248);
+            roundedButtonIngresar.TabIndex = 1;
+            roundedButtonIngresar.TextColor = Color.White;
+            roundedButtonIngresar.UseVisualStyleBackColor = false;
+            roundedButtonIngresar.Click += roundedButton4_Click;
             // 
             // panel7
             // 
@@ -521,7 +521,7 @@
             panel7.Controls.Add(panel8);
             panel7.Controls.Add(iconPictureBox3);
             panel7.Controls.Add(roundedButton6);
-            panel7.Location = new Point(616, 13);
+            panel7.Location = new Point(602, 13);
             panel7.Name = "panel7";
             panel7.Size = new Size(221, 248);
             panel7.TabIndex = 14;
@@ -617,9 +617,9 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            panelIngresar.ResumeLayout(false);
+            panelIngresar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBoxIngresar).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             panel8.ResumeLayout(false);
@@ -640,10 +640,10 @@
         private TabPage tabPage2;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel4;
-        private Panel panel5;
-        private Label label1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Clases.RoundedButton roundedButton4;
+        private Panel panelIngresar;
+        private Label labelIngresar;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBoxIngresar;
+        private Clases.RoundedButton roundedButtonIngresar;
         private Panel panel7;
         private Panel panel8;
         private Label label3;

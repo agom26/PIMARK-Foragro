@@ -111,7 +111,13 @@ namespace Presentacion.Marcas_Internacionales
                 btnGuardarU.Visible = false;
                 btnEnviarATramite.Visible = false;
                 dateTimePFecha_vencimiento.Enabled = false;
+                checkBoxAgregarLogos.Enabled = false;
 
+                //logos
+                btnAgregarLogoOpositor.Visible = false;
+                btnAgregarSignoPretendido.Visible = false;
+                btnQuitarLogoOpositor.Visible = false;
+                btnQuitarLogoSignoPretendido.Visible = false;
             }
             else
             {
@@ -125,7 +131,13 @@ namespace Presentacion.Marcas_Internacionales
                 btnEditarH.Visible = true;
                 btnAgregarOpositorAO.Visible = true;
                 dateTimePFecha_vencimiento.Enabled = true;
-                
+                checkBoxAgregarLogos.Enabled = true;
+
+                //logos
+                btnAgregarLogoOpositor.Visible = true;
+                btnAgregarSignoPretendido.Visible = true;
+                btnQuitarLogoOpositor.Visible = true;
+                btnQuitarLogoSignoPretendido.Visible = true;
             }
 
         }
@@ -1082,9 +1094,19 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        btnEnviarATramite.Visible = true;
-                        btnAgregarEstadoAO.Enabled = true;
-                        btnAgregarOpositorAO.Enabled = true;
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            btnEnviarATramite.Visible = true;
+                            btnAgregarEstadoAO.Enabled = true;
+                            btnAgregarOpositorAO.Enabled = true;
+                        }
+                        else
+                        {
+                            btnEnviarATramite.Visible = false;
+                            btnAgregarEstadoAO.Enabled = false;
+                            btnAgregarOpositorAO.Enabled = false;
+                        }
+                        
                     }
 
 
@@ -1121,8 +1143,19 @@ namespace Presentacion.Marcas_Internacionales
                         txtClaseAO.Enabled = false;
                         cmbSignoDAO.Enabled = false;
                         txtSignoAO.Enabled = false;
-                        txtSignoOpositor.Enabled = true;
-                        txtNombreTitularAO.Enabled = true;
+
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            txtSignoOpositor.Enabled = true;
+                            txtNombreTitularAO.Enabled = true;
+                        }
+                        else
+                        {
+                            txtSignoOpositor.Enabled = false;
+                            txtNombreTitularAO.Enabled = false;
+                        }
+
+
                         var marca = await marcaModel.GetMarcaNacionalById(SeleccionarOposicion.idMarca);
                         if (marca.Rows.Count > 0)
                         {
@@ -1130,9 +1163,17 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarOposicion.idSolicitante = dataRow["idTitular"] is DBNull ? 0 : int.Parse(dataRow["idTitular"].ToString());
                             if (SeleccionarOposicion.idSolicitante > 0)
                             {
-                                txtSolicitanteSignoPretendido.Enabled = false;
+                                if (!UsuarioActivo.soloLectura)
+                                {
+                                    txtSolicitanteSignoPretendido.Enabled = false;
+                                }
+                                else
+                                {
+                                    txtSolicitanteSignoPretendido.Enabled = false;
+                                }
 
-                                var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarOposicion.idSolicitante));
+
+                                    var titularTask = Task.Run(() => personaModel.GetPersonaById(SeleccionarOposicion.idSolicitante));
 
                                 await Task.WhenAll(titularTask);
 
@@ -1145,22 +1186,47 @@ namespace Presentacion.Marcas_Internacionales
                             }
                             else
                             {
-                                txtSolicitanteSignoPretendido.Enabled = true;
+                                if (!UsuarioActivo.soloLectura)
+                                {
+                                    txtSolicitanteSignoPretendido.Enabled = true;
+                                }
+                                else
+                                {
+                                    txtSolicitanteSignoPretendido.Enabled = false;
+                                }
+                               
                             }
                         }
                     }
                     else if (SeleccionarOposicion.idMarca == 0)
                     {
-                        txtSignoAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
-                        txtExpedienteAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
-                        cmbSignoDAO.Enabled = true;
-                        txtClaseAO.Enabled = true;
-                        txtSolicitanteSignoPretendido.Enabled = true;
-                        btnAgregarOpositorAO.Enabled = true;
-                        txtSignoOpositor.Enabled = true;
-                        txtNombreTitularAO.Enabled = true;
+                        if (!UsuarioActivo.soloLectura)
+                        {
+                            txtSignoAO.Enabled = true;
+                            txtClaseAO.Enabled = true;
+                            txtExpedienteAO.Enabled = true;
+                            txtClaseAO.Enabled = true;
+                            cmbSignoDAO.Enabled = true;
+                            txtClaseAO.Enabled = true;
+                            txtSolicitanteSignoPretendido.Enabled = true;
+                            btnAgregarOpositorAO.Enabled = true;
+                            txtSignoOpositor.Enabled = true;
+                            txtNombreTitularAO.Enabled = true;
+                        }
+                        else
+                        {
+                            txtSignoAO.Enabled = false;
+                            txtClaseAO.Enabled = false;
+                            txtExpedienteAO.Enabled = false;
+                            txtClaseAO.Enabled = false;
+                            cmbSignoDAO.Enabled = false;
+                            txtClaseAO.Enabled = false;
+                            txtSolicitanteSignoPretendido.Enabled = false;
+                            btnAgregarOpositorAO.Enabled = false;
+                            txtSignoOpositor.Enabled = false;
+                            txtNombreTitularAO.Enabled = false;
+                        }
+
                     }
 
                     btnGuardarU.Text = "EDITAR";
@@ -1231,8 +1297,12 @@ namespace Presentacion.Marcas_Internacionales
 
         public async void Editar()
         {
-            btnVerHistorial.Visible = true;
-            btnEnviarATramite.Visible = true;
+            if (!UsuarioActivo.soloLectura)
+            {
+                btnVerHistorial.Visible = true;
+                btnEnviarATramite.Visible = true;
+            }
+           
             VerificarSeleccionEdicion();
             if (SeleccionarOposicion.idN > 0)
             {
@@ -1541,7 +1611,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
-            EditarHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarHistorial();
+            }
+            
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -3317,7 +3391,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgHistorialOp_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarHistorial();
+            }
+           
         }
 
         private void dtgOpI_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

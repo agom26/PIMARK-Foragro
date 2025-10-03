@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Comun;
+using Comun.Cache;
 
 namespace Presentacion
 {
@@ -107,15 +108,29 @@ namespace Presentacion
                 }));
             }
 
-
-
         }
+
         public FrmDashboard3(Form1 mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             Ejecutar();
 
+
+            if (UsuarioActivo.soloLectura)
+            {
+                roundedButtonIngresar.Enabled = false;
+                panelIngresar.Enabled = false;
+                labelIngresar.Enabled = false;
+                iconPictureBoxIngresar.Enabled = false;
+            }
+            else
+            {
+                roundedButtonIngresar.Enabled = true;
+                panelIngresar.Enabled = true;
+                labelIngresar.Enabled = true;
+                iconPictureBoxIngresar.Enabled = true;
+            }
 
         }
 

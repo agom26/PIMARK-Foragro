@@ -1298,7 +1298,11 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void iconButton5_Click(object sender, EventArgs e)
         {
-            EditarVerHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerHistorial();
+            }
+            
         }
 
         private async void iconButton4_Click(object sender, EventArgs e)
@@ -1773,7 +1777,11 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void btnEditarRenovacion_Click(object sender, EventArgs e)
         {
-            EditarVerRenovacion();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerRenovacion();
+            }
+            
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -1878,7 +1886,11 @@ namespace Presentacion.Marcas_Internacionales
         }
         private void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
-            EditarVerTraspaso();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerTraspaso();
+            }
+            
         }
 
         private void iconButton10_Click(object sender, EventArgs e)
@@ -2172,17 +2184,29 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarVerHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerHistorial();
+            }
+            
         }
 
         private void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarVerRenovacion();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerRenovacion();
+            }
+            
         }
 
         private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarVerTraspaso();
+            if (!UsuarioActivo.soloLectura)
+            {
+                EditarVerTraspaso();
+            }
+            
         }
 
         private async void ibtnBuscar_Click(object sender, EventArgs e)
@@ -2655,8 +2679,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton17_Click(object sender, EventArgs e)
         {
-            SubirArchivo("" + SeleccionarMarca.idN);
-            ListarArchivosEnGeneral();
+            if (!UsuarioActivo.soloLectura)
+            {
+                SubirArchivo("" + SeleccionarMarca.idN);
+                ListarArchivosEnGeneral();
+            }
+           
         }
 
         private void iconButton16_Click(object sender, EventArgs e)
@@ -2666,7 +2694,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton15_Click(object sender, EventArgs e)
         {
-            Eliminar();
+            if (!UsuarioActivo.soloLectura)
+            {
+                Eliminar();
+            }
+            
         }
 
         private void dtgArchivos_DoubleClick(object sender, EventArgs e)

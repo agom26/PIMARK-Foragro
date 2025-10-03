@@ -565,7 +565,7 @@ namespace Presentacion.Marcas_Internacionales
                         AnadirTabPage(tabPageIngresadasList);
                         LimpiarControles();
                     }
-                        
+
                 }
                 else
                 {
@@ -1554,7 +1554,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void btnEditarH_Click(object sender, EventArgs e)
         {
 
-       
+
             if (_guardandoHist) return;
             if (comboBoxEstatusH.SelectedIndex == -1)
             {
@@ -1653,7 +1653,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (btn != null) btn.Enabled = true;
                 _guardandoHist = false;
             }
-        
+
             /* anterior
         string usuario = lblUser.Text;
             string usuarioEditor = labelUserEditor.Text;
@@ -1842,7 +1842,7 @@ namespace Presentacion.Marcas_Internacionales
                 panelBusqueda.Anchor = AnchorStyles.None;
                 panelBusqueda.Dock = DockStyle.Top;
                 //dtgMarcasIn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                
+
             }
             else
             {
@@ -1960,7 +1960,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void dtgHistorialIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            await EditarVerHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                await EditarVerHistorial();
+            }
+           
         }
 
         private async void iconButton6_Click(object sender, EventArgs e)
@@ -2074,17 +2078,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)
@@ -2195,7 +2199,12 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton7_Click(object sender, EventArgs e)
         {
             EliminarTabPage(tabPageListaArchivos);
-            await MostrarEstadoNoAgregado();
+
+            if (agregoEstado)
+            {
+                await MostrarEstadoNoAgregado();
+            }
+
             AnadirTabPage(tabPageMarcaDetail);
 
         }
@@ -2427,7 +2436,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        
+
 
         private void panel8_Paint(object sender, PaintEventArgs e)
         {
@@ -2506,6 +2515,15 @@ namespace Presentacion.Marcas_Internacionales
             if (_actualizando) return; // ignore cambios programáticos
                                        // NO recalcules aquí; respeta la edición manual
             ActualizarResumen();
+        }
+
+        private void dtgHistorialIn_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (dtgHistorialIn.Columns["id"] != null)
+            {
+                dtgHistorialIn.Columns["id"].Visible = false;
+                dtgHistorialIn.ClearSelection();
+            }
         }
     }
 }
