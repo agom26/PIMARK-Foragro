@@ -84,11 +84,16 @@ namespace Presentacion.Marcas_Internacionales
                     btnAgregarEstado.Visible = false;
                     btnEditar.Visible = false;
 
+                    btnAgregarArchivos.Visible = false;
+                    btnEliminarArchivos.Visible = false;
                 }
                 else
                 {
                     btnAgregarEstado.Visible = false;
                     btnEditar.Visible = false;
+
+                    btnAgregarArchivos.Enabled = false;
+                    btnEliminarArchivos.Enabled = false;
                 }
 
 
@@ -1725,6 +1730,7 @@ namespace Presentacion.Marcas_Internacionales
                 Cursor cursor1 = Cursors.Default;
             }
         }
+
         private void roundedButton1_Click_1(object sender, EventArgs e)
         {
             ListarArchivosEnGeneral();
@@ -1820,6 +1826,11 @@ namespace Presentacion.Marcas_Internacionales
             dtgMarcasAban.Columns["FOLIO"].MinimumWidth = 40; // opcional
 
             dtgMarcasAban.ClearSelection();
+        }
+
+        private void btnEliminarArchivos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -124,8 +124,6 @@
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton4 = new FontAwesome.Sharp.IconButton();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
             label22 = new Label();
             dtgHistorialAban = new DataGridView();
             panel5 = new Panel();
@@ -638,10 +636,10 @@
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
             tabPageMarcaDetail.Controls.Add(lblTitulo);
-            tabPageMarcaDetail.Location = new Point(4, 24);
+            tabPageMarcaDetail.Location = new Point(4, 26);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 673);
+            tabPageMarcaDetail.Size = new Size(1161, 671);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
@@ -1417,9 +1415,9 @@
             // tabPageHistorialMarca
             // 
             tabPageHistorialMarca.Controls.Add(panel2);
-            tabPageHistorialMarca.Location = new Point(4, 24);
+            tabPageHistorialMarca.Location = new Point(4, 26);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
-            tabPageHistorialMarca.Size = new Size(1161, 673);
+            tabPageHistorialMarca.Size = new Size(1161, 671);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
@@ -1427,15 +1425,13 @@
             // 
             panel2.AutoScroll = true;
             panel2.Controls.Add(iconButton3);
-            panel2.Controls.Add(iconButton4);
-            panel2.Controls.Add(iconButton5);
             panel2.Controls.Add(label22);
             panel2.Controls.Add(dtgHistorialAban);
             panel2.Controls.Add(panel5);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1161, 673);
+            panel2.Size = new Size(1161, 671);
             panel2.TabIndex = 1;
             // 
             // iconButton3
@@ -1452,46 +1448,6 @@
             iconButton3.TabIndex = 63;
             iconButton3.UseVisualStyleBackColor = false;
             iconButton3.Click += iconButton3_Click;
-            // 
-            // iconButton4
-            // 
-            iconButton4.Anchor = AnchorStyles.Top;
-            iconButton4.BackColor = Color.FromArgb(183, 28, 28);
-            iconButton4.Enabled = false;
-            iconButton4.FlatAppearance.BorderSize = 0;
-            iconButton4.FlatStyle = FlatStyle.Flat;
-            iconButton4.ForeColor = Color.White;
-            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            iconButton4.IconColor = Color.White;
-            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton4.IconSize = 30;
-            iconButton4.Location = new Point(1478, 137);
-            iconButton4.Name = "iconButton4";
-            iconButton4.Size = new Size(144, 37);
-            iconButton4.TabIndex = 51;
-            iconButton4.Text = "Eliminar";
-            iconButton4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton4.UseVisualStyleBackColor = false;
-            // 
-            // iconButton5
-            // 
-            iconButton5.Anchor = AnchorStyles.Top;
-            iconButton5.BackColor = Color.FromArgb(96, 149, 241);
-            iconButton5.Enabled = false;
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.FlatStyle = FlatStyle.Flat;
-            iconButton5.ForeColor = Color.White;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            iconButton5.IconColor = Color.White;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.IconSize = 30;
-            iconButton5.Location = new Point(1478, 75);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(144, 37);
-            iconButton5.TabIndex = 50;
-            iconButton5.Text = "Editar";
-            iconButton5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton5.UseVisualStyleBackColor = false;
             // 
             // label22
             // 
@@ -1548,9 +1504,9 @@
             // tabPageRenovacionesList
             // 
             tabPageRenovacionesList.Controls.Add(panel6);
-            tabPageRenovacionesList.Location = new Point(4, 24);
+            tabPageRenovacionesList.Location = new Point(4, 26);
             tabPageRenovacionesList.Name = "tabPageRenovacionesList";
-            tabPageRenovacionesList.Size = new Size(1161, 673);
+            tabPageRenovacionesList.Size = new Size(1161, 671);
             tabPageRenovacionesList.TabIndex = 3;
             tabPageRenovacionesList.UseVisualStyleBackColor = true;
             // 
@@ -1563,7 +1519,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1161, 673);
+            panel6.Size = new Size(1161, 671);
             panel6.TabIndex = 0;
             // 
             // iconButton6
@@ -1636,9 +1592,9 @@
             // tabPageTraspasosList
             // 
             tabPageTraspasosList.Controls.Add(panel7);
-            tabPageTraspasosList.Location = new Point(4, 24);
+            tabPageTraspasosList.Location = new Point(4, 26);
             tabPageTraspasosList.Name = "tabPageTraspasosList";
-            tabPageTraspasosList.Size = new Size(1161, 673);
+            tabPageTraspasosList.Size = new Size(1161, 671);
             tabPageTraspasosList.TabIndex = 4;
             tabPageTraspasosList.UseVisualStyleBackColor = true;
             // 
@@ -1651,7 +1607,7 @@
             panel7.Dock = DockStyle.Fill;
             panel7.Location = new Point(0, 0);
             panel7.Name = "panel7";
-            panel7.Size = new Size(1161, 673);
+            panel7.Size = new Size(1161, 671);
             panel7.TabIndex = 0;
             // 
             // iconButton7
@@ -1724,9 +1680,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel8);
-            tabPageListaArchivos.Location = new Point(4, 24);
+            tabPageListaArchivos.Location = new Point(4, 26);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1161, 673);
+            tabPageListaArchivos.Size = new Size(1161, 671);
             tabPageListaArchivos.TabIndex = 5;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -1742,7 +1698,7 @@
             panel8.Dock = DockStyle.Fill;
             panel8.Location = new Point(0, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(1161, 673);
+            panel8.Size = new Size(1161, 671);
             panel8.TabIndex = 0;
             // 
             // panel14
@@ -1988,8 +1944,6 @@
         private TextBox txtExpediente;
         private Label label7;
         private Panel panel2;
-        private FontAwesome.Sharp.IconButton iconButton4;
-        private FontAwesome.Sharp.IconButton iconButton5;
         private Panel panel5;
         private Label label22;
         private DataGridView dtgHistorialAban;

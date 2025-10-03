@@ -62,6 +62,7 @@ namespace Presentacion.Marcas_Internacionales
             comboBoxEstado.SelectedItem = "En Trámite";
             archivoSubido = false;
             necesitaArchivo = false;
+
             if (UsuarioActivo.isAdmin)
             {
                 btnEliminarLicencia.Visible = true;
@@ -70,8 +71,94 @@ namespace Presentacion.Marcas_Internacionales
             {
                 btnEliminarLicencia.Visible = false;
             }
-            
-            dateTimePFecha_vencimiento.Enabled = true;
+
+            if (UsuarioActivo.soloLectura)
+            {
+                //botones
+                btnAgregarLicencia.Visible = false;
+                btnDatosLicenciante.Enabled = false;
+                btnDatosLicenciatario.Enabled = false;
+                btnGuardarU.Visible = false;
+                btnEnviarATerminar.Visible = false;
+                btnAdjuntarT.Visible = false;
+                btnAgregarArchivo.Visible = false;
+                btnEliminarArchivo.Visible = false;
+                //campos
+                txtTitulo.Enabled = false;
+                txtExpediente.Enabled = false;
+                txtSigno.Enabled= false;
+                comboBoxSignoDist.Enabled=false;
+                txtTitular.Enabled=false;
+                txtClase.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                txtRegistro.Enabled = false;
+                txtFolio.Enabled = false;
+                txtTomo.Enabled = false;
+
+                radioButtonExclusiva.Enabled = false;
+                radioButtonNoExclusiva.Enabled = false;
+
+                numericAnio.Enabled = false;
+                numericMes.Enabled = false;
+                numericDia.Enabled = false;
+
+                dateTimePickerInicio.Enabled = false;
+                dateTimePickerFin.Enabled = false;
+
+                txtTerritorio.Enabled = false;
+
+                txtRazonSocial.Enabled = false;
+                txtDireccion.Enabled = false;
+                txtDomicilio.Enabled=false;
+                txtNacionalidad.Enabled = false;
+                txtApoderadoRL.Enabled = false;
+                comboBoxEstado.Enabled = false;
+            }
+            else
+            {
+                //botones
+                btnAgregarLicencia.Visible = true;
+                btnDatosLicenciante.Enabled = true;
+                btnDatosLicenciatario.Enabled = true;
+                btnGuardarU.Visible = true;
+                btnEnviarATerminar.Visible = true;
+                btnAdjuntarT.Visible = true;
+                btnAgregarArchivo.Visible = true;
+                btnEliminarArchivo.Visible = true;
+                //campos
+                txtTitulo.Enabled = true;
+                txtExpediente.Enabled = true;
+                txtSigno.Enabled = true;
+                comboBoxSignoDist.Enabled = true;
+                txtTitular.Enabled = true;
+                txtClase.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+                txtRegistro.Enabled = true;
+                txtFolio.Enabled = true;
+                txtTomo.Enabled = true;
+
+                radioButtonExclusiva.Enabled = true;
+                radioButtonNoExclusiva.Enabled = true;
+                
+                numericAnio.Enabled = true;
+                numericMes.Enabled = true;
+                numericDia.Enabled = true;
+
+                dateTimePickerInicio.Enabled = true;
+                dateTimePickerFin.Enabled = true;
+
+                txtTerritorio.Enabled = true;
+
+                txtRazonSocial.Enabled = true;
+                txtDireccion.Enabled = true;
+                txtDomicilio.Enabled = true;
+                txtNacionalidad.Enabled = true;
+                txtApoderadoRL.Enabled = true;
+                comboBoxEstado.Enabled = true;
+
+            }
+
+ 
             EliminarTabPage(tabPageReportes);
             EliminarTabPage(tabPageArchivos);
             EliminarTabPage(tabPageAgregarOposicion);
@@ -729,12 +816,26 @@ namespace Presentacion.Marcas_Internacionales
             btnEnviarATerminar.Visible = false;
             AnadirTabPage(tabPageAgregarOposicion);
             EliminarTabPage(tabPageOposicionesList);
-            txtExpediente.Enabled = true;
-            txtTitular.Enabled = true;
-            txtSigno.Enabled = true;
-            txtRegistro.Enabled = true;
-            txtRazonSocial.Enabled = true;
-            btnDatosLicenciante.Enabled = true;
+
+            if (!UsuarioActivo.soloLectura)
+            {
+                txtExpediente.Enabled = true;
+                txtTitular.Enabled = true;
+                txtSigno.Enabled = true;
+                txtRegistro.Enabled = true;
+                txtRazonSocial.Enabled = true;
+                btnDatosLicenciante.Enabled = true;
+            }
+            else
+            {
+                txtExpediente.Enabled = false;
+                txtTitular.Enabled = false;
+                txtSigno.Enabled = false;
+                txtRegistro.Enabled = false;
+                txtRazonSocial.Enabled = false;
+                btnDatosLicenciante.Enabled = false;
+            }
+
             //iconPictureBoxIcono.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
             tabControl1.SelectedTab = tabPageAgregarOposicion;
             comboBoxEstado.SelectedItem = "En Trámite";
@@ -2425,10 +2526,7 @@ namespace Presentacion.Marcas_Internacionales
         private void iconButton18_Click(object sender, EventArgs e)
         {
             AnadirTabPage(tabPageAgregarOposicion);
-            this.BeginInvoke(new Action(() =>
-            {
                 EliminarTabPage(tabPageArchivos);
-            }));
 
         }
 

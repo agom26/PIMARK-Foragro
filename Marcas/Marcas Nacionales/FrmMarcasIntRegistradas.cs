@@ -1963,30 +1963,34 @@ namespace Presentacion.Marcas_Internacionales
                 DatosRegistro.peligro = false;
             }
         }
+
         private async void iconButton12_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
+            if (!UsuarioActivo.soloLectura)
             {
-                bool existeRegistro = await marcaModel.ExisteRegistro(txtRegistro.Text.Trim(), SeleccionarMarca.idN);
-                if (existeRegistro)
+                VerificarDatosRegistro();
+                if (DatosRegistro.peligro == false)
                 {
-                    FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    return;
+                    bool existeRegistro = await marcaModel.ExisteRegistro(txtRegistro.Text.Trim(), SeleccionarMarca.idN);
+                    if (existeRegistro)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        alerta.ShowDialog();
+                        return;
+                    }
+                    else
+                    {
+                        await ActualizarMarcaInternacional();
+                    }
+
                 }
                 else
                 {
-                    await ActualizarMarcaInternacional();
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
                 }
-
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
-
+            
         }
         public void VerificarDatosIngresados()
         {

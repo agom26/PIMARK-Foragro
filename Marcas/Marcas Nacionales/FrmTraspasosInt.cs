@@ -894,7 +894,12 @@ namespace Presentacion.Marcas_Internacionales
                 // ===== tu init actual (déjalo igual) =====
                 SeleccionarMarca.idN = 0;
                 archivoSubido = false;
-                btnAdjuntarT.Visible = true;
+
+                if (!UsuarioActivo.soloLectura)
+                {
+                    btnAdjuntarT.Visible = true;
+                }
+               
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -1223,7 +1228,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton5_Click(object sender, EventArgs e)
         {
-            await EditarHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                await EditarHistorial();
+            }
+            
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1334,107 +1343,111 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void btnEditarH_Click(object sender, EventArgs e)
         {
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-            string etapa = comboBoxEstatusH.Text;
-            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-            DateTime fechaVencimiento = fechaIngreso;
-
-            // Calcular vencimiento automático según etapa
-            switch (etapa)
+            if (!UsuarioActivo.soloLectura)
             {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
+                string usuario = lblUser.Text;
+                string usuarioEditor = labelUserEditor.Text;
+                string etapa = comboBoxEstatusH.Text;
+                DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+                DateTime fechaVencimiento = fechaIngreso;
 
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
-            }
-
-            // Mostrar u ocultar controles de vencimiento
-            bool requiereVencimiento = etapa == "Examen de fondo" ||
-                                        etapa == "Requerimiento" ||
-                                        etapa == "Objeción" ||
-                                        etapa == "Publicación" ||
-                                        etapa == "Orden de pago" ||
-                                        etapa == "Resolución RPI desfavorable";
-
-            // Asignar valores a AgregarEtapa
-            AgregarEtapa.etapa = etapa;
-            AgregarEtapa.fecha = fechaIngreso;
-            AgregarEtapa.usuario = usuarioEditor;
-            AgregarEtapa.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
-            {
-                string anotaciones = richTextBoxAnotacionesH.Text;
-                string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-                string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-                string anotacionFinal = "";
-
-                if (etapa == "Resolución RPI desfavorable")
+                // Calcular vencimiento automático según etapa
+                switch (etapa)
                 {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    case "Examen de fondo":
+                    case "Objeción":
+                    case "Publicación":
+                        fechaVencimiento = fechaIngreso.AddMonths(2);
+                        break;
+
+                    case "Requerimiento":
+                    case "Orden de pago":
+                        fechaVencimiento = fechaIngreso.AddMonths(1);
+                        break;
+
+                    case "Resolución RPI desfavorable":
+                        fechaVencimiento = fechaIngreso.AddDays(5);
+                        break;
                 }
-                else if (requiereVencimiento)
+
+                // Mostrar u ocultar controles de vencimiento
+                bool requiereVencimiento = etapa == "Examen de fondo" ||
+                                            etapa == "Requerimiento" ||
+                                            etapa == "Objeción" ||
+                                            etapa == "Publicación" ||
+                                            etapa == "Orden de pago" ||
+                                            etapa == "Resolución RPI desfavorable";
+
+                // Asignar valores a AgregarEtapa
+                AgregarEtapa.etapa = etapa;
+                AgregarEtapa.fecha = fechaIngreso;
+                AgregarEtapa.usuario = usuarioEditor;
+                AgregarEtapa.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
+
+                if (comboBoxEstatusH.SelectedIndex != -1)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-                }
-                else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Recurso de revocatoria" ||
-                         etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                         etapa == "Contencioso administrativo")
-                {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    string anotaciones = richTextBoxAnotacionesH.Text;
+                    string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                    string venc = fechaVencimiento.ToString("dd/MM/yyyy");
+                    string anotacionFinal = "";
+
+                    if (etapa == "Resolución RPI desfavorable")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (requiereVencimiento)
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (etapa == "Resolución RPI favorable" ||
+                             etapa == "Recurso de revocatoria" ||
+                             etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                             etapa == "Contencioso administrativo")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa}";
+                    }
+
+                    if (!anotaciones.Contains(anotacionFinal))
+                    {
+                        AgregarEtapa.anotaciones = anotacionFinal + " " + anotaciones;
+                    }
+                    else
+                    {
+                        AgregarEtapa.anotaciones = anotaciones;
+                    }
+
+                    // Guardar en base de datos
+                    bool actualizado = await historialModel.EditHistorialById(
+                        SeleccionarHistorial.id,
+                        etapa,
+                        fechaIngreso,
+                        AgregarEtapa.anotaciones,
+                        usuario,
+                        usuarioEditor,
+                        requiereVencimiento ? fechaVencimiento : (DateTime?)null
+                    );
+
+                    if (actualizado)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        EliminarTabPage(tabPageHistorialDetail);
+                        AnadirTabPage(tabPageMarcaDetail);
+                        SeleccionarHistorial.id = 0;
+                        await refrescarMarca();
+                    }
                 }
                 else
                 {
-                    anotacionFinal = $"{fecha} {etapa}";
-                }
-
-                if (!anotaciones.Contains(anotacionFinal))
-                {
-                    AgregarEtapa.anotaciones = anotacionFinal + " " + anotaciones;
-                }
-                else
-                {
-                    AgregarEtapa.anotaciones = anotaciones;
-                }
-
-                // Guardar en base de datos
-                bool actualizado = await historialModel.EditHistorialById(
-                    SeleccionarHistorial.id,
-                    etapa,
-                    fechaIngreso,
-                    AgregarEtapa.anotaciones,
-                    usuario,
-                    usuarioEditor,
-                    requiereVencimiento ? fechaVencimiento : (DateTime?)null
-                );
-
-                if (actualizado)
-                {
-                    FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    EliminarTabPage(tabPageHistorialDetail);
-                    AnadirTabPage(tabPageMarcaDetail);
-                    SeleccionarHistorial.id = 0;
-                    await refrescarMarca();
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-            }
+            
 
         }
 
@@ -1585,14 +1598,18 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
+
         private async void iconButton1_Click_2(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (!DatosRegistro.peligro)
-                await ActualizarMarcaInternacional();
-            else
-                new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
-
+            if (!UsuarioActivo.soloLectura)
+            {
+                VerificarDatosRegistro();
+                if (!DatosRegistro.peligro)
+                    await ActualizarMarcaInternacional();
+                else
+                    new FrmAlerta("DEBE INGRESAR DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+            }
+           
         }
         public void VerificarDatosRegistro()
         {
@@ -1608,40 +1625,45 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void iconButton4_Click_1(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (!archivoSubido)
+            if (!UsuarioActivo.soloLectura)
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE TRASPASO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-                return;
-            }
-
-            if (DatosRegistro.peligro == false)
-            {
-                AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
-                FrmCrearTraspasoInt frmCrearTraspaso = new FrmCrearTraspasoInt();
-                frmCrearTraspaso.ShowDialog();
-
-                if (AgregarTraspaso.traspasoFinalizado == true)
+                VerificarDatosRegistro();
+                if (!archivoSubido)
                 {
-                    LimpiarFormulario();
-                    AgregarTraspaso.traspasoFinalizado = false;
-                    AnadirTabPage(tabPageRegistradasList);
-                    EliminarTabPage(tabPageMarcaDetail);
-                    EliminarTabPage(tabPageHistorialMarca);
-                    EliminarTabPage(tabPageListaArchivos);
-                    await LoadMarcas();
-                    FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO DE TRASPASO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
+                    return;
+                }
 
-                    //MessageBox.Show("Traspaso guardado correctamente");
+                if (DatosRegistro.peligro == false)
+                {
+                    AgregarTraspaso.antiguoNombre = SeleccionarMarca.nombre;
+                    FrmCrearTraspasoInt frmCrearTraspaso = new FrmCrearTraspasoInt();
+                    frmCrearTraspaso.ShowDialog();
+
+                    if (AgregarTraspaso.traspasoFinalizado == true)
+                    {
+                        LimpiarFormulario();
+                        AgregarTraspaso.traspasoFinalizado = false;
+                        AnadirTabPage(tabPageRegistradasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        EliminarTabPage(tabPageHistorialMarca);
+                        EliminarTabPage(tabPageListaArchivos);
+                        await LoadMarcas();
+                        FrmAlerta alerta = new FrmAlerta("TRASPASO GUARDADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+
+                        //MessageBox.Show("Traspaso guardado correctamente");
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
                 }
             }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+
+            
 
         }
 
@@ -1741,7 +1763,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private async  void dtgHistorialR_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            await EditarHistorial();
+            if (!UsuarioActivo.soloLectura)
+            {
+                await EditarHistorial();
+            }
+            
         }
 
        
@@ -2216,8 +2242,12 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton8_Click(object sender, EventArgs e)
         {
-            SubirArchivo("" + SeleccionarMarca.idN);
-            ListarArchivosEnGeneral();
+            if (!UsuarioActivo.soloLectura)
+            {
+                SubirArchivo("" + SeleccionarMarca.idN);
+                ListarArchivosEnGeneral();
+            }
+            
         }
 
         private void iconButton9_Click(object sender, EventArgs e)
@@ -2232,7 +2262,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private void iconButton10_Click(object sender, EventArgs e)
         {
-            Eliminar();
+            if (!UsuarioActivo.soloLectura)
+            {
+                Eliminar();
+            }
+            
 
         }
 
@@ -2342,17 +2376,21 @@ namespace Presentacion.Marcas_Internacionales
 
         private void btnAdjuntarT_Click(object sender, EventArgs e)
         {
-            SubirArchivoTraspaso("" + SeleccionarMarca.idN);
-            if (!archivoSubido)
+            if (!UsuarioActivo.soloLectura)
             {
-                FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-                archivoSubido = false;
+                SubirArchivoTraspaso("" + SeleccionarMarca.idN);
+                if (!archivoSubido)
+                {
+                    FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                    archivoSubido = false;
+                }
+                else
+                {
+                    archivoSubido = true;
+                }
             }
-            else
-            {
-                archivoSubido = true;
-            }
+            
         }
 
         private void FrmTraspasosInt_Resize(object sender, EventArgs e)

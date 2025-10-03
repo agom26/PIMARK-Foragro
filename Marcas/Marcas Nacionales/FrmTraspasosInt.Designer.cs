@@ -1456,9 +1456,9 @@
             // tabPageHistorialMarca
             // 
             tabPageHistorialMarca.Controls.Add(panel2);
-            tabPageHistorialMarca.Location = new Point(4, 26);
+            tabPageHistorialMarca.Location = new Point(4, 24);
             tabPageHistorialMarca.Name = "tabPageHistorialMarca";
-            tabPageHistorialMarca.Size = new Size(1020, 671);
+            tabPageHistorialMarca.Size = new Size(1020, 673);
             tabPageHistorialMarca.TabIndex = 2;
             tabPageHistorialMarca.UseVisualStyleBackColor = true;
             // 
@@ -1473,7 +1473,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1020, 671);
+            panel2.Size = new Size(1020, 673);
             panel2.TabIndex = 0;
             // 
             // iconButton2
@@ -1675,7 +1675,7 @@
             btnEditarH.ImageAlign = ContentAlignment.MiddleLeft;
             btnEditarH.Location = new Point(203, 304);
             btnEditarH.Name = "btnEditarH";
-            btnEditarH.Size = new Size(191, 47);
+            btnEditarH.Size = new Size(161, 41);
             btnEditarH.TabIndex = 20;
             btnEditarH.Text = "EDITAR";
             btnEditarH.TextAlign = ContentAlignment.MiddleRight;
@@ -1752,9 +1752,9 @@
             btnCancelarH.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelarH.IconSize = 30;
             btnCancelarH.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelarH.Location = new Point(410, 304);
+            btnCancelarH.Location = new Point(440, 304);
             btnCancelarH.Name = "btnCancelarH";
-            btnCancelarH.Size = new Size(191, 47);
+            btnCancelarH.Size = new Size(161, 41);
             btnCancelarH.TabIndex = 19;
             btnCancelarH.Text = "CANCELAR";
             btnCancelarH.TextAlign = ContentAlignment.MiddleRight;
@@ -1798,9 +1798,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel9);
-            tabPageListaArchivos.Location = new Point(4, 24);
+            tabPageListaArchivos.Location = new Point(4, 26);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1020, 673);
+            tabPageListaArchivos.Size = new Size(1020, 671);
             tabPageListaArchivos.TabIndex = 4;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -1816,7 +1816,7 @@
             panel9.Dock = DockStyle.Fill;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1020, 673);
+            panel9.Size = new Size(1020, 671);
             panel9.TabIndex = 0;
             // 
             // panel10

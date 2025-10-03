@@ -68,6 +68,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             InitializeComponent();
             SeleccionarMarca.idN = 0;
+
             if (UsuarioActivo.isAdmin)
             {
                 btnAgregarEstado.Enabled = true;
@@ -92,6 +93,7 @@ namespace Presentacion.Marcas_Internacionales
 
             }
         }
+
         private void EliminarTabPage(TabPage nombre)
         {
             if (tabControl1.TabPages.Contains(nombre))
