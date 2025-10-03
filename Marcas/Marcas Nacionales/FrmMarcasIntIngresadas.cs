@@ -21,7 +21,7 @@ namespace Presentacion.Marcas_Internacionales
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image documento=null;
         private const int pageSize = 20;
         private int currentPageIndex = 1;
         private int totalPages = 0;
@@ -131,8 +131,6 @@ namespace Presentacion.Marcas_Internacionales
                 txtRegistro.ReadOnly = true;
                 txtFolio.ReadOnly = true;
                 txtClase.ReadOnly = true;
-                //txtERenovacion.ReadOnly = true;
-                //txtETraspaso.ReadOnly = true;
                 txtNombreAgente.ReadOnly = true;
                 txtNombreCliente.ReadOnly = true;
                 txtNombreTitular.ReadOnly = true;
@@ -169,8 +167,6 @@ namespace Presentacion.Marcas_Internacionales
                 txtRegistro.ReadOnly = false;
                 txtFolio.ReadOnly = false;
                 txtClase.ReadOnly = false;
-                //txtERenovacion.ReadOnly = false;
-                //txtETraspaso.ReadOnly = false;
                 txtNombreAgente.ReadOnly = false;
                 txtNombreCliente.ReadOnly = false;
                 txtNombreTitular.ReadOnly = false;
@@ -243,6 +239,7 @@ namespace Presentacion.Marcas_Internacionales
                 await LoadMarcas();
             }
         }
+
 
         /* anterior
         private async Task LoadMarcas()

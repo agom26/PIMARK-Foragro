@@ -826,17 +826,15 @@ namespace Presentacion
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarTodas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTodas());
         }
 
         private async void btnOposiciones_Click(object sender, EventArgs e)
@@ -1232,6 +1230,7 @@ namespace Presentacion
             }
         }
 
+
         private async void button2_Click_3(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
@@ -1598,17 +1597,15 @@ namespace Presentacion
 
         private async void tRÁMITEINICIALToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarTodas());
-              
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTodas());
         }
 
         private async void oPOSICIONESToolStripMenuItem1_Click(object sender, EventArgs e)
