@@ -1918,9 +1918,9 @@
             tabPageTraspasosList.Controls.Add(dtgTraspasos);
             tabPageTraspasosList.Controls.Add(panel12);
             tabPageTraspasosList.Controls.Add(label15);
-            tabPageTraspasosList.Location = new Point(4, 26);
+            tabPageTraspasosList.Location = new Point(4, 24);
             tabPageTraspasosList.Name = "tabPageTraspasosList";
-            tabPageTraspasosList.Size = new Size(1161, 713);
+            tabPageTraspasosList.Size = new Size(1161, 715);
             tabPageTraspasosList.TabIndex = 6;
             tabPageTraspasosList.UseVisualStyleBackColor = true;
             // 

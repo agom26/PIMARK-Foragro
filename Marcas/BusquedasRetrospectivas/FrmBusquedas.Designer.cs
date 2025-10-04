@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             dtgPlazos = new DataGridView();
             panel1 = new Panel();
             ibtnBuscar = new FontAwesome.Sharp.IconButton();
@@ -58,7 +58,7 @@
             btnNext = new FontAwesome.Sharp.IconButton();
             btnPrev = new FontAwesome.Sharp.IconButton();
             btnFirst = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
+            btnAgregarBusqueda = new FontAwesome.Sharp.IconButton();
             tabPageBusquedaDetail = new TabPage();
             panel5 = new Panel();
             panel6 = new Panel();
@@ -111,6 +111,7 @@
             dataGridViewAgregarPaises = new DataGridView();
             Editar = new DataGridViewImageColumn();
             Eliminar = new DataGridViewImageColumn();
+            panel8 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dtgPlazos).BeginInit();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -138,6 +139,7 @@
             groupBox2.SuspendLayout();
             panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAgregarPaises).BeginInit();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // dtgPlazos
@@ -152,14 +154,14 @@
             dtgPlazos.BorderStyle = BorderStyle.None;
             dtgPlazos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgPlazos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgPlazos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dtgPlazos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dtgPlazos.ColumnHeadersHeight = 40;
             dtgPlazos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgPlazos.EnableHeadersVisualStyles = false;
@@ -171,7 +173,7 @@
             dtgPlazos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgPlazos.RowHeadersWidth = 40;
             dtgPlazos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgPlazos.Size = new Size(816, 433);
+            dtgPlazos.Size = new Size(879, 433);
             dtgPlazos.TabIndex = 4;
             dtgPlazos.CellClick += dtgPlazos_CellClick;
             dtgPlazos.CellContentClick += dtgPlazos_CellContentClick;
@@ -183,12 +185,12 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(192, 202, 212);
             panel1.Controls.Add(dtgPlazos);
-            panel1.Location = new Point(89, 195);
+            panel1.Location = new Point(26, 195);
             panel1.Name = "panel1";
-            panel1.Size = new Size(844, 461);
+            panel1.Size = new Size(907, 461);
             panel1.TabIndex = 6;
             // 
             // ibtnBuscar
@@ -204,7 +206,7 @@
             ibtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtnBuscar.IconSize = 18;
             ibtnBuscar.ImageAlign = ContentAlignment.MiddleRight;
-            ibtnBuscar.Location = new Point(560, 101);
+            ibtnBuscar.Location = new Point(561, 101);
             ibtnBuscar.Name = "ibtnBuscar";
             ibtnBuscar.Size = new Size(107, 27);
             ibtnBuscar.TabIndex = 37;
@@ -218,7 +220,7 @@
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Century Gothic", 9F);
-            txtBuscar.Location = new Point(293, 106);
+            txtBuscar.Location = new Point(294, 106);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(229, 22);
             txtBuscar.TabIndex = 36;
@@ -236,7 +238,7 @@
             roundedButton3.FlatAppearance.BorderSize = 0;
             roundedButton3.FlatStyle = FlatStyle.Flat;
             roundedButton3.ForeColor = Color.White;
-            roundedButton3.Location = new Point(259, 86);
+            roundedButton3.Location = new Point(260, 86);
             roundedButton3.Name = "roundedButton3";
             roundedButton3.Size = new Size(447, 52);
             roundedButton3.TabIndex = 38;
@@ -282,6 +284,7 @@
             // tabPageVencimientosList
             // 
             tabPageVencimientosList.AutoScroll = true;
+            tabPageVencimientosList.Controls.Add(panel8);
             tabPageVencimientosList.Controls.Add(panelBusqueda);
             tabPageVencimientosList.Controls.Add(panel1);
             tabPageVencimientosList.Controls.Add(ibtnEditar);
@@ -291,11 +294,7 @@
             tabPageVencimientosList.Controls.Add(lblTotalRows);
             tabPageVencimientosList.Controls.Add(label3);
             tabPageVencimientosList.Controls.Add(label40);
-            tabPageVencimientosList.Controls.Add(btnLast);
-            tabPageVencimientosList.Controls.Add(btnNext);
-            tabPageVencimientosList.Controls.Add(btnPrev);
-            tabPageVencimientosList.Controls.Add(btnFirst);
-            tabPageVencimientosList.Controls.Add(iconButton2);
+            tabPageVencimientosList.Controls.Add(btnAgregarBusqueda);
             tabPageVencimientosList.Location = new Point(4, 26);
             tabPageVencimientosList.Name = "tabPageVencimientosList";
             tabPageVencimientosList.Padding = new Padding(3);
@@ -312,9 +311,10 @@
             panelBusqueda.Controls.Add(ibtnBuscar);
             panelBusqueda.Controls.Add(iconButton7);
             panelBusqueda.Controls.Add(roundedButton3);
-            panelBusqueda.Location = new Point(3, 6);
+            panelBusqueda.Dock = DockStyle.Top;
+            panelBusqueda.Location = new Point(3, 3);
             panelBusqueda.Name = "panelBusqueda";
-            panelBusqueda.Size = new Size(1098, 150);
+            panelBusqueda.Size = new Size(1101, 150);
             panelBusqueda.TabIndex = 233;
             panelBusqueda.Paint += panelBusqueda_Paint;
             // 
@@ -415,7 +415,7 @@
             label6.Anchor = AnchorStyles.Top;
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(236, 236, 238);
-            label6.Location = new Point(293, 86);
+            label6.Location = new Point(294, 86);
             label6.Name = "label6";
             label6.Size = new Size(88, 17);
             label6.TabIndex = 223;
@@ -431,7 +431,7 @@
             iconButton7.IconColor = Color.Black;
             iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton7.IconSize = 25;
-            iconButton7.Location = new Point(528, 106);
+            iconButton7.Location = new Point(529, 106);
             iconButton7.Name = "iconButton7";
             iconButton7.Size = new Size(26, 22);
             iconButton7.TabIndex = 221;
@@ -475,7 +475,7 @@
             // 
             lblTotalRows.AutoSize = true;
             lblTotalRows.Font = new Font("Century Gothic", 9F);
-            lblTotalRows.Location = new Point(223, 172);
+            lblTotalRows.Location = new Point(170, 172);
             lblTotalRows.Name = "lblTotalRows";
             lblTotalRows.Size = new Size(15, 17);
             lblTotalRows.TabIndex = 224;
@@ -496,7 +496,7 @@
             // 
             label40.AutoSize = true;
             label40.Font = new Font("Century Gothic", 9F);
-            label40.Location = new Point(79, 172);
+            label40.Location = new Point(26, 172);
             label40.Name = "label40";
             label40.Size = new Size(115, 17);
             label40.TabIndex = 222;
@@ -515,7 +515,7 @@
             btnLast.IconColor = Color.White;
             btnLast.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLast.IconSize = 25;
-            btnLast.Location = new Point(829, 662);
+            btnLast.Location = new Point(826, 7);
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(104, 33);
             btnLast.TabIndex = 232;
@@ -536,7 +536,7 @@
             btnNext.IconColor = Color.White;
             btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnNext.IconSize = 25;
-            btnNext.Location = new Point(719, 662);
+            btnNext.Location = new Point(716, 7);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(104, 33);
             btnNext.TabIndex = 231;
@@ -557,7 +557,7 @@
             btnPrev.IconColor = Color.White;
             btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPrev.IconSize = 25;
-            btnPrev.Location = new Point(609, 662);
+            btnPrev.Location = new Point(606, 7);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(104, 33);
             btnPrev.TabIndex = 230;
@@ -578,7 +578,7 @@
             btnFirst.IconColor = Color.White;
             btnFirst.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFirst.IconSize = 25;
-            btnFirst.Location = new Point(499, 662);
+            btnFirst.Location = new Point(496, 7);
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(104, 33);
             btnFirst.TabIndex = 229;
@@ -586,29 +586,29 @@
             btnFirst.UseVisualStyleBackColor = false;
             btnFirst.Click += btnFirst_Click;
             // 
-            // iconButton2
+            // btnAgregarBusqueda
             // 
-            iconButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            iconButton2.AutoSize = true;
-            iconButton2.BackColor = Color.FromArgb(50, 164, 115);
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
-            iconButton2.IconColor = Color.White;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 25;
-            iconButton2.ImageAlign = ContentAlignment.MiddleRight;
-            iconButton2.Location = new Point(939, 195);
-            iconButton2.Margin = new Padding(3, 2, 3, 2);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(160, 49);
-            iconButton2.TabIndex = 234;
-            iconButton2.Text = "AGREGAR";
-            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton2.UseVisualStyleBackColor = false;
-            iconButton2.Click += iconButton2_Click_1;
+            btnAgregarBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAgregarBusqueda.AutoSize = true;
+            btnAgregarBusqueda.BackColor = Color.FromArgb(50, 164, 115);
+            btnAgregarBusqueda.FlatAppearance.BorderSize = 0;
+            btnAgregarBusqueda.FlatStyle = FlatStyle.Flat;
+            btnAgregarBusqueda.Font = new Font("Century Gothic", 10F, FontStyle.Bold);
+            btnAgregarBusqueda.ForeColor = Color.White;
+            btnAgregarBusqueda.IconChar = FontAwesome.Sharp.IconChar.CirclePlus;
+            btnAgregarBusqueda.IconColor = Color.White;
+            btnAgregarBusqueda.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAgregarBusqueda.IconSize = 25;
+            btnAgregarBusqueda.ImageAlign = ContentAlignment.MiddleRight;
+            btnAgregarBusqueda.Location = new Point(939, 195);
+            btnAgregarBusqueda.Margin = new Padding(3, 2, 3, 2);
+            btnAgregarBusqueda.Name = "btnAgregarBusqueda";
+            btnAgregarBusqueda.Size = new Size(160, 49);
+            btnAgregarBusqueda.TabIndex = 234;
+            btnAgregarBusqueda.Text = "AGREGAR";
+            btnAgregarBusqueda.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAgregarBusqueda.UseVisualStyleBackColor = false;
+            btnAgregarBusqueda.Click += iconButton2_Click_1;
             // 
             // tabPageBusquedaDetail
             // 
@@ -622,7 +622,7 @@
             tabPageBusquedaDetail.Location = new Point(4, 24);
             tabPageBusquedaDetail.Name = "tabPageBusquedaDetail";
             tabPageBusquedaDetail.Padding = new Padding(3);
-            tabPageBusquedaDetail.Size = new Size(1107, 735);
+            tabPageBusquedaDetail.Size = new Size(1107, 721);
             tabPageBusquedaDetail.TabIndex = 1;
             tabPageBusquedaDetail.UseVisualStyleBackColor = true;
             // 
@@ -942,14 +942,14 @@
             dtgPaises.BorderStyle = BorderStyle.None;
             dtgPaises.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgPaises.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dtgPaises.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dtgPaises.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dtgPaises.ColumnHeadersHeight = 40;
             dtgPaises.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgPaises.EnableHeadersVisualStyles = false;
@@ -977,7 +977,7 @@
             tabPageAgregarBusqueda.Controls.Add(groupBox2);
             tabPageAgregarBusqueda.Location = new Point(4, 24);
             tabPageAgregarBusqueda.Name = "tabPageAgregarBusqueda";
-            tabPageAgregarBusqueda.Size = new Size(1107, 735);
+            tabPageAgregarBusqueda.Size = new Size(1107, 721);
             tabPageAgregarBusqueda.TabIndex = 2;
             tabPageAgregarBusqueda.UseVisualStyleBackColor = true;
             // 
@@ -1297,14 +1297,14 @@
             dataGridViewAgregarPaises.BorderStyle = BorderStyle.None;
             dataGridViewAgregarPaises.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewAgregarPaises.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewAgregarPaises.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridViewAgregarPaises.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewAgregarPaises.ColumnHeadersHeight = 40;
             dataGridViewAgregarPaises.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewAgregarPaises.Columns.AddRange(new DataGridViewColumn[] { Editar, Eliminar });
@@ -1336,6 +1336,18 @@
             Eliminar.MinimumWidth = 6;
             Eliminar.Name = "Eliminar";
             Eliminar.ReadOnly = true;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(btnLast);
+            panel8.Controls.Add(btnFirst);
+            panel8.Controls.Add(btnPrev);
+            panel8.Controls.Add(btnNext);
+            panel8.Dock = DockStyle.Bottom;
+            panel8.Location = new Point(3, 662);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(1101, 54);
+            panel8.TabIndex = 235;
             // 
             // FrmBusquedas
             // 
@@ -1394,6 +1406,8 @@
             groupBox2.PerformLayout();
             panel13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewAgregarPaises).EndInit();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1441,7 +1455,7 @@
         private Panel panel2;
         private DataGridView dtgPaises;
         private Panel panel4;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton btnAgregarBusqueda;
         private Panel panel5;
         private Panel panel6;
         private Clases.RoundedButton roundedButton6;
@@ -1479,5 +1493,6 @@
         private DataGridViewImageColumn Eliminar;
         private CheckBox checkBoxMulticlase;
         private CheckBox checkBoxMulticlaseEditar;
+        private Panel panel8;
     }
 }

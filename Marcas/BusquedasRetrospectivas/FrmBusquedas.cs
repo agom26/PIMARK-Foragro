@@ -29,23 +29,55 @@ namespace Presentacion.BusquedasRetrospectivas
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
-        private DataTable tablaPaises;
+        private bool _isLoading;
+        private DataTable? tablaPaises;
         bool eliminarPais = false;
-        private DataTable tablaPaisesOriginal; // Declarar como campo del formulario
+        private DataTable? tablaPaisesOriginal; // Declarar como campo del formulario
 
-        string titulo;
+        string? titulo;
 
         public FrmBusquedas()
         {
             InitializeComponent();
-            this.Load += FrmBusquedas_Load;
             //EliminarTabPage(tabPageHistorialDetail);
             SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgPaises, true);
             SetDoubleBuffering(dataGridViewAgregarPaises, true);
-            EliminarTabPage(tabPageBusquedaDetail);
+
+            if (UsuarioActivo.soloLectura)
+            {
+                btnAgregarBusqueda.Visible = false;
+
+                //formulario
+                txtNombre.Enabled = false;
+                txtClase.Enabled = false;
+                checkBoxMulticlaseEditar.Enabled = false;
+                comboBoxSignoDistintivo.Enabled= false;
+                comboBoxTipoSigno.Enabled= false;
+                btnAgregarPais.Enabled = false;
+                dtgPaises.Enabled = false;
+                btnEditarBusqueda.Visible = false;
+
+            }
+            else
+            {
+                btnAgregarBusqueda.Visible = true;
+
+                //formulario
+                txtNombre.Enabled = true;
+                txtClase.Enabled = true;
+                checkBoxMulticlaseEditar.Enabled = true;
+                comboBoxSignoDistintivo.Enabled = true;
+                comboBoxTipoSigno.Enabled = true;
+                btnAgregarPais.Enabled = true;
+                dtgPaises.Enabled = true;
+                btnEditarBusqueda.Visible = true;
+            }
+
+
+                EliminarTabPage(tabPageBusquedaDetail);
             EliminarTabPage(tabPageAgregarBusqueda);
-            tabPageVencimientosList.AutoScrollPosition = new System.Drawing.Point(0, 0);
+            
         }
 
 
