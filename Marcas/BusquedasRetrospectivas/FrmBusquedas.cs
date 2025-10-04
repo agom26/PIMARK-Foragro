@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Comun;
 using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
@@ -6,14 +7,17 @@ using Presentacion.Marcas_Nacionales;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
 using System.Data;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Windows.Forms;
 
 namespace Presentacion.BusquedasRetrospectivas
 
 {
-    public partial class FrmBusquedas : Form
+    public partial class FrmBusquedas : Form, IAsyncLoadable
     {
         HistorialModel historialModel = new HistorialModel();
         HistorialPatenteModel historialPatenteModel = new HistorialPatenteModel();
@@ -35,6 +39,29 @@ namespace Presentacion.BusquedasRetrospectivas
         private DataTable? tablaPaisesOriginal; // Declarar como campo del formulario
 
         string? titulo;
+        // Implementación de la interfaz
+        public async Task LoadAsync()
+        {
+            await LoadBusquedas(); // aquí llamas a tu método actual
+        }
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadBusquedas();
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
 
         public FrmBusquedas()
         {
@@ -75,8 +102,7 @@ namespace Presentacion.BusquedasRetrospectivas
             }
 
 
-                EliminarTabPage(tabPageBusquedaDetail);
-            EliminarTabPage(tabPageAgregarBusqueda);
+            
             
         }
 
@@ -89,18 +115,149 @@ namespace Presentacion.BusquedasRetrospectivas
                            .SetValue(control, enable, null);
         }
 
-        private async void FrmBusquedas_Load(object sender, EventArgs e)
+        private async Task<bool> TieneInternetAsync()
         {
-            CrearTablaPaises();
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
 
-            // Opcional: vincula al DataGridView si tienes uno
-            dtgPaises.DataSource = tablaPaises;
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
-            await LoadBusquedas();
-
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
+        private async void FrmBusquedas_Load(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                CrearTablaPaises();
+                BusquedaR.idBusqueda = 0;
+                // Opcional: vincula al DataGridView si tienes uno
+                dtgPaises.DataSource = tablaPaises;
+
+
+                //ELIMINAR TAB PAGE
+                EliminarTabPage(tabPageBusquedaDetail);
+                EliminarTabPage(tabPageAgregarBusqueda);
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadBusquedas(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
+
+        }
+        private async Task LoadBusquedas()
+        {
+            var (totalRows, datos) = await busquedaRetrospectivaModel.ObtenerBusquedasAsync(pageSize, currentPageIndex);
+            int totalPagesLocal = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            void Apply()
+            {
+                lblTotalPages.Text = totalPagesLocal.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgPlazos.DataSource = datos;
+            }
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
+        }
+
+        /* anterior
         private async Task LoadBusquedas()
         {
             try
@@ -146,26 +303,7 @@ namespace Presentacion.BusquedasRetrospectivas
                 ).ShowDialog();
             }
         }
-
-
-
-        /*
-        private async Task LoadBusquedas()
-        {
-            // Obtener total y tabla 
-            var (totalRows, datos) = await busquedaRetrospectivaModel.ObtenerBusquedasAsync(pageSize, currentPageIndex);
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-            if (this.IsHandleCreated && !this.IsDisposed)
-            {
-                this.Invoke(new Action(() =>
-                {
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-                    dtgPlazos.DataSource = datos;
-                }));
-            }
-        }*/
+        */
 
         private void InicializarTablaPaises()
         {
@@ -177,6 +315,39 @@ namespace Presentacion.BusquedasRetrospectivas
             dtgPaises.DataSource = tablaPaises;
         }
 
+        private async Task filtrar()
+        {
+            string buscar = txtBuscar.Text.Trim();
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                (int totalRowsLocal, DataTable datos) = await busquedaRetrospectivaModel.ObtenerBusquedasFiltradoAsync(buscar, pageSize, currentPageIndex);
+                int totalPagesLocal = (int)Math.Ceiling((double)totalRowsLocal / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+
+                
+                if (datos.Rows.Count > 0)
+                {
+                    lblTotalPages.Text = totalPagesLocal.ToString();
+                    lblTotalRows.Text = totalRowsLocal.ToString();
+                    dtgPlazos.DataSource = datos;
+                    if (dtgPlazos.Columns["id"] != null) dtgPlazos.Columns["id"].Visible = false;
+                    dtgPlazos.ClearSelection();
+                }
+                else
+                {
+                    new FrmAlerta("NO EXISTEN BÚSQUEDAS RESTROSPECTIVAS CON ESOS DATOS", "MENSAJE",
+                                  MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+                    await LoadBusquedas();
+                }
+            }
+            else
+            {
+                await LoadBusquedas();
+            }
+        }
+
+        /* anterior
         private async void filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
@@ -230,41 +401,7 @@ namespace Presentacion.BusquedasRetrospectivas
             {
                 await LoadBusquedas();
             }
-        }
-
-
-
-
-        /*
-        private async void filtrar()
-        {
-            string buscar = txtBuscar.Text.Trim();
-
-            if (!string.IsNullOrEmpty(buscar))
-            {
-                DataTable datos;
-                (totalRows, datos) = await busquedaRetrospectivaModel.ObtenerBusquedasFiltradoAsync(buscar, pageSize, currentPageIndex);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-                if (this.IsHandleCreated && !this.IsDisposed)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        lblTotalPages.Text = totalPages.ToString();
-                        lblTotalRows.Text = totalRows.ToString();
-                        dtgPlazos.DataSource = datos;
-                    }));
-                }
-
-            }
-            else
-            {
-                await LoadBusquedas();
-
-            }
         }*/
-
-
 
 
         public string ConvertirRichTextBoxAHtml(System.Windows.Forms.RichTextBox richTextBox, string logoUrl = null)
@@ -1195,70 +1332,81 @@ namespace Presentacion.BusquedasRetrospectivas
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
+            if (_isLoading) return;
+            _isLoading = true;
+
             currentPageIndex = 1;
-            if (buscando == true)
+            SetLoading(true);
+            try
             {
-                filtrar();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
             }
-            else
+            finally
             {
-
+                _isLoading = false;
+                SetLoading(false);
             }
-
-            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
+
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
             {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-
-                }
-
-                lblCurrentPage.Text = currentPageIndex.ToString();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
+
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
             {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-
-
-
-                }
-
-                lblCurrentPage.Text = currentPageIndex.ToString();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
+
+            _isLoading = true;
             currentPageIndex = totalPages;
-            if (buscando == true)
+            SetLoading(true);
+            try
             {
-                filtrar();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
             }
-            else
+            finally
             {
-
+                _isLoading = false;
+                SetLoading(false);
             }
-
-            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private void dtgVencimientos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1294,14 +1442,13 @@ namespace Presentacion.BusquedasRetrospectivas
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new System.Drawing.Point(x, y);
+                panelBusqueda.Dock = DockStyle.Top;
+                
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock= DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new System.Drawing.Point(0, 0); // o donde quieras
             }

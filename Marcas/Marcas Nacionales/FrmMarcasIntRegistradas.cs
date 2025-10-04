@@ -197,7 +197,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task filtrar()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string buscar = txtBuscar.Text.Trim();
             if (!string.IsNullOrEmpty(buscar))
             {
                 totalRows = await marcaModel.GetFilteredMarcasRegistradasCount(buscar);
