@@ -137,12 +137,14 @@ namespace Presentacion.Patentes
                 btnEditarEstadoHistorial.Visible = false;
 
                 //renovaciones
+                btnEditarRenovacion.Visible = false;
                 txtNoExpediente.Enabled = false;
                 dateFechVencAnt.Enabled = false;
                 dateFechVencNueva.Enabled = false;
                 btnEditarRenovacionDetalle.Visible = false;
 
                 //traspasos
+                btnEditarTraspaso.Visible = false;
                 txtNumExpedienteTraspaso.Enabled = false;
                 btnAgregarTitularA.Enabled = false;
                 txtNombreTitularA.Enabled = false;
@@ -200,12 +202,14 @@ namespace Presentacion.Patentes
                 btnEditarEstadoHistorial.Visible = true;
 
                 //renovaciones
+                btnEditarRenovacion.Visible = true;
                 txtNoExpediente.Enabled = true;
                 dateFechVencAnt.Enabled = true;
                 dateFechVencNueva.Enabled = true;
                 btnEditarRenovacionDetalle.Visible = true;
 
                 //traspasos
+                btnEditarTraspaso.Visible = true;
                 txtNumExpedienteTraspaso.Enabled = true;
                 btnAgregarTitularA.Enabled = true;
                 txtNombreTitularA.Enabled = true;
