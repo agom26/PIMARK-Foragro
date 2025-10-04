@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text.Json;
 
+
 namespace Presentacion.Marcas_Internacionales
 {
     public partial class FrmMarcasIntIngresadas : Form, IAsyncLoadable
@@ -212,7 +213,7 @@ namespace Presentacion.Marcas_Internacionales
 
         public async Task filtrar()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string buscar = txtBuscar.Text.Trim();
             if (!string.IsNullOrEmpty(buscar))
             {
                 totalRows = await marcaModel.GetFilteredMarcasSinRegistroCount(buscar);

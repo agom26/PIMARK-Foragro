@@ -1,25 +1,19 @@
-﻿using Comun.Cache;
+﻿using Comun;
+using Comun.Cache;
 using Dominio;
 using FluentFTP;
 using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Presentacion.Patentes
 {
-    public partial class FrmMostrarRegistradasPatentes : Form
+    public partial class FrmMostrarRegistradasPatentes : Form, IAsyncLoadable
     {
         PatenteModel patenteModel = new PatenteModel();
         PersonaModel personaModel = new PersonaModel();
@@ -32,120 +26,242 @@ namespace Presentacion.Patentes
         private int totalRows = 0;
         bool agregoEstado = false;
         private bool buscando = false;
-
+        private bool _isLoading;
 
         //ftp
         private string host = "ftp.foragro.com.es"; // Tu host FTP
         private string usuario = "foragro"; // Tu usuario FTP
         private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
         private string directorioBase = "/foragro.com.es/marcas/patentes";
+
+        public async Task LoadAsync()
+        {
+            await LoadPatentes(); // aquí llamas a tu método actual
+        }
+
+        private async Task<bool> TieneInternetAsync()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadPatentes();
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
+
+        private void SetDoubleBuffering(System.Windows.Forms.Control control, bool enable)
+        {
+            // Habilitar o deshabilitar DoubleBuffering
+            typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                           .SetValue(control, enable, null);
+        }
+
         public FrmMostrarRegistradasPatentes()
         {
             InitializeComponent();
-            this.Load += FrmMostrarRegistradasPatentes_Load;
-            dateTimePFecha_vencimiento.Enabled = true;
+            SetDoubleBuffering(dtgPatentes, true);
+            SetDoubleBuffering(dtgHistorial, true);
+            SetDoubleBuffering(dtgRenovaciones, true);
+            SetDoubleBuffering(dtgTraspasos, true);
+            SetDoubleBuffering(dtgArchivos, true);
+
+
+            if (UsuarioActivo.soloLectura)
+            {
+                //botones
+                btnAbandonar.Visible = false;
+                btnDesistir.Visible = false;
+
+                //formulario
+                txtCaso.Enabled = false;
+                txtExpediente.Enabled = false;
+                txtNombre.Enabled = false;
+                comboBoxTipo.Enabled = false;
+                comboBoxAnualidades.Enabled = false;
+                checkBoxPCT.Enabled = false;
+                datePickerFechaSolicitud.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                btnAgregarEstado.Enabled = false;
+                textBoxEstatus.Enabled = false;
+
+                btnAgregarTitular.Enabled = false;
+                txtDireccionTitular.Enabled = false;
+                txtNombreTitular.Enabled = false;
+
+                btnAgregarAgente.Enabled = false;
+                txtNombreAgente.Enabled = false;
+
+                checkedListBoxDocumentos.Enabled = false;
+                txtRegistro.Enabled = false;
+                txtLibro.Enabled = false;
+                txtFolio.Enabled = false;
+                dateTimePFecha_vencimiento.Enabled = false;
+                dateTimePFecha_Registro.Enabled = false;
+                btnEditarPatente.Visible = false;
+
+                //archivos
+                btnSubirArchivos.Visible = false;
+                btnEliminarArchivos.Visible = false;
+
+                //historial
+                comboBoxEstatusH.Enabled = false;
+                dateTimePickerFechaIngreso.Enabled = false;
+                dateTimePickerVencimiento.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = false;
+                btnEditarH.Visible = false;
+                btnEditarEstadoHistorial.Visible = false;
+
+                //renovaciones
+                txtNoExpediente.Enabled = false;
+                dateFechVencAnt.Enabled = false;
+                dateFechVencNueva.Enabled = false;
+                btnEditarRenovacionDetalle.Visible = false;
+
+                //traspasos
+                txtNumExpedienteTraspaso.Enabled = false;
+                btnAgregarTitularA.Enabled = false;
+                txtNombreTitularA.Enabled = false;
+                btnAgregarTitularN.Enabled = false;
+                txtNombreTitularN.Enabled = false;
+
+
+
+            }
+            else
+            {
+                //botones
+                btnAbandonar.Visible = true;
+                btnDesistir.Visible = true;
+
+                //formulario
+                txtCaso.Enabled = true;
+                txtExpediente.Enabled = true;
+                txtNombre.Enabled = true;
+                comboBoxTipo.Enabled = true;
+                comboBoxAnualidades.Enabled = true;
+                checkBoxPCT.Enabled = true;
+                datePickerFechaSolicitud.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+                btnAgregarEstado.Enabled = true;
+                textBoxEstatus.Enabled = true;
+
+                btnAgregarTitular.Enabled = true;
+                txtDireccionTitular.Enabled = true;
+                txtNombreTitular.Enabled = true;
+
+                btnAgregarAgente.Enabled = true;
+                txtNombreAgente.Enabled = true;
+
+                checkedListBoxDocumentos.Enabled = true;
+                txtRegistro.Enabled = true;
+                txtLibro.Enabled = true;
+                txtFolio.Enabled = true;
+                dateTimePFecha_vencimiento.Enabled = true;
+
+                dateTimePFecha_Registro.Enabled = true;
+                btnEditarPatente.Visible = true;
+
+
+                //archivos
+                btnSubirArchivos.Visible = true;
+                btnEliminarArchivos.Visible = true;
+
+                //historial
+                comboBoxEstatusH.Enabled = true;
+                dateTimePickerFechaIngreso.Enabled = true;
+                dateTimePickerVencimiento.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Visible = true;
+                btnEditarEstadoHistorial.Visible = true;
+
+                //renovaciones
+                txtNoExpediente.Enabled = true;
+                dateFechVencAnt.Enabled = true;
+                dateFechVencNueva.Enabled = true;
+                btnEditarRenovacionDetalle.Visible = true;
+
+                //traspasos
+                txtNumExpedienteTraspaso.Enabled = true;
+                btnAgregarTitularA.Enabled = true;
+                txtNombreTitularA.Enabled = true;
+                btnAgregarTitularN.Enabled = true;
+                txtNombreTitularN.Enabled = true;
+
+            }
+
         }
+
         private async Task LoadPatentes()
         {
-            try
+            totalRows = await Task.Run(() => patenteModel.GetTotalPatentesRegistradas());
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            var marcasN = await Task.Run(() =>
+                     patenteModel.GetAllPatentesRegistradas(currentPageIndex, pageSize));
+
+            void Apply()
             {
-                totalRows = await Task.Run(() => patenteModel.GetTotalPatentesRegistradas());
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-                var marcasN = await Task.Run(() =>
-                    patenteModel.GetAllPatentesRegistradas(currentPageIndex, pageSize));
-
-                if (this.IsHandleCreated && !this.IsDisposed)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        lblTotalPages.Text = totalPages.ToString();
-                        lblTotalRows.Text = totalRows.ToString();
-                        dtgPatentes.DataSource = marcasN;
-
-                        if (dtgPatentes.Columns["id"] != null)
-                        {
-                            dtgPatentes.Columns["id"].Visible = false;
-                            dtgPatentes.ClearSelection();
-                        }
-                    }));
-                }
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                dtgPatentes.DataSource = marcasN;
             }
-            catch (MySqlException ex) when (ex.Number == 1042)
+
+            if (!IsDisposed)
             {
-                new FrmAlerta(
-                    "No se pudo establecer conexión con la base de datos.",
-                    "ERROR DE CONEXIÓN",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                ).ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                new FrmAlerta(
-                    "Ocurrió un error al cargar los datos: " + ex.Message,
-                    "ERROR",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                ).ShowDialog();
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
             }
         }
 
-
-
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
-
-            if (!string.IsNullOrWhiteSpace(buscar))
+            if (!string.IsNullOrEmpty(buscar))
             {
-                try
-                {
-                    totalRows = await Task.Run(() => patenteModel.GetFilteredPatentesRegistradasCount(buscar));
-                    totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                totalRows = await Task.Run(() => patenteModel.GetFilteredPatentesRegistradasCount(buscar));
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
 
-                    lblTotalPages.Text = totalPages.ToString();
-                    lblTotalRows.Text = totalRows.ToString();
-
-                    DataTable titulares = await Task.Run(() =>
+                DataTable dt = await Task.Run(() =>
                         patenteModel.FiltrarPatentesRegistradas(buscar, currentPageIndex, pageSize));
-
-                    if (titulares.Rows.Count > 0)
-                    {
-                        dtgPatentes.DataSource = titulares;
-
-                        if (dtgPatentes.Columns["id"] != null)
-                        {
-                            dtgPatentes.Columns["id"].Visible = false;
-                        }
-
-                        dtgPatentes.ClearSelection();
-                    }
-                    else
-                    {
-                        new FrmAlerta("NO EXISTEN PATENTES CON ESOS DATOS", "MENSAJE",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
-
-                        await LoadPatentes();
-                    }
-                }
-                catch (MySqlException ex) when (ex.Number == 1042)
+                if (dt.Rows.Count > 0)
                 {
-                    new FrmAlerta(
-                        "No se pudo establecer conexión con la base de datos.",
-                        "ERROR DE CONEXIÓN",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    ).ShowDialog();
+                    dtgPatentes.DataSource = dt;
+                    if (dtgPatentes.Columns["id"] != null) dtgPatentes.Columns["id"].Visible = false;
+                    dtgPatentes.ClearSelection();
                 }
-                catch (Exception ex)
+                else
                 {
-                    new FrmAlerta(
-                        "Ocurrió un error al filtrar los datos: " + ex.Message,
-                        "ERROR",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    ).ShowDialog();
+                    new FrmAlerta("NO EXISTEN PATENTES CON ESOS DATOS", "MENSAJE",
+                                  MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+                    await LoadPatentes();
                 }
             }
             else
@@ -153,7 +269,6 @@ namespace Presentacion.Patentes
                 await LoadPatentes();
             }
         }
-
 
 
         private void EliminarTabPage(TabPage nombre)
@@ -191,6 +306,29 @@ namespace Presentacion.Patentes
             }
         }
 
+        private void CentrarPanel()
+        {
+
+            int anchoMinimo = panelBusqueda.Width + 100;
+
+            if (tabControl1.ClientSize.Width >= anchoMinimo)
+            {
+                // Pantalla suficientemente ancha → centrar
+                panelBusqueda.Anchor = AnchorStyles.None;
+                panelBusqueda.Dock = DockStyle.Top;
+                //dtgMarcasIn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            }
+            else
+            {
+                // Pantalla pequeña → top-left
+                //dtgMarcasIn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+                //dtgMarcasIn.ScrollBars = ScrollBars.Both;
+                panelBusqueda.Dock = DockStyle.None;
+                panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
+            }
+        }
         private void ActualizarFechaVencimiento()
         {
             DateTime fecha_solicitud = datePickerFechaSolicitud.Value;
@@ -240,7 +378,7 @@ namespace Presentacion.Patentes
                         SeleccionarPatente.tipo = row["tipo"].ToString();
                         SeleccionarPatente.anualidades = int.Parse(row["anualidades"].ToString());
                         SeleccionarPatente.pct = row["pct"].ToString();
-                        SeleccionarPatente.fecha_solicitud = (DateTime)row["fecha_solicitud"];
+                        SeleccionarPatente.fecha_solicitud = Convert.ToDateTime(row["fecha_solicitud"].ToString());
 
                         //MessageBox.Show(SeleccionarPatente.fecha_vencimiento.ToString());
                         SeleccionarPatente.estado = row["estado"].ToString();
@@ -643,7 +781,7 @@ namespace Presentacion.Patentes
                         {
                             if (agregoEstado == true)
                             {
-                                historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
+                                historialPatenteModel.CrearHistorialPatente(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
                                 agregoEstado = false;
                             }
 
@@ -681,7 +819,7 @@ namespace Presentacion.Patentes
                         {
                             if (agregoEstado == true)
                             {
-                                historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
+                                historialPatenteModel.CrearHistorialPatente(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
                                 agregoEstado = false;
                             }
 
@@ -751,18 +889,27 @@ namespace Presentacion.Patentes
 
         public void Habilitar()
         {
-            dateTimePickerFechaIngreso.Enabled = true;
-            comboBoxEstatusH.Enabled = true;
-            richTextBoxAnotacionesH.Enabled = true;
-            btnEditarH.Enabled = true;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaIngreso.Enabled = true;
+                comboBoxEstatusH.Enabled = true;
+                richTextBoxAnotacionesH.Enabled = true;
+                btnEditarH.Enabled = true;
+            }
+            
         }
+
         public void Deshabilitar()
         {
-            dateTimePickerFechaIngreso.Enabled = false;
-            comboBoxEstatusH.Enabled = false;
-            richTextBoxAnotacionesH.Enabled = true;
-            richTextBoxAnotacionesH.ReadOnly = true;
-            btnEditarH.Enabled = false;
+            if (!UsuarioActivo.soloLectura)
+            {
+                dateTimePickerFechaIngreso.Enabled = false;
+                comboBoxEstatusH.Enabled = false;
+                richTextBoxAnotacionesH.Enabled = true;
+                richTextBoxAnotacionesH.ReadOnly = true;
+                btnEditarH.Enabled = false;
+            }
+            
         }
 
         private async void loadRenovacionesById()
@@ -870,23 +1017,112 @@ namespace Presentacion.Patentes
 
         private async void FrmMostrarRegistradasPatentes_Load(object sender, EventArgs e)
         {
-            tabControl1.Visible = false;
-            await Task.Run(() => LoadPatentes());
-            tabControl1.SelectedTab = tabPageIngresadasList;
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPageHistorialDetail);
-            EliminarTabPage(tabPageHistorialMarca);
-            EliminarTabPage(tabPageRenovacionesList);
-            EliminarTabPage(tabPageRenovacionDetail);
-            EliminarTabPage(tabPageTraspasosList);
-            EliminarTabPage(tabPageTraspasoDetail);
-            EliminarTabPage(tabPageListaArchivos);
-            tabControl1.Visible = true;
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                SeleccionarPatente.id = 0;
 
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageHistorialMarca);
+                EliminarTabPage(tabPageRenovacionesList);
+                EliminarTabPage(tabPageRenovacionDetail);
+                EliminarTabPage(tabPageTraspasosList);
+                EliminarTabPage(tabPageTraspasoDetail);
+                EliminarTabPage(tabPageListaArchivos);
 
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgPatentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadPatentes(); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPatentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPatentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPatentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPatentes.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
         }
+
         public async void Editar()
         {
             VerificarSeleccionIdPatenteEdicion();
@@ -1003,7 +1239,7 @@ namespace Presentacion.Patentes
 
                         SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                         SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1239,7 +1475,7 @@ namespace Presentacion.Patentes
             }
         }
 
-        private async void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
+        private async Task EditarHistorialDetalle()
         {
             if (dtgHistorial.SelectedRows.Count > 0)
             {
@@ -1258,7 +1494,7 @@ namespace Presentacion.Patentes
                         DataRow fila = historial.Rows[0];
                         SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"].ToString());
                         SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1299,6 +1535,11 @@ namespace Presentacion.Patentes
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private async void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
+        {
+            await EditarHistorialDetalle();
         }
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
@@ -1516,8 +1757,8 @@ namespace Presentacion.Patentes
                         SeleccionarRenovacionPatente.idRenovacion = Convert.ToInt32(fila["Id"]);
                         //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
                         //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
-                        SeleccionarRenovacionPatente.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
-                        SeleccionarRenovacionPatente.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacionPatente.Venc_antiguo = Convert.ToDateTime(fila["FechaVencimientoAntigua"].ToString());
+                        SeleccionarRenovacionPatente.Venc_nuevo = Convert.ToDateTime(fila["FechaVencimientoNueva"].ToString());
                         SeleccionarRenovacionPatente.NumExpediente = fila["NumExpediente"].ToString();
                         SeleccionarRenovacionPatente.IdPatente = Convert.ToInt32(fila["IdPatente"]);
                         //Asignar valores a controles
@@ -1869,14 +2110,14 @@ namespace Presentacion.Patentes
 
         }
 
-        private void iconButton12_Click(object sender, EventArgs e)
+        private async void iconButton12_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
@@ -1886,10 +2127,10 @@ namespace Presentacion.Patentes
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -1901,76 +2142,90 @@ namespace Presentacion.Patentes
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
-            currentPageIndex = 1;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadPatentes();
-            }
+            if (_isLoading) return;
+            _isLoading = true;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            currentPageIndex = 1;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadPatentes();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
 
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
-            {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    await LoadPatentes();
-                }
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                await LoadPatentes();
-            }
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
+
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
@@ -1984,17 +2239,17 @@ namespace Presentacion.Patentes
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
         private List<string> ListarNombresDeArchivos(string idMarca)
         {
@@ -2370,6 +2625,16 @@ namespace Presentacion.Patentes
             {
                 comboBoxEstatusH_SelectedIndexChanged(sender, e);
             }
+        }
+
+        private void FrmMostrarRegistradasPatentes_Resize(object sender, EventArgs e)
+        {
+            CentrarPanel();
+        }
+
+        private async void dtgHistorial_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            await EditarHistorialDetalle();
         }
     }
 }

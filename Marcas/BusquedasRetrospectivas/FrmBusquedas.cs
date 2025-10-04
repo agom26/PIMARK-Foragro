@@ -1,25 +1,14 @@
-﻿using AccesoDatos.ServiciosEmail;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using Comun.Cache;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Dominio;
-using MailKit;
-using MailKit.Net.Smtp;
-using MimeKit;
-using Mysqlx.Datatypes;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
-using Presentacion.Reportes;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
-using System;
 using System.Data;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace Presentacion.BusquedasRetrospectivas
 
@@ -41,10 +30,7 @@ namespace Presentacion.BusquedasRetrospectivas
         private int totalRows = 0;
         private bool buscando = false;
         private DataTable tablaPaises;
-        private int idPaisEditando = 0;
-        private int idBusquedaActual = 0;
         bool eliminarPais = false;
-        bool editarPais = false;
         private DataTable tablaPaisesOriginal; // Declarar como campo del formulario
 
         string titulo;
