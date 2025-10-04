@@ -150,7 +150,7 @@ namespace Presentacion.Patentes
                 txtNombreTitularA.Enabled = false;
                 btnAgregarTitularN.Enabled = false;
                 txtNombreTitularN.Enabled = false;
-
+                btnEditarTraspasoDetalle.Visible = false;
 
 
             }
@@ -215,7 +215,7 @@ namespace Presentacion.Patentes
                 txtNombreTitularA.Enabled = true;
                 btnAgregarTitularN.Enabled = true;
                 txtNombreTitularN.Enabled = true;
-
+                btnEditarTraspasoDetalle.Visible = true;
             }
 
         }
@@ -333,6 +333,7 @@ namespace Presentacion.Patentes
                 panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
+
         private void ActualizarFechaVencimiento()
         {
             DateTime fecha_solicitud = datePickerFechaSolicitud.Value;

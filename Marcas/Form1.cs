@@ -541,17 +541,15 @@ namespace Presentacion
 
         private async void button35_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarTramiteRenovacionPatente());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTramiteRenovacionPatente());
         }
 
         private void button30_Click(object sender, EventArgs e)
@@ -576,18 +574,15 @@ namespace Presentacion
 
         private async void button34_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-               
-                openChildForm(new FrmMostrarTramiteTraspasoPatente());
-               
-                //openChildForm(new PatentesForm());
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTramiteTraspasoPatente());
 
         }
 
@@ -1065,17 +1060,15 @@ namespace Presentacion
 
         private async void btnAbandonadasPatentes_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarAbandonadasPatentes());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarAbandonadasPatentes());
 
         }
 
@@ -1672,17 +1665,15 @@ namespace Presentacion
 
         private async void tRDERENOVACIÓNToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarTramiteRenovacionPatente());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTramiteRenovacionPatente());
         }
 
         private async void iNGRESARPATENTEToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1713,34 +1704,31 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmMostrarRegistradasPatentes());
         }
 
+
         private async void tRDETRASPASOToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarTramiteTraspasoPatente());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarTramiteTraspasoPatente());
         }
 
         private async void aBANDONADASToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarAbandonadasPatentes());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarAbandonadasPatentes());
         }
 
         private async Task CargarVencimientosAsync()
@@ -1812,17 +1800,15 @@ namespace Presentacion
 
         private async void dESISTIDASToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarDesistidasPatentes());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarDesistidasPatentes());
         }
 
         private async void button3_Click_3(object sender, EventArgs e)
@@ -1855,17 +1841,15 @@ namespace Presentacion
 
         private async void button3_Click_4(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarDesistidasPatentes());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarDesistidasPatentes());
         }
 
         private async void tITULARESToolStripMenuItem_Click(object sender, EventArgs e)

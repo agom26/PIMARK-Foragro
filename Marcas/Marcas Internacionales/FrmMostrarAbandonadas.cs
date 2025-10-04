@@ -1882,7 +1882,7 @@ namespace Presentacion.Marcas_Nacionales
                 // Pantalla pequeña → top-left
                 panelBusqueda.Dock=DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelBusqueda.Location = new Point(0, panelBusqueda.Height); // o donde quieras
+                panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
         }
 

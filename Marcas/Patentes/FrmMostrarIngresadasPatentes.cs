@@ -24,6 +24,7 @@ using System.Windows.Forms;
 
 namespace Presentacion.Patentes
 {
+
     public partial class FrmMostrarIngresadasPatentes : Form, IAsyncLoadable
     {
         PatenteModel patenteModel = new PatenteModel();
