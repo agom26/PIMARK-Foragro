@@ -146,56 +146,56 @@ namespace Presentacion
 
         }
 
-        private async void iconPictureBox2_Click(object sender, EventArgs e)
+        private void iconPictureBox2_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
 
         }
 
-        private async void roundedButton4_Click(object sender, EventArgs e)
+        private void roundedButton4_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
 
         }
 
-        private async void iconPictureBox1_Click(object sender, EventArgs e)
+        private void iconPictureBox1_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
 
         }
 
-        private async void label1_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
 
         }
 
-        private async void panel5_Click(object sender, EventArgs e)
+        private void panel5_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmTramiteInicialInternacional(mainForm));
 
         }
 
-        private async void roundedButton5_Click(object sender, EventArgs e)
+        private void roundedButton5_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
 
         }
 
-        private async void panel6_Click(object sender, EventArgs e)
+        private void panel6_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
 
         }
 
-        private async void label2_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
             mainForm.openChildForm(new FrmReportesMarcasPatentes());
@@ -205,29 +205,27 @@ namespace Presentacion
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
 
-            mainForm.openChildForm(new FrmMarcasIntRegistradas());
+            await mainForm.OpenChildFormAsync(new FrmMarcasIntRegistradas());
 
         }
 
         private async void iconPictureBox3_Click(object sender, EventArgs e)
         {
 
-            mainForm.openChildForm(new FrmMarcasIntRegistradas());
+            await mainForm.OpenChildFormAsync(new FrmMarcasIntRegistradas());
 
         }
 
         private async void label3_Click(object sender, EventArgs e)
         {
-
-            mainForm.openChildForm(new FrmMarcasIntRegistradas());
+            await mainForm.OpenChildFormAsync(new FrmMarcasIntRegistradas());
 
         }
 
         private async void panel8_Click(object sender, EventArgs e)
         {
 
-            mainForm.openChildForm(new FrmMarcasIntRegistradas());
-
+            await mainForm.OpenChildFormAsync(new FrmMarcasIntRegistradas());
         }
 
         private void panel8_Paint(object sender, PaintEventArgs e)

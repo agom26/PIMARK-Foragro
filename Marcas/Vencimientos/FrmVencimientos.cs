@@ -4,7 +4,6 @@ using Comun.Cache;
 using Dominio;
 using MailKit.Net.Smtp;
 using MimeKit;
-using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using PuppeteerSharp;
@@ -14,6 +13,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 namespace Presentacion.Vencimientos
 {
@@ -34,7 +34,7 @@ namespace Presentacion.Vencimientos
         private int totalPages = 0;
         private int totalRows = 0;
         private bool buscando = false;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento;
         byte[] defaultImage = Properties.Resources.logoImage;
         private bool _isLoading;
 
@@ -94,15 +94,13 @@ namespace Presentacion.Vencimientos
             typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
                            .SetValue(control, enable, null);
         }
+
         public FrmVencimientos()
         {
             InitializeComponent();
-            EliminarTabPage(tabPageMensajeMarca);
-            EliminarTabPage(tabPageMensajePatente);
-            EliminarTabPage(tabPageMarcaDetail);
-            EliminarTabPage(tabPagePatenteDetail);
-
-
+            
+            SetDoubleBuffering(dtgVencimientos, true);
+            
             toolTip1.SetToolTip(pictureBoxInfo, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
             "El sistema las reemplazará automáticamente al enviar el mensaje.");
             toolTip2.SetToolTip(pictureBoxInfo2, "Debe usar las palabras clave SIGNO y F_VENCIMIENTO.\n" +
@@ -140,11 +138,17 @@ namespace Presentacion.Vencimientos
 
         private async void FrmVencimientos_Load(object sender, EventArgs e)
         {
+            this.Visible = false;
             try
             {
-                await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
-                await LoadVencimientos();
+                // ===== tu init actual (déjalo igual) =====
 
+
+                //ELIMINAR TAB PAGE
+                EliminarTabPage(tabPageMensajeMarca);
+                EliminarTabPage(tabPageMensajePatente);
+                EliminarTabPage(tabPageMarcaDetail);
+                EliminarTabPage(tabPagePatenteDetail);
                 foreach (FontFamily font in FontFamily.Families)
                 {
                     fontComboBox.Items.Add(font.Name);
@@ -174,32 +178,125 @@ namespace Presentacion.Vencimientos
                 fontSizeComboBox2.SelectedItem = "12";
                 currentPageIndex = 1;
                 lblCurrentPage.Text = currentPageIndex.ToString();
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgVencimientos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadVencimientos(); // deja que lance excepciones
+                    await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgVencimientos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgVencimientos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgVencimientos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgVencimientos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
             }
-            catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
+            finally
             {
-                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
-                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Visible = true;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
         }
 
         private async Task LoadVencimientos()
         {
-            totalRows = vencimientoModel.GetTotalVencimientos();
-            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-            var marcasN = await Task.Run(()=> vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize)); // devuelve un DataTable
+            var result = await Task.Run(() =>
+            {
+                var tr = vencimientoModel.GetTotalVencimientos();
+                var tp = (int)Math.Ceiling((double)tr / pageSize);
+                var dt = vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize);
+                return (tr, tp, dt);
+            });
+
+
+            //totalRows = vencimientoModel.GetTotalVencimientos();
+            //totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+            //var marcasN = await Task.Run(()=> vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize)); // devuelve un DataTable
             
 
             void Apply()
             {
+                totalRows = result.tr;
+                totalPages = result.tp;
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
                 lblCurrentPage.Text = currentPageIndex.ToString();
-                dtgVencimientos.DataSource = marcasN;
+                dtgVencimientos.DataSource = result.dt;
+
+                //lblTotalPages.Text = totalPages.ToString();
+                //lblTotalRows.Text = totalRows.ToString();
+                //lblCurrentPage.Text = currentPageIndex.ToString();
+                //dtgVencimientos.DataSource = marcasN;
             }
 
             if (!IsDisposed)
@@ -211,7 +308,7 @@ namespace Presentacion.Vencimientos
 
         public async Task filtrar()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string? buscar = txtBuscar.Text?.Trim();
             if (!string.IsNullOrEmpty(buscar))
             {
 
@@ -473,7 +570,7 @@ namespace Presentacion.Vencimientos
 
 
 
-        public async void EnviarCorreo(string subject, string receptor, string tipo, int id)
+        public async Task EnviarCorreo(string subject, string receptor, string tipo, int id)
         {
             try
             {
@@ -723,7 +820,7 @@ namespace Presentacion.Vencimientos
                         SeleccionarPatente.tipo = row["tipo"].ToString();
                         SeleccionarPatente.anualidades = int.Parse(row["anualidades"].ToString());
                         SeleccionarPatente.pct = row["pct"].ToString();
-                        SeleccionarPatente.fecha_solicitud = (DateTime)row["fecha_solicitud"];
+                        SeleccionarPatente.fecha_solicitud = Convert.ToDateTime(row["fecha_solicitud"]);
                         SeleccionarPatente.estado = row["estado"].ToString();
                         SeleccionarPatente.idTitular = int.Parse(row["IdTitular"].ToString());
                         SeleccionarPatente.idAgente = int.Parse(row["IdAgente"].ToString());
@@ -1241,29 +1338,6 @@ namespace Presentacion.Vencimientos
             EliminarTabPage(tabPagePatenteDetail);
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {/*
-            if (tabControl1.SelectedTab == tabPageVencimientosList)
-            {
-                EliminarTabPage(tabPagePatenteDetail);
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageMensajePatente);
-                EliminarTabPage(tabPageMensajeMarca);
-            }
-            else if (tabControl1.SelectedTab == tabPageMarcaDetail)
-            {
-                EliminarTabPage(tabPagePatenteDetail);
-                EliminarTabPage(tabPageMensajePatente);
-                EliminarTabPage(tabPageMensajeMarca);
-            }
-            else if (tabControl1.SelectedTab == tabPagePatenteDetail)
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageMensajeMarca);
-                EliminarTabPage(tabPageMensajePatente);
-            }*/
-        }
-
         private async void iconButton10_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
@@ -1431,7 +1505,7 @@ namespace Presentacion.Vencimientos
                     try
                     {
                         iconButton1.Enabled = false;
-                        await Task.Run(() => EnviarCorreo(asunto, receptor, "patente", patenteId));
+                        await  EnviarCorreo(asunto, receptor, "patente", patenteId);
                     }
                     catch (Exception ex)
                     {
@@ -1493,7 +1567,7 @@ namespace Presentacion.Vencimientos
         private void iconButton3_Click(object sender, EventArgs e)
         {
 
-            Convertir(SeleccionarPatente.nombre, (DateTime)SeleccionarPatente.fecha_vencimiento);
+            Convertir(SeleccionarPatente.nombre, Convert.ToDateTime(SeleccionarPatente.fecha_vencimiento));
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1566,7 +1640,7 @@ namespace Presentacion.Vencimientos
                     try
                     {
                         iconButton1.Enabled = false;
-                        await Task.Run(() => EnviarCorreo(asunto, receptor, "marca", marcaId));
+                        await EnviarCorreo(asunto, receptor, "marca", marcaId);
                     }
                     catch (Exception ex)
                     {
@@ -1897,179 +1971,7 @@ namespace Presentacion.Vencimientos
             }
         }
 
-        /*
-        private async void CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
-        {
-            // Ruta al ejecutable de Chrome en tu sistema
-            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Cambia la ruta según tu instalación
-
-            string nombre = "Próximos vencimientos-" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
-
-            // Abre un SaveFileDialog para que el usuario seleccione la ruta de guardado
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "PDF Files|*.pdf",
-                FileName = nombre + ".pdf"
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Lanza el navegador Chrome
-                var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-                {
-                    Headless = true,  // Ejecutar en modo headless (sin interfaz gráfica)
-                    ExecutablePath = chromePath // Usa Google Chrome en lugar de Chromium
-                });
-
-                // Crea una nueva página
-                var page = await browser.NewPageAsync();
-
-                // Límite de registros por página (12 registros por página)
-                int registrosPorPagina = registrosPagina;
-                int totalPaginas = (int)Math.Ceiling((double)dt.Rows.Count / registrosPorPagina);
-
-                // Crear el contenido HTML completo para todo el PDF
-                string fullHtmlContent = "";
-
-                // Recorrer las páginas y generar el contenido HTML para cada una
-                for (int pagina = 0; pagina < totalPaginas; pagina++)
-                {
-                    // Crear el contenido de la tabla para la página actual
-                    string tableContent = "";
-                    int startRecord = pagina * registrosPorPagina;
-                    int endRecord = Math.Min((pagina + 1) * registrosPorPagina, dt.Rows.Count);
-
-                    // Crear las filas para la tabla
-                    for (int i = startRecord; i < endRecord; i++)
-                    {
-                        DataRow row = dt.Rows[i];
-                        tableContent += "<tr>";
-
-                        foreach (DataColumn column in dt.Columns)
-                        {
-                            // Verificar si la columna debe alinearse a la derecha
-                            string alignStyle = (column.ColumnName == "REGISTRO" || column.ColumnName == "FOLIO" || column.ColumnName == "TOMO" || column.ColumnName == "CLASE")
-                                ? "style='padding: 8px; text-align: right; border: 1px solid #ddd;'"
-                                : (column.ColumnName == "NOTIFICADO"
-                                    ? "style='padding: 8px; text-align: center; border: 1px solid #ddd;'"
-                                    : "style='padding: 8px; text-align: left; border: 1px solid #ddd;'");
-
-                            // Agregar la celda con el estilo correspondiente
-                            tableContent += $"<td {alignStyle}>{row[column]}</td>";
-                        }
-
-                        tableContent += "</tr>";
-                    }
-
-                    // Generar los encabezados de la tabla dinámicamente basados en las columnas del DataTable
-                    string headers = "";
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                        headers += $"<th style='padding: 8px; text-align: left; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;'>{column.ColumnName}</th>";
-                    }
-
-                    // HTML con el logo y el título "Reportes" en el header
-                    fullHtmlContent += $@"
-                     <html>
-                         <head>
-                             <style>
-                                 body {{
-                                     font-family: Arial, sans-serif;
-                                 }}
-                                 table {{ border-collapse: collapse; width: 100%; }}
-                                 th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                                 th {{ background-color: #f2f2f2; font-weight: bold; }}
-                                 img {{
-                                     width: 200px; // Tamaño del logo 
-                                     height: auto; // Altura automática 
-                                 }}
-                                 @page {{
-                                     size: legal landscape; // Configura tamaño legal y orientación horizontal 
-                                     margin: 20mm;
-                                 }}
-                                 table {{
-                                     page-break-inside: auto;
-                                 }}
-                                 tr {{
-                                     page-break-inside: avoid;
-                                 }}
-                                 td {{
-                                     page-break-before: auto;
-                                 }}
-                                 .footer {{
-                                     text-align: center;
-                                     position: fixed;
-                                     bottom: 10mm;
-                                     left: 0;
-                                     right: 0;
-                                     font-size: 10px;
-                                 }}
-                                 .header {{
-                                     text-align: center;
-                                     font-size: 20px;
-                                     font-weight: bold;
-                                     margin-bottom: 10px;
-                                 }}
-                             </style>
-                         </head>
-                         <body>
-                             <div class='header'>
-                                 PRÓXIMOS VENCIMIENTOS
-                             </div>
-                             <div class='fecha'>
-                                 <center>
-                                 Fecha: {DateTime.Now.ToString("dd-MM-yyyy HH:mm")}
-                                 </center>
-                             </div>
-                             <img src='https://bergerpemueller.com/wp-content/uploads/2024/02/LogoBPA-e1709094810910.jpg' /> <!-- Aquí el logo -->
-                             <table>
-                                 <thead>
-                                     <tr>
-                                         {headers} <!-- Encabezados generados dinámicamente -->
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     {tableContent} <!-- Las filas generadas dinámicamente -->
-                                 </tbody>
-                             </table>
-                             {(pagina < totalPaginas - 1 ? "<div style='page-break-before: always;'></div>" : "")} <!-- No agregar salto de página al final -->
-                         </body>
-                     </html>";
-                }
-
-
-                // Establecer el contenido HTML completo para el PDF
-                await page.SetContentAsync(fullHtmlContent);
-
-                // Ruta para guardar el PDF
-                string pdfFilePath = saveFileDialog.FileName;
-
-                // Generar el PDF para todo el contenido
-                await page.PdfAsync(pdfFilePath, new PdfOptions
-                {
-                    Format = PaperFormat.Legal,      // Tamaño oficio
-                    PrintBackground = true,         // Incluir fondo
-                    Landscape = true,               // Orientación horizontal
-                    Scale = (Decimal)escalas           // Reducir la escala para ajustar mejor
-                });
-
-                // Cerrar el navegador
-                await browser.CloseAsync();
-
-                // Confirmar que el PDF se ha generado
-                FrmAlerta alerta = new FrmAlerta("PDF GENERADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
-                //MessageBox.Show("PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("NO SELECCIONÓ NINGUNA RUTA PARA GUARDAR EL PDF", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
-                //MessageBox.Show("No se seleccionó ninguna ruta para guardar el PDF.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-*/
-
+        
         private async Task CrearPdfDesdeHtmlConLogoYDataTable(DataTable dt, int registrosPagina, float escalas)
         {
             // Buscar la ruta de Chrome automáticamente
@@ -2381,11 +2283,6 @@ namespace Presentacion.Vencimientos
             }
         }
 
-
-        private async void EditarPatente()
-        {
-
-        }
         private async void iconButton8_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapaRegistradaV frmAgregarEtapaRegistradaV = new FrmAgregarEtapaRegistradaV();
@@ -2400,7 +2297,7 @@ namespace Presentacion.Vencimientos
                     if (SeleccionarMarca.idInt != 0)
                     {
                         idMarca = SeleccionarMarca.idInt;
-                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
@@ -2409,7 +2306,7 @@ namespace Presentacion.Vencimientos
                     else if (SeleccionarMarca.idN != 0)
                     {
                         idMarca = SeleccionarMarca.idN;
-                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
@@ -2418,7 +2315,7 @@ namespace Presentacion.Vencimientos
                     else if (SeleccionarPatente.id != 0)
                     {
                         idPatente = SeleccionarPatente.id;
-                        ActualizarEstadoPatente2(idPatente, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
+                        ActualizarEstadoPatente2(idPatente, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
                         EliminarTabPage(tabPagePatenteDetail);
@@ -2511,7 +2408,7 @@ namespace Presentacion.Vencimientos
                     if (SeleccionarMarca.idInt != 0)
                     {
                         idMarca = SeleccionarMarca.idInt;
-                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
@@ -2520,7 +2417,7 @@ namespace Presentacion.Vencimientos
                     else if (SeleccionarMarca.idN != 0)
                     {
                         idMarca = SeleccionarMarca.idN;
-                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                        marcaModel.ActualizarExpedienteMarca(idMarca, AgregarEtapa.numExpediente, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA MARCA HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
@@ -2529,7 +2426,7 @@ namespace Presentacion.Vencimientos
                     else if (SeleccionarPatente.id != 0)
                     {
                         idPatente = SeleccionarPatente.id;
-                        patenteModel.ActualizarExpedientePatente(idPatente, AgregarEtapa.numExpediente, (DateTime)AgregarEtapa.fecha,
+                        patenteModel.ActualizarExpedientePatente(idPatente, AgregarEtapa.numExpediente, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario);
                         MostrarAlerta("LA PATENTE HA SIDO ENVIADA A RENOVACIÓN");
                         AnadirTabPage(tabPageVencimientosList);
@@ -2697,14 +2594,14 @@ namespace Presentacion.Vencimientos
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
+                panelBusqueda.Dock = DockStyle.Top;
 
-                int x = (tabControl1.ClientSize.Width - panelBusqueda.Width) / 2;
-                int y = 0; // o donde quieras posicionarlo verticalmente
-                panelBusqueda.Location = new System.Drawing.Point(x, y);
+                panelBusqueda.Location = new System.Drawing.Point(0,0);
             }
             else
             {
                 // Pantalla pequeña → top-left
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new System.Drawing.Point(0, 0); // o donde quieras
             }
@@ -2721,13 +2618,6 @@ namespace Presentacion.Vencimientos
             ActualizarEstadoBotonSubrayado();
         }
 
-
-        private void roundedButton21_Click(object sender, EventArgs e)
-        {
-
-
-
-        }
         private async Task MostrarLogoDesdeUrlAsync(string url)
         {
             try
@@ -2769,9 +2659,6 @@ namespace Presentacion.Vencimientos
                 pictureBoxLogo2.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
-
-
-
 
         private async void btnSubirLogo_Click(object sender, EventArgs e)
         {
@@ -2913,11 +2800,6 @@ namespace Presentacion.Vencimientos
                     }
                 }
             }
-        }
-
-        private void pictureBoxInfo_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void richTextBoxMensajeP_SelectionChanged(object sender, EventArgs e)

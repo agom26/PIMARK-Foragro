@@ -422,7 +422,6 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1132, 743);
             tabControl1.TabIndex = 45;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPageVencimientosList
             // 
@@ -2759,7 +2758,6 @@
             pictureBoxInfo.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxInfo.TabIndex = 246;
             pictureBoxInfo.TabStop = false;
-            pictureBoxInfo.Click += pictureBoxInfo_Click;
             // 
             // panel14
             // 

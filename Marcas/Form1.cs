@@ -769,7 +769,7 @@ namespace Presentacion
 
         }
 
-        private async void button26_Click(object sender, EventArgs e)
+        private void button26_Click(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -796,17 +796,16 @@ namespace Presentacion
 
         private async void iconButton5_Click_1(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmVencimientos());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmVencimientos());
+
         }
 
         private void labelName_LN_Click(object sender, EventArgs e)
@@ -1187,17 +1186,15 @@ namespace Presentacion
 
         private async void button9_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmVencimientos());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmVencimientos());
 
         }
 
@@ -1218,7 +1215,7 @@ namespace Presentacion
         }
 
 
-        private async void button2_Click_3(object sender, EventArgs e)
+        private void button2_Click_3(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -1458,7 +1455,7 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmRegistradas());
         }
 
-        private async void iNGRESARMARCAToolStripMenuItem_Click(object sender, EventArgs e)
+        private void iNGRESARMARCAToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -1513,7 +1510,7 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmMarcasIntRegistradas());
         }
 
-        private async void lICENCIASDEUSOToolStripMenuItem_Click(object sender, EventArgs e)
+        private void lICENCIASDEUSOToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -1567,7 +1564,7 @@ namespace Presentacion
             await OpenChildFormAsync(new FrmMarcasIntAbandonadas());
         }
 
-        private async void iNGRESARMARCAToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void iNGRESARMARCAToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (DatosRegistro.peligro == false)
             {
@@ -1780,17 +1777,16 @@ namespace Presentacion
 
         private async void dESISTIDASToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarDesistidas());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarDesistidas());
+
         }
 
         private void rDropDownMenu3_Opening(object sender, CancelEventArgs e)
@@ -1826,17 +1822,15 @@ namespace Presentacion
 
         private async void btnDesistidasInter_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmMostrarDesistidas());
-                
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmMostrarDesistidas());
         }
 
         private async void button3_Click_4(object sender, EventArgs e)
