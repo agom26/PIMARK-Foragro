@@ -1936,17 +1936,16 @@ namespace Presentacion
 
         private async void btnPlazos_Click(object sender, EventArgs e)
         {
-            if (DatosRegistro.peligro == false)
+            if (DatosRegistro.peligro)
             {
-                
-                openChildForm(new FrmPlazos());
-               
-            }
-            else
-            {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
+                return;
             }
+
+            await OpenChildFormAsync(new FrmPlazos());
+            
         }
 
         private async void button3_Click_5(object sender, EventArgs e)

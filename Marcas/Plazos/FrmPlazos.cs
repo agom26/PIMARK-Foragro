@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Comun;
 using Comun.Cache;
 using Dominio;
 using MySql.Data.MySqlClient;
@@ -8,12 +9,15 @@ using Presentacion.Reportes;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
 using System.Data;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 namespace Presentacion.Plazos
 {
-    public partial class FrmPlazos : Form
+    public partial class FrmPlazos : Form, IAsyncLoadable
     {
         PlazosModel plazosModel = new PlazosModel();
         HistorialModel historialModel = new HistorialModel();
@@ -31,9 +35,36 @@ namespace Presentacion.Plazos
         private int totalRows = 0;
         private bool buscando = false;
         private bool _cargandoUI;
-
+        private bool _isLoading;
         private bool _actualizando; // evita reentradas
-        string titulo;
+        string? titulo;
+
+
+        // Implementación de la interfaz
+        public async Task LoadAsync()
+        {
+            await LoadPlazos("marca"); // aquí llamas a tu método actual
+        }
+
+
+        private Task RefreshPageAsync() => buscando ? filtrar() : LoadPlazos("marca");
+        private void SetLoading(bool on)
+        {
+            Cursor.Current = on ? Cursors.WaitCursor : Cursors.Default;
+
+            // Habilita/deshabilita según loading y posición actual
+            bool canUse = !on;
+            btnFirst.Enabled = canUse && currentPageIndex > 1;
+            btnPrev.Enabled = canUse && currentPageIndex > 1;
+            btnNext.Enabled = canUse && currentPageIndex < totalPages;
+            btnLast.Enabled = canUse && currentPageIndex < totalPages;
+        }
+
+        private void UpdatePagerLabels()
+        {
+            lblCurrentPage.Text = (totalPages == 0) ? "0" : currentPageIndex.ToString();
+            lblTotalPages.Text = totalPages.ToString(); // (si no lo actualizas en Load/filtrar)
+        }
 
         public FrmPlazos()
         {
@@ -43,6 +74,7 @@ namespace Presentacion.Plazos
             EliminarTabPage(tabPageReportes);
             SetDoubleBuffering(this, true);
             SetDoubleBuffering(dtgReportes, true);
+            SetDoubleBuffering(dtgPlazos, true);
 
             if (UsuarioActivo.soloLectura)
             {
@@ -70,13 +102,147 @@ namespace Presentacion.Plazos
                            .SetValue(control, enable, null);
         }
 
-        private void FrmPlazos_Load(object sender, EventArgs e)
+        private async Task<bool> TieneInternetAsync()
         {
-            
-            currentPageIndex = 1;
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return false;
+
+            try
+            {
+                // DNS lookup rápido: no depende de tu API
+                await Dns.GetHostEntryAsync("www.google.com");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
+        private async void FrmPlazos_Load(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            try
+            {
+                // ===== tu init actual (déjalo igual) =====
+                string tipo = comboBoxTipoFiltro.Text;
+                string tipoRegistro = tipo == "MARCAS" ? "marca" : "patente";
+
+                //ELIMINAR TAB PAGE
+                EliminarTabPage(tabPageHistorialDetail);
+                EliminarTabPage(tabPageReportes);
+                currentPageIndex = 1;
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                // ========================================
+
+                // 1) ¿Hay internet?
+                if (!await TieneInternetAsync())
+                {
+                    new FrmAlerta(
+                        "No hay conexión a internet. Verifique su conexión.",
+                        "ERROR DE CONEXIÓN",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    // Dejar la UI en estado consistente (vacía)
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                    return;
+                }
+
+                // 2) Intentar cargar desde tu servidor/API
+                try
+                {
+                    await LoadPlazos(tipoRegistro); // deja que lance excepciones
+                }
+                catch (HttpRequestException)
+                {
+                    new FrmAlerta(
+                        "No se pudo comunicar con el servidor.",
+                        "ERROR DE SERVIDOR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (JsonException)
+                {
+                    new FrmAlerta(
+                        "Hubo un problema al procesar los datos del servidor.",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    new FrmAlerta(
+                        "Base de datos no disponible.\n" + ex.Message,
+                        "ERROR BD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    new FrmAlerta(
+                        "Ocurrió un error al cargar los datos:\n" + ex.Message,
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ).ShowDialog();
+
+                    dtgPlazos.DataSource = null;
+                    lblTotalRows.Text = "0";
+                    lblTotalPages.Text = "0";
+                    lblCurrentPage.Text = "0";
+                }
+            }
+            finally
+            {
+                this.Visible = true;
+            }
+
+
+        }
+
+        private async Task LoadPlazos(string tipoRegistro)
+        {
+            var (totalRows, datos) = await plazosModel.ObtenerPlazosAsync(tipoRegistro, pageSize, currentPageIndex);
+            totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+            void Apply()
+            {
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                dtgPlazos.DataSource = datos;
+            }
+
+            if (!IsDisposed)
+            {
+                if (InvokeRequired) BeginInvoke((Action)Apply);
+                else Apply();
+            }
+        }
+
+        /*
         private async Task LoadPlazos(string tipoRegistro)
         {
             try
@@ -106,86 +272,47 @@ namespace Presentacion.Plazos
                 MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        /*
-        private async Task LoadPlazos(string tipoRegistro)
-        {
-            try
-            {
-                // Obtener total y tabla 
-                var (totalRows, datos) = await plazosModel.ObtenerPlazosAsync(tipoRegistro, pageSize, currentPageIndex);
-                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
-
-                if (this.IsHandleCreated && !this.IsDisposed)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        lblTotalPages.Text = totalPages.ToString();
-                        lblTotalRows.Text = totalRows.ToString();
-                        dtgPlazos.DataSource = datos;
-                    }));
-                }
-            }
-            catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
-            {
-                MessageBox.Show("No se pudo establecer conexión con la base de datos.",
-                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocurrió un error al cargar los datos: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }*/
 
-        /*
-        private async void filtrar()
+        private async Task filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
+            string tipo = comboBoxTipoFiltro.Text;
+            string tipoRegistro = tipo == "MARCAS" ? "marca" : "patente";
+
 
             if (!string.IsNullOrEmpty(buscar))
             {
-                DataTable datos;
-                string tipo = comboBoxTipoFiltro.Text;
-                string tipoRegistro = "";
-                if (tipo == "MARCAS")
-                {
-                    tipoRegistro = "marca";
-                }
-                else if (tipo == "PATENTES")
-                {
-                    tipoRegistro = "patente";
-                }
+                
 
-                (totalRows, datos) = await plazosModel.ObtenerPlazosFiltradoAsync(tipoRegistro, pageSize, currentPageIndex, buscar);
+
+                var (rows, datos) = await plazosModel.ObtenerPlazosFiltradoAsync(tipoRegistro, pageSize, currentPageIndex, buscar);
+                totalRows = rows;
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-                if (this.IsHandleCreated && !this.IsDisposed)
+                if (datos.Rows.Count > 0)
                 {
-                    this.Invoke(new Action(() =>
-                    {
-                        lblTotalPages.Text = totalPages.ToString();
-                        lblTotalRows.Text = totalRows.ToString();
-                        dtgPlazos.DataSource = datos;
-                    }));
+                    lblTotalPages.Text = totalPages.ToString();
+                    lblTotalRows.Text = totalRows.ToString();
+                    dtgPlazos.DataSource = datos;
+                    if (dtgPlazos.Columns["id"] != null) dtgPlazos.Columns["id"].Visible = false;
+                    dtgPlazos.ClearSelection();
+                }
+                else
+                {
+                    new FrmAlerta("NO EXISTEN PLAZOS CON ESOS DATOS", "MENSAJE",
+                                  MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+                    await LoadPlazos(tipoRegistro);
                 }
             }
             else
             {
-
-                string tipo = comboBoxTipoFiltro.Text;
-                if (tipo == "MARCAS")
-                {
-                    await LoadPlazos("marca");
-                }
-                else if (tipo == "PATENTES")
-                {
-                    await LoadPlazos("patente");
-                }
+                await LoadPlazos(tipoRegistro);
             }
-        }*/
+        }
 
+
+        /* anterior
         private async void filtrar()
         {
             string buscar = txtBuscar.Text.Trim();
@@ -223,7 +350,7 @@ namespace Presentacion.Plazos
                 string tipoRegistro = tipo == "MARCAS" ? "marca" : "patente";
                 await LoadPlazos(tipoRegistro);
             }
-        }
+        }*/
 
 
 
@@ -629,16 +756,42 @@ namespace Presentacion.Plazos
 
         }
 
+        /*
+        Ingresada
+        Examen de forma
+        Examen de fondo
+        Requerimiento
+        Contestación de requerimiento
+        Objeción
+        Contestación de objeción
+        Resolución RPI favorable
+        Resolución RPI desfavorable
+        Contestación de resolución RPI desfavorable
+        Recurso de revocatoria
+        Contestación de recurso de revocatoria
+        Resolución Ministerio de Economía (MINECO)
+        Contencioso administrativo
+        Edicto
+        Publicación
+        Orden de pago
+        Registrada
+        Licencia de uso
+        */
+
         private readonly List<string> etapasMarca = new List<string>
             {
                 "Ingresada",
                 "Examen de forma",
                 "Examen de fondo",
                 "Requerimiento",
+                "Contestación de requerimiento",
                 "Objeción",
+                "Contestación de objeción",
                 "Resolución RPI favorable",
                 "Resolución RPI desfavorable",
+                "Contestación de resolución RPI desfavorable",
                 "Recurso de revocatoria",
+                "Contestación de recurso de revocatoria",
                 "Resolución Ministerio de Economía (MINECO)",
                 "Contencioso administrativo",
                 "Edicto",
@@ -1343,7 +1496,7 @@ namespace Presentacion.Plazos
 
 
 
-        private async void iconButton14_Click(object sender, EventArgs e)
+        private void iconButton14_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -1431,102 +1584,82 @@ namespace Presentacion.Plazos
 
         private async void btnFirst_Click(object sender, EventArgs e)
         {
+            if (_isLoading) return;
+            _isLoading = true;
+
             currentPageIndex = 1;
-            if (buscando == true)
+            SetLoading(true);
+            try
             {
-                filtrar();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
             }
-            else
+            finally
             {
-                string tipo = comboBoxTipoFiltro.Text;
-                if (tipo == "MARCAS")
-                {
-                    await LoadPlazos("marca");
-                }
-                else if (tipo == "PATENTES")
-                {
-                    await LoadPlazos("patente");
-                }
+                _isLoading = false;
+                SetLoading(false);
             }
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
         private async void btnPrev_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex > 1)
-            {
-                currentPageIndex--;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    string tipo = comboBoxTipoFiltro.Text;
-                    if (tipo == "MARCAS")
-                    {
-                        await LoadPlazos("marca");
-                    }
-                    else if (tipo == "PATENTES")
-                    {
-                        await LoadPlazos("patente");
-                    }
-                }
+            if (_isLoading) return;
+            if (currentPageIndex <= 1) return;
 
-                lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex--;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
         {
-            if (currentPageIndex < totalPages)
+            if (_isLoading) return;
+            if (currentPageIndex >= totalPages) return;
+
+            _isLoading = true;
+            currentPageIndex++;
+            SetLoading(true);
+            try
             {
-                currentPageIndex++;
-                if (buscando == true)
-                {
-                    filtrar();
-                }
-                else
-                {
-                    string tipo = comboBoxTipoFiltro.Text;
-                    if (tipo == "MARCAS")
-                    {
-                        await LoadPlazos("marca");
-                    }
-                    else if (tipo == "PATENTES")
-                    {
-                        await LoadPlazos("patente");
-                    }
-
-
-                }
-
-                lblCurrentPage.Text = currentPageIndex.ToString();
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
             }
         }
 
         private async void btnLast_Click(object sender, EventArgs e)
         {
-            currentPageIndex = totalPages;
-            if (buscando == true)
-            {
-                filtrar();
-            }
-            else
-            {
-                string tipo = comboBoxTipoFiltro.Text;
-                if (tipo == "MARCAS")
-                {
-                    await LoadPlazos("marca");
-                }
-                else if (tipo == "PATENTES")
-                {
-                    await LoadPlazos("patente");
-                }
-            }
+            if (_isLoading) return;
+            if (totalPages <= 0) return;
 
-            lblCurrentPage.Text = currentPageIndex.ToString();
+            _isLoading = true;
+            currentPageIndex = totalPages;
+            SetLoading(true);
+            try
+            {
+                await RefreshPageAsync();
+                UpdatePagerLabels();
+            }
+            finally
+            {
+                _isLoading = false;
+                SetLoading(false);
+            }
         }
 
         private void dtgVencimientos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -1553,6 +1686,7 @@ namespace Presentacion.Plazos
             SeleccionarPatente.id = 0;
             dtgPlazos.Refresh();
         }
+
         private void CentrarPanel()
         {
 
@@ -1591,7 +1725,7 @@ namespace Presentacion.Plazos
         }
 
 
-        private async void iconButton16_Click(object sender, EventArgs e)
+        private void iconButton16_Click(object sender, EventArgs e)
         {
             // 1. Mostrar diálogo de confirmación
             var result = MessageBox.Show(
@@ -1705,10 +1839,11 @@ namespace Presentacion.Plazos
             {
                 "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
                 "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
-                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                "Resolución RPI desfavorable" or "Recurso de revocatoria" => fechaIngreso.AddDays(5),
                 _ => fechaIngreso
             };
         }
+
         private void ActualizarResumen()
         {
             string etapa = comboBoxEstado.Text;
@@ -1716,14 +1851,14 @@ namespace Presentacion.Plazos
             if (dateTimePickerVencimiento.Visible)
             {
                 string venc = dateTimePickerVencimiento.Value.ToString("dd/MM/yyyy");
-                if (etapa == "Resolución RPI desfavorable")
+                if (etapa == "Resolución RPI desfavorable" || etapa == "Recurso de revocatoria")
                     richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
                 else
                     richTextBoxAnotaciones.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
             }
             else
             {
-                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                if (etapa is "Resolución RPI favorable" or
                     "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
                     richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa}";
                 else
@@ -1762,6 +1897,7 @@ namespace Presentacion.Plazos
                 etapa == "Examen de fondo" ||
                 etapa == "Requerimiento" ||
                 etapa == "Objeción" ||
+                etapa == "Recurso de revocatoria" ||
                 etapa == "Publicación" ||
                 etapa == "Orden de pago" ||
                 etapa == "Resolución RPI desfavorable";
