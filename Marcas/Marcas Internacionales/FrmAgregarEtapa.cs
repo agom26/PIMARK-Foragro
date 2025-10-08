@@ -99,6 +99,8 @@ namespace Presentacion.Marcas_Nacionales
 
                 }
                 else if (etapa == "Resolución RPI favorable" ||
+                        etapa == "Contestación de RPI desfavorable" ||
+                        etapa == "Contestación de recurso de revocatoria" ||
                          //etapa == "Resolución RPI desfavorable" ||
                          etapa == "Resolución Ministerio de Economía (MINECO)" ||
                          etapa == "Contencioso administrativo")
@@ -224,7 +226,9 @@ namespace Presentacion.Marcas_Nacionales
             else
             {
                 if (etapa is "Resolución RPI favorable"  or
-                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo"
+                    or "Contestación de resolución RPI desfavorable" 
+                    or "Contestación de recurso de revocatoria")
                     richTextBox1.Text = $"{fecha} Por objeción - {etapa}";
                 else
                     richTextBox1.Text = $"{fecha} {etapa}";

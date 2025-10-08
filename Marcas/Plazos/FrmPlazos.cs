@@ -603,6 +603,8 @@ namespace Presentacion.Plazos
                               etapa == "Requerimiento" ||
                               etapa == "Objeción" ||
                               etapa == "Publicación" ||
+                              etapa == "Recurso de revocatoria" ||
+                              etapa == "Resolución RPI desfavorable" ||
                               etapa == "Orden de pago";
 
             if (requiereVencimiento)
@@ -624,10 +626,21 @@ namespace Presentacion.Plazos
 
                 if (requiereVencimiento)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    if (etapa == "Recurso de revocatoria" || etapa == "Resolución RPI desfavorable")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción-{etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+
+
                 }
                 else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Recurso de revocatoria" ||
+                         etapa == "Contestación de RPI desfavorable" ||
+                         etapa == "Contestación de recurso de revocatoria" ||
+                         //etapa == "Recurso de revocatoria" ||
                          etapa == "Resolución Ministerio de Economía (MINECO)" ||
                          etapa == "Contencioso administrativo")
                 {
@@ -680,6 +693,8 @@ namespace Presentacion.Plazos
             AgregarEtapa.usuario = UsuarioActivo.usuario;
             bool requiereVencimiento = etapa == "Examen de fondo" ||
                               etapa == "Requerimiento" ||
+                              etapa == "Recurso de revocatoria" ||
+                              etapa == "Resolución RPI desfavorable" ||
                               etapa == "Objeción" ||
                               etapa == "Publicación" ||
                               etapa == "Orden de pago";
@@ -703,10 +718,20 @@ namespace Presentacion.Plazos
 
                 if (requiereVencimiento)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    if (etapa == "Recurso de revocatoria" || etapa == "Resolución RPI desfavorable")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción-{etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+
                 }
                 else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Recurso de revocatoria" ||
+                        //etapa == "Recurso de revocatoria" ||
+                        etapa == "Contestación de RPI desfavorable" ||
+                        etapa == "Contestación de recurso de revocatoria" ||
                          etapa == "Resolución Ministerio de Economía (MINECO)" ||
                          etapa == "Contencioso administrativo")
                 {
@@ -1859,7 +1884,9 @@ namespace Presentacion.Plazos
             else
             {
                 if (etapa is "Resolución RPI favorable" or
-                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo"
+                    or "Contestación de resolución RPI desfavorable"
+                    or "Contestación de recurso de revocatoria")
                     richTextBoxAnotaciones.Text = $"{fecha} Por objeción - {etapa}";
                 else
                     richTextBoxAnotaciones.Text = $"{fecha} {etapa}";
