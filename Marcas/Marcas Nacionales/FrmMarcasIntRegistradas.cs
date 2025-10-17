@@ -1838,7 +1838,7 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageRenovacionesList);
             EliminarTabPage(tabPageRenovacionDetail);
         }
-        public void EditarVerTraspaso()
+        public async Task EditarVerTraspaso()
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
             {
@@ -1850,7 +1850,7 @@ namespace Presentacion.Marcas_Internacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarTraspaso.id = id;
 
-                    DataTable traspaso = traspasosModel.ObtenerTraspasoPorId(id);
+                    DataTable traspaso = await traspasosModel.ObtenerTraspasoPorId(id);
 
                     if (traspaso.Rows.Count > 0)
                     {
@@ -1884,11 +1884,11 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                EditarVerTraspaso();
+                await EditarVerTraspaso();
             }
             
         }

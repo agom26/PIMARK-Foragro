@@ -17,22 +17,22 @@ namespace Dominio
             traspasoMarcasDao = new TraspasoMarcasDao();
         }
 
-        public void AddTraspaso(string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
+        public async Task AddTraspaso(string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
-            traspasoMarcasDao.InsertarTraspasoMarca(numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
+            await traspasoMarcasDao.InsertarTraspasoMarca(numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
         }
 
-        public DataTable ObtenerTraspasosMarcaPorIdMarca(int idMarca)
+        public async Task<DataTable> ObtenerTraspasosMarcaPorIdMarca(int idMarca)
         {
-            return traspasoMarcasDao.ObtenerTraspasosDeMarcaPorId(idMarca);
+            return await traspasoMarcasDao.ObtenerTraspasosDeMarcaPorId(idMarca);
         }
-        public DataTable ObtenerTraspasoPorId(int id)
+        public async Task<DataTable> ObtenerTraspasoPorId(int id)
         {
-            return traspasoMarcasDao.ObtenerTraspasoPorId(id);
+            return await traspasoMarcasDao.ObtenerTraspasoPorId(id);
         }
-        public bool ActualizarTraspaso(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
+        public async Task<bool> ActualizarTraspaso(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
-            return traspasoMarcasDao.ActualizarTraspasoMarca(id, numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
+            return await traspasoMarcasDao.ActualizarTraspasoMarca(id, numExpediente, idMarca, idTitularAnterior, idTitularNuevo);
         }
     }
 }

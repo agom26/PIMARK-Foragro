@@ -2014,7 +2014,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        public void EditarTraspaso()
+        public async Task EditarTraspaso()
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
             {
@@ -2026,7 +2026,7 @@ namespace Presentacion.Marcas_Nacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarTraspaso.id = id;
 
-                    DataTable traspaso = traspasosModel.ObtenerTraspasoPorId(id);
+                    DataTable traspaso = await traspasosModel.ObtenerTraspasoPorId(id);
 
                     if (traspaso.Rows.Count > 0)
                     {
@@ -2062,9 +2062,9 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
-            EditarTraspaso();
+            await EditarTraspaso();
         }
 
         private void btnAgregarTitularA_Click(object sender, EventArgs e)
