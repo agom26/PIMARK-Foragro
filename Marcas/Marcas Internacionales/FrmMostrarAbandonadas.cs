@@ -1107,7 +1107,7 @@ namespace Presentacion.Marcas_Nacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -1115,11 +1115,11 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton9_Click(object sender, EventArgs e)
+        private async void iconButton9_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
         private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -1134,7 +1134,7 @@ namespace Presentacion.Marcas_Nacionales
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 

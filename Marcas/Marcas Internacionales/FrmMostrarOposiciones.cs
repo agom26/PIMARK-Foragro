@@ -1,27 +1,13 @@
 ﻿using ClosedXML.Excel;
 using Comun;
 using Comun.Cache;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Dominio;
-using Microsoft.VisualBasic.Logging;
-using MySql.Data.MySqlClient;
-using Mysqlx.Datatypes;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Internacionales;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
 
 
 namespace Presentacion.Marcas_Nacionales
@@ -222,9 +208,9 @@ namespace Presentacion.Marcas_Nacionales
         // ======== Interpuestas ========
         private async Task LoadMarcasInterpuestas(string situacionActual)
         {
-            var resultado = await Task.Run(() =>
+            var resultado = await 
                 oposicionModel.ObtenerOposicionesInternacionalesInterpuestasCombinado(
-                    situacionActual, currentPageIndex2, pageSize2));
+                    situacionActual, currentPageIndex2, pageSize2);
 
             totalRows2 = resultado.total;
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
@@ -248,16 +234,16 @@ namespace Presentacion.Marcas_Nacionales
 
         public async Task filtrarMarcasInterpuestas()
         {
-            string buscar = txtBuscar2.Text?.Trim();
+            string buscar = txtBuscar2.Text.Trim();
             string situacion = cmbSituacionActualI.SelectedItem?.ToString() ?? "EN TRÁMITE";
 
             if (!string.IsNullOrEmpty(buscar))
             {
-                totalRows2 = await Task.Run(() => oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(buscar));
+                totalRows2 = await  oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(buscar);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
-                var dt = await Task.Run(() =>
-                    oposicionModel.FiltrarOposicionesInternacionalesInterpuestas(buscar, currentPageIndex2, pageSize2));
+                var dt = await 
+                    oposicionModel.FiltrarOposicionesInternacionalesInterpuestas(buscar, currentPageIndex2, pageSize2);
 
                 if (dt.Rows.Count == 0)
                 {
@@ -459,16 +445,16 @@ namespace Presentacion.Marcas_Nacionales
 
         public async Task filtrarRecibidas()
         {
-            string buscar = txtBuscar.Text?.Trim();
+            string buscar = txtBuscar.Text.Trim();
             string situacion = cmbSituacionActual.SelectedItem?.ToString() ?? "EN TRÁMITE";
 
             if (!string.IsNullOrEmpty(buscar))
             {
-                totalRows = await Task.Run(() => oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(buscar));
+                totalRows = await  oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(buscar);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-                var dt = await Task.Run(() =>
-                    oposicionModel.FiltrarOposicionesInternacionalesRecibidas(buscar, currentPageIndex, pageSize));
+                var dt = await 
+                    oposicionModel.FiltrarOposicionesInternacionalesRecibidas(buscar, currentPageIndex, pageSize);
 
                 if (dt.Rows.Count == 0)
                 {
@@ -1238,13 +1224,25 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
+        public Image convertirLogo(byte[] bytes)
+        {
+
+            if (bytes == null || bytes.Length == 0)
+                return null;
+
+            using (var ms = new MemoryStream(bytes))
+            {
+                return Image.FromStream(ms);
+            }
+        }
+
         private async Task CargarDatosOposicion()
         {
             try
             {
                 Cursor = Cursors.WaitCursor;
                 tabControl1.Visible = false;
-                DataTable detallesOposicion = await Task.Run(() => oposicionModel.GetOposicionPorId(SeleccionarOposicion.idInt));
+                DataTable detallesOposicion = await oposicionModel.GetOposicionPorId(SeleccionarOposicion.idInt);
                 if (detallesOposicion.Rows.Count > 0)
                 {
                     DataRow row = detallesOposicion.Rows[0];
@@ -1258,11 +1256,22 @@ namespace Presentacion.Marcas_Nacionales
                     SeleccionarOposicion.observaciones = row["observaciones"] is DBNull ? null : row["observaciones"].ToString();
                     SeleccionarOposicion.estado = row["estado"] is DBNull ? null : row["estado"].ToString();
                     SeleccionarOposicion.situacion_actual = row["situacion_actual"].ToString();
-                    SeleccionarOposicion.logoOpositor = row["logo_opositor"] is DBNull ? null : (byte[])row["logo_opositor"];
-                    SeleccionarOposicion.logoSignoPretendido = row["logo_signo_pretendido"] is DBNull ? null : (byte[])row["logo_signo_pretendido"];
+                    //SeleccionarOposicion.logoOpositor = row["logo_opositor"] is DBNull ? null : (byte[])row["logo_opositor"];
+                    //SeleccionarOposicion.logoSignoPretendido = row["logo_signo_pretendido"] is DBNull ? null : (byte[])row["logo_signo_pretendido"];
                     SeleccionarOposicion.idMarca = row["idMarca"] is DBNull ? 0 : int.Parse(row["idMarca"].ToString());
                     SeleccionarOposicion.idSolicitante = 0;
                     //idSolicitante 
+
+                    // ↓ Descarga de logos en paralelo
+                    var taskLogoOpositor = oposicionModel.ObtenerLogoOpositorAsync(SeleccionarOposicion.idInt);
+                    var taskLogoPretendido = oposicionModel.ObtenerLogoSignoPretendidoAsync(SeleccionarOposicion.idInt);
+                    await Task.WhenAll(taskLogoOpositor, taskLogoPretendido);
+
+                    var logoOpositorBytes = taskLogoOpositor.Result;
+                    var logoPretendidoBytes = taskLogoPretendido.Result;
+
+                    SeleccionarOposicion.logoOpositor = logoOpositorBytes;
+                    SeleccionarOposicion.logoSignoPretendido = logoPretendidoBytes;
 
                     txtExpedienteAO.Text = SeleccionarOposicion.expediente;
                     txtSignoAO.Text = SeleccionarOposicion.signo_pretendido;
@@ -1299,28 +1308,23 @@ namespace Presentacion.Marcas_Nacionales
                     }
 
 
-                    if (tieneLogoOpositor || tieneLogoSignoPretendido)
-                    {
-                        checkBoxAgregarLogos.Checked = true;
+                    // Logos en pictureBox
+                    tieneLogoOpositor = logoOpositorBytes != null && logoOpositorBytes.Length > 0;
+                    tieneLogoSignoPretendido = logoPretendidoBytes != null && logoPretendidoBytes.Length > 0;
 
-                        if (tieneLogoOpositor)
-                        {
-                            MostrarLogoEnPictureBoxOpositor((byte[])row["logo_opositor"]);
-                        }
-                        if (tieneLogoSignoPretendido)
-                        {
-                            MostrarLogoEnPictureBoxSignoPretendido((byte[])row["logo_signo_pretendido"]);
-                        }
-                        MostrarLogos();
-                    }
+
+                    if (tieneLogoOpositor)
+                        pictureBoxOpositor.Image = convertirLogo(logoOpositorBytes);
                     else
-                    {
-                        checkBoxAgregarLogos.Checked = false;
-                        convertirImagen();
-                        pictureBoxOpositor.Image = documento;
+                        pictureBoxOpositor.Image = documento; // tu placeholder
+
+                    if (tieneLogoSignoPretendido)
+                        pictureBoxSignoPretendido.Image = convertirLogo(logoPretendidoBytes);
+                    else
                         pictureBoxSignoPretendido.Image = documento;
-                        MostrarLogos();
-                    }
+
+                    checkBoxAgregarLogos.Checked = tieneLogoOpositor || tieneLogoSignoPretendido;
+                    MostrarLogos();
 
 
                     if (SeleccionarOposicion.idMarca > 0)
@@ -1396,7 +1400,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public async void Editar()
+        public async Task Editar()
         {
             if (!UsuarioActivo.soloLectura)
             {
@@ -1411,9 +1415,9 @@ namespace Presentacion.Marcas_Nacionales
                 await CargarDatosOposicion();
             }
         }
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private void CentrarControlSinExpandir(System.Windows.Forms.Control control, int anchoMinimo)
@@ -1477,53 +1481,6 @@ namespace Presentacion.Marcas_Nacionales
             CentrarControlSinExpandir(panelDataGridView, 862);
         }
 
-
-        private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {/*
-            if (tabControl1.SelectedTab == tabPageHistorialMarca)
-            {
-
-                EliminarTabPage(tabPageHistorialDetalle);
-                EliminarTabPage(tabPageReportes);
-            }
-            else if (tabControl1.SelectedTab == tabPageListaMarcas)
-            {
-               // tabControl1.Visible = false;
-                Cursor cursor = Cursors.WaitCursor;
-
-                var tareasFiltrado = new Task[]
-            {
-                FiltrarPorSituacionActual(),
-                FiltrarPorSituacionActualInterpuestas()
-            };
-
-                await Task.WhenAll(tareasFiltrado);
-                SeleccionarOposicion.idInt = 0;
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetalle);
-                EliminarTabPage(tabPageAgregarOposicion);
-                EliminarTabPage(tabPageReportes);
-                //tabControl1.Visible = true;
-                Cursor cursor1 = Cursors.Default;
-            }
-            else if (tabControl1.SelectedTab == tabPageAgregarOposicion)
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetalle);
-                EliminarTabPage(tabPageReportes);
-            }
-            else if (tabControl1.SelectedTab == tabPageReportes)
-            {
-                EliminarTabPage(tabPageMarcaDetail);
-                EliminarTabPage(tabPageHistorialMarca);
-                EliminarTabPage(tabPageHistorialDetalle);
-                EliminarTabPage(tabPageAgregarOposicion);
-                dtgReportesOp.DataSource = null;
-                dtgReportesOp.ClearSelection();
-            }*/
-        }
         /*
         public async void ActualizarMarcaInternacional()
         {
@@ -1902,7 +1859,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton4_Click(object sender, EventArgs e)
+        private async void iconButton4_Click(object sender, EventArgs e)
         {
             if (dtgHistorialOp.SelectedRows.Count > 0)
             {
@@ -1957,7 +1914,7 @@ namespace Presentacion.Marcas_Nacionales
                             }
                         }
 
-                        loadHistorialById();
+                        await loadHistorialById();
                         refrescarMarca();
                     }
                 }
@@ -2236,9 +2193,9 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void dtgMarcasO_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgMarcasO_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private void dtgHistorialOp_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2288,11 +2245,11 @@ namespace Presentacion.Marcas_Nacionales
 
                         if (SeleccionarOposicion.idMarca > 0)
                         {
-                            loadHistorialById();
+                            await loadHistorialById();
                         }
                         else if (SeleccionarOposicion.idMarca == 0)
                         {
-                            loadHistorialOposicion();
+                            await loadHistorialOposicion();
                         }
 
                         FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2348,7 +2305,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (txtBuscar.Text != "")
             {
-                DataTable marcas = await marcaModel.FiltrarMarcasNacionalesEnOposicion(txtBuscar.Text);
+                DataTable marcas = await oposicionModel.FiltrarOposicionesInternacionalesRecibidas(txtBuscar.Text,currentPageIndex, pageSize);
                 if (marcas.Rows.Count > 0)
                 {
                     dtgMarcasOp.DataSource = marcas;
@@ -2361,7 +2318,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN MARCAS RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    FrmAlerta alerta = new FrmAlerta("NO EXISTEN OPOSICIONES RECIBIDAS CON ESOS DATOS", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                     alerta.ShowDialog();
                     await FiltrarPorSituacionActual();
                     //LoadMarcas();
@@ -2427,8 +2384,6 @@ namespace Presentacion.Marcas_Nacionales
                 IdMarca = null;
             }
 
-
-
             try
             {
                 bool actualizado = false;
@@ -2472,6 +2427,9 @@ namespace Presentacion.Marcas_Nacionales
                     AnadirTabPage(tabPageListaMarcas);
                     cmbSituacionActual.SelectedIndex = 0;
                     cmbSituacionActualI.SelectedIndex = 0;
+                    await FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActualInterpuestas();
+                    
                     EliminarTabPage(tabPageAgregarOposicion);
                 }
 
@@ -2546,7 +2504,6 @@ namespace Presentacion.Marcas_Nacionales
                 FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-
         }
 
         private async void btnGuardarU_Click(object sender, EventArgs e)
@@ -2934,9 +2891,9 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void dtgOpI_DoubleClick(object sender, EventArgs e)
+        private async void dtgOpI_DoubleClick(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         public async Task Filtrar()
@@ -2977,8 +2934,6 @@ namespace Presentacion.Marcas_Nacionales
                 }
             }
 
-
-
             if (checkBoxEstadoReporte.Checked)
             { estado = comboBoxEstadoReporte.SelectedItem.ToString(); }
             else { estado = null; }
@@ -3013,7 +2968,7 @@ namespace Presentacion.Marcas_Nacionales
             else { tipoOposicion = null; }
 
 
-            dtgReportesOp.DataSource = oposicionModel.FiltrarOposiciones("op_internacionales", expediente, solicitante, signo_pretendido,
+            dtgReportesOp.DataSource = await oposicionModel.FiltrarOposiciones("op_internacionales", expediente, solicitante, signo_pretendido,
                 signoDistintivo, clase, opositor, signoOpositor, estado, situacionA, "internacional", tipoOposicion);
             dtgReportesOp.ClearSelection();
 
@@ -3561,51 +3516,6 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        /*
-        private void CentrarTableLayoutReporte()
-        {
-            int anchoMinimo = 762 + 100;
-
-            if (this.ClientSize.Width >= anchoMinimo)
-            {
-                // Centrar horizontalmente
-                tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
-                int x = (this.ClientSize.Width - tableLayoutPanelReportes.Width) / 2;
-                int y = tableLayoutPanelReportes.Location.Y; // mantener posición vertical
-
-                tableLayoutPanelReportes.Location = new System.Drawing.Point(x, y);
-            }
-            else
-            {
-                // Pantalla más pequeña → alinear arriba a la izquierda
-                tableLayoutPanelReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                tableLayoutPanelReportes.Location = new System.Drawing.Point(0, tableLayoutPanelReportes.Location.Y);
-            }
-        }*/
-
-        /*
-        private void CentrarDataGridView()
-        {
-            //panelDataGridView.Visible = false;
-
-            int anchoMinimo = 762 + 100;
-
-            if (this.ClientSize.Width >= anchoMinimo)
-            {
-                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                int x = (this.ClientSize.Width - panelDataGridView.Width) / 2;
-                int y = panelDataGridView.Location.Y;
-                panelDataGridView.Location = new System.Drawing.Point(x, y);
-            }
-            else
-            {
-                panelDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                panelDataGridView.Location = new System.Drawing.Point(0, panelDataGridView.Location.Y);
-            }
-
-        }*/
-
         private void CentrarDataGridView()
         {
             int anchoMinimo = 862; // mismo valor que usas en el otro método
@@ -3712,9 +3622,6 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void tabPageReportes_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

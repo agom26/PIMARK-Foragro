@@ -64,12 +64,12 @@ namespace Presentacion.Marcas_Nacionales
             labelUsuarioAbandono.Visible = false;
             usuarioAbandono = UsuarioActivo.usuario;
 
-            richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
+            //richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
+            //richTextBoxJustificacion.Text = dateTimePicker1.Value.ToString("dd/MM/yyyy") + " " + "Abandono";
         }
     }
 }

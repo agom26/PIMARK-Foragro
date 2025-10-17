@@ -28,7 +28,7 @@ namespace Dominio
         //internacionales
         public async Task<(int total, DataTable datos)> ObtenerOposicionesInternacionalesInterpuestasCombinado(string situacionActual, int currentPageIndex, int pageSize)
         {
-            return await oposicionDao.ObtenerOposicionesNacionalesInterpuestasCombinado(situacionActual, currentPageIndex, pageSize);
+            return await oposicionDao.ObtenerOposicionesInternacionalesInterpuestasCombinado(situacionActual, currentPageIndex, pageSize);
         }
 
         public async Task<(int total, DataTable datos)> ObtenerOposicionesInternacionalesRecibidasCombinado(string situacionActual, int currentPageIndex, int pageSize)
@@ -107,6 +107,7 @@ namespace Dominio
         {
             return await oposicionDao.GetFilteredOposicionesNacionalesInterpuestasCount(value);
         }
+
         public async Task<DataTable> FiltrarOposicionesNacionalesInterpuestas(string filtro, int currentPageIndex, int pageSize)
         {
             return await oposicionDao.FiltrarOposicionesNacionalesInterpuestas(filtro, currentPageIndex, pageSize);

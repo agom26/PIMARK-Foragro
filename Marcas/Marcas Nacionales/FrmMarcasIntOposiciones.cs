@@ -8,7 +8,6 @@ using PuppeteerSharp;
 using PuppeteerSharp.Media;
 using System.Data;
 using System.Reflection;
-using System.Text.Json;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -646,19 +645,31 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void FrmMarcasIntOposiciones_Load(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             cmbSituacionActual.SelectedIndex = 0;
             cmbSituacionActualI.SelectedIndex = 0;
-
-           
-
             AnadirTabPage(tabPageOposicionesList);
             EliminarTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             EliminarTabPage(tabPageReportes);
             EliminarTabPage(tabPageAgregarOposicion);
+            ActualizarFechaVencimiento();
+
+            // Ejecutar ambas tareas en paralelo
+            var tareasFiltrado = new Task[]
+            {
+                FiltrarPorSituacionActual(),
+                FiltrarPorSituacionActualInterpuestas()
+            };
+
+            await Task.WhenAll(tareasFiltrado);
+            //tabControl1.Visible = true;
+            Cursor = Cursors.Default;
+
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
+
             currentPageIndex2 = 1;
             lblCurrentPage2.Text = currentPageIndex2.ToString();
 
@@ -741,6 +752,7 @@ namespace Presentacion.Marcas_Internacionales
                 dtgReportesOp.ClearSelection();
             }*/
         }
+
         private async Task CargarDatosOposicion()
         {
             try
@@ -1709,6 +1721,8 @@ namespace Presentacion.Marcas_Internacionales
                     AnadirTabPage(tabPageOposicionesList);
                     cmbSituacionActual.SelectedIndex = 0;
                     cmbSituacionActualI.SelectedIndex = 0;
+                    await FiltrarPorSituacionActual();
+                    await FiltrarPorSituacionActualInterpuestas();
                     EliminarTabPage(tabPageAgregarOposicion);
                 }
 
@@ -1764,9 +1778,10 @@ namespace Presentacion.Marcas_Internacionales
                     FrmAlerta alerta = new FrmAlerta("OPOSICIÓN AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     AnadirTabPage(tabPageOposicionesList);
-                    LimpiarFormularioOposicion();
                     cmbSituacionActualI.SelectedIndex = 0;
                     EliminarTabPage(tabPageAgregarOposicion);
+                    LimpiarFormularioOposicion();
+                   
                 }
                 else
                 {
@@ -2279,7 +2294,7 @@ namespace Presentacion.Marcas_Internacionales
         }
         public async Task Filtrar()
         {
-            string objeto = null;
+            
             string expediente = null;
             string solicitante = null;
             string signo_pretendido = null;
