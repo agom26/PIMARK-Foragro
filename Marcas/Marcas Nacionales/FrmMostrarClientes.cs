@@ -1,17 +1,8 @@
 ﻿using Comun.Cache;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -37,10 +28,10 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadClientes()
         {
-            totalRows = personaModel.GetTotalClientes();
+            totalRows = await personaModel.GetTotalClientes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
+            var titulares = await  personaModel.GetAllClientes(currentPageIndex, pageSize);
 
             Invoke(new Action(() =>
             {
@@ -57,16 +48,16 @@ namespace Presentacion.Marcas_Internacionales
 
             }));
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgClientes.DataSource = titulares;
@@ -103,20 +94,20 @@ namespace Presentacion.Marcas_Internacionales
             this.Close();
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+            totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             if (dtgClientes.RowCount <= 0)
             {
@@ -136,7 +127,7 @@ namespace Presentacion.Marcas_Internacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarPersona.idPersonaC = id;
                     //MessageBox.Show("id" + SeleccionarPersona.idPersonaC);
-                    var detallesCliente = personaModel.GetPersonaById(id);
+                    var detallesCliente = await personaModel.GetPersonaById(id);
 
                     if (detallesCliente.Count > 0)
                     {
@@ -240,26 +231,26 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private async void iconButton6_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -268,7 +259,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -285,7 +276,7 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -303,7 +294,7 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -319,7 +310,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {

@@ -92,10 +92,10 @@ namespace Presentacion.Personas
         }
         private async Task LoadAgentes()
         {
-            totalRows = await Task.Run(() => personaModel.GetTotalAgentes());
+            totalRows = await  personaModel.GetTotalAgentes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-            var agentes = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
+            var agentes = await  personaModel.GetAllAgentes(currentPageIndex, pageSize);
             void Apply()
             {
                 lblTotalPages.Text = totalPages.ToString();
@@ -117,7 +117,7 @@ namespace Presentacion.Personas
         
 
        
-        private async Task AnadirTabPage(TabPage nombre)
+        private void AnadirTabPage(TabPage nombre)
         {
             if (!tabControl1.TabPages.Contains(nombre))
             {
@@ -153,12 +153,12 @@ namespace Presentacion.Personas
             btnGuardarU.Visible = false;
         }
 
-        private async void ibtnAgregar_Click(object sender, EventArgs e)
+        private void ibtnAgregar_Click(object sender, EventArgs e)
         {
 
             tabControl1.Visible = false;
             LimpiarCampos();
-            await AnadirTabPage(tabPageAgenteDetail);
+            AnadirTabPage(tabPageAgenteDetail);
 
             btnGuardarU.Text = "AGREGAR";
             btnGuardarU.BackColor = Color.FromArgb(50, 164, 115);
@@ -210,7 +210,7 @@ namespace Presentacion.Personas
                 int idPersona = EditarPersona.idPersona;
                 btnCambios.Image = Properties.Resources.lapiz;
                 btnCambios.Text = "EDITAR";
-                var titularDetails = personaModel.GetPersonaById(idPersona);
+                var titularDetails = await personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)
                 {
@@ -249,7 +249,7 @@ namespace Presentacion.Personas
 
         }
 
-        private async void btnGuardarTit_Click(object sender, EventArgs e)
+        private void btnGuardarTit_Click(object sender, EventArgs e)
         {
 
         }
@@ -386,7 +386,7 @@ namespace Presentacion.Personas
             // Verificar si hay un titular seleccionado
             if (dtgAgentes.SelectedRows.Count > 0)
             {
-                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+                var userDetails = await personaModel.GetPersonaById(EditarPersona.idPersona);
 
 
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al agente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -397,7 +397,7 @@ namespace Presentacion.Personas
                     {
 
                         string currentUser = UsuarioActivo.usuario;
-                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        bool isDeleted = await personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
@@ -440,16 +440,16 @@ namespace Presentacion.Personas
         {
 
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgAgentes.DataSource = titulares;
@@ -495,26 +495,26 @@ namespace Presentacion.Personas
             }
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+            totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private async void iconButton2_Click(object sender, EventArgs e)
         {
             if (dtgAgentes.SelectedRows.Count > 0)
             {
                 int idPersona = EditarPersona.idPersona;
 
-                var titularDetails = personaModel.GetPersonaById(idPersona);
+                var titularDetails = await personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)
                 {
@@ -556,7 +556,7 @@ namespace Presentacion.Personas
 
         }
 
-        private async void btnActualizar_Click(object sender, EventArgs e)
+        private void btnActualizar_Click(object sender, EventArgs e)
         {
 
         }
@@ -594,7 +594,7 @@ namespace Presentacion.Personas
                     if (btnGuardarU.Text == "AGREGAR")
                     {
                         // Ejecutar la operación de adición de manera asíncrona
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        await  personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);
                         FrmAlerta alerta = new FrmAlerta("AGENTE AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         EliminarTabPage(tabPageAgenteDetail);
@@ -608,14 +608,14 @@ namespace Presentacion.Personas
                         try
                         {
                             // Ejecutar la operación de actualización de manera asíncrona
-                            bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                            bool update = await  personaModel.UpdatePersona(EditarPersona.idPersona,
                                 txtNombreAgente.Text,
                                 txtDireccionAgente.Text,
                                 txtNitAgente.Text,
                                 pais,
                                 txtCorreoContacto.Text,
                                 txtTelefonoContacto.Text,
-                                txtNombreContacto.Text));
+                                txtNombreContacto.Text);
 
                             if (update)
                             {
@@ -694,19 +694,19 @@ namespace Presentacion.Personas
             await LoadAgentes();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -715,7 +715,7 @@ namespace Presentacion.Personas
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -732,7 +732,7 @@ namespace Presentacion.Personas
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -750,7 +750,7 @@ namespace Presentacion.Personas
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -766,7 +766,7 @@ namespace Presentacion.Personas
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -792,7 +792,7 @@ namespace Presentacion.Personas
             // Verificar si hay un agente seleccionado
             if (dtgAgentes.SelectedRows.Count > 0)
             {
-                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+                var userDetails = await personaModel.GetPersonaById(EditarPersona.idPersona);
 
 
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al agente '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -803,7 +803,7 @@ namespace Presentacion.Personas
                     {
 
                         string currentUser = UsuarioActivo.usuario;
-                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        bool isDeleted = await personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {

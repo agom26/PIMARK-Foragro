@@ -1,22 +1,11 @@
 ﻿using Comun;
 using Comun.Cache;
 using Dominio;
-using FontAwesome.Sharp;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
 
 namespace Presentacion.Personas
 {
@@ -108,10 +97,10 @@ namespace Presentacion.Personas
 
         private async Task LoadTitulares()
         {
-            totalRows = await Task.Run(() => personaModel.GetTotalTitulares());
+            totalRows = await  personaModel.GetTotalTitulares();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllTitulares(currentPageIndex, pageSize));
+            var titulares = await  personaModel.GetAllTitulares(currentPageIndex, pageSize);
             void Apply()
             {
                 lblTotalPages.Text = totalPages.ToString();
@@ -202,7 +191,7 @@ namespace Presentacion.Personas
                 btnCambios.Image = Properties.Resources.lapiz;
                 btnCambios.Text = "EDITAR";
 
-                var titularDetails = personaModel.GetPersonaById(idPersona);
+                var titularDetails = await personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)
                 {
@@ -261,7 +250,7 @@ namespace Presentacion.Personas
             dtgTitulares.ClearSelection();
         }
 
-        private async void btnGuardarTit_Click(object sender, EventArgs e)
+        private  void btnGuardarTit_Click(object sender, EventArgs e)
         {
 
         }
@@ -412,7 +401,7 @@ namespace Presentacion.Personas
             // Verificar si hay un titular seleccionado
             if (dtgTitulares.SelectedRows.Count > 0)
             {
-                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+                var userDetails = await personaModel.GetPersonaById(EditarPersona.idPersona);
 
                 // Preguntar si el usuario está seguro de eliminar ese Usuario
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al titular '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -423,7 +412,7 @@ namespace Presentacion.Personas
                     {
                         // Eliminar el usuario y registrar en el log
                         string currentUser = UsuarioActivo.usuario; // El nombre del usuario que está realizando la eliminación (cambiar según tu sistema)
-                        bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        bool isDeleted = await personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
@@ -456,16 +445,16 @@ namespace Presentacion.Personas
         {
 
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredTitularesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = personaModel.GetTitularByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetTitularByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgTitulares.DataSource = titulares;
@@ -489,26 +478,26 @@ namespace Presentacion.Personas
                 await LoadTitulares();
             }
         }
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+            totalRows = await personaModel.GetFilteredTitularesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private async void iconButton2_Click(object sender, EventArgs e)
         {
             if (dtgTitulares.SelectedRows.Count > 0)
             {
                 int idPersona = EditarPersona.idPersona;
 
-                var titularDetails = personaModel.GetPersonaById(idPersona);
+                var titularDetails = await personaModel.GetPersonaById(idPersona);
 
                 if (titularDetails.Count > 0)
                 {
@@ -550,7 +539,7 @@ namespace Presentacion.Personas
 
         }
 
-        private async void btnGuardarTitular_Click(object sender, EventArgs e)
+        private void btnGuardarTitular_Click(object sender, EventArgs e)
         {
 
         }
@@ -595,7 +584,7 @@ namespace Presentacion.Personas
                     if (btnGuardarU.Text == "AGREGAR")
                     {
 
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        await  personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);
                         FrmAlerta alerta = new FrmAlerta("TITULAR AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         //MessageBox.Show("Titular agregado exitosamente");
@@ -603,14 +592,14 @@ namespace Presentacion.Personas
                     }
                     else if (btnGuardarU.Text == "EDITAR")
                     {
-                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                        bool update = await  personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreTitular.Text,
                             txtDireccionTitular.Text,
                             txtNitTitular.Text,
                             pais,
                             txtCorreoContacto.Text,
                             telefono,
-                            txtNombreContacto.Text));
+                            txtNombreContacto.Text);
 
                         if (update)
                         {
@@ -662,19 +651,19 @@ namespace Presentacion.Personas
             await LoadTitulares();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = personaModel.GetFilteredTitularesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredTitularesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -683,7 +672,7 @@ namespace Presentacion.Personas
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -700,7 +689,7 @@ namespace Presentacion.Personas
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -718,7 +707,7 @@ namespace Presentacion.Personas
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -734,7 +723,7 @@ namespace Presentacion.Personas
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -786,7 +775,7 @@ namespace Presentacion.Personas
             VerificarSeleccion();
             if (dtgTitulares.SelectedRows.Count > 0)
             {
-                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+                var userDetails = await personaModel.GetPersonaById(EditarPersona.idPersona);
 
 
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿Está seguro de que desea eliminar al titular'{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -797,7 +786,7 @@ namespace Presentacion.Personas
                     {
 
                         string currentUser = UsuarioActivo.usuario;
-                        bool isDeleted = personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        bool isDeleted = await personaModel.DeleteAgente(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {

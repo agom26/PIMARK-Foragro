@@ -1,10 +1,353 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class PersonaDao
+    {
+        private readonly string urlApi = "https://foragro.com.es/peticiones/personas.php";
+        private static readonly JsonSerializerOptions JsonOpts = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        /* ================= Helpers base ================= */
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var resp = await client.PostAsync(urlApi, content);
+            resp.EnsureSuccessStatusCode();
+
+            string body = await resp.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(body))
+                return JsonDocument.Parse("{}");
+
+            return JsonDocument.Parse(body);
+        }
+
+        private static DataTable JsonArrayToDataTable(JsonElement root)
+        {
+            var table = new DataTable();
+
+            if (root.ValueKind != JsonValueKind.Array)
+                return table;
+
+            foreach (var el in root.EnumerateArray())
+            {
+                if (table.Columns.Count == 0)
+                {
+                    foreach (var prop in el.EnumerateObject())
+                    {
+                        if (!table.Columns.Contains(prop.Name))
+                            table.Columns.Add(prop.Name);
+                    }
+                }
+
+                var row = table.NewRow();
+                foreach (var prop in el.EnumerateObject())
+                    row[prop.Name] = prop.Value.ValueKind switch
+                    {
+                        JsonValueKind.String => prop.Value.GetString(),
+                        JsonValueKind.Number => prop.Value.GetRawText(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Null => DBNull.Value,
+                        _ => prop.Value.ToString()
+                    };
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
+
+        private static (int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)? ParsePersona(JsonElement obj)
+        {
+            if (obj.ValueKind != JsonValueKind.Object) return null;
+
+            int id = obj.TryGetProperty("id", out var idEl) && idEl.TryGetInt32(out var vi) ? vi : 0;
+            string nombre = obj.TryGetProperty("nombre", out var p1) ? p1.GetString() : null;
+            string direccion = obj.TryGetProperty("direccion", out var p2) ? p2.GetString() : null;
+            string nit = obj.TryGetProperty("nit", out var p3) ? p3.GetString() : null;
+            string pais = obj.TryGetProperty("pais", out var p4) ? p4.GetString() : null;
+            string correo = obj.TryGetProperty("correo", out var p5) ? p5.GetString() : null;
+            string telefono = obj.TryGetProperty("telefono", out var p6) ? p6.GetString() : null;
+            string contacto = obj.TryGetProperty("nombre_contacto", out var p7) ? p7.GetString()
+                               : (obj.TryGetProperty("contacto", out var p8) ? p8.GetString() : null);
+
+            return (id, nombre, direccion, nit, pais, correo, telefono, contacto);
+        }
+
+        /* ================= Acciones ================= */
+
+        // AddPersona
+        public async Task<bool> AddPersona(string nombre, string direccion, string nit, string pais, string correo, string telefono, string nombreContacto, string tipo)
+        {
+            var data = new
+            {
+                action = "add_persona",
+                nombre,
+                direccion,
+                nit,
+                pais,
+                correo,
+                telefono,
+                nombreContacto,
+                tipo
+            };
+
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("success", out var ok) && ok.GetBoolean();
+        }
+
+        // UpdatePersona
+        public async Task<bool> UpdatePersona(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string nombreContacto)
+        {
+            var data = new
+            {
+                action = "update_persona",
+                id,
+                nombre,
+                direccion,
+                nit,
+                pais,
+                correo,
+                telefono,
+                nombreContacto
+            };
+
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("success", out var ok) && ok.GetBoolean();
+        }
+
+        // GetTitularByValue
+        public async Task<DataTable> GetTitularByValue(string value, int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_titular_by_value",
+                searchValue = value,
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // GetAgenteByValue
+        public async Task<DataTable> GetAgenteByValue(string value, int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_agente_by_value",
+                searchValue = value,
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // GetClienteByValue
+        public async Task<DataTable> GetClienteByValue(string value, int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_cliente_by_value",
+                searchValue = value,
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // GetById
+        public async Task<List<(int id, string nombre, string direccion, string nit, string pais, string correo, string telefono, string contacto)>> GetById(int id)
+        {
+            var data = new { action = "get_persona_by_id", id };
+            using var doc = await PostAsync(data);
+
+            var list = new List<(int, string, string, string, string, string, string, string)>();
+            var parsed = ParsePersona(doc.RootElement);
+            if (parsed.HasValue) list.Add(parsed.Value);
+            return list;
+        }
+
+        // GetTotalTitulares
+        public async Task<int> GetTotalTitulares()
+        {
+            using var doc = await PostAsync(new { action = "get_total_titulares" });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetTotalAgentes
+        public async Task<int> GetTotalAgentes()
+        {
+            using var doc = await PostAsync(new { action = "get_total_agentes" });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetTotalClientes
+        public async Task<int> GetTotalClientes()
+        {
+            using var doc = await PostAsync(new { action = "get_total_clientes" });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetFilteredTitularesCount
+        public async Task<int> GetFilteredTitularesCount(string value)
+        {
+            using var doc = await PostAsync(new { action = "get_filtered_titulares_count", value });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetFilteredAgentesCount
+        public async Task<int> GetFilteredAgentesCount(string value)
+        {
+            using var doc = await PostAsync(new { action = "get_filtered_agentes_count", value });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetFilteredClientesCount
+        public async Task<int> GetFilteredClientesCount(string value)
+        {
+            using var doc = await PostAsync(new { action = "get_filtered_clientes_count", value });
+            return doc.RootElement.TryGetProperty("total", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // GetAllTitulares
+        public async Task<DataTable> GetAllTitulares(int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_all_titulares",
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // GetAllAgentes
+        public async Task<DataTable> GetAllAgentes(int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_all_agentes",
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // GetAllClientes
+        public async Task<DataTable> GetAllClientes(int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_all_clientes",
+                currentPageIndex,
+                pageSize
+            };
+            using var doc = await PostAsync(data);
+
+            var root = doc.RootElement;
+            return root.ValueKind == JsonValueKind.Array
+                ? JsonArrayToDataTable(root)
+                : (root.TryGetProperty("registros", out var arr) ? JsonArrayToDataTable(arr) : new DataTable());
+        }
+
+        // RemoveTitular
+        public async Task<bool> RemoveTitular(int personaId, string deletedUser, string deletedBy)
+        {
+            var data = new
+            {
+                action = "remove_persona",
+                personaId,
+                deletedUser,
+                deletedBy,
+                tipo = "titular"
+            };
+            using var doc = await PostAsync(data);
+
+            // success true/false y puede venir error
+            if (doc.RootElement.TryGetProperty("success", out var ok))
+                return ok.ValueKind == JsonValueKind.True;
+
+            return false;
+        }
+
+        // RemoveAgente
+        public async Task<bool> RemoveAgente(int personaId, string deletedUser, string deletedBy)
+        {
+            var data = new
+            {
+                action = "remove_persona",
+                personaId,
+                deletedUser,
+                deletedBy,
+                tipo = "agente"
+            };
+            using var doc = await PostAsync(data);
+            if (doc.RootElement.TryGetProperty("success", out var ok))
+                return ok.ValueKind == JsonValueKind.True;
+
+            return false;
+        }
+
+        // RemoveCliente
+        public async Task<bool> RemoveCliente(int personaId, string deletedUser, string deletedBy)
+        {
+            var data = new
+            {
+                action = "remove_persona",
+                personaId,
+                deletedUser,
+                deletedBy,
+                tipo = "cliente"
+            };
+            using var doc = await PostAsync(data);
+            if (doc.RootElement.TryGetProperty("success", out var ok))
+                return ok.ValueKind == JsonValueKind.True;
+
+            return false;
+        }
+    }
+}
+
+/*
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace AccesoDatos.Entidades
 {
@@ -514,4 +857,4 @@ namespace AccesoDatos.Entidades
         }
 
     }
-}
+}*/

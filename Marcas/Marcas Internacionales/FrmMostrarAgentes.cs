@@ -36,10 +36,10 @@ namespace Presentacion.Marcas_Nacionales
 
         private async Task LoadAgentes()
         {
-            totalRows = personaModel.GetTotalAgentes();
+            totalRows = await personaModel.GetTotalAgentes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllAgentes(currentPageIndex, pageSize));
+            var titulares = await  personaModel.GetAllAgentes(currentPageIndex, pageSize);
 
             if(this.IsHandleCreated && !this.IsDisposed)
             {
@@ -60,16 +60,16 @@ namespace Presentacion.Marcas_Nacionales
             }
            
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetAgenteByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgAgentes.DataSource = titulares;
@@ -165,20 +165,20 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+            totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             if (dtgAgentes.RowCount <= 0)
             {
@@ -196,7 +196,7 @@ namespace Presentacion.Marcas_Nacionales
                     SeleccionarPersona.idPersonaA = id;
 
                     // Obtén los detalles de la persona utilizando el ID
-                    var detallesAgente = personaModel.GetPersonaById(id);
+                    var detallesAgente = await personaModel.GetPersonaById(id);
                     if (detallesAgente.Count > 0)
                     {
                         // Asignar los valores obtenidos a la clase SeleccionarPersona
@@ -227,26 +227,26 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private async void iconButton6_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = personaModel.GetFilteredAgentesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredAgentesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -255,7 +255,7 @@ namespace Presentacion.Marcas_Nacionales
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -272,7 +272,7 @@ namespace Presentacion.Marcas_Nacionales
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -290,7 +290,7 @@ namespace Presentacion.Marcas_Nacionales
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -306,7 +306,7 @@ namespace Presentacion.Marcas_Nacionales
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {

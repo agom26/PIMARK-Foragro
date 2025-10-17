@@ -844,7 +844,7 @@
             roundedButton1.Name = "roundedButton1";
             roundedButton1.Size = new Size(174, 49);
             roundedButton1.TabIndex = 191;
-            roundedButton1.Text = "CLIENTES";
+            roundedButton1.Text = "GRUPOS";
             roundedButton1.TextAlign = ContentAlignment.MiddleLeft;
             roundedButton1.TextColor = Color.Black;
             roundedButton1.TextImageRelation = TextImageRelation.ImageBeforeText;

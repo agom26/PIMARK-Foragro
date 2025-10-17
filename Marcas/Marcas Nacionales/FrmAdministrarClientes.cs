@@ -3,17 +3,7 @@ using Comun.Cache;
 using Dominio;
 using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
-using Presentacion.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Marcas_Internacionales
 {
@@ -101,11 +91,11 @@ namespace Presentacion.Marcas_Internacionales
 
         private async Task LoadClientes()
         {
-            totalRows = await Task.Run(() => personaModel.GetTotalClientes());
+            totalRows = await  personaModel.GetTotalClientes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             // Obtiene los clientes
-            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
+            var titulares = await  personaModel.GetAllClientes(currentPageIndex, pageSize);
             void Apply()
             {
                 lblTotalPages.Text = totalPages.ToString();
@@ -127,7 +117,7 @@ namespace Presentacion.Marcas_Internacionales
         }
        
 
-        public async void filtrar()
+        public async Task filtrar()
         {
 
             string buscar = txtBuscar.Text.Trim();
@@ -135,11 +125,8 @@ namespace Presentacion.Marcas_Internacionales
             if (!string.IsNullOrEmpty(buscar))
             {
 
-
-
-
                 // Obtener los clientes filtrados desde la base de datos con OFFSET correcto
-                DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
 
                 if (titulares.Rows.Count > 0)
                 {
@@ -176,7 +163,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private async void btnGuardarCliente_Click(object sender, EventArgs e)
+        private  void btnGuardarCliente_Click(object sender, EventArgs e)
         {
 
         }
@@ -184,7 +171,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void FrmAdministrarClientes_Load(object sender, EventArgs e)
         {
             // Cargar titulares en segundo plano
-            await Task.Run(() => LoadClientes());
+            await  LoadClientes();
             currentPageIndex = 1;
             lblCurrentPage.Text = currentPageIndex.ToString();
 
@@ -252,7 +239,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public async void EditarCliente()
+        public async Task EditarCliente()
         {
             
             if (dtgClientes.SelectedRows.Count > 0)
@@ -264,7 +251,7 @@ namespace Presentacion.Marcas_Internacionales
                     tabControl1.Visible = false;
                     int idPersona = EditarPersona.idPersona;
 
-                    var clienteDetails = await Task.Run(() => personaModel.GetPersonaById(idPersona));
+                    var clienteDetails = await personaModel.GetPersonaById(idPersona);
 
                     if (clienteDetails.Count > 0)
                     {
@@ -323,7 +310,7 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            EditarCliente();
+            await EditarCliente();
         }
 
         private async void ibtnEliminar_Click(object sender, EventArgs e)
@@ -331,7 +318,7 @@ namespace Presentacion.Marcas_Internacionales
             //Eliminar
             if (dtgClientes.SelectedRows.Count > 0)
             {
-                var userDetails = personaModel.GetPersonaById(EditarPersona.idPersona);
+                var userDetails = await personaModel.GetPersonaById(EditarPersona.idPersona);
 
                 DialogResult result = MessageBox.Show(UsuarioActivo.usuario + $" ¿ESTÁ SEGURO DE ELIMINAR AL GRUPO '{userDetails[0].nombre}'?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -341,7 +328,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
 
                         string currentUser = UsuarioActivo.usuario;
-                        bool isDeleted = personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
+                        bool isDeleted = await personaModel.DeleteTitular(userDetails[0].id, userDetails[0].nombre, currentUser);
 
                         if (isDeleted)
                         {
@@ -409,27 +396,27 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+            totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private async void iconButton2_Click(object sender, EventArgs e)
         {
             if (dtgClientes.SelectedRows.Count > 0)
             {
                 int idPersona = EditarPersona.idPersona;
 
-                var clienteDetails = personaModel.GetPersonaById(idPersona);
+                var clienteDetails = await personaModel.GetPersonaById(idPersona);
                 if (clienteDetails.Count > 0)
                 {
 
@@ -507,7 +494,7 @@ namespace Presentacion.Marcas_Internacionales
                     if (btnGuardarU.Text == "AGREGAR")
                     {
 
-                        await Task.Run(() => personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo));
+                        await  personaModel.AddPersona(nombre, direccion, nit, pais, correo, telefono, contacto, tipo);
                         FrmAlerta alerta = new FrmAlerta("GRUPO AGREGADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
                         //MessageBox.Show("Cliente agregado exitosamente");
@@ -515,14 +502,14 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else if (btnGuardarU.Text == "EDITAR")
                     {
-                        bool update = await Task.Run(() => personaModel.UpdatePersona(EditarPersona.idPersona,
+                        bool update = await  personaModel.UpdatePersona(EditarPersona.idPersona,
                             txtNombreCliente.Text,
                             txtDireccionCliente.Text,
                             txtNitCliente.Text,
                             pais,
                             txtCorreoContacto.Text,
                             txtTelefonoContacto.Text,
-                            txtNombreContacto.Text));
+                            txtNombreContacto.Text);
 
                         if (update)
                         {
@@ -557,10 +544,10 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             buscando = false;
-            EditarCliente();
+            await EditarCliente();
         }
 
         private void txtNombreCliente_TextChanged(object sender, EventArgs e)
@@ -568,19 +555,19 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -589,7 +576,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -606,7 +593,7 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -628,7 +615,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -639,7 +626,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -656,7 +643,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -720,27 +707,27 @@ namespace Presentacion.Marcas_Internacionales
                         string usuario = UsuarioActivo.usuario;
 
                         // Intentar eliminar
-                        bool eliminado = await Task.Run(() =>
-                        {
+                        bool eliminado = false;
+                        
                             try
                             {
-                                return personaModel.DeleteAgente(idPersona, nombrePersona, usuario); // O DeleteCliente si corresponde
+                                eliminado= await personaModel.DeleteAgente(idPersona, nombrePersona, usuario); // O DeleteCliente si corresponde
                             }
                             catch (MySqlException ex)
                             {
                                 FrmAlerta alerta = new FrmAlerta($"No se puede eliminar al grupo: { ex.Message }", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 alerta.ShowDialog();
                                 
-                                return false;
+                                
                             }
                             catch (Exception ex)
                             {
                                 // Manejar mensajes del SIGNAL del procedimiento almacenado
                                 FrmAlerta alerta=new FrmAlerta($"Error: {ex.Message}+\nEs posible que este relacionado a una marca/patente", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 alerta.ShowDialog();
-                                return false;
+                                
                             }
-                        });
+                        
 
                         if (eliminado)
                         {
@@ -766,7 +753,6 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
             }
         }
-
 
         private async void btnEliminar_Click(object sender, EventArgs e)
         {

@@ -1,16 +1,8 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Presentacion.Reportes
 {
@@ -33,14 +25,12 @@ namespace Presentacion.Reportes
             this.Load += FrmMostrarClientesReportes_Load;
         }
 
-
-
         private async Task LoadClientes()
         {
-            totalRows = personaModel.GetTotalClientes();
+            totalRows = await personaModel.GetTotalClientes();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             // Obtiene los usuarios
-            var titulares = await Task.Run(() => personaModel.GetAllClientes(currentPageIndex, pageSize));
+            var titulares = await  personaModel.GetAllClientes(currentPageIndex, pageSize);
 
             Invoke(new Action(() =>
             {
@@ -57,16 +47,16 @@ namespace Presentacion.Reportes
 
             }));
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
             {
-                totalRows = personaModel.GetFilteredClientesCount(txtBuscar.Text);
+                totalRows = await personaModel.GetFilteredClientesCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await personaModel.GetClienteByValue(buscar, currentPageIndex, pageSize);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgClientes.DataSource = titulares;
@@ -103,12 +93,12 @@ namespace Presentacion.Reportes
             this.Close();
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             if (dtgClientes.RowCount <= 0)
             {
@@ -128,7 +118,7 @@ namespace Presentacion.Reportes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarPersonaReportes.idCliente = id;
                     //MessageBox.Show("id" + SeleccionarPersona.idPersonaC);
-                    var detallesCliente = personaModel.GetPersonaById(id);
+                    var detallesCliente = await personaModel.GetPersonaById(id);
 
                     if (detallesCliente.Count > 0)
                     {
@@ -225,17 +215,17 @@ namespace Presentacion.Reportes
             lblCurrentPage.Text = currentPageIndex.ToString();
         }
 
-        private void iconButton6_Click(object sender, EventArgs e)
+        private async void iconButton6_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                filtrar();
+                await filtrar();
             }
         }
 
@@ -244,7 +234,7 @@ namespace Presentacion.Reportes
             currentPageIndex = 1;
             if (txtBuscar.Text != "")
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -261,7 +251,7 @@ namespace Presentacion.Reportes
                 currentPageIndex--;
                 if (txtBuscar.Text != "")
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -279,7 +269,7 @@ namespace Presentacion.Reportes
                 currentPageIndex++;
                 if (txtBuscar.Text != "")
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -295,7 +285,7 @@ namespace Presentacion.Reportes
             currentPageIndex = totalPages;
             if (txtBuscar.Text != "")
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
