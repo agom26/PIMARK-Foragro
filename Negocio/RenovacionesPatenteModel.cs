@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AccesoDatos;
 using AccesoDatos.Entidades;
 namespace Dominio
@@ -17,23 +13,23 @@ namespace Dominio
             renovacionesDao = new RenovacionesPatenteDao();
         }
 
-        public void AddRenovacion(string numExpediente, int idPatente, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
+        public async Task AddRenovacion(string numExpediente, int idPatente, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
         {
-            renovacionesDao.InsertRenovacionPatente(numExpediente, idPatente, fechaVencimientoAntigua, fechaVencimientoNueva);
+            await renovacionesDao.InsertRenovacionPatente(numExpediente, idPatente, fechaVencimientoAntigua, fechaVencimientoNueva);
         }
 
-        public DataTable GetAllRenovacionesByIdPatente(int idPatente)
+        public async Task<DataTable> GetAllRenovacionesByIdPatente(int idPatente)
         {
-            return renovacionesDao.ObtenerRenovacionesDePatentePorId(idPatente);
+            return await renovacionesDao.ObtenerRenovacionesDePatentePorId(idPatente);
         }
 
-        public DataTable GetRenovacionById(int id)
+        public async Task<DataTable> GetRenovacionById(int id)
         {
-            return renovacionesDao.ObtenerRenovacionPorId(id);
+            return await renovacionesDao.ObtenerRenovacionPorId(id);
         }
-        public bool ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
+        public async Task<bool> ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
         {
-            return renovacionesDao.ActualizarRenovacionMarca(id, numExpediente, idMarca, fechaVencimientoAntigua, fechaVencimientoNueva);
+            return await renovacionesDao.ActualizarRenovacionPatente(id, numExpediente, idMarca, fechaVencimientoAntigua, fechaVencimientoNueva);
         }
     }
 }

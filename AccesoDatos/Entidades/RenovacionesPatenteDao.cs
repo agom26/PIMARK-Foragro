@@ -1,110 +1,153 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace AccesoDatos.Entidades
 {
-    public class RenovacionesPatenteDao:ConnectionSQL
+    public class RenovacionesPatenteDao
     {
-        public void InsertRenovacionPatente(
-           string numExpediente,
-           int idPatente,
+        private readonly string urlApi = "https://foragro.com.es/peticiones/renovaciones_patentes.php";
 
-           DateTime fechaVencimientoAntigua,
-
-           DateTime fechaVencimientoNueva)
+        // ---------- Infra ----------
+        private async Task<JsonDocument> PostAsync(object data)
         {
-            using (MySqlConnection conexion = GetConnection())
-            {
-                using (MySqlCommand comando = new MySqlCommand("InsertarRenovacionPatente", conexion))
-                {
-                    comando.CommandType = CommandType.StoredProcedure;
-
-                    comando.Parameters.AddWithValue("@p_NumExpediente", numExpediente);
-                    comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
-                    comando.Parameters.AddWithValue("@p_FechaVencimientoAntigua", fechaVencimientoAntigua);
-                    comando.Parameters.AddWithValue("@p_FechaVencimientoNueva", fechaVencimientoNueva);
-
-                    conexion.Open();
-                    comando.ExecuteNonQuery();
-                }
-            }
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var resp = await client.PostAsync(urlApi, content);
+            resp.EnsureSuccessStatusCode();
+            var body = await resp.Content.ReadAsStringAsync();
+            return JsonDocument.Parse(body);
         }
 
-        public DataTable ObtenerRenovacionesDePatentePorId(int idPatente)
+        private static DataTable JsonArrayToDataTable(JsonElement arr)
         {
-            DataTable resultados = new DataTable();
+            var table = new DataTable();
+            if (arr.ValueKind != JsonValueKind.Array) return table;
 
-            using (MySqlConnection conexion = GetConnection())
+            foreach (var item in arr.EnumerateArray())
             {
-                using (MySqlCommand comando = new MySqlCommand("ObtenerRenovacionesPatentePorPatente", conexion))
+                if (item.ValueKind != JsonValueKind.Object) continue;
+
+                if (table.Columns.Count == 0)
                 {
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@p_IdPatente", idPatente);
-
-                    conexion.Open();
-                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(comando))
-                    {
-                        adaptador.Fill(resultados);
-                    }
+                    foreach (var p in item.EnumerateObject())
+                        if (!table.Columns.Contains(p.Name)) table.Columns.Add(p.Name);
                 }
-            }
 
-            return resultados;
+                var row = table.NewRow();
+                foreach (var p in item.EnumerateObject())
+                    row[p.Name] = p.Value.ValueKind switch
+                    {
+                        JsonValueKind.String => p.Value.GetString(),
+                        JsonValueKind.Number => p.Value.GetRawText(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Null => DBNull.Value,
+                        _ => p.Value.ToString()
+                    };
+                table.Rows.Add(row);
+            }
+            return table;
         }
 
-        public DataTable ObtenerRenovacionPorId(int id)
+        private static DataTable JsonObjectToDataTable(JsonElement obj)
         {
-            DataTable resultado = new DataTable();
+            var table = new DataTable();
+            if (obj.ValueKind != JsonValueKind.Object) return table;
 
-            using (MySqlConnection conexion = GetConnection())
-            {
-                using (MySqlCommand comando = new MySqlCommand("ObtenerRenovacionPatentePorId", conexion))
+            foreach (var p in obj.EnumerateObject())
+                if (!table.Columns.Contains(p.Name)) table.Columns.Add(p.Name);
+
+            var row = table.NewRow();
+            foreach (var p in obj.EnumerateObject())
+                row[p.Name] = p.Value.ValueKind switch
                 {
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@p_Id", id);
-
-                    conexion.Open();
-                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(comando))
-                    {
-                        adaptador.Fill(resultado);
-                    }
-                }
-            }
-
-            return resultado;
+                    JsonValueKind.String => p.Value.GetString(),
+                    JsonValueKind.Number => p.Value.GetRawText(),
+                    JsonValueKind.True => true,
+                    JsonValueKind.False => false,
+                    JsonValueKind.Null => DBNull.Value,
+                    _ => p.Value.ToString()
+                };
+            table.Rows.Add(row);
+            return table;
         }
-        public bool ActualizarRenovacionMarca(int id, string numExpediente, int idPatente, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
+
+        private static string ToIsoDate(DateTime dt) => dt.ToString("yyyy-MM-dd");
+
+        // ---------- API ----------
+        public async Task<bool> InsertRenovacionPatente(
+            string numExpediente,
+            int idPatente,
+            DateTime fechaVencimientoAntigua,
+            DateTime fechaVencimientoNueva)
         {
-            try
+            var data = new
             {
-                using (MySqlConnection conexion = GetConnection())
-                {
-                    using (MySqlCommand comando = new MySqlCommand("ActualizarRenovacionPatente", conexion))
-                    {
-                        comando.CommandType = CommandType.StoredProcedure;
-                        comando.Parameters.AddWithValue("p_Id", id);
-                        comando.Parameters.AddWithValue("p_NumExpediente", numExpediente);
-                        comando.Parameters.AddWithValue("p_IdPatente", idPatente);
-                        comando.Parameters.AddWithValue("p_FechaVencimientoAntigua", fechaVencimientoAntigua);
-                        comando.Parameters.AddWithValue("p_FechaVencimientoNueva", fechaVencimientoNueva);
+                action = "insertar_renovacion_patente",
+                numExpediente,
+                idPatente,
+                fechaVencimientoAntigua = ToIsoDate(fechaVencimientoAntigua),
+                fechaVencimientoNueva = ToIsoDate(fechaVencimientoNueva)
+            };
 
-                        conexion.Open();
-                        int filasAfectadas = comando.ExecuteNonQuery();
-                        return filasAfectadas > 0;
-                    }
-                }
-            }
-            catch (Exception ex)
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("ok", out var ok) &&
+                   (ok.ValueKind == JsonValueKind.True ||
+                    (ok.ValueKind == JsonValueKind.Number && ok.GetInt32() == 1));
+        }
+
+        public async Task<DataTable> ObtenerRenovacionesDePatentePorId(int idPatente)
+        {
+            var data = new { action = "obtener_renovaciones_por_patente", idPatente };
+            using var doc = await PostAsync(data);
+
+            if (doc.RootElement.TryGetProperty("renovaciones", out var arr) && arr.ValueKind == JsonValueKind.Array)
+                return JsonArrayToDataTable(arr);
+
+            // fallback si el backend devolviera un array directo
+            if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                return JsonArrayToDataTable(doc.RootElement);
+
+            return new DataTable();
+        }
+
+        public async Task<DataTable> ObtenerRenovacionPorId(int id)
+        {
+            var data = new { action = "obtener_renovacion_por_id", id };
+            using var doc = await PostAsync(data);
+
+            if (doc.RootElement.TryGetProperty("renovacion", out var obj) && obj.ValueKind == JsonValueKind.Object)
+                return JsonObjectToDataTable(obj);
+
+            return new DataTable();
+        }
+
+        public async Task<bool> ActualizarRenovacionPatente(
+            int id,
+            string numExpediente,
+            int idPatente,
+            DateTime fechaVencimientoAntigua,
+            DateTime fechaVencimientoNueva)
+        {
+            var data = new
             {
+                action = "actualizar_renovacion_patente",
+                id,
+                numExpediente,
+                idPatente,
+                fechaVencimientoAntigua = ToIsoDate(fechaVencimientoAntigua),
+                fechaVencimientoNueva = ToIsoDate(fechaVencimientoNueva)
+            };
 
-                Console.WriteLine("Error al actualizar la renovación: " + ex.Message);
-                return false;
-            }
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("ok", out var ok) &&
+                   (ok.ValueKind == JsonValueKind.True ||
+                    (ok.ValueKind == JsonValueKind.Number && ok.GetInt32() == 1));
         }
     }
 }

@@ -1741,7 +1741,7 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageMarcaDetail;
         }
 
-        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        private async void btnEditarRenovacion_Click(object sender, EventArgs e)
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)
             {
@@ -1753,7 +1753,7 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarRenovacionPatente.idRenovacion = id;
 
-                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+                    DataTable renovacion = await renovacionesModel.GetRenovacionById(id);
 
                     if (renovacion.Rows.Count > 0)
                     {
@@ -1788,7 +1788,7 @@ namespace Presentacion.Patentes
             }
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private async void iconButton1_Click(object sender, EventArgs e)
         {
             string numExpediente = txtNoExpediente.Text;
 
@@ -1800,7 +1800,7 @@ namespace Presentacion.Patentes
 
             if (!string.IsNullOrEmpty(numExpediente))
             {
-                bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idPatente, fechaVencimientoA, fechaVencimientoN);
+                bool actualizado = await renovacionesModel.ActualizarRenovacion(id, numExpediente, idPatente, fechaVencimientoA, fechaVencimientoN);
 
                 if (actualizado)
                 {
