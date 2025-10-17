@@ -18,23 +18,23 @@ namespace Dominio
             renovacionesDao = new RenovacionesMarcasDao();
         }
 
-        public void AddRenovacion(string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva) 
+        public async void AddRenovacion(string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva) 
         {
-            renovacionesDao.InsertRenovacionMarca(numExpediente, idMarca,  fechaVencimientoAntigua, fechaVencimientoNueva);
+            await renovacionesDao.InsertRenovacionMarca(numExpediente, idMarca,  fechaVencimientoAntigua, fechaVencimientoNueva);
         }
 
-        public DataTable GetAllRenovacionesByIdMarca(int idMarca)
+        public async Task<DataTable> GetAllRenovacionesByIdMarca(int idMarca)
         {
-            return renovacionesDao.ObtenerRenovacionesDeMarcaPorId(idMarca);
+            return await renovacionesDao.ObtenerRenovacionesDeMarcaPorId(idMarca);
         }
 
-        public DataTable GetRenovacionById(int id)
+        public async Task<DataTable> GetRenovacionById(int id)
         {
-            return renovacionesDao.ObtenerRenovacionPorId(id);
+            return await renovacionesDao.ObtenerRenovacionPorId(id);
         }
-        public bool ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
+        public async Task<bool> ActualizarRenovacion(int id, string numExpediente, int idMarca, DateTime fechaVencimientoAntigua, DateTime fechaVencimientoNueva)
         {
-            return renovacionesDao.ActualizarRenovacionMarca(id, numExpediente, idMarca, fechaVencimientoAntigua, fechaVencimientoNueva);
+            return await renovacionesDao.ActualizarRenovacionMarca(id, numExpediente, idMarca, fechaVencimientoAntigua, fechaVencimientoNueva);
         }
 
 

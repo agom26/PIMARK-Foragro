@@ -908,17 +908,15 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN));
+                DataTable renovaciones = await  renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN);
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
-                Invoke(new Action(() =>
-                {
+                
                     dtgRenovaciones.AutoGenerateColumns = true;
                     dtgRenovaciones.DataSource = renovaciones;
                     dtgRenovaciones.Refresh();
 
 
-                }));
             }
             catch (Exception ex)
             {
@@ -1729,7 +1727,7 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageTraspasosList);
         }
-        public void EditarVerRenovacion()
+        public async Task EditarVerRenovacion()
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)
             {
@@ -1738,22 +1736,22 @@ namespace Presentacion.Marcas_Internacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
-                    int id = Convert.ToInt32(dataRowView["id"]);
+                    int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
                     SeleccionarRenovacion.idRenovacion = id;
 
-                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+                    DataTable renovacion = await renovacionesModel.GetRenovacionById(id);
 
                     if (renovacion.Rows.Count > 0)
                     {
                         DataRow fila = renovacion.Rows[0];
 
-                        SeleccionarRenovacion.idRenovacion = Convert.ToInt32(fila["Id"]);
+                        SeleccionarRenovacion.idRenovacion = id;
                         //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
                         //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
-                        SeleccionarRenovacion.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
-                        SeleccionarRenovacion.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacion.Venc_antiguo = Convert.ToDateTime(fila["FechaVencimientoAntigua"].ToString());
+                        SeleccionarRenovacion.Venc_nuevo = Convert.ToDateTime(fila["FechaVencimientoNueva"].ToString());
                         SeleccionarRenovacion.NumExpediente = fila["NumExpediente"].ToString();
-                        SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"]);
+                        SeleccionarRenovacion.IdMarca = Convert.ToInt32(fila["IdMarca"].ToString());
                         //Asignar valores a controles
                         txtNoExpediente.Text = SeleccionarRenovacion.NumExpediente;
 
@@ -1775,16 +1773,16 @@ namespace Presentacion.Marcas_Internacionales
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void btnEditarRenovacion_Click(object sender, EventArgs e)
+        private async void btnEditarRenovacion_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                EditarVerRenovacion();
+                await EditarVerRenovacion();
             }
             
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
             string numExpediente = txtNoExpediente.Text;
 
@@ -1799,7 +1797,7 @@ namespace Presentacion.Marcas_Internacionales
                 bool actualizado = false;
                 try
                 {
-                    actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+                    actualizado = await renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
 
 
                 }
@@ -1812,11 +1810,12 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (actualizado)
                 {
-                    loadRenovacionesById();
+                    await loadRenovacionesById();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.Show();
                     //MessageBox.Show("Registro de renovación actualizado exitosamente.");
-                    tabControl1.SelectedTab = tabPageRenovacionesList;
+                    EliminarTabPage(tabPageRenovacionDetail);
+                    AnadirTabPage(tabPageRenovacionesList);
 
                 }
                 else
@@ -1884,6 +1883,7 @@ namespace Presentacion.Marcas_Internacionales
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)

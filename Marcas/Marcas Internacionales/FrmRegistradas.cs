@@ -1004,7 +1004,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             try
             {
-                DataTable renovaciones = await Task.Run(() => renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt));
+                DataTable renovaciones = await  renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idInt);
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -1895,7 +1895,8 @@ namespace Presentacion.Marcas_Nacionales
                 //MessageBox.Show("Por favor, seleccione una fila de renovación.");
             }
         }
-        public void EditarRenovaciones()
+
+        public async Task EditarRenovaciones()
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)
             {
@@ -1907,7 +1908,7 @@ namespace Presentacion.Marcas_Nacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarRenovacion.idRenovacion = id;
 
-                    DataTable renovacion = renovacionesModel.GetRenovacionById(id);
+                    DataTable renovacion = await renovacionesModel.GetRenovacionById(id);
 
                     if (renovacion.Rows.Count > 0)
                     {
@@ -1959,7 +1960,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (!string.IsNullOrEmpty(numExpediente))
                 {
-                    bool actualizado = renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
+                    bool actualizado = await renovacionesModel.ActualizarRenovacion(id, numExpediente, idMarca, fechaVencimientoA, fechaVencimientoN);
 
                     if (actualizado)
                     {
