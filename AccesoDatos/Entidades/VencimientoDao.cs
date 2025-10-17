@@ -353,7 +353,5 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
 
-
-
     }
 }

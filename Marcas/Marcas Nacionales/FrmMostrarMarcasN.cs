@@ -55,7 +55,7 @@ namespace Presentacion.Marcas_Internacionales
 
             }));
         }
-        public async void filtrar()
+        public async Task filtrar()
         {
             string buscar = txtBuscar.Text;
             if (buscar != "")
@@ -64,7 +64,7 @@ namespace Presentacion.Marcas_Internacionales
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = await marcaModel.FiltrarMarcasNacionales(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await marcaModel.FiltrarMarcasNacionales(buscar, pageSize, currentPageIndex);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgTitulares.DataSource = titulares;
@@ -168,7 +168,7 @@ namespace Presentacion.Marcas_Internacionales
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
 
         }
 
@@ -234,7 +234,7 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex--;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -250,7 +250,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = 1;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -267,7 +267,7 @@ namespace Presentacion.Marcas_Internacionales
                 currentPageIndex++;
                 if (buscando == true)
                 {
-                    filtrar();
+                    await filtrar();
                 }
                 else
                 {
@@ -283,7 +283,7 @@ namespace Presentacion.Marcas_Internacionales
             currentPageIndex = totalPages;
             if (buscando == true)
             {
-                filtrar();
+                await filtrar();
             }
             else
             {
@@ -305,15 +305,15 @@ namespace Presentacion.Marcas_Internacionales
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
-        private void iconButton7_Click(object sender, EventArgs e)
+        private async void iconButton7_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
         private void panelSuperior_MouseDown(object sender, MouseEventArgs e)

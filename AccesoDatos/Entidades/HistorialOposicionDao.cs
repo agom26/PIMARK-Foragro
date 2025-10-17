@@ -24,7 +24,7 @@ namespace AccesoDatos.Entidades
             return JsonDocument.Parse(responseBody);
         }
 
-        public async Task InsertarHistorialOposicion(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, string origen, int idOposicion)
+        public async Task InsertarHistorialOposicion(DateTime fecha, string etapa, string anotaciones, string usuario, string usuarioEdicion, string origen, int? idOposicion)
         {
             var data = new
             {

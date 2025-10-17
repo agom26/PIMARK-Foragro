@@ -24,7 +24,7 @@ namespace Dominio
             string usuario,
             string usuarioEdicion,
             string origen,
-            int idOposicion)
+            int? idOposicion)
         {
             await historialOposicionDao.InsertarHistorialOposicion(
                 fecha,

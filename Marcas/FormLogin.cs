@@ -1,17 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿
 using System.Runtime.InteropServices;
 using Dominio;
 using Presentacion;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms.PropertyGridInternal;
-
-using MySql.Data.MySqlClient;
-using Comun.Cache;
 using System.IO.Compression;
-using System.IO;
 using System.Net;
 using System.Diagnostics;
-using Presentacion.Alertas;
 
 namespace Marcas
 {
@@ -40,81 +33,7 @@ namespace Marcas
             
         }
 
-        private void VerificarYActualizar()
-        {
-            try
-            {
-                if (!Directory.Exists(tempFolder))
-                {
-                    Directory.CreateDirectory(tempFolder);
-                }
-
-                string localVersionPath = Path.Combine(tempFolder, "version.txt");
-                string tempVersionPath = Path.Combine(tempFolder, "new_version.txt");
-
-                using (WebClient client = new WebClient())
-                {
-                    // 🔹 Descargar SOLO el archivo de versión
-                    string versionUrl = "https://www.dropbox.com/scl/fi/avkx6y4ummvdwg9qi49mg/version.txt?rlkey=uc81tz5erfjax8is6h8nenvlm&st=yrqcw91t&dl=1";
-                    client.DownloadFile(versionUrl, tempVersionPath);
-
-                    string localVersion = File.Exists(localVersionPath) ? File.ReadAllText(localVersionPath).Trim() : "0.0.0";
-                    string onlineVersion = File.ReadAllText(tempVersionPath).Trim();
-
-                    // 🔹 Si ya tenemos la última versión, no hacemos nada
-                    if (localVersion == onlineVersion)
-                    {
-                        File.Delete(tempVersionPath); // Eliminar el archivo temporal
-                        return;
-                    }
-
-                    // 🔹 Si hay una nueva versión, proceder con la actualización
-                    File.WriteAllText(localVersionPath, onlineVersion);
-                    MessageBox.Show($"Nueva versión disponible: {onlineVersion}. Descargando actualización...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // 🔹 Descargar el ZIP con la actualización
-                    client.DownloadFile(dropboxFolderUrl, zipPath);
-                    MessageBox.Show("Extrayendo archivos...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                    {
-                        foreach (ZipArchiveEntry entry in archive.Entries)
-                        {
-                            if (string.IsNullOrEmpty(entry.Name))
-                                continue;
-
-                            string destinationPath = Path.Combine(tempFolder, entry.Name);
-
-                            if (!destinationPath.StartsWith(tempFolder, StringComparison.OrdinalIgnoreCase))
-                            {
-                                MessageBox.Show("Se detectó un intento de extraer archivos fuera del directorio permitido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            entry.ExtractToFile(destinationPath, true);
-                        }
-                    }
-
-                    // 🔹 Ejecutar setup.exe si existe
-                    string setupPath = Path.Combine(tempFolder, "setup.exe");
-                    if (File.Exists(setupPath))
-                    {
-                        Process.Start(setupPath);
-                        Application.Exit();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error en la actualización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-
-
-
-
+        
 
         public void Logout(object sender, FormClosedEventArgs e)
         {

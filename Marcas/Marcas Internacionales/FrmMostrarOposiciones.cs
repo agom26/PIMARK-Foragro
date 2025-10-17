@@ -998,7 +998,7 @@ namespace Presentacion.Marcas_Nacionales
 
             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
             {
-                int? id = dataRowView["id"] as int?;
+                int? id = Int32.Parse(dataRowView["id"].ToString()) as int?;
 
                 if (id.HasValue)
                 {
@@ -1993,7 +1993,7 @@ namespace Presentacion.Marcas_Nacionales
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_abandono(fechaAbandono, justificacion, usuarioAbandono,
+                                    await oposicionModel.Oposicion_a_abandono(fechaAbandono, justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO ABANDONADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
@@ -2394,7 +2394,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        public void EditarOposicion()
+        public async Task EditarOposicion()
         {
             byte[] logoOpositor = null;
             byte[] logoSignoPretendido = null;
@@ -2453,13 +2453,13 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (SeleccionarOposicion.idSolicitante != 0)
                 {
-                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    actualizado = await oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, signoOpositor, situacion_actual, IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     SeleccionarOposicion.idSolicitante);
                 }
                 else
                 {
-                    actualizado = oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
+                    actualizado = await oposicionModel.EditarOposicion(SeleccionarOposicion.idInt, expediente, signo_pretendido, signoDistintivo, clase,
                     solicitante_signo_distintivo, null, signoOpositor, situacion_actual, IdMarca, logoOpositor, logoSignoPretendido, opositor,
                     null);
                 }
@@ -2482,7 +2482,8 @@ namespace Presentacion.Marcas_Nacionales
                 alerta.ShowDialog();
             }
         }
-        public void AgregarOposicion()
+
+        public async Task AgregarOposicion()
         {
             byte[] logoOpositor = null;
             byte[] logoSignoPretendido = null;
@@ -2514,10 +2515,10 @@ namespace Presentacion.Marcas_Nacionales
                 if (AgregarEtapaOposicion.etapa != "")
                 {
                     OposicionModel oposicionModel = new OposicionModel();
-                    int idOposicion = oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
+                    int? idOposicion = await oposicionModel.CrearOposicion(expediente, signo_pretendido, signoDistintivo, clase,
                         solicitante_signo_distintivo, null, null, opositor, signoOpositor, "EN TRÁMITE", idMarca,
                         logoOpositor, logoSignoPretendido, "internacional", "interpuesta");
-                    if (idOposicion > 0)
+                    if (idOposicion > 0 &&  idOposicion != null)
                     {
                         HistorialOposicionModel historialOposicionModel = new HistorialOposicionModel();
                         historialOposicionModel.CrearHistorialOposicion(Convert.ToDateTime(AgregarEtapaOposicion.fecha), AgregarEtapaOposicion.etapa,
@@ -2548,18 +2549,18 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void btnGuardarU_Click(object sender, EventArgs e)
+        private async void btnGuardarU_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
                 if (btnGuardarU.Text == "AGREGAR")
                 {
-                    AgregarOposicion();
+                    await AgregarOposicion();
                 }
                 else if (btnGuardarU.Text == "EDITAR")
                 {
                     //editar
-                    EditarOposicion();
+                    await EditarOposicion();
                 }
             }
 
@@ -2639,17 +2640,17 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void roundedButton2_Click_2(object sender, EventArgs e)
+        private async void roundedButton2_Click_2(object sender, EventArgs e)
         {
             if (SeleccionarOposicion.idMarca > 0)
             {
-                loadHistorialById();
+                await loadHistorialById();
                 AnadirTabPage(tabPageHistorialMarca);
             }
             else if (SeleccionarOposicion.idMarca == 0)
             {
                 AnadirTabPage(tabPageHistorialMarca);
-                loadHistorialOposicion();
+                await loadHistorialOposicion();
 
             }
         }
@@ -2702,9 +2703,9 @@ namespace Presentacion.Marcas_Nacionales
             await FiltrarPorSituacionActual();
         }
 
-        public void TerminarOposicion()
+        public async Task TerminarOposicion()
         {
-            var cambio = oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idInt);
+            var cambio = await oposicionModel.CambiarSituacionActualATerminada(SeleccionarOposicion.idInt);
             if (cambio == true)
             {
                 AnadirTabPage(tabPageListaMarcas);
@@ -2720,7 +2721,7 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private void btnEnviarATramite_Click(object sender, EventArgs e)
+        private async void btnEnviarATramite_Click(object sender, EventArgs e)
         {
             if (btnEnviarATramite.Text == "TERMINAR")
             {
@@ -2739,7 +2740,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (SeleccionarOposicion.idMarca == 0)
                 {
-                    TerminarOposicion();
+                    await TerminarOposicion();
                 }
                 else
                 {
@@ -2754,7 +2755,7 @@ namespace Presentacion.Marcas_Nacionales
                             historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, Convert.ToDateTime(AgregarEtapa.fecha),
                             AgregarEtapa.etapa, AgregarEtapa.anotaciones,
                             AgregarEtapa.usuario, "TRÁMITE", null);
-                            TerminarOposicion();
+                            await TerminarOposicion();
 
                             //MessageBox.Show("Etapa agregada con éxito");
 
@@ -2855,7 +2856,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             buscandoRecibidas = true;
             currentPageIndex = 1;
-            totalRows = oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(txtBuscar.Text);
+            totalRows = await oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2882,7 +2883,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             buscandoInterpuestas = true;
             currentPageIndex2 = 1;
-            totalRows2 = oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(txtBuscar2.Text);
+            totalRows2 = await oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(txtBuscar2.Text);
             totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
             lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -2896,9 +2897,9 @@ namespace Presentacion.Marcas_Nacionales
             filtrarMarcas();
         }
 
-        private void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cmbSituacionActualI_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtrarMarcasInterpuestas();
+            await filtrarMarcasInterpuestas();
         }
 
         private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -2907,7 +2908,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 buscandoRecibidas = true;
                 currentPageIndex = 1;
-                totalRows = oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(txtBuscar.Text);
+                totalRows = await oposicionModel.GetFilteredMarcasInternacionalesRecibidasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2923,7 +2924,7 @@ namespace Presentacion.Marcas_Nacionales
             {
                 buscandoInterpuestas = true;
                 currentPageIndex2 = 1;
-                totalRows2 = oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(txtBuscar2.Text);
+                totalRows2 = await oposicionModel.GetFilteredOposicionesInternacionalesInterpuestasCount(txtBuscar2.Text);
                 totalPages2 = (int)Math.Ceiling((double)totalRows2 / pageSize2);
 
                 lblCurrentPage2.Text = currentPageIndex2.ToString();
@@ -2938,7 +2939,7 @@ namespace Presentacion.Marcas_Nacionales
             Editar();
         }
 
-        public async void Filtrar()
+        public async Task Filtrar()
         {
 
             string expediente = null;
@@ -3021,9 +3022,9 @@ namespace Presentacion.Marcas_Nacionales
         }
 
 
-        private void btnConsultar_Click(object sender, EventArgs e)
+        private async void btnConsultar_Click(object sender, EventArgs e)
         {
-            Filtrar();
+            await Filtrar();
         }
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
@@ -3486,7 +3487,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             LimpiarTablaHistorial();
             AnadirTabPage(tabPageHistorialMarca);
-            string resultado = oposicionModel.ObtenerTipoOposicion(SeleccionarOposicion.idInt);
+            string? resultado = await oposicionModel.ObtenerTipoOposicion(SeleccionarOposicion.idInt);
             if (resultado == "recibida")
             {
                 await loadHistorialById();
@@ -3680,7 +3681,7 @@ namespace Presentacion.Marcas_Nacionales
                                 try
                                 {
                                     //procedimiento para mandar marca a abandono y oposicion a terminada
-                                    oposicionModel.Oposicion_a_desistimiento(fechaAbandono, justificacion, usuarioAbandono,
+                                    await oposicionModel.Oposicion_a_desistimiento(fechaAbandono, justificacion, usuarioAbandono,
                                         idMarca, idOposicion);
                                     FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     alerta.ShowDialog();
