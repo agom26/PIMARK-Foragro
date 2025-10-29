@@ -1,11 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
 using Comun.Cache;
-using AccesoDatos.ServiciosEmail;
-using AccesoDatos.MySqlServer;
-using AccesoDatos.Usuarios;
 using System.Data;
-using Org.BouncyCastle.Crypto.Generators;
 
 namespace AccesoDatos.Usuarios
 {
@@ -361,51 +356,6 @@ namespace AccesoDatos.Usuarios
             }
         }
 
-
-
-        /*
-        public (bool, bool) Login(string user, string pass)
-        {
-            using (var connection = GetConnection())
-            {
-                try
-                {
-                    connection.Open();
-
-                    using (var command = new MySqlCommand("SELECT isAdmin, id, usuario, nombres, apellidos, correo FROM USERS WHERE usuario=@user AND contrasena=@pass", connection))
-                    {
-                        command.Parameters.AddWithValue("@user", user);
-                        command.Parameters.AddWithValue("@pass", pass);
-
-                        using (var reader = command.ExecuteReader())
-                        {
-                            if (reader.Read()) 
-                            {
-                                Console.WriteLine("Si hay usuario");
-                                UsuarioActivo.isAdmin = reader.GetBoolean(0); 
-                                UsuarioActivo.idUser = reader.GetInt32(1);
-                                UsuarioActivo.usuario = reader.GetString(2);
-                                UsuarioActivo.nombres = reader.GetString(3);
-                                UsuarioActivo.apellidos = reader.GetString(4);
-                                UsuarioActivo.correo = reader.GetString(5);
-                                
-                                return (true, UsuarioActivo.isAdmin); 
-                            }
-                            else
-                            {
-                                return (false, false); 
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                    return (false, false); 
-                }
-            }
-        }*/
-
         public int ContarAdministradores()
         {
             using (var connection = GetConnection())
@@ -450,7 +400,6 @@ namespace AccesoDatos.Usuarios
                 return false; // Conexión fallida
             }
         }
-
 
     }
 }

@@ -928,7 +928,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable traspasos = await Task.Run(() => traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN));
+                DataTable traspasos = await  traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN);
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -1838,6 +1838,7 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageRenovacionesList);
             EliminarTabPage(tabPageRenovacionDetail);
         }
+
         public async Task EditarVerTraspaso()
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
@@ -1847,7 +1848,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
-                    int id = Convert.ToInt32(dataRowView["id"]);
+                    int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
                     SeleccionarTraspaso.id = id;
 
                     DataTable traspaso = await traspasosModel.ObtenerTraspasoPorId(id);
@@ -1856,7 +1857,7 @@ namespace Presentacion.Marcas_Internacionales
                     {
                         DataRow fila = traspaso.Rows[0];
 
-                        SeleccionarTraspaso.id = Convert.ToInt32(fila["Id"]);
+                        SeleccionarTraspaso.id = id;
                         SeleccionarTraspaso.IdMarca = Convert.ToInt32(fila["IdMarca"]);
                         SeleccionarTraspaso.numExpediente = fila["NumExpediente"].ToString();
                         SeleccionarTraspaso.idTitularA = Convert.ToInt32(fila["IdTitularAnterior"]);
@@ -1893,7 +1894,7 @@ namespace Presentacion.Marcas_Internacionales
             
         }
 
-        private void iconButton10_Click(object sender, EventArgs e)
+        private async void iconButton10_Click(object sender, EventArgs e)
         {
 
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
@@ -1912,7 +1913,7 @@ namespace Presentacion.Marcas_Internacionales
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {
 
-                traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
+                await traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
                 tabControl1.SelectedTab = tabPageTraspasosList;
@@ -2195,20 +2196,20 @@ namespace Presentacion.Marcas_Internacionales
             
         }
 
-        private void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                EditarVerRenovacion();
+                await EditarVerRenovacion();
             }
             
         }
 
-        private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                EditarVerTraspaso();
+                await EditarVerTraspaso();
             }
             
         }
@@ -2820,9 +2821,9 @@ namespace Presentacion.Marcas_Internacionales
 
         private void dtgTraspasos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if (dtgTraspasos.Columns["id"] != null)
+            if (dtgTraspasos.Columns["Id"] != null)
             {
-                dtgTraspasos.Columns["id"].Visible = false;
+                dtgTraspasos.Columns["Id"].Visible = false;
                 dtgTraspasos.Columns["IdMarca"].Visible = false;
                 dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
                 dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;

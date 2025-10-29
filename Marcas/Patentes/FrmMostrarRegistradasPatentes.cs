@@ -1847,7 +1847,7 @@ namespace Presentacion.Patentes
 
         }
 
-        private void btnEditarTraspaso_Click(object sender, EventArgs e)
+        private async void btnEditarTraspaso_Click(object sender, EventArgs e)
         {
             if (dtgTraspasos.SelectedRows.Count > 0)
             {
@@ -1859,7 +1859,7 @@ namespace Presentacion.Patentes
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarTraspasoPatente.id = id;
 
-                    DataTable traspaso = traspasosModel.ObtenerTraspasoPorId(id);
+                    DataTable traspaso = await traspasosModel.ObtenerTraspasoPorId(id);
 
                     if (traspaso.Rows.Count > 0)
                     {

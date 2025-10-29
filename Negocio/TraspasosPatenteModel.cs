@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using AccesoDatos;
 using AccesoDatos.Entidades;
 namespace Dominio
@@ -17,22 +12,22 @@ namespace Dominio
             traspasoPatenteDao= new TraspasoPatenteDao();
         }
 
-        public void AddTraspaso(string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
+        public async Task AddTraspaso(string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
         {
-            traspasoPatenteDao.InsertarTraspasoPatente(numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
+            await traspasoPatenteDao.InsertarTraspasoPatente(numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
         }
 
-        public DataTable ObtenerTraspasosPatentePorIdPatente(int idPatente)
+        public async Task<DataTable> ObtenerTraspasosPatentePorIdPatente(int idPatente)
         {
-            return traspasoPatenteDao.ObtenerTraspasosDePatentePorId(idPatente);
+            return await traspasoPatenteDao.ObtenerTraspasosDePatentePorId(idPatente);
         }
-        public DataTable ObtenerTraspasoPorId(int id)
+        public async Task<DataTable> ObtenerTraspasoPorId(int id)
         {
-            return traspasoPatenteDao.ObtenerTraspasoPatentePorId(id);
+            return await traspasoPatenteDao.ObtenerTraspasoPatentePorId(id);
         }
-        public bool ActualizarTraspaso(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
+        public async Task<bool> ActualizarTraspaso(int id, string numExpediente, int idPatente, int idTitularAnterior, int idTitularNuevo)
         {
-            return traspasoPatenteDao.ActualizarTraspasoPatente(id, numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
+            return await traspasoPatenteDao.ActualizarTraspasoPatente(id, numExpediente, idPatente, idTitularAnterior, idTitularNuevo);
         }
     }
 }

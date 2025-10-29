@@ -6,7 +6,7 @@ namespace AccesoDatos.Entidades
 {
     public class TraspasoMarcasDao
     {
-        private readonly string urlApi = "https://foragro.com.es/peticiones/traspasos_marcas.php";
+        private readonly string urlApi = "https://foragro.com.es/peticiones/traspaso_marca.php";
 
         // ========== Infraestructura base ==========
         private async Task<JsonDocument> PostAsync(object data)
@@ -17,6 +17,10 @@ namespace AccesoDatos.Entidades
             var resp = await client.PostAsync(urlApi, content);
             resp.EnsureSuccessStatusCode();
             string body = await resp.Content.ReadAsStringAsync();
+
+            if (!resp.IsSuccessStatusCode)
+                throw new Exception($"Error HTTP {(int)resp.StatusCode}: {body}");
+
             return JsonDocument.Parse(body);
         }
 
@@ -95,7 +99,7 @@ namespace AccesoDatos.Entidades
             var data = new { action = "obtener_traspasos_por_marca", idMarca };
             using var doc = await PostAsync(data);
 
-            if (doc.RootElement.TryGetProperty("traspasos", out var arr) && arr.ValueKind == JsonValueKind.Array)
+            if (doc.RootElement.TryGetProperty("data", out var arr) && arr.ValueKind == JsonValueKind.Array)
                 return JsonArrayToDataTable(arr);
             if (doc.RootElement.ValueKind == JsonValueKind.Array)
                 return JsonArrayToDataTable(doc.RootElement);
@@ -108,12 +112,15 @@ namespace AccesoDatos.Entidades
             var data = new { action = "obtener_traspaso_por_id", id };
             using var doc = await PostAsync(data);
 
-            if (doc.RootElement.TryGetProperty("traspaso", out var obj) && obj.ValueKind == JsonValueKind.Object)
-                return JsonObjectToDataTable(obj);
+            if (doc.RootElement.TryGetProperty("data", out var arr) && arr.ValueKind == JsonValueKind.Array)
+                return JsonArrayToDataTable(arr);
+            if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                return JsonArrayToDataTable(doc.RootElement);
 
             return new DataTable();
         }
 
+       
         public async Task<bool> ActualizarTraspasoMarca(int id, string numExpediente, int idMarca, int idTitularAnterior, int idTitularNuevo)
         {
             var data = new
