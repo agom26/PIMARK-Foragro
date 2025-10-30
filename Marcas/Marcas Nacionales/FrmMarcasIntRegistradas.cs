@@ -1727,6 +1727,7 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageMarcaDetail);
             EliminarTabPage(tabPageTraspasosList);
         }
+
         public async Task EditarVerRenovacion()
         {
             if (dtgRenovaciones.SelectedRows.Count > 0)

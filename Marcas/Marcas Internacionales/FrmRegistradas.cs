@@ -1034,9 +1034,9 @@ namespace Presentacion.Marcas_Nacionales
                     dtgTraspasos.DataSource = traspasos;
                     dtgTraspasos.Refresh();
 
-                    if (dtgTraspasos.Columns["id"] != null)
+                    if (dtgTraspasos.Columns["Id"] != null)
                     {
-                        dtgTraspasos.Columns["id"].Visible = false;
+                        dtgTraspasos.Columns["Id"].Visible = false;
                         dtgTraspasos.Columns["IdMarca"].Visible = false;
                         dtgTraspasos.Columns["IdTitularAnterior"].Visible = false;
                         dtgTraspasos.Columns["IdTitularNuevo"].Visible = false;
@@ -1857,8 +1857,8 @@ namespace Presentacion.Marcas_Nacionales
                 var filaSeleccionada = dtgRenovaciones.SelectedRows[0];
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-
-                    int id = Convert.ToInt32(dataRowView["id"]);
+                    int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
+                    //int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarHistorial.id = id;
 
                     DataTable renovacion = await historialModel.GetHistorialById(id);
@@ -1905,7 +1905,8 @@ namespace Presentacion.Marcas_Nacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
-                    int id = Convert.ToInt32(dataRowView["id"]);
+                    //int id = Convert.ToInt32(dataRowView["id"]);
+                    int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
                     SeleccionarRenovacion.idRenovacion = id;
 
                     DataTable renovacion = await renovacionesModel.GetRenovacionById(id);
@@ -2023,7 +2024,8 @@ namespace Presentacion.Marcas_Nacionales
                 if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
                     // Obtén el ID de la fila seleccionada
-                    int id = Convert.ToInt32(dataRowView["id"]);
+                    //int id = Convert.ToInt32(dataRowView["id"]);
+                    int id = Convert.ToInt32(filaSeleccionada.Cells["Id"].Value);
                     SeleccionarTraspaso.id = id;
 
                     DataTable traspaso = await traspasosModel.ObtenerTraspasoPorId(id);
@@ -2241,21 +2243,21 @@ namespace Presentacion.Marcas_Nacionales
             EditarHistorial();
         }
 
-        private void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarRenovaciones();
+            await EditarRenovaciones();
         }
 
-        private void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            EditarTraspaso();
+            await EditarTraspaso();
         }
 
-        private void iconButton14_Click(object sender, EventArgs e)
+        private async void iconButton14_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
 
         }
 
@@ -2271,7 +2273,7 @@ namespace Presentacion.Marcas_Nacionales
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
