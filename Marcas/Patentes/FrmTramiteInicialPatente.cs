@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Presentacion.Patentes
 {
@@ -24,6 +25,9 @@ namespace Presentacion.Patentes
         private string rutaArchivoLocal = null;
         private string nombreArchivo = null;
         private bool archivoSeleccionado = false;
+        private static readonly Regex NombreArchivoRegex =
+    new Regex(@"^[\p{L}\p{N}\p{M}_\-\.\s\(\)]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
 
         public FrmTramiteInicialPatente(Form1 form1)
         {
@@ -37,6 +41,34 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
             mostrarPanelRegistro("no"); 
             dateTimePFecha_vencimiento.Enabled = true;
+        }
+
+        public static bool EsNombreArchivoValido(string nombreArchivo)
+        {
+            if (string.IsNullOrWhiteSpace(nombreArchivo))
+                return false;
+
+            // 🔹 Normalizar a forma compuesta (NFC)
+            nombreArchivo = nombreArchivo.Normalize(NormalizationForm.FormC);
+
+            return NombreArchivoRegex.IsMatch(nombreArchivo);
+        }
+
+        private (bool ok, string? error) ValidarArchivoLocal(string rutaArchivoLocal, string nombreArchivo, long maxBytes = 20 * 1024 * 1024)
+        {
+            if (string.IsNullOrWhiteSpace(rutaArchivoLocal) || string.IsNullOrWhiteSpace(nombreArchivo))
+                return (false, "Archivo no seleccionado.");
+
+            // Tamaño (20 MB)
+            var fi = new FileInfo(rutaArchivoLocal);
+            if (!fi.Exists) return (false, "El archivo no existe.");
+            if (fi.Length > maxBytes) return (false, "El archivo supera el límite de 20 MB.");
+
+            // Nombre (mismo regex que PHP)
+            if (!EsNombreArchivoValido(nombreArchivo))
+                return (false, "Nombre de archivo inválido. Solo se permiten letras, números, guiones, guiones bajos, puntos, espacios y paréntesis.");
+
+            return (true, null);
         }
 
         private bool ValidarCampo(string campo)
@@ -306,17 +338,51 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-                        int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, int.Parse(anualidad), pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
 
                         if (idPatente > 0)
                         {
-                            GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                            if (archivoSeleccionado)
+                            {
+                                var (okLocal, errLocal) = ValidarArchivoLocal(rutaArchivoLocal, nombreArchivo);
+                                if (!okLocal)
+                                {
+                                    new FrmAlerta(errLocal!.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                    return; // no continuar
+                                }
+
+                                // Validar idPatente y subir
+                                if (idPatente <= 0)
+                                {
+                                    new FrmAlerta("ID DE PATENTE INVÁLIDO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                    return;
+                                }
+
+                                bool exito = SubirArchivoPorPhp(idPatente);
+                                if (!exito)
+                                {
+                                    // Si quieres, aquí podrías hacer rollback/eliminar la patente recién creada
+                                    new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                    return; // no continuar
+                                }
+                            }
+                            else
+                            {
+                                // si es obligatorio subir el archivo en Registro/Concesión, corta aquí
+                                new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                return;
+                            }
+
+
+                            GuardarHistorial(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
                            , AgregarEtapaPatente.usuario, null, idPatente);
 
-                            // Subir archivo si fue seleccionado
+
+
+                            /* Subir archivo si fue seleccionado
                             if (archivoSeleccionado)
                             {
                                 bool exito = SubirArchivoPorPhp(idPatente);
@@ -325,7 +391,7 @@ namespace Presentacion.Patentes
                                     FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     alertaError.ShowDialog();
                                 }
-                            }
+                            }*/
 
                             FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
@@ -343,10 +409,11 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-                        int idPatente = patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, erenov, etrasp, int.Parse(anualidad), pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
+
                         GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
                         , AgregarEtapaPatente.usuario, null, idPatente);
                         FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -549,6 +616,32 @@ namespace Presentacion.Patentes
 
         private void btnAdjuntarT_Click(object sender, EventArgs e)
         {
+            using var ofd = new OpenFileDialog
+            {
+                Filter = "Todos los archivos (*.*)|*.*",
+                CheckFileExists = true,
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+
+            rutaArchivoLocal = ofd.FileName;
+            nombreArchivo = Path.GetFileName(rutaArchivoLocal);
+
+            var (ok, error) = ValidarArchivoLocal(rutaArchivoLocal, nombreArchivo);
+            if (!ok)
+            {
+                new FrmAlerta(error!.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                rutaArchivoLocal = null;
+                nombreArchivo = null;
+                archivoSeleccionado = false;
+                return;
+            }
+
+            archivoSeleccionado = true;
+            new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+
+            /*
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Todos los archivos (*.*)|*.*";
 
@@ -580,7 +673,7 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta2 = new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta2.ShowDialog();
 
-            }
+            }*/
         }
     }
 }

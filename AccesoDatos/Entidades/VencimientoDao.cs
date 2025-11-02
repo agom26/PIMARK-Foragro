@@ -1,10 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccesoDatos.Entidades
 {
@@ -22,18 +17,18 @@ namespace AccesoDatos.Entidades
                     conexion.Open();
 
                     string query = @"
-                SELECT DISTINCT 
-                    T.correo AS CorreoTitular, 
-                    A.correo AS CorreoAgente 
-                FROM 
-                    Marcas M 
-                JOIN 
-                    Personas T ON M.IdTitular = T.id 
-                JOIN 
-                    Personas A ON M.IdAgente = A.id 
-                WHERE 
-                    M.id = @id;
-            ";
+                        SELECT DISTINCT 
+                            T.correo AS CorreoTitular, 
+                            A.correo AS CorreoAgente 
+                        FROM 
+                            Marcas M 
+                        JOIN 
+                            Personas T ON M.IdTitular = T.id 
+                        JOIN 
+                            Personas A ON M.IdAgente = A.id 
+                        WHERE 
+                            M.id = @id;
+                    ";
 
                     using (MySqlCommand comando = new MySqlCommand(query, conexion))
                     {

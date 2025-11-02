@@ -275,7 +275,7 @@ namespace Presentacion.Patentes
                         SeleccionarPatente.tipo = row["tipo"].ToString();
                         SeleccionarPatente.anualidades = int.Parse(row["anualidades"].ToString());
                         SeleccionarPatente.pct = row["pct"].ToString();
-                        SeleccionarPatente.fecha_solicitud = (DateTime)row["fecha_solicitud"];
+                        SeleccionarPatente.fecha_solicitud = Convert.ToDateTime(row["fecha_solicitud"]);
                         SeleccionarPatente.estado = row["estado"].ToString();
                         SeleccionarPatente.idTitular = int.Parse(row["IdTitular"].ToString());
                         SeleccionarPatente.idAgente = int.Parse(row["IdAgente"].ToString());
@@ -387,7 +387,7 @@ namespace Presentacion.Patentes
                             }
                         }
 
-                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
+                        bool contieneRegistrada = await patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
 
                         if (contieneRegistrada)
@@ -530,7 +530,7 @@ namespace Presentacion.Patentes
             ActualizarFechaVencimiento();
         }
 
-        public async void EditarPatente()
+        public async Task EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -650,11 +650,11 @@ namespace Presentacion.Patentes
                     {
                         if (agregoEstado == true)
                         {
-                            historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
+                            historialPatenteModel.CrearHistorialPatente(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
                             agregoEstado = false;
                         }
 
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -682,11 +682,11 @@ namespace Presentacion.Patentes
                     {
                         if (agregoEstado == true)
                         {
-                            historialPatenteModel.CrearHistorialPatente((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
+                            historialPatenteModel.CrearHistorialPatente(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones, AgregarEtapaPatente.usuario, null, SeleccionarPatente.id, null);
                             agregoEstado = false;
                         }
 
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, null, null, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -1135,7 +1135,7 @@ namespace Presentacion.Patentes
                         DataRow fila = historial.Rows[0];
                         SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
                         SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
-                        SeleccionarHistorialPatente.fecha = (DateTime)fila["fecha"];
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"]);
                         SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
                         SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
                         SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
@@ -1294,8 +1294,8 @@ namespace Presentacion.Patentes
                         SeleccionarRenovacionPatente.idRenovacion = Convert.ToInt32(fila["Id"]);
                         //SeleccionarRenovacion.Reg_Antiguo = (DateTime)fila["FechaRegistroAntigua"];
                         //SeleccionarRenovacion.Reg_nuevo = (DateTime)fila["FechaRegistroNueva"];
-                        SeleccionarRenovacionPatente.Venc_antiguo = (DateTime)fila["FechaVencimientoAntigua"];
-                        SeleccionarRenovacionPatente.Venc_nuevo = (DateTime)fila["FechaVencimientoNueva"];
+                        SeleccionarRenovacionPatente.Venc_antiguo = Convert.ToDateTime(fila["FechaVencimientoAntigua"]);
+                        SeleccionarRenovacionPatente.Venc_nuevo = Convert.ToDateTime(fila["FechaVencimientoNueva"]);
                         SeleccionarRenovacionPatente.NumExpediente = fila["NumExpediente"].ToString();
                         SeleccionarRenovacionPatente.IdPatente = Convert.ToInt32(fila["IdPatente"]);
                         //Asignar valores a controles
@@ -1536,39 +1536,39 @@ namespace Presentacion.Patentes
             Ver();
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
+            totalRows = await patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
+                totalRows = await patenteModel.GetFilteredPatentesEnAbandonoCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 

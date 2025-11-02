@@ -201,10 +201,10 @@ namespace Presentacion.Patentes
 
         private async Task LoadPatentes()
         {
-            totalRows = await Task.Run(() => patenteModel.GetTotalPatentesSinRegistro());
+            totalRows = await patenteModel.GetTotalPatentesSinRegistro();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-            var marcasN = await Task.Run(() => patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize));
+            var marcasN = await  patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize);
 
             void Apply()
             {
@@ -579,7 +579,7 @@ namespace Presentacion.Patentes
                             }
                         }
 
-                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
+                        bool contieneRegistrada = await patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
 
                         if (contieneRegistrada)
@@ -720,7 +720,7 @@ namespace Presentacion.Patentes
             DatosRegistro.peligro = false;
         }
 
-        public async void EditarPatente()
+        public async Task EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -824,7 +824,7 @@ namespace Presentacion.Patentes
 
 
 
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -863,7 +863,7 @@ namespace Presentacion.Patentes
                     {
 
 
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -1763,7 +1763,7 @@ namespace Presentacion.Patentes
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
+            totalRows = await patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1785,7 +1785,7 @@ namespace Presentacion.Patentes
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
+                totalRows = await patenteModel.GetFilteredPatentesSinRegistroCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();

@@ -369,7 +369,7 @@ namespace Presentacion.Patentes
         {
             try
             {
-                DataTable detallesPatente = await Task.Run(() => patenteModel.ObtenerPatentePorId(SeleccionarPatente.id));
+                DataTable detallesPatente = await  patenteModel.ObtenerPatentePorId(SeleccionarPatente.id);
 
                 if (detallesPatente.Rows.Count > 0)
                 {
@@ -498,7 +498,7 @@ namespace Presentacion.Patentes
                             }
                         }
 
-                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
+                        bool contieneRegistrada = await patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
                         if (contieneRegistrada)
                         {
@@ -640,7 +640,7 @@ namespace Presentacion.Patentes
 
         }
 
-        public async void EditarPatente()
+        public async Task EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -774,9 +774,7 @@ namespace Presentacion.Patentes
                     try
                     {
 
-
-
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -814,7 +812,7 @@ namespace Presentacion.Patentes
                     try
                     {
 
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, null, null, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -2126,7 +2124,7 @@ namespace Presentacion.Patentes
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = patenteModel.GetFilteredPatentesRegistradasCount(txtBuscar.Text);
+            totalRows = await patenteModel.GetFilteredPatentesRegistradasCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2141,7 +2139,7 @@ namespace Presentacion.Patentes
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = patenteModel.GetFilteredPatentesRegistradasCount(txtBuscar.Text);
+                totalRows = await patenteModel.GetFilteredPatentesRegistradasCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();

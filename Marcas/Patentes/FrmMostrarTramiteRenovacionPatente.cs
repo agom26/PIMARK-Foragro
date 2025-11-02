@@ -493,7 +493,7 @@ namespace Presentacion.Patentes
                                 checkedListBoxDocumentos.SetItemChecked(i, true);
                             }
                         }
-                        bool contieneRegistrada = patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
+                        bool contieneRegistrada = await patenteModel.TieneEtapaRegistradaPatente(SeleccionarPatente.id);
 
                         if (contieneRegistrada)
                         {
@@ -626,7 +626,7 @@ namespace Presentacion.Patentes
             checkedListBoxDocumentos.ClearSelected();
         }
 
-        public async void EditarPatente()
+        public async Task EditarPatente()
         {
             string caso = txtCaso.Text;
             string expediente = txtExpediente.Text;
@@ -759,7 +759,7 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -784,7 +784,7 @@ namespace Presentacion.Patentes
                 {
                     try
                     {
-                        bool actualizada = patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                        bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
                             null, null, null, null, null, null, null, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
@@ -1704,40 +1704,40 @@ namespace Presentacion.Patentes
             Editar();
         }
 
-        private void iconButton12_Click(object sender, EventArgs e)
+        private async void iconButton12_Click(object sender, EventArgs e)
         {
             buscando = false;
             txtBuscar.Text = "";
-            filtrar();
+            await filtrar();
         }
 
-        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        private async void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = patenteModel.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(txtBuscar.Text);
+                totalRows = await patenteModel.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                filtrar();
+                await filtrar();
             }
         }
 
-        private void ibtnBuscar_Click(object sender, EventArgs e)
+        private async void ibtnBuscar_Click(object sender, EventArgs e)
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = patenteModel.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(txtBuscar.Text);
+            totalRows = await patenteModel.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
             lblTotalPages.Text = totalPages.ToString();
             lblTotalRows.Text = totalRows.ToString();
-            filtrar();
+            await filtrar();
         }
 
         private async void btnFirst_Click(object sender, EventArgs e)

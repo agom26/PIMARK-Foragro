@@ -18,11 +18,12 @@ namespace Dominio
             patenteDao = new PatenteDao();
         }
 
-        public bool TieneEtapaRegistradaPatente(int idPatente)
+        public async Task<bool> TieneEtapaRegistradaPatente(int idPatente)
         {
-            return patenteDao.TieneEtapaRegistradaPatente(idPatente);
+            return await patenteDao.TieneEtapaRegistradaPatente(idPatente);
         }
-        public void InsertarTraspasoYHistorial(
+
+        public async Task InsertarTraspasoYHistorial(
          string numExpediente,
          int idPatente,
          int idTitularAnterior,
@@ -33,21 +34,21 @@ namespace Dominio
          string usuario,
          string usuarioEdicion)
         {
-            patenteDao.InsertarTraspasoYHistorial(numExpediente, idPatente, idTitularAnterior,
+            await patenteDao.InsertarTraspasoYHistorial(numExpediente, idPatente, idTitularAnterior,
                 idTitularNuevo, fecha, etapa, anotaciones, usuario, usuarioEdicion);
         }
 
-        public bool RenovarPatente(string noExpediente, int idPatente, DateTime fechaVencAnt, DateTime fechaVencNueva,
+        public async Task<bool> RenovarPatente(string noExpediente, int idPatente, DateTime fechaVencAnt, DateTime fechaVencNueva,
                                 DateTime fecha, string etapa, string anotaciones, string usuario)
         {
-            return patenteDao.RenovarPatente(noExpediente, idPatente, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
+            return await patenteDao.RenovarPatente(noExpediente, idPatente, fechaVencAnt, fechaVencNueva, fecha, etapa, anotaciones, usuario);
         }
-        public void InsertarExpedientePatente(string numExpediente, int idPatente, string tipo)
+        public async Task InsertarExpedientePatente(string numExpediente, int idPatente, string tipo)
         {
-            patenteDao.InsertarExpedientePatente(numExpediente, idPatente, tipo);
+            await patenteDao.InsertarExpedientePatente(numExpediente, idPatente, tipo);
         }
 
-        public int CrearPatente(
+        public async Task<int> CrearPatente(
            string caso,
            string expediente,
            string nombre,
@@ -73,7 +74,7 @@ namespace Dominio
            string documentoCesion,
            string poderNombramiento)
         {
-            return patenteDao.InsertarPatente(
+            return await patenteDao.InsertarPatente(
                 caso, expediente, nombre, estado, tipo,
                 idTitular, idAgente, fechaSolicitud,
                 registro, folio, libro, fechaRegistro,
@@ -86,129 +87,129 @@ namespace Dominio
 
         //patentes en tramite
 
-        public DataTable FiltrarPatentesEnTramite(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesEnTramite(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesEnTramite(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesEnTramite(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesSinRegistro()
+        public async Task<int> GetTotalPatentesSinRegistro()
         {
-            return patenteDao.GetTotalPatentesSinRegistro();
+            return await patenteDao.GetTotalPatentesSinRegistro();
         }
-        public int GetFilteredPatentesSinRegistroCount(string value)
+        public async Task<int> GetFilteredPatentesSinRegistroCount(string value)
         {
-            return patenteDao.GetFilteredPatentesSinRegistroCount(value);
+            return await patenteDao.GetFilteredPatentesSinRegistroCount(value);
         }
-        public DataTable GetAllPatentesEnTramite(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesEnTramite(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesEnTramite(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesEnTramite(currentPage, pageSize);
             return tabla;
         }
 
         //patentes registradas
-        public DataTable FiltrarPatentesRegistradas(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesRegistradas(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesRegistradas(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesRegistradas(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesRegistradas()
+        public async Task<int> GetTotalPatentesRegistradas()
         {
-            return patenteDao.GetTotalPatentesRegistradas();
+            return await patenteDao.GetTotalPatentesRegistradas();
         }
-        public int GetFilteredPatentesRegistradasCount(string value)
+        public async Task<int> GetFilteredPatentesRegistradasCount(string value)
         {
-            return patenteDao.GetFilteredPatentesRegistradasCount(value);
+            return await patenteDao.GetFilteredPatentesRegistradasCount(value);
         }
-        public DataTable GetAllPatentesRegistradas(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesRegistradas(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradas(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesRegistradas(currentPage, pageSize);
             return tabla;
         }
         //patentes en renovacion
-        public DataTable FiltrarPatentesRegistradasEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesRegistradasEnTramiteDeRenovacion(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesRegistradasEnTramiteDeRenovacion(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesRegistradasEnTramiteDeRenovacion(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesRegistradasEnTramiteDeRenovacion()
+        public async Task<int> GetTotalPatentesRegistradasEnTramiteDeRenovacion()
         {
-            return patenteDao.GetTotalPatentesRegistradasEnTramiteDeRenovacion();
+            return await patenteDao.GetTotalPatentesRegistradasEnTramiteDeRenovacion();
         }
-        public int GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(string value)
+        public async Task<int> GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(string value)
         {
-            return patenteDao.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(value);
+            return await patenteDao.GetFilteredPatentesRegistradasEnTramiteDeRenovacionCount(value);
         }
-        public DataTable GetAllPatentesRegistradasEnTramiteDeRenovacion(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesRegistradasEnTramiteDeRenovacion(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesRegistradasEnTramiteDeRenovacion(currentPage, pageSize);
             return tabla;
         }
 
 
         //patentes en traspaso
-        public DataTable FiltrarPatentesRegistradasEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesRegistradasEnTramiteDeTraspaso(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesRegistradasEnTramiteDeTraspaso(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesRegistradasEnTramiteDeTraspaso(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesRegistradasEnTramiteDeTraspaso()
+        public async Task<int> GetTotalPatentesRegistradasEnTramiteDeTraspaso()
         {
-            return patenteDao.GetTotalPatentesRegistradasEnTramiteDeTraspaso();
+            return await patenteDao.GetTotalPatentesRegistradasEnTramiteDeTraspaso();
         }
-        public int GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(string value)
+        public async Task<int> GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(string value)
         {
-            return patenteDao.GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(value);
+            return await patenteDao.GetFilteredPatentesRegistradasEnTramiteDeTraspasoCount(value);
         }
-        public DataTable GetAllPatentesRegistradasEnTramiteDeTraspaso(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesRegistradasEnTramiteDeTraspaso(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesRegistradasEnTramiteDeTraspaso(currentPage, pageSize);
             return tabla;
         }
 
         //patentes en abandono
-        public DataTable FiltrarPatentesEnAbandono(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesEnAbandono(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesEnAbandono(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesEnAbandono(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesEnAbandono()
+        public async Task<int> GetTotalPatentesEnAbandono()
         {
-            return patenteDao.GetTotalPatentesEnAbandono();
+            return await patenteDao.GetTotalPatentesEnAbandono();
         }
-        public int GetFilteredPatentesEnAbandonoCount(string value)
+        public async Task<int> GetFilteredPatentesEnAbandonoCount(string value)
         {
-            return patenteDao.GetFilteredPatentesEnAbandonoCount(value);
+            return await patenteDao.GetFilteredPatentesEnAbandonoCount(value);
         }
-        public DataTable GetAllPatentesEnAbandono(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesEnAbandono(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesEnAbandono(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesEnAbandono(currentPage, pageSize);
             return tabla;
         }
 
         //desistimiento
-        public DataTable FiltrarPatentesEnDesistimiento(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarPatentesEnDesistimiento(string filtro, int currentPageIndex, int pageSize)
         {
-            return patenteDao.FiltrarPatentesEnDesistimiento(filtro, currentPageIndex, pageSize);
+            return await patenteDao.FiltrarPatentesEnDesistimiento(filtro, currentPageIndex, pageSize);
         }
-        public int GetTotalPatentesEnDesistimiento()
+        public async Task<int> GetTotalPatentesEnDesistimiento()
         {
-            return patenteDao.GetTotalPatentesEnDesistimiento();
+            return await patenteDao.GetTotalPatentesEnDesistimiento();
         }
-        public int GetFilteredPatentesEnDesistimientoCount(string value)
+        public async Task<int> GetFilteredPatentesEnDesistimientoCount(string value)
         {
-            return patenteDao.GetFilteredPatentesEnDesistimientoCount(value);
+            return await patenteDao.GetFilteredPatentesEnDesistimientoCount(value);
         }
-        public DataTable GetAllPatentesEnDesistimiento(int currentPage, int pageSize)
+        public async Task<DataTable> GetAllPatentesEnDesistimiento(int currentPage, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = patenteDao.GetAllPatentesEnDesistimiento(currentPage, pageSize);
+            tabla = await patenteDao.GetAllPatentesEnDesistimiento(currentPage, pageSize);
             return tabla;
         }
-        public DataTable ObtenerPatentePorId(int idPatente)
+        public async Task<DataTable> ObtenerPatentePorId(int idPatente)
         {
-            return patenteDao.ObtenerPatentePorId(idPatente);
+            return await patenteDao.ObtenerPatentePorId(idPatente);
         }
-        public bool EditarPatente(
+        public async Task<bool> EditarPatente(
             int id,
             string caso,
             string expediente,
@@ -235,7 +236,7 @@ namespace Dominio
             string documentoCesion,
             string poderNombramiento)
         {
-            return patenteDao.EditarPatente(
+            return await patenteDao.EditarPatente(
                 id, caso, expediente, nombre, estado, tipo,
                 idTitular, idAgente, fechaSolicitud,
                 registro, folio, libro, fechaRegistro,
@@ -245,10 +246,10 @@ namespace Dominio
             );
         }
 
-        public void ActualizarExpedientePatente(int p_id, string p_expediente, DateTime fecha, string estado,
+        public async Task ActualizarExpedientePatente(int p_id, string p_expediente, DateTime fecha, string estado,
           string anotaciones, string usuario)
         {
-            patenteDao.ActualizarExpedientePatente(p_id, p_expediente, fecha, estado, anotaciones, usuario);
+            await patenteDao.ActualizarExpedientePatente(p_id, p_expediente, fecha, estado, anotaciones, usuario);
         }
 
 
