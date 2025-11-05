@@ -26,7 +26,7 @@ namespace Presentacion.Marcas_Internacionales
         PersonaModel personaModel = new PersonaModel();
         HistorialModel historialModel = new HistorialModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento;
         private Form1 _form1;
         // Estas variables las declaras en el formulario (nivel de clase)
         private string rutaArchivoLocal = null;
