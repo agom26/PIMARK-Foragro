@@ -29,7 +29,7 @@ namespace Presentacion.Marcas_Nacionales
         private bool archivoSubido = false;
         private bool _isLoading;
         //ftp
-        const string URL = "https://foragro.com.es/peticiones/archivos_marcas_nacionales.php";
+        const string URL = "https://foragro.com.es/peticiones/archivos_marcas_internacionales.php";
         const string TOKEN = "TOKEN_SECRETO_LARGO_Y_UNICO";
         static class HttpX
         {
