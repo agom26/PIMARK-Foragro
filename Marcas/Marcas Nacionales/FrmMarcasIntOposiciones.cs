@@ -18,10 +18,10 @@ namespace Presentacion.Marcas_Internacionales
         HistorialModel historialModel = new HistorialModel();
         OposicionModel oposicionModel = new OposicionModel();
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image documento;
+        System.Drawing.Image? documento;
         public int numRegistros = 0;
         public float escala = 0;
-        string titulo;
+        string? titulo;
         bool agregoEstado = false;
 
         // ======== Campos a nivel de clase ========

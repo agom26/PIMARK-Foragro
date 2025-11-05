@@ -1,10 +1,6 @@
 ﻿using Comun;
 using Comun.Cache;
 using Dominio;
-using FluentFTP;
-using Microsoft.VisualBasic.Logging;
-using Microsoft.Win32;
-using MySql.Data.MySqlClient;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System.Data;
@@ -2398,14 +2394,15 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     dtgArchivos.Rows.Add(nombre);
                 }
-
+                    
                 dtgArchivos.ClearSelection();
-                tabControl1.Visible = true;
+                
             }
             finally
             {
                 // Restaurar el cursor global a "Default"
                 Cursor.Current = Cursors.Default;
+                tabControl1.Visible = true;
             }
         }
 
