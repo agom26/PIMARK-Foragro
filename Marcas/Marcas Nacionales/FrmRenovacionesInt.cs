@@ -2566,7 +2566,6 @@ namespace Presentacion.Marcas_Internacionales
             if (dtgMarcasRenov.Columns["id"] != null)
             {
                 dtgMarcasRenov.Columns["id"].Visible = false;
-              
             }
 
             dtgMarcasRenov.Columns["CLASE"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

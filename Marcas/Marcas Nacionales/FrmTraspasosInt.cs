@@ -5,7 +5,9 @@ using FluentFTP;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Nacionales;
 using System.Data;
+using System.Diagnostics;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text.Json;
@@ -27,10 +29,25 @@ namespace Presentacion.Marcas_Internacionales
         private bool archivoSubido = false;
         private bool _isLoading;
         //ftp
-        private string host = "ftp.foragro.com.es"; // Tu host FTP
-        private string usuario = "foragro"; // Tu usuario FTP
-        private string contraseña = "gqL8ygtSv6Z8"; // Tu contraseña FTP
-        private string directorioBase = "/foragro.com.es/marcas/nacionales";
+        const string URL = "https://foragro.com.es/peticiones/archivos_marcas_nacionales.php";
+        const string TOKEN = "TOKEN_SECRETO_LARGO_Y_UNICO";
+        static class HttpX
+        {
+            private static readonly HttpClient _http;
+            static HttpX()
+            {
+                var handler = new SocketsHttpHandler
+                {
+                    PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+                    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(2),
+                    MaxConnectionsPerServer = 8,
+                    AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
+                };
+                _http = new HttpClient(handler) { Timeout = TimeSpan.FromMinutes(10) };
+                _http.DefaultRequestHeaders.ExpectContinue = false;
+            }
+            public static HttpClient Client => _http;
+        }
         public async Task LoadAsync()
         {
             await LoadMarcas(); // aquí llamas a tu método actual
@@ -1945,45 +1962,33 @@ namespace Presentacion.Marcas_Internacionales
                 SetLoading(false);
             }
         }
-
-        private List<string> ListarNombresDeArchivos(string idMarca)
+        class ListarResp
         {
-            string carpetaMarca = $"{directorioBase}/marca-{idMarca}";
-            var nombresArchivos = new List<string>();
+            public bool ok { get; set; }
+            public int count { get; set; }
+            public List<string> files { get; set; } = new();
+            public string message { get; set; }
+        }
+        private async Task<List<string>> ListarNombresDeArchivosHttpAsync(string idMarca)
+        {
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent("listar_archivos"), "action");
+            form.Add(new StringContent(TOKEN), "auth");
+            form.Add(new StringContent(idMarca ?? ""), "idMarca");
 
-            using (FtpClient cliente = new FtpClient(host))
-            {
-                cliente.Credentials = new NetworkCredential(usuario, contraseña);
+            using var resp = await HttpX.Client.PostAsync(URL, form);
+            var body = await resp.Content.ReadAsStringAsync();
+            if (!resp.IsSuccessStatusCode)
+                throw new InvalidOperationException($"HTTP {(int)resp.StatusCode}: {body}");
 
-                try
-                {
-                    cliente.Connect();
+            var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var data = JsonSerializer.Deserialize<ListarResp>(body, opts);
+            if (data == null || !data.ok) throw new InvalidOperationException(data?.message ?? "Error al listar archivos");
 
-                    // Obtener listado de archivos en el directorio
-                    var listado = cliente.GetListing(carpetaMarca);
-
-                    foreach (var item in listado)
-                    {
-                        if (item.Type == FtpObjectType.File) // Solo archivos
-                        {
-                            nombresArchivos.Add(item.Name); // Agregar solo el nombre del archivo
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al listar archivos: {ex.Message}");
-                }
-                finally
-                {
-                    cliente.Disconnect();
-                }
-            }
-
-            return nombresArchivos;
+            return data.files;
         }
 
-        public void ListarArchivosEnGeneral()
+        public async Task ListarArchivosEnGeneral()
         {
             try
             {
@@ -1994,10 +1999,10 @@ namespace Presentacion.Marcas_Internacionales
                 tabControl1.Visible = false;
 
                 string id = "" + SeleccionarMarca.idN;
-                CrearCarpetaMarca(id);
+                await CrearCarpetaMarcaHttpAsync(id);
 
                 // Obtener nombres de archivos desde el servidor FTP
-                var nombresArchivos = ListarNombresDeArchivos(id);
+                var nombresArchivos = await ListarNombresDeArchivosHttpAsync(id);
 
                 // Limpiar y configurar DataGridView
                 dtgArchivos.DataSource = null;
@@ -2019,39 +2024,57 @@ namespace Presentacion.Marcas_Internacionales
                 Cursor.Current = Cursors.Default;
             }
         }
-        private void AbrirArchivoDesdeFtp(string idMarca, string archivoNombre)
+        private async void AbrirArchivoDesdeHttpAsync(string idMarca, string archivoNombre)
         {
-            string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            string rutaRemota = $"{carpeta}/{archivoNombre}";
-            string rutaLocal = Path.Combine(Path.GetTempPath(), archivoNombre); // Carpeta temporal
-
             try
             {
-                using (var cliente = new FtpClient(host, usuario, contraseña))
-                {
-                    cliente.Connect();
+                using var form = new MultipartFormDataContent {
+            { new StringContent("descargar"),     "action" },
+            { new StringContent(TOKEN),           "auth" },
+            { new StringContent(idMarca ?? ""),   "idMarca" },
+            { new StringContent(archivoNombre ?? ""), "archivoNombre" }
+        };
 
-                    // Descargar el archivo al directorio temporal
-                    cliente.DownloadFile(rutaLocal, rutaRemota, FtpLocalExists.Overwrite, FtpVerify.None);
+                // Fuerza HTTP/1.1 y acepta binario/imagen
+                var req = new HttpRequestMessage(HttpMethod.Post, URL) { Content = form, Version = HttpVersion.Version11 };
+                req.Headers.Accept.Clear();
+                req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
+                req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("image/*"));
+
+                using var resp = await HttpX.Client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead);
+                if (!resp.IsSuccessStatusCode)
+                {
+                    var err = await resp.Content.ReadAsStringAsync();
+                    MessageBox.Show($"HTTP {(int)resp.StatusCode}\n{err}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                // Asegúrate de que el archivo existe localmente antes de abrirlo
+                // Nombre final (Content-Disposition o el que pediste)
+                var cd = resp.Content.Headers.ContentDisposition;
+                var nombre = cd?.FileNameStar ?? cd?.FileName?.Trim('"') ?? archivoNombre;
+                foreach (var ch in Path.GetInvalidFileNameChars()) nombre = nombre.Replace(ch, '_');
+
+                var rutaLocal = Path.Combine(Path.GetTempPath(), nombre);
+
+                // Stream → archivo (sin convertir a texto)
+                await using (var input = await resp.Content.ReadAsStreamAsync())
+                await using (var output = new FileStream(rutaLocal, FileMode.Create, FileAccess.Write, FileShare.Read, 81920, true))
+                {
+                    await input.CopyToAsync(output);
+                }
+
                 if (File.Exists(rutaLocal))
                 {
-                    // Abre el archivo con la aplicación predeterminada de manera confiable
-                    var process = new System.Diagnostics.Process
+                    var p = new Process
                     {
-                        StartInfo = new System.Diagnostics.ProcessStartInfo
-                        {
-                            FileName = rutaLocal,
-                            UseShellExecute = true // Importante para manejar rutas complejas
-                        }
+                        StartInfo = new ProcessStartInfo { FileName = rutaLocal, UseShellExecute = true }
                     };
-                    process.Start();
+                    p.Start();
                 }
                 else
                 {
-                    FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO SE DESCARGÓ CORRECTAMENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var alerta = new FrmAlerta("EL ARCHIVO NO SE DESCARGÓ CORRECTAMENTE", "ERROR",
+                                               MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                 }
             }
@@ -2064,7 +2087,7 @@ namespace Presentacion.Marcas_Internacionales
         public void Abrir()
         {
             string idMarca = "" + SeleccionarMarca.idN; // Id de la marca actual
-            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+            string? archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
 
             if (string.IsNullOrEmpty(archivoNombre))
             {
@@ -2073,46 +2096,32 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
             Cursor.Current = Cursors.WaitCursor;
-            AbrirArchivoDesdeFtp(idMarca, archivoNombre);
+            AbrirArchivoDesdeHttpAsync(idMarca, archivoNombre);
             Cursor.Current = Cursors.Default;
         }
 
-        private void EliminarArchivoDesdeFtp(string idMarca, string archivoNombre)
+        private async Task EliminarArchivoAsync(string idMarca, string archivoNombre)
         {
-            string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            string rutaRemota = $"{carpeta}/{archivoNombre}";
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent("eliminar"), "action");
+            form.Add(new StringContent(TOKEN), "auth");
+            form.Add(new StringContent(idMarca), "idMarca");
+            form.Add(new StringContent(archivoNombre), "archivoNombre");
 
-            try
+            using var resp = await HttpX.Client.PostAsync(URL, form);
+            var body = await resp.Content.ReadAsStringAsync();
+            if (!resp.IsSuccessStatusCode)
             {
-                using (var cliente = new FtpClient(host, usuario, contraseña))
-                {
-                    cliente.Connect();
-
-                    // Verifica si el archivo existe antes de intentar eliminarlo
-                    if (cliente.FileExists(rutaRemota))
-                    {
-                        cliente.DeleteFile(rutaRemota);
-                        FrmAlerta alerta = new FrmAlerta("ARCHIVO ELIMINADO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                    }
-                    else
-                    {
-                        FrmAlerta alerta = new FrmAlerta("EL ARCHIVO NO EXISTE EN EL SERVIDOR", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-                    }
-                }
+                MessageBox.Show(body, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            catch (Exception ex)
-            {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL ELIMINAR EL ARCHIVO: " + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-            }
+            MessageBox.Show("ARCHIVO ELIMINADO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public void Eliminar()
+        public async Task Eliminar()
         {
             string idMarca = "" + SeleccionarMarca.idN; // Id de la marca actual
-            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+            string? archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
 
             if (string.IsNullOrEmpty(archivoNombre))
             {
@@ -2128,7 +2137,7 @@ namespace Presentacion.Marcas_Internacionales
             if (confirmacion == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                EliminarArchivoDesdeFtp(idMarca, archivoNombre);
+                await EliminarArchivoAsync(idMarca, archivoNombre);
 
                 // Actualizar la lista de archivos en el DataGridView
                 ListarArchivosEnGeneral();
@@ -2136,93 +2145,79 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public void CrearCarpetaMarca(string idMarca)
+        private async Task CrearCarpetaMarcaHttpAsync(string idMarca)
         {
-            string carpetaMarca = $"{directorioBase}/marca-{idMarca}"; // Ruta completa para la carpeta de la marca
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent("crear_carpeta_marca"), "action");
+            form.Add(new StringContent(TOKEN), "auth");
+            form.Add(new StringContent(idMarca ?? ""), "idMarca");
 
-            using (FtpClient cliente = new FtpClient(host))
-            {
-                cliente.Credentials = new NetworkCredential(usuario, contraseña);
-
-                try
-                {
-                    cliente.Connect(); // Conecta al servidor FTP
-
-                    // Verifica si la carpeta ya existe
-                    if (!cliente.DirectoryExists(carpetaMarca))
-                    {
-                        cliente.CreateDirectory(carpetaMarca); // Crea la carpeta
-                        //MessageBox.Show($"Carpeta creada exitosamente: {carpetaMarca}");
-                    }
-                    else
-                    {
-                        //MessageBox.Show($"La carpeta ya existe: {carpetaMarca}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al crear la carpeta: {ex.Message}");
-                }
-                finally
-                {
-                    cliente.Disconnect(); // Desconecta del servidor FTP
-                }
-            }
+            using var resp = await HttpX.Client.PostAsync(URL, form);
+            var body = await resp.Content.ReadAsStringAsync();
+            if (!resp.IsSuccessStatusCode)
+                throw new InvalidOperationException($"HTTP {(int)resp.StatusCode}: {body}");
+            // Opcional: validar JSON {"ok":true}
         }
 
-        private void SubirArchivo(string idMarca)
+        private async Task SubirArchivoAsync(string idMarca)
         {
-            string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
-
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+            using var ofd = new System.Windows.Forms.OpenFileDialog
             {
-                Title = "Seleccione un archivo para subir",
+                Title = "Seleccione un archivo",
                 Filter = "Todos los archivos (*.*)|*.*"
             };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            var file = new FileInfo(ofd.FileName);
+            if (file.Length > 20 * 1024 * 1024)
             {
-                Cursor.Current = Cursors.WaitCursor;
-                string archivoLocal1 = openFileDialog.FileName;
-                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
-
-                // Verificar tamaño del archivo antes de subirlo
-                FileInfo fileInfo = new FileInfo(archivoLocal1);
-                if (fileInfo.Length > limiteTamanio)
-                {
-                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).",
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Cursor.Current = Cursors.Default;
-                    return; // No sube el archivo si es demasiado grande
-                }
-
-                try
-                {
-                    using (var client = new FtpClient(host, usuario, contraseña))
-                    {
-                        client.Connect();
-
-                        // Crear carpeta si no existe
-                        if (!client.DirectoryExists(carpeta))
-                        {
-                            client.CreateDirectory(carpeta);
-                        }
-
-                        // Subir el archivo
-                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
-                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
-
-                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al subir el archivo: {ex.Message}");
-                }
-                Cursor.Current = Cursors.Default;
+                MessageBox.Show("El archivo supera 20MB.");
+                return;
             }
+
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent("subir"), "action");
+            form.Add(new StringContent(TOKEN), "auth");
+            form.Add(new StringContent(idMarca), "idMarca");
+
+            // ✅ Enviar el nombre real como campo independiente
+            form.Add(new StringContent(file.Name, System.Text.Encoding.UTF8, "text/plain"), "nombreArchivo");
+
+            // 🔹 Archivo con header Content-Disposition manual (soporte UTF-8 con filename*)
+            var fc = new StreamContent(File.OpenRead(file.FullName));
+
+            // MIME por extensión
+            var ext = file.Extension.ToLowerInvariant();
+            fc.Headers.ContentType = new MediaTypeHeaderValue(ext switch
+            {
+                ".png" => "image/png",
+                ".jpg" => "image/jpeg",
+                ".jpeg" => "image/jpeg",
+                ".gif" => "image/gif",
+                ".pdf" => "application/pdf",
+                _ => "application/octet-stream"
+            });
+
+            // 🔹 Aquí insertas el bloque del filenameStar
+            var cd = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+            cd.Name = "file";                   // campo "file" para PHP
+            cd.FileName = "upload.bin";         // respaldo ASCII
+            cd.FileNameStar = file.Name;        // ✅ nombre real UTF-8 ("Diseño sin título.png")
+            fc.Headers.ContentDisposition = cd;
+
+            // 👇 Importante: ahora agregas solo el contenido (sin pasar file.Name)
+            form.Add(fc); // no uses form.Add(fc, "file", file.Name)
+
+            using var resp = await HttpX.Client.PostAsync(URL, form);
+            var body = await resp.Content.ReadAsStringAsync();
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                MessageBox.Show(body, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void panel11_Paint(object sender, PaintEventArgs e)
@@ -2230,9 +2225,9 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private void roundedButton4_Click_2(object sender, EventArgs e)
+        private async void roundedButton4_Click_2(object sender, EventArgs e)
         {
-            ListarArchivosEnGeneral();
+            await ListarArchivosEnGeneral();
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -2240,12 +2235,12 @@ namespace Presentacion.Marcas_Internacionales
             AnadirTabPage(tabPageMarcaDetail);
         }
 
-        private void iconButton8_Click(object sender, EventArgs e)
+        private async void iconButton8_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                SubirArchivo("" + SeleccionarMarca.idN);
-                ListarArchivosEnGeneral();
+                await SubirArchivoAsync("" + SeleccionarMarca.idN);
+                await ListarArchivosEnGeneral();
             }
             
         }
@@ -2260,11 +2255,11 @@ namespace Presentacion.Marcas_Internacionales
             Abrir();
         }
 
-        private void iconButton10_Click(object sender, EventArgs e)
+        private async void iconButton10_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                Eliminar();
+                await Eliminar();
             }
             
 
@@ -2313,72 +2308,78 @@ namespace Presentacion.Marcas_Internacionales
             dtgHistorialR.ClearSelection();
         }
 
-        private void SubirArchivoTraspaso(string idMarca)
-        {
-            string carpeta = $"{directorioBase}/marca-{idMarca}/";
-            long limiteTamanio = 20 * 1024 * 1024; // 20MB en bytes
 
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+        private async Task SubirArchivoTraspaso(string idMarca)
+        {
+            using var ofd = new System.Windows.Forms.OpenFileDialog
             {
-                Title = "Seleccione un archivo para subir",
+                Title = "Seleccione un archivo",
                 Filter = "Todos los archivos (*.*)|*.*"
             };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            var file = new FileInfo(ofd.FileName);
+            if (file.Length > 20 * 1024 * 1024)
             {
-                Cursor.Current = Cursors.WaitCursor;
-                string archivoLocal1 = openFileDialog.FileName;
-                string nombreArchivo1 = System.IO.Path.GetFileName(archivoLocal1);
+                MessageBox.Show("El archivo supera 20MB.");
+                return;
+            }
 
-                // Verificar tamaño del archivo antes de subirlo
-                FileInfo fileInfo = new FileInfo(archivoLocal1);
-                if (fileInfo.Length > limiteTamanio)
-                {
-                    MessageBox.Show($"El archivo supera el límite de {limiteTamanio / (1024 * 1024)} MB (20MB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Cursor.Current = Cursors.Default;
-                    return; // No sube el archivo si es demasiado grande
-                }
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent("subir"), "action");
+            form.Add(new StringContent(TOKEN), "auth");
+            form.Add(new StringContent(idMarca), "idMarca");
 
-                try
-                {
-                    using (var client = new FtpClient(host, usuario, contraseña))
-                    {
-                        client.Connect();
+            // ✅ Enviar el nombre real como campo independiente
+            form.Add(new StringContent(file.Name, System.Text.Encoding.UTF8, "text/plain"), "nombreArchivo");
 
-                        // Crear carpeta si no existe
-                        if (!client.DirectoryExists(carpeta))
-                        {
-                            client.CreateDirectory(carpeta);
-                        }
+            // 🔹 Archivo con header Content-Disposition manual (soporte UTF-8 con filename*)
+            var fc = new StreamContent(File.OpenRead(file.FullName));
 
-                        // Subir el archivo
-                        string rutaRemota = $"{carpeta}/{nombreArchivo1}";
-                        client.UploadFile(archivoLocal1, rutaRemota, FtpRemoteExists.Overwrite);
+            // MIME por extensión
+            var ext = file.Extension.ToLowerInvariant();
+            fc.Headers.ContentType = new MediaTypeHeaderValue(ext switch
+            {
+                ".png" => "image/png",
+                ".jpg" => "image/jpeg",
+                ".jpeg" => "image/jpeg",
+                ".gif" => "image/gif",
+                ".pdf" => "application/pdf",
+                _ => "application/octet-stream"
+            });
 
-                        FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
+            // 🔹 Aquí insertas el bloque del filenameStar
+            var cd = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+            cd.Name = "file";                   // campo "file" para PHP
+            cd.FileName = "upload.bin";         // respaldo ASCII
+            cd.FileNameStar = file.Name;        // ✅ nombre real UTF-8 ("Diseño sin título.png")
+            fc.Headers.ContentDisposition = cd;
 
-                        archivoSubido = true; // Indicar que el archivo se ha subido correctamente
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al subir el archivo: {ex.InnerException.Message}");
-                    archivoSubido = false;
-                }
-                Cursor.Current = Cursors.Default;
+            // 👇 Importante: ahora agregas solo el contenido (sin pasar file.Name)
+            form.Add(fc); // no uses form.Add(fc, "file", file.Name)
+
+            using var resp = await HttpX.Client.PostAsync(URL, form);
+            var body = await resp.Content.ReadAsStringAsync();
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                MessageBox.Show(body, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                archivoSubido = false;
+                return;
             }
             else
             {
-                archivoSubido = false;
+                archivoSubido = true;
             }
+
+                MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnAdjuntarT_Click(object sender, EventArgs e)
+        private async void btnAdjuntarT_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
-                SubirArchivoTraspaso("" + SeleccionarMarca.idN);
+                await SubirArchivoTraspaso("" + SeleccionarMarca.idN);
                 if (!archivoSubido)
                 {
                     FrmAlerta alerta = new FrmAlerta("NO SE HA SELECCIONADO NI SUBIDO NINGÚN ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);

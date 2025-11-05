@@ -36,8 +36,24 @@ namespace Presentacion.Marcas_Internacionales
         //ftp
         const string URL = "https://foragro.com.es/peticiones/archivos_marcas_nacionales.php";
         const string TOKEN = "TOKEN_SECRETO_LARGO_Y_UNICO";
+        static class HttpX
+        {
+            private static readonly HttpClient _http;
+            static HttpX()
+            {
+                var handler = new SocketsHttpHandler
+                {
+                    PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+                    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(2),
+                    MaxConnectionsPerServer = 8,
+                    AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
+                };
+                _http = new HttpClient(handler) { Timeout = TimeSpan.FromMinutes(10) };
+                _http.DefaultRequestHeaders.ExpectContinue = false;
+            }
+            public static HttpClient Client => _http;
+        }
 
-        
         public async Task LoadAsync()
         {
             await LoadMarcas(); // aquí llamas a tu método actual
@@ -60,23 +76,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        static class HttpX
-        {
-            private static readonly HttpClient _http;
-            static HttpX()
-            {
-                var handler = new SocketsHttpHandler
-                {
-                    PooledConnectionLifetime = TimeSpan.FromMinutes(5),
-                    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(2),
-                    MaxConnectionsPerServer = 8,
-                    AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
-                };
-                _http = new HttpClient(handler) { Timeout = TimeSpan.FromMinutes(10) };
-                _http.DefaultRequestHeaders.ExpectContinue = false;
-            }
-            public static HttpClient Client => _http;
-        }
+        
 
 
         public void convertirImagen()
