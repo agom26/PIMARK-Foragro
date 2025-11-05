@@ -1,4 +1,210 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Entidades
+{
+    public class VencimientoDao
+    {
+        private readonly string urlApi = "https://foragro.com.es/peticiones/vencimientos.php";
+        private static readonly JsonSerializerOptions JsonOpts = new() { PropertyNameCaseInsensitive = true };
+
+        /* ---------------- HTTP Helper ---------------- */
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var resp = await client.PostAsync(urlApi, content);
+            resp.EnsureSuccessStatusCode();
+
+            string body = await resp.Content.ReadAsStringAsync();
+            return JsonDocument.Parse(body);
+        }
+
+        private static void ThrowIfNotOk(JsonElement root)
+        {
+            if (root.TryGetProperty("ok", out var okProp) && okProp.ValueKind == JsonValueKind.False)
+            {
+                var msg = root.TryGetProperty("error", out var err) ? err.GetString() : "Operación no OK";
+                throw new InvalidOperationException(msg ?? "Operación no OK");
+            }
+        }
+
+        private static DataTable JsonArrayToDataTable(JsonElement arr)
+        {
+            var tabla = new DataTable();
+            bool schemaBuilt = false;
+
+            foreach (var elem in arr.EnumerateArray())
+            {
+                if (!schemaBuilt)
+                {
+                    foreach (var prop in elem.EnumerateObject())
+                        if (!tabla.Columns.Contains(prop.Name))
+                            tabla.Columns.Add(prop.Name);
+                    schemaBuilt = true;
+                }
+
+                var row = tabla.NewRow();
+                foreach (var prop in elem.EnumerateObject())
+                    row[prop.Name] = prop.Value.ValueKind == JsonValueKind.Null ? DBNull.Value : prop.Value.ToString();
+
+                tabla.Rows.Add(row);
+            }
+            return tabla;
+        }
+
+        /* ---------------- Métodos ---------------- */
+
+        // 2) GetTotalVencimientos
+        public async Task<int> GetTotalVencimientosAsync()
+        {
+            var payload = new { action = "get_total_vencimientos" };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.GetProperty("totalMarcas").GetInt32();
+        }
+
+        // 3) GetFilteredVencimientosCount (sí tiene count)
+        public async Task<int> GetFilteredVencimientosCountAsync(string value)
+        {
+            var payload = new { action = "get_filtered_vencimientos_count", value };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.GetProperty("totalMarcas").GetInt32();
+        }
+
+
+        // 4) ObtenerVencimientosPaginados (solo DataTable)
+        public async Task<DataTable> ObtenerVencimientosPaginadosAsync(int currentPageIndex, int pageSize)
+        {
+            var payload = new { action = "obtener_vencimientos_paginados", currentPageIndex, pageSize };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+
+            if (root.TryGetProperty("ok", out var ok) && ok.ValueKind == JsonValueKind.False)
+            {
+                var msg = root.TryGetProperty("error", out var err) ? err.GetString() : "Operación no OK";
+                throw new InvalidOperationException(msg ?? "Operación no OK");
+            }
+
+            JsonElement arr;
+            if (root.TryGetProperty("rows", out var rows) && rows.ValueKind == JsonValueKind.Array)
+                arr = rows;
+            else if (root.TryGetProperty("data", out var data) && data.ValueKind == JsonValueKind.Array)
+                arr = data;
+            else if (root.ValueKind == JsonValueKind.Array)
+                arr = root;
+            else
+                return new DataTable();
+
+            return JsonArrayToDataTable(arr);
+        }
+
+
+
+        // 5) FiltrarVencimientos (sí tiene count)
+        public async Task<DataTable> FiltrarVencimientosAsync(string filtro, int currentPageIndex, int pageSize)
+        {
+            var payload = new { action = "filtrar_vencimientos", filtro, currentPageIndex, pageSize };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+
+            var arr = root.GetProperty("rows");
+            var tabla = JsonArrayToDataTable(arr);
+            return (tabla);
+        }
+
+        // 7) EjecutarProcedimientoInsertarVencimientos
+        public async Task<bool> EjecutarInsertarVencimientosAsync()
+        {
+            var payload = new { action = "ejecutar_insertar_vencimientos" };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.GetProperty("ok").GetBoolean();
+        }
+
+        // 8) ActualizarNotificado
+        public async Task<bool> ActualizarNotificadoAsync(int id, string tipo)
+        {
+            var payload = new { action = "actualizar_notificado", id, tipo };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.GetProperty("ok").GetBoolean();
+        }
+
+        // 9) EditarTextoRtf
+        public async Task<bool> EditarTextoRtfAsync(string tipo, string mensajeRtfEscapadoJson)
+        {
+            var payload = new { action = "editar_texto_rtf", tipo, mensaje = mensajeRtfEscapadoJson };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.GetProperty("ok").GetBoolean();
+        }
+
+        // 10) ObtenerTextoRtfPorTipo
+        public async Task<string?> ObtenerTextoRtfPorTipoAsync(string tipo)
+        {
+            var payload = new { action = "obtener_texto_rtf_por_tipo", tipo };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+            return root.TryGetProperty("mensajeRtf", out var msg) ? msg.GetString() : null;
+        }
+
+        // 11) ObtenerTodosLosVencimientosReporte (sí tiene count)
+        public async Task<DataTable > ObtenerVencimientosReporteAsync()
+        {
+            var payload = new { action = "obtener_vencimientos_reporte" };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+
+            var arr = root.TryGetProperty("data", out var d) ? d : root.GetProperty("rows");
+            var tabla = JsonArrayToDataTable(arr);
+            return (tabla);
+        }
+
+        // 12) ObtenerTodosLosVencimientosFiltradosReporte (sí tiene count)
+        public async Task<DataTable> ObtenerVencimientosFiltradosReporteAsync(string valor)
+        {
+            var payload = new { action = "obtener_vencimientos_filtrados_reporte", valor };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+
+            var arr = root.GetProperty("rows");
+            var tabla = JsonArrayToDataTable(arr);
+            return (tabla);
+        }
+
+        // Opcional: obtener un listado simple SIN count
+        public async Task<DataTable> GetVencimientoByValueAsync(string value)
+        {
+            var payload = new { action = "get_vencimiento_by_value", value };
+            using var doc = await PostAsync(payload);
+            var root = doc.RootElement;
+            ThrowIfNotOk(root);
+
+            var arr = root.GetProperty("rows");
+            return JsonArrayToDataTable(arr);
+        }
+    }
+}
+
+
+/*using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace AccesoDatos.Entidades
@@ -6,57 +212,7 @@ namespace AccesoDatos.Entidades
     public class VencimientoDao:ConnectionSQL
     {
         
-        public (string CorreoTitular, string CorreoAgente) GetCorreosPorMarcaId(int id)
-        {
-            (string CorreoTitular, string CorreoAgente) correos = (null, null);
-
-            try
-            {
-                using (MySqlConnection conexion = GetConnection())
-                {
-                    conexion.Open();
-
-                    string query = @"
-                        SELECT DISTINCT 
-                            T.correo AS CorreoTitular, 
-                            A.correo AS CorreoAgente 
-                        FROM 
-                            Marcas M 
-                        JOIN 
-                            Personas T ON M.IdTitular = T.id 
-                        JOIN 
-                            Personas A ON M.IdAgente = A.id 
-                        WHERE 
-                            M.id = @id;
-                    ";
-
-                    using (MySqlCommand comando = new MySqlCommand(query, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@id", id);
-
-                        using (MySqlDataReader reader = comando.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                correos.CorreoTitular = reader.IsDBNull(reader.GetOrdinal("CorreoTitular"))
-                                    ? null
-                                    : reader.GetString("CorreoTitular");
-
-                                correos.CorreoAgente = reader.IsDBNull(reader.GetOrdinal("CorreoAgente"))
-                                    ? null
-                                    : reader.GetString("CorreoAgente");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al obtener correos por marca ID: {ex.Message}");
-            }
-
-            return correos;
-        }
+       
         //vencimientos normales
         public int GetTotalVencimientos()
         {
@@ -170,25 +326,6 @@ namespace AccesoDatos.Entidades
             return tabla;
         }
         
-
-        public DataTable GetVencimientoByValue(string value)
-        {
-            DataTable tabla = new DataTable();
-            using (MySqlConnection conexion = GetConnection())
-            {
-                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Vencimientos WHERE (nombre LIKE @value OR fecha_vencimiento LIKE @value OR clase LIKE @value OR tipo LIKE @value OR registro LIKE @value OR folio LIKE @value OR libro LIKE @value OR titular LIKE @value OR agente LIKE @value)", conexion)) // Inicializa correctamente el comando
-                {
-                    comando.Parameters.AddWithValue("@value", value);
-                    conexion.Open();
-                    using (MySqlDataReader leer = comando.ExecuteReader()) 
-                    {
-
-                        tabla.Load(leer);
-                    }
-                }
-            }
-            return tabla;
-        }
 
         public void EjecutarProcedimientoInsertarVencimientos()
         {
@@ -347,6 +484,5 @@ namespace AccesoDatos.Entidades
             }
             return tabla;
         }
-
     }
-}
+}*/

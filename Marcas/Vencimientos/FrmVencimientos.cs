@@ -14,6 +14,7 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Presentacion.Vencimientos
 {
@@ -270,11 +271,39 @@ namespace Presentacion.Vencimientos
 
         private async Task LoadVencimientos()
         {
+            try
+            {
+                // Lanza en paralelo si ambos son async
+                var totalTask = await vencimientoModel.GetTotalVencimientos();
+                var tablaTask = await vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize);
+
+                var total =  totalTask;                 // int
+                var dt = tablaTask;                 // DataTable
+
+                totalRows = total;
+                totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+                lblTotalPages.Text = totalPages.ToString();
+                lblTotalRows.Text = totalRows.ToString();
+                lblCurrentPage.Text = currentPageIndex.ToString();
+                dtgVencimientos.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores/log
+                Console.WriteLine(ex);
+            }
+        }
+
+
+        /* anterior
+        private async Task LoadVencimientos()
+        {
             var result = await Task.Run(() =>
             {
                 var tr = vencimientoModel.GetTotalVencimientos();
-                var tp = (int)Math.Ceiling((double)tr / pageSize);
-                var dt = vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize);
+                var tp = (int)Math.Ceiling(Convert.ToDouble(tr) / pageSize);
+                var dt =  vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize);
                 return (tr, tp, dt);
             });
 
@@ -284,9 +313,9 @@ namespace Presentacion.Vencimientos
             //var marcasN = await Task.Run(()=> vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize)); // devuelve un DataTable
             
 
-            void Apply()
+            async Task Apply()
             {
-                totalRows = result.tr;
+                totalRows = await result.tr;
                 totalPages = result.tp;
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
@@ -301,10 +330,10 @@ namespace Presentacion.Vencimientos
 
             if (!IsDisposed)
             {
-                if (InvokeRequired) BeginInvoke((Action)Apply);
-                else Apply();
+                if (InvokeRequired) BeginInvoke((Action) await Apply);
+                else await Apply();
             }
-        }
+        }*/
 
         public async Task filtrar()
         {
@@ -312,7 +341,7 @@ namespace Presentacion.Vencimientos
             if (!string.IsNullOrEmpty(buscar))
             {
 
-                totalRows = vencimientoModel.GetFilteredVencimientosCount(buscar);
+                totalRows = await vencimientoModel.GetFilteredVencimientosCount(buscar);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblTotalPages.Text = totalPages.ToString();
@@ -671,7 +700,7 @@ namespace Presentacion.Vencimientos
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = vencimientoModel.GetFilteredVencimientosCount(txtBuscar.Text);
+            totalRows = await vencimientoModel.GetFilteredVencimientosCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -2457,7 +2486,7 @@ namespace Presentacion.Vencimientos
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = vencimientoModel.GetFilteredVencimientosCount(txtBuscar.Text);
+                totalRows = await vencimientoModel.GetFilteredVencimientosCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();

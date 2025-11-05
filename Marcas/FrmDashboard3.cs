@@ -39,8 +39,8 @@ namespace Presentacion
         {
             try
             {
-                await Task.Run(() => vencimientoModel.EjecutarProcedimiento());
-                await Task.Run(() => LoadVencimientos());
+                await  vencimientoModel.EjecutarProcedimiento();
+                await  LoadVencimientos();
                 await LoadPlazos();
             }
             catch (MySqlException ex) when (ex.Number == 1042) // Ejemplo: error de conexión MySQL
@@ -90,7 +90,7 @@ namespace Presentacion
         {
 
             currentPageIndex = 1;
-            var titulares = await Task.Run(() => vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize));
+            var titulares = await vencimientoModel.GetAllVencimientos(currentPageIndex, pageSize);
             if (this.IsHandleCreated && !this.IsDisposed)
             {
                 this.Invoke(new Action(() =>

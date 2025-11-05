@@ -17,78 +17,58 @@ namespace Dominio
         {
             vencimientoDao = new VencimientoDao();
         }
-        public DataTable ObtenerVencimientos()
+        public async Task<DataTable> ObtenerVencimientos()
         {
             DataTable vencimientos= new DataTable();
-            vencimientos= vencimientoDao.ObtenerTodosLosVencimientosReporte();
+            vencimientos= await vencimientoDao.ObtenerVencimientosReporteAsync();
             return vencimientos;
         }
-        public DataTable GetAllVencimientos(int currentPageIndex, int pageSize)
+
+        public async Task<DataTable> GetAllVencimientos(int currentPageIndex, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = vencimientoDao.GetAllVencimientosPaginados(currentPageIndex, pageSize);
+            tabla = await vencimientoDao.ObtenerVencimientosPaginadosAsync(currentPageIndex, pageSize);
             return tabla;
         }
-        public DataTable FiltrarVencimientos(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarVencimientos(string filtro, int currentPageIndex, int pageSize)
         {
-            return vencimientoDao.FiltrarVencimientos(filtro, currentPageIndex, pageSize);
-        }
-        public int GetTotalVencimientos()
-        {
-            return vencimientoDao.GetTotalVencimientos();
-        }
-        public int GetFilteredVencimientosCount(string value)
-        {
-            return vencimientoDao.GetFilteredVencimientosCount(value);
-        }
-        public DataTable ObtenerTodosLosVencimientosFiltradosReporte(string valor)
-        {
-            return vencimientoDao.ObtenerTodosLosVencimientosFiltradosReporte(valor);
-        }
-        public DataTable GetVencimientoByValue(string value)
-        {
-            // Llama al método correspondiente en personaDao para obtener la persona y devolver el resultado
-            return vencimientoDao.GetVencimientoByValue(value);
+            return await vencimientoDao.FiltrarVencimientosAsync(filtro, currentPageIndex, pageSize);
         }
 
-        public void EjecutarProcedimiento()
+        public async Task<int> GetTotalVencimientos()
         {
-            vencimientoDao.EjecutarProcedimientoInsertarVencimientos();
+            return await vencimientoDao.GetTotalVencimientosAsync();
+        }
+        public async Task<int> GetFilteredVencimientosCount(string value)
+        {
+            return await vencimientoDao.GetFilteredVencimientosCountAsync(value);
         }
 
-        public (string CorreoTitular, string CorreoAgente) GetCorreosPorMarcaId(int id)
+        public async Task<DataTable> ObtenerTodosLosVencimientosFiltradosReporte(string valor)
         {
-            // Llama al método en vencimientoDao y guarda la tupla de correos
-            var correos = vencimientoDao.GetCorreosPorMarcaId(id);
-
-            // Devuelve la tupla de correos
-            return correos;
+            return await vencimientoDao.ObtenerVencimientosFiltradosReporteAsync(valor);
+        }
+        
+        public async Task EjecutarProcedimiento()
+        {
+            await vencimientoDao.EjecutarInsertarVencimientosAsync();
         }
 
-        public void EnviarCorreo(string correo)
+      
+        public async Task ActualizarNotificado(int id, string tipo)
         {
-            var mailService = new ServicioEmail();
-            mailService.Send(
-                recipient: correo,
-                subject: "Vencimiento de marca o patente",
-                body: "Hola, le comentamos que ya va a vencer su documento legal"
-                );
+            await vencimientoDao.ActualizarNotificadoAsync(id, tipo);
 
         }
 
-        public void ActualizarNotificado(int id, string tipo)
+        public async Task EditarTextoRtf(string tipo, string mensaje)
         {
-            vencimientoDao.ActualizarNotificado(id, tipo);
-
+            await vencimientoDao.EditarTextoRtfAsync(tipo, mensaje);
         }
 
-        public void EditarTextoRtf(string tipo, string mensaje)
+        public async Task<string?> ObtenerTextoRtfPorTipo(string tipo)
         {
-            vencimientoDao.EditarTextoRtf(tipo, mensaje);
-        }
-        public string ObtenerTextoRtfPorTipo(string tipo)
-        {
-            return vencimientoDao.ObtenerTextoRtfPorTipo(tipo);
+            return await vencimientoDao.ObtenerTextoRtfPorTipoAsync(tipo);
         }
 
 
