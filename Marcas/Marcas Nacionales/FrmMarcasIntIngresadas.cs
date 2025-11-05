@@ -2409,9 +2409,9 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private void roundedButton2_Click_1(object sender, EventArgs e)
+        private async void roundedButton2_Click_1(object sender, EventArgs e)
         {
-            ListarArchivosEnGeneral();
+            await ListarArchivosEnGeneral();
 
         }
 
@@ -2431,7 +2431,7 @@ namespace Presentacion.Marcas_Internacionales
         private async void iconButton8_Click(object sender, EventArgs e)
         {
             await SubirArchivoAsync(SeleccionarMarca.idN.ToString());
-            ListarArchivosEnGeneral();
+            await ListarArchivosEnGeneral();
         }
 
 
@@ -2623,7 +2623,7 @@ namespace Presentacion.Marcas_Internacionales
         public async Task Eliminar()
         {
             string idMarca = "" + SeleccionarMarca.idN; // Id de la marca actual
-            string archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
+            string? archivoNombre = dtgArchivos.CurrentRow?.Cells[0].Value?.ToString(); // Archivo seleccionado
 
             if (string.IsNullOrEmpty(archivoNombre))
             {
@@ -2642,7 +2642,7 @@ namespace Presentacion.Marcas_Internacionales
                 await EliminarArchivoAsync(idMarca, archivoNombre);
 
                 // Actualizar la lista de archivos en el DataGridView
-                ListarArchivosEnGeneral();
+                await ListarArchivosEnGeneral();
                 Cursor.Current = Cursors.Default;
             }
         }
