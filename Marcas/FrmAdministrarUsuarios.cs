@@ -128,8 +128,8 @@ namespace Presentacion
                     EditarUsuario.usuario = row["usuario"].ToString();
                     //EditarUsuario.contrasena = row["contrasena"].ToString();
                     EditarUsuario.correo = row["correo"].ToString();
-                    EditarUsuario.isAdmin = Convert.ToBoolean(row["isAdmin"]);
-                    EditarUsuario.soloLectura = Convert.ToBoolean(row["solo_lectura"]);
+                    EditarUsuario.isAdmin = Convert.ToBoolean(Convert.ToInt32(row["isAdmin"]));
+                    EditarUsuario.soloLectura = Convert.ToBoolean(Convert.ToInt32(row["solo_lectura"]));
 
                     txtNombres.Text = EditarUsuario.nombres;
                     txtUsername.Text = EditarUsuario.usuario;
