@@ -249,7 +249,7 @@ namespace AccesoDatos.Usuarios
                 result.Apellidos = u.TryGetProperty("apellidos", out var p3) ? p3.GetString() : null;
                 result.Correo = u.TryGetProperty("correo", out var p4) ? p4.GetString() : null;
                 result.SoloLectura = u.TryGetProperty("solo_lectura", out var p5) && p5.ValueKind == JsonValueKind.True;
-                result.IsAdmin = u.TryGetProperty("admin", out var p6) && p6.ValueKind == JsonValueKind.True;
+                result.IsAdmin = root.TryGetProperty("isAdmin", out var p6) && p6.ValueKind == JsonValueKind.True;
                 // Si coincide, rellenar usuario activo
                 UsuarioActivo.isAdmin = result.IsAdmin;
                 UsuarioActivo.idUser = result.Id;
