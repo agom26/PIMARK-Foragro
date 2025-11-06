@@ -75,8 +75,8 @@ namespace Presentacion
                     lblTotalPages.Text = totalPages.ToString();
                     lblTotalRows.Text = totalRows.ToString();
                     // Obtiene los usuarios
-                    await Task.Run(() => UserModel.GetAllUsers(currentPageIndex, pageSize));
-                    var users = UserModel.GetAllUsers(currentPageIndex, pageSize);
+                    
+                    var users = await UserModel.GetAllUsers(currentPageIndex, pageSize);
 
                     // Actualiza el DataGridView
                     dtgUsuarios.DataSource = users;
