@@ -130,7 +130,7 @@ namespace Marcas
 
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             
             //recordar sesion
@@ -146,13 +146,14 @@ namespace Marcas
 
             //LOGIN                                
             UserModel userModel = new UserModel();
-            if (!userModel.ProbarConexion())
+            bool conexion = await userModel.ProbarConexion();
+            if (!conexion)
             {
                 MessageBox.Show("No se pudo establecer conexión con la base de datos.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            (bool validLogin, bool isAdmin) = userModel.Login(txtUserName.Text, txtPassword.Text);
+            (bool validLogin, bool isAdmin) = await userModel.Login(txtUserName.Text, txtPassword.Text);
             try
             {
                 if(validLogin == true)

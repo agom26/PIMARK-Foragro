@@ -1,4 +1,276 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace AccesoDatos.Usuarios
+{
+    public class UserDao
+    {
+        private readonly string urlApi = "https://foragro.com.es/peticiones/users.php";
+
+        private static readonly JsonSerializerOptions JsonOpts = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        /* ================= Helpers base ================= */
+
+        private async Task<JsonDocument> PostAsync(object data)
+        {
+            using var client = new HttpClient();
+            string json = JsonSerializer.Serialize(data);
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var resp = await client.PostAsync(urlApi, content);
+            resp.EnsureSuccessStatusCode();
+
+            string body = await resp.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(body))
+                return JsonDocument.Parse("{}");
+
+            return JsonDocument.Parse(body);
+        }
+
+        private static DataTable JsonArrayToDataTable(JsonElement root)
+        {
+            var table = new DataTable();
+
+            if (root.ValueKind != JsonValueKind.Array)
+                return table;
+
+            foreach (var el in root.EnumerateArray())
+            {
+                if (table.Columns.Count == 0)
+                {
+                    foreach (var prop in el.EnumerateObject())
+                    {
+                        if (!table.Columns.Contains(prop.Name))
+                            table.Columns.Add(prop.Name);
+                    }
+                }
+
+                var row = table.NewRow();
+                foreach (var prop in el.EnumerateObject())
+                {
+                    row[prop.Name] = prop.Value.ValueKind switch
+                    {
+                        JsonValueKind.String => prop.Value.GetString(),
+                        JsonValueKind.Number => prop.Value.GetRawText(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Null => DBNull.Value,
+                        _ => prop.Value.ToString()
+                    };
+                }
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
+
+        private static JsonElement GetArrayOrEmpty(JsonElement root, string field = "rows")
+        {
+            if (root.ValueKind == JsonValueKind.Array) return root; // a veces el endpoint devuelve array directo
+            if (root.TryGetProperty(field, out var arr) && arr.ValueKind == JsonValueKind.Array) return arr;
+            // fallback: algunos endpoints devuelven {count, rows}, otros directamente array
+            return default;
+        }
+
+        /* ================= DTOs útiles ================= */
+
+        public class LoginResult
+        {
+            public bool Ok { get; set; }
+            public bool IsAdmin { get; set; }
+            public int Id { get; set; }
+            public string Usuario { get; set; }
+            public string Nombres { get; set; }
+            public string Apellidos { get; set; }
+            public string Correo { get; set; }
+            public bool SoloLectura { get; set; }
+        }
+
+        /* ================= Acciones (mirror de users.php) ================= */
+
+        // add_user
+        public async Task<bool> AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool soloLectura)
+        {
+            var data = new
+            {
+                action = "add_user",
+                usuario,
+                contrasena,
+                nombres,
+                apellidos,
+                isAdmin,
+                correo,
+                soloLectura
+            };
+
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("success", out var ok) && ok.ValueKind == JsonValueKind.True;
+        }
+
+        // update_user (contraseña opcional si cambiarContrasena=false)
+        public async Task<bool> UpdateUser(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena, bool soloLectura)
+        {
+            var data = new
+            {
+                action = "update_user",
+                id,
+                usuario,
+                contrasena,         // se ignora en PHP si cambiarContrasena = false
+                nombres,
+                apellidos,
+                isAdmin,
+                correo,
+                cambiarContrasena,
+                soloLectura
+            };
+
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("success", out var ok) && ok.ValueKind == JsonValueKind.True;
+        }
+
+        // get_total_usuarios
+        public async Task<int> GetTotalUsuarios()
+        {
+            using var doc = await PostAsync(new { action = "get_total_usuarios" });
+            return doc.RootElement.TryGetProperty("totalUsuarios", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // get_all_users (devuelve {rows: [...], count: N})
+        public async Task<DataTable> GetAllUsers(int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_all_users",
+                currentPageIndex,
+                pageSize
+            };
+
+            using var doc = await PostAsync(data);
+            var arr = GetArrayOrEmpty(doc.RootElement, "rows");
+            return arr.ValueKind == JsonValueKind.Array ? JsonArrayToDataTable(arr) : new DataTable();
+        }
+
+        // remove_user (log + delete)
+        public async Task<bool> RemoveUser(int userId, string deletedUser, string deletedBy)
+        {
+            var data = new
+            {
+                action = "remove_user",
+                userId,
+                deletedUser,
+                deletedBy
+            };
+
+            using var doc = await PostAsync(data);
+            return doc.RootElement.TryGetProperty("success", out var ok) && ok.ValueKind == JsonValueKind.True;
+        }
+
+        // get_filtered_user_count
+        public async Task<int> GetFilteredUserCount(string value)
+        {
+            using var doc = await PostAsync(new { action = "get_filtered_user_count", value });
+            return doc.RootElement.TryGetProperty("totalUsuarios", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // get_user_by_value (devuelve {rows: [...], count: N})
+        public async Task<DataTable> GetUserByValue(string value, int currentPageIndex, int pageSize)
+        {
+            var data = new
+            {
+                action = "get_user_by_value",
+                value,
+                currentPageIndex,
+                pageSize
+            };
+
+            using var doc = await PostAsync(data);
+            var arr = GetArrayOrEmpty(doc.RootElement, "rows");
+            return arr.ValueKind == JsonValueKind.Array ? JsonArrayToDataTable(arr) : new DataTable();
+        }
+
+        // get_user_by_id (devuelve un objeto)
+        public async Task<DataTable> GetUserById(int userId)
+        {
+            var data = new { action = "get_user_by_id", userId };
+            using var doc = await PostAsync(data);
+
+            // Normalizamos a DataTable de una fila
+            var table = new DataTable();
+            var obj = doc.RootElement;
+            if (obj.ValueKind != JsonValueKind.Object) return table;
+
+            foreach (var p in obj.EnumerateObject())
+                if (!table.Columns.Contains(p.Name)) table.Columns.Add(p.Name);
+
+            var row = table.NewRow();
+            foreach (var p in obj.EnumerateObject())
+            {
+                row[p.Name] = p.Value.ValueKind switch
+                {
+                    JsonValueKind.String => p.Value.GetString(),
+                    JsonValueKind.Number => p.Value.GetRawText(),
+                    JsonValueKind.True => true,
+                    JsonValueKind.False => false,
+                    JsonValueKind.Null => DBNull.Value,
+                    _ => p.Value.ToString()
+                };
+            }
+            table.Rows.Add(row);
+            return table;
+        }
+
+        // login (devuelve {ok, isAdmin, user{...}} o {ok:false})
+        public async Task<(bool ,bool )> Login(string user, string pass)
+        {
+            var data = new { action = "login", user, pass };
+            using var doc = await PostAsync(data);
+            var root = doc.RootElement;
+
+            var result = new LoginResult
+            {
+                Ok = root.TryGetProperty("ok", out var ok) && ok.ValueKind == JsonValueKind.True,
+                IsAdmin = root.TryGetProperty("isAdmin", out var adm) && adm.ValueKind == JsonValueKind.True
+            };
+
+            if (result.Ok && root.TryGetProperty("user", out var u) && u.ValueKind == JsonValueKind.Object)
+            {
+                result.Id = u.TryGetProperty("id", out var idEl) && idEl.TryGetInt32(out var vi) ? vi : 0;
+                result.Usuario = u.TryGetProperty("usuario", out var p1) ? p1.GetString() : null;
+                result.Nombres = u.TryGetProperty("nombres", out var p2) ? p2.GetString() : null;
+                result.Apellidos = u.TryGetProperty("apellidos", out var p3) ? p3.GetString() : null;
+                result.Correo = u.TryGetProperty("correo", out var p4) ? p4.GetString() : null;
+                result.SoloLectura = u.TryGetProperty("solo_lectura", out var p5) && p5.ValueKind == JsonValueKind.True;
+            }
+
+            return (result.Ok, result.IsAdmin);
+        }
+
+        // contar_administradores
+        public async Task<int> ContarAdministradores()
+        {
+            using var doc = await PostAsync(new { action = "contar_administradores" });
+            return doc.RootElement.TryGetProperty("TotalAdministradores", out var t) && t.TryGetInt32(out var vi) ? vi : 0;
+        }
+
+        // probar_conexion
+        public async Task<bool> ProbarConexion()
+        {
+            using var doc = await PostAsync(new { action = "probar_conexion" });
+            return doc.RootElement.TryGetProperty("ok", out var ok) && ok.ValueKind == JsonValueKind.True;
+        }
+    }
+}
+
+/*
+using MySql.Data.MySqlClient;
 using Comun.Cache;
 using System.Data;
 
@@ -402,4 +674,4 @@ namespace AccesoDatos.Usuarios
         }
 
     }
-}
+}*/

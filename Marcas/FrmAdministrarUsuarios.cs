@@ -64,7 +64,7 @@ namespace Presentacion
 
         private async Task LoadUsers()
         {
-            totalRows = UserModel.GetTotalUsers();
+            totalRows = await UserModel.GetTotalUsers();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
             if (this.IsHandleCreated && !this.IsDisposed)
             {
@@ -316,10 +316,10 @@ namespace Presentacion
         {
             if (txtBuscar.Text != "")
             {
-                totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
+                totalRows = await UserModel.GetFilteredUserCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-                DataTable usuarios = UserModel.GetByValue(txtBuscar.Text, currentPageIndex, pageSize);
+                DataTable usuarios = await UserModel.GetByValue(txtBuscar.Text, currentPageIndex, pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
                 if (usuarios.Rows.Count > 0)
@@ -652,7 +652,7 @@ namespace Presentacion
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
+            totalRows = await UserModel.GetFilteredUserCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -675,12 +675,12 @@ namespace Presentacion
             {
                 buscando = true;
                 currentPageIndex = 1;
-                totalRows = UserModel.GetFilteredUserCount(txtBuscar.Text);
+                totalRows = await UserModel.GetFilteredUserCount(txtBuscar.Text);
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
                 lblCurrentPage.Text = currentPageIndex.ToString();
                 lblTotalPages.Text = totalPages.ToString();
-                lblTotalRows.Text = totalRows.ToString();
+                lblTotalRows.Text = totalRows.ToString(); 
                 await FiltrarUsuarios();
             }
         }

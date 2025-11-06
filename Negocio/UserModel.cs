@@ -15,68 +15,68 @@ namespace Dominio
             userDao = new UserDao();
         }
 
-        public (bool,bool) Login(string user, string pass)
+        public async Task<(bool,bool)> Login(string user, string pass)
         {
-            return userDao.Login(user, pass);
+            return await userDao.Login(user, pass);
         }
 
-        public int GetTotalUsers()
+        public async Task<int> GetTotalUsers()
         {
-            return userDao.GetTotalUsuarios();
+            return await userDao.GetTotalUsuarios();
         }
 
 
-        public DataTable GetAllUsers(int pageNumber, int pageSize)
+        public async Task<DataTable> GetAllUsers(int pageNumber, int pageSize)
         {
             DataTable tabla = new DataTable();
             
-            tabla = userDao.GetAllUsers(pageNumber, pageSize);
+            tabla = await userDao.GetAllUsers(pageNumber, pageSize);
 
             return tabla;
         }
 
-        public int GetFilteredUserCount(string value)
+        public async Task<int> GetFilteredUserCount(string value)
         {
-            return userDao.GetFilteredUserCount(value);
+            return await userDao.GetFilteredUserCount(value);
         }
 
 
-        public DataTable GetByValue(string value, int pageNumber, int pageSize)
+        public async Task<DataTable> GetByValue(string value, int pageNumber, int pageSize)
         {
             DataTable tabla = new DataTable();
-            tabla = userDao.GetUserByValue(value,pageNumber, pageSize);
+            tabla = await userDao.GetUserByValue(value,pageNumber, pageSize);
             return tabla;
         }
-        public DataTable GetById(int id)
+        public async Task<DataTable> GetById(int id)
         {
             DataTable tabla = new DataTable();
-            tabla = userDao.GetUserById(id);
+            tabla = await userDao.GetUserById(id);
             return tabla;
         }
 
-        public void AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo,bool soloLectura)
+        public async Task AddUser(string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo,bool soloLectura)
         {
-            userDao.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo, soloLectura);
+            await userDao.AddUser(usuario, contrasena, nombres, apellidos, isAdmin, correo, soloLectura);
         }
 
-        public bool UpdateUserSecure(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena, bool soloLectura)
+        public async Task<bool> UpdateUserSecure(int id, string usuario, string contrasena, string nombres, string apellidos, bool isAdmin, string correo, bool cambiarContrasena, bool soloLectura)
         {
-            return userDao.UpdateUser(id, usuario, contrasena, nombres, apellidos, isAdmin, correo, cambiarContrasena, soloLectura);
+            return await userDao.UpdateUser(id, usuario, contrasena, nombres, apellidos, isAdmin, correo, cambiarContrasena, soloLectura);
         }
 
-        public bool RemoveUser(int userId,string deletedUser, string deletedBy )
+        public async Task<bool> RemoveUser(int userId,string deletedUser, string deletedBy )
         {
-            return userDao.RemoveUser(userId,deletedUser, deletedBy);
+            return await userDao.RemoveUser(userId, deletedUser, deletedBy);
         }
 
-        public int CountAdmins()
+        public async Task<int> CountAdmins()
         {
-            return userDao.ContarAdministradores();
+            return await userDao.ContarAdministradores();
         }
 
-        public bool ProbarConexion()
+        public async Task<bool> ProbarConexion()
         {
-            return userDao.ProbarConexion();
+            return await userDao.ProbarConexion();
         }
 
     }

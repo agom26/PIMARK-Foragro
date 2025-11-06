@@ -10,7 +10,7 @@ namespace AccesoDatos
 
         public ConnectionSQL()
         {
-            //connectionString = "server=mysql.foragro.com.es;port=3306;uid=foragro;pwd=gqL8ygtSv6Z8;database=foragro_pimark;";
+           
             connectionString = ConfigurationManager.ConnectionStrings["Foragro"].ConnectionString;
         }
 
