@@ -1,10 +1,5 @@
 ﻿using AccesoDatos.Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
@@ -17,7 +12,7 @@ namespace Dominio
             historialMarcasDao = new HistorialMarcasDao();
         }
 
-        public async void GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario,string origen, DateTime? fechaVencimiento)
+        public async Task GuardarEtapa(int idMarca, DateTime fecha, string etapa, string anotaciones, string usuario,string origen, DateTime? fechaVencimiento)
         {
             await historialMarcasDao.GuardarEtapa(idMarca, fecha, etapa, anotaciones, usuario, origen,fechaVencimiento);
         }

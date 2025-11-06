@@ -325,7 +325,7 @@ namespace Presentacion.Marcas_Internacionales
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                        await historialModel.GuardarEtapa(idMarca, Convert.ToDateTime(AgregarEtapa.fecha), etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                     }
 
                     // Subir archivo si fue seleccionado

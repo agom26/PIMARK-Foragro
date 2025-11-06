@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Comun.Cache;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Net.Http;
@@ -248,6 +249,15 @@ namespace AccesoDatos.Usuarios
                 result.Apellidos = u.TryGetProperty("apellidos", out var p3) ? p3.GetString() : null;
                 result.Correo = u.TryGetProperty("correo", out var p4) ? p4.GetString() : null;
                 result.SoloLectura = u.TryGetProperty("solo_lectura", out var p5) && p5.ValueKind == JsonValueKind.True;
+                result.IsAdmin = u.TryGetProperty("admin", out var p6) && p6.ValueKind == JsonValueKind.True;
+                // Si coincide, rellenar usuario activo
+                UsuarioActivo.isAdmin = result.IsAdmin;
+                UsuarioActivo.idUser = result.Id;
+                UsuarioActivo.usuario = result.Usuario;
+                UsuarioActivo.nombres = result.Nombres;
+                UsuarioActivo.apellidos = result.Apellidos;
+                UsuarioActivo.correo = result.Correo;
+                UsuarioActivo.soloLectura = result.SoloLectura;
             }
 
             return (result.Ok, result.IsAdmin);
