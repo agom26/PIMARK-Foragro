@@ -2405,10 +2405,15 @@ namespace Presentacion.Patentes
             if (!resp.IsSuccessStatusCode)
             {
                 MessageBox.Show(body, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                archivoSubido = false;
                 return;
             }
+            else
+            {
+                archivoSubido = true;
+            }
 
-            MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         /*
         private void SubirArchivoTraspaso(string idMarca)
