@@ -1,17 +1,9 @@
 ﻿using Comun.Cache;
 using Dominio;
 using Presentacion.Alertas;
-using Presentacion.Marcas_Nacionales;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Presentacion.Patentes
@@ -184,56 +176,91 @@ namespace Presentacion.Patentes
 
 
 
-        public bool SubirArchivoPorPhp(int idPatente)
+        private static string ExtToMime(string ext)
         {
-            try
+            switch ((ext ?? string.Empty).ToLowerInvariant())
             {
-                using (var client = new HttpClient())
-                {
-                    using (var form = new MultipartFormDataContent())
-                    {
-                        // Agregamos el ID de la marca
-                        form.Add(new StringContent(idPatente.ToString()), "idPatente");
-
-                        // Agregamos el archivo (mejor con FileStream)
-                        using (var fileStream = new FileStream(rutaArchivoLocal, FileMode.Open, FileAccess.Read))
-                        {
-                            var streamContent = new StreamContent(fileStream);
-                            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                            form.Add(streamContent, "archivo", nombreArchivo);
-
-                            // URL de tu PHP
-                            string url = "https://foragro.com.es/subir_archivo_patente_tramite_inicial.php"; // Asegúrate de que esta URL sea la correcta
-
-                            // Realizamos la solicitud
-                            var responseTask = client.PostAsync(url, form);
-                            responseTask.Wait();
-
-                            var response = responseTask.Result;
-                            var responseContent = response.Content.ReadAsStringAsync().Result;
-
-                            if (response.IsSuccessStatusCode)
-                            {
-                                //FrmAlerta alerta = new FrmAlerta("ARCHIVO SUBIDO CORRECTAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.None);
-                                //alerta.ShowDialog();
-                                return true;
-                            }
-                            else
-                            {
-                                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + response.StatusCode.ToString() + "\n" + responseContent, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                alerta.ShowDialog();
-                                return false;
-                            }
-                        }
-                    }
-                }
+                case ".png": return "image/png";
+                case ".jpg":
+                case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
+                case ".pdf": return "application/pdf";
+                case ".txt": return "text/plain";
+                case ".doc": return "application/msword";
+                case ".docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                case ".xls": return "application/vnd.ms-excel";
+                case ".xlsx": return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                default: return "application/octet-stream";
             }
-            catch (Exception ex)
+        }
+
+        public async Task<bool> SubirArchivoPorPhpAsync(int idPatente)
+        {
+            if (string.IsNullOrWhiteSpace(rutaArchivoLocal) || string.IsNullOrWhiteSpace(nombreArchivo))
             {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
+                new FrmAlerta("No hay archivo seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
                 return false;
             }
+
+            var file = new FileInfo(rutaArchivoLocal);
+            if (!file.Exists)
+            {
+                new FrmAlerta("El archivo no existe en disco.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                return false;
+            }
+            if (file.Length > 20 * 1024 * 1024)
+            {
+                new FrmAlerta("El archivo supera 20MB.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                return false;
+            }
+
+            // URL de tu PHP (el standalone que corregimos o tu endpoint actual)
+            const string url = "https://foragro.com.es/subir_archivo_patente_tramite_inicial.php";
+
+            using var form = new MultipartFormDataContent();
+
+            // Campos de texto
+            form.Add(new StringContent(idPatente.ToString()), "idPatente");
+            // 👉 Enviar SIEMPRE el nombre real en UTF-8
+            form.Add(new StringContent(nombreArchivo, Encoding.UTF8, "text/plain"), "nombreArchivo");
+
+            // Contenido del archivo
+            var fc = new StreamContent(File.OpenRead(file.FullName));
+            fc.Headers.ContentType = new MediaTypeHeaderValue(ExtToMime(file.Extension));
+            // 👉 Content-Disposition manual con filename* (UTF-8) + fallback ASCII
+            var cd = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "file",            // el PHP standalone acepta 'file' y también 'archivo'; usa 'file' para estandarizar
+                FileName = "upload.bin",  // fallback ASCII
+                FileNameStar = nombreArchivo // ✅ nombre real UTF-8, p.ej. "Diseño sin título.png"
+            };
+            fc.Headers.ContentDisposition = cd;
+
+            form.Add(fc); // ¡No pases el 3er parámetro aquí o se sobreescribe el header!
+
+            using var http = new HttpClient() { Timeout = TimeSpan.FromSeconds(100) };
+            using var resp = await http.PostAsync(url, form);
+            var body = await resp.Content.ReadAsStringAsync();
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                new FrmAlerta($"Error HTTP {(int)resp.StatusCode}\n{body}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                return false;
+            }
+
+            // Opcional: validar el JSON {"ok":true} si tu PHP lo devuelve
+            try
+            {
+                using var doc = JsonDocument.Parse(body);
+                if (doc.RootElement.TryGetProperty("ok", out var okEl) && okEl.ValueKind == JsonValueKind.True)
+                    return true;
+                // si tu script devuelve {success: true}
+                if (doc.RootElement.TryGetProperty("success", out var sEl) && sEl.ValueKind == JsonValueKind.True)
+                    return true;
+            }
+            catch { /* si no es JSON, igual lo dimos como OK por el status 2xx */ }
+
+            return true;
         }
 
         public async Task IngresarPatente()
@@ -361,7 +388,7 @@ namespace Presentacion.Patentes
                                     return;
                                 }
 
-                                bool exito = SubirArchivoPorPhp(idPatente);
+                                bool exito = await SubirArchivoPorPhpAsync(idPatente);
                                 if (!exito)
                                 {
                                     // Si quieres, aquí podrías hacer rollback/eliminar la patente recién creada
@@ -613,9 +640,80 @@ namespace Presentacion.Patentes
         {
             
         }
-
+        private void ResetArchivoSeleccionado()
+        {
+            rutaArchivoLocal = null;
+            nombreArchivo = null;
+            archivoSeleccionado = false;
+        }
         private void btnAdjuntarT_Click(object sender, EventArgs e)
         {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Seleccionar archivo para adjuntar";
+                openFileDialog.Filter = "Todos los archivos (*.*)|*.*";
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                rutaArchivoLocal = openFileDialog.FileName;
+                nombreArchivo = Path.GetFileName(rutaArchivoLocal);
+
+                // 🔹 Validar nombre de archivo
+                if (string.IsNullOrWhiteSpace(nombreArchivo))
+                {
+                    new FrmAlerta("El nombre del archivo no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                    ResetArchivoSeleccionado();
+                    return;
+                }
+
+                // ❌ Evitar nombres con caracteres problemáticos
+                string patronInvalido = @"[<>:""/\\|?*]";
+                if (Regex.IsMatch(nombreArchivo, patronInvalido))
+                {
+                    new FrmAlerta("El nombre del archivo contiene caracteres no permitidos (\\ / : * ? \" < > |).",
+                                  "Nombre inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                    ResetArchivoSeleccionado();
+                    return;
+                }
+
+                // 🔹 Validar tamaño máximo (20 MB)
+                FileInfo fileInfo = new FileInfo(rutaArchivoLocal);
+                long tamanioEnBytes = fileInfo.Length;
+                long maxTamanio = 20 * 1024 * 1024; // 20 MB
+
+                if (tamanioEnBytes > maxTamanio)
+                {
+                    new FrmAlerta("El archivo seleccionado supera el tamaño máximo permitido (20 MB).",
+                                  "Archivo demasiado grande", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                    ResetArchivoSeleccionado();
+                    return;
+                }
+
+                // 🔹 Validar extensión (permitir las más comunes)
+                string[] extensionesPermitidas = { ".png", ".jpg", ".jpeg", ".pdf", ".gif", ".doc", ".docx", ".xls", ".xlsx", ".txt" };
+                string extension = Path.GetExtension(nombreArchivo).ToLowerInvariant();
+                if (!extensionesPermitidas.Contains(extension))
+                {
+                    DialogResult result = MessageBox.Show(
+                        $"El tipo de archivo \"{extension}\" no es común. ¿Deseas continuar de todos modos?",
+                        "Tipo de archivo no reconocido",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.No)
+                    {
+                        ResetArchivoSeleccionado();
+                        return;
+                    }
+                }
+
+                // ✅ Archivo validado correctamente
+                archivoSeleccionado = true;
+                new FrmAlerta("Archivo seleccionado correctamente.", "Archivo válido",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+            }
+            /*
             using var ofd = new OpenFileDialog
             {
                 Filter = "Todos los archivos (*.*)|*.*",
@@ -640,40 +738,8 @@ namespace Presentacion.Patentes
 
             archivoSeleccionado = true;
             new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+            */
 
-            /*
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Todos los archivos (*.*)|*.*";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                rutaArchivoLocal = openFileDialog.FileName;
-                nombreArchivo = Path.GetFileName(rutaArchivoLocal);
-
-                // Validamos el tamaño máximo (20 MB)
-                FileInfo fileInfo = new FileInfo(rutaArchivoLocal);
-                long tamanioEnBytes = fileInfo.Length;
-                long maxTamanio = 20 * 1024 * 1024; // 20 MB
-
-                if (tamanioEnBytes > maxTamanio)
-                {
-                    FrmAlerta alerta = new FrmAlerta("EL archivo seleccionado supera el tamaño máximo permitido de 20 MB.",
-                        "Archivo demasiado grande", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-
-                    // Reiniciar selección
-                    rutaArchivoLocal = null;
-                    nombreArchivo = null;
-                    archivoSeleccionado = false;
-                    return;
-                }
-
-                archivoSeleccionado = true;
-
-                FrmAlerta alerta2 = new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta2.ShowDialog();
-
-            }*/
         }
     }
 }
