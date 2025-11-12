@@ -456,6 +456,26 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public async Task<byte[]> ObtenerLogoOposicionNuevoAsync(int id, string which = "opositor")
+        {
+            using var client = new HttpClient();
+
+            try
+            {
+                // Construye la URL según el parámetro
+                string url = $"https://foragro.com.es/peticiones/get_logo_oposiciones_nuevo.php?id={id}&which={which}";
+
+                // Realiza la solicitud HTTP GET
+                byte[] logoBytes = await client.GetByteArrayAsync(url);
+                return logoBytes;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error al obtener el logo de oposición: {ex.Message}");
+                return null;
+            }
+        }
+
         /* ==========================
            6) EDITAR (multipart)
            ========================== */

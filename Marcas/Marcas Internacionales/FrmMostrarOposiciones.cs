@@ -1263,15 +1263,24 @@ namespace Presentacion.Marcas_Nacionales
                     //idSolicitante 
 
                     // ↓ Descarga de logos en paralelo
-                    var taskLogoOpositor = oposicionModel.ObtenerLogoOpositorAsync(SeleccionarOposicion.idInt);
-                    var taskLogoPretendido = oposicionModel.ObtenerLogoSignoPretendidoAsync(SeleccionarOposicion.idInt);
-                    await Task.WhenAll(taskLogoOpositor, taskLogoPretendido);
+                    if (!String.IsNullOrEmpty(row["logo_opositor_url"].ToString()) || !String.IsNullOrEmpty(row["logo_opositor_url"].ToString()))
+                    {
+                        // ↓ Descarga de logos en paralelo
+                        var taskLogoOpositor = oposicionModel.ObtenerLogoOpositorNuevoAsync(SeleccionarOposicion.idInt);
+                        var taskLogoPretendido = oposicionModel.ObtenerLogoSignoPretendidoNuevoAsync(SeleccionarOposicion.idInt);
+                        await Task.WhenAll(taskLogoOpositor, taskLogoPretendido);
 
-                    var logoOpositorBytes = taskLogoOpositor.Result;
-                    var logoPretendidoBytes = taskLogoPretendido.Result;
+                        var logoOpositorBytes = taskLogoOpositor.Result;
+                        var logoPretendidoBytes = taskLogoPretendido.Result;
 
-                    SeleccionarOposicion.logoOpositor = logoOpositorBytes;
-                    SeleccionarOposicion.logoSignoPretendido = logoPretendidoBytes;
+                        SeleccionarOposicion.logoOpositor = logoOpositorBytes;
+                        SeleccionarOposicion.logoSignoPretendido = logoPretendidoBytes;
+                    }
+                    else
+                    {
+                        SeleccionarOposicion.logoOpositor = null;
+                        SeleccionarOposicion.logoSignoPretendido = null;
+                    }
 
                     txtExpedienteAO.Text = SeleccionarOposicion.expediente;
                     txtSignoAO.Text = SeleccionarOposicion.signo_pretendido;
@@ -1309,17 +1318,17 @@ namespace Presentacion.Marcas_Nacionales
 
 
                     // Logos en pictureBox
-                    tieneLogoOpositor = logoOpositorBytes != null && logoOpositorBytes.Length > 0;
-                    tieneLogoSignoPretendido = logoPretendidoBytes != null && logoPretendidoBytes.Length > 0;
+                    tieneLogoOpositor = SeleccionarOposicion.logoOpositor != null && SeleccionarOposicion.logoOpositor.Length > 0;
+                    tieneLogoSignoPretendido = SeleccionarOposicion.logoSignoPretendido != null && SeleccionarOposicion.logoSignoPretendido.Length > 0;
 
 
                     if (tieneLogoOpositor)
-                        pictureBoxOpositor.Image = convertirLogo(logoOpositorBytes);
+                        pictureBoxOpositor.Image = convertirLogo(SeleccionarOposicion.logoOpositor);
                     else
                         pictureBoxOpositor.Image = documento; // tu placeholder
 
                     if (tieneLogoSignoPretendido)
-                        pictureBoxSignoPretendido.Image = convertirLogo(logoPretendidoBytes);
+                        pictureBoxSignoPretendido.Image = convertirLogo(SeleccionarOposicion.logoSignoPretendido);
                     else
                         pictureBoxSignoPretendido.Image = documento;
 
@@ -2399,7 +2408,7 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, Convert.ToDateTime(AgregarEtapaOposicion.fecha),
+                        await historialModel.GuardarEtapa(SeleccionarOposicion.idMarca, Convert.ToDateTime(AgregarEtapaOposicion.fecha),
                            AgregarEtapaOposicion.etapa, AgregarEtapaOposicion.anotaciones,
                            AgregarEtapaOposicion.usuario, "OPOSICIÓN", null);
                     }

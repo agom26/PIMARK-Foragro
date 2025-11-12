@@ -156,6 +156,19 @@ namespace Dominio
             }
         }
 
+        public async Task<byte[]> ObtenerLogoOpositorNuevoAsync(int idOposicion)
+        {
+            try
+            {
+                return await oposicionDao.ObtenerLogoOposicionNuevoAsync(idOposicion, "opositor");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener logo opositor: {ex.Message}");
+                return null;
+            }
+        }
+
         public async Task<byte[]> ObtenerLogoSignoPretendidoAsync(int idOposicion)
         {
             try
@@ -168,8 +181,20 @@ namespace Dominio
                 return null;
             }
         }
+        public async Task<byte[]> ObtenerLogoSignoPretendidoNuevoAsync(int idOposicion)
+        {
+            try
+            {
+                return await oposicionDao.ObtenerLogoOposicionNuevoAsync(idOposicion, "pretendido");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener logo signo pretendido: {ex.Message}");
+                return null;
+            }
+        }
 
-        
+
 
         public async Task<bool> EditarOposicion(
            int idOposicion,
