@@ -132,23 +132,23 @@
             tabPageHistorialMarca = new TabPage();
             panel2 = new Panel();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            dtgHistorialAban = new DataGridView();
             panel5 = new Panel();
+            dtgHistorialAban = new DataGridView();
             label22 = new Label();
             tabPageRenovacionesList = new TabPage();
             panel9 = new Panel();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             btnEditarRenovacion = new FontAwesome.Sharp.IconButton();
-            dtgRenovaciones = new DataGridView();
             panel10 = new Panel();
+            dtgRenovaciones = new DataGridView();
             label28 = new Label();
             tabPageTraspasosList = new TabPage();
             panel11 = new Panel();
             iconButton3 = new FontAwesome.Sharp.IconButton();
             btnEditarTraspaso = new FontAwesome.Sharp.IconButton();
             label29 = new Label();
-            dtgTraspasos = new DataGridView();
             panel12 = new Panel();
+            dtgTraspasos = new DataGridView();
             tabPageListaArchivos = new TabPage();
             panel7 = new Panel();
             btnEliminarArchivos = new FontAwesome.Sharp.IconButton();
@@ -178,12 +178,15 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tabPageHistorialMarca.SuspendLayout();
             panel2.SuspendLayout();
+            panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).BeginInit();
             tabPageRenovacionesList.SuspendLayout();
             panel9.SuspendLayout();
+            panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgRenovaciones).BeginInit();
             tabPageTraspasosList.SuspendLayout();
             panel11.SuspendLayout();
+            panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtgTraspasos).BeginInit();
             tabPageListaArchivos.SuspendLayout();
             panel7.SuspendLayout();
@@ -663,9 +666,9 @@
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
-            tabPageMarcaDetail.Location = new Point(4, 26);
+            tabPageMarcaDetail.Location = new Point(4, 24);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
-            tabPageMarcaDetail.Size = new Size(1161, 713);
+            tabPageMarcaDetail.Size = new Size(1161, 715);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
@@ -1518,12 +1521,12 @@
             // panel2
             // 
             panel2.Controls.Add(iconButton1);
-            panel2.Controls.Add(dtgHistorialAban);
             panel2.Controls.Add(panel5);
             panel2.Controls.Add(label22);
-            panel2.Location = new Point(8, 14);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1145, 772);
+            panel2.Size = new Size(1161, 715);
             panel2.TabIndex = 0;
             // 
             // iconButton1
@@ -1541,12 +1544,22 @@
             iconButton1.UseVisualStyleBackColor = false;
             iconButton1.Click += iconButton1_Click;
             // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.BackColor = Color.FromArgb(192, 202, 212);
+            panel5.Controls.Add(dtgHistorialAban);
+            panel5.Location = new Point(48, 79);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(972, 542);
+            panel5.TabIndex = 49;
+            // 
             // dtgHistorialAban
             // 
             dtgHistorialAban.AllowUserToAddRows = false;
             dtgHistorialAban.AllowUserToDeleteRows = false;
             dtgHistorialAban.AllowUserToResizeRows = false;
-            dtgHistorialAban.Anchor = AnchorStyles.Top;
+            dtgHistorialAban.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgHistorialAban.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgHistorialAban.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgHistorialAban.BorderStyle = BorderStyle.None;
@@ -1554,7 +1567,7 @@
             dtgHistorialAban.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
             dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
@@ -1564,7 +1577,7 @@
             dtgHistorialAban.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialAban.EnableHeadersVisualStyles = false;
             dtgHistorialAban.GridColor = Color.LightGray;
-            dtgHistorialAban.Location = new Point(54, 93);
+            dtgHistorialAban.Location = new Point(13, 12);
             dtgHistorialAban.Name = "dtgHistorialAban";
             dtgHistorialAban.ReadOnly = true;
             dtgHistorialAban.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -1574,18 +1587,8 @@
             dtgHistorialAban.TabIndex = 48;
             dtgHistorialAban.DataBindingComplete += dtgHistorialAban_DataBindingComplete;
             // 
-            // panel5
-            // 
-            panel5.Anchor = AnchorStyles.Top;
-            panel5.BackColor = Color.FromArgb(192, 202, 212);
-            panel5.Location = new Point(40, 79);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(972, 542);
-            panel5.TabIndex = 49;
-            // 
             // label22
             // 
-            label22.Anchor = AnchorStyles.None;
             label22.AutoSize = true;
             label22.Font = new Font("Century Gothic", 19F);
             label22.Location = new Point(108, 17);
@@ -1607,12 +1610,12 @@
             // 
             panel9.Controls.Add(iconButton2);
             panel9.Controls.Add(btnEditarRenovacion);
-            panel9.Controls.Add(dtgRenovaciones);
             panel9.Controls.Add(panel10);
             panel9.Controls.Add(label28);
-            panel9.Location = new Point(8, 11);
+            panel9.Dock = DockStyle.Fill;
+            panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1145, 772);
+            panel9.Size = new Size(1161, 715);
             panel9.TabIndex = 1;
             panel9.Paint += panel9_Paint;
             // 
@@ -1642,7 +1645,7 @@
             btnEditarRenovacion.IconColor = Color.White;
             btnEditarRenovacion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarRenovacion.IconSize = 30;
-            btnEditarRenovacion.Location = new Point(1470, 73);
+            btnEditarRenovacion.Location = new Point(1478, 73);
             btnEditarRenovacion.Name = "btnEditarRenovacion";
             btnEditarRenovacion.Size = new Size(144, 37);
             btnEditarRenovacion.TabIndex = 56;
@@ -1650,12 +1653,22 @@
             btnEditarRenovacion.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEditarRenovacion.UseVisualStyleBackColor = false;
             // 
+            // panel10
+            // 
+            panel10.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel10.BackColor = Color.FromArgb(192, 202, 212);
+            panel10.Controls.Add(dtgRenovaciones);
+            panel10.Location = new Point(49, 78);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(972, 542);
+            panel10.TabIndex = 55;
+            // 
             // dtgRenovaciones
             // 
             dtgRenovaciones.AllowUserToAddRows = false;
             dtgRenovaciones.AllowUserToDeleteRows = false;
             dtgRenovaciones.AllowUserToResizeRows = false;
-            dtgRenovaciones.Anchor = AnchorStyles.Top;
+            dtgRenovaciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgRenovaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgRenovaciones.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgRenovaciones.BorderStyle = BorderStyle.None;
@@ -1663,7 +1676,7 @@
             dtgRenovaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
             dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
@@ -1673,7 +1686,7 @@
             dtgRenovaciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgRenovaciones.EnableHeadersVisualStyles = false;
             dtgRenovaciones.GridColor = Color.LightGray;
-            dtgRenovaciones.Location = new Point(55, 90);
+            dtgRenovaciones.Location = new Point(14, 13);
             dtgRenovaciones.Name = "dtgRenovaciones";
             dtgRenovaciones.ReadOnly = true;
             dtgRenovaciones.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -1683,18 +1696,8 @@
             dtgRenovaciones.TabIndex = 54;
             dtgRenovaciones.DataBindingComplete += dtgRenovaciones_DataBindingComplete;
             // 
-            // panel10
-            // 
-            panel10.Anchor = AnchorStyles.Top;
-            panel10.BackColor = Color.FromArgb(192, 202, 212);
-            panel10.Location = new Point(41, 78);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(972, 542);
-            panel10.TabIndex = 55;
-            // 
             // label28
             // 
-            label28.Anchor = AnchorStyles.None;
             label28.AutoSize = true;
             label28.Font = new Font("Century Gothic", 19F);
             label28.Location = new Point(98, 16);
@@ -1717,11 +1720,11 @@
             panel11.Controls.Add(iconButton3);
             panel11.Controls.Add(btnEditarTraspaso);
             panel11.Controls.Add(label29);
-            panel11.Controls.Add(dtgTraspasos);
             panel11.Controls.Add(panel12);
-            panel11.Location = new Point(8, 11);
+            panel11.Dock = DockStyle.Fill;
+            panel11.Location = new Point(0, 0);
             panel11.Name = "panel11";
-            panel11.Size = new Size(1145, 772);
+            panel11.Size = new Size(1161, 715);
             panel11.TabIndex = 1;
             // 
             // iconButton3
@@ -1750,7 +1753,7 @@
             btnEditarTraspaso.IconColor = Color.White;
             btnEditarTraspaso.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnEditarTraspaso.IconSize = 30;
-            btnEditarTraspaso.Location = new Point(1469, 73);
+            btnEditarTraspaso.Location = new Point(1477, 73);
             btnEditarTraspaso.Name = "btnEditarTraspaso";
             btnEditarTraspaso.Size = new Size(144, 37);
             btnEditarTraspaso.TabIndex = 60;
@@ -1760,21 +1763,30 @@
             // 
             // label29
             // 
-            label29.Anchor = AnchorStyles.None;
             label29.AutoSize = true;
             label29.Font = new Font("Century Gothic", 19F);
-            label29.Location = new Point(106, 16);
+            label29.Location = new Point(115, 16);
             label29.Name = "label29";
             label29.Size = new Size(156, 32);
             label29.TabIndex = 57;
             label29.Text = "TRASPASOS";
+            // 
+            // panel12
+            // 
+            panel12.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel12.BackColor = Color.FromArgb(192, 202, 212);
+            panel12.Controls.Add(dtgTraspasos);
+            panel12.Location = new Point(55, 75);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(972, 542);
+            panel12.TabIndex = 59;
             // 
             // dtgTraspasos
             // 
             dtgTraspasos.AllowUserToAddRows = false;
             dtgTraspasos.AllowUserToDeleteRows = false;
             dtgTraspasos.AllowUserToResizeRows = false;
-            dtgTraspasos.Anchor = AnchorStyles.Top;
+            dtgTraspasos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgTraspasos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgTraspasos.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgTraspasos.BorderStyle = BorderStyle.None;
@@ -1782,7 +1794,7 @@
             dtgTraspasos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 9F);
             dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = SystemColors.HighlightText;
             dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
@@ -1792,7 +1804,7 @@
             dtgTraspasos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgTraspasos.EnableHeadersVisualStyles = false;
             dtgTraspasos.GridColor = Color.LightGray;
-            dtgTraspasos.Location = new Point(61, 88);
+            dtgTraspasos.Location = new Point(13, 13);
             dtgTraspasos.Name = "dtgTraspasos";
             dtgTraspasos.ReadOnly = true;
             dtgTraspasos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -1802,21 +1814,12 @@
             dtgTraspasos.TabIndex = 58;
             dtgTraspasos.DataBindingComplete += dtgTraspasos_DataBindingComplete;
             // 
-            // panel12
-            // 
-            panel12.Anchor = AnchorStyles.Top;
-            panel12.BackColor = Color.FromArgb(192, 202, 212);
-            panel12.Location = new Point(47, 75);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(972, 542);
-            panel12.TabIndex = 59;
-            // 
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel7);
-            tabPageListaArchivos.Location = new Point(4, 24);
+            tabPageListaArchivos.Location = new Point(4, 26);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1161, 715);
+            tabPageListaArchivos.Size = new Size(1161, 713);
             tabPageListaArchivos.TabIndex = 5;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -1832,7 +1835,7 @@
             panel7.Dock = DockStyle.Fill;
             panel7.Location = new Point(0, 0);
             panel7.Name = "panel7";
-            panel7.Size = new Size(1161, 715);
+            panel7.Size = new Size(1161, 713);
             panel7.TabIndex = 0;
             // 
             // btnEliminarArchivos
@@ -1856,6 +1859,7 @@
             btnEliminarArchivos.TextAlign = ContentAlignment.MiddleLeft;
             btnEliminarArchivos.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEliminarArchivos.UseVisualStyleBackColor = false;
+            btnEliminarArchivos.Visible = false;
             btnEliminarArchivos.Click += iconButton11_Click;
             // 
             // iconButton12
@@ -1879,6 +1883,7 @@
             iconButton12.TextAlign = ContentAlignment.MiddleLeft;
             iconButton12.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButton12.UseVisualStyleBackColor = false;
+            iconButton12.Visible = false;
             iconButton12.Click += iconButton12_Click;
             // 
             // btnAgregarArchivos
@@ -1902,6 +1907,7 @@
             btnAgregarArchivos.TextAlign = ContentAlignment.MiddleLeft;
             btnAgregarArchivos.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAgregarArchivos.UseVisualStyleBackColor = false;
+            btnAgregarArchivos.Visible = false;
             btnAgregarArchivos.Click += iconButton13_Click;
             // 
             // panel26
@@ -1919,7 +1925,7 @@
             dtgArchivos.AllowUserToAddRows = false;
             dtgArchivos.AllowUserToDeleteRows = false;
             dtgArchivos.AllowUserToResizeRows = false;
-            dtgArchivos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dtgArchivos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgArchivos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgArchivos.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgArchivos.BorderStyle = BorderStyle.None;
@@ -1937,7 +1943,7 @@
             dtgArchivos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgArchivos.EnableHeadersVisualStyles = false;
             dtgArchivos.GridColor = Color.LightGray;
-            dtgArchivos.Location = new Point(12, 15);
+            dtgArchivos.Location = new Point(10, 13);
             dtgArchivos.Name = "dtgArchivos";
             dtgArchivos.ReadOnly = true;
             dtgArchivos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -2016,14 +2022,17 @@
             tabPageHistorialMarca.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgHistorialAban).EndInit();
             tabPageRenovacionesList.ResumeLayout(false);
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
+            panel10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgRenovaciones).EndInit();
             tabPageTraspasosList.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            panel12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dtgTraspasos).EndInit();
             tabPageListaArchivos.ResumeLayout(false);
             panel7.ResumeLayout(false);

@@ -24,7 +24,7 @@ namespace Presentacion.Marcas_Nacionales
         private int totalPages = 0;
         private int totalRows = 0;
         byte[] defaultImage = Properties.Resources.logoImage;
-        System.Drawing.Image? documento=null;
+        System.Drawing.Image? documento = null;
         bool agregoEstado = false;
         private bool buscando = false;
         private bool _isLoading;
@@ -86,8 +86,8 @@ namespace Presentacion.Marcas_Nacionales
                     btnAgregarEstado.Visible = false;
                     btnEditar.Visible = false;
 
-                    btnAdjuntarArchivo.Visible = false;
-                    btnEliminarArchivo.Visible = false;
+                    //btnAdjuntarArchivo.Visible = false;
+                    //btnEliminarArchivo.Visible = false;
 
                 }
                 else
@@ -95,8 +95,8 @@ namespace Presentacion.Marcas_Nacionales
                     btnAgregarEstado.Visible = false;
                     btnEditar.Visible = false;
 
-                    btnAdjuntarArchivo.Enabled = false;
-                    btnEliminarArchivo.Enabled = false;
+                    //btnAdjuntarArchivo.Enabled = false;
+                    //btnEliminarArchivo.Enabled = false;
                 }
             }
 
@@ -400,7 +400,7 @@ namespace Presentacion.Marcas_Nacionales
             comboBox1.SelectedIndex = -1;
             checkBoxTienePoder.Checked = false;
         }
-        
+
 
         private async Task CargarDatosMarca()
         {
@@ -767,8 +767,8 @@ namespace Presentacion.Marcas_Nacionales
                 this.Visible = true;
             }
 
-            
-           
+
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -923,12 +923,12 @@ namespace Presentacion.Marcas_Nacionales
                 FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
             }
-                
+
         }
 
         public void VerificarDatosRegistro()
         {
-            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text) 
+            if (checkBox1.Checked == true && (string.IsNullOrEmpty(txtRegistro.Text)
                 //|| string.IsNullOrEmpty(txtFolio.Text) 
                 //|| string.IsNullOrEmpty(txtLibro.Text)
                 ))
@@ -1101,7 +1101,7 @@ namespace Presentacion.Marcas_Nacionales
         {
             buscando = true;
             currentPageIndex = 1;
-            totalRows = await  marcaModel.GetFilteredMarcasInternacionalesEnAbandonoCount(txtBuscar.Text);
+            totalRows = await marcaModel.GetFilteredMarcasInternacionalesEnAbandonoCount(txtBuscar.Text);
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
             lblCurrentPage.Text = currentPageIndex.ToString();
@@ -1750,12 +1750,12 @@ namespace Presentacion.Marcas_Nacionales
                 if (registroChek)
                 {
                     esActualizado = await marcaModel.EditMarcaInternacionalRegistrada(
-                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase,multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp,ubicacionF);
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, ubicacionF);
                 }
                 else
                 {
                     esActualizado = await marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
-                        , tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente,ubicacionF);
+                        , tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
                 }
 
                 DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idInt);
@@ -1874,13 +1874,13 @@ namespace Presentacion.Marcas_Nacionales
             {
                 // Pantalla suficientemente ancha → centrar
                 panelBusqueda.Anchor = AnchorStyles.None;
-                panelBusqueda.Dock= DockStyle.Top;
-                
+                panelBusqueda.Dock = DockStyle.Top;
+
             }
             else
             {
                 // Pantalla pequeña → top-left
-                panelBusqueda.Dock=DockStyle.None;
+                panelBusqueda.Dock = DockStyle.None;
                 panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 panelBusqueda.Location = new Point(0, 0); // o donde quieras
             }
@@ -1889,6 +1889,11 @@ namespace Presentacion.Marcas_Nacionales
         private void FrmMostrarAbandonadas_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

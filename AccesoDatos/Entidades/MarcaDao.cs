@@ -278,13 +278,22 @@ namespace AccesoDatos.Entidades
             }
         }
 
+        public async Task<byte[]> ObtenerLogoMarcaPorIdNuevo(int id)
+        {
+            using var client = new HttpClient();
 
-       
-
-
-
-
-
+            try
+            {
+                string url = $"https://foragro.com.es/peticiones/get_logo_nuevo.php?id={id}";
+                byte[] logoBytes = await client.GetByteArrayAsync(url);
+                return logoBytes;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error al obtener el logo: {ex.Message}");
+                return null;
+            }
+        }
 
         public async Task<bool> EditMarcaInternacionalRegistrada(
            int id, string expediente,
@@ -343,6 +352,75 @@ namespace AccesoDatos.Entidades
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+        public async Task<bool> EditMarcaInternacionalRegistradaNuevo(
+           int id, string expediente,
+           string nombre,
+           string signoDistintivo,
+           string tipoSigno,
+           string clase,
+           int multiclase,
+           byte[] logo,
+           int idPersonaTitular,
+           int idPersonaAgente,
+           DateTime fecha_solicitud,
+           string paisRegistro,
+           string tiene_poder,
+           int? idCliente,
+           string registro,
+           string folio,
+           string libro,
+           DateTime fechaRegistro,
+           DateTime fechaVencimiento,
+           string? erenov,
+           string? etrasp,
+           string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_internacional_registrada"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
+            form.Add(new StringContent(folio ?? ""), "folio");
+            form.Add(new StringContent(libro ?? ""), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fecha_solicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisRegistro), "pais_registro");
+            form.Add(new StringContent(tiene_poder), "tiene_poder");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
+            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(etrasp ?? ""), "etrasp");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+
+           
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+                form.Add(new StringContent("0"), "remove_logo");
+            }
+            else
+            {
+
+                form.Add(new StringContent("1"), "remove_logo");
+
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
@@ -1233,17 +1311,17 @@ namespace AccesoDatos.Entidades
         }
 
         public async Task<int> AddMarcaNacional(
-    string expediente,
-    string nombre,
-    string signoDistintivo,
-    string tipoSigno,
-    string clase,
-    byte[] logo,
-    int idPersonaTitular,
-    int idPersonaAgente,
-    DateTime fechaSolicitud,
-    int? idCliente,
-    string ubicacionF)
+        string expediente,
+        string nombre,
+        string signoDistintivo,
+        string tipoSigno,
+        string clase,
+        byte[] logo,
+        int idPersonaTitular,
+        int idPersonaAgente,
+        DateTime fechaSolicitud,
+        int? idCliente,
+        string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1274,21 +1352,63 @@ namespace AccesoDatos.Entidades
             return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
         }
 
+        public async Task<int> AddMarcaNacionalNuevo(
+           string expediente,
+           string nombre,
+           string signoDistintivo,
+           string tipoSigno,
+           string clase,
+           byte[] logo,
+           int idPersonaTitular,
+           int idPersonaAgente,
+           DateTime fechaSolicitud,
+           int? idCliente,
+           string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_nacional"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF?.ToString() ?? ""), "ubicacion_fisica");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
         public async Task<int> AddMarcaInternacional(
-    string expediente,
-    string nombre,
-    string signoDistintivo,
-    string tipoSigno,
-    string clase,
-    int multiclase,
-    byte[] logo,
-    int idPersonaTitular,
-    int idPersonaAgente,
-    DateTime fechaSolicitud,
-    string paisDeRegistro,
-    string tienePoder,
-    int? idCliente,
-    string ubicacionF)
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            int multiclase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string paisDeRegistro,
+            string tienePoder,
+            int? idCliente,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1321,23 +1441,70 @@ namespace AccesoDatos.Entidades
             return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
         }
 
+        public async Task<int> AddMarcaInternacionalNuevo(
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            int multiclase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string paisDeRegistro,
+            string tienePoder,
+            int? idCliente,
+            string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_internacional"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisDeRegistro), "pais_de_registro");
+            form.Add(new StringContent(tienePoder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
         public async Task<int> AddMarcaNacionalRegistrada(
-    string expediente,
-    string nombre,
-    string signoDistintivo,
-    string tipoSigno,
-    string clase,
-    string folio,
-    string libro,
-    byte[] logo,
-    int idPersonaTitular,
-    int idPersonaAgente,
-    DateTime fechaSolicitud,
-    string registro,
-    DateTime fechaRegistro,
-    DateTime fechaVencimiento,
-    int? idCliente,
-    string ubicacionF)
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            string folio,
+            string libro,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string registro,
+            DateTime fechaRegistro,
+            DateTime fechaVencimiento,
+            int? idCliente,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1367,6 +1534,58 @@ namespace AccesoDatos.Entidades
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
+        public async Task<int> AddMarcaNacionalRegistradaNuevo(
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            string folio,
+            string libro,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            string registro,
+            DateTime fechaRegistro,
+            DateTime fechaVencimiento,
+            int? idCliente,
+            string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_nacional_registrada"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1431,6 +1650,64 @@ namespace AccesoDatos.Entidades
             return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
         }
 
+        public async Task<int> AddMarcaInternacionalRegistradaNuevo(
+          string expediente,
+          string nombre,
+          string signoDistintivo,
+          string tipoSigno,
+          string clase,
+          int multiclase,
+          byte[] logo,
+          int idPersonaTitular,
+          int idPersonaAgente,
+          DateTime fechaSolicitud,
+          string paisRegistro,
+          string tienePoder,
+          int? idCliente,
+          string registro,
+          string folio,
+          string libro,
+          DateTime fechaRegistro,
+          DateTime fechaVencimiento,
+          string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("add_marca_internacional_registrada"), "action");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(paisRegistro), "pais_de_registro");
+            form.Add(new StringContent(tienePoder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(folio ?? ""), "folio");
+            form.Add(new StringContent(libro ?? ""), "libro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            using var json = JsonDocument.Parse(responseContent);
+            return json.RootElement.TryGetProperty("idMarca", out var id) ? id.GetInt32() : -1;
+        }
+
         public async Task<bool> EditMarcaNacional(
             int id,
             string expediente,
@@ -1469,6 +1746,48 @@ namespace AccesoDatos.Entidades
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
+        public async Task<bool> EditMarcaNacionalNuevo(
+            int id,
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            int? idCliente,
+            string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_nacional"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
@@ -1529,6 +1848,62 @@ namespace AccesoDatos.Entidades
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
 
+        public async Task<bool> EditMarcaNacionalRegistradaNuevo(
+          int id,
+          string expediente,
+          string nombre,
+          string signoDistintivo,
+          string tipoSigno,
+          string clase,
+          string folio,
+          string libro,
+          byte[] logo,
+          int idPersonaTitular,
+          int idPersonaAgente,
+          DateTime fechaSolicitud,
+          string registro,
+          DateTime fechaRegistro,
+          DateTime fechaVencimiento,
+          string? erenov,
+          string? etrasp,
+          int? idCliente,
+          string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+
+            form.Add(new StringContent("edit_marca_nacional_registrada"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(folio), "folio");
+            form.Add(new StringContent(libro), "libro");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(registro), "registro");
+            form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
+            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
+            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(etrasp ?? ""), "etrasp");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+            }
+
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
+
 
         public async Task<bool> EditMarcaInternacional(
             int id,
@@ -1578,8 +1953,62 @@ namespace AccesoDatos.Entidades
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
 
+        public async Task<bool> EditMarcaInternacionalNuevo(
+           int id,
+           string expediente,
+           string nombre,
+           string signoDistintivo,
+           string tipoSigno,
+           string clase,
+           int multiclase,
+           byte[] logo,
+           int idPersonaTitular,
+           int idPersonaAgente,
+           DateTime fechaSolicitud,
+           string pais,
+           string tiene_poder,
+           int? idCliente,
+           string ubicacionF)
+        {
+            using var client = new HttpClient();
+            using var form = new MultipartFormDataContent();
+           
 
+            form.Add(new StringContent("edit_marca_internacional"), "action");
+            form.Add(new StringContent(id.ToString()), "id");
+            form.Add(new StringContent(expediente), "expediente");
+            form.Add(new StringContent(nombre), "nombre");
+            form.Add(new StringContent(signoDistintivo), "signoDistintivo");
+            form.Add(new StringContent(tipoSigno), "tipoSigno");
+            form.Add(new StringContent(clase), "clase");
+            form.Add(new StringContent(multiclase.ToString()), "multiclase");
+            form.Add(new StringContent(idPersonaTitular.ToString()), "idPersonaTitular");
+            form.Add(new StringContent(idPersonaAgente.ToString()), "idPersonaAgente");
+            form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
+            form.Add(new StringContent(pais), "pais_registro");
+            form.Add(new StringContent(tiene_poder), "tiene_poder");
+            form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
+            form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
+           
 
+            if (logo != null && logo.Length > 0)
+            {
+                var logoContent = new ByteArrayContent(logo);
+                logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                form.Add(logoContent, "logo", "logo.png");
+                form.Add(new StringContent("0"), "remove_logo");
+            }
+            else
+            {
+                
+                form.Add(new StringContent("1"), "remove_logo");
+                
+            }
+
+                var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode && responseContent.Contains("true");
+        }
 
     }
 }

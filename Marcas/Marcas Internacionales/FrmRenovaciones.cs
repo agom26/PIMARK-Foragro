@@ -641,6 +641,20 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
+            // Verificar que hay una imagen
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                logo = null;
+            }
+
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
                 MessageBox.Show("Por favor, ingrese el número de trámite de renovación", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -661,12 +675,12 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (registroChek)
                 {
-                    esActualizado = await marcaModel.EditMarcaInternacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaInternacionalRegistradaNuevo(
                         SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, ubicacionF);
                 }
                 else
                 {
-                    esActualizado = await marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
+                    esActualizado = await marcaModel.EditMarcaInternacionalNuevo(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
                         , tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
                 }
 
@@ -690,7 +704,7 @@ namespace Presentacion.Marcas_Nacionales
                         }
                         else
                         {
-                            historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                            await historialModel.GuardarEtapa(SeleccionarMarca.idInt, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                             FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             SeleccionarMarca.idInt = 0;
@@ -771,7 +785,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idInt);
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idInt);
                         txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {

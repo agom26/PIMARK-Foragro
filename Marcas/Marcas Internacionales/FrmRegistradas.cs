@@ -1,9 +1,11 @@
 ﻿using Comun;
 using Comun.Cache;
+using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Dominio;
 using FluentFTP;
 using MySql.Data.MySqlClient;
+using Mysqlx.Cursor;
 using Presentacion.Alertas;
 using Presentacion.Marcas_Internacionales;
 using System;
@@ -717,6 +719,21 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
+            // Verificar que hay una imagen
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                logo = null;
+            }
+
+
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
                 FrmAlerta alerta = new FrmAlerta("POR FAVOR INGRESE EL NÚMERO DE TRÁMITE DE RENOVACIÓN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -738,12 +755,12 @@ namespace Presentacion.Marcas_Nacionales
 
                 if (registroChek)
                 {
-                    esActualizado = await marcaModel.EditMarcaInternacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaInternacionalRegistradaNuevo(
                         SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, ubicacionF);
                 }
                 else
                 {
-                    esActualizado = await marcaModel.EditMarcaInternacional(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
+                    esActualizado = await marcaModel.EditMarcaInternacionalNuevo(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo
                         , tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
                 }
 
@@ -757,7 +774,7 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     if (agregoEstado == true)
                     {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                        await historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
                         agregoEstado = false;
                     }
 
@@ -773,6 +790,7 @@ namespace Presentacion.Marcas_Nacionales
                     EliminarTabPage(tabPageRenovacionDetail);
                     EliminarTabPage(tabPageTraspasosList);
                     EliminarTabPage(tabPageTraspasoDetail);
+                    LimpiarFormulario();
 
                 }
                 else
@@ -843,7 +861,7 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
                         txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idInt);
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idInt);
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -1293,7 +1311,7 @@ namespace Presentacion.Marcas_Nacionales
             Editar();
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private async void iconButton3_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -1314,10 +1332,25 @@ namespace Presentacion.Marcas_Nacionales
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE", null);
+                                // Agrega la fecha con texto si aún no está en la justificación
+                                string fechaSinHora = fechaAbandono.ToString("dd/MM/yyyy");
+                                string formato = fechaSinHora + " Abandono";
+
+                                if (justificacion.Contains(formato))
+                                {
+                                    
+                                    await historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono",
+                                        justificacion, usuarioAbandono, "TRÁMITE", null);
+                                }
+                                else
+                                {
+                                    justificacion = formato + " " + justificacion;
+                                    await historialModel.GuardarEtapa(idMarca, fechaAbandono, "Abandono", fechaAbandono.ToString("dd/MM/yyyy") + " Abandono " + justificacion, usuarioAbandono, "TRÁMITE", null);
+
+                                }
 
                                 MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                LoadMarcas();
+                                await LoadMarcas();
                             }
                         }
                         else
@@ -2847,10 +2880,27 @@ namespace Presentacion.Marcas_Nacionales
                             if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                             {
                                 int idMarca = Convert.ToInt32(dataRowView["id"]);
+                                
+                                // Agrega la fecha con texto si aún no está en la justificación
+                                string fechaSinHora = fechaAbandono.ToString("dd/MM/yyyy");
+                                string formato = fechaSinHora + " Desistimiento";
 
-                                historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento", justificacion, usuarioAbandono, "TRÁMITE", null);
-                                FrmAlerta alerta = new FrmAlerta("LA MARCA HA SIDO MARCADA COMO DESISTIDA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                alerta.ShowDialog();
+                                if (justificacion.Contains(formato))
+                                {
+
+                                    await historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento",
+                                        justificacion, usuarioAbandono, "TRÁMITE", null);
+                                }
+                                else
+                                {
+                                    justificacion = formato + " " + justificacion;
+                                    await historialModel.GuardarEtapa(idMarca, fechaAbandono, "Desistimiento", fechaAbandono.ToString("dd/MM/yyyy") + " Desistimiento " + justificacion, usuarioAbandono, "TRÁMITE", null);
+
+                                }
+
+
+                                MessageBox.Show("La marca ha sido marcada como 'Desistida'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                
                                 //MessageBox.Show("La marca ha sido marcada como 'Abandonada'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 await LoadMarcas();
                             }
@@ -2878,7 +2928,7 @@ namespace Presentacion.Marcas_Nacionales
             }
         }
 
-        private void btnEditarTraspasoDetalle_Click(object sender, EventArgs e)
+        private async void btnEditarTraspasoDetalle_Click(object sender, EventArgs e)
         {
             if (!UsuarioActivo.soloLectura)
             {
@@ -2898,7 +2948,7 @@ namespace Presentacion.Marcas_Nacionales
                     !string.IsNullOrEmpty(nombreTitularNuevo))
                 {
 
-                    traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
+                    await traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
                     FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();
                     tabControl1.SelectedTab = tabPageTraspasosList;

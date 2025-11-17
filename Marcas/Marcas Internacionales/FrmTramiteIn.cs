@@ -358,14 +358,28 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
+            // Verificar que hay una imagen
+            if (pictureBox1.Image != null && pictureBox1.Image != documento)
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    logo = ms.ToArray();
+                }
+            }
+            else
+            {
+                logo = null;
+            }
+
 
 
             // Guardar la marca internacional
             try
             {
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaInternacionalRegistrada(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
-                    await marcaModel.AddMarcaInternacional(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
+                    await marcaModel.AddMarcaInternacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
+                    await marcaModel.AddMarcaInternacionalNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
 
                 if (idMarca > 0)
                 {
@@ -373,7 +387,7 @@ namespace Presentacion.Marcas_Nacionales
                     string etapa = textBoxEstatus.Text;
                     if (!string.IsNullOrEmpty(etapa))
                     {
-                        historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                        await historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                     }
 
 

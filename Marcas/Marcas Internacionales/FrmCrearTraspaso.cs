@@ -116,7 +116,7 @@ namespace Presentacion.Marcas_Nacionales
                         // Llamar al método con transacción en MarcaModel
                         marcaModel.InsertarTraspasoYHistorialMarca(
                             noExpediente, idMarca, idTitularViejo, idTitularNuevo,
-                            (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa,
+                            Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa,
                             AgregarEtapa.anotaciones, AgregarEtapa.usuario
                         );
 
