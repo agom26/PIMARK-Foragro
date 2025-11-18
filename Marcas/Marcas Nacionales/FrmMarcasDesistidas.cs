@@ -445,7 +445,7 @@ namespace Presentacion.Marcas_Internacionales
                         SeleccionarMarca.erenov = row["Erenov"].ToString();
                         SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
                         txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idN);
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -647,20 +647,23 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public async void Ver()
+        public async Task Ver()
         {
             VerificarSeleccionIdMarcaEdicion();
             LimpiarFormulario();
             if (SeleccionarMarca.idN > 0)
             {
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageAbandonadasList);
             }
         }
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Ver();
+            await Ver();
         }
 
         private async Task<bool> TieneInternetAsync()
@@ -1395,19 +1398,19 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (agregoEstado == true)
                 {
-                    historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
+                    await historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
 
                 }
 
                 // Verificar si la marca está registrada
                 if (registroChek)
                 {
-                    esActualizado = await marcaModel.EditMarcaNacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
                 }
                 else
                 {
-                    esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
+                    esActualizado = await marcaModel.EditMarcaNacionalNuevo(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
                 }
 
                 DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
@@ -1415,10 +1418,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (esActualizado)
                 {
 
-                    if (esActualizado)
-                    {
-
-                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                    if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                         {
                             FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
@@ -1427,24 +1427,20 @@ namespace Presentacion.Marcas_Internacionales
                             AnadirTabPage(tabPageAbandonadasList);
                             EliminarTabPage(tabPageMarcaDetail);
                             LimpiarFormulario();
-                        }
-                        else
-                        {
-
-                            historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            AnadirTabPage(tabPageAbandonadasList);
-                            EliminarTabPage(tabPageMarcaDetail);
-                            LimpiarFormulario();
-                        }
                     }
                     else
                     {
-                        MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        await historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        SeleccionarMarca.idN = 0;
+                        AnadirTabPage(tabPageAbandonadasList);
+                        EliminarTabPage(tabPageMarcaDetail);
+                        LimpiarFormulario();
                     }
+
                 }
                 else
                 {

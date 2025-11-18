@@ -494,7 +494,19 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                logo = null;
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    logo = null;
+                }
             }
 
 
@@ -584,10 +596,9 @@ namespace Presentacion.Marcas_Internacionales
             {
                 bool esActualizado;
                
-
                 if (registroChek)
                 {
-                    esActualizado = await marcaModel.EditMarcaNacionalRegistrada(
+                    esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio,
                         libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,
                         erenov, etrasp, idCliente, ubicacionF
@@ -595,7 +606,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    esActualizado = await marcaModel.EditMarcaNacional(
+                    esActualizado = await marcaModel.EditMarcaNacionalNuevo(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase,
                         logo, idTitular, idAgente, solicitud, idCliente, ubicacionF
                     );
@@ -610,7 +621,7 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (agregoEstado)
                 {
-                    await Task.Run(() => historialModel.GuardarEtapa(
+                    await historialModel.GuardarEtapa(
                        SeleccionarMarca.idN,
                        Convert.ToDateTime(AgregarEtapa.fecha),
                        AgregarEtapa.etapa,
@@ -618,7 +629,7 @@ namespace Presentacion.Marcas_Internacionales
                        UsuarioActivo.usuario,
                        "TRÁMITE",
                        null
-                   ));
+                   );
                     agregoEstado = false;
 
                 }
@@ -701,7 +712,19 @@ namespace Presentacion.Marcas_Internacionales
                 SeleccionarMarca.erenov = row["Erenov"].ToString();
                 SeleccionarMarca.etraspaso = row["Etrasp"].ToString();
                 txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
-                SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+
+                bool tieneLogo = await marcaModel.MarcaTieneLogoAsync(SeleccionarMarca.idN);
+
+                if (tieneLogo)
+                {
+                    SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idN);
+                }
+                else
+                {
+                    SeleccionarMarca.logo = null;
+                }
+
+
 
                 if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                 {
@@ -1000,6 +1023,7 @@ namespace Presentacion.Marcas_Internacionales
                 EliminarTabPage(tabPageTraspasoDetail);
             }*/
         }
+
         private void LimpiarControles()
         {
             convertirImagen();
@@ -1033,7 +1057,10 @@ namespace Presentacion.Marcas_Internacionales
             {
                 LimpiarControles();
                 EliminarTabPage(tabPageRegistradasList);
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
             }
         }
@@ -1800,7 +1827,7 @@ namespace Presentacion.Marcas_Internacionales
                 catch (Exception ex)
                 {
                     FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.Show();
+                    alerta.ShowDialog();
                 }
 
 
@@ -1808,7 +1835,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     await loadRenovacionesById();
                     FrmAlerta alerta = new FrmAlerta("RENOVACIÓN ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.Show();
+                    alerta.ShowDialog();
                     //MessageBox.Show("Registro de renovación actualizado exitosamente.");
                     EliminarTabPage(tabPageRenovacionDetail);
                     AnadirTabPage(tabPageRenovacionesList);
@@ -1817,14 +1844,14 @@ namespace Presentacion.Marcas_Internacionales
                 else
                 {
                     FrmAlerta alerta = new FrmAlerta("NO FUE POSIBLE ACTUALIZAR LA RENOVACIÓN", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.Show();
+                    alerta.ShowDialog();
                     //MessageBox.Show("No se pudo actualizar el registro de renovación.");
                 }
             }
             else
             {
                 FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE EXPEDIENTE NO PUEDE ESTAR VACÍO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.Show();
+                alerta.ShowDialog();
                 //MessageBox.Show("El número de expediente no puede estar vacío.");
             }
         }
@@ -1908,11 +1935,15 @@ namespace Presentacion.Marcas_Internacionales
                 !string.IsNullOrEmpty(nombreTitularAntiguo) &&
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {
-
-                await traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo);
+                using (var loading = new FrmLoading(() => traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo)))
+                {
+                    loading.ShowDialog(this);
+                }
+                await loadTraspasosById();
                 FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 alerta.ShowDialog();
-                tabControl1.SelectedTab = tabPageTraspasosList;
+                EliminarTabPage(tabPageTraspasoDetail);
+                AnadirTabPage(tabPageTraspasosList);
             }
             else
             {

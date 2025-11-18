@@ -316,8 +316,8 @@ namespace Presentacion.Marcas_Internacionales
             {
 
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaNacionalRegistrada(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente,ubicacionFisica) :
-                    await marcaModel.AddMarcaNacional(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente,ubicacionFisica);
+                    await marcaModel.AddMarcaNacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente,ubicacionFisica) :
+                    await marcaModel.AddMarcaNacionalNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente,ubicacionFisica);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)

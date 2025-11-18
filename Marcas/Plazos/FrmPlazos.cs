@@ -863,7 +863,11 @@ namespace Presentacion.Plazos
             {
                 Cursor = Cursors.WaitCursor;
                 CargarEtapasEnComboBox(true);
-                await CargarDatosHistorialMarca();
+                using (var loading = new FrmLoading(() => CargarDatosHistorialMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
+                
 
                 Cursor = Cursors.Default;
             }
@@ -871,8 +875,11 @@ namespace Presentacion.Plazos
             {
                 Cursor = Cursors.WaitCursor;
                 CargarEtapasEnComboBox(false);
-
-                await CargarDatosHistorialPatente();
+                using (var loading = new FrmLoading(() => CargarDatosHistorialPatente()))
+                {
+                    loading.ShowDialog(this);
+                }
+               
                 Cursor = Cursors.Default;
             }
 

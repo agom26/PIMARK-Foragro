@@ -775,19 +775,28 @@ namespace Presentacion.Vencimientos
             if (SeleccionarPatente.id > 0)
             {
                 Cursor = Cursors.WaitCursor;
-                await CargarDatosPatente();
+                using (var loading = new FrmLoading(() => CargarDatosPatente()))
+                {
+                    loading.ShowDialog(this);
+                }
                 Cursor = Cursors.Default;
             }
             else if (SeleccionarMarca.idN > 0)
             {
                 Cursor = Cursors.WaitCursor;
-                await CargarDatosMarcaN();
+                using (var loading = new FrmLoading(() => CargarDatosMarcaN()))
+                {
+                    loading.ShowDialog(this);
+                }
                 Cursor = Cursors.Default;
             }
             else if (SeleccionarMarca.idInt > 0)
             {
                 Cursor = Cursors.WaitCursor;
-                await CargarDatosMarcaInt();
+                using (var loading = new FrmLoading(() => CargarDatosMarcaInt()))
+                {
+                    loading.ShowDialog(this);
+                }
                 Cursor = Cursors.Default;
             }
         }
@@ -1116,6 +1125,17 @@ namespace Presentacion.Vencimientos
                             txtNombreClienteM.Text = cliente[0].nombre;
                         }
 
+                        bool tieneLogo = await marcaModel.MarcaTieneLogoAsync(SeleccionarMarca.idN);
+
+                        if (tieneLogo)
+                        {
+                            SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idN);
+                        }
+                        else
+                        {
+                            SeleccionarMarca.logo = null;
+                        }
+
                         // Actualizar los controles 
                         txtExpedienteM.Text = SeleccionarMarca.expediente;
                         txtNombreM.Text = SeleccionarMarca.nombre;
@@ -1123,14 +1143,14 @@ namespace Presentacion.Vencimientos
                         textBoxEstatusM.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivoM.SelectedItem = SeleccionarMarca.signoDistintivo;
                         comboBoxTipoSignoM.SelectedItem = SeleccionarMarca.tipoSigno;
-                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        
                         datePickerFechaSolicitudM.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1M.Text = SeleccionarMarca.observaciones;
 
                         txtERenovacionM.Text = SeleccionarMarca.erenov;
                         txtETraspasoM.Text = SeleccionarMarca.etraspaso;
 
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+                        //SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -1169,6 +1189,13 @@ namespace Presentacion.Vencimientos
                             checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
                         }
+
+                        //deshabilitar controles de internacionales
+                        groupBox3.Visible = false;
+                        checkBoxTienePoder.Visible = false;
+                        comboBox1.Text = "Guatemala";
+
+
                         AnadirTabPage(tabPageMarcaDetail);
                         tabControl1.Visible = true;
                     }
@@ -1226,7 +1253,16 @@ namespace Presentacion.Vencimientos
                         SeleccionarMarca.tiene_poder = row["tiene_poder"] != DBNull.Value ? row["tiene_poder"].ToString() : string.Empty;
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
 
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idInt);
+                        bool tieneLogo = await marcaModel.MarcaTieneLogoAsync(SeleccionarMarca.idInt);
+
+                        if (tieneLogo)
+                        {
+                            SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idInt);
+                        }
+                        else
+                        {
+                            SeleccionarMarca.logo = null;
+                        }
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -1287,7 +1323,7 @@ namespace Presentacion.Vencimientos
                         textBoxEstatusM.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivoM.SelectedItem = SeleccionarMarca.signoDistintivo;
                         comboBoxTipoSignoM.SelectedItem = SeleccionarMarca.tipoSigno;
-                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        
                         datePickerFechaSolicitudM.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1M.Text = SeleccionarMarca.observaciones;
 
@@ -1316,6 +1352,10 @@ namespace Presentacion.Vencimientos
                             checkBox1.Checked = false;
                             mostrarPanelRegistro("no");
                         }
+
+                        //habilitar controles de internacionales
+                        groupBox3.Visible = true;
+                        checkBoxTienePoder.Visible = true;
 
                         AnadirTabPage(tabPageMarcaDetail);
                         tabControl1.Visible = true;

@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Net.Http;
@@ -16,7 +17,7 @@ namespace AccesoDatos.Entidades
         private async Task<JsonDocument> PostAsync(object data)
         {
             using var client = new HttpClient();
-            string json = JsonSerializer.Serialize(data);
+            string json = System.Text.Json.JsonSerializer.Serialize(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PostAsync(urlApi, content);
@@ -277,7 +278,44 @@ namespace AccesoDatos.Entidades
                 return null;
             }
         }
+        public class MarcaMeta
+        {
+            public int id { get; set; }
+            public bool exists { get; set; }
+            public string tipo { get; set; }
+            public string fs_file { get; set; }
+            public bool has_blob { get; set; }
+        }
 
+
+        public async Task<bool> MarcaTieneLogoAsync(int id)
+        {
+            using var client = new HttpClient();
+            string url = $"https://foragro.com.es/peticiones/get_logo_nuevo.php?id={id}&meta=1";
+
+            string json = await client.GetStringAsync(url);
+            var meta = JsonConvert.DeserializeObject<MarcaMeta>(json);
+
+            return meta != null && meta.exists;
+        }
+
+        public async Task<byte[]> ObtenerLogoMarcaPorIdNuevo(int id)
+        {
+            using var client = new HttpClient();
+            string url = $"https://foragro.com.es/peticiones/get_logo_nuevo.php?id={id}";
+
+            try
+            {
+                return await client.GetByteArrayAsync(url);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        /*
         public async Task<byte[]> ObtenerLogoMarcaPorIdNuevo(int id)
         {
             using var client = new HttpClient();
@@ -293,7 +331,7 @@ namespace AccesoDatos.Entidades
                 Console.WriteLine($"Error al obtener el logo: {ex.Message}");
                 return null;
             }
-        }
+        }*/
 
         public async Task<bool> EditMarcaInternacionalRegistrada(
            int id, string expediente,
@@ -1311,17 +1349,17 @@ namespace AccesoDatos.Entidades
         }
 
         public async Task<int> AddMarcaNacional(
-        string expediente,
-        string nombre,
-        string signoDistintivo,
-        string tipoSigno,
-        string clase,
-        byte[] logo,
-        int idPersonaTitular,
-        int idPersonaAgente,
-        DateTime fechaSolicitud,
-        int? idCliente,
-        string ubicacionF)
+            string expediente,
+            string nombre,
+            string signoDistintivo,
+            string tipoSigno,
+            string clase,
+            byte[] logo,
+            int idPersonaTitular,
+            int idPersonaAgente,
+            DateTime fechaSolicitud,
+            int? idCliente,
+            string ubicacionF)
         {
             using var client = new HttpClient();
             using var form = new MultipartFormDataContent();
@@ -1785,6 +1823,13 @@ namespace AccesoDatos.Entidades
                 var logoContent = new ByteArrayContent(logo);
                 logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                 form.Add(logoContent, "logo", "logo.png");
+                form.Add(new StringContent("0"), "remove_logo");
+            }
+            else
+            {
+
+                form.Add(new StringContent("1"), "remove_logo");
+
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
@@ -1897,6 +1942,13 @@ namespace AccesoDatos.Entidades
                 var logoContent = new ByteArrayContent(logo);
                 logoContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                 form.Add(logoContent, "logo", "logo.png");
+                form.Add(new StringContent("0"), "remove_logo");
+            }
+            else
+            {
+
+                form.Add(new StringContent("1"), "remove_logo");
+
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);

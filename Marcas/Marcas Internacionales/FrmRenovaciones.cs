@@ -1118,14 +1118,17 @@ namespace Presentacion.Marcas_Nacionales
             dateTimePFecha_vencimiento.Value = DateTime.Now;
             txtERenovacion.Clear();
         }
-        public async void Editar()
+        public async Task Editar()
         {
             LimpiarControlesMarca();
             VerificarSeleccionIdMarcaEdicion();
             Cursor = Cursors.WaitCursor;
             if (SeleccionarMarca.idInt > 0)
             {
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageRegistradasList);
 
@@ -1133,9 +1136,9 @@ namespace Presentacion.Marcas_Nacionales
             Cursor = Cursors.Default;
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private void iconButton3_Click(object sender, EventArgs e)

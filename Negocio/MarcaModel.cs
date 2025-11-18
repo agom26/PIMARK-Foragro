@@ -410,6 +410,11 @@ namespace Dominio
             return await marcaDao.ObtenerLogoMarcaPorIdNuevo(id);
         }
 
+        public async Task<bool> MarcaTieneLogoAsync(int id)
+        {
+            return await marcaDao.MarcaTieneLogoAsync(id);
+        }
+
         public async Task<DataTable> GetMarcaInternacionalById(int id)
         {
             return await marcaDao.ObtenerMarcaInternacionalPorId(id);

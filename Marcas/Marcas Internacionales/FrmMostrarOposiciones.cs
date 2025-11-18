@@ -1421,9 +1421,13 @@ namespace Presentacion.Marcas_Nacionales
             if (SeleccionarOposicion.idInt > 0)
             {
                 LimpiarCamposOposicion();
-                await CargarDatosOposicion();
+                using (var loading = new FrmLoading(() => CargarDatosOposicion()))
+                {
+                    loading.ShowDialog(this);
+                }
             }
         }
+
         private async void ibtnEditar_Click(object sender, EventArgs e)
         {
             await Editar();

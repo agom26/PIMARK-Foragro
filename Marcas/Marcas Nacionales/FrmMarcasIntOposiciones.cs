@@ -1028,7 +1028,10 @@ namespace Presentacion.Marcas_Internacionales
             if (SeleccionarOposicion.idN > 0)
             {
                 LimpiarCamposOposicion();
-                await CargarDatosOposicion();
+                using (var loading = new FrmLoading(() => CargarDatosOposicion()))
+                {
+                    loading.ShowDialog(this);
+                }
             }
         }
         private async void ibtnEditar_Click(object sender, EventArgs e)

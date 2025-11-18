@@ -1123,20 +1123,24 @@ namespace Presentacion.Marcas_Nacionales
                 return false;
             }
         }
-        public async void Editar()
+        public async Task Editar()
         {
             LimpiarFormulario();
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idInt > 0)
             {
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageRegistradasList);
             }
         }
-        private void ibtnEditar_Click(object sender, EventArgs e)
+
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private async void iconButton3_Click(object sender, EventArgs e)

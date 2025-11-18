@@ -1086,7 +1086,10 @@ namespace Presentacion.Patentes
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
             {
-                await CargarDatosPatente();
+                using (var loading = new FrmLoading(() => CargarDatosPatente()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageIngresadasList);
             }

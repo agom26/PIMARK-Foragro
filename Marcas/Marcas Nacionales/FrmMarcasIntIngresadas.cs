@@ -462,8 +462,15 @@ namespace Presentacion.Marcas_Internacionales
                 return false;
             }
 
-            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
-               comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
+            if ((comboBoxSignoDistintivo.Text == "Marca" &&
+             comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+             (comboBoxSignoDistintivo.Text == "Marca" &&
+             comboBoxTipoSigno.Text == "Mixta") ||
+             (comboBoxSignoDistintivo.Text == "Emblema" &&
+             comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
+              (comboBoxSignoDistintivo.Text == "Emblema" &&
+             comboBoxTipoSigno.Text == "Mixta")
+             )
             {
                 // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
@@ -483,7 +490,19 @@ namespace Presentacion.Marcas_Internacionales
             }
             else
             {
-                logo = null;
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    logo = null;
+                }
             }
 
 
@@ -545,14 +564,14 @@ namespace Presentacion.Marcas_Internacionales
                         }
                         else
                         {
-                            esActualizado = await marcaModel.EditMarcaNacionalRegistrada(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, txtFolio.Text, txtLibro.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, txtRegistro.Text.Trim(), dateTimePFecha_Registro.Value, dateTimePFecha_vencimiento.Value, null, null, idCliente, ubicacionF);
+                            esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, txtFolio.Text, txtLibro.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, txtRegistro.Text.Trim(), dateTimePFecha_Registro.Value, dateTimePFecha_vencimiento.Value, null, null, idCliente, ubicacionF);
 
                         }
 
                     }
                     else
                     {
-                        esActualizado = await marcaModel.EditMarcaNacional(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, idCliente, ubicacionF);
+                        esActualizado = await marcaModel.EditMarcaNacionalNuevo(SeleccionarMarca.idN, txtExpediente.Text, txtNombre.Text, comboBoxSignoDistintivo.SelectedItem?.ToString(), comboBoxTipoSigno.SelectedItem?.ToString(), txtClase.Text, logo, SeleccionarPersona.idPersonaT, SeleccionarPersona.idPersonaA, datePickerFechaSolicitud.Value, idCliente, ubicacionF);
                     }
                 }
 
@@ -560,7 +579,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     if (agregoEstado == true)
                     {
-                        historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
+                        await historialModel.GuardarEtapa(SeleccionarMarca.idN, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
                         agregoEstado = false;
                         FrmAlerta frmAlerta = new FrmAlerta("MARCA ACTUALIZADA CON ÉXITO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         frmAlerta.ShowDialog();
@@ -669,8 +688,20 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarMarca.estado = row["estado"] != DBNull.Value ? row["estado"].ToString() : string.Empty;
                     SeleccionarMarca.signoDistintivo = row["signoDistintivo"] != DBNull.Value ? row["signoDistintivo"].ToString() : string.Empty;
                     SeleccionarMarca.tipoSigno = row["Tipo"] != DBNull.Value ? row["Tipo"].ToString() : string.Empty;
-                    SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorId(SeleccionarMarca.idN);
+
+                    bool tieneLogo = await marcaModel.MarcaTieneLogoAsync(SeleccionarMarca.idN);
+
+                    if (tieneLogo)
+                    {
+                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idN);
+                    }
+                    else
+                    {
+                        SeleccionarMarca.logo = null;
+                    }
+
                     txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
+
                     if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                     {
                         using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
@@ -979,7 +1010,10 @@ namespace Presentacion.Marcas_Internacionales
             {
                 LimpiarControles();
                 EliminarTabPage(tabPageIngresadasList);
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
             }
         }

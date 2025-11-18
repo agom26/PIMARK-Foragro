@@ -570,7 +570,19 @@ namespace Presentacion.Marcas_Nacionales
             }
             else
             {
-                logo = null;
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    logo = null;
+                }
             }
 
             // Si está registrada, se verifica la información del registro
@@ -659,22 +671,6 @@ namespace Presentacion.Marcas_Nacionales
             {
                 return;
             }
-
-
-            // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image != documento)
-            {
-                using (var ms = new System.IO.MemoryStream())
-                {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
-                }
-            }
-            else
-            {
-                logo= null;
-            }
-
 
                 try
                 {
@@ -777,7 +773,17 @@ namespace Presentacion.Marcas_Nacionales
                         SeleccionarMarca.pais_de_registro = row["pais_de_registro"] != DBNull.Value ? row["pais_de_registro"].ToString() : string.Empty;
                         txtUbicacion.Text = row["ubicacion_fisica"] != DBNull.Value ? row["ubicacion_fisica"].ToString() : string.Empty;
 
-                        SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idInt);
+                        bool tieneLogo = await marcaModel.MarcaTieneLogoAsync(SeleccionarMarca.idInt);
+
+                        if (tieneLogo)
+                        {
+                            SeleccionarMarca.logo = await marcaModel.ObtenerLogoMarcaPorIdNuevo(SeleccionarMarca.idInt);
+                        }
+                        else
+                        {
+                            SeleccionarMarca.logo = null;
+                        }
+
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -1096,22 +1102,26 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        public async void Editar()
+        public async Task Editar()
         {
             VerificarSeleccionEdicion();
             if (SeleccionarMarca.idInt > 0)
             {
                 tabControl1.Visible = false;
-                await CargarDatosMarca();
+                using (var loading = new FrmLoading(() => CargarDatosMarca()))
+                {
+                    loading.ShowDialog(this);
+                }
+
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageListaMarcas);
                 tabControl1.Visible = true;
             }
         }
 
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private void ibtnEliminar_Click(object sender, EventArgs e)

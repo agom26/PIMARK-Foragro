@@ -1148,19 +1148,22 @@ namespace Presentacion.Patentes
             }
         }
 
-        public async void Editar()
+        public async Task Editar()
         {
             VerificarSeleccionIdPatenteEdicion();
             if (SeleccionarPatente.id > 0)
             {
-                await CargarDatosPatente();
+                using (var loading = new FrmLoading(() => CargarDatosPatente()))
+                {
+                    loading.ShowDialog(this);
+                }
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageIngresadasList);
             }
         }
-        private void ibtnEditar_Click(object sender, EventArgs e)
+        private async void ibtnEditar_Click(object sender, EventArgs e)
         {
-            Editar();
+            await Editar();
         }
 
         private void btnGuardarM_Click(object sender, EventArgs e)
