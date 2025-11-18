@@ -111,6 +111,7 @@ namespace Presentacion
         {
             if (EditarUsuario.idUser > 0)
             {
+                tabControl1.Visible = false;
                 btnCambios.Text = "EDITAR";
                 btnCambios.Image = Properties.Resources.lapiz;
                 int idUser = EditarUsuario.idUser;
@@ -151,6 +152,7 @@ namespace Presentacion
                 {
                     MessageBox.Show("No se encontró el usuario.");
                 }
+                tabControl1.Visible = true;
             }
             else
             {
@@ -256,7 +258,10 @@ namespace Presentacion
             {
                 chkCambiarContrasena.Visible = true;
                 chkCambiarContrasena.Checked = false;
-                await CargarDatos();
+                using (var loading = new FrmLoading(() => CargarDatos()))
+                {
+                    loading.ShowDialog(this);
+                }
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
 
@@ -570,7 +575,7 @@ namespace Presentacion
                     {
                         try
                         {
-                            UserModel.RemoveUser(EditarUsuario.idUser, EditarUsuario.usuario, UsuarioActivo.usuario);
+                            await UserModel.RemoveUser(EditarUsuario.idUser, EditarUsuario.usuario, UsuarioActivo.usuario);
                             FrmAlerta alertae = new FrmAlerta("USUARIO ELIMINADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alertae.ShowDialog();
                         }
@@ -609,7 +614,10 @@ namespace Presentacion
             if (EditarUsuario.idUser > 0)
             {
                 buscando = false;
-                await CargarDatos();
+                using (var loading = new FrmLoading(() => CargarDatos()))
+                {
+                    loading.ShowDialog(this);
+                }
                 tabControl1.SelectedTab = tabPageUserDetail;
             }
 

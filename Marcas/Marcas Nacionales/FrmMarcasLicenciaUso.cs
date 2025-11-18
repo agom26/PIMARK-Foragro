@@ -525,14 +525,16 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        public async void Editar()
+        public void Editar()
         {
             btnEnviarATerminar.Visible = true;
             VerificarSeleccionEdicion();
             if (SeleccionarLicencia.idLicencia > 0)
             {
-
-                await CargarDatosLicenciaUso();
+                using (var loading = new FrmLoading(() => CargarDatosLicenciaUso()))
+                {
+                    loading.ShowDialog(this);
+                }
                 EliminarTabPage(tabPageOposicionesList);
             }
         }
@@ -541,7 +543,7 @@ namespace Presentacion.Marcas_Internacionales
             Editar();
         }
 
-        private async void iconButton3_Click(object sender, EventArgs e)
+        private void iconButton3_Click(object sender, EventArgs e)
         {
             using (FrmJustificacion justificacionForm = new FrmJustificacion())
             {
@@ -585,7 +587,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        async void EditarLicenciaUso()
+        public async void EditarLicenciaUso()
         {
             string mensajeValidacion = ValidarCamposLicenciaUso("editando");
             if (mensajeValidacion != null)
@@ -648,7 +650,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                    licenciaUso.EditarLicenciaUso(idLicencia, (int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
+                    await licenciaUso.EditarLicenciaUso(idLicencia, (int)idMarca, idTitular, tituloPorElCualSeVerifica, tipo, fechaInicio, fechaFin, territorio,
                          razonSocial, direccion, domicilio, nacionalidad, apoderado, estado, "nacional", anios, meses, dias);
                     FrmAlerta alerta = new FrmAlerta("LICENCIA DE USO ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     alerta.ShowDialog();

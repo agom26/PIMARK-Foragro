@@ -374,10 +374,14 @@ namespace Presentacion.Personas
            
         }
 
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private void ibtnEditar_Click(object sender, EventArgs e)
         {
             VerificarSeleccion();
-            await Editar();
+            using (var loading = new FrmLoading(() => Editar()))
+            {
+                loading.ShowDialog(this);
+            }
+            
 
         }
 
@@ -662,23 +666,23 @@ namespace Presentacion.Personas
 
         }
 
-        private async void dtgAgentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgAgentes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            await Editar();
-            if (EditarPersona.idPersona > 0)
+            using (var loading = new FrmLoading(() => Editar()))
             {
-                //await AnadirTabPage(tabPageAgenteDetail);
+                loading.ShowDialog(this);
             }
+
+            
         }
 
-        private async void dtgAgentes_DoubleClick(object sender, EventArgs e)
+        private void dtgAgentes_DoubleClick(object sender, EventArgs e)
         {
             buscando = false;
             VerificarSeleccion();
-            await Editar();
-            if (EditarPersona.idPersona > 0)
+            using (var loading = new FrmLoading(() => Editar()))
             {
-                //await AnadirTabPage(tabPageAgenteDetail);
+                loading.ShowDialog(this);
             }
         }
 

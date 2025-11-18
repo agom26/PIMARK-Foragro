@@ -256,10 +256,13 @@ namespace Presentacion.Personas
         }
 
 
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private void ibtnEditar_Click(object sender, EventArgs e)
         {
             VerificarSeleccion();
-            await Editar();
+            using (var loading = new FrmLoading(() => Editar()))
+            {
+                loading.ShowDialog(this);
+            }
         }
 
         private void dtgTitulares_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -638,10 +641,13 @@ namespace Presentacion.Personas
             dtgTitulares.ClearSelection();
         }
 
-        private async void dtgTitulares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgTitulares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             VerificarSeleccion();
-            await Editar();
+            using (var loading = new FrmLoading(() => Editar()))
+            {
+                loading.ShowDialog(this);
+            }
         }
 
         private async void iconButton6_Click(object sender, EventArgs e)

@@ -308,9 +308,12 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private void ibtnEditar_Click(object sender, EventArgs e)
         {
-            await EditarCliente();
+            using (var loading = new FrmLoading(() => EditarCliente()))
+            {
+                loading.ShowDialog(this);
+            }
         }
 
         private async void ibtnEliminar_Click(object sender, EventArgs e)
@@ -544,10 +547,13 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             buscando = false;
-            await EditarCliente();
+            using (var loading = new FrmLoading(() => EditarCliente()))
+            {
+                loading.ShowDialog(this);
+            }
         }
 
         private void txtNombreCliente_TextChanged(object sender, EventArgs e)
