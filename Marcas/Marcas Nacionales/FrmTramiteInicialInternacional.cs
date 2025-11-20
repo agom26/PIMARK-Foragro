@@ -35,7 +35,7 @@ namespace Presentacion.Marcas_Internacionales
         private string rutaArchivoLocal = null;
         private string nombreArchivo = null;
         private bool archivoSeleccionado = false;
-
+        private bool _estaGuardando = false;
 
         public void convertirImagen()
         {
@@ -565,7 +565,55 @@ namespace Presentacion.Marcas_Internacionales
 
         private async void btnGuardarM_Click(object sender, EventArgs e)
         {
-            await GuardarMarcaInter();
+            if (_estaGuardando) return;
+            _estaGuardando = true;
+
+            var btn = (System.Windows.Forms.Control)sender;
+            btn.Enabled = false;
+
+
+            try
+            {
+                VerificarDatosRegistro();
+                if (DatosRegistro.peligro == false)
+                {
+                    if(archivoSeleccionado==false && checkBox1.Checked)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                    else
+                    {
+                        if (archivoSeleccionado == false && checkBox1.Checked)
+                        {
+
+                            FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+                        else
+                        {
+                            // 🔵 Aquí entra tu loading
+                            using (var loading = new FrmLoading(() => GuardarMarcaInter()))
+                            {
+                                loading.ShowDialog(this);
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                }
+                
+            }
+            finally
+            {
+                btn.Enabled = true; // volver a habilitar
+                _estaGuardando = false;
+            }
+
         }
 
         private void btnCancelarM_Click(object sender, EventArgs e)
