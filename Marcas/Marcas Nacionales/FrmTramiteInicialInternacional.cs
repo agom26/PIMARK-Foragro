@@ -563,7 +563,7 @@ namespace Presentacion.Marcas_Internacionales
             SeleccionarPersona.idPersonaC = null;
         }
 
-        private async void btnGuardarM_Click(object sender, EventArgs e)
+        private void btnGuardarM_Click(object sender, EventArgs e)
         {
             if (_estaGuardando) return;
             _estaGuardando = true;
@@ -584,21 +584,12 @@ namespace Presentacion.Marcas_Internacionales
                     }
                     else
                     {
-                        if (archivoSeleccionado == false && checkBox1.Checked)
+                        // 🔵 Aquí entra tu loading
+                        using (var loading = new FrmLoading(() => GuardarMarcaInter()))
                         {
-
-                            FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alerta.ShowDialog();
+                            loading.ShowDialog(this);
                         }
-                        else
-                        {
-                            // 🔵 Aquí entra tu loading
-                            using (var loading = new FrmLoading(() => GuardarMarcaInter()))
-                            {
-                                loading.ShowDialog(this);
-                            }
 
-                        }
                     }
                 }
                 else

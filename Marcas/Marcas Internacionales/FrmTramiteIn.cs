@@ -33,6 +33,7 @@ namespace Presentacion.Marcas_Nacionales
         private string rutaArchivoLocal = null;
         private string nombreArchivo = null;
         private bool archivoSeleccionado = false;
+        private bool _estaGuardando = false;
         public void convertirImagen()
         {
 
@@ -668,27 +669,45 @@ namespace Presentacion.Marcas_Nacionales
 
         }
 
-        private async void btnGuardarM_Click(object sender, EventArgs e)
+        private void btnGuardarM_Click(object sender, EventArgs e)
         {
-            VerificarDatosRegistro();
-            if (DatosRegistro.peligro == false)
+            if (_estaGuardando) return;
+            _estaGuardando = true;
+
+            var btn = (System.Windows.Forms.Control)sender;
+            btn.Enabled = false;
+
+            try
             {
-                if (archivoSeleccionado == false && checkBox1.Checked)
+                VerificarDatosRegistro();
+                if (DatosRegistro.peligro == false)
                 {
-                    FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    alerta.ShowDialog();
+                    if (archivoSeleccionado == false && checkBox1.Checked)
+                    {
+                        FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                    }
+                    else
+                    {
+                        using (var loading = new FrmLoading(() => GuardarMarcaInternacional()))
+                        {
+                            loading.ShowDialog(this);
+                        }
+                    }
+
                 }
                 else
                 {
-                    await GuardarMarcaInternacional();
+                    FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
                 }
-
             }
-            else
+            finally
             {
-                FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
+                btn.Enabled = true; // volver a habilitar
+                _estaGuardando = false;
             }
+
         }
 
 
