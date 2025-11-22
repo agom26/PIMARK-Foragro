@@ -166,7 +166,7 @@ namespace Presentacion.Marcas_Nacionales
                 richTextBoxAnotacionesH.Enabled = false;
                 dateTimePickerFechaIngreso.Enabled = false;
                 dateTimePickerFechaVencimiento.Enabled = false;
-                
+
             }
             else if (!UsuarioActivo.soloLectura)
             {
@@ -176,7 +176,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 btnAgregarTitular.Enabled = true;
                 btnAgregarAgente.Enabled = true;
-                btnAgregarCliente.Enabled=true;
+                btnAgregarCliente.Enabled = true;
                 btnAgregarEstado.Enabled = true;
                 btnEditarEstadoHistorial.Visible = true;
                 txtExpediente.Enabled = true;
@@ -601,7 +601,7 @@ namespace Presentacion.Marcas_Nacionales
             return true;
         }
 
-        public async Task ActualizarMarcaNacional()
+        public async Task ActualizarMarcaInternacional()
         {
             string expediente = txtExpediente.Text;
             string nombre = txtNombre.Text;
@@ -628,8 +628,9 @@ namespace Presentacion.Marcas_Nacionales
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionF = txtUbicacion.Text;
+            int indefinida = 0;
 
             if (checkBoxTienePoder.Checked)
             {
@@ -672,47 +673,58 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-                try
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
+
+            try
+            {
+                // Actualizar la marca con tipo
+                bool esActualizado = registroChek ?
+                    await marcaModel.EditMarcaInternacionalRegistradaNuevo(
+                        SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, "", "", ubicacionF) :
+                    await marcaModel.EditMarcaInternacionalNuevo(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
+
+                // Verificar si la actualización fue exitosa
+                if (esActualizado)
                 {
-                    // Actualizar la marca con tipo
-                    bool esActualizado = registroChek ?
-                        await marcaModel.EditMarcaInternacionalRegistradaNuevo(
-                            SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, "", "", ubicacionF) :
-                        await marcaModel.EditMarcaInternacionalNuevo(SeleccionarMarca.idInt, expediente, nombre, signoDistintivo, tipoSigno, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
-
-                    // Verificar si la actualización fue exitosa
-                    if (esActualizado)
+                    if (agregoEstado == true)
                     {
-                        if (agregoEstado == true)
-                        {
-                            await historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
-                            agregoEstado = false;
+                        await historialModel.GuardarEtapa(SeleccionarMarca.idInt, Convert.ToDateTime(AgregarEtapa.fecha), AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
+                        agregoEstado = false;
 
-                        }
-                        FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        AnadirTabPage(tabPageListaMarcas);
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageListaArchivos);
-                        EliminarTabPage(tabPageHistorialMarca);
-                        EliminarTabPage(tabPageHistorialDetail);
-                        await LoadMarcas();
-                        SeleccionarMarca.idInt = 0;
-                        LimpiarFormulario();
                     }
-                    else
-                    {
-                        FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA INTERNACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
+                    FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Marca nacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AnadirTabPage(tabPageListaMarcas);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageListaArchivos);
+                    EliminarTabPage(tabPageHistorialMarca);
+                    EliminarTabPage(tabPageHistorialDetail);
+                    await LoadMarcas();
+                    SeleccionarMarca.idInt = 0;
+                    LimpiarFormulario();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Error al registrar la marca internacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL ACTUALIZAR MARCA INTERNACIONAL", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Error al actualizar la marca internacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al registrar la marca internacional." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -865,6 +877,48 @@ namespace Presentacion.Marcas_Nacionales
                         if (contieneRegistrada)
                         {
                             mostrarPanelRegistro();
+
+                            SeleccionarMarca.registro = row["registro"].ToString();
+                            SeleccionarMarca.folio = row["folio"].ToString();
+                            SeleccionarMarca.libro = row["libro"].ToString();
+                            SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
+
+                            txtRegistro.Text = SeleccionarMarca.registro;
+                            txtFolio.Text = SeleccionarMarca.folio;
+                            txtLibro.Text = SeleccionarMarca.libro;
+                            dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro.Value;
+                            // Leer el valor de forma segura
+                            string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                            // Convertir a entero sin riesgo
+                            int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                            if (indefinido == 1)
+                            {
+                                // Mostrar como indefinida
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                                dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                                toggleIndefinido.Checked = true;
+                            }
+                            else
+                            {
+
+                                toggleIndefinido.Checked = false;
+                                dateTimePFecha_vencimiento.Enabled = true;
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                                if (row["fechaVencimiento"] != DBNull.Value)
+                                {
+
+                                    dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+                                    SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+                                }
+
+                            }
                         }
                         else
                         {
@@ -999,7 +1053,7 @@ namespace Presentacion.Marcas_Nacionales
             try
             {
                 // ===== tu init actual (déjalo igual) =====
-                
+
                 archivoSubido = false;
                 btnAdjuntarT.Visible = false;
                 convertirImagen();
@@ -1209,7 +1263,7 @@ namespace Presentacion.Marcas_Nacionales
 
                 }
             }
-            
+
         }
 
         private void roundedButton4_Click(object sender, EventArgs e)
@@ -1366,7 +1420,7 @@ namespace Presentacion.Marcas_Nacionales
                 richTextBoxAnotacionesH.ReadOnly = true;
                 btnEditarH.Enabled = false;
             }
-            
+
         }
 
 
@@ -1398,7 +1452,7 @@ namespace Presentacion.Marcas_Nacionales
                             SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
 
 
-                          
+
 
                             comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
                             dateTimePickerFechaIngreso.Value = SeleccionarHistorial.fecha;
@@ -1622,7 +1676,7 @@ namespace Presentacion.Marcas_Nacionales
                     alerta.ShowDialog();
                 }
             }
-            
+
         }
 
         private void btnCancelarH_Click(object sender, EventArgs e)
@@ -1840,9 +1894,9 @@ namespace Presentacion.Marcas_Nacionales
                 archivoSubido = true;
             }
 
-                MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-       
+
 
 
         private async void btnActualizarM_Click(object sender, EventArgs e)
@@ -1859,10 +1913,9 @@ namespace Presentacion.Marcas_Nacionales
                     }
                     else
                     {
-                        await ActualizarMarcaNacional();
+                        await ActualizarMarcaInternacional();
 
                     }
-
                 }
                 else
                 {
@@ -1870,11 +1923,7 @@ namespace Presentacion.Marcas_Nacionales
                     alerta.ShowDialog();
                 }
             }
-            
-
         }
-
-        
 
         private async void btnCancelarM_Click(object sender, EventArgs e)
         {
@@ -1887,7 +1936,7 @@ namespace Presentacion.Marcas_Nacionales
             EliminarTabPage(tabPageHistorialMarca);
             EliminarTabPage(tabPageHistorialDetail);
             SeleccionarMarca.idInt = 0;
-            
+
         }
 
         private void dtgMarcasN_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1965,7 +2014,7 @@ namespace Presentacion.Marcas_Nacionales
                     alerta.ShowDialog();
                 }
             }
-            
+
 
         }
 
@@ -2083,12 +2132,12 @@ namespace Presentacion.Marcas_Nacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
@@ -2097,7 +2146,7 @@ namespace Presentacion.Marcas_Nacionales
 
         private void textBoxEstatus_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void roundedButton2_Click_1(object sender, EventArgs e)
@@ -2152,7 +2201,7 @@ namespace Presentacion.Marcas_Nacionales
                 }
 
                 dtgArchivos.ClearSelection();
-                
+
             }
             finally
             {
@@ -2404,7 +2453,7 @@ namespace Presentacion.Marcas_Nacionales
                     archivoSubido = true;
                 }
             }
-            
+
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
@@ -2520,6 +2569,27 @@ namespace Presentacion.Marcas_Nacionales
             if (labelVenc.Visible)
             {
                 comboBoxEstatusH_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
             }
         }
     }

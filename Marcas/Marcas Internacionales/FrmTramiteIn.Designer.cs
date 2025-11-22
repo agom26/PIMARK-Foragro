@@ -92,6 +92,8 @@
             txtExpediente = new TextBox();
             label2 = new Label();
             txtNombreCliente = new TextBox();
+            toggleIndefinido = new Presentacion.Clases.RJToggleButton();
+            label11 = new Label();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -364,6 +366,8 @@
             // panel2I
             // 
             panel2I.Anchor = AnchorStyles.Top;
+            panel2I.Controls.Add(toggleIndefinido);
+            panel2I.Controls.Add(label11);
             panel2I.Controls.Add(dateTimePFecha_vencimiento);
             panel2I.Controls.Add(label19);
             panel2I.Controls.Add(dateTimePFecha_Registro);
@@ -384,16 +388,16 @@
             // 
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(384, 135);
+            dateTimePFecha_vencimiento.Location = new Point(434, 124);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(222, 24);
+            dateTimePFecha_vencimiento.Size = new Size(140, 24);
             dateTimePFecha_vencimiento.TabIndex = 41;
             dateTimePFecha_vencimiento.ValueChanged += dateTimePFecha_vencimiento_ValueChanged;
             // 
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(384, 109);
+            label19.Location = new Point(434, 99);
             label19.Name = "label19";
             label19.Size = new Size(166, 19);
             label19.TabIndex = 40;
@@ -403,9 +407,9 @@
             // dateTimePFecha_Registro
             // 
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(22, 135);
+            dateTimePFecha_Registro.Location = new Point(20, 124);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(224, 24);
+            dateTimePFecha_Registro.Size = new Size(140, 24);
             dateTimePFecha_Registro.TabIndex = 17;
             dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged;
             dateTimePFecha_Registro.Enter += dateTimePFecha_Registro_Enter;
@@ -416,7 +420,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(22, 110);
+            label18.Location = new Point(20, 99);
             label18.Name = "label18";
             label18.Size = new Size(128, 19);
             label18.TabIndex = 38;
@@ -921,6 +925,30 @@
             txtNombreCliente.TabIndex = 183;
             txtNombreCliente.TextChanged += txtNombreCliente_TextChanged;
             // 
+            // toggleIndefinido
+            // 
+            toggleIndefinido.Location = new Point(434, 154);
+            toggleIndefinido.MinimumSize = new Size(35, 20);
+            toggleIndefinido.Name = "toggleIndefinido";
+            toggleIndefinido.OffBackColor = Color.Gray;
+            toggleIndefinido.OffToggleColor = Color.Gainsboro;
+            toggleIndefinido.OnBackColor = Color.LightSteelBlue;
+            toggleIndefinido.OnToggleColor = Color.WhiteSmoke;
+            toggleIndefinido.Size = new Size(41, 20);
+            toggleIndefinido.TabIndex = 45;
+            toggleIndefinido.Text = "rjToggleButton1";
+            toggleIndefinido.UseVisualStyleBackColor = true;
+            toggleIndefinido.CheckedChanged += toggleIndefinido_CheckedChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(481, 154);
+            label11.Name = "label11";
+            label11.Size = new Size(79, 19);
+            label11.TabIndex = 44;
+            label11.Text = "Indefinida";
+            // 
             // FrmTramiteIn
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
@@ -1022,5 +1050,7 @@
         private TextBox txtUbicacion;
         private Label label10;
         private CheckBox checkBoxMulticlase;
+        private Clases.RJToggleButton toggleIndefinido;
+        private Label label11;
     }
 }

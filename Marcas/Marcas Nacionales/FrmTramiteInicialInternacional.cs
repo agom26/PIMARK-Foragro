@@ -108,8 +108,9 @@ namespace Presentacion.Marcas_Internacionales
 
 
             if ((comboBoxSignoDistintivo.Text == "Marca" &&
-                comboBoxTipoSigno.Text == "Gráfica/Figurativa" || comboBoxTipoSigno.Text == "Mixta")
-                || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
+                 comboBoxTipoSigno.Text == "Gráfica/Figurativa" || comboBoxTipoSigno.Text == "Mixta")
+                 || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
+                 || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Mixta")
                 )
             {
                 // Verificar que hay una imagen
@@ -125,13 +126,24 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
             else
             {
-                logo = null;
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    logo = null;
+                }
             }
 
 

@@ -153,14 +153,10 @@ namespace Presentacion.Marcas_Nacionales
 
 
             if ((comboBoxSignoDistintivo.Text == "Marca" &&
-              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
-              (comboBoxSignoDistintivo.Text == "Marca" &&
-              comboBoxTipoSigno.Text == "Mixta") ||
-              (comboBoxSignoDistintivo.Text == "Emblema" &&
-              comboBoxTipoSigno.Text == "Gráfica/Figurativa") ||
-               (comboBoxSignoDistintivo.Text == "Emblema" &&
-              comboBoxTipoSigno.Text == "Mixta")
-              )
+                 comboBoxTipoSigno.Text == "Gráfica/Figurativa" || comboBoxTipoSigno.Text == "Mixta")
+                 || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
+                 || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Mixta")
+                )
             {
                 // Verificar que hay una imagen
                 if (pictureBox1.Image != null && pictureBox1.Image != documento)
@@ -175,13 +171,24 @@ namespace Presentacion.Marcas_Nacionales
                 {
                     FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
             else
             {
-                logo = null;
+                // Verificar que hay una imagen
+                if (pictureBox1.Image != null && pictureBox1.Image != documento)
+                {
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        logo = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    logo = null;
+                }
             }
 
             // Si está registrada, se verifica la información del registro
@@ -310,8 +317,9 @@ namespace Presentacion.Marcas_Nacionales
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionF = txtUbicacion.Text;
+            int indefinida = 0;
 
             if (checkBoxTienePoder.Checked)
             {
@@ -359,27 +367,23 @@ namespace Presentacion.Marcas_Nacionales
                 return;
             }
 
-            // Verificar que hay una imagen
-            if (pictureBox1.Image != null && pictureBox1.Image != documento)
+            if (registroChek && toggleIndefinido.Checked)
             {
-                using (var ms = new System.IO.MemoryStream())
-                {
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    logo = ms.ToArray();
-                }
+                indefinida = 1;
+                fecha_vencimiento = null;
             }
-            else
+            else if (registroChek && !toggleIndefinido.Checked)
             {
-                logo = null;
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
-
 
 
             // Guardar la marca internacional
             try
             {
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaInternacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, fecha_vencimiento, ubicacionF) :
+                    await marcaModel.AddMarcaInternacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, ubicacionF) :
                     await marcaModel.AddMarcaInternacionalNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
 
                 if (idMarca > 0)
@@ -998,6 +1002,27 @@ namespace Presentacion.Marcas_Nacionales
         private void checkBoxMulticlase_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
+            }
         }
     }
 }

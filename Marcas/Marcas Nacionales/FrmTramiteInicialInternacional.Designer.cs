@@ -643,7 +643,7 @@
             // 
             // toggleIndefinido
             // 
-            toggleIndefinido.Location = new Point(387, 160);
+            toggleIndefinido.Location = new Point(434, 154);
             toggleIndefinido.MinimumSize = new Size(35, 20);
             toggleIndefinido.Name = "toggleIndefinido";
             toggleIndefinido.OffBackColor = Color.Gray;
@@ -659,7 +659,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(434, 160);
+            label3.Location = new Point(481, 154);
             label3.Name = "label3";
             label3.Size = new Size(79, 19);
             label3.TabIndex = 42;
@@ -669,16 +669,16 @@
             // 
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(384, 124);
+            dateTimePFecha_vencimiento.Location = new Point(434, 124);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(222, 24);
+            dateTimePFecha_vencimiento.Size = new Size(140, 24);
             dateTimePFecha_vencimiento.TabIndex = 16;
             dateTimePFecha_vencimiento.KeyDown += dateTimePFecha_vencimiento_KeyDown;
             // 
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(383, 101);
+            label19.Location = new Point(434, 99);
             label19.Name = "label19";
             label19.Size = new Size(166, 19);
             label19.TabIndex = 40;
@@ -690,7 +690,7 @@
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
             dateTimePFecha_Registro.Location = new Point(22, 124);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(222, 24);
+            dateTimePFecha_Registro.Size = new Size(140, 24);
             dateTimePFecha_Registro.TabIndex = 15;
             dateTimePFecha_Registro.ValueChanged += dateTimePFecha_Registro_ValueChanged_1;
             // 
