@@ -396,7 +396,7 @@ namespace Presentacion.Marcas_Nacionales
                         string etapa = textBoxEstatus.Text;
                         if (!string.IsNullOrEmpty(etapa))
                         {
-                            await historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                            await historialModel.GuardarEtapa(idMarca, Convert.ToDateTime(AgregarEtapa.fecha), etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", AgregarEtapa.fechaVencimiento);
                         }
 
 

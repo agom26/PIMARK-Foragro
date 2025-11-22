@@ -1541,6 +1541,93 @@ namespace Presentacion.Marcas_Internacionales
 
         public async Task EditarVerHistorial()
         {
+            _cargandoUI = true;
+            if (dtgHistorialIn.SelectedRows.Count > 0)
+            {
+                var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
+                {
+                    // OJO: la columna se llama "Id", no "id"
+                    int id = Convert.ToInt32(dataRowView["Id"]);
+                    SeleccionarHistorial.id = id;
+
+                    DataTable historial = await historialModel.GetHistorialById(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+
+                        // OJO: la columna se llama "origen", no "Origen"
+                        if (fila["origen"].ToString() == "TRÁMITE")
+                        {
+                            SeleccionarHistorial.id = Convert.ToInt32(fila["Id"]);
+                            SeleccionarHistorial.etapa = fila["etapa"].ToString();
+                            SeleccionarHistorial.fecha = Convert.ToDateTime(fila["fecha"]);
+                            SeleccionarHistorial.anotaciones = fila["anotaciones"].ToString();
+                            SeleccionarHistorial.usuario = fila["usuario"].ToString();
+                            SeleccionarHistorial.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                            // OJO: en tu DAO estás guardando todo como string,
+                            // así que lo más seguro es validar string vacío.
+                            if (!string.IsNullOrWhiteSpace(fila["fechaVencimiento"].ToString()))
+                            {
+                                labelVenc.Visible = true;
+                                dateTimePickerFechaVencimiento.Visible = true;
+                                dateTimePickerFechaVencimiento.Value =
+                                    Convert.ToDateTime(fila["fechaVencimiento"].ToString());
+                            }
+                            else
+                            {
+                                labelVenc.Visible = false;
+                                dateTimePickerFechaVencimiento.Visible = false;
+                            }
+
+                            comboBoxEstatusH.SelectedItem = SeleccionarHistorial.etapa;
+                            dateTimePickerFechaIngreso.Value = SeleccionarHistorial.fecha;
+                            richTextBoxAnotacionesH.Text = SeleccionarHistorial.anotaciones;
+                            labelUserEditor.Text = UsuarioActivo.usuario;
+                            lblUser.Text = SeleccionarHistorial.usuario;
+
+                            AnadirTabPage(tabPageHistorialDetail);
+                        }
+                        else
+                        {
+                            FrmAlerta alerta = new FrmAlerta(
+                                "NO SE PUEDE EDITAR UN HISTORIAL QUE NO SEA DE TRÁMITE",
+                                "ADVERTENCIA",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            alerta.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial",
+                            "Mensaje",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                FrmAlerta alerta = new FrmAlerta(
+                    "SELECCIONE UNA FILA",
+                    "MENSAJE",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
+                alerta.ShowDialog();
+            }
+
+            _cargandoUI = false;
+        }
+
+
+        /*
+        public async Task EditarVerHistorial()
+        {
             if (dtgHistorialIn.SelectedRows.Count > 0)
             {
                 var filaSeleccionada = dtgHistorialIn.SelectedRows[0];
@@ -1620,7 +1707,7 @@ namespace Presentacion.Marcas_Internacionales
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
+        }*/
         private async void iconButton5_Click(object sender, EventArgs e)
         {
             await EditarVerHistorial();
@@ -1918,7 +2005,7 @@ namespace Presentacion.Marcas_Internacionales
                     await refrescarMarca();
 
                     EliminarTabPage(tabPageHistorialDetail);
-                    AnadirTabPage(tabPageMarcaDetail);
+                    AnadirTabPage(tabPageHistorialMarca);
                     SeleccionarHistorial.id = 0;
                 }
                 else

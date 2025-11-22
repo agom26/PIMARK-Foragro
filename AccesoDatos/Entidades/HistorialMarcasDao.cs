@@ -36,6 +36,34 @@ namespace AccesoDatos.Entidades
             return JsonDocument.Parse(responseBody);
         }
 
+        public DataTable ConvertSingleObjectToDataTable(JsonElement jsonObject)
+        {
+            DataTable table = new DataTable();
+
+            foreach (JsonProperty prop in jsonObject.EnumerateObject())
+            {
+                table.Columns.Add(prop.Name, typeof(string)); // o inferir tipos si querés ser más preciso
+            }
+
+            DataRow row = table.NewRow();
+
+            foreach (JsonProperty prop in jsonObject.EnumerateObject())
+            {
+                row[prop.Name] = prop.Value.ValueKind switch
+                {
+                    JsonValueKind.String => prop.Value.GetString(),
+                    JsonValueKind.Number => prop.Value.GetRawText(),
+                    JsonValueKind.True => true,
+                    JsonValueKind.False => false,
+                    JsonValueKind.Null => DBNull.Value,
+                    _ => prop.Value.ToString()
+                };
+            }
+
+            table.Rows.Add(row);
+            return table;
+        }
+
         public async Task<bool> EditHistorialById(int id, string etapa, DateTime fecha, string anotaciones, string usuario, string usuarioEditor, DateTime? fechaVencimiento)
         {
             var data = new
@@ -61,34 +89,16 @@ namespace AccesoDatos.Entidades
 
             var tabla = new DataTable();
 
-            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array)
+            if (jsonDoc.RootElement.ValueKind == JsonValueKind.Array &&
+                jsonDoc.RootElement.GetArrayLength() > 0)
             {
-                foreach (var elem in jsonDoc.RootElement.EnumerateArray())
-                {
-                    if (tabla.Columns.Count == 0)
-                    {
-                        foreach (var prop in elem.EnumerateObject())
-                        {
-                            // Agrega columna si no existe aún
-                            if (!tabla.Columns.Contains(prop.Name))
-                                tabla.Columns.Add(prop.Name);
-                        }
-                    }
+                var obj = jsonDoc.RootElement[0];
 
-                    var row = tabla.NewRow();
-                    foreach (var prop in elem.EnumerateObject())
-                    {
-                        if (tabla.Columns.Contains(prop.Name))
-                            row[prop.Name] = prop.Value.ToString();
-                    }
-                    tabla.Rows.Add(row);
-                }
+                tabla = ConvertSingleObjectToDataTable(obj);
             }
 
             return tabla;
         }
-
-
 
 
         public async Task<DataTable> GetAllEtapasByIdMarca(int idMarca)
