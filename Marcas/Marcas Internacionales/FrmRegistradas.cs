@@ -1784,106 +1784,103 @@ namespace Presentacion.Marcas_Nacionales
         {
             if (!UsuarioActivo.soloLectura)
             {
-                string usuario = lblUser.Text;
-                string usuarioEditor = labelUserEditor.Text;
-                string etapa = comboBoxEstatusH.Text;
-                DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-                DateTime fechaVencimiento = fechaIngreso;
-
-                // Calcular vencimiento automático según etapa
-                switch (etapa)
+                if (_guardandoHist) return;
+                if (comboBoxEstatusH.SelectedIndex == -1)
                 {
-                    case "Examen de fondo":
-                    case "Objeción":
-                    case "Publicación":
-                        fechaVencimiento = fechaIngreso.AddMonths(2);
-                        break;
-
-                    case "Requerimiento":
-                    case "Orden de pago":
-                        fechaVencimiento = fechaIngreso.AddMonths(1);
-                        break;
-
-                    case "Resolución RPI desfavorable":
-                        fechaVencimiento = fechaIngreso.AddDays(5);
-                        break;
+                    new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                    return;
                 }
 
-                // Mostrar u ocultar controles de vencimiento
-                bool requiereVencimiento = etapa == "Examen de fondo" ||
-                                            etapa == "Requerimiento" ||
-                                            etapa == "Objeción" ||
-                                            etapa == "Publicación" ||
-                                            etapa == "Orden de pago" ||
-                                            etapa == "Resolución RPI desfavorable";
+                _guardandoHist = true;
+                var btn = sender as System.Windows.Forms.Control;
+                if (btn != null) btn.Enabled = false;
+                Cursor.Current = Cursors.WaitCursor;
 
-                // Asignar valores a AgregarEtapa
-                AgregarEtapa.etapa = etapa;
-                AgregarEtapa.fecha = fechaIngreso;
-                AgregarEtapa.usuario = usuarioEditor;
-                AgregarEtapa.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
-
-                if (comboBoxEstatusH.SelectedIndex != -1)
+                try
                 {
-                    string anotaciones = richTextBoxAnotacionesH.Text;
-                    string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-                    string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-                    string anotacionFinal = "";
+                    string usuarioCreador = lblUser.Text;           // quien creó el registro
+                    string usuarioEditor = labelUserEditor.Text;    // quien edita ahora
+                    string etapa = comboBoxEstatusH.Text;
+                    DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
 
-                    if (etapa == "Resolución RPI desfavorable")
-                    {
-                        anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
-                    }
-                    else if (requiereVencimiento)
-                    {
-                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-                    }
+                    bool requiereVencimiento =
+                           etapa == "Examen de fondo"
+                        || etapa == "Requerimiento"
+                        || etapa == "Objeción"
+                        || etapa == "Publicación"
+                        || etapa == "Orden de pago"
+                        || etapa == "Resolución RPI desfavorable";
+
+                    // RESPETAR lo que esté en el picker (si está visible / aplica)
+                    DateTime? fechaVencimiento = requiereVencimiento
+                        ? dateTimePickerFechaVencimiento.Value
+                        : (DateTime?)null;
+
+                    // Construir anotación
+                    string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                    string anotacionFinal;
+                    if (etapa == "Resolución RPI desfavorable" && fechaVencimiento.HasValue)
+                        anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {fechaVencimiento.Value:dd/MM/yyyy}";
+                    else if (fechaVencimiento.HasValue)
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {fechaVencimiento.Value:dd/MM/yyyy}";
                     else if (etapa == "Resolución RPI favorable" ||
                              etapa == "Recurso de revocatoria" ||
                              etapa == "Resolución Ministerio de Economía (MINECO)" ||
                              etapa == "Contencioso administrativo")
-                    {
                         anotacionFinal = $"{fecha} Por objeción - {etapa}";
-                    }
                     else
-                    {
                         anotacionFinal = $"{fecha} {etapa}";
-                    }
 
-                    if (!anotaciones.Contains(anotacionFinal))
-                    {
-                        AgregarEtapa.anotaciones = anotacionFinal + " " + anotaciones;
-                    }
+                    // Evitar duplicar la misma línea; usa salto de línea para separar
+                    string actuales = richTextBoxAnotacionesH.Text ?? string.Empty;
+                    if (!actuales.Contains(anotacionFinal))
+                        AgregarEtapa.anotaciones = string.IsNullOrWhiteSpace(actuales)
+                            ? anotacionFinal
+                            : anotacionFinal + Environment.NewLine + actuales;
                     else
-                    {
-                        AgregarEtapa.anotaciones = anotaciones;
-                    }
+                        AgregarEtapa.anotaciones = actuales;
 
-                    // Guardar en base de datos
-                    bool actualizado = await historialModel.EditHistorialById(
+                    // Guardar (asegúrate que el orden de parámetros coincide con tu modelo)
+                    bool ok = await historialModel.EditHistorialById(
                         SeleccionarHistorial.id,
                         etapa,
                         fechaIngreso,
                         AgregarEtapa.anotaciones,
-                        usuario,
+                        usuarioCreador,        // mismo orden que usas en otros formularios
                         usuarioEditor,
-                        requiereVencimiento ? fechaVencimiento : (DateTime?)null
+                        fechaVencimiento       // nullable
                     );
 
-                    if (actualizado)
+                    if (ok)
                     {
-                        FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        EliminarTabPage(tabPageHistorialDetail);
-                        AnadirTabPage(tabPageMarcaDetail);
-                        SeleccionarHistorial.id = 0;
+                        new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
+
+                        // Refresca también el historial para ver el cambio
+                        await loadHistorialById();
                         await refrescarMarca();
+
+                        EliminarTabPage(tabPageHistorialDetail);
+                        AnadirTabPage(tabPageHistorialMarca);
+                        SeleccionarHistorial.id = 0;
+                    }
+                    else
+                    {
+                        new FrmAlerta("NO SE PUDO ACTUALIZAR LA ETAPA", "ERROR",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
+                    new FrmAlerta("ERROR AL ACTUALIZAR: " + ex.Message, "ERROR",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                    if (btn != null) btn.Enabled = true;
+                    _guardandoHist = false;
                 }
             }
 

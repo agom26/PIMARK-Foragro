@@ -27,7 +27,9 @@ namespace Presentacion.Patentes
         bool agregoEstado = false;
         private bool buscando = false;
         private bool _isLoading;
-
+        private bool _actualizando; // evita reentradas
+        private bool _cargandoUI;
+        private bool _guardandoHist;
         //ftp
         const string URL = "https://foragro.com.es/peticiones/archivos_patentes.php";
         const string TOKEN = "TOKEN_SECRETO_LARGO_Y_UNICO";
@@ -1365,146 +1367,181 @@ namespace Presentacion.Patentes
         {
             tabControl1.SelectedTab = tabPageHistorialMarca;
         }
-        public void EditarHistorial()
+        private async Task EditarHistorial()
         {
-            string etapa = comboBoxEstatusH.SelectedItem?.ToString();
-            DateTime fecha = dateTimePickerFechaIngreso.Value;
-            string anotaciones = richTextBoxAnotacionesH.Text;
-            SeleccionarHistorialPatente.anotaciones = anotaciones;
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
+            _cargandoUI = true;
+            if (dtgHistorial.SelectedRows.Count > 0)
             {
-                string fechaSinHora = dateTimePickerFechaIngreso.Value.ToShortDateString();
-                string formato = fechaSinHora + " " + comboBoxEstatusH.SelectedItem.ToString();
-                if (anotaciones.Contains(formato))
+                Habilitar();
+                var filaSeleccionada = dtgHistorial.SelectedRows[0];
+                if (filaSeleccionada.DataBoundItem is DataRowView dataRowView)
                 {
-                    AgregarEtapaPatente.anotaciones = anotaciones;
-                }
-                else
-                {
-                    AgregarEtapaPatente.anotaciones = formato + " " + anotaciones;
-                }
+                    // Obtén el ID de la fila seleccionada
+                    int id = Convert.ToInt32(dataRowView["id"]);
+                    SeleccionarHistorialPatente.id = id;
 
-                try
-                {
-                    historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fecha, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor, null);
-                    FrmAlerta alerta = new FrmAlerta("ESTADO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    tabControl1.SelectedTab = tabPageHistorialMarca;
-                    SeleccionarHistorialPatente.LimpiarHistorial();
-                    refrescarMarca();
+                    DataTable historial = await historialPatenteModel.ObtenerHistorialPorId(id);
+
+                    if (historial.Rows.Count > 0)
+                    {
+                        DataRow fila = historial.Rows[0];
+                        SeleccionarHistorialPatente.id = Convert.ToInt32(fila["id"]);
+                        SeleccionarHistorialPatente.etapa = fila["etapa"].ToString();
+                        SeleccionarHistorialPatente.fecha = Convert.ToDateTime(fila["fecha"].ToString());
+                        SeleccionarHistorialPatente.anotaciones = fila["anotaciones"].ToString();
+                        SeleccionarHistorialPatente.usuario = fila["usuario"].ToString();
+                        SeleccionarHistorialPatente.usuarioEdicion = fila["usuarioEdicion"].ToString();
+
+                        comboBoxEstatusH.SelectedItem = SeleccionarHistorialPatente.etapa;
+                        dateTimePickerFechaIngreso.Value = SeleccionarHistorialPatente.fecha;
+                        richTextBoxAnotacionesH.Text = SeleccionarHistorialPatente.anotaciones;
+                        labelUserEditor.Text = UsuarioActivo.usuario;
+                        lblUser.Text = SeleccionarHistorialPatente.usuario;
+
+                        AnadirTabPage(tabPageHistorialDetail);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron detalles del historial", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-
             }
             else
             {
-                FrmAlerta alerta = new FrmAlerta("SELECCIONE UN ESTADO", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
+                FrmAlerta alerta = new FrmAlerta("SELECCIONE UNA FILA", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.None);
                 alerta.ShowDialog();
-                //MessageBox.Show("No ha seleccionado ningun estado");
+                //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            _cargandoUI = false;
         }
 
         private async void btnEditarH_Click(object sender, EventArgs e)
         {
-            string usuario = lblUser.Text;
-            string usuarioEditor = labelUserEditor.Text;
-            string etapa = comboBoxEstatusH.Text;
-            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-            DateTime fechaVencimiento = fechaIngreso;
+            if (_guardandoHist) return;
 
-            // Calcular vencimiento automático según etapa
-            switch (etapa)
+            if (comboBoxEstatusH.SelectedIndex == -1)
             {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
-
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
+                new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                return;
             }
-
-            // Mostrar u ocultar controles de vencimiento
-            bool requiereVencimiento = etapa == "Examen de fondo" ||
-                                        etapa == "Requerimiento" ||
-                                        etapa == "Objeción" ||
-                                        etapa == "Publicación" ||
-                                        etapa == "Orden de pago" ||
-                                        etapa == "Resolución RPI desfavorable";
-
-            // Asignar valores a AgregarEtapa
-            AgregarEtapaPatente.etapa = etapa;
-            AgregarEtapaPatente.fecha = fechaIngreso;
-            AgregarEtapaPatente.usuario = usuarioEditor;
-            AgregarEtapaPatente.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
-
-            if (comboBoxEstatusH.SelectedIndex != -1)
+            _guardandoHist = true;
+            var btn = sender as Control;
+            if (btn != null) btn.Enabled = false;
+            Cursor.Current = Cursors.WaitCursor;
+            try
             {
-                string anotaciones = richTextBoxAnotacionesH.Text;
-                string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-                string venc = fechaVencimiento.ToString("dd/MM/yyyy");
-                string anotacionFinal = "";
+                string usuario = lblUser.Text;
+                string usuarioEditor = labelUserEditor.Text;
+                string etapa = comboBoxEstatusH.Text;
+                DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+                DateTime fechaVencimiento = fechaIngreso;
 
-                if (etapa == "Resolución RPI desfavorable")
+                // Calcular vencimiento automático según etapa
+                switch (etapa)
                 {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    case "Examen de fondo":
+                    case "Objeción":
+                    case "Publicación":
+                        fechaVencimiento = fechaIngreso.AddMonths(2);
+                        break;
+
+                    case "Requerimiento":
+                    case "Orden de pago":
+                        fechaVencimiento = fechaIngreso.AddMonths(1);
+                        break;
+
+                    case "Resolución RPI desfavorable":
+                        fechaVencimiento = fechaIngreso.AddDays(5);
+                        break;
                 }
-                else if (requiereVencimiento)
+
+                // Mostrar u ocultar controles de vencimiento
+                bool requiereVencimiento = etapa == "Examen de fondo" ||
+                                            etapa == "Requerimiento" ||
+                                            etapa == "Objeción" ||
+                                            etapa == "Publicación" ||
+                                            etapa == "Orden de pago" ||
+                                            etapa == "Resolución RPI desfavorable";
+
+                // Asignar valores a AgregarEtapa
+                AgregarEtapaPatente.etapa = etapa;
+                AgregarEtapaPatente.fecha = fechaIngreso;
+                AgregarEtapaPatente.usuario = usuarioEditor;
+                AgregarEtapaPatente.fechaVencimiento = requiereVencimiento ? fechaVencimiento : null;
+
+                if (comboBoxEstatusH.SelectedIndex != -1)
                 {
-                    anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-                }
-                else if (etapa == "Resolución RPI favorable" ||
-                         etapa == "Recurso de revocatoria" ||
-                         etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                         etapa == "Contencioso administrativo")
-                {
-                    anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    string anotaciones = richTextBoxAnotacionesH.Text;
+                    string fecha = fechaIngreso.ToString("dd/MM/yyyy");
+                    string venc = fechaVencimiento.ToString("dd/MM/yyyy");
+                    string anotacionFinal = "";
+
+                    if (etapa == "Resolución RPI desfavorable")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (requiereVencimiento)
+                    {
+                        anotacionFinal = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                    }
+                    else if (etapa == "Resolución RPI favorable" ||
+                             etapa == "Recurso de revocatoria" ||
+                             etapa == "Resolución Ministerio de Economía (MINECO)" ||
+                             etapa == "Contencioso administrativo")
+                    {
+                        anotacionFinal = $"{fecha} Por objeción - {etapa}";
+                    }
+                    else
+                    {
+                        anotacionFinal = $"{fecha} {etapa}";
+                    }
+
+                    if (!anotaciones.Contains(anotacionFinal))
+                    {
+                        AgregarEtapaPatente.anotaciones = anotacionFinal + " " + anotaciones;
+                    }
+                    else
+                    {
+                        AgregarEtapaPatente.anotaciones = anotaciones;
+                    }
+
+                    try
+                    {
+                        historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fechaIngreso, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor, requiereVencimiento ? fechaVencimiento : (DateTime?)null);
+                        FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        EliminarTabPage(tabPageHistorialDetail);
+                        AnadirTabPage(tabPageMarcaDetail);
+                        SeleccionarHistorialPatente.LimpiarHistorial();
+                        await refrescarPatente();
+                    }
+                    catch (Exception ex)
+                    {
+                        FrmAlerta frmAlerta = new FrmAlerta("ERROR :" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        frmAlerta.ShowDialog();
+                    }
+
+
+
                 }
                 else
                 {
-                    anotacionFinal = $"{fecha} {etapa}";
+                    FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    alerta.ShowDialog();
                 }
-
-                if (!anotaciones.Contains(anotacionFinal))
-                {
-                    AgregarEtapaPatente.anotaciones = anotacionFinal + " " + anotaciones;
-                }
-                else
-                {
-                    AgregarEtapaPatente.anotaciones = anotaciones;
-                }
-
-
-                historialPatenteModel.EditarHistorialPatente(SeleccionarHistorialPatente.id, fechaIngreso, etapa, AgregarEtapaPatente.anotaciones, usuario, usuarioEditor, requiereVencimiento ? fechaVencimiento : (DateTime?)null);
-                FrmAlerta alerta = new FrmAlerta("ETAPA ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
-                EliminarTabPage(tabPageHistorialDetail);
-                AnadirTabPage(tabPageMarcaDetail);
-                SeleccionarHistorialPatente.LimpiarHistorial();
-                await refrescarPatente();
-
-
             }
-            else
+            catch (Exception ex)
             {
-                FrmAlerta alerta = new FrmAlerta("NO HA SELECCIONADO NINGÚN ESTADO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                alerta.ShowDialog();
+                new FrmAlerta("ERROR AL ACTUALIZAR: " + ex.Message, "ERROR",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                if (btn != null) btn.Enabled = true;
+                _guardandoHist = false;
             }
 
         }
@@ -1556,6 +1593,7 @@ namespace Presentacion.Patentes
 
         private async Task EditarHistorialDetalle()
         {
+            _cargandoUI = true;
             if (dtgHistorial.SelectedRows.Count > 0)
             {
                 Habilitar();
@@ -1614,6 +1652,8 @@ namespace Presentacion.Patentes
                 alerta.ShowDialog();
                 //MessageBox.Show("Por favor seleccione una fila", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            _cargandoUI = false;
         }
 
         private async void btnEditarEstadoHistorial_Click(object sender, EventArgs e)
@@ -1623,76 +1663,81 @@ namespace Presentacion.Patentes
 
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
-            if (labelVenc.Visible)
+            if (_cargandoUI) return;              // <- clave
+
+            //comboBoxEstado_SelectedIndexChanged(sender, e);
+            if (!_actualizando && dateTimePickerVencimiento.Visible)
             {
-                comboBoxEstatusH_SelectedIndexChanged(sender, e);
+                _actualizando = true;
+                dateTimePickerVencimiento.Value = CalcularVencimiento(comboBoxEstatusH.Text, dateTimePickerFechaIngreso.Value);
+                _actualizando = false;
+            }
+            ActualizarResumen();
+        }
+        private DateTime CalcularVencimiento(string etapa, DateTime fechaIngreso)
+        {
+            return etapa switch
+            {
+                "Examen de fondo" or "Objeción" or "Publicación" => fechaIngreso.AddMonths(2),
+                "Requerimiento" or "Orden de pago" => fechaIngreso.AddMonths(1),
+                "Resolución RPI desfavorable" => fechaIngreso.AddDays(5),
+                _ => fechaIngreso
+            };
+        }
+
+
+        private void ActualizarResumen()
+        {
+            string etapa = comboBoxEstatusH.Text;
+            string fecha = dateTimePickerFechaIngreso.Value.ToString("dd/MM/yyyy");
+            if (dateTimePickerVencimiento.Visible)
+            {
+                string venc = dateTimePickerVencimiento.Value.ToString("dd/MM/yyyy");
+                if (etapa == "Resolución RPI desfavorable")
+                    richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
+                else
+                    richTextBoxAnotacionesH.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+            }
+            else
+            {
+                if (etapa is "Resolución RPI favorable" or "Recurso de revocatoria" or
+                    "Resolución Ministerio de Economía (MINECO)" or "Contencioso administrativo")
+                    richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa}";
+                else
+                    richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
             }
         }
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cargandoUI) return;              // <- clave
+
+            _actualizando = true;
+
             string etapa = comboBoxEstatusH.Text;
             DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
-            DateTime fechaVencimiento = fechaIngreso;
 
-            // Calcular fecha de vencimiento según la etapa
-            switch (etapa)
-            {
-                case "Examen de fondo":
-                case "Objeción":
-                case "Publicación":
-                    fechaVencimiento = fechaIngreso.AddMonths(2);
-                    break;
-
-                case "Requerimiento":
-                case "Orden de pago":
-                    fechaVencimiento = fechaIngreso.AddMonths(1);
-                    break;
-
-                case "Resolución RPI desfavorable":
-                    fechaVencimiento = fechaIngreso.AddDays(5);
-                    break;
-            }
-
-            // Mostrar u ocultar controles de vencimiento
-            bool mostrarVencimiento = etapa == "Examen de fondo" ||
-                                       etapa == "Requerimiento" ||
-                                       etapa == "Objeción" ||
-                                       etapa == "Publicación" ||
-                                       etapa == "Orden de pago" ||
-                                       etapa == "Resolución RPI desfavorable";
+            bool mostrarVencimiento =
+                etapa == "Examen de fondo" ||
+                etapa == "Requerimiento" ||
+                etapa == "Objeción" ||
+                etapa == "Publicación" ||
+                etapa == "Orden de pago" ||
+                etapa == "Resolución RPI desfavorable";
 
             labelVenc.Visible = mostrarVencimiento;
             dateTimePickerVencimiento.Visible = mostrarVencimiento;
 
             if (mostrarVencimiento)
             {
-                dateTimePickerVencimiento.Value = fechaVencimiento;
+                if (!dateTimePickerVencimiento.Visible)
+                    dateTimePickerVencimiento.Value = CalcularVencimiento(etapa, fechaIngreso);
             }
+            labelVenc.Visible = dateTimePickerVencimiento.Visible = mostrarVencimiento;
 
-            // Mostrar anotación en el RichTextBox
-            string fecha = fechaIngreso.ToString("dd/MM/yyyy");
-            string venc = fechaVencimiento.ToString("dd/MM/yyyy");
 
-            if (etapa == "Resolución RPI desfavorable")
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (mostrarVencimiento)
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
-            }
-            else if (etapa == "Resolución RPI favorable" ||
-                     etapa == "Recurso de revocatoria" ||
-                     etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                     etapa == "Contencioso administrativo")
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} Por objeción - {etapa}";
-            }
-            else
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
-            }
+            ActualizarResumen(); // arma el texto según valores actuales
+            _actualizando = false;
 
         }
 

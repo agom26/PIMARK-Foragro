@@ -162,12 +162,12 @@ namespace Presentacion.Patentes
 
         }
 
-        public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente)
+        public void GuardarHistorial(DateTime fecha, string estado, string anotaciones, string usuario, string usuarioEdicion, int idPatente, DateTime fechaVencimiento)
         {
             try
             {
                 historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario, usuarioEdicion
-                    , idPatente, null);
+                    , idPatente, fechaVencimiento);
             }
             catch (Exception ex)
             {
@@ -422,7 +422,8 @@ namespace Presentacion.Patentes
 
 
                                 GuardarHistorial(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                               , AgregarEtapaPatente.usuario, null, idPatente);
+                                , AgregarEtapaPatente.usuario,null, idPatente,
+                                    Convert.ToDateTime(AgregarEtapaPatente.fechaVencimiento));
 
 
 
@@ -459,7 +460,8 @@ namespace Presentacion.Patentes
                                 poder_nombramiento);
 
                             GuardarHistorial(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                            , AgregarEtapaPatente.usuario, null, idPatente);
+                            , AgregarEtapaPatente.usuario, null, idPatente,
+                            Convert.ToDateTime(AgregarEtapaPatente.fechaVencimiento));
                             FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             LimpiarFomulario();
