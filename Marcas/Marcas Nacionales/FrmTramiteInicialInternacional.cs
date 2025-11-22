@@ -109,7 +109,7 @@ namespace Presentacion.Marcas_Internacionales
 
             if ((comboBoxSignoDistintivo.Text == "Marca" &&
                 comboBoxTipoSigno.Text == "Gráfica/Figurativa" || comboBoxTipoSigno.Text == "Mixta")
-                || (comboBoxSignoDistintivo.Text == "Emblema"  && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
+                || (comboBoxSignoDistintivo.Text == "Emblema" && comboBoxTipoSigno.Text == "Gráfica/Figurativa")
                 )
             {
                 // Verificar que hay una imagen
@@ -258,14 +258,13 @@ namespace Presentacion.Marcas_Internacionales
             int? idCliente = SeleccionarPersona.idPersonaC;
             DateTime solicitud = datePickerFechaSolicitud.Value;
             string observaciones = richTextBox1.Text;
-            bool tieneCliente = false;
             string estado = textBoxEstatus.Text;
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionFisica = txtUbicacionF.Text;
-
+            int indefinida = 0;
 
             // Validaciones
             if (idTitular <= 0)
@@ -280,7 +279,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
                 return;
             }
 
@@ -288,13 +287,8 @@ namespace Presentacion.Marcas_Internacionales
             {
                 //no colocarle cliente
                 SeleccionarMarca.idCliente = null;
-                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //return;
             }
-            else
-            {
-                tieneCliente = true;
-            }
+            
 
             // Validar campos 
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
@@ -302,6 +296,17 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
+
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if(registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
 
             if (registroChek && await marcaModel.ExisteRegistro(registro, null))
             {
@@ -316,8 +321,8 @@ namespace Presentacion.Marcas_Internacionales
             {
 
                 int idMarca = registroChek ?
-                    await marcaModel.AddMarcaNacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, idCliente,ubicacionFisica) :
-                    await marcaModel.AddMarcaNacionalNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente,ubicacionFisica);
+                    await marcaModel.AddMarcaNacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro,indefinida, fecha_vencimiento, idCliente, ubicacionFisica) :
+                    await marcaModel.AddMarcaNacionalNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionFisica);
 
                 // Verifica si se ha guardado correctamente
                 if (idMarca > 0)
@@ -530,10 +535,10 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                   
-                        dateTimePFecha_vencimiento.Enabled = true;
-                    
-                   
+
+                    dateTimePFecha_vencimiento.Enabled = true;
+
+
                 }
 
             }
@@ -577,7 +582,7 @@ namespace Presentacion.Marcas_Internacionales
                 VerificarDatosRegistro();
                 if (DatosRegistro.peligro == false)
                 {
-                    if(archivoSeleccionado==false && checkBox1.Checked)
+                    if (archivoSeleccionado == false && checkBox1.Checked)
                     {
                         FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         alerta.ShowDialog();
@@ -597,7 +602,7 @@ namespace Presentacion.Marcas_Internacionales
                     FrmAlerta alerta = new FrmAlerta("DEBE INGRESAR LOS DATOS DE REGISTRO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
                 }
-                
+
             }
             finally
             {
@@ -618,7 +623,7 @@ namespace Presentacion.Marcas_Internacionales
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                bool existeRegistro= await marcaModel.ExisteRegistroMarcaIngresada(txtRegistro.Text.Trim(),0);
+                bool existeRegistro = await marcaModel.ExisteRegistroMarcaIngresada(txtRegistro.Text.Trim(), 0);
                 if (existeRegistro)
                 {
                     FrmAlerta alerta = new FrmAlerta("EL NÚMERO DE REGISTRO YA EXISTE", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -627,7 +632,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
                 else
                 {
-                     
+
                     if (archivoSeleccionado == false && checkBox1.Checked)
                     {
 
@@ -641,8 +646,8 @@ namespace Presentacion.Marcas_Internacionales
                     }
 
                 }
-                
-               
+
+
             }
             else
             {
@@ -716,17 +721,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void dateTimePFecha_Registro_ValueChanged_1(object sender, EventArgs e)
@@ -898,6 +903,33 @@ namespace Presentacion.Marcas_Internacionales
             rutaArchivoLocal = null;
             nombreArchivo = null;
             archivoSeleccionado = false;
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
+            }
+           
         }
     }
 }

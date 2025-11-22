@@ -74,7 +74,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             await LoadMarcas();
         }
-        
+
         public void convertirImagen()
         {
 
@@ -221,7 +221,7 @@ namespace Presentacion.Marcas_Internacionales
                 else Apply();
             }
         }
-        
+
         public async Task filtrar()
         {
             string buscar = txtBuscar.Text?.Trim();
@@ -456,7 +456,7 @@ namespace Presentacion.Marcas_Internacionales
             string tipoSigno = comboBoxTipoSigno.SelectedItem?.ToString();
             string folio = txtFolio.Text;
             string libro = txtLibro.Text;
-            byte[] logo = null;
+            byte[]? logo = null;
             int idTitular = SeleccionarPersona.idPersonaT;
             int idAgente = SeleccionarPersona.idPersonaA;
             int? idCliente = SeleccionarPersona.idPersonaC;
@@ -470,8 +470,9 @@ namespace Presentacion.Marcas_Internacionales
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionF = txtUbicacion.Text;
+            int indefinida = 0;
             // Validaciones
             if (idTitular <= 0)
             {
@@ -499,6 +500,17 @@ namespace Presentacion.Marcas_Internacionales
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
             {
                 return;
+            }
+
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
@@ -531,7 +543,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente,
-                        solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
+                        solicitud, registro, fecha_registro, indefinida, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
                 }
                 else
                 {
@@ -542,9 +554,6 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (esActualizado)
                 {
-
-                    if (esActualizado)
-                    {
 
                         if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
                         {
@@ -576,11 +585,7 @@ namespace Presentacion.Marcas_Internacionales
                             await LoadMarcas();
                             LimpiarFormulario();
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                   
                 }
                 else
                 {
@@ -680,7 +685,7 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.logo = null;
                         }
 
-                        
+
 
                         if (SeleccionarMarca.logo != null && SeleccionarMarca.logo.Length > 0)
                         {
@@ -746,7 +751,7 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.folio = row["folio"].ToString();
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"].ToString());
-                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+
                             AgregarRenovacion.fechaVencimientoAntigua = Convert.ToDateTime(SeleccionarMarca.fechaVencimiento);
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
@@ -754,8 +759,41 @@ namespace Presentacion.Marcas_Internacionales
                             txtFolio.Text = SeleccionarMarca.folio;
                             txtLibro.Text = SeleccionarMarca.libro;
                             dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro.Value;
-                            dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento.Value;
                             txtERenovacion.Text = SeleccionarMarca.erenov;
+
+                            // Leer el valor de forma segura
+                            string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                            // Convertir a entero sin riesgo
+                            int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                            if (indefinido == 1)
+                            {
+                                // Mostrar como indefinida
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                                dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                                toggleIndefinido.Checked = true;
+                            }
+                            else
+                            {
+
+                                toggleIndefinido.Checked = false;
+                                dateTimePFecha_vencimiento.Enabled = true;
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                                if (row["fechaVencimiento"] != DBNull.Value)
+                                {
+                                    dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"]);
+                                    SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+                                }
+
+                            }
+
+                           
                         }
                         else
                         {
@@ -861,7 +899,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     btnAdjuntarT.Visible = true;
                 }
-               
+
                 convertirImagen();
                 pictureBox1.Image = documento;
 
@@ -962,7 +1000,7 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        
+
         public async Task Editar()
         {
             LimpiarControlesMarca();
@@ -973,7 +1011,7 @@ namespace Presentacion.Marcas_Internacionales
                 {
                     loading.ShowDialog(this);
                 }
-                
+
                 AnadirTabPage(tabPageMarcaDetail);
                 EliminarTabPage(tabPageRegistradasList);
             }
@@ -1195,7 +1233,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 VerEditarHistorial();
             }
-            
+
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
@@ -1655,7 +1693,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 VerEditarHistorial();
             }
-            
+
         }
 
 
@@ -1941,22 +1979,22 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtERenovacion_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private async Task<List<string>> ListarNombresDeArchivosHttpAsync(string idMarca)
@@ -2042,7 +2080,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
                 dtgArchivos.ClearSelection();
-                
+
             }
             finally
             {
@@ -2367,7 +2405,7 @@ namespace Presentacion.Marcas_Internacionales
                 archivoSubido = true;
             }
 
-                MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /*
@@ -2560,7 +2598,7 @@ namespace Presentacion.Marcas_Internacionales
                 await SubirArchivoAsync("" + SeleccionarMarca.idN);
                 await ListarArchivosEnGeneral();
             }
-            
+
         }
 
         private void iconButton5_Click_1(object sender, EventArgs e)
@@ -2574,7 +2612,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await Eliminar();
             }
-            
+
         }
 
         private void iconButton7_Click(object sender, EventArgs e)
@@ -2696,6 +2734,27 @@ namespace Presentacion.Marcas_Internacionales
             if (labelVenc.Visible)
             {
                 comboBoxEstatusH_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
             }
         }
     }

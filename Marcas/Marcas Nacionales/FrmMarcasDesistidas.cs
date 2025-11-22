@@ -1,5 +1,6 @@
 ﻿using Comun;
 using Comun.Cache;
+using DocumentFormat.OpenXml.Office2019.Drawing.Animation;
 using Dominio;
 using FluentFTP;
 using Presentacion.Alertas;
@@ -501,17 +502,11 @@ namespace Presentacion.Marcas_Internacionales
                         textBoxEstatus.Text = SeleccionarMarca.estado;
                         comboBoxSignoDistintivo.SelectedItem = SeleccionarMarca.signoDistintivo;
                         comboBoxTipoSigno.SelectedItem = SeleccionarMarca.tipoSigno;
-                        MostrarLogoEnPictureBox(SeleccionarMarca.logo);
+                        
                         datePickerFechaSolicitud.Value = SeleccionarMarca.fecha_solicitud;
                         richTextBox1.Text = SeleccionarMarca.observaciones;
                         txtERenovacion.Text = SeleccionarMarca.erenov;
                         txtETraspaso.Text = SeleccionarMarca.etraspaso;
-
-                        /*if (row["logo"] is DBNull)
-                        {
-                            convertirImagen();
-                            pictureBox1.Image = documento;
-                        }*/
 
                         bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
 
@@ -523,13 +518,46 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.folio = row["folio"].ToString();
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
-                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
 
                             txtRegistro.Text = SeleccionarMarca.registro;
                             txtFolio.Text = SeleccionarMarca.folio;
                             txtLibro.Text = SeleccionarMarca.libro;
                             dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro.Value;
-                            dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento.Value;
+
+                            // Leer el valor de forma segura
+                            string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                            // Convertir a entero sin riesgo
+                            int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                            if (indefinido == 1)
+                            {
+                                // Mostrar como indefinida
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                                dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                                toggleIndefinido.Checked = true;
+                            }
+                            else
+                            {
+
+                                toggleIndefinido.Checked = false;
+                                dateTimePFecha_vencimiento.Enabled = false;
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                                if (row["fechaVencimiento"] != DBNull.Value)
+                                {
+                                    dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"]);
+                                    SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
+                                }
+
+                            }
+
+                           
+                            
                         }
                         else
                         {
@@ -1357,8 +1385,9 @@ namespace Presentacion.Marcas_Internacionales
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionF = txtUbicacion.Text;
+            int indefinida = 0;
             // Validaciones
             if (idTitular <= 0)
             {
@@ -1388,6 +1417,17 @@ namespace Presentacion.Marcas_Internacionales
                 return;
             }
 
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
+
             // Editar la marca
             try
             {
@@ -1406,7 +1446,7 @@ namespace Presentacion.Marcas_Internacionales
                 if (registroChek)
                 {
                     esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
+                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, indefinida,fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
                 }
                 else
                 {

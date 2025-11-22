@@ -76,7 +76,7 @@ namespace Presentacion.Marcas_Internacionales
             InitializeComponent();
             SeleccionarMarca.idN = 0;
             ActualizarFechaVencimiento();
-           
+
             if (UsuarioActivo.isAdmin)
             {
                 btnEliminarMarca.Visible = true;
@@ -133,7 +133,7 @@ namespace Presentacion.Marcas_Internacionales
                 btnAgregarTitular.Enabled = true;
                 btnEditarHistorial2.Visible = true;
 
-                
+
                 btnAdjuntarArchivo.Visible = true;
                 btnEliminarArchivo.Visible = true;
 
@@ -553,8 +553,9 @@ namespace Presentacion.Marcas_Internacionales
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text.Trim();
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string ubicacionF = txtUbicacion.Text;
+            int indefinida = 0;
 
             if (idTitular <= 0)
             {
@@ -573,6 +574,17 @@ namespace Presentacion.Marcas_Internacionales
 
             if (!ValidarCampos(expediente, nombre, clase, signoDistintivo, tipoSigno, estado, ref logo, registroChek, registro, folio, libro))
                 return;
+
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
@@ -595,12 +607,12 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 bool esActualizado;
-               
+
                 if (registroChek)
                 {
                     esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
                         SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio,
-                        libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, fecha_vencimiento,
+                        libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, indefinida,fecha_vencimiento,
                         erenov, etrasp, idCliente, ubicacionF
                     );
                 }
@@ -779,19 +791,6 @@ namespace Presentacion.Marcas_Internacionales
                 txtERenovacion.Text = SeleccionarMarca.erenov;
                 txtETraspaso.Text = SeleccionarMarca.etraspaso;
 
-                /* Mostrar logo en el PictureBox
-                if (SeleccionarMarca.logo != null)
-                {
-                    using (MemoryStream ms = new MemoryStream(SeleccionarMarca.logo))
-                    {
-                        pictureBox1.Image = Image.FromStream(ms);
-                    }
-                }
-                else
-                {
-                    convertirImagen();
-                    pictureBox1.Image = documento;
-                }*/
 
                 // Verificar si la marca tiene etapa registrada
                 bool contieneRegistrada = await marcaModel.TieneEtapaRegistrada(SeleccionarMarca.idN);
@@ -805,13 +804,50 @@ namespace Presentacion.Marcas_Internacionales
                     SeleccionarMarca.folio = row["folio"].ToString();
                     SeleccionarMarca.libro = row["libro"].ToString();
                     SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"]);
-                    SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"]);
 
                     txtRegistro.Text = SeleccionarMarca.registro;
                     txtFolio.Text = SeleccionarMarca.folio;
                     txtLibro.Text = SeleccionarMarca.libro;
                     dateTimePFecha_Registro.Value = SeleccionarMarca.fechaRegistro.Value;
-                    dateTimePFecha_vencimiento.Value = SeleccionarMarca.fechaVencimiento.Value;
+
+
+                    // Leer el valor de forma segura
+                    string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                    // Convertir a entero sin riesgo
+                    int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                    if (indefinido == 1)
+                    {
+                        // Mostrar como indefinida
+                        dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                        dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                        dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                        toggleIndefinido.Checked = true;
+                    }
+                    else
+                    {
+
+                        toggleIndefinido.Checked = false;
+                        dateTimePFecha_vencimiento.Enabled = true;
+                        dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                        dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                        if (row["fechaVencimiento"] != DBNull.Value)
+                        {
+
+                            dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+                            SeleccionarMarca.fechaVencimiento = Convert.ToDateTime(row["fechaVencimiento"].ToString());
+                        }
+
+                    }
+
+
+                    
+                    
+
                 }
                 else
                 {
@@ -926,13 +962,13 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable renovaciones = await  renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN);
+                DataTable renovaciones = await renovacionesModel.GetAllRenovacionesByIdMarca(SeleccionarMarca.idN);
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
-                
-                    dtgRenovaciones.AutoGenerateColumns = true;
-                    dtgRenovaciones.DataSource = renovaciones;
-                    dtgRenovaciones.Refresh();
+
+                dtgRenovaciones.AutoGenerateColumns = true;
+                dtgRenovaciones.DataSource = renovaciones;
+                dtgRenovaciones.Refresh();
 
 
             }
@@ -946,7 +982,7 @@ namespace Presentacion.Marcas_Internacionales
         {
             try
             {
-                DataTable traspasos = await  traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN);
+                DataTable traspasos = await traspasosModel.ObtenerTraspasosMarcaPorIdMarca(SeleccionarMarca.idN);
 
                 // Invoca el método para actualizar el DataGridView en el hilo principal
                 Invoke(new Action(() =>
@@ -964,7 +1000,7 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-       
+
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
@@ -1050,7 +1086,7 @@ namespace Presentacion.Marcas_Internacionales
             AgregarEtapa.LimpiarEtapa();
         }
 
-        public async Task Editar()
+        public void Editar()
         {
             VerificarSeleccionIdMarcaEdicion();
             if (SeleccionarMarca.idN > 0)
@@ -1065,9 +1101,9 @@ namespace Presentacion.Marcas_Internacionales
             }
         }
 
-        private async void ibtnEditar_Click(object sender, EventArgs e)
+        private void ibtnEditar_Click(object sender, EventArgs e)
         {
-            await Editar();
+            Editar();
         }
 
         private async void iconButton3_Click(object sender, EventArgs e)
@@ -1322,7 +1358,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 EditarVerHistorial();
             }
-            
+
         }
 
         private async void iconButton4_Click(object sender, EventArgs e)
@@ -1717,7 +1753,7 @@ namespace Presentacion.Marcas_Internacionales
                 this.Visible = true;
             }
 
-            
+
         }
 
         private void iconButton4_Click_1(object sender, EventArgs e)
@@ -1802,7 +1838,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await EditarVerRenovacion();
             }
-            
+
         }
 
         private async void iconButton7_Click(object sender, EventArgs e)
@@ -1914,12 +1950,12 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await EditarVerTraspaso();
             }
-            
+
         }
 
         private async void iconButton10_Click(object sender, EventArgs e)
         {
-
+            iconButton10.Enabled = false;
             string nombreTitularAntiguo = txtNombreTitularA.Text.Trim();
             string nombreTitularNuevo = txtNombreTitularN.Text.Trim();
             string numeroExpediente = txtNumExpedienteTraspaso.Text.Trim();
@@ -1935,15 +1971,26 @@ namespace Presentacion.Marcas_Internacionales
                 !string.IsNullOrEmpty(nombreTitularAntiguo) &&
                 !string.IsNullOrEmpty(nombreTitularNuevo))
             {
-                using (var loading = new FrmLoading(() => traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo)))
+                try
                 {
-                    loading.ShowDialog(this);
+                    using (var loading = new FrmLoading(() => traspasosModel.ActualizarTraspaso(idTraspaso, numeroExpediente, idMarca, idTitularAntiguo, idTitularNuevo)))
+                    {
+
+                        loading.ShowDialog(this);
+                    }
+                    await loadTraspasosById();
+                    await CargarDatosMarca();
+                    FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    EliminarTabPage(tabPageTraspasoDetail);
+                    AnadirTabPage(tabPageTraspasosList);
                 }
-                await loadTraspasosById();
-                FrmAlerta alerta = new FrmAlerta("TRASPASO ACTUALIZADO", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                alerta.ShowDialog();
-                EliminarTabPage(tabPageTraspasoDetail);
-                AnadirTabPage(tabPageTraspasosList);
+                finally
+                {
+                    iconButton10.Enabled = true;
+                }
+
+               
             }
             else
             {
@@ -1974,10 +2021,10 @@ namespace Presentacion.Marcas_Internacionales
 
         }
 
-        private async void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgMarcasIn_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             buscando = false;
-            await Editar();
+            Editar();
         }
 
         public void VerificarDatosRegistro()
@@ -2018,7 +2065,7 @@ namespace Presentacion.Marcas_Internacionales
                     alerta.ShowDialog();
                 }
             }
-            
+
         }
         public void VerificarDatosIngresados()
         {
@@ -2083,14 +2130,14 @@ namespace Presentacion.Marcas_Internacionales
                         checkBox1.Checked = false;
                         mostrarPanelRegistro("no");
                     }
-                  
-                 
+
+
 
                     if (AgregarEtapa.etapa == "Trámite de renovación" && AgregarEtapa.numExpediente != "")
                     {
                         txtERenovacion.Text = AgregarEtapa.numExpediente.ToString();
                         txtERenovacion.Enabled = true;
-                       
+
                     }
                     else if (AgregarEtapa.etapa == "Trámite de traspaso" && AgregarEtapa.numExpediente != "")
                     {
@@ -2220,7 +2267,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 EditarVerHistorial();
             }
-            
+
         }
 
         private async void dtgRenovaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2229,7 +2276,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await EditarVerRenovacion();
             }
-            
+
         }
 
         private async void dtgTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2238,7 +2285,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 await EditarVerTraspaso();
             }
-            
+
         }
 
         private async void ibtnBuscar_Click(object sender, EventArgs e)
@@ -2407,17 +2454,17 @@ namespace Presentacion.Marcas_Internacionales
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
         private async Task CrearCarpetaMarcaHttpAsync(string idMarca)
         {
@@ -2694,7 +2741,7 @@ namespace Presentacion.Marcas_Internacionales
                 }
 
                 dtgArchivos.ClearSelection();
-               
+
             }
             finally
             {
@@ -2917,7 +2964,7 @@ namespace Presentacion.Marcas_Internacionales
                 await SubirArchivoAsync("" + SeleccionarMarca.idN);
                 await ListarArchivosEnGeneral();
             }
-           
+
         }
 
         private void iconButton16_Click(object sender, EventArgs e)
@@ -2931,7 +2978,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 Eliminar();
             }
-            
+
         }
 
         private void dtgArchivos_DoubleClick(object sender, EventArgs e)
@@ -3113,6 +3160,27 @@ namespace Presentacion.Marcas_Internacionales
             if (labelVenc.Visible)
             {
                 comboBoxEstatusH_SelectedValueChanged(sender, e);
+            }
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
             }
         }
     }

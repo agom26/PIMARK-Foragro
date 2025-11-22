@@ -68,6 +68,8 @@
             roundedButton1 = new Presentacion.Clases.RoundedButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
+            toggleIndefinido = new Presentacion.Clases.RJToggleButton();
+            label37 = new Label();
             dateTimePFecha_vencimiento = new DateTimePicker();
             label19 = new Label();
             dateTimePFecha_Registro = new DateTimePicker();
@@ -636,10 +638,10 @@
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
             tabPageMarcaDetail.Controls.Add(lblTitulo);
-            tabPageMarcaDetail.Location = new Point(4, 24);
+            tabPageMarcaDetail.Location = new Point(4, 26);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 673);
+            tabPageMarcaDetail.Size = new Size(1161, 671);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
@@ -746,6 +748,9 @@
             // 
             // panel3
             // 
+            panel3.BackColor = Color.White;
+            panel3.Controls.Add(toggleIndefinido);
+            panel3.Controls.Add(label37);
             panel3.Controls.Add(dateTimePFecha_vencimiento);
             panel3.Controls.Add(label19);
             panel3.Controls.Add(dateTimePFecha_Registro);
@@ -762,12 +767,38 @@
             panel3.Size = new Size(632, 185);
             panel3.TabIndex = 140;
             // 
+            // toggleIndefinido
+            // 
+            toggleIndefinido.BackColor = Color.White;
+            toggleIndefinido.Enabled = false;
+            toggleIndefinido.ForeColor = SystemColors.ControlText;
+            toggleIndefinido.Location = new Point(387, 160);
+            toggleIndefinido.MinimumSize = new Size(35, 20);
+            toggleIndefinido.Name = "toggleIndefinido";
+            toggleIndefinido.OffBackColor = Color.Gray;
+            toggleIndefinido.OffToggleColor = Color.Gainsboro;
+            toggleIndefinido.OnBackColor = Color.LightSteelBlue;
+            toggleIndefinido.OnToggleColor = Color.WhiteSmoke;
+            toggleIndefinido.Size = new Size(41, 20);
+            toggleIndefinido.TabIndex = 179;
+            toggleIndefinido.Text = "rjToggleButton1";
+            toggleIndefinido.UseVisualStyleBackColor = false;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(434, 161);
+            label37.Name = "label37";
+            label37.Size = new Size(79, 19);
+            label37.TabIndex = 178;
+            label37.Text = "Indefinida";
+            // 
             // dateTimePFecha_vencimiento
             // 
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(411, 133);
+            dateTimePFecha_vencimiento.Location = new Point(387, 123);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
             dateTimePFecha_vencimiento.Size = new Size(198, 24);
             dateTimePFecha_vencimiento.TabIndex = 41;
@@ -775,7 +806,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(397, 108);
+            label19.Location = new Point(387, 98);
             label19.Name = "label19";
             label19.Size = new Size(166, 19);
             label19.TabIndex = 40;
@@ -785,7 +816,7 @@
             // 
             dateTimePFecha_Registro.Enabled = false;
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(25, 133);
+            dateTimePFecha_Registro.Location = new Point(25, 123);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(172, 24);
             dateTimePFecha_Registro.TabIndex = 39;
@@ -794,7 +825,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(25, 108);
+            label18.Location = new Point(25, 98);
             label18.Name = "label18";
             label18.Size = new Size(128, 19);
             label18.TabIndex = 38;
@@ -819,7 +850,7 @@
             // 
             // txtFolio
             // 
-            txtFolio.Location = new Point(231, 51);
+            txtFolio.Location = new Point(222, 51);
             txtFolio.Name = "txtFolio";
             txtFolio.ReadOnly = true;
             txtFolio.Size = new Size(172, 24);
@@ -828,7 +859,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(231, 25);
+            label15.Location = new Point(222, 25);
             label15.Name = "label15";
             label15.Size = new Size(40, 19);
             label15.TabIndex = 8;
@@ -836,7 +867,7 @@
             // 
             // txtLibro
             // 
-            txtLibro.Location = new Point(437, 51);
+            txtLibro.Location = new Point(413, 51);
             txtLibro.Name = "txtLibro";
             txtLibro.ReadOnly = true;
             txtLibro.Size = new Size(172, 24);
@@ -845,7 +876,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(437, 25);
+            label20.Location = new Point(413, 25);
             label20.Name = "label20";
             label20.Size = new Size(45, 19);
             label20.TabIndex = 10;
@@ -1680,9 +1711,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel8);
-            tabPageListaArchivos.Location = new Point(4, 26);
+            tabPageListaArchivos.Location = new Point(4, 24);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1161, 671);
+            tabPageListaArchivos.Size = new Size(1161, 673);
             tabPageListaArchivos.TabIndex = 5;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -1698,7 +1729,7 @@
             panel8.Dock = DockStyle.Fill;
             panel8.Location = new Point(0, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(1161, 671);
+            panel8.Size = new Size(1161, 673);
             panel8.TabIndex = 0;
             // 
             // panel14
@@ -2018,5 +2049,7 @@
         private Panel panelBusqueda;
         private TextBox txtUbicacion;
         private Label label23;
+        private Clases.RJToggleButton toggleIndefinido;
+        private Label label37;
     }
 }

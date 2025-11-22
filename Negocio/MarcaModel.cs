@@ -451,9 +451,9 @@ namespace Dominio
         }
 
         //nuevo
-        public async Task<int> AddMarcaNacionalRegistradaNuevo(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, int? idCliente, string ubicacionF)
+        public async Task<int> AddMarcaNacionalRegistradaNuevo(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro,int indefinida, DateTime? fechaVencimiento, int? idCliente, string ubicacionF)
         {
-            return await marcaDao.AddMarcaNacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, idCliente, ubicacionF);
+            return await marcaDao.AddMarcaNacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro,indefinida, fechaVencimiento, idCliente, ubicacionF);
         }
 
         public async Task<int> AddMarcaInternacionalRegistrada(string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase,int multiclase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud,  string pais_de_registro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fecha_de_registro, DateTime fecha_vencimiento, string ubicacionF)
@@ -495,9 +495,9 @@ namespace Dominio
         }
 
         //nuevo
-        public async Task<bool> EditMarcaNacionalRegistradaNuevo(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro, DateTime fechaVencimiento, string? erenov, string? etrasp, int? idCliente, string ubicacionF)
+        public async Task<bool> EditMarcaNacionalRegistradaNuevo(int id, string expediente, string nombre, string signoDistintivo, string tipoSigno, string clase, string folio, string libro, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string registro, DateTime fechaRegistro,int indefinido, DateTime? fechaVencimiento, string? erenov, string? etrasp, int? idCliente, string ubicacionF)
         {
-            return await marcaDao.EditMarcaNacionalRegistradaNuevo(id, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, fechaVencimiento, erenov, etrasp, idCliente, ubicacionF);
+            return await marcaDao.EditMarcaNacionalRegistradaNuevo(id, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idPersonaTitular, idPersonaAgente, fecha_solicitud, registro, fechaRegistro, indefinido, fechaVencimiento, erenov, etrasp, idCliente, ubicacionF);
         }
 
         public async Task<bool> EditMarcaInternacionalRegistrada(int id, string expediente, string nombre, string signoDistintivo,string tipoSigno, string clase,int multiclase, byte[] logo, int idPersonaTitular, int idPersonaAgente, DateTime fecha_solicitud, string paisRegistro, string tiene_poder, int? idCliente, string registro, string folio, string libro, DateTime fechaRegistro, DateTime fechaVencimiento, string? erenov, string? etrasp, string ubicacionF)

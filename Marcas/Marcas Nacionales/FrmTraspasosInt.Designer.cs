@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPageRegistradasList = new TabPage();
             btnDesistir = new FontAwesome.Sharp.IconButton();
@@ -155,6 +155,8 @@
             btnAdjuntarArchivo = new FontAwesome.Sharp.IconButton();
             iconButton7 = new FontAwesome.Sharp.IconButton();
             label29 = new Label();
+            toggleIndefinido = new Presentacion.Clases.RJToggleButton();
+            label37 = new Label();
             tabControl1.SuspendLayout();
             tabPageRegistradasList.SuspendLayout();
             panel22.SuspendLayout();
@@ -472,24 +474,24 @@
             dtgMarcasRenov.BorderStyle = BorderStyle.None;
             dtgMarcasRenov.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgMarcasRenov.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dtgMarcasRenov.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = SystemColors.Control;
+            dataGridViewCellStyle26.Font = new Font("Century Gothic", 9F, FontStyle.Bold);
+            dataGridViewCellStyle26.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle26.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = DataGridViewTriState.True;
+            dtgMarcasRenov.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             dtgMarcasRenov.ColumnHeadersHeight = 40;
             dtgMarcasRenov.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dtgMarcasRenov.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = SystemColors.Window;
+            dataGridViewCellStyle27.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle27.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle27.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = DataGridViewTriState.False;
+            dtgMarcasRenov.DefaultCellStyle = dataGridViewCellStyle27;
             dtgMarcasRenov.EnableHeadersVisualStyles = false;
             dtgMarcasRenov.GridColor = Color.LightGray;
             dtgMarcasRenov.Location = new Point(10, 10);
@@ -497,14 +499,14 @@
             dtgMarcasRenov.Name = "dtgMarcasRenov";
             dtgMarcasRenov.ReadOnly = true;
             dtgMarcasRenov.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dtgMarcasRenov.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle28.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = SystemColors.Control;
+            dataGridViewCellStyle28.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle28.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = DataGridViewTriState.True;
+            dtgMarcasRenov.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
             dtgMarcasRenov.RowHeadersWidth = 51;
             dtgMarcasRenov.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgMarcasRenov.Size = new Size(784, 369);
@@ -704,10 +706,10 @@
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
-            tabPageMarcaDetail.Location = new Point(4, 24);
+            tabPageMarcaDetail.Location = new Point(4, 26);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1020, 673);
+            tabPageMarcaDetail.Size = new Size(1020, 671);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
@@ -915,6 +917,9 @@
             // 
             // panel3
             // 
+            panel3.BackColor = Color.White;
+            panel3.Controls.Add(toggleIndefinido);
+            panel3.Controls.Add(label37);
             panel3.Controls.Add(dateTimePFecha_vencimiento);
             panel3.Controls.Add(label19);
             panel3.Controls.Add(dateTimePFecha_Registro);
@@ -936,7 +941,7 @@
             dateTimePFecha_vencimiento.CalendarForeColor = Color.Red;
             dateTimePFecha_vencimiento.Enabled = false;
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_vencimiento.Location = new Point(414, 136);
+            dateTimePFecha_vencimiento.Location = new Point(391, 127);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
             dateTimePFecha_vencimiento.Size = new Size(198, 24);
             dateTimePFecha_vencimiento.TabIndex = 41;
@@ -944,7 +949,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(397, 110);
+            label19.Location = new Point(391, 101);
             label19.Name = "label19";
             label19.Size = new Size(166, 19);
             label19.TabIndex = 40;
@@ -953,7 +958,7 @@
             // dateTimePFecha_Registro
             // 
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
-            dateTimePFecha_Registro.Location = new Point(28, 136);
+            dateTimePFecha_Registro.Location = new Point(28, 127);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
             dateTimePFecha_Registro.Size = new Size(172, 24);
             dateTimePFecha_Registro.TabIndex = 122;
@@ -961,7 +966,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(28, 111);
+            label18.Location = new Point(28, 102);
             label18.Name = "label18";
             label18.Size = new Size(128, 19);
             label18.TabIndex = 38;
@@ -985,7 +990,7 @@
             // 
             // txtFolio
             // 
-            txtFolio.Location = new Point(234, 54);
+            txtFolio.Location = new Point(220, 54);
             txtFolio.Name = "txtFolio";
             txtFolio.Size = new Size(172, 24);
             txtFolio.TabIndex = 120;
@@ -993,7 +998,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(234, 28);
+            label15.Location = new Point(220, 28);
             label15.Name = "label15";
             label15.Size = new Size(40, 19);
             label15.TabIndex = 8;
@@ -1001,7 +1006,7 @@
             // 
             // txtLibro
             // 
-            txtLibro.Location = new Point(440, 54);
+            txtLibro.Location = new Point(417, 54);
             txtLibro.Name = "txtLibro";
             txtLibro.Size = new Size(172, 24);
             txtLibro.TabIndex = 121;
@@ -1009,7 +1014,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(440, 28);
+            label20.Location = new Point(417, 28);
             label20.Name = "label20";
             label20.Size = new Size(45, 19);
             label20.TabIndex = 10;
@@ -1534,14 +1539,14 @@
             dtgHistorialR.BorderStyle = BorderStyle.None;
             dtgHistorialR.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgHistorialR.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle29.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle29.BackColor = SystemColors.Control;
+            dataGridViewCellStyle29.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle29.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle29.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle29.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle29.WrapMode = DataGridViewTriState.True;
+            dtgHistorialR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
             dtgHistorialR.ColumnHeadersHeight = 40;
             dtgHistorialR.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgHistorialR.EnableHeadersVisualStyles = false;
@@ -1798,9 +1803,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel9);
-            tabPageListaArchivos.Location = new Point(4, 26);
+            tabPageListaArchivos.Location = new Point(4, 24);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1020, 671);
+            tabPageListaArchivos.Size = new Size(1020, 673);
             tabPageListaArchivos.TabIndex = 4;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -1816,7 +1821,7 @@
             panel9.Dock = DockStyle.Fill;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1020, 671);
+            panel9.Size = new Size(1020, 673);
             panel9.TabIndex = 0;
             // 
             // panel10
@@ -1840,14 +1845,14 @@
             dtgArchivos.BorderStyle = BorderStyle.None;
             dtgArchivos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dtgArchivos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dtgArchivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle30.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = SystemColors.Control;
+            dataGridViewCellStyle30.Font = new Font("Century Gothic", 9F);
+            dataGridViewCellStyle30.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle30.SelectionBackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle30.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle30.WrapMode = DataGridViewTriState.True;
+            dtgArchivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle30;
             dtgArchivos.ColumnHeadersHeight = 40;
             dtgArchivos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgArchivos.EnableHeadersVisualStyles = false;
@@ -1955,6 +1960,32 @@
             label29.Size = new Size(149, 32);
             label29.TabIndex = 69;
             label29.Text = "ARCHIVOS";
+            // 
+            // toggleIndefinido
+            // 
+            toggleIndefinido.BackColor = Color.White;
+            toggleIndefinido.ForeColor = SystemColors.ControlText;
+            toggleIndefinido.Location = new Point(387, 160);
+            toggleIndefinido.MinimumSize = new Size(35, 20);
+            toggleIndefinido.Name = "toggleIndefinido";
+            toggleIndefinido.OffBackColor = Color.Gray;
+            toggleIndefinido.OffToggleColor = Color.Gainsboro;
+            toggleIndefinido.OnBackColor = Color.LightSteelBlue;
+            toggleIndefinido.OnToggleColor = Color.WhiteSmoke;
+            toggleIndefinido.Size = new Size(41, 20);
+            toggleIndefinido.TabIndex = 175;
+            toggleIndefinido.Text = "rjToggleButton1";
+            toggleIndefinido.UseVisualStyleBackColor = false;
+            toggleIndefinido.CheckedChanged += toggleIndefinido_CheckedChanged;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(434, 160);
+            label37.Name = "label37";
+            label37.Size = new Size(79, 19);
+            label37.TabIndex = 174;
+            label37.Text = "Indefinida";
             // 
             // FrmTraspasosInt
             // 
@@ -2137,5 +2168,7 @@
         private TextBox txtUbicacion;
         private Label labelVenc;
         private DateTimePicker dateTimePickerFechaVencimiento;
+        private Clases.RJToggleButton toggleIndefinido;
+        private Label label37;
     }
 }

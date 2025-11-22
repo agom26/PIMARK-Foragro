@@ -1571,7 +1571,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca2.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1592,7 +1592,8 @@ namespace AccesoDatos.Entidades
             DateTime fechaSolicitud,
             string registro,
             DateTime fechaRegistro,
-            DateTime fechaVencimiento,
+            int indefinido,
+            DateTime? fechaVencimiento,
             int? idCliente,
             string ubicacionF)
         {
@@ -1612,7 +1613,8 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(registro), "registro");
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fechaRegistro");
-            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fechaVencimiento");
+            form.Add(new StringContent(indefinido.ToString()), "indefinido");
+            form.Add(new StringContent(fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : ""), "fechaVencimiento");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
             form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
 
@@ -1623,7 +1625,7 @@ namespace AccesoDatos.Entidades
                 form.Add(logoContent, "logo", "logo.png");
             }
 
-            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo2.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             using var json = JsonDocument.Parse(responseContent);
@@ -1908,7 +1910,8 @@ namespace AccesoDatos.Entidades
           DateTime fechaSolicitud,
           string registro,
           DateTime fechaRegistro,
-          DateTime fechaVencimiento,
+          int indefinido,
+          DateTime? fechaVencimiento,
           string? erenov,
           string? etrasp,
           int? idCliente,
@@ -1931,8 +1934,8 @@ namespace AccesoDatos.Entidades
             form.Add(new StringContent(fechaSolicitud.ToString("yyyy-MM-dd")), "fecha_solicitud");
             form.Add(new StringContent(registro), "registro");
             form.Add(new StringContent(fechaRegistro.ToString("yyyy-MM-dd")), "fecha_registro");
-            form.Add(new StringContent(fechaVencimiento.ToString("yyyy-MM-dd")), "fecha_vencimiento");
-            form.Add(new StringContent(erenov ?? ""), "erenov");
+            form.Add(new StringContent(indefinido.ToString()), "indefinido");
+            form.Add(new StringContent(fechaVencimiento.HasValue ? fechaVencimiento.Value.ToString("yyyy-MM-dd") : ""), "fechaVencimiento"); form.Add(new StringContent(erenov ?? ""), "erenov");
             form.Add(new StringContent(etrasp ?? ""), "etrasp");
             form.Add(new StringContent(idCliente?.ToString() ?? ""), "idCliente");
             form.Add(new StringContent(ubicacionF ?? ""), "ubicacion_fisica");
@@ -1951,7 +1954,7 @@ namespace AccesoDatos.Entidades
 
             }
 
-            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo.php", form);
+            var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo2.php", form);
             var responseContent = await response.Content.ReadAsStringAsync();
             return response.IsSuccessStatusCode && responseContent.Contains("true");
         }
