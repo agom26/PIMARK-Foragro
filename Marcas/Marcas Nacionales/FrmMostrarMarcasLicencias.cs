@@ -83,7 +83,7 @@ namespace Presentacion.Marcas_Internacionales
                 totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
                 lblTotalPages.Text = totalPages.ToString();
                 lblTotalRows.Text = totalRows.ToString();
-                DataTable titulares = await marcaModel.FiltrarMarcasNacionalesParaLicencia(buscar, currentPageIndex, pageSize);
+                DataTable titulares = await marcaModel.FiltrarMarcasNacionalesParaLicencia(buscar,  pageSize, currentPageIndex);
                 if (titulares.Rows.Count > 0)
                 {
                     dtgTitulares.DataSource = titulares;
@@ -210,7 +210,7 @@ namespace Presentacion.Marcas_Internacionales
                     int id = Convert.ToInt32(dataRowView["id"]);
                     SeleccionarMarcaParaLicencia.idMarca = id;
                     SeleccionarMarcaParaLicencia.nombreSigno = dataRowView["SIGNO"].ToString();
-                    SeleccionarMarcaParaLicencia.idTitularMarca = (int)dataRowView["IdTitular"];
+                    SeleccionarMarcaParaLicencia.idTitularMarca = Convert.ToInt32(dataRowView["IdTitular"].ToString());
                     SeleccionarMarcaParaLicencia.nombreTitular = dataRowView["TITULAR"].ToString();
                     SeleccionarMarcaParaLicencia.expediente = dataRowView["EXPEDIENTE"].ToString();
                     SeleccionarMarcaParaLicencia.clase = dataRowView["CLASE"].ToString();

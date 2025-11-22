@@ -623,11 +623,10 @@ namespace Presentacion.Marcas_Internacionales
             if (exclusiva == true) { tipo = "exclusiva"; }
             else { tipo = "no exclusiva"; }
 
-
             try
             {
                 LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
-                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
+                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional", SeleccionarLicencia.idLicencia))
                 {
                     string mensaje = "";
 
@@ -937,7 +936,7 @@ namespace Presentacion.Marcas_Internacionales
             try
             {
                 LicenciaUsoModel licenciaUso = new LicenciaUsoModel();
-                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional"))
+                if (await licenciaUso.VerificarCompatibilidadLicenciaUso((int)idMarca, tipo, "nacional", SeleccionarLicencia.idLicencia))
                 {
                     string mensaje = "";
 

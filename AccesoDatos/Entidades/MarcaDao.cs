@@ -95,7 +95,7 @@ namespace AccesoDatos.Entidades
             return jsonDoc.RootElement.TryGetProperty("success", out var success) && success.GetBoolean();
         }
 
-        public async Task<DataTable> ObtenerMarcasNacionalesParaLicencia(int pageSize, int currentPageIndex)
+        public async Task<DataTable> ObtenerMarcasNacionalesParaLicencia(int currentPageIndex,int pageSize)
         {
             var data = new
             {

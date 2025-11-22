@@ -165,9 +165,9 @@ namespace Dominio
             return licenciaDao.ObtenerCantidadFiltradaLicenciasUsoNacionalesNoExclusivas(valor);
         }
 
-        public Task<bool> VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
+        public Task<bool> VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen, int idLicencia)
         {
-            return licenciaDao.VerificarCompatibilidadLicenciaUso(idMarca, tipoLicencia, origen);
+            return licenciaDao.VerificarCompatibilidadLicenciaUso(idMarca, tipoLicencia, origen, idLicencia);
         }
 
 

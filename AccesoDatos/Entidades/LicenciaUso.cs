@@ -710,14 +710,15 @@ namespace AccesoDatos.Entidades
             }
         }
 
-        public async Task<bool> VerificarCompatibilidadLicenciaUso(int idMarca, string tipoLicencia, string origen)
+        public async Task<bool> VerificarCompatibilidadLicenciaUso(int IdMarca, string tipoLicencia, string origen,int idLicencia)
         {
             var data = new
             {
                 action = "verificar_compatibilidad_licencia_uso",
-                idMarca = idMarca,
+                idMarca = IdMarca,
                 tipoLicencia = tipoLicencia ?? "",
-                origen = origen ?? ""
+                origen = origen ?? "",
+                idLicenciaExcluir=idLicencia
             };
 
             try

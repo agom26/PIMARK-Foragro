@@ -26,9 +26,9 @@ namespace Dominio
            return await marcaDao.ObtenerMarcasNacionalesParaLicencia(currentPage, pageSize);
             
         }
-        public async Task<DataTable> FiltrarMarcasNacionalesParaLicencia(string filtro, int currentPageIndex, int pageSize)
+        public async Task<DataTable> FiltrarMarcasNacionalesParaLicencia(string filtro, int pageSize, int currentPageIndex)
         {
-            return await marcaDao.FiltrarMarcasNacionalesParaLicencia(filtro, currentPageIndex, pageSize);
+            return await marcaDao.FiltrarMarcasNacionalesParaLicencia(filtro, pageSize, currentPageIndex);
         }
 
         public async Task<int> GetTotalMarcasNacionalesParaLicencia()
