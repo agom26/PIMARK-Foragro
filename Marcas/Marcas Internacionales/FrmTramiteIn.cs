@@ -377,53 +377,57 @@ namespace Presentacion.Marcas_Nacionales
                 indefinida = 0;
                 fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
-
-
-            // Guardar la marca internacional
-            try
+            else
             {
-                int idMarca = registroChek ?
-                    await marcaModel.AddMarcaInternacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, ubicacionF) :
-                    await marcaModel.AddMarcaInternacionalNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
+                indefinida = 0;
+            }
 
-                if (idMarca > 0)
+
+                // Guardar la marca internacional
+                try
                 {
+                    int idMarca = registroChek ?
+                        await marcaModel.AddMarcaInternacionalRegistradaNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, ubicacionF) :
+                        await marcaModel.AddMarcaInternacionalNuevo(expediente, nombre, signoDistintivo, tipo, clase, multiclase, logo, idTitular, idAgente, solicitud, paisRegistro, tiene_poder, idCliente, ubicacionF);
 
-                    string etapa = textBoxEstatus.Text;
-                    if (!string.IsNullOrEmpty(etapa))
+                    if (idMarca > 0)
                     {
-                        await historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
-                    }
 
-
-                    // Subir archivo si fue seleccionado
-                    if (archivoSeleccionado)
-                    {
-                        bool exito = await SubirArchivoPorPhpAsync(idMarca);
-                        if (!exito)
+                        string etapa = textBoxEstatus.Text;
+                        if (!string.IsNullOrEmpty(etapa))
                         {
-                            FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            alertaError.ShowDialog();
+                            await historialModel.GuardarEtapa(idMarca, AgregarEtapa.fecha.Value, etapa, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
                         }
-                    }
 
-                    FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    alerta.ShowDialog();
-                    LimpiarFormulario();
+
+                        // Subir archivo si fue seleccionado
+                        if (archivoSeleccionado)
+                        {
+                            bool exito = await SubirArchivoPorPhpAsync(idMarca);
+                            if (!exito)
+                            {
+                                FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alertaError.ShowDialog();
+                            }
+                        }
+
+                        FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL " + (registroChek ? "REGISTRADA" : "GUARDADA"), "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        alerta.ShowDialog();
+                        LimpiarFormulario();
+                    }
+                    else
+                    {
+                        FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        alerta.ShowDialog();
+                        //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL." + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
-                    //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "GUARDAR") + " LA MARCA INTERNACIONAL." + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-                //MessageBox.Show("Error al " + (registroChek ? "registrar" : "guardar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         public void LimpiarFormulario()
