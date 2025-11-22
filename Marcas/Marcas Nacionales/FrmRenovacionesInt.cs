@@ -368,7 +368,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
-   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+        ref byte[]? logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
@@ -550,42 +550,19 @@ namespace Presentacion.Marcas_Internacionales
                     esActualizado = await marcaModel.EditMarcaNacionalNuevo(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
                 }
 
-                DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
-
                 if (esActualizado)
                 {
+                    await LoadMarcas();
+                    FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    SeleccionarMarca.idN = 0;
+                    EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageListaArchivos);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    LimpiarFormulario();
 
-                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
-                        {
-                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            EliminarTabPage(tabPageHistorialMarca);
-                            AnadirTabPage(tabPageRegistradasList);
-                            EliminarTabPage(tabPageListaArchivos);
-                            EliminarTabPage(tabPageMarcaDetail);
-                            tabControl1.SelectedTab = tabPageRegistradasList;
-                            await LoadMarcas();
-                            LimpiarFormulario();
-                        }
-                        else
-                        {
-                            // Guardar la nueva etapa en el historial
-                            await historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
-                            FrmAlerta alerta = new FrmAlerta("MARCA INTERNACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            EliminarTabPage(tabPageHistorialMarca);
-                            AnadirTabPage(tabPageRegistradasList);
-                            EliminarTabPage(tabPageMarcaDetail);
-                            EliminarTabPage(tabPageListaArchivos);
-                            tabControl1.SelectedTab = tabPageRegistradasList;
-                            await LoadMarcas();
-                            LimpiarFormulario();
-                        }
-                   
                 }
                 else
                 {

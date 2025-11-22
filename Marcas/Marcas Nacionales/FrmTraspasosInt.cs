@@ -422,7 +422,7 @@ namespace Presentacion.Marcas_Internacionales
         }
 
         private bool ValidarCampos(string expediente, string nombre, string clase, string signoDistintivo, string tipo, string estado,
-            ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+            ref byte[]? logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(expediente, "Por favor, ingrese el expediente.") ||
@@ -483,32 +483,6 @@ namespace Presentacion.Marcas_Internacionales
                 }
             }
 
-            /* anterior
-            if (comboBoxSignoDistintivo.SelectedItem.ToString() == "Marca" &&
-             comboBoxTipoSigno.SelectedItem.ToString() == "Gráfica/Figurativa" || comboBoxTipoSigno.SelectedItem.ToString() == "Mixta")
-            {
-                // Verificar que hay una imagen
-                if (pictureBox1.Image != null && pictureBox1.Image != documento)
-                {
-                    using (var ms = new System.IO.MemoryStream())
-                    {
-                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        logo = ms.ToArray();
-                    }
-                }
-                else
-                {
-                    FrmAlerta alerta = new FrmAlerta("INGRESE UNA IMAGEN", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    alerta.ShowDialog();
-                    //MessageBox.Show("Por favor, ingrese una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-            }
-            else
-            {
-                logo = null;
-            }*/
-
 
             // Si está registrada, se verifica la información del registro
             if (registroChek)
@@ -558,7 +532,7 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UN TITULAR VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("Por favor, seleccione un titular válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
                 return;
             }
 
@@ -566,14 +540,13 @@ namespace Presentacion.Marcas_Internacionales
             {
                 FrmAlerta alerta = new FrmAlerta("SELECCIONE UN AGENTE VÁLIDO", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 alerta.ShowDialog();
-                //MessageBox.Show("Por favor, seleccione un agente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
                 return;
             }
             if (idCliente <= 0)
             {
                 idCliente = null;
-                //MessageBox.Show("Por favor, seleccione un cliente válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //return;
+                
             }
 
             // Validar campos 
@@ -637,37 +610,17 @@ namespace Presentacion.Marcas_Internacionales
 
                 if (esActualizado)
                 {
-
-
-
-                    if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
-                    {
-                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        SeleccionarMarca.idN = 0;
-                        EliminarTabPage(tabPageHistorialMarca);
-                        AnadirTabPage(tabPageRegistradasList);
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageListaArchivos);
-                        tabControl1.SelectedTab = tabPageRegistradasList;
-                        await LoadMarcas();
-                    }
-                    else
-                    {
-                        // Guardar la nueva etapa en el historial
-                        await historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
-                        FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        SeleccionarMarca.idN = 0;
-                        EliminarTabPage(tabPageHistorialMarca);
-                        AnadirTabPage(tabPageRegistradasList);
-                        EliminarTabPage(tabPageMarcaDetail);
-                        EliminarTabPage(tabPageListaArchivos);
-                        tabControl1.SelectedTab = tabPageRegistradasList;
-                        await LoadMarcas();
-                    }
+                    FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    alerta.ShowDialog();
+                    await LoadMarcas();
+                    
+                    SeleccionarMarca.idN = 0;
+                    EliminarTabPage(tabPageHistorialMarca);
+                    AnadirTabPage(tabPageRegistradasList);
+                    EliminarTabPage(tabPageMarcaDetail);
+                    EliminarTabPage(tabPageListaArchivos);
+                    tabControl1.SelectedTab = tabPageRegistradasList;
+                    
 
                 }
                 else
@@ -675,14 +628,12 @@ namespace Presentacion.Marcas_Internacionales
                     MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                //LimpiarFormulario();
             }
             catch (Exception ex)
             {
                 FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + "\n" + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
-                ///MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //LimpiarFormulario();
+                
             }
         }
         public void LimpiarFormulario()
