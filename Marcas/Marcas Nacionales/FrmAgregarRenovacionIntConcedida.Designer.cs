@@ -399,10 +399,10 @@
             tabPageListarLicencias.Controls.Add(iconButton18);
             tabPageListarLicencias.Controls.Add(label18);
             tabPageListarLicencias.Controls.Add(panel3);
-            tabPageListarLicencias.Location = new Point(4, 24);
+            tabPageListarLicencias.Location = new Point(4, 26);
             tabPageListarLicencias.Name = "tabPageListarLicencias";
             tabPageListarLicencias.Padding = new Padding(3);
-            tabPageListarLicencias.Size = new Size(1045, 538);
+            tabPageListarLicencias.Size = new Size(1045, 536);
             tabPageListarLicencias.TabIndex = 1;
             tabPageListarLicencias.UseVisualStyleBackColor = true;
             // 
@@ -419,7 +419,7 @@
             btnAgregarArchivo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnAgregarArchivo.IconSize = 30;
             btnAgregarArchivo.ImageAlign = ContentAlignment.MiddleRight;
-            btnAgregarArchivo.Location = new Point(910, 66);
+            btnAgregarArchivo.Location = new Point(873, 66);
             btnAgregarArchivo.Name = "btnAgregarArchivo";
             btnAgregarArchivo.Size = new Size(166, 49);
             btnAgregarArchivo.TabIndex = 77;
@@ -461,7 +461,7 @@
             panel3.Controls.Add(dtgLicencias);
             panel3.Location = new Point(38, 66);
             panel3.Name = "panel3";
-            panel3.Size = new Size(866, 430);
+            panel3.Size = new Size(829, 430);
             panel3.TabIndex = 0;
             // 
             // dtgLicencias
@@ -469,7 +469,7 @@
             dtgLicencias.AllowUserToAddRows = false;
             dtgLicencias.AllowUserToDeleteRows = false;
             dtgLicencias.AllowUserToResizeRows = false;
-            dtgLicencias.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dtgLicencias.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dtgLicencias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtgLicencias.BackgroundColor = Color.FromArgb(251, 251, 251);
             dtgLicencias.BorderStyle = BorderStyle.None;
@@ -487,13 +487,13 @@
             dtgLicencias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dtgLicencias.EnableHeadersVisualStyles = false;
             dtgLicencias.GridColor = Color.LightGray;
-            dtgLicencias.Location = new Point(15, 15);
+            dtgLicencias.Location = new Point(13, 15);
             dtgLicencias.Name = "dtgLicencias";
             dtgLicencias.ReadOnly = true;
             dtgLicencias.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dtgLicencias.RowHeadersWidth = 51;
             dtgLicencias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtgLicencias.Size = new Size(838, 403);
+            dtgLicencias.Size = new Size(801, 403);
             dtgLicencias.TabIndex = 46;
             dtgLicencias.DataBindingComplete += dtgLicencias_DataBindingComplete;
             // 
@@ -501,20 +501,19 @@
             // 
             tabPageRenovarLicencia.AutoScroll = true;
             tabPageRenovarLicencia.Controls.Add(panel4);
-            tabPageRenovarLicencia.Location = new Point(4, 24);
+            tabPageRenovarLicencia.Location = new Point(4, 26);
             tabPageRenovarLicencia.Name = "tabPageRenovarLicencia";
-            tabPageRenovarLicencia.Size = new Size(1045, 538);
+            tabPageRenovarLicencia.Size = new Size(1045, 536);
             tabPageRenovarLicencia.TabIndex = 2;
             tabPageRenovarLicencia.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.BackColor = Color.FromArgb(192, 202, 212);
             panel4.Controls.Add(panel5);
             panel4.Location = new Point(77, 63);
             panel4.Name = "panel4";
-            panel4.Size = new Size(608, 409);
+            panel4.Size = new Size(911, 409);
             panel4.TabIndex = 0;
             // 
             // panel5
@@ -536,7 +535,6 @@
             // 
             // btnEditarH
             // 
-            btnEditarH.Anchor = AnchorStyles.Top;
             btnEditarH.BackColor = Color.FromArgb(0, 137, 123);
             btnEditarH.FlatAppearance.BorderSize = 0;
             btnEditarH.FlatStyle = FlatStyle.Flat;
@@ -559,7 +557,6 @@
             // 
             // btnCancelarH
             // 
-            btnCancelarH.Anchor = AnchorStyles.Top;
             btnCancelarH.BackColor = Color.Gainsboro;
             btnCancelarH.FlatAppearance.BorderSize = 0;
             btnCancelarH.FlatStyle = FlatStyle.Flat;
@@ -589,7 +586,6 @@
             // 
             // label9
             // 
-            label9.Anchor = AnchorStyles.Top;
             label9.AutoSize = true;
             label9.BackColor = Color.White;
             label9.Location = new Point(294, 127);
@@ -600,7 +596,6 @@
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Top;
             label5.AutoSize = true;
             label5.BackColor = Color.White;
             label5.Location = new Point(475, 199);
@@ -611,7 +606,6 @@
             // 
             // dtpFechaFinNueva
             // 
-            dtpFechaFinNueva.Anchor = AnchorStyles.Top;
             dtpFechaFinNueva.Format = DateTimePickerFormat.Short;
             dtpFechaFinNueva.Location = new Point(475, 222);
             dtpFechaFinNueva.Name = "dtpFechaFinNueva";
@@ -620,7 +614,6 @@
             // 
             // label24
             // 
-            label24.Anchor = AnchorStyles.Top;
             label24.AutoSize = true;
             label24.BackColor = Color.White;
             label24.Location = new Point(294, 199);
@@ -631,7 +624,6 @@
             // 
             // dtpFechaFinAntigua
             // 
-            dtpFechaFinAntigua.Anchor = AnchorStyles.Top;
             dtpFechaFinAntigua.Format = DateTimePickerFormat.Short;
             dtpFechaFinAntigua.Location = new Point(294, 222);
             dtpFechaFinAntigua.Name = "dtpFechaFinAntigua";
@@ -640,7 +632,6 @@
             // 
             // roundedButton7
             // 
-            roundedButton7.Anchor = AnchorStyles.Top;
             roundedButton7.BackColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BackgroundColor = Color.FromArgb(175, 192, 218);
             roundedButton7.BorderColor = Color.FromArgb(175, 192, 218);
