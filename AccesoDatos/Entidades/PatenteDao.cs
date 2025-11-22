@@ -323,6 +323,7 @@ namespace AccesoDatos.Entidades
         string folio,
         string libro,
         DateTime? fechaRegistro,
+        int indefinido,
         DateTime? fechaVencimiento,
         string erenov,
         string etrasp,
@@ -357,6 +358,7 @@ namespace AccesoDatos.Entidades
                 folio,
                 libro,
                 fechaRegistro = DateToStr(fechaRegistro),    // puede ir null
+                indefinido=indefinido,
                 fechaVencimiento = DateToStr(fechaVencimiento), // puede ir null
                 erenov,
                 etrasp,
@@ -655,11 +657,12 @@ namespace AccesoDatos.Entidades
         }
 
 
+
         public async Task<int> InsertarPatente(
             string caso, string expediente, string nombre, string estado, string tipo,
             int idTitular, int idAgente, DateTime fechaSolicitud,
             string registro, string folio, string libro,
-            DateTime? fechaRegistro, DateTime? fechaVencimiento,
+            DateTime? fechaRegistro,int indefinida, DateTime? fechaVencimiento,
             string erenov, string etrasp, int anualidades,
             string pct, string comprobantePagos, string descripcion,
             string reivindicaciones, string dibujos, string resumen,
@@ -682,6 +685,7 @@ namespace AccesoDatos.Entidades
                 folio,
                 libro,
                 fechaRegistro = DateToStr(fechaRegistro),     // puede ir null
+                indefinido = indefinida,
                 fechaVencimiento = DateToStr(fechaVencimiento),  // puede ir null
                 erenov,
                 etrasp,

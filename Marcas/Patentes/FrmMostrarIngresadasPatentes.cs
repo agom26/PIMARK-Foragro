@@ -106,7 +106,7 @@ namespace Presentacion.Patentes
         public FrmMostrarIngresadasPatentes()
         {
             InitializeComponent();
-            SetDoubleBuffering(dtgPatentes,true);
+            SetDoubleBuffering(dtgPatentes, true);
             SetDoubleBuffering(dtgHistorial, true);
 
             if (UsuarioActivo.soloLectura)
@@ -154,7 +154,9 @@ namespace Presentacion.Patentes
                 richTextBoxAnotacionesH.Enabled = false;
                 btnEditarH.Visible = false;
                 btnEditarEstadoHistorial.Visible = false;
-               
+
+                toggleIndefinido.Enabled = false;
+
             }
             else
             {
@@ -205,9 +207,11 @@ namespace Presentacion.Patentes
                 btnEditarH.Visible = true;
                 btnEditarEstadoHistorial.Visible = true;
 
+                toggleIndefinido.Enabled = true;
+
             }
 
-                
+
         }
 
         private async Task LoadPatentes()
@@ -215,7 +219,7 @@ namespace Presentacion.Patentes
             totalRows = await patenteModel.GetTotalPatentesSinRegistro();
             totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 
-            var marcasN = await  patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize);
+            var marcasN = await patenteModel.GetAllPatentesEnTramite(currentPageIndex, pageSize);
 
             void Apply()
             {
@@ -432,6 +436,8 @@ namespace Presentacion.Patentes
                 tableLayoutPanel1.RowStyles[0].Height = 62.5f;
                 tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[1].Height = 37.5f;
+                toggleIndefinido.Visible = true;
+                labelIndefinido.Visible = true;
             }
             else
             {
@@ -442,6 +448,8 @@ namespace Presentacion.Patentes
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
+                toggleIndefinido.Visible = false;
+                labelIndefinido.Visible = false;
             }
         }
 
@@ -601,13 +609,44 @@ namespace Presentacion.Patentes
                                 SeleccionarPatente.folio = row["folio"].ToString();
                                 SeleccionarPatente.libro = row["libro"].ToString();
                                 SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
-                                SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+
 
                                 txtRegistro.Text = SeleccionarPatente.registro;
                                 txtFolio.Text = SeleccionarPatente.folio;
                                 txtLibro.Text = SeleccionarPatente.libro;
                                 dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
-                                dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
+
+                                // Leer el valor de forma segura
+                                string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                                // Convertir a entero sin riesgo
+                                int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                                if (indefinido == 1)
+                                {
+                                    // Mostrar como indefinida
+                                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                                    dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                                    toggleIndefinido.Checked = true;
+                                }
+                                else
+                                {
+
+                                    toggleIndefinido.Checked = false;
+                                    dateTimePFecha_vencimiento.Enabled = true;
+                                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                                    if (row["fecha_vencimiento"] != DBNull.Value)
+                                    {
+                                        dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fecha_vencimiento"]);
+                                        SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+                                    }
+                                }
+
                             }
                             checkBox2.Checked = true;
                             mostrarPanelRegistro("si");
@@ -722,6 +761,7 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            toggleIndefinido.Checked = false;
 
             for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
             {
@@ -749,7 +789,7 @@ namespace Presentacion.Patentes
             bool registroChek = checkBox2.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string? erenov = null;
             string? etrasp = null;
             string comprobante_pagos = "no";
@@ -759,6 +799,7 @@ namespace Presentacion.Patentes
             string resumen = "no";
             string documento_cesion = "no";
             string poder_nombramiento = "no";
+            int indefinida = 0;
 
             // Validaciones
             if (idTitular <= 0)
@@ -818,7 +859,20 @@ namespace Presentacion.Patentes
                 poder_nombramiento = "si";
             }
 
-
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
+            else
+            {
+                indefinida = 0;
+            }
 
             // Validar campos 
             if (!ValidarCampos(caso, expediente, nombre, tipo, anualidad, estado, registroChek, registro, folio, libro))
@@ -836,7 +890,7 @@ namespace Presentacion.Patentes
 
 
                         bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
+                            registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
 
@@ -875,7 +929,7 @@ namespace Presentacion.Patentes
 
 
                         bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            null, null, null, null, null, erenov, etrasp, anualidades, pct,
+                            null, null, null, null, indefinida, null, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
 
@@ -1030,10 +1084,10 @@ namespace Presentacion.Patentes
                 EliminarTabPage(tabPageHistorialDetail);
                 EliminarTabPage(tabPageHistorialMarca);
                 EliminarTabPage(tabPageListaArchivos);
-                
+
                 currentPageIndex = 1;
                 lblCurrentPage.Text = currentPageIndex.ToString();
-                
+
                 // ========================================
 
                 // 1) ¿Hay internet?
@@ -2258,7 +2312,7 @@ namespace Presentacion.Patentes
 
             MessageBox.Show("ARCHIVO SUBIDO EXITOSAMENTE", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        
+
         private async void btnAdjuntarT_Click(object sender, EventArgs e)
         {
             await SubirArchivoRegistro("" + SeleccionarPatente.id);
@@ -2391,6 +2445,27 @@ namespace Presentacion.Patentes
         private void FrmMostrarIngresadasPatentes_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
+            }
         }
     }
 }

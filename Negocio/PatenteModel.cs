@@ -61,6 +61,7 @@ namespace Dominio
            string folio,
            string libro,
            DateTime? fechaRegistro,
+           int indefinida,
            DateTime? fechaVencimiento,
            string erenov,
            string etrasp,
@@ -78,6 +79,7 @@ namespace Dominio
                 caso, expediente, nombre, estado, tipo,
                 idTitular, idAgente, fechaSolicitud,
                 registro, folio, libro, fechaRegistro,
+                indefinida,
                 fechaVencimiento, erenov, etrasp,
                 anualidades, pct, comprobantePagos,
                 descripcion, reivindicaciones, dibujos,
@@ -223,6 +225,7 @@ namespace Dominio
             string folio,
             string libro,
             DateTime? fechaRegistro,
+            int indefinido,
             DateTime? fechaVencimiento,
             string erenov,
             string etrasp,
@@ -239,7 +242,7 @@ namespace Dominio
             return await patenteDao.EditarPatente(
                 id, caso, expediente, nombre, estado, tipo,
                 idTitular, idAgente, fechaSolicitud,
-                registro, folio, libro, fechaRegistro,
+                registro, folio, libro, fechaRegistro, indefinido,
                 fechaVencimiento, erenov, etrasp, anualidades,
                 pct, comprobantePagos, descripcion, reivindicaciones,
                 dibujos, resumen, documentoCesion, poderNombramiento

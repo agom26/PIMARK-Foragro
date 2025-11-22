@@ -18,7 +18,7 @@ namespace Presentacion.Patentes
         private string nombreArchivo = null;
         private bool archivoSeleccionado = false;
         private static readonly Regex NombreArchivoRegex =
-    new Regex(@"^[\p{L}\p{N}\p{M}_\-\.\s\(\)]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        new Regex(@"^[\p{L}\p{N}\p{M}_\-\.\s\(\)]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 
         public FrmTramiteInicialPatente(Form1 form1)
@@ -31,7 +31,7 @@ namespace Presentacion.Patentes
             lblVencimiento.Visible = false;
             dateTimePFecha_vencimiento.Visible = false;
             ActualizarFechaVencimiento();
-            mostrarPanelRegistro("no"); 
+            mostrarPanelRegistro("no");
             dateTimePFecha_vencimiento.Enabled = true;
         }
 
@@ -153,6 +153,7 @@ namespace Presentacion.Patentes
             DatosRegistro.peligro = false;
             archivoSeleccionado = false;
             btnAdjuntarT.Visible = false;
+            toggleIndefinido.Checked = false;
 
             for (int i = 0; i < checkedListBoxDocumentos.Items.Count; i++)
             {
@@ -166,7 +167,7 @@ namespace Presentacion.Patentes
             try
             {
                 historialPatenteModel.CrearHistorialPatente(fecha, estado, anotaciones, usuario, usuarioEdicion
-                    , idPatente,null);
+                    , idPatente, null);
             }
             catch (Exception ex)
             {
@@ -282,7 +283,7 @@ namespace Presentacion.Patentes
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string erenov = null;
             string etrasp = null;
             string comprobante_pagos = "no";
@@ -292,6 +293,7 @@ namespace Presentacion.Patentes
             string resumen = "no";
             string documento_cesion = "no";
             string poder_nombramiento = "no";
+            int indefinida = 0;
 
             // Validaciones
             if (idTitular <= 0)
@@ -359,109 +361,124 @@ namespace Presentacion.Patentes
                 return;
             }
 
-            try
+            if (registroChek && toggleIndefinido.Checked)
             {
-                if (registroChek)
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
+            else
+            {
+                indefinida = 0;
+            }
+
+                try
                 {
-                    try
+                    if (registroChek)
                     {
-                        int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, int.Parse(anualidad), pct,
-                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
-                            poder_nombramiento);
-
-                        if (idPatente > 0)
+                        try
                         {
-                            if (archivoSeleccionado)
-                            {
-                                var (okLocal, errLocal) = ValidarArchivoLocal(rutaArchivoLocal, nombreArchivo);
-                                if (!okLocal)
-                                {
-                                    new FrmAlerta(errLocal!.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
-                                    return; // no continuar
-                                }
+                            int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                                registro, folio, libro, fecha_registro, indefinida, fecha_vencimiento, erenov, etrasp, int.Parse(anualidad), pct,
+                                comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                                poder_nombramiento);
 
-                                // Validar idPatente y subir
-                                if (idPatente <= 0)
+                            if (idPatente > 0)
+                            {
+                                if (archivoSeleccionado)
                                 {
-                                    new FrmAlerta("ID DE PATENTE INVÁLIDO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                    var (okLocal, errLocal) = ValidarArchivoLocal(rutaArchivoLocal, nombreArchivo);
+                                    if (!okLocal)
+                                    {
+                                        new FrmAlerta(errLocal!.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                        return; // no continuar
+                                    }
+
+                                    // Validar idPatente y subir
+                                    if (idPatente <= 0)
+                                    {
+                                        new FrmAlerta("ID DE PATENTE INVÁLIDO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                        return;
+                                    }
+
+                                    bool exito = await SubirArchivoPorPhpAsync(idPatente);
+                                    if (!exito)
+                                    {
+                                        // Si quieres, aquí podrías hacer rollback/eliminar la patente recién creada
+                                        new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
+                                        return; // no continuar
+                                    }
+                                }
+                                else
+                                {
+                                    // si es obligatorio subir el archivo en Registro/Concesión, corta aquí
+                                    new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
                                     return;
                                 }
 
-                                bool exito = await SubirArchivoPorPhpAsync(idPatente);
-                                if (!exito)
+
+                                GuardarHistorial(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
+                               , AgregarEtapaPatente.usuario, null, idPatente);
+
+
+
+                                /* Subir archivo si fue seleccionado
+                                if (archivoSeleccionado)
                                 {
-                                    // Si quieres, aquí podrías hacer rollback/eliminar la patente recién creada
-                                    new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
-                                    return; // no continuar
-                                }
-                            }
-                            else
-                            {
-                                // si es obligatorio subir el archivo en Registro/Concesión, corta aquí
-                                new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error).ShowDialog();
-                                return;
+                                    bool exito = SubirArchivoPorPhp(idPatente);
+                                    if (!exito)
+                                    {
+                                        FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        alertaError.ShowDialog();
+                                    }
+                                }*/
+
+                                FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                LimpiarFomulario();
                             }
 
+                        }
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
+                                null, null, null, null, indefinida, null, erenov, etrasp, int.Parse(anualidad), pct,
+                                comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
+                                poder_nombramiento);
 
                             GuardarHistorial(Convert.ToDateTime(AgregarEtapaPatente.fecha), AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                           , AgregarEtapaPatente.usuario, null, idPatente);
-
-
-
-                            /* Subir archivo si fue seleccionado
-                            if (archivoSeleccionado)
-                            {
-                                bool exito = SubirArchivoPorPhp(idPatente);
-                                if (!exito)
-                                {
-                                    FrmAlerta alertaError = new FrmAlerta("ERROR AL SUBIR EL ARCHIVO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    alertaError.ShowDialog();
-                                }
-                            }*/
-
+                            , AgregarEtapaPatente.usuario, null, idPatente);
                             FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             alerta.ShowDialog();
                             LimpiarFomulario();
                         }
-                       
+                        catch (Exception ex)
+                        {
+                            FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alerta.ShowDialog();
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-                    }
+
+
+                    //LimpiarFormulario();
                 }
-                else
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        int idPatente = await patenteModel.CrearPatente(caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            null, null, null, null, null, erenov, etrasp, int.Parse(anualidad), pct,
-                            comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
-                            poder_nombramiento);
-
-                        GuardarHistorial((DateTime)AgregarEtapaPatente.fecha, AgregarEtapaPatente.etapa, AgregarEtapaPatente.anotaciones
-                        , AgregarEtapaPatente.usuario, null, idPatente);
-                        FrmAlerta alerta = new FrmAlerta("PATENTE AGREGADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        alerta.ShowDialog();
-                        LimpiarFomulario();
-                    }
-                    catch (Exception ex)
-                    {
-                        FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        alerta.ShowDialog();
-                    }
+                    MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //LimpiarFormulario();
                 }
-
-
-                //LimpiarFormulario();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca nacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //LimpiarFormulario();
-            }
         }
         private void ActualizarFechaVencimiento()
         {
@@ -482,13 +499,14 @@ namespace Presentacion.Patentes
                 lblVencimiento.Visible = true;
                 dateTimePFecha_vencimiento.Visible = true;
                 checkBox1.Checked = true;
-                checkBox1.Enabled = false;
                 panel2I.Visible = true;
                 tableLayoutPanel1.RowStyles[0].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[0].Height = 62.5f;
                 tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[1].Height = 37.5f;
                 btnAdjuntarT.Visible = true;
+                toggleIndefinido.Visible = true;
+                labelIndefinido.Visible = true;
                 //btnGuardarM.Location = new Point(197, panel2I.Location.Y + panel2I.Height + 10);
                 //btnCancelarM.Location = new Point(525, panel2I.Location.Y + panel2I.Height + 10);
             }
@@ -501,6 +519,8 @@ namespace Presentacion.Patentes
                 panel2I.Visible = false;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
                 btnAdjuntarT.Visible = false;
+                toggleIndefinido.Visible = false;
+                labelIndefinido.Visible = false;
                 //btnGuardarM.Location = new Point(197, 1050);
                 //btnCancelarM.Location = new Point(525, 1050);
             }
@@ -576,7 +596,7 @@ namespace Presentacion.Patentes
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
-                if(archivoSeleccionado==false && checkBox1.Checked)
+                if (archivoSeleccionado == false && checkBox1.Checked)
                 {
                     FrmAlerta alerta = new FrmAlerta("DEBE SUBIR EL TÍTULO", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     alerta.ShowDialog();
@@ -585,7 +605,7 @@ namespace Presentacion.Patentes
                 {
                     await IngresarPatente();
                 }
-                    
+
             }
             else
             {
@@ -600,14 +620,14 @@ namespace Presentacion.Patentes
         }
 
 
-        private void btnCancelarM_Click_1(object sender, EventArgs e)
+        private async void btnCancelarM_Click_1(object sender, EventArgs e)
         {
             VerificarDatosRegistro();
             if (DatosRegistro.peligro == false)
             {
 
                 LimpiarFomulario();
-                _form1.cargarDashboard();
+                await _form1.cargarDashboard();
             }
             else
             {
@@ -615,7 +635,7 @@ namespace Presentacion.Patentes
                 FrmAlerta alerta = new FrmAlerta("NO SE GUARDARON LOS DATOS DE LA PATENTE", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 alerta.ShowDialog();
                 LimpiarFomulario();
-                _form1.cargarDashboard();
+                await _form1.cargarDashboard();
 
             }
 
@@ -628,17 +648,17 @@ namespace Presentacion.Patentes
 
         private void txtRegistro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtLibro_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void ResetArchivoSeleccionado()
         {
@@ -740,6 +760,27 @@ namespace Presentacion.Patentes
             new FrmAlerta("ARCHIVO SELECCIONADO", "ARCHIVO", MessageBoxButtons.OK, MessageBoxIcon.Information).ShowDialog();
             */
 
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
+            }
         }
     }
 }

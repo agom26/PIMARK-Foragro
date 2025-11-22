@@ -67,6 +67,8 @@
             btnPrev = new FontAwesome.Sharp.IconButton();
             tabPageMarcaDetail = new TabPage();
             panel1 = new Panel();
+            toggleIndefinido = new Presentacion.Clases.RJToggleButton();
+            labelIndefinido = new Label();
             roundedButton13 = new Presentacion.Clases.RoundedButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2I = new Panel();
@@ -701,15 +703,18 @@
             // 
             tabPageMarcaDetail.AutoScroll = true;
             tabPageMarcaDetail.Controls.Add(panel1);
-            tabPageMarcaDetail.Location = new Point(4, 24);
+            tabPageMarcaDetail.Location = new Point(4, 26);
             tabPageMarcaDetail.Name = "tabPageMarcaDetail";
             tabPageMarcaDetail.Padding = new Padding(3);
-            tabPageMarcaDetail.Size = new Size(1161, 715);
+            tabPageMarcaDetail.Size = new Size(1161, 713);
             tabPageMarcaDetail.TabIndex = 1;
             tabPageMarcaDetail.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(toggleIndefinido);
+            panel1.Controls.Add(labelIndefinido);
             panel1.Controls.Add(roundedButton13);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(checkBox2);
@@ -750,6 +755,31 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 1;
+            // 
+            // toggleIndefinido
+            // 
+            toggleIndefinido.Enabled = false;
+            toggleIndefinido.Location = new Point(639, 347);
+            toggleIndefinido.MinimumSize = new Size(35, 20);
+            toggleIndefinido.Name = "toggleIndefinido";
+            toggleIndefinido.OffBackColor = Color.Gray;
+            toggleIndefinido.OffToggleColor = Color.Gainsboro;
+            toggleIndefinido.OnBackColor = Color.LightSteelBlue;
+            toggleIndefinido.OnToggleColor = Color.WhiteSmoke;
+            toggleIndefinido.Size = new Size(41, 20);
+            toggleIndefinido.TabIndex = 219;
+            toggleIndefinido.Text = "rjToggleButton1";
+            toggleIndefinido.UseVisualStyleBackColor = true;
+            toggleIndefinido.CheckedChanged += toggleIndefinido_CheckedChanged;
+            // 
+            // labelIndefinido
+            // 
+            labelIndefinido.AutoSize = true;
+            labelIndefinido.Location = new Point(686, 347);
+            labelIndefinido.Name = "labelIndefinido";
+            labelIndefinido.Size = new Size(67, 17);
+            labelIndefinido.TabIndex = 218;
+            labelIndefinido.Text = "Indefinida";
             // 
             // roundedButton13
             // 
@@ -807,7 +837,7 @@
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
             dateTimePFecha_Registro.Location = new Point(343, 132);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(275, 24);
+            dateTimePFecha_Registro.Size = new Size(140, 24);
             dateTimePFecha_Registro.TabIndex = 15;
             // 
             // label18
@@ -1055,7 +1085,7 @@
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(480, 347);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(293, 22);
+            dateTimePFecha_vencimiento.Size = new Size(140, 22);
             dateTimePFecha_vencimiento.TabIndex = 41;
             // 
             // lblVencimiento
@@ -1327,7 +1357,7 @@
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
             datePickerFechaSolicitud.Location = new Point(137, 347);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
-            datePickerFechaSolicitud.Size = new Size(280, 22);
+            datePickerFechaSolicitud.Size = new Size(140, 22);
             datePickerFechaSolicitud.TabIndex = 7;
             datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
@@ -2180,9 +2210,9 @@
             // tabPageListaArchivos
             // 
             tabPageListaArchivos.Controls.Add(panel19);
-            tabPageListaArchivos.Location = new Point(4, 26);
+            tabPageListaArchivos.Location = new Point(4, 24);
             tabPageListaArchivos.Name = "tabPageListaArchivos";
-            tabPageListaArchivos.Size = new Size(1161, 713);
+            tabPageListaArchivos.Size = new Size(1161, 715);
             tabPageListaArchivos.TabIndex = 8;
             tabPageListaArchivos.UseVisualStyleBackColor = true;
             // 
@@ -2198,7 +2228,7 @@
             panel19.Dock = DockStyle.Fill;
             panel19.Location = new Point(0, 0);
             panel19.Name = "panel19";
-            panel19.Size = new Size(1161, 713);
+            panel19.Size = new Size(1161, 715);
             panel19.TabIndex = 0;
             // 
             // btnEliminarArchivos
@@ -2559,5 +2589,7 @@
         private FontAwesome.Sharp.IconButton iconButton12;
         private FontAwesome.Sharp.IconButton btnSubirArchivos;
         private FontAwesome.Sharp.IconButton btnEditar;
+        private Clases.RJToggleButton toggleIndefinido;
+        private Label labelIndefinido;
     }
 }

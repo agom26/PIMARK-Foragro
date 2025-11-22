@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            toggleIndefinido = new Presentacion.Clases.RJToggleButton();
+            labelIndefinido = new Label();
             btnAdjuntarT = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2I = new Panel();
@@ -90,6 +92,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(toggleIndefinido);
+            panel1.Controls.Add(labelIndefinido);
             panel1.Controls.Add(btnAdjuntarT);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(panel3);
@@ -126,6 +130,30 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1081, 1338);
             panel1.TabIndex = 0;
+            // 
+            // toggleIndefinido
+            // 
+            toggleIndefinido.Location = new Point(686, 361);
+            toggleIndefinido.MinimumSize = new Size(35, 20);
+            toggleIndefinido.Name = "toggleIndefinido";
+            toggleIndefinido.OffBackColor = Color.Gray;
+            toggleIndefinido.OffToggleColor = Color.Gainsboro;
+            toggleIndefinido.OnBackColor = Color.LightSteelBlue;
+            toggleIndefinido.OnToggleColor = Color.WhiteSmoke;
+            toggleIndefinido.Size = new Size(41, 20);
+            toggleIndefinido.TabIndex = 210;
+            toggleIndefinido.Text = "rjToggleButton1";
+            toggleIndefinido.UseVisualStyleBackColor = true;
+            toggleIndefinido.CheckedChanged += toggleIndefinido_CheckedChanged;
+            // 
+            // labelIndefinido
+            // 
+            labelIndefinido.AutoSize = true;
+            labelIndefinido.Location = new Point(733, 361);
+            labelIndefinido.Name = "labelIndefinido";
+            labelIndefinido.Size = new Size(67, 17);
+            labelIndefinido.TabIndex = 209;
+            labelIndefinido.Text = "Indefinida";
             // 
             // btnAdjuntarT
             // 
@@ -185,7 +213,7 @@
             dateTimePFecha_Registro.Format = DateTimePickerFormat.Short;
             dateTimePFecha_Registro.Location = new Point(343, 132);
             dateTimePFecha_Registro.Name = "dateTimePFecha_Registro";
-            dateTimePFecha_Registro.Size = new Size(275, 24);
+            dateTimePFecha_Registro.Size = new Size(140, 24);
             dateTimePFecha_Registro.TabIndex = 15;
             // 
             // label18
@@ -399,7 +427,7 @@
             dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Short;
             dateTimePFecha_vencimiento.Location = new Point(527, 357);
             dateTimePFecha_vencimiento.Name = "dateTimePFecha_vencimiento";
-            dateTimePFecha_vencimiento.Size = new Size(293, 22);
+            dateTimePFecha_vencimiento.Size = new Size(140, 22);
             dateTimePFecha_vencimiento.TabIndex = 41;
             // 
             // lblVencimiento
@@ -663,7 +691,7 @@
             datePickerFechaSolicitud.Format = DateTimePickerFormat.Short;
             datePickerFechaSolicitud.Location = new Point(184, 357);
             datePickerFechaSolicitud.Name = "datePickerFechaSolicitud";
-            datePickerFechaSolicitud.Size = new Size(280, 22);
+            datePickerFechaSolicitud.Size = new Size(140, 22);
             datePickerFechaSolicitud.TabIndex = 7;
             datePickerFechaSolicitud.ValueChanged += datePickerFechaSolicitud_ValueChanged;
             // 
@@ -789,5 +817,7 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel2;
         private FontAwesome.Sharp.IconButton btnAdjuntarT;
+        private Clases.RJToggleButton toggleIndefinido;
+        private Label labelIndefinido;
     }
 }

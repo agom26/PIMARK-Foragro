@@ -84,7 +84,7 @@ namespace Presentacion.Marcas_Nacionales
 
 
         private bool ValidarCampos(string pais, string expediente, string nombre, ref string clase, string signoDistintivo, string tipo, string estado,
-   ref byte[] logo, bool registroChek, string registro, string folio, string libro)
+   ref byte[]? logo, bool registroChek, string registro, string folio, string libro)
         {
             // Verificar campos obligatorios
             if (!ValidarCampo(pais, "Por favor, ingrese un pais.") ||

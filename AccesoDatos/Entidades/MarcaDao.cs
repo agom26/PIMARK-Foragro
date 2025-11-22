@@ -455,9 +455,7 @@ namespace AccesoDatos.Entidades
             }
             else
             {
-
                 form.Add(new StringContent("1"), "remove_logo");
-
             }
 
             var response = await client.PostAsync("https://foragro.com.es/peticiones/acciones_marca_nuevo2.php", form);

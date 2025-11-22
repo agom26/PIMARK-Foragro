@@ -245,6 +245,8 @@ namespace Presentacion.Patentes
                 tableLayoutPanel1.RowStyles[0].Height = 62.5f;
                 tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
                 tableLayoutPanel1.RowStyles[1].Height = 37.5f;
+                toggleIndefinido.Visible = true;
+                labelIndefinido.Visible = true;
 
             }
             else
@@ -255,6 +257,8 @@ namespace Presentacion.Patentes
                 checkBox2.Checked = false;
                 panel2I.Visible = false;
                 tableLayoutPanel1.RowStyles[0].Height = 0;
+                toggleIndefinido.Visible = false;
+                labelIndefinido.Visible = false;
             }
         }
         private async Task CargarDatosPatente()
@@ -399,13 +403,42 @@ namespace Presentacion.Patentes
                             SeleccionarPatente.folio = row["folio"].ToString();
                             SeleccionarPatente.libro = row["libro"].ToString();
                             SeleccionarPatente.fecha_registro = Convert.ToDateTime(row["fecha_registro"]);
-                            SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
 
                             txtRegistro.Text = SeleccionarPatente.registro;
                             txtFolio.Text = SeleccionarPatente.folio;
                             txtLibro.Text = SeleccionarPatente.libro;
                             dateTimePFecha_Registro.Value = SeleccionarPatente.fecha_registro.Value;
-                            dateTimePFecha_vencimiento.Value = SeleccionarPatente.fecha_vencimiento.Value;
+
+                            // Leer el valor de forma segura
+                            string indefStr = row["indefinido"]?.ToString() ?? "0";
+
+                            // Convertir a entero sin riesgo
+                            int indefinido = int.TryParse(indefStr, out int val) ? val : 0;
+
+                            if (indefinido == 1)
+                            {
+                                // Mostrar como indefinida
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                                dateTimePFecha_vencimiento.Enabled = false; // opcional
+
+                                toggleIndefinido.Checked = true;
+                            }
+                            else
+                            {
+
+                                toggleIndefinido.Checked = false;
+                                dateTimePFecha_vencimiento.Enabled = true;
+                                dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                                dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+
+                                if (row["fecha_vencimiento"] != DBNull.Value)
+                                {
+                                    dateTimePFecha_vencimiento.Value = Convert.ToDateTime(row["fecha_vencimiento"]);
+                                    SeleccionarPatente.fecha_vencimiento = Convert.ToDateTime(row["fecha_vencimiento"]);
+                                }
+                            }
                         }
                         else
                         {
@@ -528,6 +561,7 @@ namespace Presentacion.Patentes
             txtNombreTitular.Text = "";
             SeleccionarPersonaPatente.LimpiarPersona();
             ActualizarFechaVencimiento();
+            toggleIndefinido.Checked = false;
         }
 
         public async Task EditarPatente()
@@ -548,7 +582,7 @@ namespace Presentacion.Patentes
             bool registroChek = checkBox1.Checked;
             string registro = txtRegistro.Text;
             DateTime fecha_registro = dateTimePFecha_Registro.Value;
-            DateTime fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            DateTime? fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             string etrasp = txtETraspaso.Text;
             string erenov = txtERenovacion.Text;
             string comprobante_pagos = "no";
@@ -558,7 +592,7 @@ namespace Presentacion.Patentes
             string resumen = "no";
             string documento_cesion = "no";
             string poder_nombramiento = "no";
-
+            int indefinida = 0;
 
             // Validaciones
             if (idTitular <= 0)
@@ -642,6 +676,22 @@ namespace Presentacion.Patentes
                 return;
             }
 
+
+            if (registroChek && toggleIndefinido.Checked)
+            {
+                indefinida = 1;
+                fecha_vencimiento = null;
+            }
+            else if (registroChek && !toggleIndefinido.Checked)
+            {
+                indefinida = 0;
+                fecha_vencimiento = dateTimePFecha_vencimiento.Value;
+            }
+            else
+            {
+                indefinida = 0;
+            }
+
             try
             {
                 if (registroChek)
@@ -655,12 +705,13 @@ namespace Presentacion.Patentes
                         }
 
                         bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            registro, folio, libro, fecha_registro, fecha_vencimiento, erenov, etrasp, anualidades, pct,
+                            registro, folio, libro, fecha_registro,indefinida, fecha_vencimiento, erenov, etrasp, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
 
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
+                        await LoadPatentes();
                         LimpiarFomulario();
                         DatosRegistro.peligro = false;
                         AnadirTabPage(tabPageIngresadasList);
@@ -668,7 +719,7 @@ namespace Presentacion.Patentes
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
-                        await LoadPatentes();
+                       
                     }
                     catch (Exception ex)
                     {
@@ -687,11 +738,12 @@ namespace Presentacion.Patentes
                         }
 
                         bool actualizada = await patenteModel.EditarPatente(SeleccionarPatente.id, caso, expediente, nombre, estado, tipo, idTitular, idAgente, solicitud,
-                            null, null, null, null, null, null, null, anualidades, pct,
+                            null, null, null, null, indefinida, null, null, null, anualidades, pct,
                             comprobante_pagos, descripcion, reivindicaciones, dibujos, resumen, documento_cesion,
                             poder_nombramiento);
                         FrmAlerta alerta = new FrmAlerta("PATENTE ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         alerta.ShowDialog();
+                        await LoadPatentes();
                         LimpiarFomulario();
                         DatosRegistro.peligro = false;
                         AnadirTabPage(tabPageIngresadasList);
@@ -699,7 +751,7 @@ namespace Presentacion.Patentes
                         EliminarTabPage(tabPageMarcaDetail);
                         EliminarTabPage(tabPageHistorialMarca);
                         tabControl1.SelectedTab = tabPageIngresadasList;
-                        await LoadPatentes();
+                        
                     }
                     catch (Exception ex)
                     {
@@ -1070,7 +1122,7 @@ namespace Presentacion.Patentes
             tabControl1.SelectedTab = tabPageHistorialMarca;
         }
 
-        private void btnEditarH_Click(object sender, EventArgs e)
+        private async void btnEditarH_Click(object sender, EventArgs e)
         {
 
             string etapa = comboBoxEstatusH.SelectedItem?.ToString();
@@ -1101,13 +1153,12 @@ namespace Presentacion.Patentes
                     alerta.ShowDialog();
                     tabControl1.SelectedTab = tabPageHistorialMarca;
                     SeleccionarHistorialPatente.LimpiarHistorial();
-                    refrescarMarca();
+                    await refrescarMarca();
                 }
                 catch (Exception ex)
                 {
                     FrmAlerta alerta = new FrmAlerta(ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
 
 
             }
@@ -1188,7 +1239,7 @@ namespace Presentacion.Patentes
 
         }
 
-        private async void roundedButton6_Click(object sender, EventArgs e)
+        private void roundedButton6_Click(object sender, EventArgs e)
         {
             FrmAgregarEtapaRegistradaPatente frmAgregarEtapa = new FrmAgregarEtapaRegistradaPatente();
             frmAgregarEtapa.ShowDialog();
@@ -1986,6 +2037,27 @@ namespace Presentacion.Patentes
         private void FrmMostrarDesistidasPatentes_Resize(object sender, EventArgs e)
         {
             CentrarPanel();
+        }
+
+        private void toggleIndefinido_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!UsuarioActivo.soloLectura)
+            {
+                if (toggleIndefinido.Checked)
+                {
+                    dateTimePFecha_vencimiento.Enabled = false;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "--";
+
+                }
+                else
+                {
+                    dateTimePFecha_vencimiento.Enabled = true;
+                    dateTimePFecha_vencimiento.Format = DateTimePickerFormat.Custom;
+                    dateTimePFecha_vencimiento.CustomFormat = "dd/MM/yyyy";
+                    ActualizarFechaVencimiento();
+                }
+            }
         }
     }
 }
