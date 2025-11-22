@@ -1779,7 +1779,6 @@ namespace Presentacion.Marcas_Internacionales
             }
 
         }
-
         private void dateTimePickerFechaH_ValueChanged(object sender, EventArgs e)
         {
             if (_cargandoUI) return;              // <- clave

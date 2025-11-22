@@ -1497,35 +1497,34 @@ namespace Presentacion.Marcas_Internacionales
 
         private void comboBoxEstatusH_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cargandoUI) return;              // <- clave
+
+            _actualizando = true;
+
             string etapa = comboBoxEstatusH.Text;
-            bool mostrarVencimiento = etapa == "Examen de fondo" ||
-                             etapa == "Requerimiento" ||
-                             etapa == "Objeción" ||
-                             etapa == "Publicación" ||
-                             etapa == "Orden de pago";
+            DateTime fechaIngreso = dateTimePickerFechaIngreso.Value;
+
+            bool mostrarVencimiento =
+                etapa == "Examen de fondo" ||
+                etapa == "Requerimiento" ||
+                etapa == "Objeción" ||
+                etapa == "Publicación" ||
+                etapa == "Orden de pago" ||
+                etapa == "Resolución RPI desfavorable";
 
             labelVenc.Visible = mostrarVencimiento;
             dateTimePickerFechaVencimiento.Visible = mostrarVencimiento;
 
-            string fecha = dateTimePickerFechaIngreso.Value.ToString("dd/MM/yyyy");
-            string venc = dateTimePickerFechaVencimiento.Value.ToString("dd/MM/yyyy");
-
             if (mostrarVencimiento)
             {
-                richTextBoxAnotacionesH.Text = $"{fecha} {etapa} | Fecha de vencimiento: {venc}";
+                if (!dateTimePickerFechaVencimiento.Visible)
+                    dateTimePickerFechaVencimiento.Value = CalcularVencimiento(etapa, fechaIngreso);
             }
-            else if (etapa == "Resolución RPI favorable" ||
-                     etapa == "Resolución RPI desfavorable" ||
-                     etapa == "Recurso de revocatoria" ||
-                     etapa == "Resolución Ministerio de Economía (MINECO)" ||
-                     etapa == "Contencioso administrativo")
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} Por objeción-{etapa}";
-            }
-            else
-            {
-                richTextBoxAnotacionesH.Text = $"{fecha} {etapa}";
-            }
+            labelVenc.Visible = dateTimePickerFechaVencimiento.Visible = mostrarVencimiento;
+
+
+            ActualizarResumen(); // arma el texto según valores actuales
+            _actualizando = false;
         }
 
         private void comboBoxEstatusH_SelectedValueChanged(object sender, EventArgs e)
