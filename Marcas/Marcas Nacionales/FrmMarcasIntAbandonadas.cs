@@ -1460,78 +1460,82 @@ namespace Presentacion.Marcas_Internacionales
                 indefinida = 0;
                 fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
-
-            // Editar la marca
-            try
+            else
             {
+                indefinida = 0;
+            }
 
-                bool esActualizado;
-
-                if (agregoEstado == true)
+                // Editar la marca
+                try
                 {
-                    await historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
 
-                }
+                    bool esActualizado;
 
-                // Verificar si la marca está registrada
-                if (registroChek)
-                {
-                    esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
-                        SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, indefinida, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
-                }
-                else
-                {
-                    esActualizado = await marcaModel.EditMarcaNacionalNuevo(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
-                }
+                    if (agregoEstado == true)
+                    {
+                        await historialModel.GuardarEtapa(SeleccionarMarca.idN, (DateTime)AgregarEtapa.fecha, AgregarEtapa.etapa, AgregarEtapa.anotaciones, UsuarioActivo.usuario, "TRÁMITE", null);
 
-                DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
+                    }
 
-                if (esActualizado)
-                {
+                    // Verificar si la marca está registrada
+                    if (registroChek)
+                    {
+                        esActualizado = await marcaModel.EditMarcaNacionalRegistradaNuevo(
+                            SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, folio, libro, logo, idTitular, idAgente, solicitud, registro, fecha_registro, indefinida, fecha_vencimiento, erenov, etrasp, idCliente, ubicacionF);
+                    }
+                    else
+                    {
+                        esActualizado = await marcaModel.EditMarcaNacionalNuevo(SeleccionarMarca.idN, expediente, nombre, signoDistintivo, tipoSigno, clase, logo, idTitular, idAgente, solicitud, idCliente, ubicacionF);
+                    }
+
+                    DataTable marcaActualizada = await marcaModel.GetMarcaNacionalById(SeleccionarMarca.idN);
 
                     if (esActualizado)
                     {
 
-                        if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                        if (esActualizado)
                         {
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            AnadirTabPage(tabPageAbandonadasList);
-                            EliminarTabPage(tabPageMarcaDetail);
-                            LimpiarFormulario();
+
+                            if (marcaActualizada.Rows.Count > 0 && marcaActualizada.Rows[0]["Observaciones"].ToString().Contains(estado))
+                            {
+                                FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("Marca internacional actualizada con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                SeleccionarMarca.idN = 0;
+                                AnadirTabPage(tabPageAbandonadasList);
+                                EliminarTabPage(tabPageMarcaDetail);
+                                LimpiarFormulario();
+                            }
+                            else
+                            {
+
+                                await historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
+                                FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                alerta.ShowDialog();
+                                //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                SeleccionarMarca.idN = 0;
+                                AnadirTabPage(tabPageAbandonadasList);
+                                EliminarTabPage(tabPageMarcaDetail);
+                                LimpiarFormulario();
+                            }
                         }
                         else
                         {
-
-                            await historialModel.GuardarEtapa(SeleccionarMarca.idN, AgregarEtapa.fecha.Value, estado, AgregarEtapa.anotaciones, AgregarEtapa.usuario, "TRÁMITE", null);
-                            FrmAlerta alerta = new FrmAlerta("MARCA NACIONAL ACTUALIZADA", "ÉXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            alerta.ShowDialog();
-                            //MessageBox.Show("Marca internacional actualizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            SeleccionarMarca.idN = 0;
-                            AnadirTabPage(tabPageAbandonadasList);
-                            EliminarTabPage(tabPageMarcaDetail);
-                            LimpiarFormulario();
+                            MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
                         MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Error al actualizar la marca nacional.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
-            }
-            catch (Exception ex)
-            {
-                FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                alerta.ShowDialog();
-                //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                }
+                catch (Exception ex)
+                {
+                    FrmAlerta alerta = new FrmAlerta("ERROR AL " + (registroChek ? "REGISTRAR" : "ACTUALIZAR") + ex.Message.ToUpper(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    alerta.ShowDialog();
+                    //MessageBox.Show("Error al " + (registroChek ? "registrar" : "actualizar") + " la marca internacional: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
         }
 
         private void dateTimePFecha_Registro_ValueChanged(object sender, EventArgs e)

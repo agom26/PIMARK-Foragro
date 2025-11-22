@@ -585,6 +585,10 @@ namespace Presentacion.Marcas_Internacionales
                 indefinida = 0;
                 fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
+            else
+            {
+                indefinida = 0;
+            }
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {

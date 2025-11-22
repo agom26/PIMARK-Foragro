@@ -561,8 +561,12 @@ namespace Presentacion.Marcas_Internacionales
                     indefinida = 0;
                     fecha_vencimiento = dateTimePFecha_vencimiento.Value;
                 }
+                else
+                {
+                    indefinida = 0;
+                }
 
-                bool esActualizado = false;
+                    bool esActualizado = false;
 
                 {
                     if (checkBox1.Checked)

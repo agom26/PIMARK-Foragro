@@ -512,6 +512,10 @@ namespace Presentacion.Marcas_Internacionales
                 indefinida = 0;
                 fecha_vencimiento = dateTimePFecha_vencimiento.Value;
             }
+            else
+            {
+                indefinida = 0;
+            }
 
             if (estado == "Trámite de renovación" && string.IsNullOrEmpty(erenov))
             {
@@ -729,7 +733,7 @@ namespace Presentacion.Marcas_Internacionales
                             SeleccionarMarca.libro = row["libro"].ToString();
                             SeleccionarMarca.fechaRegistro = Convert.ToDateTime(row["fechaRegistro"].ToString());
 
-                            AgregarRenovacion.fechaVencimientoAntigua = Convert.ToDateTime(SeleccionarMarca.fechaVencimiento);
+                            
                             SeleccionarMarca.erenov = row["Erenov"].ToString();
 
                             txtRegistro.Text = SeleccionarMarca.registro;
@@ -769,8 +773,8 @@ namespace Presentacion.Marcas_Internacionales
                                 }
 
                             }
+                            AgregarRenovacion.fechaVencimientoAntigua = Convert.ToDateTime(SeleccionarMarca.fechaVencimiento);
 
-                           
                         }
                         else
                         {
